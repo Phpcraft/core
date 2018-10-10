@@ -8,18 +8,12 @@ I just wanted to challenge myself to create a Minecraft chat client using only o
 
 ## Features
 
-- SRV records
-- ANSI color codes
-- Fully supports `translate` messages (given a language file was provided)
-
-### Planned Features
-
-- Protocol Hacking — currently the client can only join 1.13.1 servers
-- Login — currently the client can only join cracked servers
+- Colorful messages using ANSI escape codes
+- Can join 1.8 - 1.13.1 servers by protocol hacking
+- Supports optionally logging in with Mojang and unmigrated accounts to join online servers as well
+- Resolves SRV records
 
 ## Usage
-
-**Note: PHP Minecraft Client does not work on Windows due to [PHP bug #34972](https://bugs.php.net/bug.php?id=34972).**
 
 Simply clone this repository and run `php php-minecraft-client.php`. You can also provide optional arguments — use `php php-minecraft-client.php help` for a list of them.
 
