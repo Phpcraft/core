@@ -1,5 +1,5 @@
 <?php
-echo "\033[0;97;40mPHP Minecraft Client 1.2 by timmyRS\n";
+echo "\033[0;97;40mPHP Minecraft Client by timmyRS\n";
 
 if(stristr(PHP_OS, "LINUX"))
 {
@@ -59,6 +59,7 @@ for($i = 1; $i < count($argv); $i++)
 	{
 		case "online":
 		case "acknowledge":
+		case "noreconnect":
 		$options[$n] = true;
 		break;
 
@@ -77,8 +78,9 @@ for($i = 1; $i < count($argv); $i++)
 		echo "server=<server>  skip server input and connect to <server>\n";
 		echo "langfile=<file>  load Minecraft translations from <file>\n";
 		echo "acknowledge      automatically acknowledge all warnings\n";
-		echo "joinmsg=<msg>    will send <msg> as soon as we are connected\n";
+		echo "joinmsg=<msg>    as soon as connected, <msg> will be handled\n";
 		echo "locale=<locale>  sent to the server, default: en_US\n";
+		echo "noreconnect      don't reconnect when server disconnects\n";
 		exit;
 
 		default:
@@ -423,6 +425,10 @@ function writeDouble($double)
 {
 	global $write_buffer;
 	$write_buffer .= pack("E", $double);
+}
+function writePosition($x, $y, $z)
+{
+	writeLong((($x & 0x3FFFFFF) << 38) | (($y & 0xFFF) << 26) | ($z & 0x3FFFFFF));
 }
 function startPacket($name)
 {
@@ -838,7 +844,10 @@ $packet_ids = [
 	"send_plugin_message" => [0x0A, 0x09, 0x0A, 0x09, 0x09, 0x17],
 	"keep_alive_response" => [0x0E, 0x0B, 0x0C, 0x0B, 0x0B, 0x00],
 	"player_position" => [0x10, 0x0D, 0x0E, 0x0C, 0x0C, 0x04],
-	"held_item_change" => [0x21, 0x1A, 0x1A, 0x17, 0x17, 0x09]
+	"held_item_change" => [0x21, 0x1A, 0x1A, 0x17, 0x17, 0x09],
+	"animation" => [0x27, 0x1D, 0x1D, 0x1A, 0x1A, 0x0A],
+	"player_block_placement" => [0x29, 0x1F, 0x1F, 0x1C, 0x1C, 0x08],
+	"use_item" => [0x2A, 0x20, 0x20, 0x1D, 0x1D, -1]
 ];
 foreach($packet_ids as $n => $v)
 {
@@ -886,6 +895,142 @@ function mcsha1($str)
 		$gmp = gmp_mul(gmp_add(gmp_xor($gmp, gmp_init("0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF")), gmp_init(1)), gmp_init(-1));
 	}
 	return gmp_strval($gmp, 16);
+}
+function handleConsoleMessage($msg)
+{
+	$send = true;
+	if(substr($msg, 0, 2) == "..")
+	{
+		$msg = substr($msg, 1);
+	}
+	else if(substr($msg, 0, 1) == ".")
+	{
+		$send = false;
+		$msg = substr($msg, 1);
+		$args = explode(" ", $msg);
+		switch($args[0])
+		{
+			case "?":
+			case "help":
+			echo "Yay! You've found commands, which start with a period.\n";
+			echo "If you want to send a message starting with a period, use two.\n";
+			echo "?, help           shows this help\n";
+			echo "pos               returns the current position\n";
+			echo "move <y>,         initates movement\n";
+			echo "move <x> [y] <z>  \n";
+			echo "list              lists all players in the player list\n";
+			echo "slot <1-9>        sets selected hotbar slot\n";
+			echo "reconnect         reconnects to the server\n";
+			break;
+
+			case "pos":
+			global $x, $y, $z;
+			echo "$x $y $z\n";
+			break;
+
+			case "move":
+			global $motion_x, $motion_y, $motion_z;
+			if(isset($args[1]) && isset($args[2]) && isset($args[3]))
+			{
+				$motion_x += doubleval($args[1]);
+				$motion_y += doubleval($args[2]);
+				$motion_z += doubleval($args[3]);
+				echo "Understood.\n";
+			}
+			else if(isset($args[1]) && isset($args[2]))
+			{
+				$motion_x += doubleval($args[1]);
+				$motion_z += doubleval($args[2]);
+				echo "Understood.\n";
+			}
+			else if(isset($args[1]))
+			{
+				$motion_y += doubleval($args[1]);
+				echo "Understood.\n";
+			}
+			else
+			{
+				echo "\033[91mSyntax: .move <y>, .move <x> [y] <z>\033[0;97;40m\n";
+			}
+			break;
+
+			case "hit":
+			global $protocolVersion;
+			startPacket("animation");
+			if($protocolVersion > 47)
+			{
+				writeVarInt(0);
+			}
+			sendPacket();
+			echo "Done.\n";
+			break;
+
+			case "use":
+			global $protocolVersion, $x, $y, $z;
+			if($protocolVersion > 47)
+			{
+				startPacket("use_item");
+				writeVarInt(0);
+			}
+			else
+			{
+				startPacket("player_block_placement");
+				writePosition($x, $y, $z);
+				writeByte(-1); // Face
+				writeShort(-1); // Slot
+				writeByte(-1); // Cursor X
+				writeByte(-1); // Cursor Y
+				writeByte(-1); // Cursor Z
+			}
+			sendPacket();
+			echo "Done.\n";
+			break;
+
+			case "list":
+			$gamemodes = [
+				0 => "Survival",
+				1 => "Creative",
+				2 => "Adventure",
+				3 => "Spectator"
+			];
+			global $players;
+			foreach($players as $player)
+			{
+				echo $player["name"].str_repeat(" ", 17 - strlen($player["name"])).str_repeat(" ", 5 - strlen($player["ping"])).$player["ping"]." ms  ".$gamemodes[$player["gamemode"]]." Mode\n";
+			}
+			break;
+
+			case "slot";
+			$slot = 0;
+			if(isset($args[1]))
+			{
+				$slot = intval($args[1]);
+			}
+			if($slot < 1 || $slot > 9)
+			{
+				echo "\033[91mSyntax: .slot <1-9>\033[0;97;40m\n";
+			}
+			startPacket("held_item_change");
+			writeShort($slot - 1);
+			sendPacket();
+			echo "Done.\n";
+			break;
+
+			case "reconnect":
+			global $reconnect;
+			$reconnect = true;
+			break;
+
+			default:
+			echo "\033[91mUnknown command '.".$args[0]."' -- use '.help' for a list of commands.\033[0;97;40m\n";
+		}
+	}
+	if($send)
+	{
+		startPacket("send_chat_message");
+		writeString($msg);
+		sendPacket();
+	}
 }
 $reconnect = false;
 do
@@ -983,6 +1128,7 @@ do
 	$entityId = false;
 	$dimension = 0;
 	$next_tick = false;
+	$posticks = 0;
 	do
 	{
 		$start = microtime(true);
@@ -1002,7 +1148,7 @@ do
 					$uuid = readUUIDBytes();
 					if($action == 0)
 					{
-						$name = readString();
+						$username = readString();
 						$properties = readVarInt();
 						for($j = 0; $j < $properties; $j++)
 						{
@@ -1016,7 +1162,7 @@ do
 						$gamemode = readVarInt();
 						$ping = readVarInt();
 						$players[$uuid] = [
-							"name" => $name,
+							"name" => $username,
 							"gamemode" => $gamemode,
 							"ping" => $ping
 						];
@@ -1136,9 +1282,7 @@ do
 				if(isset($options["joinmsg"]))
 				{
 					echo $options["joinmsg"]."\n";
-					startPacket("send_chat_message");
-					writeString($options["joinmsg"]);
-					sendPacket();
+					handleConsoleMessage($options["joinmsg"]);
 				}
 			}
 			else if($id == $packet_ids["respawn"])
@@ -1154,107 +1298,16 @@ do
 			}
 			else if($id == $packet_ids["disconnect"])
 			{
-				die("Server closed connection: ".chatToANSIText(readChat())."\n");
+				echo "Server closed connection: ".chatToANSIText(readChat())."\n";
+				$reconnect = !isset($options["noreconnect"]);
+				$next_tick = microtime(true) + 10;
 			}
 		}
 		$streams = [$stdin];
 		$null = null;
 		if(stream_select($streams, $null, $null, 0) > 0)
 		{
-			$msg = trim(fgets($stdin));
-			$send = true;
-			if(substr($msg, 0, 2) == "..")
-			{
-				$msg = substr($msg, 1);
-			}
-			else if(substr($msg, 0, 1) == ".")
-			{
-				$send = false;
-				$msg = substr($msg, 1);
-				$args = explode(" ", $msg);
-				switch($args[0])
-				{
-					case "?":
-					case "help":
-					echo "Yay! You've found commands, which start with a period.\n";
-					echo "If you want to send a message starting with a period, use two.\n";
-					echo "?, help           shows this help\n";
-					echo "pos               returns the current position\n";
-					echo "move <x> [y] <z>  initates movement\n";
-					echo "list              lists all players in the player list\n";
-					echo "slot <1-9>        sets selected hotbar slot\n";
-					echo "reconnect         reconnects to the server\n";
-					break;
-
-					case "pos":
-					echo "$x $y $z\n";
-					break;
-
-					case "move":
-					if(isset($args[1]) && isset($args[2]) && isset($args[3]))
-					{
-						$motion_x += doubleval($args[1]);
-						$motion_y += doubleval($args[2]);
-						$motion_z += doubleval($args[3]);
-						echo "Understood.\n";
-					}
-					else if(isset($args[1]) && isset($args[2]))
-					{
-						$motion_x += doubleval($args[1]);
-						$motion_z += doubleval($args[2]);
-						echo "Understood.\n";
-					}
-					else
-					{
-						echo "\033[91mSyntax: .move <x> [y] <z>\033[0;97;40m\n";
-					}
-					break;
-
-					case "list":
-					$gamemodes = [
-						0 => "Survival",
-						1 => "Creative",
-						2 => "Adventure",
-						3 => "Spectator"
-					];
-					global $players;
-					foreach($players as $player)
-					{
-						echo $player["name"].str_repeat(" ", 17 - strlen($player["name"])).str_repeat(" ", 5 - strlen($player["ping"])).$player["ping"]." ms  ".$gamemodes[$player["gamemode"]]." Mode\n";
-					}
-					break;
-
-					case "slot";
-					$slot = 0;
-					if(isset($args[1]))
-					{
-						$slot = intval($args[1]);
-					}
-					if($slot < 1 || $slot > 9)
-					{
-						echo "\033[91mSyntax: .slot <1-9>\033[0;97;40m\n";
-					}
-					startPacket("held_item_change");
-					writeShort($slot - 1);
-					sendPacket();
-					echo "Done.\n";
-					break;
-
-					case "reconnect":
-					global $reconnect;
-					$reconnect = true;
-					break;
-
-					default:
-					echo "\033[91mUnknown command '.".$args[0]."' -- use '.help' for a list of commands.\033[0;97;40m\n";
-				}
-			}
-			if($send)
-			{
-				startPacket("send_chat_message");
-				writeString($msg);
-				sendPacket();
-			}
+			handleConsoleMessage(trim(fgets($stdin)));
 		}
 		$time = microtime(true);
 		if($next_tick)
@@ -1350,7 +1403,7 @@ do
 						$motion_z += .25;
 					}
 				}
-				if($x != $_x || $y != $_y || $z != $_z)
+				if(($protocolVersion <= 47 && ++$posticks == 20) || $x != $_x || $y != $_y || $z != $_z)
 				{
 					startPacket("player_position");
 					writeDouble($x);
@@ -1358,6 +1411,10 @@ do
 					writeDouble($z);
 					writeBoolean($onGround);
 					sendPacket();
+					if($posticks > 0)
+					{
+						$posticks = 0;
+					}
 				}
 				if($next_tick > 0)
 				{
@@ -1377,6 +1434,6 @@ do
 			time_nanosleep(0, $remaining * 1000000000); // usleep seems to bring the CPU to 100
 		}
 	}
-	while(!$reconnect);
+	while(!$reconnect && !feof($stream));
 }
-while(true);
+while($reconnect || !isset($options["noreconnect"]));
