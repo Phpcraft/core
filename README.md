@@ -2,7 +2,7 @@
 
 A Minecraft chat client written in PHP.
 
-## Why would anyone ever do this?
+## Why Anyone Would Ever Do This
 
 I just wanted to challenge myself to create a Minecraft chat client using only one thread and no classes.
 
