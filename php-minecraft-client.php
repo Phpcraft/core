@@ -1,5 +1,5 @@
 <?php
-echo "\033[0;97;40mPHP Minecraft Client 1.1\n\n";
+echo "\033[0;97;40mPHP Minecraft Client 1.2 by timmyRS\n";
 
 if(stristr(PHP_OS, "LINUX"))
 {
@@ -72,13 +72,13 @@ for($i = 1; $i < count($argv); $i++)
 
 		case "?":
 		case "help":
-		echo "online          use online mode\n";
-		echo "name=<name>     skip name input and use <name> as name\n";
-		echo "server=<server> skip server input and connect to <server>\n";
-		echo "langfile=<file> load Minecraft translations from <file>\n";
-		echo "acknowledge     automatically acknowledge all warnings\n";
-		echo "joinmsg=<msg>   will send <msg> as soon as we are connected\n";
-		echo "locale=<locale> sent to the server, default: en_US\n";
+		echo "online           use online mode\n";
+		echo "name=<name>      skip name input and use <name> as name\n";
+		echo "server=<server>  skip server input and connect to <server>\n";
+		echo "langfile=<file>  load Minecraft translations from <file>\n";
+		echo "acknowledge      automatically acknowledge all warnings\n";
+		echo "joinmsg=<msg>    will send <msg> as soon as we are connected\n";
+		echo "locale=<locale>  sent to the server, default: en_US\n";
 		exit;
 
 		default:
@@ -173,6 +173,10 @@ function httpPOST($url, $data)
 }
 if($online)
 {
+	if(!extension_loaded("gmp"))
+	{
+		die("To join online servers, you need GMP.\nCheck your php.ini or run apt-get install php-gmp\n");
+	}
 	$mcrypt = false;
 	foreach(stream_get_filters() as $filter)
 	{
@@ -183,7 +187,7 @@ if($online)
 	}
 	if(!$mcrypt)
 	{
-		die("To join online servers, you need mcrypt. Try: apt-get install php-mcrypt\n");
+		die("To join online servers, you need mcrypt.\nCheck your php.ini or run apt-get install php-mcrypt\n");
 	}
 	$profiles = [];
 	$profiles_file = "{$mcdir}/launcher_profiles.json";
@@ -415,6 +419,11 @@ function writeLong($long)
 	global $write_buffer;
 	$write_buffer .= pack("J", $long);
 }
+function writeDouble($double)
+{
+	global $write_buffer;
+	$write_buffer .= pack("E", $double);
+}
 function startPacket($name)
 {
 	global $write_buffer, $packet_ids;
@@ -546,9 +555,9 @@ function readByte()
 	{
 		throw new Exception("Not enough bytes to read byte");
 	}
-	$short = unpack("cbyte", substr($read_buffer, 0, 1))["byte"];
+	$byte = unpack("cbyte", substr($read_buffer, 0, 1))["byte"];
 	$read_buffer = substr($read_buffer, 1);
-	return $short;
+	return $byte;
 }
 function readBoolean()
 {
@@ -565,7 +574,22 @@ function readShort()
 	$read_buffer = substr($read_buffer, 2);
 	return $short;
 }
-function readLong()
+function readInt($signed = true)
+{
+	global $read_buffer;
+	if(strlen($read_buffer) < 4)
+	{
+		throw new Exception("Not enough bytes to read int");
+	}
+	$int = unpack("Nint", substr($read_buffer, 0, 4))["int"];
+	$read_buffer = substr($read_buffer, 4);
+	if($signed && $int >= 0x80000000)
+	{
+		return ((($int ^ 0xFFFFFFFF) + 1) * -1);
+	}
+	return $int;
+}
+function readLong($signed = true)
 {
 	global $read_buffer;
 	if(strlen($read_buffer) < 8)
@@ -574,7 +598,41 @@ function readLong()
 	}
 	$long = unpack("Jlong", substr($read_buffer, 0, 8))["long"];
 	$read_buffer = substr($read_buffer, 8);
+	if($signed && $long >= 0x8000000000000000)
+	{
+		return ((($long ^ 0xFFFFFFFFFFFFFFFF) + 1) * -1);
+	}
 	return $long;
+}
+function readPosition()
+{
+	$val = readLong(false);
+	$x = $val >> 38;
+	$y = ($val >> 26) & 0xFFF;
+	$z = $val << 38 >> 38;
+	return "$x $y $z";
+}
+function readFloat()
+{
+	global $read_buffer;
+	if(strlen($read_buffer) < 4)
+	{
+		throw new Exception("Not enough bytes to read float");
+	}
+	$float = unpack("Gfloat", substr($read_buffer, 0, 4))["float"];
+	$read_buffer = substr($read_buffer, 4);
+	return $float;
+}
+function readDouble()
+{
+	global $read_buffer;
+	if(strlen($read_buffer) < 8)
+	{
+		throw new Exception("Not enough bytes to read double");
+	}
+	$double = unpack("Edouble", substr($read_buffer, 0, 8))["double"];
+	$read_buffer = substr($read_buffer, 8);
+	return $double;
 }
 function readUUIDBytes()
 {
@@ -590,6 +648,15 @@ function readUUIDBytes()
 function readChat()
 {
 	return json_decode(readString(), true);
+}
+function ignoreBytes($bytes)
+{
+	global $read_buffer;
+	if(strlen($read_buffer) < $bytes)
+	{
+		throw new Exception("There are less than {$bytes} bytes");
+	}
+	$read_buffer = substr($read_buffer, $bytes);
 }
 function chatToANSIText($chat, $parent = false)
 {
@@ -753,18 +820,6 @@ else
 {
 	die(" The server uses an unsupported protocol version: {$protocolVersion}\n");
 }
-
-if($acknowledgements)
-{
-	echo "\nPress enter to acknowledge the following and connect:\n";
-	foreach($acknowledgements as $acknowledgement)
-	{
-		echo "- {$acknowledgement}\n";
-	}
-	fgets($stdin);
-}
-
-echo "Connecting using ".$supportedVersions[$protocolVersion]." ({$protocolVersion})..";
 $packet_ids = [
 	// Clientbound
 	"chat_message" => [0x0E, 0x0F, 0x0F, 0x0F, 0x0F, 0x02],
@@ -772,12 +827,17 @@ $packet_ids = [
 	"keep_alive_request" => [0x21, 0x1F, 0x1F, 0x1F, 0x1F, 0x00],
 	"join_game" => [0x25, 0x23, 0x23, 0x23, 0x23, 0x01],
 	"player_list_item" => [0x30, 0x2E, 0x2D, 0x2D, 0x2D, 0x38],
-	"player_position_and_look" => [0x32, 0x2F, 0x2E, 0x2E, 0x2E, 0x08],
+	"teleport" => [0x32, 0x2F, 0x2E, 0x2E, 0x2E, 0x08],
+	"respawn" => [0x38, 0x35, 0x34, 0x33, 0x33, 0x07],
+	"update_health" => [0x44, 0x41, 0x40, 0x3E, 0x3E, 0x06],
 	// Serverbound
+	"teleport_confirm" => [0x00, 0x00, 0x00, 0x00, 0x00, -1],
 	"send_chat_message" => [0x02, 0x02, 0x03, 0x02, 0x02, 0x01],
+	"client_status" => [0x03, 0x03, 0x04, 0x03, 0x03, 0x16],
 	"client_settings" => [0x04, 0x04, 0x05, 0x04, 0x04, 0x15],
 	"send_plugin_message" => [0x0A, 0x09, 0x0A, 0x09, 0x09, 0x17],
 	"keep_alive_response" => [0x0E, 0x0B, 0x0C, 0x0B, 0x0B, 0x00],
+	"player_position" => [0x10, 0x0D, 0x0E, 0x0C, 0x0C, 0x04],
 	"held_item_change" => [0x21, 0x1A, 0x1A, 0x17, 0x17, 0x09]
 ];
 foreach($packet_ids as $n => $v)
@@ -807,12 +867,17 @@ foreach($packet_ids as $n => $v)
 		$packet_ids[$n] = $v[5];
 	}
 }
-echo ".";
-connect($protocolVersion, 0x02);
-echo " Connection established.\n";
-writeVarInt(0x00);
-writeString($name);
-sendPacket();
+
+if($acknowledgements)
+{
+	echo "\nPress enter to acknowledge the following and connect:\n";
+	foreach($acknowledgements as $acknowledgement)
+	{
+		echo "- {$acknowledgement}\n";
+	}
+	fgets($stdin);
+}
+
 function mcsha1($str)
 {
 	$gmp = gmp_import(sha1($str, true));
@@ -822,160 +887,252 @@ function mcsha1($str)
 	}
 	return gmp_strval($gmp, 16);
 }
-echo "Logging in...";
+$reconnect = false;
 do
 {
-	$id = readPacket();
-	if($id == 0x04) // Login Plugin Request
+	echo "Connecting using ".$supportedVersions[$protocolVersion]." ({$protocolVersion})...";
+	connect($protocolVersion, 0x02);
+	echo " Connection established.\n";
+	writeVarInt(0x00);
+	writeString($name);
+	sendPacket();
+	echo "Logging in...";
+	do
 	{
-		writeVarInt(0x02); // Login Plugin Response
-		writeVarInt(readVarInt());
-		writeBoolean(false);
-		sendPacket();
-	}
-	else if($id == 0x03) // Set Compression
-	{
-		$compression_threshold = readVarInt();
-		if($compression_threshold < 0)
+		$id = readPacket();
+		if($id == 0x04) // Login Plugin Request
 		{
-			$compression_threshold = 0;
-		}
-	}
-	else if($id == 0x02) // Login Success
-	{
-		$uuid = readString(36);
-		$name_ = readString(16);
-		if($name != $name_)
-		{
-			die("Server did not accept name: '{$name}' != '{$name_}'\n");
-		}
-		echo " Success!\n";
-		break;
-	}
-	else if($id == 0x01) // Encryption Request
-	{
-		if(!$online)
-		{
-			die(" This server requires a Minecraft account to join.\n");
-		}
-		$server_id = readString(20);
-		$publicKey = readString();
-		$verify_token = readString();
-		$shared_secret = "";
-		for($i = 0; $i < 16; $i++)
-		{
-			$shared_secret .= chr(rand(0, 255));
-		}
-		if(httpPOST("https://sessionserver.mojang.com/session/minecraft/join", [
-			"accessToken" => $profiles["authenticationDatabase"][$profiles["selectedUser"]["account"]]["accessToken"],
-			"selectedProfile" => $profiles["selectedUser"]["profile"],
-			"serverId" => mcsha1($server_id.$shared_secret.$publicKey)
-		]) === false)
-		{
-			die(" The session server is down for maintenance.\n");
-		}
-		$publicKey = openssl_pkey_get_public("-----BEGIN PUBLIC KEY-----\n".base64_encode($publicKey)."\n-----END PUBLIC KEY-----");
-		writeVarInt(0x01); // Encryption Response
-		$crypted = "";
-		openssl_public_encrypt($shared_secret, $crypted, $publicKey, OPENSSL_PKCS1_PADDING);
-		writeString($crypted);
-		openssl_public_encrypt($verify_token, $crypted, $publicKey, OPENSSL_PKCS1_PADDING);
-		writeString($crypted);
-		sendPacket();
-		$opts = ["mode" => "cfb", "iv" => $shared_secret, "key" => $shared_secret];
-		stream_filter_append($stream, "mcrypt.rijndael-128", STREAM_FILTER_WRITE, $opts);
-		stream_filter_append($stream, "mdecrypt.rijndael-128", STREAM_FILTER_READ, $opts);
-	}
-	else if($id == 0x00) // Disconnect
-	{
-		die(" ".chatToANSIText(readChat())."\n");
-	}
-	else
-	{
-		die(" Unexpected response: {$id} {$read_buffer}\n");
-	}
-}
-while(true);
-
-stream_set_blocking($stdin, false);
-$joined = false;
-$players = [];
-do
-{
-	$start = microtime(true);
-	// We can't use stream_select on a filtered stream and we'd also like to observe STDIN so we have to poll.
-	while(($id = readPacket(false)) !== false)
-	{
-		//echo "Received Packet ID {$id}\n";
-		if($id == $packet_ids["chat_message"])
-		{
-			echo chatToANSIText(readChat())."\n";
-		}
-		else if($id == $packet_ids["player_list_item"])
-		{
-			$action = readVarInt();
-			$amount = readVarInt();
-			for($i = 0; $i < $amount; $i++)
-			{
-				$uuid = readUUIDBytes();
-				if($action == 0)
-				{
-					$name = readString();
-					$properties = readVarInt();
-					for($j = 0; $j < $properties; $j++)
-					{
-						readString();
-						readString();
-						if(readBoolean())
-						{
-							readString();
-						}
-					}
-					$gamemode = readVarInt();
-					$ping = readVarInt();
-					$players[$uuid] = [
-						"name" => $name,
-						"gamemode" => $gamemode,
-						"ping" => $ping
-					];
-				}
-				else if($action == 1)
-				{
-					if(isset($players[$uuid]))
-					{
-						$players[$uuid]["gamemode"] = readVarInt();
-					}
-				}
-				else if($action == 2)
-				{
-					if(isset($players[$uuid]))
-					{
-						$players[$uuid]["ping"] = readVarInt();
-					}
-				}
-				else if($action == 4)
-				{
-					unset($players[$uuid]);
-				}
-			}
-		}
-		else if($id == $packet_ids["keep_alive_request"])
-		{
-			startPacket("keep_alive_response");
-			if($protocolVersion >= 339)
-			{
-				writeLong(readLong());
-			}
-			else
-			{
-				writeVarInt(readVarInt());
-			}
+			writeVarInt(0x02); // Login Plugin Response
+			writeVarInt(readVarInt());
+			writeBoolean(false);
 			sendPacket();
 		}
-		else if($id == $packet_ids["player_position_and_look"])
+		else if($id == 0x03) // Set Compression
 		{
-			if(!$joined)
+			$compression_threshold = readVarInt();
+			if($compression_threshold < 0)
 			{
+				$compression_threshold = 0;
+			}
+		}
+		else if($id == 0x02) // Login Success
+		{
+			$uuid = readString(36);
+			$name_ = readString(16);
+			if($name != $name_)
+			{
+				die("Server did not accept name: '{$name}' != '{$name_}'\n");
+			}
+			echo " Success!\n";
+			break;
+		}
+		else if($id == 0x01) // Encryption Request
+		{
+			if(!$online)
+			{
+				die(" This server requires a Minecraft account to join.\n");
+			}
+			$server_id = readString(20);
+			$publicKey = readString();
+			$verify_token = readString();
+			$shared_secret = "";
+			for($i = 0; $i < 16; $i++)
+			{
+				$shared_secret .= chr(rand(0, 255));
+			}
+			if(httpPOST("https://sessionserver.mojang.com/session/minecraft/join", [
+				"accessToken" => $profiles["authenticationDatabase"][$profiles["selectedUser"]["account"]]["accessToken"],
+				"selectedProfile" => $profiles["selectedUser"]["profile"],
+				"serverId" => mcsha1($server_id.$shared_secret.$publicKey)
+			]) === false)
+			{
+				die(" The session server is down for maintenance.\n");
+			}
+			$publicKey = openssl_pkey_get_public("-----BEGIN PUBLIC KEY-----\n".base64_encode($publicKey)."\n-----END PUBLIC KEY-----");
+			writeVarInt(0x01); // Encryption Response
+			$crypted = "";
+			openssl_public_encrypt($shared_secret, $crypted, $publicKey, OPENSSL_PKCS1_PADDING);
+			writeString($crypted);
+			openssl_public_encrypt($verify_token, $crypted, $publicKey, OPENSSL_PKCS1_PADDING);
+			writeString($crypted);
+			sendPacket();
+			$opts = ["mode" => "cfb", "iv" => $shared_secret, "key" => $shared_secret];
+			stream_filter_append($stream, "mcrypt.rijndael-128", STREAM_FILTER_WRITE, $opts);
+			stream_filter_append($stream, "mdecrypt.rijndael-128", STREAM_FILTER_READ, $opts);
+		}
+		else if($id == 0x00) // Disconnect
+		{
+			die(" ".chatToANSIText(readChat())."\n");
+		}
+		else
+		{
+			die(" Unexpected response: {$id} {$read_buffer}\n");
+		}
+	}
+	while(true);
+
+	stream_set_blocking($stdin, false);
+	$reconnect = false;
+	$players = [];
+	$x = 0;
+	$y = 0;
+	$z = 0;
+	$motion_x = 0;
+	$motion_y = 0;
+	$motion_z = 0;
+	$entityId = false;
+	$dimension = 0;
+	$next_tick = false;
+	do
+	{
+		$start = microtime(true);
+		while(($id = readPacket(false)) !== false)
+		{
+			//echo "Received Packet ID {$id}\n";
+			if($id == $packet_ids["chat_message"])
+			{
+				echo chatToANSIText(readChat())."\n";
+			}
+			else if($id == $packet_ids["player_list_item"])
+			{
+				$action = readVarInt();
+				$amount = readVarInt();
+				for($i = 0; $i < $amount; $i++)
+				{
+					$uuid = readUUIDBytes();
+					if($action == 0)
+					{
+						$name = readString();
+						$properties = readVarInt();
+						for($j = 0; $j < $properties; $j++)
+						{
+							readString();
+							readString();
+							if(readBoolean())
+							{
+								readString();
+							}
+						}
+						$gamemode = readVarInt();
+						$ping = readVarInt();
+						$players[$uuid] = [
+							"name" => $name,
+							"gamemode" => $gamemode,
+							"ping" => $ping
+						];
+					}
+					else if($action == 1)
+					{
+						if(isset($players[$uuid]))
+						{
+							$players[$uuid]["gamemode"] = readVarInt();
+						}
+					}
+					else if($action == 2)
+					{
+						if(isset($players[$uuid]))
+						{
+							$players[$uuid]["ping"] = readVarInt();
+						}
+					}
+					else if($action == 4)
+					{
+						unset($players[$uuid]);
+					}
+				}
+			}
+			else if($id == $packet_ids["keep_alive_request"])
+			{
+				startPacket("keep_alive_response");
+				if($protocolVersion >= 339)
+				{
+					writeLong(readLong());
+				}
+				else
+				{
+					writeVarInt(readVarInt());
+				}
+				sendPacket();
+			}
+			else if($id == $packet_ids["teleport"])
+			{
+				$x_ = readDouble();
+				$y_ = readDouble();
+				$z_ = readDouble();
+				ignoreBytes(8); // Yaw + Pitch
+				$flags = strrev(decbin(readByte()));
+				if(strlen($flags) < 3)
+				{
+					$flags .= str_repeat("0", 3 - strlen($flags));
+				}
+				if(substr($flags, 0, 1) == "1")
+				{
+					$x += $x_;
+				}
+				else
+				{
+					$x = $x_;
+				}
+				if(substr($flags, 1, 1) == "1")
+				{
+					$y += $y_;
+				}
+				else
+				{
+					$y = $y_;
+				}
+				if(substr($flags, 2, 1) == "1")
+				{
+					$z += $z_;
+				}
+				else
+				{
+					$z = $z_;
+				}
+				if($protocolVersion > 47)
+				{
+					startPacket("teleport_confirm");
+					writeVarInt(readVarInt());
+					sendPacket();
+				}
+			}
+			else if($id == $packet_ids["update_health"])
+			{
+				if(readFloat() < 1)
+				{
+					startPacket("client_status");
+					writeVarInt(0); // Respawn
+					sendPacket();
+				}
+			}
+			else if($id == $packet_ids["join_game"])
+			{
+				$next_tick = microtime(true);
+				$entityId = readInt();
+				readByte();
+				if($protocolVersion > 47)
+				{
+					$dimension = readInt();
+				}
+				else
+				{
+					$dimension = readByte();
+				}
+				startPacket("send_plugin_message");
+				writeString($protocolVersion > 340 ? "minecraft:brand" : "MC|Brand");
+				writeString("php-minecraft-client");
+				sendPacket();
+				startPacket("client_settings");
+				writeString(isset($options["locale"]) ? $options["locale"] : "en_US");
+				writeByte(2); // View Distance
+				writeVarInt(0); // Chat Mode (0 = all)
+				writeBoolean(true); // Chat colors
+				writeByte(0x7F); // Displayed Skin Parts (7F = all)
+				if($protocolVersion > 47)
+				{
+					writeVarInt(1); // Main Hand (0 = left, 1 = right)
+				}
+				sendPacket();
 				if(isset($options["joinmsg"]))
 				{
 					echo $options["joinmsg"]."\n";
@@ -983,101 +1140,243 @@ do
 					writeString($options["joinmsg"]);
 					sendPacket();
 				}
-				$joined = true;
+			}
+			else if($id == $packet_ids["respawn"])
+			{
+				if($protocolVersion > 47)
+				{
+					$dimension = readInt();
+				}
+				else
+				{
+					$dimension = readByte();
+				}
+			}
+			else if($id == $packet_ids["disconnect"])
+			{
+				die("Server closed connection: ".chatToANSIText(readChat())."\n");
 			}
 		}
-		else if($id == $packet_ids["join_game"])
+		$streams = [$stdin];
+		$null = null;
+		if(stream_select($streams, $null, $null, 0) > 0)
 		{
-			startPacket("send_plugin_message");
-			writeString($protocolVersion > 340 ? "minecraft:brand" : "MC|Brand");
-			writeString("php-minecraft-client");
-			sendPacket();
-			startPacket("client_settings");
-			writeString(isset($options["locale"]) ? $options["locale"] : "en_US");
-			writeByte(2); // View Distance
-			writeVarInt(0); // Chat Mode (0 = all)
-			writeBoolean(true); // Chat colors
-			writeByte(0x7F); // Displayed Skin Parts (7F = all)
-			if($protocolVersion > 47)
+			$msg = trim(fgets($stdin));
+			$send = true;
+			if(substr($msg, 0, 2) == "..")
 			{
-				writeVarInt(1); // Main Hand (0 = left, 1 = right)
+				$msg = substr($msg, 1);
 			}
-			sendPacket();
-		}
-		else if($id == $packet_ids["disconnect"])
-		{
-			die("Server closed connection: ".chatToANSIText(readChat())."\n");
-		}
-	}
-	$streams = [$stdin];
-	$null = null;
-	if(stream_select($streams, $null, $null, 0) > 0)
-	{
-		$msg = trim(fgets($stdin));
-		$send = true;
-		if(substr($msg, 0, 2) == "..")
-		{
-			$msg = substr($msg, 1);
-		}
-		else if(substr($msg, 0, 1) == ".")
-		{
-			$send = false;
-			$msg = substr($msg, 1);
-			$args = explode(" ", $msg);
-			switch($args[0])
+			else if(substr($msg, 0, 1) == ".")
 			{
-				case "?":
-				case "help":
-				echo "Yay! You found commands, which start with a period.\n";
-				echo "If you want to send a message starting with a period, use two.\n";
-				echo "?, help     shows this help\n";
-				echo "list        lists all players in the player list\n";
-				echo "slot <1-9>  sets selected hotbar slot\n";
-				break;
+				$send = false;
+				$msg = substr($msg, 1);
+				$args = explode(" ", $msg);
+				switch($args[0])
+				{
+					case "?":
+					case "help":
+					echo "Yay! You've found commands, which start with a period.\n";
+					echo "If you want to send a message starting with a period, use two.\n";
+					echo "?, help           shows this help\n";
+					echo "pos               returns the current position\n";
+					echo "move <x> [y] <z>  initates movement\n";
+					echo "list              lists all players in the player list\n";
+					echo "slot <1-9>        sets selected hotbar slot\n";
+					echo "reconnect         reconnects to the server\n";
+					break;
 
-				case "list":
-				$gamemodes = [
-					0 => "Survival",
-					1 => "Creative",
-					2 => "Adventure",
-					3 => "Spectator"
-				];
-				foreach($players as $player)
-				{
-					echo $player["name"].str_repeat(" ", 17 - strlen($player["name"])).str_repeat(" ", 5 - strlen($player["ping"])).$player["ping"]." ms  ".$gamemodes[$player["gamemode"]]." Mode\n";
-				}
-				break;
+					case "pos":
+					echo "$x $y $z\n";
+					break;
 
-				case "slot";
-				$slot = 0;
-				if(isset($args[1]))
-				{
-					$slot = intval($args[1]);
+					case "move":
+					if(isset($args[1]) && isset($args[2]) && isset($args[3]))
+					{
+						$motion_x += doubleval($args[1]);
+						$motion_y += doubleval($args[2]);
+						$motion_z += doubleval($args[3]);
+						echo "Understood.\n";
+					}
+					else if(isset($args[1]) && isset($args[2]))
+					{
+						$motion_x += doubleval($args[1]);
+						$motion_z += doubleval($args[2]);
+						echo "Understood.\n";
+					}
+					else
+					{
+						echo "\033[91mSyntax: .move <x> [y] <z>\033[0;97;40m\n";
+					}
+					break;
+
+					case "list":
+					$gamemodes = [
+						0 => "Survival",
+						1 => "Creative",
+						2 => "Adventure",
+						3 => "Spectator"
+					];
+					global $players;
+					foreach($players as $player)
+					{
+						echo $player["name"].str_repeat(" ", 17 - strlen($player["name"])).str_repeat(" ", 5 - strlen($player["ping"])).$player["ping"]." ms  ".$gamemodes[$player["gamemode"]]." Mode\n";
+					}
+					break;
+
+					case "slot";
+					$slot = 0;
+					if(isset($args[1]))
+					{
+						$slot = intval($args[1]);
+					}
+					if($slot < 1 || $slot > 9)
+					{
+						echo "\033[91mSyntax: .slot <1-9>\033[0;97;40m\n";
+					}
+					startPacket("held_item_change");
+					writeShort($slot - 1);
+					sendPacket();
+					echo "Done.\n";
+					break;
+
+					case "reconnect":
+					global $reconnect;
+					$reconnect = true;
+					break;
+
+					default:
+					echo "\033[91mUnknown command '.".$args[0]."' -- use '.help' for a list of commands.\033[0;97;40m\n";
 				}
-				if($slot < 1 || $slot > 9)
-				{
-					echo "\033[91mSyntax: .slot <1-9>\033[0;97;40m\n";
-				}
-				startPacket("held_item_change");
-				writeShort($slot - 1);
+			}
+			if($send)
+			{
+				startPacket("send_chat_message");
+				writeString($msg);
 				sendPacket();
-				break;
-
-				default:
-				echo "\033[91mUnknown command '.{$msg}' -- use '.help' for a list of commands.\033[0;97;40m\n";
 			}
 		}
-		if($send)
+		$time = microtime(true);
+		if($next_tick)
 		{
-			startPacket("send_chat_message");
-			writeString($msg);
-			sendPacket();
+			while($next_tick <= $time) // executed 20 times for every second
+			{
+				$_x = $x;
+				$_y = $y;
+				$_z = $z;
+				if($motion_x > 0)
+				{
+					if($motion_x < .25)
+					{
+						$x += $motion_x;
+						$motion_x = 0;
+					}
+					else
+					{
+						$x += .25;
+						$motion_x -= .25;
+					}
+				}
+				else if($motion_x < 0)
+				{
+					if($motion_x > -.25)
+					{
+						$x += $motion_x;
+						$motion_x = 0;
+					}
+					else
+					{
+						$x -= .25;
+						$motion_x += .25;
+					}
+				}
+				if($motion_y > 0)
+				{
+					$onGround = false;
+					if($motion_y < .25)
+					{
+						$y += $motion_y;
+						$motion_y = 0;
+					}
+					else
+					{
+						$y += .25;
+						$motion_y -= .25;
+					}
+					$onGround = false;
+				}
+				else if($motion_y < 0)
+				{
+					$onGround = false;
+					if($motion_y > -.25)
+					{
+						$y += $motion_y;
+						$motion_y = 0;
+					}
+					else
+					{
+						$y -= .25;
+						$motion_y += .25;
+					}
+					$onGround = false;
+				}
+				else
+				{
+					$onGround = fmod($y, 1) == 0;
+				}
+				if($motion_z > 0)
+				{
+					if($motion_z < .25)
+					{
+						$z += $motion_z;
+						$motion_z = 0;
+					}
+					else
+					{
+						$z += .25;
+						$motion_z -= .25;
+					}
+				}
+				else if($motion_z < 0)
+				{
+					if($motion_z > -.25)
+					{
+						$z += $motion_z;
+						$motion_z = 0;
+					}
+					else
+					{
+						$z -= .25;
+						$motion_z += .25;
+					}
+				}
+				if($x != $_x || $y != $_y || $z != $_z)
+				{
+					startPacket("player_position");
+					writeDouble($x);
+					writeDouble($y);
+					writeDouble($z);
+					writeBoolean($onGround);
+					sendPacket();
+				}
+				if($next_tick > 0)
+				{
+					$catch_up = ($time - $next_tick);
+				}
+				else
+				{
+					$catch_up = 0;
+				}
+				$next_tick = ($time + 0.05 - $catch_up);
+				$time = microtime(true);
+			}
+		}
+		$elapsed = ($time - $start);
+		if(($remaining = (0.02 - $elapsed)) > 0) // Make sure we've waited at least 20 ms before going again because otherwise we'd be polling too much
+		{
+			time_nanosleep(0, $remaining * 1000000000); // usleep seems to bring the CPU to 100
 		}
 	}
-	$elapsed = (microtime(true) - $start);
-	if(($remaining = (0.02 - $elapsed)) > 0) // Make sure we've waited at least 0.02 seconds (20 ms) before going again because polling
-	{
-		time_nanosleep(0, $remaining * 1000000000);
-	}
+	while(!$reconnect);
 }
 while(true);
