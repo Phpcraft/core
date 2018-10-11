@@ -922,6 +922,8 @@ function handleConsoleMessage($msg)
 			echo "move <x> [y] <z>  \n";
 			echo "list              lists all players in the player list\n";
 			echo "slot <1-9>        sets selected hotbar slot\n";
+			echo "hit               swings the main hand\n";
+			echo "use               uses the held item\n";
 			echo "reconnect         reconnects to the server\n";
 			break;
 
