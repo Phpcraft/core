@@ -58,6 +58,7 @@ for($i = 1; $i < count($argv); $i++)
 	switch($n)
 	{
 		case "online":
+		case "offline":
 		case "acknowledge":
 		case "noreconnect":
 		$options[$n] = true;
@@ -74,6 +75,7 @@ for($i = 1; $i < count($argv); $i++)
 		case "?":
 		case "help":
 		echo "online           use online mode\n";
+		echo "offline          use offline mode\n";
 		echo "name=<name>      skip name input and use <name> as name\n";
 		echo "server=<server>  skip server input and connect to <server>\n";
 		echo "langfile=<file>  load Minecraft translations from <file>\n";
@@ -124,7 +126,7 @@ if(isset($options["online"]))
 {
 	$online = true;
 }
-else
+else if(!isset($options["offline"]))
 {
 	echo "Would you like to join premium servers? (y/N) ";
 	if(substr(trim(fgets($stdin)), 0, 1) == "y")
