@@ -418,6 +418,11 @@ function writeShort($short)
 	global $write_buffer;
 	$write_buffer .= pack("n", $short);
 }
+function writeFloat($float)
+{
+	global $write_buffer;
+	$write_buffer .= pack("G", $float);
+}
 function writeLong($long)
 {
 	global $write_buffer;
@@ -556,7 +561,7 @@ function readString($maxLength = 32767)
 	$read_buffer = substr($read_buffer, $length);
 	return $str;
 }
-function readByte()
+function readByte($signed = false)
 {
 	global $read_buffer;
 	if(strlen($read_buffer) < 1)
@@ -565,13 +570,17 @@ function readByte()
 	}
 	$byte = unpack("cbyte", substr($read_buffer, 0, 1))["byte"];
 	$read_buffer = substr($read_buffer, 1);
+	if($signed && $byte >= 0x80)
+	{
+		return ((($byte ^ 0xFF) + 1) * -1);
+	}
 	return $byte;
 }
 function readBoolean()
 {
 	return readByte() == 1;
 }
-function readShort()
+function readShort($signed = true)
 {
 	global $read_buffer;
 	if(strlen($read_buffer) < 2)
@@ -580,6 +589,10 @@ function readShort()
 	}
 	$short = unpack("nshort", substr($read_buffer, 0, 2))["short"];
 	$read_buffer = substr($read_buffer, 2);
+	if($signed && $short >= 0x8000)
+	{
+		return ((($short ^ 0xFFFF) + 1) * -1);
+	}
 	return $short;
 }
 function readInt($signed = true)
@@ -812,7 +825,7 @@ $id = readPacket();
 echo ".";
 if($id != 0x00)
 {
-	die(" Invalid response: {$id} {$read_buffer}\n");
+	die(" Invalid response: {$id} ".bin2hex($read_buffer)."\n");
 }
 $info = json_decode(readString(), true);
 if(!isset($info["version"]) || !isset($info["version"]["protocol"]))
@@ -830,15 +843,21 @@ else
 }
 $packet_ids = [
 	// Clientbound
+	"spawn_player" => [0x05, 0x05, 0x05, 0x05, 0x05, 0x0C],
 	"chat_message" => [0x0E, 0x0F, 0x0F, 0x0F, 0x0F, 0x02],
 	"disconnect" => [0x1B, 0x1A, 0x1A, 0x1A, 0x1A, 0x40],
 	"open_window" => [0x14, 0x13, 0x13, 0x13, 0x13, 0x2D],
 	"keep_alive_request" => [0x21, 0x1F, 0x1F, 0x1F, 0x1F, 0x00],
 	"join_game" => [0x25, 0x23, 0x23, 0x23, 0x23, 0x01],
+	"entity_relative_move" => [0x28, 0x26, 0x26, 0x25, 0x25, 0x15],
+	"entity_look_and_relative_move" => [0x29, 0x27, 0x27, 0x26, 0x26, 0x17],
+	"entity_look" => [0x2A, 0x28, 0x28, 0x27, 0x27, 0x16],
 	"player_list_item" => [0x30, 0x2E, 0x2D, 0x2D, 0x2D, 0x38],
 	"teleport" => [0x32, 0x2F, 0x2E, 0x2E, 0x2E, 0x08],
+	"destroy_entites" => [0x35, 0x32, 0x31, 0x30, 0x30, 0x13],
 	"respawn" => [0x38, 0x35, 0x34, 0x33, 0x33, 0x07],
 	"update_health" => [0x44, 0x41, 0x40, 0x3E, 0x3E, 0x06],
+	"entity_teleport" => [0x50, 0x4C, 0x4B, 0x49, 0x4A, 0x18],
 	// Serverbound
 	"teleport_confirm" => [0x00, 0x00, 0x00, 0x00, 0x00, -1],
 	"send_chat_message" => [0x02, 0x02, 0x03, 0x02, 0x02, 0x01],
@@ -847,11 +866,14 @@ $packet_ids = [
 	"close_window" => [0x09, 0x08, 0x09, 0x08, 0x08, 0x0D],
 	"send_plugin_message" => [0x0A, 0x09, 0x0A, 0x09, 0x09, 0x17],
 	"keep_alive_response" => [0x0E, 0x0B, 0x0C, 0x0B, 0x0B, 0x00],
+	"player" => [0x0F, 0x0C, 0x0D, 0x0F, 0x0F, 0x03],
 	"player_position" => [0x10, 0x0D, 0x0E, 0x0C, 0x0C, 0x04],
+	"player_position_and_look" => [0x11, 0x0E, 0x0F, 0x0D, 0x0D, 0x06],
+	"player_look" => [0x12, 0x0F, 0x10, 0x0E, 0x0E, 0x05],
 	"held_item_change" => [0x21, 0x1A, 0x1A, 0x17, 0x17, 0x09],
 	"animation" => [0x27, 0x1D, 0x1D, 0x1A, 0x1A, 0x0A],
 	"player_block_placement" => [0x29, 0x1F, 0x1F, 0x1C, 0x1C, 0x08],
-	"use_item" => [0x2A, 0x20, 0x20, 0x1D, 0x1D, -1]
+	"use_item" => [0x2A, 0x20, 0x20, 0x1D, 0x1D, -1],
 ];
 foreach($packet_ids as $n => $v)
 {
@@ -922,7 +944,11 @@ function handleConsoleMessage($msg)
 			echo "pos               returns the current position\n";
 			echo "move <y>,         initates movement\n";
 			echo "move <x> [y] <z>  \n";
+			echo "rot <yaw> <pitch> change yaw and pitch degrees\n";
 			echo "list              lists all players in the player list\n";
+			echo "entities          lists all player entities\n";
+			echo "follow <name>     follows <name>'s player entity\n";
+			echo "unfollow          stops following whomever is being followed\n";
 			echo "slot <1-9>        sets selected hotbar slot\n";
 			echo "hit               swings the main hand\n";
 			echo "use               uses the held item\n";
@@ -935,28 +961,55 @@ function handleConsoleMessage($msg)
 			break;
 
 			case "move":
-			global $motion_x, $motion_y, $motion_z;
-			if(isset($args[1]) && isset($args[2]) && isset($args[3]))
+			global $followEntity;
+			if($followEntity !== false)
 			{
-				$motion_x += doubleval($args[1]);
-				$motion_y += doubleval($args[2]);
-				$motion_z += doubleval($args[3]);
-				echo "Understood.\n";
+				echo "\033[91mI'm currently following someone.\033[0;97;40m\n";
+			}
+			else
+			{
+				global $motion_x, $motion_y, $motion_z;
+				if(isset($args[1]) && isset($args[2]) && isset($args[3]))
+				{
+					$motion_x += doubleval($args[1]);
+					$motion_y += doubleval($args[2]);
+					$motion_z += doubleval($args[3]);
+					echo "Understood.\n";
+				}
+				else if(isset($args[1]) && isset($args[2]))
+				{
+					$motion_x += doubleval($args[1]);
+					$motion_z += doubleval($args[2]);
+					echo "Understood.\n";
+				}
+				else if(isset($args[1]))
+				{
+					$motion_y += doubleval($args[1]);
+					echo "Understood.\n";
+				}
+				else
+				{
+					echo "\033[91mSyntax: .move <y>, .move <x> [y] <z>\033[0;97;40m\n";
+				}
+			}
+			break;
+
+			case "rot":
+			global $followEntity;
+			if($followEntity !== false)
+			{
+				echo "\033[91mI'm currently following someone.\033[0;97;40m\n";
 			}
 			else if(isset($args[1]) && isset($args[2]))
 			{
-				$motion_x += doubleval($args[1]);
-				$motion_z += doubleval($args[2]);
-				echo "Understood.\n";
-			}
-			else if(isset($args[1]))
-			{
-				$motion_y += doubleval($args[1]);
+				global $yaw, $pitch;
+				$yaw = floatval($args[1]);
+				$pitch = floatval($args[2]);
 				echo "Understood.\n";
 			}
 			else
 			{
-				echo "\033[91mSyntax: .move <y>, .move <x> [y] <z>\033[0;97;40m\n";
+				echo "\033[91mSyntax: .rot <yaw> <pitch>\033[0;97;40m\n";
 			}
 			break;
 
@@ -1004,6 +1057,69 @@ function handleConsoleMessage($msg)
 			{
 				echo $player["name"].str_repeat(" ", 17 - strlen($player["name"])).str_repeat(" ", 5 - strlen($player["ping"])).$player["ping"]." ms  ".$gamemodes[$player["gamemode"]]." Mode\n";
 			}
+			break;
+
+			case "entities":
+			global $entities;
+			foreach($entities as $eid => $entity)
+			{
+				echo $eid." ".$entity["x"]." ".$entity["y"]." ".$entity["z"]."\n";
+			}
+			break;
+
+			case "follow":
+			if(isset($args[1]))
+			{
+				$uuids = [];
+				global $players;
+				foreach($players as $uuid => $player)
+				{
+					if(stristr($player["name"], $args[1]))
+					{
+						$uuids[$player["name"]] = $uuid;
+						$username = $player["name"];
+					}
+				}
+				if(count($uuids) == 0)
+				{
+					echo "\033[91mCouldn't find ".$args[1]."\033[0;97;40m\n";
+				}
+				else if(count($uuids) > 1)
+				{
+					echo "\033[91mAmbiguous name; found: ".join(", ", array_keys($uuids))."\033[0;97;40m\n";
+				}
+				else
+				{
+					global $followEntity, $entities;
+					$followEntity = false;
+					$uuid = $uuids[$username];
+					foreach($entities as $eid => $entity)
+					{
+						if($entity["uuid"] == $uuid)
+						{
+							$followEntity = $eid;
+						}
+					}
+					if($followEntity === false)
+					{
+						echo "\033[91mCouldn't find {$username}'s entity\033[0;97;40m\n";
+					}
+					else
+					{
+						echo "Understood.\n";
+					}
+				}
+			}
+			else
+			{
+				echo "\033[91mSyntax: .follow <name>\033[0;97;40m\n";
+			}
+			break;
+
+			case "unfollow":
+			global $followEntity;
+			$followEntity = false;
+			echo "Done.\n";
 			break;
 
 			case "slot";
@@ -1117,7 +1233,7 @@ do
 		}
 		else
 		{
-			die(" Unexpected response: {$id} {$read_buffer}\n");
+			die(" Unexpected response: {$id} ".bin2hex($read_buffer)."\n");
 		}
 	}
 	while(true);
@@ -1128,10 +1244,19 @@ do
 	$x = 0;
 	$y = 0;
 	$z = 0;
+	$yaw = 0;
+	$pitch = 0;
+	$_x = 0;
+	$_y = 0;
+	$_z = 0;
+	$_yaw = 0;
+	$_pitch = 0;
 	$motion_x = 0;
 	$motion_y = 0;
 	$motion_z = 0;
 	$entityId = false;
+	$entities = [];
+	$followEntity = false;
 	$dimension = 0;
 	$next_tick = false;
 	$posticks = 0;
@@ -1193,6 +1318,125 @@ do
 					}
 				}
 			}
+			else if($id == $packet_ids["spawn_player"])
+			{
+				$eid = readVarInt();
+				if($eid != $entityId)
+				{
+					if($protocolVersion > 47)
+					{
+						$entities[$eid] = [
+							"uuid" => readUUIDBytes(),
+							"x" => readDouble(),
+							"y" => readDouble(),
+							"z" => readDouble(),
+							"yaw" => readByte(),
+							"pitch" => readByte()
+						];
+					}
+					else
+					{
+						$entities[$eid] = [
+							"uuid" => readUUIDBytes(),
+							"x" => readInt() / 32,
+							"y" => readInt() / 32,
+							"z" => readInt() / 32,
+							"yaw" => readByte(),
+							"pitch" => readByte()
+						];
+					}
+				}
+			}
+			else if($id == $packet_ids["entity_look_and_relative_move"])
+			{
+				$eid = readVarInt();
+				if(isset($entities[$eid]))
+				{
+					if($protocolVersion > 47)
+					{
+						$entities[$eid]["x"] += (readShort(true) / 4096);
+						$entities[$eid]["y"] += (readShort(true) / 4096);
+						$entities[$eid]["z"] += (readShort(true) / 4096);
+					}
+					else
+					{
+						$entities[$eid]["x"] += (readByte(true) / 32);
+						$entities[$eid]["y"] += (readByte(true) / 32);
+						$entities[$eid]["z"] += (readByte(true) / 32);
+					}
+					$entities[$eid]["yaw"] = readByte();
+					$entities[$eid]["pitch"] = readByte();
+				}
+			}
+			else if($id == $packet_ids["entity_relative_move"])
+			{
+				$eid = readVarInt();
+				if(isset($entities[$eid]))
+				{
+					if($protocolVersion > 47)
+					{
+						$entities[$eid]["x"] += (readShort(true) / 4096);
+						$entities[$eid]["y"] += (readShort(true) / 4096);
+						$entities[$eid]["z"] += (readShort(true) / 4096);
+					}
+					else
+					{
+						$entities[$eid]["x"] += (readByte(true) / 32);
+						$entities[$eid]["y"] += (readByte(true) / 32);
+						$entities[$eid]["z"] += (readByte(true) / 32);
+					}
+				}
+			}
+			else if($id == $packet_ids["entity_look"])
+			{
+				$eid = readVarInt();
+				if(isset($entities[$eid]))
+				{
+					$entities[$eid]["yaw"] = readByte();
+					$entities[$eid]["pitch"] = readByte();
+				}
+			}
+			else if($id == $packet_ids["entity_teleport"])
+			{
+				$eid = readVarInt();
+				if(isset($entities[$eid]))
+				{
+					if($eid != $entityId && isset($entities[$eid]))
+					{
+						if($protocolVersion > 47)
+						{
+							$entities[$eid]["x"] = readDouble();
+							$entities[$eid]["y"] = readDouble();
+							$entities[$eid]["z"] = readDouble();
+						}
+						else
+						{
+							$entities[$eid]["x"] = readInt() / 32;
+							$entities[$eid]["y"] = readInt() / 32;
+							$entities[$eid]["z"] = readInt() / 32;
+						}
+						$entities[$eid]["yaw"] = readByte();
+						$entities[$eid]["pitch"] = readByte();
+					}
+				}
+			}
+			else if($id == $packet_ids["destroy_entites"])
+			{
+				$count = readVarInt();
+				for($i = 0; $i < $count; $i++)
+				{
+					$eid = readVarInt();
+					if(isset($entities[$eid]))
+					{
+						if($followEntity === $eid)
+						{
+							echo "The entity I was following has been destroyed.\n";
+							$followEntity = false;
+						}
+						unset($entities[$eid]);
+					}
+				}
+			}
 			else if($id == $packet_ids["keep_alive_request"])
 			{
 				startPacket("keep_alive_response");
@@ -1211,11 +1455,12 @@ do
 				$x_ = readDouble();
 				$y_ = readDouble();
 				$z_ = readDouble();
-				ignoreBytes(8); // Yaw + Pitch
+				$yaw_ = readFloat();
+				$pitch_ = readFloat();
 				$flags = strrev(decbin(readByte()));
-				if(strlen($flags) < 3)
+				if(strlen($flags) < 5)
 				{
-					$flags .= str_repeat("0", 3 - strlen($flags));
+					$flags .= str_repeat("0", 5 - strlen($flags));
 				}
 				if(substr($flags, 0, 1) == "1")
 				{
@@ -1240,6 +1485,22 @@ do
 				else
 				{
 					$z = $z_;
+				}
+				if(substr($flags, 3, 1) == "1")
+				{
+					$yaw += $yaw_;
+				}
+				else
+				{
+					$yaw = $yaw_;
+				}
+				if(substr($flags, 4, 1) == "1")
+				{
+					$pitch += $pitch_;
+				}
+				else
+				{
+					$pitch = $pitch_;
 				}
 				if($protocolVersion > 47)
 				{
@@ -1267,7 +1528,7 @@ do
 			{
 				$next_tick = microtime(true);
 				$entityId = readInt();
-				readByte();
+				ignoreBytes(1);
 				if($protocolVersion > 47)
 				{
 					$dimension = readInt();
@@ -1326,62 +1587,68 @@ do
 		{
 			while($next_tick <= $time) // executed 20 times for every second
 			{
-				$_x = $x;
-				$_y = $y;
-				$_z = $z;
+				if($followEntity !== false)
+				{
+					$motion_x = ($entities[$followEntity]["x"] - $x);
+					$motion_y = ($entities[$followEntity]["y"] - $y);
+					$motion_z = ($entities[$followEntity]["z"] - $z);
+					$yaw = $entities[$followEntity]["yaw"] / 256 * 360;
+					$pitch = $entities[$followEntity]["pitch"] / 256 * 360;
+				}
+				$motion_speed = 0.35; // max. blocks per tick
 				if($motion_x > 0)
 				{
-					if($motion_x < .25)
+					if($motion_x < $motion_speed)
 					{
 						$x += $motion_x;
 						$motion_x = 0;
 					}
 					else
 					{
-						$x += .25;
-						$motion_x -= .25;
+						$x += $motion_speed;
+						$motion_x -= $motion_speed;
 					}
 				}
 				else if($motion_x < 0)
 				{
-					if($motion_x > -.25)
+					if($motion_x > -$motion_speed)
 					{
 						$x += $motion_x;
 						$motion_x = 0;
 					}
 					else
 					{
-						$x -= .25;
-						$motion_x += .25;
+						$x -= $motion_speed;
+						$motion_x += $motion_speed;
 					}
 				}
 				if($motion_y > 0)
 				{
 					$onGround = false;
-					if($motion_y < .25)
+					if($motion_y < $motion_speed)
 					{
 						$y += $motion_y;
 						$motion_y = 0;
 					}
 					else
 					{
-						$y += .25;
-						$motion_y -= .25;
+						$y += $motion_speed;
+						$motion_y -= $motion_speed;
 					}
 					$onGround = false;
 				}
 				else if($motion_y < 0)
 				{
 					$onGround = false;
-					if($motion_y > -.25)
+					if($motion_y > -$motion_speed)
 					{
 						$y += $motion_y;
 						$motion_y = 0;
 					}
 					else
 					{
-						$y -= .25;
-						$motion_y += .25;
+						$y -= $motion_speed;
+						$motion_y += $motion_speed;
 					}
 					$onGround = false;
 				}
@@ -1391,52 +1658,85 @@ do
 				}
 				if($motion_z > 0)
 				{
-					if($motion_z < .25)
+					if($motion_z < $motion_speed)
 					{
 						$z += $motion_z;
 						$motion_z = 0;
 					}
 					else
 					{
-						$z += .25;
-						$motion_z -= .25;
+						$z += $motion_speed;
+						$motion_z -= $motion_speed;
 					}
 				}
 				else if($motion_z < 0)
 				{
-					if($motion_z > -.25)
+					if($motion_z > -$motion_speed)
 					{
 						$z += $motion_z;
 						$motion_z = 0;
 					}
 					else
 					{
-						$z -= .25;
-						$motion_z += .25;
+						$z -= $motion_speed;
+						$motion_z += $motion_speed;
 					}
 				}
-				if(($protocolVersion <= 47 && ++$posticks == 20) || $x != $_x || $y != $_y || $z != $_z)
+				$poschange = ($x != $_x || $y != $_y || $z != $_z);
+				$rotchange = ($yaw != $_yaw || $pitch != $_pitch);
+				if($poschange)
 				{
-					startPacket("player_position");
-					writeDouble($x);
-					writeDouble($y);
-					writeDouble($z);
-					writeBoolean($onGround);
-					sendPacket();
+					if($rotchange)
+					{
+						startPacket("player_position_and_look");
+						writeDouble($x);
+						writeDouble($y);
+						writeDouble($z);
+						writeFloat($yaw);
+						writeFloat($pitch);
+						writeBoolean($onGround);
+						sendPacket();
+						$_yaw = $yaw;
+						$_pitch = $pitch;
+					}
+					else
+					{
+						startPacket("player_position");
+						writeDouble($x);
+						writeDouble($y);
+						writeDouble($z);
+						writeBoolean($onGround);
+						sendPacket();
+					}
+					$_x = $x;
+					$_y = $y;
+					$_z = $z;
 					if($posticks > 0)
 					{
 						$posticks = 0;
 					}
 				}
-				if($next_tick > 0)
+				else if($rotchange)
 				{
-					$catch_up = ($time - $next_tick);
+					startPacket("player_look");
+					writeFloat($yaw);
+					writeFloat($pitch);
+					writeBoolean($onGround);
+					sendPacket();
+					$_yaw = $yaw;
+					$_pitch = $pitch;
+					if($posticks > 0)
+					{
+						$posticks = 0;
+					}
 				}
-				else
+				else if($protocolVersion <= 47 && ++$posticks == 20)
 				{
-					$catch_up = 0;
+					startPacket("player");
+					writeBoolean($onGround);
+					sendPacket();
 				}
-				$next_tick = ($time + 0.05 - $catch_up);
+				$next_tick = ($time + 0.05 - ($time - $next_tick));
 				$time = microtime(true);
 			}
 		}
