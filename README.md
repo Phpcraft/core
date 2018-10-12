@@ -10,6 +10,7 @@ I just wanted to challenge myself to create a Minecraft chat client using only o
 
 - Colorful messages using ANSI escape codes
 - Can join 1.8 - 1.13.1 servers by protocol hacking
+- Can follow player entities by postion and rotation
 - Supports optionally logging in with Mojang and unmigrated accounts to join online servers as well
 - Resolves SRV records
 
