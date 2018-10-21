@@ -358,8 +358,8 @@ class Client
 {
 	private $name;
 	private $username;
-	private $accountId = null;
 	private $profileId = null;
+	private $accessToken = null;
 
 	function __construct($name)
 	{
@@ -379,17 +379,17 @@ class Client
 
 	function isOnline()
 	{
-		return $this->accountId != null && $this->profileId != null;
-	}
-
-	function getAccountId()
-	{
-		return $this->accountId;
+		return $this->profileId != null && $this->accessToken != null;
 	}
 
 	function getProfileId()
 	{
 		return $this->profileId;
+	}
+
+	function getAccessToken()
+	{
+		return $this->accessToken;
 	}
 
 	function loginUsingProfiles()
@@ -402,11 +402,12 @@ class Client
 			{
 				foreach($v["profiles"] as $u => $d)
 				{
-					$profiles["selectedUser"]["profile"] = $u;
+					$profiles["selectedUser"]["profile"] = $this->profileId = $u;
 					$this->username = $d["displayName"];
 					break;
 				}
 				$profiles["selectedUser"]["account"] = $n;
+				$this->accessToken = $v["accessToken"];
 				$foundAccount = true;
 				break;
 			}
@@ -416,7 +417,7 @@ class Client
 				{
 					if($d["displayName"] == $this->username)
 					{
-						$profiles["selectedUser"]["profile"] = $u;
+						$profiles["selectedUser"]["profile"] = $this->profileId = $u;
 						$foundAccount = true;
 						break;
 					}
@@ -425,6 +426,7 @@ class Client
 				{
 					$profiles["selectedUser"]["account"] = $n;
 					$this->name = $v["username"];
+					$this->accessToken = $v["accessToken"];
 					break;
 				}
 			}
@@ -478,21 +480,18 @@ class Client
 			{
 				return "Your Mojang account does not have a Minecraft license.";
 			}
-			$this->username = $res["selectedProfile"]["name"];
-			$this->accountId = $res["user"]["id"];
-			$this->profileId = $res["selectedProfile"]["id"];
-			$profiles["authenticationDatabase"][$this->accountId] = [
-				"accessToken" => $res["accessToken"],
+			$profiles["selectedUser"] = [
+				"account" => $res["user"]["id"],
+				"profile" => $this->profileId = $res["selectedProfile"]["id"]
+			];
+			$profiles["authenticationDatabase"][$res["user"]["id"]] = [
+				"accessToken" => $this->accessToken = $res["accessToken"],
 				"username" => $this->name,
 				"profiles" => [
 					$this->profileId => [
-						"displayName" => $this->username
+						"displayName" => $this->username = $res["selectedProfile"]["name"]
 					]
 				]
-			];
-			$profiles["selectedUser"] = [
-				"account" => $this->accountId,
-				"profile" => $this->profileId
 			];
 			Utils::saveProfiles($profiles);
 			return "";
@@ -902,7 +901,7 @@ class ServerPlayConnection extends ServerConnection
 			}
 			else if($id == 0x01) // Encryption Request
 			{
-				if(!$online)
+				if(!$client->isOnline())
 				{
 					return " This server is in online mode.";
 				}
@@ -915,9 +914,9 @@ class ServerPlayConnection extends ServerConnection
 					$shared_secret .= chr(rand(0, 255));
 				}
 				if(Utils::httpPOST("https://sessionserver.mojang.com/session/minecraft/join", [
-					"accessToken" => \Phpcraft\Utils::getProfiles()["authenticationDatabase"][$client->getAccountId()]["accessToken"],
+					"accessToken" => $client->getAccessToken(),
 					"selectedProfile" => $client->getProfileId(),
-					"serverId" => \Phpcraft\Utils::sha1($server_id.$shared_secret.$publicKey)
+					"serverId" => Utils::sha1($server_id.$shared_secret.$publicKey)
 				]) === false)
 				{
 					return "The session server is down for maintenance.";
@@ -929,7 +928,7 @@ class ServerPlayConnection extends ServerConnection
 				$this->writeString($crypted);
 				openssl_public_encrypt($verify_token, $crypted, $publicKey, OPENSSL_PKCS1_PADDING);
 				$this->writeString($crypted);
-				sendPacket();
+				$this->sendPacket();
 				$opts = ["mode" => "cfb", "iv" => $shared_secret, "key" => $shared_secret];
 				stream_filter_append($this->stream, "mcrypt.rijndael-128", STREAM_FILTER_WRITE, $opts);
 				stream_filter_append($this->stream, "mdecrypt.rijndael-128", STREAM_FILTER_READ, $opts);
