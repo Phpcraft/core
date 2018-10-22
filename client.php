@@ -151,20 +151,20 @@ while($name == "")
 		}
 	}
 }
-$client = new \Phpcraft\Client($name);
+$account = new \Phpcraft\Account($name);
 if($online)
 {
 	if($extensions_needed = \Phpcraft\Utils::getExtensionsMissingToGoOnline())
 	{
 		die("To join online servers, you need ".join(" and ", $extensions_needed).".\nCheck your php.ini or use apt-get install.\n");
 	}
-	if(!$client->loginUsingProfiles())
+	if(!$account->loginUsingProfiles())
 	{
 		do
 		{
 			echo "What's your account password? (visible!) ";
 			$pass = trim(fgets($stdin));
-			if($error = $client->login($pass))
+			if($error = $account->login($pass))
 			{
 				echo $error."\n";
 			}
@@ -195,9 +195,7 @@ if(count($serverarr) != 2)
 {
 	die(" Failed to resolve name. Got {$server}\n");
 }
-echo " Resolved to {$server}\n";
-
-echo "Determining version...";
+echo " Resolved to {$server}\nDetermining version...";
 $con = new \Phpcraft\ServerStatusConnection($serverarr[0], $serverarr[1]);
 $info = $con->getStatus();
 $con->close();
@@ -328,7 +326,7 @@ function handleConsoleMessage($msg)
 			{
 				$con->writeVarInt(0);
 			}
-			$con->sendPacket();
+			$con->send();
 			echo "Done.\n";
 			break;
 
@@ -349,7 +347,7 @@ function handleConsoleMessage($msg)
 				$con->writeByte(-1); // Cursor Y
 				$con->writeByte(-1); // Cursor Z
 			}
-			$con->sendPacket();
+			$con->send();
 			echo "Done.\n";
 			break;
 
@@ -444,7 +442,7 @@ function handleConsoleMessage($msg)
 			global $con;
 			$con->startPacket("held_item_change");
 			$con->writeShort($slot - 1);
-			$con->sendPacket();
+			$con->send();
 			echo "Done.\n";
 			break;
 
@@ -460,9 +458,7 @@ function handleConsoleMessage($msg)
 	if($send)
 	{
 		global $con;
-		$con->startPacket("send_chat_message");
-		$con->writeString($msg);
-		$con->sendPacket();
+		(new \Phpcraft\SendChatMessagePacket($msg))->send($con);
 	}
 }
 $reconnect = false;
@@ -471,7 +467,7 @@ do
 	echo "Connecting using {$minecraft_version} ({$protocol_version})...";
 	$con = new \Phpcraft\ServerPlayConnection($protocol_version, $serverarr[0], $serverarr[1]);
 	echo " Connection established.\nLogging in...";
-	if($error = $con->login($client))
+	if($error = $con->login($account))
 	{
 		die(" {$error}\n");
 	}
@@ -510,7 +506,11 @@ do
 			}
 			if($packet_name == "chat_message")
 			{
-				echo \Phpcraft\Utils::chatToANSIText(json_decode($con->readString(), true))."\n";
+				$packet = \Phpcraft\ChatMessagePacket::read($con);
+				if($packet->getPosition() != 2) // 2 = Above Hotbar
+				{
+					echo $packet->getMessageAsANSIText()."\n";
+				}
 			}
 			else if($packet_name == "player_list_item")
 			{
@@ -739,7 +739,7 @@ do
 				{
 					$con->startPacket("teleport_confirm");
 					$con->writeVarInt($con->readVarInt());
-					$con->sendPacket();
+					$con->send();
 				}
 			}
 			else if($packet_name == "update_health")
@@ -748,14 +748,14 @@ do
 				{
 					$con->startPacket("client_status");
 					$con->writeVarInt(0); // Respawn
-					$con->sendPacket();
+					$con->send();
 				}
 			}
 			else if($packet_name == "open_window")
 			{
 				$con->startPacket("close_window");
 				$con->writeByte($con->readByte());
-				$con->sendPacket();
+				$con->send();
 			}
 			else if($packet_name == "join_game")
 			{
@@ -773,7 +773,7 @@ do
 				$con->startPacket("send_plugin_message");
 				$con->writeString($protocol_version > 340 ? "minecraft:brand" : "MC|Brand");
 				$con->writeString("php-minecraft-client");
-				$con->sendPacket();
+				$con->send();
 				$con->startPacket("client_settings");
 				$con->writeString(isset($options["locale"]) ? $options["locale"] : "en_US");
 				$con->writeByte(2); // View Distance
@@ -784,7 +784,7 @@ do
 				{
 					$con->writeVarInt(1); // Main Hand (0 = left, 1 = right)
 				}
-				$con->sendPacket();
+				$con->send();
 				if(isset($options["joinmsg"]))
 				{
 					echo $options["joinmsg"]."\n";
@@ -804,7 +804,7 @@ do
 			}
 			else if($packet_name == "disconnect")
 			{
-				echo "Server closed connection: ".\Phpcraft\Utils::chatToANSIText(json_decode($con->readString(), true))."\n";
+				echo "Server closed connection: ".\Phpcraft\DisconnectPacket::read($con)->getMessageAsANSIText()."\n";
 				$reconnect = !isset($options["noreconnect"]);
 				$next_tick = microtime(true) + 10;
 			}
@@ -928,7 +928,7 @@ do
 						$con->writeFloat($yaw);
 						$con->writeFloat($pitch);
 						$con->writeBoolean($onGround);
-						$con->sendPacket();
+						$con->send();
 						$_yaw = $yaw;
 						$_pitch = $pitch;
 					}
@@ -939,7 +939,7 @@ do
 						$con->writeDouble($y);
 						$con->writeDouble($z);
 						$con->writeBoolean($onGround);
-						$con->sendPacket();
+						$con->send();
 					}
 					$_x = $x;
 					$_y = $y;
@@ -955,7 +955,7 @@ do
 					$con->writeFloat($yaw);
 					$con->writeFloat($pitch);
 					$con->writeBoolean($onGround);
-					$con->sendPacket();
+					$con->send();
 					$_yaw = $yaw;
 					$_pitch = $pitch;
 					if($posticks > 0)
@@ -967,7 +967,7 @@ do
 				{
 					$con->startPacket("player");
 					$con->writeBoolean($onGround);
-					$con->sendPacket();
+					$con->send();
 				}
 				$time = microtime(true);
 				$next_tick = ($time + 0.05 - ($time - $next_tick));

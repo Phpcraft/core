@@ -1441,3 +1441,4 @@ class SendChatMessagePacket extends Packet
 		$con->send();
 	}
 }
+
