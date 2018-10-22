@@ -467,7 +467,7 @@ do
 	echo "Connecting using {$minecraft_version} ({$protocol_version})...";
 	$con = new \Phpcraft\ServerPlayConnection($protocol_version, $serverarr[0], $serverarr[1]);
 	echo " Connection established.\nLogging in...";
-	if($error = $con->login($account))
+	if($error = $con->login($account, $translations))
 	{
 		die(" {$error}\n");
 	}
@@ -499,7 +499,7 @@ do
 		$start = microtime(true);
 		while(($id = $con->readPacket(false)) !== false)
 		{
-			$packet_name = \Phpcraft\Packet::idToName($id, $protocol_version);
+			$packet_name = \Phpcraft\Packet::clientboundPacketIdToName($id, $protocol_version);
 			if($packet_name === null)
 			{
 				continue;
@@ -509,7 +509,7 @@ do
 				$packet = \Phpcraft\ChatMessagePacket::read($con);
 				if($packet->getPosition() != 2) // 2 = Above Hotbar
 				{
-					echo $packet->getMessageAsANSIText()."\n";
+					echo $packet->getMessageAsANSIText($translations)."\n";
 				}
 			}
 			else if($packet_name == "player_list_item")
@@ -804,7 +804,7 @@ do
 			}
 			else if($packet_name == "disconnect")
 			{
-				echo "Server closed connection: ".\Phpcraft\DisconnectPacket::read($con)->getMessageAsANSIText()."\n";
+				echo "Server closed connection: ".\Phpcraft\DisconnectPacket::read($con)->getMessageAsANSIText($translations)."\n";
 				$reconnect = !isset($options["noreconnect"]);
 				$next_tick = microtime(true) + 10;
 			}

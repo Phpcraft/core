@@ -33,6 +33,10 @@ class Utils
 		403 => "1.13.2-pre2"
 	];
 
+	/**
+	 * Returns the path of the .minecraft folder without a slash at the end.
+	 * @return string
+	 */
 	static function getMinecraftFolder()
 	{
 		if(Utils::$minecraft_folder === null)
@@ -61,14 +65,18 @@ class Utils
 		return Utils::$minecraft_folder;
 	}
 
+	/**
+	 * Returns the path of the .minecraft/launcher_profiles.json.
+	 * @return string
+	 */
 	static function getProfilesFile()
 	{
 		return Utils::getMinecraftFolder()."/launcher_profiles.json";
 	}
 
 	/**
-	 * Returns the contents of the .minecraft/launcher_profiles.json and sets crutial variables if they are not set.
-	 *
+	 * Returns the contents of the .minecraft/launcher_profiles.json with some values being set if they are unset.
+	 * @return array
 	 * @see Utils::getProfilesFile()
 	 * @see Utils::saveProfiles()
 	 */
@@ -98,11 +106,21 @@ class Utils
 		return $profiles;
 	}
 
+	/**
+	 * Saves the profiles array into the .minecraft/launcher_profiles.json.
+	 * @param array $profiles
+	 * @return void
+	 */
 	static function saveProfiles($profiles)
 	{
 		file_put_contents(Utils::getProfilesFile(), json_encode($profiles, JSON_PRETTY_PRINT));
 	}
 
+	/**
+	 * Validates an in-game name.
+	 * @param string $name
+	 * @return boolean True if the name is valid.
+	 */
 	static function validateName($name)
 	{
 		if(strlen($name) < 3 || strlen($name) > 16)
@@ -128,6 +146,11 @@ class Utils
 		return true;
 	}
 
+	/**
+	 * Returns an array of extensions missing to enable online mode.
+	 * Phpcraft has no dependencies for normal usage. However, if you want to enable online mode, GMP and mcrypt are required. This function returns a string array of all extensions that are missing or an empty array if you are good to go.
+	 * @return array
+	 */
 	static function getExtensionsMissingToGoOnline()
 	{
 		$extensions_needed = [];
@@ -150,11 +173,22 @@ class Utils
 		return $extensions_needed;
 	}
 
+	/**
+	 * Generates a random UUID (UUIDv4).
+	 * @return string
+	 */
 	static function generateUUIDv4()
 	{
 		return sprintf("%04x%04x%04x%04x%04x%04x%04x%04x", mt_rand(0, 0xffff), mt_rand(0, 0xffff), mt_rand(0, 0xffff), (mt_rand(0, 0x0fff) | 0x4000), (mt_rand(0, 0x3fff) | 0x8000), mt_rand(0, 0xffff), mt_rand(0, 0xffff), mt_rand(0, 0xffff));
 	}
 
+	/**
+	 * Sends an HTTP POST request with a JSON payload.
+	 * The response will always contain a "status" value which will be the HTTP response code, e.g. 200.
+	 * @param string $url
+	 * @param array $data
+	 * @return array
+	 */
 	static function httpPOST($url, $data)
 	{
 		$options = [
@@ -178,6 +212,11 @@ class Utils
 		return $res;
 	}
 
+	/**
+	 * Resolves the given address.
+	 * @param string $server The server addres, e.g. localhost
+	 * @return string The resolved address, e.g. localhost:25565
+	 */
 	static function resolve($server)
 	{
 		$arr = explode(":", $server);
@@ -188,7 +227,7 @@ class Utils
 		return Utils::resolveName($server, true);
 	}
 
-	static function resolveName($server, $withPort = true)
+	private static function resolveName($server, $withPort = true)
 	{
 		if(ip2long($server) !== false) // No need to resolve IPs.
 		{
@@ -202,6 +241,11 @@ class Utils
 		return $server.($withPort ? ":25565" : "");
 	}
 
+	/**
+	 * Converts an integer into a VarInt binary string.
+	 * @param integer $value
+	 * @return string
+	 */
 	static function intToVarInt($value)
 	{
 		$bytes = "";
@@ -220,16 +264,31 @@ class Utils
 		return $bytes;
 	}
 
+	/**
+	 * Returns whether a given protocol version is supported.
+	 * @param integer $protocol_version
+	 * @return boolean
+	 */
 	static function isProtocolVersionSupported($protocol_version)
 	{
 		return isset(Utils::$protocol_versions[$protocol_version]);
 	}
 
+	/**
+	 * Returns the Minecraft version corresponding to the given protocol version.
+	 * @param integer $protocol_version
+	 * @return string The Minecraft version or null if the protocol version is not supported.
+	 */
 	static function getMinecraftVersionFromProtocolVersion($protocol_version)
 	{
-		return Utils::$protocol_versions[$protocol_version];
+		return (isset(Utils::$protocol_versions[$protocol_version]) ? Utils::$protocol_versions[$protocol_version] : null);
 	}
 
+	/**
+	 * Generates a Minecraft-style SHA1 hash.
+	 * @param string $str
+	 * @return string
+	 */
 	static function sha1($str)
 	{
 		$gmp = gmp_import(sha1($str, true));
@@ -240,7 +299,14 @@ class Utils
 		return gmp_strval($gmp, 16);
 	}
 
-	static function chatToANSIText($chat, $parent = false, $translations = null)
+	/**
+	 * Converts a chat object into text with ANSI escape codes so it will be colorful in the console, as well.
+	 * @param mixed $chat The chat object as an array or a string.
+	 * @param array $translations The translations array so translated messages look proper.
+	 * @param mixed $parent The parent chat object so styling is properly inherited. You don't need to set this.
+	 * @return string
+	 */
+	static function chatToANSIText($chat, $translations = null, $parent = false)
 	{
 		if($translations == null)
 		{
@@ -335,7 +401,7 @@ class Utils
 				$with = [];
 				foreach($chat["with"] as $extra)
 				{
-					array_push($with, Utils::chatToANSIText($extra, $chat, $translations));
+					array_push($with, Utils::chatToANSIText($extra, $translations, $chat));
 				}
 				if(($formatted = @vsprintf($raw, $with)) !== false)
 				{
@@ -356,7 +422,7 @@ class Utils
 		{
 			foreach($chat["extra"] as $extra)
 			{
-				$text .= Utils::chatToANSIText($extra, $chat, $translations);
+				$text .= Utils::chatToANSIText($extra, $translations, $chat);
 			}
 			if(!$child)
 			{
@@ -368,7 +434,7 @@ class Utils
 }
 
 /**
- * A Mojang or Minecraft account
+ * A Mojang or Minecraft account.
  */
 class Account
 {
@@ -377,32 +443,56 @@ class Account
 	private $profileId = null;
 	private $accessToken = null;
 
+	/**
+	 * The constructor.
+	 * @param $name The Mojang account email address or Minecraft account name.
+	 */
 	function __construct($name)
 	{
 		$this->name = $name;
 		$this->username = $name;
 	}
 
+	/**
+	 * Returns the email address of the Mojang account or the in-game name.
+	 * @return string
+	 */
 	function getName()
 	{
 		return $this->name;
 	}
 
+	/**
+	 * Returns the in-game name.
+	 * @return string
+	 */
 	function getUsername()
 	{
 		return $this->username;
 	}
 
+	/**
+	 * Returns whether this account can be used to join servers in online mode.
+	 * @return boolean
+	 */
 	function isOnline()
 	{
 		return $this->profileId != null && $this->accessToken != null;
 	}
 
+	/**
+	 * Returns the selected profile ID or null if offline.
+	 * @return string
+	 */
 	function getProfileId()
 	{
 		return $this->profileId;
 	}
 
+	/**
+	 * Returns the access token for the account or null if offline.
+	 * @param string
+	 */
 	function getAccessToken()
 	{
 		return $this->accessToken;
@@ -410,8 +500,7 @@ class Account
 
 	/**
 	 * Logs in using .minecraft/launcher_profiles.json.
-	 *
-	 * @return boolean Success
+	 * @return boolean True on success.
 	 */
 	function loginUsingProfiles()
 	{
@@ -485,7 +574,8 @@ class Account
 
 	/**
 	 * Logs into Mojang or Minecraft account using password.
-	 * This function will write the obtained access token into the .minecraft/launcher_profiles.json so you can avoid the password prompt using {@see Account::loginUsingProfiles()} in the future.
+	 * This function will write the obtained access token into the .minecraft/launcher_profiles.json so you can avoid the password prompt in the future using {@see Account::loginUsingProfiles()}.
+	 * @param string $password
 	 * @return string Error message. Empty on success.
 	 */
 	function login($password)
@@ -527,10 +617,14 @@ class Account
 }
 
 /**
- * An exception thrown by Phpcraft functions
+ * The class used for exceptions thrown by Phpcraft functions.
  */
 class Exception extends \Exception
 {
+	/**
+	 * The constructor.
+	 * @param string $message The error message.
+	 */
 	function __construct($message)
 	{
 		parent::__construct($message);
@@ -538,79 +632,185 @@ class Exception extends \Exception
 }
 
 /**
- * A wrapper for a stream.
- * The stream can also be null, pass the connection to {@see Packet::send()} and then use {@see Connection::getWriteBuffer()}.
+ * A wrapper to read and write from streams.
+ * The Connection object can also be utilized without a stream:
+ * <pre>$con = new Connection($protocol_version);
+ * $packet = new ChatMessagePacket(["text" => "Hello, world!"]);
+ * $packet->send($con);
+ * echo hex2bin($con->getAndClearWriteBuffer())."\n";</pre>
  */
 class Connection
 {
+	/**
+	 * The stream of the connection of null.
+	 * @var resource
+	 */
 	protected $stream;
+	/**
+	 * The protocol version that is used for this connection.
+	 * @var integer
+	 */
 	protected $protocol_version;
-	protected $compression_threshold = false;
-	protected $write_buffer = "";
-	protected $read_buffer = "";
+	private $compression_threshold = false;
+	private $write_buffer = "";
+	private $read_buffer = "";
 
-	function __construct($stream = null, $protocol_version = -1)
+	/**
+	 * The constructor.
+	 * @param integer $protocol_version
+	 * @param resource $stream
+	 */
+	function __construct($protocol_version = -1, $stream = null)
 	{
 		$this->stream = $stream;
 		$this->protocol_version = $protocol_version;
 	}
 
+	/**
+	 * Returns the protocol version that is used for this connection.
+	 * @return string
+	 */
 	function getProtocolVersion()
 	{
 		return $this->protocol_version;
 	}
 
+	/**
+	 * Returns whether the stream is (still) open.
+	 * @return boolean
+	 */
 	function isOpen()
 	{
-		return !feof($this->stream);
+		return $this->stream != null && !feof($this->stream);
 	}
 
+	/**
+	 * Closes the stream.
+	 * @return void
+	 */
 	function close()
 	{
-		@fclose($this->stream);
+		if($this->stream != null)
+		{
+			@fclose($this->stream);
+		}
 	}
 
-	function writeByte($byte)
+	/**
+	 * Adds a byte to the write buffer.
+	 * @param integer $value
+	 * @return Connection $this
+	 */
+	function writeByte($value)
 	{
-		$this->write_buffer .= pack("c", $byte);
+		$this->write_buffer .= pack("c", $value);
+		return $this;
 	}
+
+	/**
+	 * Adds a boolean to the write buffer.
+	 * @param boolean $value
+	 * @return Connection this
+	 */
 	function writeBoolean($value)
 	{
 		$this->write_buffer .= pack("c", ($value ? 1 : 0));
+		return $this;
 	}
+
+	/**
+	 * Adds a VarInt to the write buffer.
+	 * @param integer $value
+	 * @return Connection $this
+	 */
 	function writeVarInt($value)
 	{
 		$this->write_buffer .= Utils::intToVarInt($value);
+		return $this;
 	}
-	function writeString($string)
+
+	/**
+	 * Adds a string to the write buffer.
+	 * @param string $value
+	 * @return Connection $this
+	 */
+	function writeString($value)
 	{
-		$this->write_buffer .= Utils::intToVarInt(strlen($string)).$string;
+		$this->write_buffer .= Utils::intToVarInt(strlen($value)).$value;
+		return $this;
 	}
-	function writeShort($short)
+
+	/**
+	 * Adds a short to the write buffer.
+	 * @param integer $value
+	 * @return Connection $this
+	 */
+	function writeShort($value)
 	{
-		$this->write_buffer .= pack("n", $short);
+		$this->write_buffer .= pack("n", $value);
+		return $this;
 	}
-	function writeFloat($float)
+
+	/**
+	 * Adds a float to the write buffer.
+	 * @param float $value
+	 * @return Connection $this
+	 */
+	function writeFloat($value)
 	{
-		$this->write_buffer .= pack("G", $float);
+		$this->write_buffer .= pack("G", $value);
+		return $this;
 	}
-	function writeLong($long)
+
+	/**
+	 * Adds a long to the write buffer.
+	 * @param integer $value
+	 * @return Connection $this
+	 */
+	function writeLong($value)
 	{
-		$this->write_buffer .= pack("J", $long);
+		$this->write_buffer .= pack("J", $value);
+		return $this;
 	}
-	function writeDouble($double)
+
+	/**
+	 * Adds a double to the write buffer.
+	 * @param float $value
+	 * @return Connection $this
+	 */
+	function writeDouble($value)
 	{
-		$this->write_buffer .= pack("E", $double);
+		$this->write_buffer .= pack("E", $value);
+		return $this;
 	}
+
+	/**
+	 * Adds a position to the write buffer.
+	 * @param integer $x
+	 * @param integer $y
+	 * @param integer $z
+	 * @return Connection $this
+	 */
 	function writePosition($x, $y, $z)
 	{
 		$this->writeLong((($x & 0x3FFFFFF) << 38) | (($y & 0xFFF) << 26) | ($z & 0x3FFFFFF));
+		return $this;
 	}
+
+	/**
+	 * Clears the write buffer and starts a new packet.
+	 * @param string $name The name of the new packet. For a list of packet names, check the source code of {@see Packet}.
+	 * @return Connection $this
+	 */
 	function startPacket($name)
 	{
 		$this->write_buffer = Utils::intToVarInt(Packet::getId($name, $this->protocol_version));
+		return $this;
 	}
+
 	/**
+	 * Returns the contents of the write buffer.
+	 * @return string
 	 * @see Connection::getAndClearWriteBuffer()
 	 * @see Connection::clearWriteBuffer()
 	 */
@@ -618,49 +818,69 @@ class Connection
 	{
 		return $this->write_buffer;
 	}
+
+	/**
+	 * Returns and clears the contents of the write buffer.
+	 * @return string
+	 * @see Connection::getWriteBuffer()
+	 * @see Connection::clearWriteBuffer()
+	 */
 	function getAndClearWriteBuffer()
 	{
 		$write_buffer = $this->write_buffer;
 		$this->write_buffer = "";
 		return $write_buffer;
 	}
+
+	/**
+	 * Clears the contents of the write buffer.
+	 * @return Connection $this
+	 */
 	function clearWriteBuffer()
 	{
 		$this->write_buffer = "";
 		return $this;
 	}
+
+	/**
+	 * Sends and clears the write buffer over the stream or does nothing if there is no stream.
+	 * @return Connection $this
+	 */
 	function send()
 	{
-		if($this->stream == null)
+		if($this->stream != null)
 		{
-			return $this;
-		}
-		$length = strlen($this->write_buffer);
-		if($this->compression_threshold)
-		{
-			if($length >= $this->compression_threshold)
+			$length = strlen($this->write_buffer);
+			if($this->compression_threshold)
 			{
-				$compressed = gzcompress($this->write_buffer, 1);
-				$compressed_length_varint = Utils::intToVarInt(strlen($compressed));
-				$length += strlen($compressed_length_varint);
-				fwrite($this->stream, Utils::intToVarInt($length).$compressed_length_varint.$compressed);
+				if($length >= $this->compression_threshold)
+				{
+					$compressed = gzcompress($this->write_buffer, 1);
+					$compressed_length_varint = Utils::intToVarInt(strlen($compressed));
+					$length += strlen($compressed_length_varint);
+					fwrite($this->stream, Utils::intToVarInt($length).$compressed_length_varint.$compressed);
+				}
+				else
+				{
+					fwrite($this->stream, Utils::intToVarInt($length + 1)."\x00".$this->write_buffer);
+				}
 			}
 			else
 			{
-				fwrite($this->stream, Utils::intToVarInt($length + 1)."\x00".$this->write_buffer);
+				fwrite($this->stream, Utils::intToVarInt($length).$this->write_buffer);
 			}
+			$this->write_buffer = "";
 		}
-		else
-		{
-			fwrite($this->stream, Utils::intToVarInt($length).$this->write_buffer);
-		}
-		return $this->clearWriteBuffer();
+		return $this;
 	}
 
 	/**
-	 * Reads a new packet into the read buffer and returns its ID
-	 *
-	 * @see Packet::idToName()
+	 * Reads a new packet into the read buffer.
+	 * @param boolean $forcefully When true, this function will wait until a packet is received and buffered. When false, it will not wait. When a packet is on the line, it will be received and buffered, regardless of this parameter.
+	 * @throws \Phpcraft\Exception When the packet length or packet id VarInt is too big.
+	 * @return mixed Boolean false if `$forcefully` is `false` and there is no packet. Otherwise, packet id as an integer.
+	 * @see Packet::clientboundPacketIdToName()
+	 * @see Packet::serverboundPacketIdToName()
 	 */
 	function readPacket($forcefully = true)
 	{
@@ -707,6 +927,12 @@ class Connection
 		}
 		return $this->readVarInt();
 	}
+
+	/**
+	 * Reads an integer encoded as a VarInt from the read buffer.
+	 * @throws \Phpcraft\Exception When there are not enough bytes to read a VarInt or the VarInt is too big.
+	 * @return integer
+	 */
 	function readVarInt()
 	{
 		$value = 0;
@@ -732,6 +958,13 @@ class Connection
 		while(true);
 		return $value;
 	}
+
+	/**
+	 * Reads a string from the read buffer.
+	 * @param integer $maxLength
+	 * @throws \Phpcraft\Exception When there are not enough bytes to read a string or the string exceeds `$maxLength`.
+	 * @return string
+	 */
 	function readString($maxLength = 32767)
 	{
 		$length = $this->readVarInt();
@@ -751,6 +984,13 @@ class Connection
 		$this->read_buffer = substr($this->read_buffer, $length);
 		return $str;
 	}
+
+	/**
+	 * Reads a byte from the read buffer.
+	 * @param boolean $signed
+	 * @throws \Phpcraft\Exception When there are not enough bytes to read a byte.
+	 * @return integer
+	 */
 	function readByte($signed = false)
 	{
 		if(strlen($this->read_buffer) < 1)
@@ -765,6 +1005,12 @@ class Connection
 		}
 		return $byte;
 	}
+
+	/**
+	 * Reads a boolean from the read buffer.
+	 * @throws \Phpcraft\Exception When there are not enough bytes to read a boolean.
+	 * @return boolean
+	 */
 	function readBoolean()
 	{
 		if(strlen($this->read_buffer) < 1)
@@ -775,6 +1021,13 @@ class Connection
 		$this->read_buffer = substr($this->read_buffer, 1);
 		return $byte != 0;
 	}
+
+	/**
+	 * Reads a short from the read buffer.
+	 * @param boolean $signed
+	 * @throws \Phpcraft\Exception When there are not enough bytes to read a short.
+	 * @return integer
+	 */
 	function readShort($signed = true)
 	{
 		if(strlen($this->read_buffer) < 2)
@@ -789,6 +1042,13 @@ class Connection
 		}
 		return $short;
 	}
+
+	/**
+	 * Reads an integer from the read buffer.
+	 * @param boolean $signed
+	 * @throws \Phpcraft\Exception When there are not enough bytes to read an integer.
+	 * @return integer
+	 */
 	function readInt($signed = true)
 	{
 		if(strlen($this->read_buffer) < 4)
@@ -803,6 +1063,13 @@ class Connection
 		}
 		return $int;
 	}
+
+	/**
+	 * Reads a long from the read buffer.
+	 * @param boolean $signed
+	 * @throws \Phpcraft\Exception When there are not enough bytes to read a long.
+	 * @return integer
+	 */
 	function readLong($signed = true)
 	{
 		if(strlen($this->read_buffer) < 8)
@@ -817,6 +1084,11 @@ class Connection
 		}
 		return $long;
 	}
+
+	/**
+	 * Reads a position from the read buffer.
+	 * @return array An array containing x, y, and z of the position.
+	 */
 	function readPosition()
 	{
 		$val = readLong(false);
@@ -825,6 +1097,11 @@ class Connection
 		$z = $val << 38 >> 38;
 		return [$x, $y, $z];
 	}
+
+	/**
+	 * Reads a float from the read buffer.
+	 * @return float
+	 */
 	function readFloat()
 	{
 		if(strlen($this->read_buffer) < 4)
@@ -835,6 +1112,11 @@ class Connection
 		$this->read_buffer = substr($this->read_buffer, 4);
 		return $float;
 	}
+
+	/**
+	 * Reads a double from the read buffer.
+	 * @return float
+	 */
 	function readDouble()
 	{
 		if(strlen($this->read_buffer) < 8)
@@ -845,6 +1127,11 @@ class Connection
 		$this->read_buffer = substr($this->read_buffer, 8);
 		return $double;
 	}
+
+	/**
+	 * Reads a binary string consisting of 16 bytes.
+	 * @return string
+	 */
 	function readUUIDBytes()
 	{
 		if(strlen($this->read_buffer) < 16)
@@ -855,6 +1142,12 @@ class Connection
 		$this->read_buffer = substr($this->read_buffer, 16);
 		return $uuid;
 	}
+
+	/**
+	 * Ignores the given amount of bytes.
+	 * @param integer $bytes
+	 * @return Connection $this
+	 */
 	function ignoreBytes($bytes)
 	{
 		if(strlen($this->read_buffer) < $bytes)
@@ -862,22 +1155,30 @@ class Connection
 			throw new \Phpcraft\Exception("There are less than {$bytes} bytes");
 		}
 		$this->read_buffer = substr($this->read_buffer, $bytes);
+		return $this;
 	}
 }
 
 /**
- * A client to server connection
+ * A client-to-server connection.
  */
 class ServerConnection extends Connection
 {
-	function __construct($server_name, $server_port, $protocol_version, $next_state)
+	/**
+	 * The constructor.
+	 * @param string $server_name
+	 * @param integer $server_port
+	 * @param integer $next_state 1 stands for status and 2 for play.
+	 * @param integer $protocol_version
+	 */
+	function __construct($server_name, $server_port, $next_state, $protocol_version = 401)
 	{
 		if(!($stream = fsockopen($server_name, $server_port, $errno, $errstr, 10)))
 		{
 			throw new \Phpcraft\Exception($errstr);
 		}
 		stream_set_blocking($stream, false);
-		parent::__construct($stream, $protocol_version);
+		parent::__construct($protocol_version, $stream);
 		$this->writeVarInt(0x00);
 		$this->writeVarInt($protocol_version);
 		$this->writeString($server_name);
@@ -888,14 +1189,19 @@ class ServerConnection extends Connection
 }
 
 /**
- * A client to server conection with the intention of getting its status.
- * After this, you should call {@see ServerStatusConnection::getStatus()}.
+ * A client-to-server conection with the intention of getting the server's status.
  */
 class ServerStatusConnection extends ServerConnection
 {
+	/**
+	 * The constructor.
+	 * After this, you should call {@see ServerStatusConnection::getStatus()}.
+	 * @param string $server_name
+	 * @param integer $server_port
+	 */
 	function __construct($server_name, $server_port = 25565)
 	{
-		parent::__construct($server_name, $server_port, -1, 1);
+		parent::__construct($server_name, $server_port, 1);
 	}
 
 	/**
@@ -919,13 +1225,16 @@ class ServerStatusConnection extends ServerConnection
 	 *   "description" => [
 	 *     "text" => "A Minecraft Server"
 	 *   ],
-	 *   "favicon" => "data:image/png;base64,<data>",
-	 *   "ping" => 0.001
+	 *   "favicon" => "data:image/png;base64,&lt;data&gt;",
+	 *   "ping" => 0.068003177642822
 	 * ]</pre>
 	 *
 	 * Note that a server might not present all of these values, so always check with `isset` first.
 	 *
-	 * Also, the `description` is a chat object, so you can pass it to \Phpcraft\Utils::chatToANSIText().
+	 * Also, the `description` is a chat object, so you can pass it to {@see Utils::chatToANSIText()}.
+	 *
+	 * @see Utils::chatToANSIText()
+	 * @return array
 	 */
 	function getStatus()
 	{
@@ -945,23 +1254,40 @@ class ServerStatusConnection extends ServerConnection
 }
 
 /**
- * A client to server connection with the intention of playing on it.
- * After initializing, you should call {@see ServerPlayConnection::login()}, even when joining an offline mode server.
+ * A client-to-server connection with the intention of playing on it.
  */
 class ServerPlayConnection extends ServerConnection
 {
 	private $username;
 	private $uuid;
 
+	/**
+	 * The constructor.
+	 * After this, you should call {@see ServerPlayConnection::login()}, even when joining an offline mode server.
+	 * @param integer $protocol_version
+	 * @param string $server_name
+	 * @param integer $server_port
+	 */
 	function __construct($protocol_version, $server_name, $server_port = 25565)
 	{
-		parent::__construct($server_name, $server_port, $protocol_version, 2);
+		parent::__construct($server_name, $server_port, 2, $protocol_version);
 	}
 
+	/**
+	 * Returns our name on the server.
+	 * The return value will be equal to the return value of {@see Account::getUsername()} of the account passed to {@see ServerPlayConnection::login()}.
+	 * @return string
+	 */
 	function getUsername()
 	{
 		return $this->username;
 	}
+
+	/**
+	 * Returns our unique 16 bytes.
+	 * @see Connection::readUUIDBytes()
+	 * @return string
+	 */
 	function getUUID()
 	{
 		return $this->uuid;
@@ -969,11 +1295,13 @@ class ServerPlayConnection extends ServerConnection
 
 	/**
 	 * Logs in to the server using the given account.
-	 * This should be called even when joining an offline mode server.
-	 *
+	 * This has to be called even when joining an offline mode server.
 	 * @param Account $account
+	 * @param array The translations for {@see Utils::chatToANSIText()}.
+	 * @throws \Phpcraft\Exception When the server responds unexpectedly.
+	 * @return string Error message. Empty on success.
 	 */
-	function login($account)
+	function login($account, $translations = null)
 	{
 		$this->writeVarInt(0x00);
 		$this->writeString($account->getUsername());
@@ -1043,7 +1371,7 @@ class ServerPlayConnection extends ServerConnection
 			}
 			else if($id == 0x00) // Disconnect
 			{
-				return Utils::chatToANSIText(json_decode($this->readString(), true));
+				return Utils::chatToANSIText(json_decode($this->readString(), true), $translations);
 			}
 			else
 			{
@@ -1055,12 +1383,12 @@ class ServerPlayConnection extends ServerConnection
 }
 
 /**
- * A Packet
+ * A Packet.
+ * Look at the source code of this class for a list of packet names.
  */
 abstract class Packet
 {
-	private static $packet_ids = [
-		// Clientbound
+	private static $clientbound_packet_ids = [
 		"spawn_player" => [0x05, 0x05, 0x05, 0x05, 0x05, 0x0C],
 		"chat_message" => [0x0E, 0x0F, 0x0F, 0x0F, 0x0F, 0x02],
 		"disconnect" => [0x1B, 0x1A, 0x1A, 0x1A, 0x1A, 0x40],
@@ -1075,8 +1403,9 @@ abstract class Packet
 		"destroy_entites" => [0x35, 0x32, 0x31, 0x30, 0x30, 0x13],
 		"respawn" => [0x38, 0x35, 0x34, 0x33, 0x33, 0x07],
 		"update_health" => [0x44, 0x41, 0x40, 0x3E, 0x3E, 0x06],
-		"entity_teleport" => [0x50, 0x4C, 0x4B, 0x49, 0x4A, 0x18],
-		// Serverbound
+		"entity_teleport" => [0x50, 0x4C, 0x4B, 0x49, 0x4A, 0x18]
+	];
+	private static $serverbound_packet_ids = [
 		"teleport_confirm" => [0x00, 0x00, 0x00, 0x00, 0x00, -1],
 		"send_chat_message" => [0x02, 0x02, 0x03, 0x02, 0x02, 0x01],
 		"client_status" => [0x03, 0x03, 0x04, 0x03, 0x03, 0x16],
@@ -1093,51 +1422,74 @@ abstract class Packet
 		"player_block_placement" => [0x29, 0x1F, 0x1F, 0x1C, 0x1C, 0x08],
 		"use_item" => [0x2A, 0x20, 0x20, 0x1D, 0x1D, -1],
 	];
+	/**
+	 * The name of the packet.
+	 * @var string
+	 */
 	protected $name;
 
+	/**
+	 * The constructor.
+	 * @param string $name The name of the packet.
+	 */
 	protected function __construct($name)
 	{
 		$this->name = $name;
 	}
 
+	/**
+	 * Returns the name of the packet.
+	 * @return string
+	 */
 	function getName()
 	{
 		return $this->name;
 	}
 
+	/**
+	 * Returns the id of the packet name for the given protocol version.
+	 * @param string $name The name of the packet.
+	 * @param integer $protocol_version
+	 * @return integer -1 if not applicable for protocol version or null if the packet is unknown.
+	 */
 	static function getId($name, $protocol_version)
 	{
 		if($protocol_version >= 393)
 		{
-			return Packet::$packet_ids[$name][0];
+			return isset(Packet::$clientbound_packet_ids[$name][0]) ? Packet::$clientbound_packet_ids[$name][0] : (isset(Packet::$serverbound_packet_ids[$name][0]) ? Packet::$serverbound_packet_ids[$name][0] : null);
 		}
 		else if($protocol_version >= 336)
 		{
-			return Packet::$packet_ids[$name][1];
+			return isset(Packet::$clientbound_packet_ids[$name][1]) ? Packet::$clientbound_packet_ids[$name][1] : (isset(Packet::$serverbound_packet_ids[$name][1]) ? Packet::$serverbound_packet_ids[$name][1] : null);
 		}
 		else if($protocol_version >= 328)
 		{
-			return Packet::$packet_ids[$name][2];
+			return isset(Packet::$clientbound_packet_ids[$name][2]) ? Packet::$clientbound_packet_ids[$name][2] : (isset(Packet::$serverbound_packet_ids[$name][2]) ? Packet::$serverbound_packet_ids[$name][2] : null);
 		}
 		else if($protocol_version >= 314)
 		{
-			return Packet::$packet_ids[$name][3];
+			return isset(Packet::$clientbound_packet_ids[$name][3]) ? Packet::$clientbound_packet_ids[$name][3] : (isset(Packet::$serverbound_packet_ids[$name][3]) ? Packet::$serverbound_packet_ids[$name][3] : null);
 		}
 		else if($protocol_version >= 107)
 		{
-			return Packet::$packet_ids[$name][4];
+			return isset(Packet::$clientbound_packet_ids[$name][4]) ? Packet::$clientbound_packet_ids[$name][4] : (isset(Packet::$serverbound_packet_ids[$name][4]) ? Packet::$serverbound_packet_ids[$name][4] : null);
 		}
-		return Packet::$packet_ids[$name][5];
+		return isset(Packet::$clientbound_packet_ids[$name][5]) ? Packet::$clientbound_packet_ids[$name][5] : (isset(Packet::$serverbound_packet_ids[$name][5]) ? Packet::$serverbound_packet_ids[$name][5] : null);
 	}
 
+	/**
+	 * Returns the id of this packet for the given protocol version.
+	 * @param integer $protocol_version
+	 * @return integer -1 if not applicable for protocol version or null if the packet is unknown.
+	 */
 	function idFor($protocol_version)
 	{
 		return Packet::getId($this->name, $protocol_version);
 	}
 
-	static function idToName($id, $protocol_version)
+	private static function extractPacketNameFromList($list, $id, $protocol_version)
 	{
-		foreach(Packet::$packet_ids as $n => $v)
+		foreach($list as $n => $v)
 		{
 			if($protocol_version >= 393)
 			{
@@ -1183,30 +1535,60 @@ abstract class Packet
 	}
 
 	/**
+	 * Converts a clientbound packet ID to its name as a string or null if unknown.
+	 * @param integer $id
+	 * @param integer $protocol_version
+	 * @return string
+	 */
+	static function clientboundPacketIdToName($id, $protocol_version)
+	{
+		return Packet::extractPacketNameFromList(Packet::$clientbound_packet_ids, $id, $protocol_version);
+	}
+
+	/**
+	 * Converts a serverbound packet ID to its name as a string or null if unknown.
+	 * @param integer $id
+	 * @param integer $protocol_version
+	 * @return string
+	 */
+	static function serverboundPacketIdToName($id, $protocol_version)
+	{
+		return Packet::extractPacketNameFromList(Packet::$serverbound_packet_ids, $id, $protocol_version);
+	}
+
+	/**
 	 * Initializes the packet via the Connection.
 	 * Note that you should already have used {@see Connection::readPacket()} and determined that the packet you are initializing has actually been sent.
-	 *
 	 * @param Connection $con
-	 * @see Packet::idToName()
+	 * @see Packet::clientboundPacketIdToName()
+	 * @see Packet::serverboundPacketIdToName()
 	 */
 	abstract static function read($con);
 
 	/**
 	 * Sends the packet over the given Connection.
-	 * If the connection doesn't have a stream associated with it, have a look at {@see Connection::getWriteBuffer()}.
-	 *
+	 * There is different behaviour if the Connection object was initialized without a stream. See {@see Connection::send()} for details.
 	 * @param Connection $con
 	 */
 	abstract function send($con);
 }
 
 /**
- * The template for the keep alive request and response packets
+ * The template for the keep alive request and response packets.
  */
 abstract class KeepAlivePacket extends Packet
 {
+	/**
+	 * The identifier of the keep alive packet.
+	 * @var integer
+	 */
 	protected $keepAliveId;
 
+	/**
+	 * The constructor.
+	 * @param string $name {@inheritDoc}
+	 * @param integer keepAliveId The identifier of the keep alive packet.
+	 */
 	protected function __construct($name, $keepAliveId)
 	{
 		parent::__construct($name);
@@ -1220,11 +1602,19 @@ abstract class KeepAlivePacket extends Packet
 		}
 	}
 
+	/**
+	 * Returns the identifier of the keep alive packet.
+	 * @return integer
+	 */
 	function getKeepAliveId()
 	{
 		return $this->keepAliveId;
 	}
 
+	/**
+	 * Called by children when {@see Packet::read()} is being called.
+	 * @param Connection $con
+	 */
 	protected function _read($con)
 	{
 		if($con->getProtocolVersion() >= 339)
@@ -1240,6 +1630,7 @@ abstract class KeepAlivePacket extends Packet
 
 	/**
 	 * {@inheritDoc}
+	 * @param Connection $con
 	 */
 	function send($con)
 	{
@@ -1260,6 +1651,10 @@ abstract class KeepAlivePacket extends Packet
  */
 class KeepAliveRequestPacket extends KeepAlivePacket
 {
+	/**
+	 * The constructor.
+	 * @param integer $keepAliveId {@inheritDoc}
+	 */
 	function __construct($keepAliveId = null)
 	{
 		parent::__construct("keep_alive_request", $keepAliveId);
@@ -1267,6 +1662,7 @@ class KeepAliveRequestPacket extends KeepAlivePacket
 
 	/**
 	 * {@inheritDoc}
+	 * @param Connection $con
 	 */
 	static function read($con)
 	{
@@ -1274,18 +1670,24 @@ class KeepAliveRequestPacket extends KeepAlivePacket
 	}
 
 	/**
-	 * @return KeepALiveResponsePacket
+	 * Generates the response packet which the client should send.
+	 * @return KeepAliveResponsePacket
 	 */
 	function getResponse()
 	{
 		return new KeepAliveResponsePacket($this->keepAliveId);
 	}
 }
+
 /**
- * Sent by the client to the server in response to {@see KeepAliveRequestPacket}
+ * Sent by the client to the server in response to {@see KeepAliveRequestPacket}.
  */
 class KeepAliveResponsePacket extends KeepAlivePacket
 {
+	/**
+	 * The constructor.
+	 * @param integer $keepAliveId {@inheritDoc}
+	 */
 	function __construct($keepAliveId = null)
 	{
 		parent::__construct("keep_alive_response", $keepAliveId);
@@ -1293,6 +1695,7 @@ class KeepAliveResponsePacket extends KeepAlivePacket
 
 	/**
 	 * {@inheritDoc}
+	 * @param Connection $con
 	 */
 	static function read($con)
 	{
@@ -1301,31 +1704,46 @@ class KeepAliveResponsePacket extends KeepAlivePacket
 }
 
 /**
- * A packet that contains a chat object
+ * A packet that contains a chat object.
  */
 abstract class ChatPacket extends Packet
 {
 	private $message;
 
+	/**
+	 * The constructor.
+	 * @param string $name {@inheritDoc}
+	 * @param object message The chat object that is being sent.
+	 */
 	protected function __construct($name, $message)
 	{
 		parent::__construct($name);
 		$this->message = $message;
 	}
 
+	/**
+	 * Returns the chat object that is being sent.
+	 * @return string
+	 */
 	function getMessage()
 	{
 		return $this->message;
 	}
 
 	/**
+	 * Returns the message that is being sent as text with ANSI escape codes so it will be colorful in the console, as well.
+	 * @param array The translations for {@see Utils::chatToANSIText()}.
 	 * @see Utils::chatToANSIText()
 	 */
-	function getMessageAsANSIText()
+	function getMessageAsANSIText($translations = null)
 	{
-		return Utils::chatToANSIText($this->message);
+		return Utils::chatToANSIText($this->message, $translations);
 	}
 
+	/**
+	 * Called by children when {@see Packet::read()} is being called.
+	 * @param Connection $con
+	 */
 	protected function _read($con)
 	{
 		$this->message = json_decode($con->readString(), true);
@@ -1334,6 +1752,7 @@ abstract class ChatPacket extends Packet
 
 	/**
 	 * {@inheritDoc}
+	 * @param Connection $con
 	 */
 	function send($con)
 	{
@@ -1342,11 +1761,16 @@ abstract class ChatPacket extends Packet
 		$con->send();
 	}
 }
+
 /**
- * Sent by the server to the client when it's closing the connection with a chat object as reason
+ * Sent by the server to the client when it's closing the connection with a chat object as reason.
  */
 class DisconnectPacket extends ChatPacket
 {
+	/**
+	 * The constructor.
+	 * @param string $message {@inheritDoc}
+	 */
 	function __construct($message = [])
 	{
 		parent::__construct("disconnect", $message);
@@ -1354,22 +1778,25 @@ class DisconnectPacket extends ChatPacket
 
 	/**
 	 * {@inheritDoc}
+	 * @param Connection $con
 	 */
 	static function read($con)
 	{
 		return (new DisconnectPacket())->_read($con);
 	}
 }
+
 /**
- * The packet sent by the server to the client when there's a new message
+ * Sent by the server to the client when there's a new message.
  */
 class ChatMessagePacket extends ChatPacket
 {
 	private $position = 0;
 
 	/**
-	 * @param array $message The message that has been sent; chat object.
-	 * @param byte $position can be 0 for player message, 1 for system message, or 2 for game info (above hotbar).
+	 * The constructor.
+	 * @param array $message {@inheritDoc}
+	 * @param integer $position can be 0 for player message, 1 for system message, or 2 for game info (above hotbar).
 	 */
 	function __construct($message = [], $position = 1)
 	{
@@ -1379,8 +1806,7 @@ class ChatMessagePacket extends ChatPacket
 
 	/**
 	 * Returns the position of the message.
-	 *
-	 * @return The position of the message; 0 for player message, 1 for system message, or 2 for game info (above hotbar).
+	 * @return integer 0 for player message, 1 for system message, or 2 for game info (above hotbar).
 	 */
 	function getPosition()
 	{
@@ -1389,6 +1815,7 @@ class ChatMessagePacket extends ChatPacket
 
 	/**
 	 * {@inheritDoc}
+	 * @param Connection $con
 	 */
 	static function read($con)
 	{
@@ -1397,6 +1824,7 @@ class ChatMessagePacket extends ChatPacket
 
 	/**
 	 * {@inheritDoc}
+	 * @param Connection $con
 	 */
 	function send($con)
 	{
@@ -1408,13 +1836,14 @@ class ChatMessagePacket extends ChatPacket
 }
 
 /**
- * The packet sent by the client to the server when it wants to send a message or execute a command
+ * Sent by the client to the server when it wants to send a message or execute a command.
  */
 class SendChatMessagePacket extends Packet
 {
 	private $message;
 
 	/**
+	 * The constructor.
 	 * @param string $message The message you want to send; not a chat object.
 	 */
 	function __construct($message)
@@ -1425,6 +1854,7 @@ class SendChatMessagePacket extends Packet
 
 	/**
 	 * {@inheritDoc}
+	 * @param Connection $con
 	 */
 	static function read($con)
 	{
@@ -1433,6 +1863,7 @@ class SendChatMessagePacket extends Packet
 
 	/**
 	 * {@inheritDoc}
+	 * @param Connection $con
 	 */
 	function send($con)
 	{

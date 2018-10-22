@@ -114,7 +114,7 @@
                         <ul class="dropdown-menu">
                             <li>
                                 <a href="../reports/errors.html">
-                                                                                                                                                                                        <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">152</span>
+                                                                                                                                                                                        <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">0</span>
                                 </a>
                             </li>
                             <li>
@@ -144,19 +144,19 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-937053621"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-141807442"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-937053621" class="accordion-body collapse in">
+            <div id="namespace-141807442" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1896257781"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-651217615"></a>
                                 <a href="../namespaces/Phpcraft.html" style="margin-left: 30px; padding-left: 0">Phpcraft</a>
             </div>
-            <div id="namespace-1896257781" class="accordion-body collapse ">
+            <div id="namespace-651217615" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -202,7 +202,7 @@
                     <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
 
                     <h1><small>\Phpcraft</small>Account</h1>
-                    <p><em>A Mojang or Minecraft account</em></p>
+                    <p><em>A Mojang or Minecraft account.</em></p>
                     
                     
                                         
@@ -301,7 +301,7 @@
                 <h3 class="public ">__construct()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
                 <pre class="signature" style="margin-right: 54px;">__construct(  <span class="argument">$name</span>) </pre>
-                <p><em></em></p>
+                <p><em>The constructor.</em></p>
                 
 
                                     <h4>Parameters</h4>
@@ -309,7 +309,7 @@
                                                     <tr>
                                 <td></td>
                                 <td>$name </td>
-                                <td></td>
+                                <td><p>The Mojang account email address or Minecraft account name.</p></td>
                             </tr>
                                             </table>
                 
@@ -334,13 +334,15 @@
             <article class="method">
                 <h3 class="public ">getName()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">getName() </pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">getName() : string</pre>
+                <p><em>Returns the email address of the Mojang account or the in-game name.</em></p>
                 
 
                 
                 
-                				
+                                    <h4>Returns</h4>
+                    string
+                                    				
                             </article>
         </div>
         <aside class="span4 detailsbar">
@@ -360,13 +362,15 @@
             <article class="method">
                 <h3 class="public ">getUsername()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">getUsername() </pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">getUsername() : string</pre>
+                <p><em>Returns the in-game name.</em></p>
                 
 
                 
                 
-                				
+                                    <h4>Returns</h4>
+                    string
+                                    				
                             </article>
         </div>
         <aside class="span4 detailsbar">
@@ -386,13 +390,15 @@
             <article class="method">
                 <h3 class="public ">isOnline()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">isOnline() </pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">isOnline() : boolean</pre>
+                <p><em>Returns whether this account can be used to join servers in online mode.</em></p>
                 
 
                 
                 
-                				
+                                    <h4>Returns</h4>
+                    boolean
+                                    				
                             </article>
         </div>
         <aside class="span4 detailsbar">
@@ -412,13 +418,15 @@
             <article class="method">
                 <h3 class="public ">getProfileId()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">getProfileId() </pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">getProfileId() : string</pre>
+                <p><em>Returns the selected profile ID or null if offline.</em></p>
                 
 
                 
                 
-                				
+                                    <h4>Returns</h4>
+                    string
+                                    				
                             </article>
         </div>
         <aside class="span4 detailsbar">
@@ -439,7 +447,7 @@
                 <h3 class="public ">getAccessToken()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
                 <pre class="signature" style="margin-right: 54px;">getAccessToken() </pre>
-                <p><em></em></p>
+                <p><em>Returns the access token for the account or null if offline.</em></p>
                 
 
                 
@@ -472,7 +480,7 @@
                 
                                     <h4>Returns</h4>
                     boolean
-                                            &mdash; <p>Success</p>
+                                            &mdash; <p>True on success.</p>
                                     				
                             </article>
         </div>
@@ -493,14 +501,14 @@
             <article class="method">
                 <h3 class="public ">login()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">login(  <span class="argument">$password</span>) : string</pre>
+                <pre class="signature" style="margin-right: 54px;">login(string  <span class="argument">$password</span>) : string</pre>
                 <p><em>Logs into Mojang or Minecraft account using password.</em></p>
-                <p>This function will write the obtained access token into the .minecraft/launcher_profiles.json so you can avoid the password prompt using \Account::loginUsingProfiles() in the future.</p>
+                <p>This function will write the obtained access token into the .minecraft/launcher_profiles.json so you can avoid the password prompt in the future using \Account::loginUsingProfiles().</p>
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td></td>
+                                <td>string</td>
                                 <td>$password </td>
                                 <td></td>
                             </tr>
@@ -574,7 +582,7 @@
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on October 22nd, 2018 at 06:25.
+                    on October 22nd, 2018 at 11:19.
                 </section>
             </section>
         </section>

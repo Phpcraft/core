@@ -42,7 +42,7 @@ if(isset($info["version"]) && isset($info["version"]["protocol"]))
 	{
 		if(isset($info["version"]["name"]))
 		{
-			echo "This server is running incompatible ".$info["version"]["name"]."\n";
+			echo "This server is running an incompatible ".$info["version"]["name"]." server.\n";
 		}
 		else
 		{
@@ -65,3 +65,4 @@ if(isset($info["players"]))
 	}
 	echo "There are ".(isset($info["players"]["online"])?$info["players"]["online"]:"???")."/".(isset($info["players"]["max"])?$info["players"]["max"]:"???")." players online".(($sample=="")?".\n":":\n".$sample);
 }
+echo "The status has been received ".$info["ping"]." seconds after requesting it.\n";

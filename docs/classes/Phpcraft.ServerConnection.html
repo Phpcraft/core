@@ -114,7 +114,7 @@
                         <ul class="dropdown-menu">
                             <li>
                                 <a href="../reports/errors.html">
-                                                                                                                                                                                        <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">152</span>
+                                                                                                                                                                                        <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">0</span>
                                 </a>
                             </li>
                             <li>
@@ -144,19 +144,19 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1661956169"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1386956415"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-1661956169" class="accordion-body collapse in">
+            <div id="namespace-1386956415" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1892741237"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1710967339"></a>
                                 <a href="../namespaces/Phpcraft.html" style="margin-left: 30px; padding-left: 0">Phpcraft</a>
             </div>
-            <div id="namespace-1892741237" class="accordion-body collapse ">
+            <div id="namespace-1710967339" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -202,8 +202,12 @@
                     <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
 
                     <h1><small>\Phpcraft</small>ServerConnection</h1>
-                    <p><em>A client to server connection</em></p>
-                    <p>The stream can also be null, pass the connection to <a href="../classes/Phpcraft.Packet.html#method_send">\Phpcraft\Packet::send()</a> and then use <a href="../classes/Phpcraft.Connection.html#method_getWriteBuffer">\Phpcraft\Connection::getWriteBuffer()</a>.</p>
+                    <p><em>A client-to-server connection.</em></p>
+                    <p>The Connection object can also be utilized without a stream:</p>
+<pre>$con = new Connection($protocol_version);
+$packet = new ChatMessagePacket(["text" => "Hello, world!"]);
+$packet->send($con);
+echo hex2bin($con->getAndClearWriteBuffer())."\n";</pre>
                     
                                         
                     <section id="summary">
@@ -267,9 +271,6 @@
                             <section class="span4">
                                                                     <a href="../classes/Phpcraft.Connection.html#property_stream" class="">$stream</a><br />
                                                                     <a href="../classes/Phpcraft.Connection.html#property_protocol_version" class="">$protocol_version</a><br />
-                                                                    <a href="../classes/Phpcraft.Connection.html#property_compression_threshold" class="">$compression_threshold</a><br />
-                                                                    <a href="../classes/Phpcraft.Connection.html#property_write_buffer" class="">$write_buffer</a><br />
-                                                                    <a href="../classes/Phpcraft.Connection.html#property_read_buffer" class="">$read_buffer</a><br />
                                                             </section>
                             <section class="span4">
                                 <em>N/A</em>
@@ -329,12 +330,12 @@
             <a id="property_stream" name="property_stream" class="anchor"></a>
             <article class="property">
                 <h3 class="protected ">$stream</h3>
-                <pre class="signature">$stream : </pre>
-                <p><em></em></p>
+                <pre class="signature">$stream : resource</pre>
+                <p><em>The stream of the connection of null.</em></p>
                 
 
                                 <h4>Type</h4>
-                
+                resource
                                             </article>
         </div>
         <aside class="span4 detailsbar">
@@ -355,90 +356,12 @@
             <a id="property_protocol_version" name="property_protocol_version" class="anchor"></a>
             <article class="property">
                 <h3 class="protected ">$protocol_version</h3>
-                <pre class="signature">$protocol_version : </pre>
-                <p><em></em></p>
+                <pre class="signature">$protocol_version : integer</pre>
+                <p><em>The protocol version that is used for this connection.</em></p>
                 
 
                                 <h4>Type</h4>
-                
-                                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                        <dl>
-                                    <dt>Inherited from</dt>
-                    <dd><a href="../classes/Phpcraft.Connection.html"><div class="path-wrapper">\Phpcraft\Connection</div></a></dd>
-                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="property_compression_threshold" name="property_compression_threshold" class="anchor"></a>
-            <article class="property">
-                <h3 class="protected ">$compression_threshold</h3>
-                <pre class="signature">$compression_threshold : </pre>
-                <p><em></em></p>
-                
-
-                                <h4>Type</h4>
-                
-                                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                        <dl>
-                                    <dt>Inherited from</dt>
-                    <dd><a href="../classes/Phpcraft.Connection.html"><div class="path-wrapper">\Phpcraft\Connection</div></a></dd>
-                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="property_write_buffer" name="property_write_buffer" class="anchor"></a>
-            <article class="property">
-                <h3 class="protected ">$write_buffer</h3>
-                <pre class="signature">$write_buffer : </pre>
-                <p><em></em></p>
-                
-
-                                <h4>Type</h4>
-                
-                                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                        <dl>
-                                    <dt>Inherited from</dt>
-                    <dd><a href="../classes/Phpcraft.Connection.html"><div class="path-wrapper">\Phpcraft\Connection</div></a></dd>
-                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="property_read_buffer" name="property_read_buffer" class="anchor"></a>
-            <article class="property">
-                <h3 class="protected ">$read_buffer</h3>
-                <pre class="signature">$read_buffer : </pre>
-                <p><em></em></p>
-                
-
-                                <h4>Type</h4>
-                
+                integer
                                             </article>
         </div>
         <aside class="span4 detailsbar">
@@ -467,30 +390,30 @@
             <article class="method">
                 <h3 class="public ">__construct()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">__construct(  <span class="argument">$server_name</span>,   <span class="argument">$server_port</span>,   <span class="argument">$protocol_version</span>,   <span class="argument">$next_state</span>) </pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">__construct(string  <span class="argument">$server_name</span>, integer  <span class="argument">$server_port</span>, integer  <span class="argument">$next_state</span>, integer  <span class="argument">$protocol_version = 401</span>) </pre>
+                <p><em>The constructor.</em></p>
                 
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td></td>
+                                <td>string</td>
                                 <td>$server_name </td>
                                 <td></td>
                             </tr>
                                                     <tr>
-                                <td></td>
+                                <td>integer</td>
                                 <td>$server_port </td>
                                 <td></td>
                             </tr>
                                                     <tr>
-                                <td></td>
-                                <td>$protocol_version </td>
-                                <td></td>
+                                <td>integer</td>
+                                <td>$next_state </td>
+                                <td><p>1 stands for status and 2 for play.</p></td>
                             </tr>
                                                     <tr>
-                                <td></td>
-                                <td>$next_state </td>
+                                <td>integer</td>
+                                <td>$protocol_version </td>
                                 <td></td>
                             </tr>
                                             </table>
@@ -516,13 +439,15 @@
             <article class="method">
                 <h3 class="public ">getProtocolVersion()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">getProtocolVersion() </pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">getProtocolVersion() : string</pre>
+                <p><em>Returns the protocol version that is used for this connection.</em></p>
                 
 
                 
                 
-                				
+                                    <h4>Returns</h4>
+                    string
+                                    				
                             </article>
         </div>
         <aside class="span4 detailsbar">
@@ -544,13 +469,15 @@
             <article class="method">
                 <h3 class="public ">isOpen()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">isOpen() </pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">isOpen() : boolean</pre>
+                <p><em>Returns whether the stream is (still) open.</em></p>
                 
 
                 
                 
-                				
+                                    <h4>Returns</h4>
+                    boolean
+                                    				
                             </article>
         </div>
         <aside class="span4 detailsbar">
@@ -572,8 +499,8 @@
             <article class="method">
                 <h3 class="public ">close()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">close() </pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">close() : void</pre>
+                <p><em>Closes the stream.</em></p>
                 
 
                 
@@ -600,21 +527,24 @@
             <article class="method">
                 <h3 class="public ">writeByte()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">writeByte(  <span class="argument">$byte</span>) </pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">writeByte(integer  <span class="argument">$value</span>) : \Phpcraft\Connection</pre>
+                <p><em>Adds a byte to the write buffer.</em></p>
                 
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td></td>
-                                <td>$byte </td>
+                                <td>integer</td>
+                                <td>$value </td>
                                 <td></td>
                             </tr>
                                             </table>
                 
                 
-                				
+                                    <h4>Returns</h4>
+                    <a href="../classes/Phpcraft.Connection.html">\Phpcraft\Connection</a>
+                                            &mdash; <p>$this</p>
+                                    				
                             </article>
         </div>
         <aside class="span4 detailsbar">
@@ -636,21 +566,24 @@
             <article class="method">
                 <h3 class="public ">writeBoolean()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">writeBoolean(  <span class="argument">$value</span>) </pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">writeBoolean(boolean  <span class="argument">$value</span>) : \Phpcraft\Connection</pre>
+                <p><em>Adds a boolean to the write buffer.</em></p>
                 
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td></td>
+                                <td>boolean</td>
                                 <td>$value </td>
                                 <td></td>
                             </tr>
                                             </table>
                 
                 
-                				
+                                    <h4>Returns</h4>
+                    <a href="../classes/Phpcraft.Connection.html">\Phpcraft\Connection</a>
+                                            &mdash; <p>this</p>
+                                    				
                             </article>
         </div>
         <aside class="span4 detailsbar">
@@ -672,21 +605,24 @@
             <article class="method">
                 <h3 class="public ">writeVarInt()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">writeVarInt(  <span class="argument">$value</span>) </pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">writeVarInt(integer  <span class="argument">$value</span>) : \Phpcraft\Connection</pre>
+                <p><em>Adds a VarInt to the write buffer.</em></p>
                 
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td></td>
+                                <td>integer</td>
                                 <td>$value </td>
                                 <td></td>
                             </tr>
                                             </table>
                 
                 
-                				
+                                    <h4>Returns</h4>
+                    <a href="../classes/Phpcraft.Connection.html">\Phpcraft\Connection</a>
+                                            &mdash; <p>$this</p>
+                                    				
                             </article>
         </div>
         <aside class="span4 detailsbar">
@@ -708,21 +644,24 @@
             <article class="method">
                 <h3 class="public ">writeString()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">writeString(  <span class="argument">$string</span>) </pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">writeString(string  <span class="argument">$value</span>) : \Phpcraft\Connection</pre>
+                <p><em>Adds a string to the write buffer.</em></p>
                 
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td></td>
-                                <td>$string </td>
+                                <td>string</td>
+                                <td>$value </td>
                                 <td></td>
                             </tr>
                                             </table>
                 
                 
-                				
+                                    <h4>Returns</h4>
+                    <a href="../classes/Phpcraft.Connection.html">\Phpcraft\Connection</a>
+                                            &mdash; <p>$this</p>
+                                    				
                             </article>
         </div>
         <aside class="span4 detailsbar">
@@ -744,21 +683,24 @@
             <article class="method">
                 <h3 class="public ">writeShort()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">writeShort(  <span class="argument">$short</span>) </pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">writeShort(integer  <span class="argument">$value</span>) : \Phpcraft\Connection</pre>
+                <p><em>Adds a short to the write buffer.</em></p>
                 
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td></td>
-                                <td>$short </td>
+                                <td>integer</td>
+                                <td>$value </td>
                                 <td></td>
                             </tr>
                                             </table>
                 
                 
-                				
+                                    <h4>Returns</h4>
+                    <a href="../classes/Phpcraft.Connection.html">\Phpcraft\Connection</a>
+                                            &mdash; <p>$this</p>
+                                    				
                             </article>
         </div>
         <aside class="span4 detailsbar">
@@ -780,21 +722,24 @@
             <article class="method">
                 <h3 class="public ">writeFloat()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">writeFloat(  <span class="argument">$float</span>) </pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">writeFloat(float  <span class="argument">$value</span>) : \Phpcraft\Connection</pre>
+                <p><em>Adds a float to the write buffer.</em></p>
                 
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td></td>
-                                <td>$float </td>
+                                <td>float</td>
+                                <td>$value </td>
                                 <td></td>
                             </tr>
                                             </table>
                 
                 
-                				
+                                    <h4>Returns</h4>
+                    <a href="../classes/Phpcraft.Connection.html">\Phpcraft\Connection</a>
+                                            &mdash; <p>$this</p>
+                                    				
                             </article>
         </div>
         <aside class="span4 detailsbar">
@@ -816,21 +761,24 @@
             <article class="method">
                 <h3 class="public ">writeLong()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">writeLong(  <span class="argument">$long</span>) </pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">writeLong(integer  <span class="argument">$value</span>) : \Phpcraft\Connection</pre>
+                <p><em>Adds a long to the write buffer.</em></p>
                 
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td></td>
-                                <td>$long </td>
+                                <td>integer</td>
+                                <td>$value </td>
                                 <td></td>
                             </tr>
                                             </table>
                 
                 
-                				
+                                    <h4>Returns</h4>
+                    <a href="../classes/Phpcraft.Connection.html">\Phpcraft\Connection</a>
+                                            &mdash; <p>$this</p>
+                                    				
                             </article>
         </div>
         <aside class="span4 detailsbar">
@@ -852,21 +800,24 @@
             <article class="method">
                 <h3 class="public ">writeDouble()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">writeDouble(  <span class="argument">$double</span>) </pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">writeDouble(float  <span class="argument">$value</span>) : \Phpcraft\Connection</pre>
+                <p><em>Adds a double to the write buffer.</em></p>
                 
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td></td>
-                                <td>$double </td>
+                                <td>float</td>
+                                <td>$value </td>
                                 <td></td>
                             </tr>
                                             </table>
                 
                 
-                				
+                                    <h4>Returns</h4>
+                    <a href="../classes/Phpcraft.Connection.html">\Phpcraft\Connection</a>
+                                            &mdash; <p>$this</p>
+                                    				
                             </article>
         </div>
         <aside class="span4 detailsbar">
@@ -888,31 +839,34 @@
             <article class="method">
                 <h3 class="public ">writePosition()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">writePosition(  <span class="argument">$x</span>,   <span class="argument">$y</span>,   <span class="argument">$z</span>) </pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">writePosition(integer  <span class="argument">$x</span>, integer  <span class="argument">$y</span>, integer  <span class="argument">$z</span>) : \Phpcraft\Connection</pre>
+                <p><em>Adds a position to the write buffer.</em></p>
                 
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td></td>
+                                <td>integer</td>
                                 <td>$x </td>
                                 <td></td>
                             </tr>
                                                     <tr>
-                                <td></td>
+                                <td>integer</td>
                                 <td>$y </td>
                                 <td></td>
                             </tr>
                                                     <tr>
-                                <td></td>
+                                <td>integer</td>
                                 <td>$z </td>
                                 <td></td>
                             </tr>
                                             </table>
                 
                 
-                				
+                                    <h4>Returns</h4>
+                    <a href="../classes/Phpcraft.Connection.html">\Phpcraft\Connection</a>
+                                            &mdash; <p>$this</p>
+                                    				
                             </article>
         </div>
         <aside class="span4 detailsbar">
@@ -934,21 +888,24 @@
             <article class="method">
                 <h3 class="public ">startPacket()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">startPacket(  <span class="argument">$name</span>) </pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">startPacket(string  <span class="argument">$name</span>) : \Phpcraft\Connection</pre>
+                <p><em>Clears the write buffer and starts a new packet.</em></p>
                 
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td></td>
+                                <td>string</td>
                                 <td>$name </td>
-                                <td></td>
+                                <td><p>The name of the new packet. For a list of packet names, check the source code of {@see Packet}.</p></td>
                             </tr>
                                             </table>
                 
                 
-                				
+                                    <h4>Returns</h4>
+                    <a href="../classes/Phpcraft.Connection.html">\Phpcraft\Connection</a>
+                                            &mdash; <p>$this</p>
+                                    				
                             </article>
         </div>
         <aside class="span4 detailsbar">
@@ -970,13 +927,15 @@
             <article class="method">
                 <h3 class="public ">getWriteBuffer()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">getWriteBuffer() </pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">getWriteBuffer() : string</pre>
+                <p><em>Returns the contents of the write buffer.</em></p>
                 
 
                 
                 
-                				
+                                    <h4>Returns</h4>
+                    string
+                                    				
                             </article>
         </div>
         <aside class="span4 detailsbar">
@@ -1001,13 +960,15 @@
             <article class="method">
                 <h3 class="public ">getAndClearWriteBuffer()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">getAndClearWriteBuffer() </pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">getAndClearWriteBuffer() : string</pre>
+                <p><em>Returns and clears the contents of the write buffer.</em></p>
                 
 
                 
                 
-                				
+                                    <h4>Returns</h4>
+                    string
+                                    				
                             </article>
         </div>
         <aside class="span4 detailsbar">
@@ -1015,7 +976,10 @@
                                                             <dl>
                                                     <dt>Inherited from</dt>
                     <dd><a href="../classes/Phpcraft.Connection.html"><div class="path-wrapper">\Phpcraft\Connection</div></a></dd>
-                                                            </dl>
+                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Phpcraft.Connection.html#method_getWriteBuffer"><span class="namespace-wrapper">\Phpcraft\Connection::getWriteBuffer()</span></a></dd>
+                                            <dd><a href="../classes/Phpcraft.Connection.html#method_clearWriteBuffer"><span class="namespace-wrapper">\Phpcraft\Connection::clearWriteBuffer()</span></a></dd>
+                                                                </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
                                     <tr><td colspan="2"><em>None found</em></td></tr>
@@ -1029,13 +993,16 @@
             <article class="method">
                 <h3 class="public ">clearWriteBuffer()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">clearWriteBuffer() </pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">clearWriteBuffer() : \Phpcraft\Connection</pre>
+                <p><em>Clears the contents of the write buffer.</em></p>
                 
 
                 
                 
-                				
+                                    <h4>Returns</h4>
+                    <a href="../classes/Phpcraft.Connection.html">\Phpcraft\Connection</a>
+                                            &mdash; <p>$this</p>
+                                    				
                             </article>
         </div>
         <aside class="span4 detailsbar">
@@ -1057,13 +1024,16 @@
             <article class="method">
                 <h3 class="public ">send()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">send() </pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">send() : \Phpcraft\Connection</pre>
+                <p><em>Sends and clears the write buffer over the stream or does nothing if there is no stream.</em></p>
                 
 
                 
                 
-                				
+                                    <h4>Returns</h4>
+                    <a href="../classes/Phpcraft.Connection.html">\Phpcraft\Connection</a>
+                                            &mdash; <p>$this</p>
+                                    				
                             </article>
         </div>
         <aside class="span4 detailsbar">
@@ -1085,21 +1055,29 @@
             <article class="method">
                 <h3 class="public ">readPacket()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">readPacket(  <span class="argument">$forcefully = true</span>) </pre>
-                <p><em>Reads a new packet into the read buffer and returns its ID</em></p>
+                <pre class="signature" style="margin-right: 54px;">readPacket(boolean  <span class="argument">$forcefully = true</span>) : mixed</pre>
+                <p><em>Reads a new packet into the read buffer.</em></p>
                 
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td></td>
+                                <td>boolean</td>
                                 <td>$forcefully </td>
-                                <td></td>
+                                <td><p>When true, this function will wait until a packet is received and buffered. When false, it will not wait. When a packet is on the line, it will be received and buffered, regardless of this parameter.</p></td>
                             </tr>
                                             </table>
                 
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\Phpcraft\Exception</dt>
+                            <dd><p>When the packet length or packet id VarInt is too big.</p></dd>
+                                                                    </dl>
                 
-                				
+                                    <h4>Returns</h4>
+                    mixed
+                                            &mdash; <p>Boolean false if <code>$forcefully</code> is <code>false</code> and there is no packet. Otherwise, packet id as an integer.</p>
+                                    				
                             </article>
         </div>
         <aside class="span4 detailsbar">
@@ -1108,7 +1086,8 @@
                                                     <dt>Inherited from</dt>
                     <dd><a href="../classes/Phpcraft.Connection.html"><div class="path-wrapper">\Phpcraft\Connection</div></a></dd>
                                                                             <dt>See also</dt>
-                                                                <dd><a href="../classes/Phpcraft.Packet.html#method_idToName"><span class="namespace-wrapper">\Phpcraft\Packet::idToName()</span></a></dd>
+                                                                <dd><a href="../classes/Phpcraft.Packet.html#method_clientboundPacketIdToName"><span class="namespace-wrapper">\Phpcraft\Packet::clientboundPacketIdToName()</span></a></dd>
+                                            <dd><a href="../classes/Phpcraft.Packet.html#method_serverboundPacketIdToName"><span class="namespace-wrapper">\Phpcraft\Packet::serverboundPacketIdToName()</span></a></dd>
                                                                 </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
@@ -1123,13 +1102,20 @@
             <article class="method">
                 <h3 class="public ">readVarInt()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">readVarInt() </pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">readVarInt() : integer</pre>
+                <p><em>Reads an integer encoded as a VarInt from the read buffer.</em></p>
                 
 
                 
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\Phpcraft\Exception</dt>
+                            <dd><p>When there are not enough bytes to read a VarInt or the VarInt is too big.</p></dd>
+                                                                    </dl>
                 
-                				
+                                    <h4>Returns</h4>
+                    integer
+                                    				
                             </article>
         </div>
         <aside class="span4 detailsbar">
@@ -1151,21 +1137,28 @@
             <article class="method">
                 <h3 class="public ">readString()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">readString(  <span class="argument">$maxLength = 32767</span>) </pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">readString(integer  <span class="argument">$maxLength = 32767</span>) : string</pre>
+                <p><em>Reads a string from the read buffer.</em></p>
                 
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td></td>
+                                <td>integer</td>
                                 <td>$maxLength </td>
                                 <td></td>
                             </tr>
                                             </table>
                 
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\Phpcraft\Exception</dt>
+                            <dd><p>When there are not enough bytes to read a string or the string exceeds <code>$maxLength</code>.</p></dd>
+                                                                    </dl>
                 
-                				
+                                    <h4>Returns</h4>
+                    string
+                                    				
                             </article>
         </div>
         <aside class="span4 detailsbar">
@@ -1187,21 +1180,28 @@
             <article class="method">
                 <h3 class="public ">readByte()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">readByte(  <span class="argument">$signed = false</span>) </pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">readByte(boolean  <span class="argument">$signed = false</span>) : integer</pre>
+                <p><em>Reads a byte from the read buffer.</em></p>
                 
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td></td>
+                                <td>boolean</td>
                                 <td>$signed </td>
                                 <td></td>
                             </tr>
                                             </table>
                 
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\Phpcraft\Exception</dt>
+                            <dd><p>When there are not enough bytes to read a byte.</p></dd>
+                                                                    </dl>
                 
-                				
+                                    <h4>Returns</h4>
+                    integer
+                                    				
                             </article>
         </div>
         <aside class="span4 detailsbar">
@@ -1223,13 +1223,20 @@
             <article class="method">
                 <h3 class="public ">readBoolean()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">readBoolean() </pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">readBoolean() : boolean</pre>
+                <p><em>Reads a boolean from the read buffer.</em></p>
                 
 
                 
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\Phpcraft\Exception</dt>
+                            <dd><p>When there are not enough bytes to read a boolean.</p></dd>
+                                                                    </dl>
                 
-                				
+                                    <h4>Returns</h4>
+                    boolean
+                                    				
                             </article>
         </div>
         <aside class="span4 detailsbar">
@@ -1251,21 +1258,28 @@
             <article class="method">
                 <h3 class="public ">readShort()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">readShort(  <span class="argument">$signed = true</span>) </pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">readShort(boolean  <span class="argument">$signed = true</span>) : integer</pre>
+                <p><em>Reads a short from the read buffer.</em></p>
                 
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td></td>
+                                <td>boolean</td>
                                 <td>$signed </td>
                                 <td></td>
                             </tr>
                                             </table>
                 
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\Phpcraft\Exception</dt>
+                            <dd><p>When there are not enough bytes to read a short.</p></dd>
+                                                                    </dl>
                 
-                				
+                                    <h4>Returns</h4>
+                    integer
+                                    				
                             </article>
         </div>
         <aside class="span4 detailsbar">
@@ -1287,21 +1301,28 @@
             <article class="method">
                 <h3 class="public ">readInt()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">readInt(  <span class="argument">$signed = true</span>) </pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">readInt(boolean  <span class="argument">$signed = true</span>) : integer</pre>
+                <p><em>Reads an integer from the read buffer.</em></p>
                 
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td></td>
+                                <td>boolean</td>
                                 <td>$signed </td>
                                 <td></td>
                             </tr>
                                             </table>
                 
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\Phpcraft\Exception</dt>
+                            <dd><p>When there are not enough bytes to read an integer.</p></dd>
+                                                                    </dl>
                 
-                				
+                                    <h4>Returns</h4>
+                    integer
+                                    				
                             </article>
         </div>
         <aside class="span4 detailsbar">
@@ -1323,21 +1344,28 @@
             <article class="method">
                 <h3 class="public ">readLong()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">readLong(  <span class="argument">$signed = true</span>) </pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">readLong(boolean  <span class="argument">$signed = true</span>) : integer</pre>
+                <p><em>Reads a long from the read buffer.</em></p>
                 
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td></td>
+                                <td>boolean</td>
                                 <td>$signed </td>
                                 <td></td>
                             </tr>
                                             </table>
                 
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\Phpcraft\Exception</dt>
+                            <dd><p>When there are not enough bytes to read a long.</p></dd>
+                                                                    </dl>
                 
-                				
+                                    <h4>Returns</h4>
+                    integer
+                                    				
                             </article>
         </div>
         <aside class="span4 detailsbar">
@@ -1359,13 +1387,16 @@
             <article class="method">
                 <h3 class="public ">readPosition()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">readPosition() </pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">readPosition() : array</pre>
+                <p><em>Reads a position from the read buffer.</em></p>
                 
 
                 
                 
-                				
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>An array containing x, y, and z of the position.</p>
+                                    				
                             </article>
         </div>
         <aside class="span4 detailsbar">
@@ -1387,13 +1418,15 @@
             <article class="method">
                 <h3 class="public ">readFloat()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">readFloat() </pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">readFloat() : float</pre>
+                <p><em>Reads a float from the read buffer.</em></p>
                 
 
                 
                 
-                				
+                                    <h4>Returns</h4>
+                    float
+                                    				
                             </article>
         </div>
         <aside class="span4 detailsbar">
@@ -1415,13 +1448,15 @@
             <article class="method">
                 <h3 class="public ">readDouble()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">readDouble() </pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">readDouble() : float</pre>
+                <p><em>Reads a double from the read buffer.</em></p>
                 
 
                 
                 
-                				
+                                    <h4>Returns</h4>
+                    float
+                                    				
                             </article>
         </div>
         <aside class="span4 detailsbar">
@@ -1443,13 +1478,15 @@
             <article class="method">
                 <h3 class="public ">readUUIDBytes()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">readUUIDBytes() </pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">readUUIDBytes() : string</pre>
+                <p><em>Reads a binary string consisting of 16 bytes.</em></p>
                 
 
                 
                 
-                				
+                                    <h4>Returns</h4>
+                    string
+                                    				
                             </article>
         </div>
         <aside class="span4 detailsbar">
@@ -1471,21 +1508,24 @@
             <article class="method">
                 <h3 class="public ">ignoreBytes()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">ignoreBytes(  <span class="argument">$bytes</span>) </pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">ignoreBytes(integer  <span class="argument">$bytes</span>) : \Phpcraft\Connection</pre>
+                <p><em>Ignores the given amount of bytes.</em></p>
                 
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td></td>
+                                <td>integer</td>
                                 <td>$bytes </td>
                                 <td></td>
                             </tr>
                                             </table>
                 
                 
-                				
+                                    <h4>Returns</h4>
+                    <a href="../classes/Phpcraft.Connection.html">\Phpcraft\Connection</a>
+                                            &mdash; <p>$this</p>
+                                    				
                             </article>
         </div>
         <aside class="span4 detailsbar">
@@ -1551,7 +1591,7 @@
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on October 22nd, 2018 at 06:25.
+                    on October 22nd, 2018 at 11:19.
                 </section>
             </section>
         </section>

@@ -114,7 +114,7 @@
                         <ul class="dropdown-menu">
                             <li>
                                 <a href="../reports/errors.html">
-                                                                                                                                                                                        <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">152</span>
+                                                                                                                                                                                        <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">0</span>
                                 </a>
                             </li>
                             <li>
@@ -144,19 +144,19 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-99985435"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1843681584"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-99985435" class="accordion-body collapse in">
+            <div id="namespace-1843681584" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1547877294"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1259118633"></a>
                                 <a href="../namespaces/Phpcraft.html" style="margin-left: 30px; padding-left: 0">Phpcraft</a>
             </div>
-            <div id="namespace-1547877294" class="accordion-body collapse ">
+            <div id="namespace-1259118633" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -230,7 +230,6 @@
                                                                     <a href="../classes/Phpcraft.Utils.html#method_generateUUIDv4" class="">generateUUIDv4()</a><br />
                                                                     <a href="../classes/Phpcraft.Utils.html#method_httpPOST" class="">httpPOST()</a><br />
                                                                     <a href="../classes/Phpcraft.Utils.html#method_resolve" class="">resolve()</a><br />
-                                                                    <a href="../classes/Phpcraft.Utils.html#method_resolveName" class="">resolveName()</a><br />
                                                                     <a href="../classes/Phpcraft.Utils.html#method_intToVarInt" class="">intToVarInt()</a><br />
                                                                     <a href="../classes/Phpcraft.Utils.html#method_isProtocolVersionSupported" class="">isProtocolVersionSupported()</a><br />
                                                                     <a href="../classes/Phpcraft.Utils.html#method_getMinecraftVersionFromProtocolVersion" class="">getMinecraftVersionFromProtocolVersion()</a><br />
@@ -307,13 +306,15 @@
             <article class="method">
                 <h3 class="public ">getMinecraftFolder()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">getMinecraftFolder() </pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">getMinecraftFolder() : string</pre>
+                <p><em>Returns the path of the .minecraft folder without a slash at the end.</em></p>
                 
 
                 
                 
-                				
+                                    <h4>Returns</h4>
+                    string
+                                    				
                             </article>
         </div>
         <aside class="span4 detailsbar">
@@ -334,13 +335,15 @@
             <article class="method">
                 <h3 class="public ">getProfilesFile()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">getProfilesFile() </pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">getProfilesFile() : string</pre>
+                <p><em>Returns the path of the .minecraft/launcher_profiles.json.</em></p>
                 
 
                 
                 
-                				
+                                    <h4>Returns</h4>
+                    string
+                                    				
                             </article>
         </div>
         <aside class="span4 detailsbar">
@@ -361,13 +364,15 @@
             <article class="method">
                 <h3 class="public ">getProfiles()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">getProfiles() </pre>
-                <p><em>Returns the contents of the .minecraft/launcher_profiles.json and sets crutial variables if they are not set.</em></p>
+                <pre class="signature" style="margin-right: 54px;">getProfiles() : array</pre>
+                <p><em>Returns the contents of the .minecraft/launcher_profiles.json with some values being set if they are unset.</em></p>
                 
 
                 
                 
-                				
+                                    <h4>Returns</h4>
+                    array
+                                    				
                             </article>
         </div>
         <aside class="span4 detailsbar">
@@ -391,14 +396,14 @@
             <article class="method">
                 <h3 class="public ">saveProfiles()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">saveProfiles(  <span class="argument">$profiles</span>) </pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">saveProfiles(array  <span class="argument">$profiles</span>) : void</pre>
+                <p><em>Saves the profiles array into the .minecraft/launcher_profiles.json.</em></p>
                 
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td></td>
+                                <td>array</td>
                                 <td>$profiles </td>
                                 <td></td>
                             </tr>
@@ -426,21 +431,24 @@
             <article class="method">
                 <h3 class="public ">validateName()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">validateName(  <span class="argument">$name</span>) </pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">validateName(string  <span class="argument">$name</span>) : boolean</pre>
+                <p><em>Validates an in-game name.</em></p>
                 
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td></td>
+                                <td>string</td>
                                 <td>$name </td>
                                 <td></td>
                             </tr>
                                             </table>
                 
                 
-                				
+                                    <h4>Returns</h4>
+                    boolean
+                                            &mdash; <p>True if the name is valid.</p>
+                                    				
                             </article>
         </div>
         <aside class="span4 detailsbar">
@@ -461,13 +469,15 @@
             <article class="method">
                 <h3 class="public ">getExtensionsMissingToGoOnline()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">getExtensionsMissingToGoOnline() </pre>
-                <p><em></em></p>
-                
+                <pre class="signature" style="margin-right: 54px;">getExtensionsMissingToGoOnline() : array</pre>
+                <p><em>Returns an array of extensions missing to enable online mode.</em></p>
+                <p>Phpcraft has no dependencies for normal usage. However, if you want to enable online mode, GMP and mcrypt are required. This function returns a string array of all extensions that are missing or an empty array if you are good to go.</p>
 
                 
                 
-                				
+                                    <h4>Returns</h4>
+                    array
+                                    				
                             </article>
         </div>
         <aside class="span4 detailsbar">
@@ -488,13 +498,15 @@
             <article class="method">
                 <h3 class="public ">generateUUIDv4()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">generateUUIDv4() </pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">generateUUIDv4() : string</pre>
+                <p><em>Generates a random UUID (UUIDv4).</em></p>
                 
 
                 
                 
-                				
+                                    <h4>Returns</h4>
+                    string
+                                    				
                             </article>
         </div>
         <aside class="span4 detailsbar">
@@ -515,26 +527,28 @@
             <article class="method">
                 <h3 class="public ">httpPOST()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">httpPOST(  <span class="argument">$url</span>,   <span class="argument">$data</span>) </pre>
-                <p><em></em></p>
-                
+                <pre class="signature" style="margin-right: 54px;">httpPOST(string  <span class="argument">$url</span>, array  <span class="argument">$data</span>) : array</pre>
+                <p><em>Sends an HTTP POST request with a JSON payload.</em></p>
+                <p>The response will always contain a &quot;status&quot; value which will be the HTTP response code, e.g. 200.</p>
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td></td>
+                                <td>string</td>
                                 <td>$url </td>
                                 <td></td>
                             </tr>
                                                     <tr>
-                                <td></td>
+                                <td>array</td>
                                 <td>$data </td>
                                 <td></td>
                             </tr>
                                             </table>
                 
                 
-                				
+                                    <h4>Returns</h4>
+                    array
+                                    				
                             </article>
         </div>
         <aside class="span4 detailsbar">
@@ -555,61 +569,24 @@
             <article class="method">
                 <h3 class="public ">resolve()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">resolve(  <span class="argument">$server</span>) </pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">resolve(string  <span class="argument">$server</span>) : string</pre>
+                <p><em>Resolves the given address.</em></p>
                 
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td></td>
+                                <td>string</td>
                                 <td>$server </td>
-                                <td></td>
+                                <td><p>The server addres, e.g. localhost</p></td>
                             </tr>
                                             </table>
                 
                 
-                				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                            <span class="label label-info">static</span>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_resolveName" name="method_resolveName" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">resolveName()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">resolveName(  <span class="argument">$server</span>,   <span class="argument">$withPort = true</span>) </pre>
-                <p><em></em></p>
-                
-
-                                    <h4>Parameters</h4>
-                    <table class="table table-condensed table-hover">
-                                                    <tr>
-                                <td></td>
-                                <td>$server </td>
-                                <td></td>
-                            </tr>
-                                                    <tr>
-                                <td></td>
-                                <td>$withPort </td>
-                                <td></td>
-                            </tr>
-                                            </table>
-                
-                
-                				
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>The resolved address, e.g. localhost:25565</p>
+                                    				
                             </article>
         </div>
         <aside class="span4 detailsbar">
@@ -630,21 +607,23 @@
             <article class="method">
                 <h3 class="public ">intToVarInt()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">intToVarInt(  <span class="argument">$value</span>) </pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">intToVarInt(integer  <span class="argument">$value</span>) : string</pre>
+                <p><em>Converts an integer into a VarInt binary string.</em></p>
                 
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td></td>
+                                <td>integer</td>
                                 <td>$value </td>
                                 <td></td>
                             </tr>
                                             </table>
                 
                 
-                				
+                                    <h4>Returns</h4>
+                    string
+                                    				
                             </article>
         </div>
         <aside class="span4 detailsbar">
@@ -665,21 +644,23 @@
             <article class="method">
                 <h3 class="public ">isProtocolVersionSupported()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">isProtocolVersionSupported(  <span class="argument">$protocol_version</span>) </pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">isProtocolVersionSupported(integer  <span class="argument">$protocol_version</span>) : boolean</pre>
+                <p><em>Returns whether a given protocol version is supported.</em></p>
                 
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td></td>
+                                <td>integer</td>
                                 <td>$protocol_version </td>
                                 <td></td>
                             </tr>
                                             </table>
                 
                 
-                				
+                                    <h4>Returns</h4>
+                    boolean
+                                    				
                             </article>
         </div>
         <aside class="span4 detailsbar">
@@ -700,21 +681,24 @@
             <article class="method">
                 <h3 class="public ">getMinecraftVersionFromProtocolVersion()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">getMinecraftVersionFromProtocolVersion(  <span class="argument">$protocol_version</span>) </pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">getMinecraftVersionFromProtocolVersion(integer  <span class="argument">$protocol_version</span>) : string</pre>
+                <p><em>Returns the Minecraft version corresponding to the given protocol version.</em></p>
                 
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td></td>
+                                <td>integer</td>
                                 <td>$protocol_version </td>
                                 <td></td>
                             </tr>
                                             </table>
                 
                 
-                				
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>The Minecraft version or null if the protocol version is not supported.</p>
+                                    				
                             </article>
         </div>
         <aside class="span4 detailsbar">
@@ -735,21 +719,23 @@
             <article class="method">
                 <h3 class="public ">sha1()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">sha1(  <span class="argument">$str</span>) </pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">sha1(string  <span class="argument">$str</span>) : string</pre>
+                <p><em>Generates a Minecraft-style SHA1 hash.</em></p>
                 
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td></td>
+                                <td>string</td>
                                 <td>$str </td>
                                 <td></td>
                             </tr>
                                             </table>
                 
                 
-                				
+                                    <h4>Returns</h4>
+                    string
+                                    				
                             </article>
         </div>
         <aside class="span4 detailsbar">
@@ -770,31 +756,33 @@
             <article class="method">
                 <h3 class="public ">chatToANSIText()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">chatToANSIText(  <span class="argument">$chat</span>,   <span class="argument">$parent = false</span>,   <span class="argument">$translations = null</span>) </pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">chatToANSIText(mixed  <span class="argument">$chat</span>, array  <span class="argument">$translations = null</span>, mixed  <span class="argument">$parent = false</span>) : string</pre>
+                <p><em>Converts a chat object into text with ANSI escape codes so it will be colorful in the console, as well.</em></p>
                 
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td></td>
+                                <td>mixed</td>
                                 <td>$chat </td>
-                                <td></td>
+                                <td><p>The chat object as an array or a string.</p></td>
                             </tr>
                                                     <tr>
-                                <td></td>
-                                <td>$parent </td>
-                                <td></td>
-                            </tr>
-                                                    <tr>
-                                <td></td>
+                                <td>array</td>
                                 <td>$translations </td>
-                                <td></td>
+                                <td><p>The translations array so translated messages look proper.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$parent </td>
+                                <td><p>The parent chat object so styling is properly inherited. You don't need to set this.</p></td>
                             </tr>
                                             </table>
                 
                 
-                				
+                                    <h4>Returns</h4>
+                    string
+                                    				
                             </article>
         </div>
         <aside class="span4 detailsbar">
@@ -859,7 +847,7 @@
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on October 22nd, 2018 at 06:25.
+                    on October 22nd, 2018 at 11:19.
                 </section>
             </section>
         </section>
