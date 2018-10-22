@@ -772,7 +772,7 @@ do
 				}
 				$con->startPacket("send_plugin_message");
 				$con->writeString($protocol_version > 340 ? "minecraft:brand" : "MC|Brand");
-				$con->writeString("php-minecraft-client");
+				$con->writeString("Phpcraft");
 				$con->send();
 				$con->startPacket("client_settings");
 				$con->writeString(isset($options["locale"]) ? $options["locale"] : "en_US");

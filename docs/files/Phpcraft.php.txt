@@ -30,7 +30,8 @@ class Utils
 		393 => "1.13",
 		401 => "1.13.1",
 		402 => "1.13.2-pre1",
-		403 => "1.13.2-pre2"
+		403 => "1.13.2-pre2",
+		404 => "1.13.2"
 	];
 
 	/**
@@ -175,11 +176,12 @@ class Utils
 
 	/**
 	 * Generates a random UUID (UUIDv4).
+	 * @param boolean $withHypens
 	 * @return string
 	 */
-	static function generateUUIDv4()
+	static function generateUUIDv4($withHypens = false)
 	{
-		return sprintf("%04x%04x%04x%04x%04x%04x%04x%04x", mt_rand(0, 0xffff), mt_rand(0, 0xffff), mt_rand(0, 0xffff), (mt_rand(0, 0x0fff) | 0x4000), (mt_rand(0, 0x3fff) | 0x8000), mt_rand(0, 0xffff), mt_rand(0, 0xffff), mt_rand(0, 0xffff));
+		return sprintf($withHypens ? "%04x%04x-%04x-%04x-%04x-%04x%04x%04x" : "%04x%04x%04x%04x%04x%04x%04x%04x", mt_rand(0, 0xffff), mt_rand(0, 0xffff), mt_rand(0, 0xffff), (mt_rand(0, 0x0fff) | 0x4000), (mt_rand(0, 0x3fff) | 0x8000), mt_rand(0, 0xffff), mt_rand(0, 0xffff), mt_rand(0, 0xffff));
 	}
 
 	/**
@@ -651,9 +653,26 @@ class Connection
 	 * @var integer
 	 */
 	protected $protocol_version;
-	private $compression_threshold = false;
-	private $write_buffer = "";
-	private $read_buffer = "";
+	/**
+	 * The amount of bytes a packet needs to be compressed as an integer or false if disabled.
+	 * @var mixed
+	 * @see Connection::setCompressionThreshold()
+	 * @see Connection::getCompressionThreshold()
+	 */
+	protected $compression_threshold = false;
+	/**
+	 * The write buffer binary string.
+	 * @var string
+	 * @see Connection::getWriteBuffer()
+	 * @see Connection::getAndClearWriteBuffer()
+	 * @see Connection::clearWriteBuffer()
+	 */
+	protected $write_buffer = "";
+	/**
+	 * The read buffer binary string.
+	 * @var string
+	 */
+	protected $read_buffer = "";
 
 	/**
 	 * The constructor.
@@ -681,7 +700,7 @@ class Connection
 	 */
 	function isOpen()
 	{
-		return $this->stream != null && !feof($this->stream);
+		return $this->stream != null && @feof($this->stream) === false;
 	}
 
 	/**
@@ -693,7 +712,28 @@ class Connection
 		if($this->stream != null)
 		{
 			@fclose($this->stream);
+			$this->stream = null;
 		}
+	}
+
+	/**
+	 * Sets the compression threshold.
+	 * @param mixed $compression_threshold
+	 * @see Connection::$compression_threshold
+	 */
+	function setCompressionThreshold($compression_threshold)
+	{
+		$this->compression_threshold = $compression_threshold;
+	}
+
+	/**
+	 * Returns the compression threshold.
+	 * @return mixed
+	 * @see Connection::$compression_threshold
+	 */
+	function getCompressionThreshold()
+	{
+		return $this->compression_threshold;
 	}
 
 	/**
@@ -759,6 +799,17 @@ class Connection
 	function writeFloat($value)
 	{
 		$this->write_buffer .= pack("G", $value);
+		return $this;
+	}
+
+	/**
+	 * Adds an integer to the write buffer.
+	 * @param integer $value
+	 * @return Connection $this
+	 */
+	function writeInt($value)
+	{
+		$this->write_buffer .= pack("N", $value);
 		return $this;
 	}
 
@@ -888,7 +939,7 @@ class Connection
 		$read = 0;
 		do
 		{
-			$byte = fgetc($this->stream);
+			$byte = @fgetc($this->stream);
 			if($byte === false)
 			{
 				if(!$forcefully && $read == 0)
@@ -897,7 +948,7 @@ class Connection
 				}
 				while($byte === false)
 				{
-					$byte = fgetc($this->stream);
+					$byte = @fgetc($this->stream);
 				}
 			}
 			$byte = ord($byte);
@@ -1171,7 +1222,7 @@ class ServerConnection extends Connection
 	 * @param integer $next_state 1 stands for status and 2 for play.
 	 * @param integer $protocol_version
 	 */
-	function __construct($server_name, $server_port, $next_state, $protocol_version = 401)
+	function __construct($server_name, $server_port, $next_state, $protocol_version = 404)
 	{
 		if(!($stream = fsockopen($server_name, $server_port, $errno, $errstr, 10)))
 		{
@@ -1189,7 +1240,7 @@ class ServerConnection extends Connection
 }
 
 /**
- * A client-to-server conection with the intention of getting the server's status.
+ * A client-to-server connection with the intention of getting the server's status.
  */
 class ServerStatusConnection extends ServerConnection
 {
@@ -1284,8 +1335,7 @@ class ServerPlayConnection extends ServerConnection
 	}
 
 	/**
-	 * Returns our unique 16 bytes.
-	 * @see Connection::readUUIDBytes()
+	 * Returns our UUID with hypens.
 	 * @return string
 	 */
 	function getUUID()
@@ -1391,6 +1441,7 @@ abstract class Packet
 	private static $clientbound_packet_ids = [
 		"spawn_player" => [0x05, 0x05, 0x05, 0x05, 0x05, 0x0C],
 		"chat_message" => [0x0E, 0x0F, 0x0F, 0x0F, 0x0F, 0x02],
+		"plugin_message" => [0x19, 0x18, 0x18, 0x18, 0x18, 0x3F],
 		"disconnect" => [0x1B, 0x1A, 0x1A, 0x1A, 0x1A, 0x40],
 		"open_window" => [0x14, 0x13, 0x13, 0x13, 0x13, 0x2D],
 		"keep_alive_request" => [0x21, 0x1F, 0x1F, 0x1F, 0x1F, 0x00],
@@ -1403,6 +1454,9 @@ abstract class Packet
 		"destroy_entites" => [0x35, 0x32, 0x31, 0x30, 0x30, 0x13],
 		"respawn" => [0x38, 0x35, 0x34, 0x33, 0x33, 0x07],
 		"update_health" => [0x44, 0x41, 0x40, 0x3E, 0x3E, 0x06],
+		"spawn_position" => [0x49, 0x46, 0x45, 0x43, 0x43, 0x05],
+		"time_update" => [0x4A, 0x47, 0x46, 0x44, 0x44, 0x03],
+		"player_list_header_and_footer" => [0x4E, 0x4A, 0x49, 0x47, 0x48, 0x47],
 		"entity_teleport" => [0x50, 0x4C, 0x4B, 0x49, 0x4A, 0x18]
 	];
 	private static $serverbound_packet_ids = [
