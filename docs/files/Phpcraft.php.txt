@@ -6,6 +6,11 @@
  */
 namespace Phpcraft;
 
+if(version_compare(phpversion(), "7.0.15", "<"))
+{
+	die("Phpcraft requires PHP 7.0.15 or above.\n");
+}
+
 /**
  * Utilities
  */
