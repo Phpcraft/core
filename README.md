@@ -6,13 +6,13 @@
 - 1.8 - 1.13.2-pre2 support by protocol hacking
 - Supports online and offline mode
 - Client features:
-	- Can follow player's entities
-	- Resolves SRV records
+  - Can follow player's entities
+  - Resolves SRV records
 - Server features:
-	- You can chat with other connected players
+  - You can chat with other connected players
 - Planned features:
-	- Legacy List Ping
-	- Display messages using § colorfully as well
+  - Legacy List Ping
+  - Display messages using § colorfully as well
 
 ## Client Usage
 

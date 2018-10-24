@@ -666,14 +666,16 @@ class Connection
 	/**
 	 * The amount of bytes a packet needs for it to be compressed as an integer or -1 if disabled.
 	 * @var integer
+	 * @see Connection::getCompressionThreshold()
 	 */
 	protected $compression_threshold = false;
 	/**
 	 * The state of the connection.
 	 * 1 stands for status, 2 for logging in and 3 for playing.
 	 * @var integer
+	 * @see Connection::getState()
 	 */
-	public $state;
+	protected $state;
 	/**
 	 * The write buffer binary string.
 	 * @var string
@@ -706,6 +708,26 @@ class Connection
 	function getProtocolVersion()
 	{
 		return $this->protocol_version;
+	}
+
+	/**
+	 * Returns the state of the connection.
+	 * @return integer
+	 * @see Connection::$state
+	 */
+	function getState()
+	{
+		return $this->state;
+	}
+
+	/**
+	 * Returns the compression threshold of the connection.
+	 * @return integer
+	 * @see Connection::$compression_threshold
+	 */
+	function getCompressionThreshold()
+	{
+		return $this->compression_threshold;
 	}
 
 	/**

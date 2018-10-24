@@ -335,7 +335,7 @@ do
 				$con = new \Phpcraft\ClientConnection($stream);
 				if($con->isOpen())
 				{
-					if($con->state == 1)
+					if($con->getState() == 1)
 					{
 						array_push($clients, [
 							"connection" => $con,

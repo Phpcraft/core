@@ -144,19 +144,19 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-230732716"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1491242792"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-230732716" class="accordion-body collapse in">
+            <div id="namespace-1491242792" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1296547039"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1048419006"></a>
                                 <a href="../namespaces/Phpcraft.html" style="margin-left: 30px; padding-left: 0">Phpcraft</a>
             </div>
-            <div id="namespace-1296547039" class="accordion-body collapse ">
+            <div id="namespace-1048419006" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -228,6 +228,8 @@ echo hex2bin($con->getAndClearWriteBuffer())."\n";</pre>
                             <section class="span4">
                                                                     <a href="../classes/Phpcraft.ClientConnection.html#method___construct" class="">__construct()</a><br />
                                                                     <a href="../classes/Phpcraft.Connection.html#method_getProtocolVersion" class="">getProtocolVersion()</a><br />
+                                                                    <a href="../classes/Phpcraft.Connection.html#method_getState" class="">getState()</a><br />
+                                                                    <a href="../classes/Phpcraft.Connection.html#method_getCompressionThreshold" class="">getCompressionThreshold()</a><br />
                                                                     <a href="../classes/Phpcraft.Connection.html#method_isOpen" class="">isOpen()</a><br />
                                                                     <a href="../classes/Phpcraft.Connection.html#method_close" class="">close()</a><br />
                                                                     <a href="../classes/Phpcraft.Connection.html#method_writeByte" class="">writeByte()</a><br />
@@ -263,7 +265,7 @@ echo hex2bin($con->getAndClearWriteBuffer())."\n";</pre>
                                                                     <a href="../classes/Phpcraft.ClientConnection.html#method_finishLogin" class="">finishLogin()</a><br />
                                                             </section>
                             <section class="span4">
-                                                                    <a href="../classes/Phpcraft.Connection.html#property_state" class="">$state</a><br />
+                                                                    <em>No public properties found</em>
                                                             </section>
                             <section class="span4">
                                                                     <em>No constants found</em>
@@ -277,6 +279,7 @@ echo hex2bin($con->getAndClearWriteBuffer())."\n";</pre>
                                                                     <a href="../classes/Phpcraft.Connection.html#property_stream" class="">$stream</a><br />
                                                                     <a href="../classes/Phpcraft.Connection.html#property_protocol_version" class="">$protocol_version</a><br />
                                                                     <a href="../classes/Phpcraft.Connection.html#property_compression_threshold" class="">$compression_threshold</a><br />
+                                                                    <a href="../classes/Phpcraft.Connection.html#property_state" class="">$state</a><br />
                                                                     <a href="../classes/Phpcraft.Connection.html#property_write_buffer" class="">$write_buffer</a><br />
                                                                     <a href="../classes/Phpcraft.Connection.html#property_read_buffer" class="">$read_buffer</a><br />
                                                             </section>
@@ -332,32 +335,6 @@ echo hex2bin($con->getAndClearWriteBuffer())."\n";</pre>
                 </div>
                 <aside class="span4 detailsbar"></aside>
             </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="property_state" name="property_state" class="anchor"></a>
-            <article class="property">
-                <h3 class="public ">$state</h3>
-                <pre class="signature">$state : integer</pre>
-                <p><em>The state of the connection.</em></p>
-                <p>1 stands for status, 2 for logging in and 3 for playing.</p>
-
-                                <h4>Type</h4>
-                integer
-                                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                        <dl>
-                                    <dt>Inherited from</dt>
-                    <dd><a href="../classes/Phpcraft.Connection.html"><div class="path-wrapper">\Phpcraft\Connection</div></a></dd>
-                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
 
                                                     <div class="row-fluid">
         <div class="span8 content class">
@@ -429,7 +406,37 @@ echo hex2bin($con->getAndClearWriteBuffer())."\n";</pre>
                         <dl>
                                     <dt>Inherited from</dt>
                     <dd><a href="../classes/Phpcraft.Connection.html"><div class="path-wrapper">\Phpcraft\Connection</div></a></dd>
-                                                            </dl>
+                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Phpcraft.Connection.html#method_getCompressionThreshold"><span class="namespace-wrapper">\Phpcraft\Connection::getCompressionThreshold()</span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_state" name="property_state" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$state</h3>
+                <pre class="signature">$state : integer</pre>
+                <p><em>The state of the connection.</em></p>
+                <p>1 stands for status, 2 for logging in and 3 for playing.</p>
+
+                                <h4>Type</h4>
+                integer
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Phpcraft.Connection.html"><div class="path-wrapper">\Phpcraft\Connection</div></a></dd>
+                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Phpcraft.Connection.html#method_getState"><span class="namespace-wrapper">\Phpcraft\Connection::getState()</span></a></dd>
+                                                                </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
                                     <tr><td colspan="2"><em>None found</em></td></tr>
@@ -558,6 +565,70 @@ After this, you should check \Connection::isOpen() and then \Connection::$state 
                                                     <dt>Inherited from</dt>
                     <dd><a href="../classes/Phpcraft.Connection.html"><div class="path-wrapper">\Phpcraft\Connection</div></a></dd>
                                                             </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getState" name="method_getState" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getState()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getState() : integer</pre>
+                <p><em>Returns the state of the connection.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    integer
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Phpcraft.Connection.html"><div class="path-wrapper">\Phpcraft\Connection</div></a></dd>
+                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Phpcraft.Connection.html#property_state"><span class="namespace-wrapper">\Phpcraft\Connection::state</span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getCompressionThreshold" name="method_getCompressionThreshold" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getCompressionThreshold()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getCompressionThreshold() : integer</pre>
+                <p><em>Returns the compression threshold of the connection.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    integer
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Phpcraft.Connection.html"><div class="path-wrapper">\Phpcraft\Connection</div></a></dd>
+                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Phpcraft.Connection.html#property_compression_threshold"><span class="namespace-wrapper">\Phpcraft\Connection::compression_threshold</span></a></dd>
+                                                                </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
                                     <tr><td colspan="2"><em>None found</em></td></tr>
@@ -1873,7 +1944,7 @@ On success, an array looking like this is returned:</p>
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on October 24th, 2018 at 03:45.
+                    on October 24th, 2018 at 03:51.
                 </section>
             </section>
         </section>
