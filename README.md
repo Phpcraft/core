@@ -11,6 +11,7 @@
 - Server features:
   - You can chat with other connected players
 - Planned features:
+  - See other players on the server in the player list
   - Legacy List Ping
   - Display messages using § colorfully as well
 
@@ -19,3 +20,7 @@
 Simply clone this repository and run `php client.php`. You can also provide optional arguments — use `php client.php help` to get list of them.
 
 Once the client is running, you can send messages by typing them, but there are also commands, starting with a period (`.`) — type `.help` for a list of them. If you want to send a message starting with a period, use two periods.
+
+## Server Usage
+
+Simply clone this repository and run `php server.php`. You can also provide optional arguments — use `php server.php help` to get list of them.
