@@ -5,6 +5,76 @@ require __DIR__."/Phpcraft.php";
 $stdin = fopen("php://stdin", "r");
 stream_set_blocking($stdin, true);
 
+$options = [];
+for($i = 1; $i < count($argv); $i++)
+{
+	$arg = $argv[$i];
+	while(substr($arg, 0, 1) == "-")
+	{
+		$arg = substr($arg, 1);
+	}
+	if(($o = strpos($arg, "=")) !== false)
+	{
+		$n = substr($arg, 0, $o);
+		$v = substr($arg, $o + 1);
+	}
+	else
+	{
+		$n = $arg;
+		$v = "";
+	}
+	switch($n)
+	{
+		case "online":
+		if($v == "on")
+		{
+			$options[$n] = true;
+		}
+		else if($v == "off")
+		{
+			$options[$n] = false;
+		}
+		else die("Value for argument '{$n}' has to be either 'on' or 'off'.");
+		break;
+
+		case "port":
+		$options[$n] = $v;
+		break;
+
+		case "?":
+		case "help":
+		echo "online=<on/off>  set online or offline mode\n";
+		echo "port=<port>      bind to port <port>\n";
+		exit;
+
+		default:
+		die("Unknown argument '{$n}' -- try 'help' for a list of arguments.\n");
+	}
+}
+$online_mode = true;
+
+if(!isset($options["online"]))
+{
+	$options["online"] = true;
+}
+if($options["online"])
+{
+	if($extensions_needed = \Phpcraft\Utils::getExtensionsMissingToGoOnline())
+	{
+		die("To host an online server, you need ".join(" and ", $extensions_needed).".\nCheck your php.ini, use apt-get install or set online=off.\n");
+	}
+	echo "Generating 1024-bit RSA keypair...";
+	$private_key = openssl_pkey_new([
+		"private_key_bits" => 1024,
+		"private_key_type" => OPENSSL_KEYTYPE_RSA,
+	]);
+	echo " Done.\n";
+}
+if(empty($options["port"]))
+{
+	$options["port"] = 25565;
+}
+$port = isset($options["port"]) ? $options["port"] : 25565;
 if(stristr(PHP_OS, "WIN"))
 {
 	echo "Press enter to acknowledge the following and start the server:\n";
@@ -12,14 +82,95 @@ if(stristr(PHP_OS, "WIN"))
 	echo "- If you're using Windows 8.1 or below, you won't see any colors.\n";
 	fgets($stdin);
 }
-
-$bindurl = "tcp://0.0.0.0:25565";
-echo "Binding to {$bindurl}...";
-$server = stream_socket_server($bindurl, $errno, $errstr) or die(" {$errstr}\n");
+echo "Binding to port {$port}...";
+$server = stream_socket_server("tcp://0.0.0.0:{$port}", $errno, $errstr) or die(" {$errstr}\n");
 stream_set_blocking($server, false);
 echo " Success.\n";
 stream_set_blocking($stdin, false);
 $clients = [];
+function joinSuccess($i)
+{
+	global $clients;
+	$con = $clients[$i]["connection"];
+	$con->startPacket("join_game");
+	$con->writeInt(1); // Entity ID
+	$con->writeByte(1); // Gamemode
+	if($con->getProtocolVersion() > 107) // Dimension
+	{
+		$con->writeInt(0);
+	}
+	else
+	{
+		$con->writeByte(0);
+	}
+	$con->writeByte(0); // Difficulty
+	$con->writeByte(100); // Max Players
+	$con->writeString("default"); // Level Type
+	$con->writeBoolean(false); // Reduced Debug Info
+	$con->send();
+	$con->startPacket("plugin_message");
+	$con->writeString($con->getProtocolVersion() > 340 ? "minecraft:brand" : "MC|Brand");
+	$con->writeString("Phpcraft");
+	$con->send();
+	$con->startPacket("spawn_position");
+	$con->writePosition(0, 100, 0);
+	$con->send();
+	$con->startPacket("teleport");
+	$con->writeDouble(0);
+	$con->writeDouble(100);
+	$con->writeDouble(0);
+	$con->writeFloat(0);
+	$con->writeFloat(0);
+	$con->writeByte(0);
+	if($con->getProtocolVersion() > 47)
+	{
+		$con->writeVarInt(0); // Teleport ID
+	}
+	$con->send();
+	$con->startPacket("time_update");
+	$con->writeLong(0); // World Age
+	$con->writeLong(-6000); // Time of Day
+	$con->send();
+	$con->startPacket("player_list_header_and_footer");
+	$con->writeString('{"text":"Phpcraft Server"}');
+	$con->writeString('{"text":"github.com/timmyrs/Phpcraft"}');
+	$con->send();
+	$con->startPacket("chat_message");
+	$con->writeString('{"text":"Welcome to this Phpcraft server."}');
+	$con->writeByte(1);
+	$con->send();
+	$con->startPacket("chat_message");
+	$con->writeString('{"text":"You can chat with other players here. That\'s it."}');
+	$con->writeByte(1);
+	$con->send();
+	$clients[$i]["state"] = 3;
+	$clients[$i]["next_heartbeat"] = microtime(true) + 15;
+	$msg = [
+		"color" => "yellow",
+		"translate" => "multiplayer.player.joined",
+		"with" => [
+			[
+				"text" => $clients[$i]["name"]
+			]
+		]
+	];
+	echo \Phpcraft\Utils::chatToANSIText($msg)."\n";
+	$msg = json_encode($msg);
+	foreach($clients as $c)
+	{
+		if($c["state"] == 3 && $c["connection"]->isOpen())
+		{
+			try
+			{
+				$c["connection"]->startPacket("chat_message");
+				$c["connection"]->writeString($msg);
+				$c["connection"]->writeByte(1);
+				$c["connection"]->send();
+			}
+			catch(Exception $ignored){}
+		}
+	}
+}
 do
 {
 	$start = microtime(true);
@@ -30,7 +181,7 @@ do
 		{
 			while(($id = $con->readPacket(false)) !== false)
 			{
-				if($clients[$i]["state"] == 3)
+				if($clients[$i]["state"] == 3) // Playing
 				{
 					$packet_name = \Phpcraft\Packet::serverboundPacketIdToName($id, $con->getProtocolVersion());
 					if($packet_name == "keep_alive_response")
@@ -57,103 +208,33 @@ do
 						{
 							if($c["state"] == 3 && $c["connection"]->isOpen())
 							{
-								$c["connection"]->startPacket("chat_message");
-								$c["connection"]->writeString($msg);
-								$c["connection"]->writeByte(0);
-								$c["connection"]->send();
-							}
-						}
-					}
-				}
-				else if($clients[$i]["state"] == 2)
-				{
-					if($id == 0x00)
-					{
-						$clients[$i]["name"] = $con->readString();
-						if(\Phpcraft\Utils::validateName($clients[$i]["name"]))
-						{
-							// TODO: Online mode
-							$con->writeVarInt(0x03);
-							$con->writeVarInt(256);
-							$con->send();
-							$con->setCompressionThreshold(256);
-							$con->writeVarInt(0x02);
-							$con->writeString(\Phpcraft\Utils::generateUUIDv4(true));
-							$con->writeString($clients[$i]["name"]);
-							$con->send();
-							$con->startPacket("join_game");
-							$con->writeInt(1); // Entity ID
-							$con->writeByte(1); // Gamemode
-							if($con->getProtocolVersion() > 107) // Dimension
-							{
-								$con->writeInt(0);
-							}
-							else
-							{
-								$con->writeByte(0);
-							}
-							$con->writeByte(0); // Difficulty
-							$con->writeByte(100); // Max Players
-							$con->writeString("default"); // Level Type
-							$con->writeBoolean(false); // Reduced Debug Info
-							$con->send();
-							$con->startPacket("plugin_message");
-							$con->writeString($protocol_version > 340 ? "minecraft:brand" : "MC|Brand");
-							$con->writeString("Phpcraft");
-							$con->send();
-							$con->startPacket("spawn_position");
-							$con->writePosition(0, 100, 0);
-							$con->send();
-							$con->startPacket("teleport");
-							$con->writeDouble(0);
-							$con->writeDouble(100);
-							$con->writeDouble(0);
-							$con->writeFloat(0);
-							$con->writeFloat(0);
-							$con->writeByte(0);
-							if($con->getProtocolVersion() > 47)
-							{
-								$con->writeVarInt(0); // Teleport ID
-							}
-							$con->send();
-							$con->startPacket("time_update");
-							$con->writeLong(0); // World Age
-							$con->writeLong(-6000); // Time of Day
-							$con->send();
-							$con->startPacket("player_list_header_and_footer");
-							$con->writeString('{"text":"Phpcraft Server"}');
-							$con->writeString('{"text":"github.com/timmyrs/Phpcraft"}');
-							$con->send();
-							$con->startPacket("chat_message");
-							$con->writeString('{"text":"Welcome to this Phpcraft server."}');
-							$con->writeByte(1);
-							$con->send();
-							$con->startPacket("chat_message");
-							$con->writeString('{"text":"You can chat with other players here. That\'s it."}');
-							$con->writeByte(1);
-							$con->send();
-							$clients[$i]["state"] = 3;
-							$clients[$i]["next_heartbeat"] = microtime(true) + 15;
-							$msg = [
-								"color" => "yellow",
-								"translate" => "multiplayer.player.joined",
-								"with" => [
-									[
-										"text" => $clients[$i]["name"]
-									]
-								]
-							];
-							echo \Phpcraft\Utils::chatToANSIText($msg)."\n";
-							$msg = json_encode($msg);
-							foreach($clients as $c)
-							{
-								if($c["state"] == 3 && $c["connection"]->isOpen())
+								try
 								{
 									$c["connection"]->startPacket("chat_message");
 									$c["connection"]->writeString($msg);
 									$c["connection"]->writeByte(1);
 									$c["connection"]->send();
 								}
+								catch(Exception $ignored){}
+							}
+						}
+					}
+				}
+				else if($clients[$i]["state"] == 2) // Login
+				{
+					if($id == 0x00) // Login Start
+					{
+						$clients[$i]["name"] = $con->readString();
+						if(\Phpcraft\Utils::validateName($clients[$i]["name"]))
+						{
+							if($options["online"])
+							{
+								$con->sendEncryptionRequest($private_key);
+							}
+							else
+							{
+								$con->finishLogin(\Phpcraft\Utils::generateUUIDv4(true), $clients[$i]["name"]);
+								joinSuccess($i);
 							}
 						}
 						else
@@ -162,13 +243,21 @@ do
 							break;
 						}
 					}
+					else if($id == 0x01 && isset($clients[$i]["name"])) // Encryption Response
+					{
+						if($json = $con->handleEncryptionResponse($clients[$i]["name"], $private_key))
+						{
+							$con->finishLogin(\Phpcraft\Utils::addHypensToUUID($json["id"]), $json["name"]);
+							joinSuccess($i);
+						}
+					}
 					else
 					{
 						$clients[$i]["disconnect_after"] = microtime(true);
 						break;
 					}
 				}
-				else
+				else // Can only be 1; Status
 				{
 					if($id == 0x00)
 					{
@@ -193,17 +282,9 @@ do
 			}
 			else if($clients[$i]["next_heartbeat"] != 0 && $clients[$i]["next_heartbeat"] <= microtime(true))
 			{
-				if($clients[$i]["state"] == 3)
-				{
-					(new \Phpcraft\KeepAliveRequestPacket(time()))->send($con);
-					$clients[$i]["next_heartbeat"] = 0;
-					$clients[$i]["disconnect_after"] = microtime(true) + 30;
-				}
-				else
-				{
-					$con->close();
-					continue;
-				}
+				(new \Phpcraft\KeepAliveRequestPacket(time()))->send($con);
+				$clients[$i]["next_heartbeat"] = 0;
+				$clients[$i]["disconnect_after"] = microtime(true) + 30;
 			}
 		}
 		else
@@ -226,10 +307,14 @@ do
 				{
 					if($c["state"] == 3 && $c["connection"]->isOpen())
 					{
-						$c["connection"]->startPacket("chat_message");
-						$c["connection"]->writeString($msg);
-						$c["connection"]->writeByte(1);
-						$c["connection"]->send();
+						try
+						{
+							$c["connection"]->startPacket("chat_message");
+							$c["connection"]->writeString($msg);
+							$c["connection"]->writeByte(1);
+							$c["connection"]->send();
+						}
+						catch(Exception $ignored){}
 					}
 				}
 			}
@@ -247,55 +332,33 @@ do
 		{
 			while(($stream = @stream_socket_accept($server, 0)) !== false)
 			{
-				stream_set_timeout($stream, 0, 10000);
-				stream_set_blocking($stream, true);
-				$con = new \Phpcraft\Connection(-1, $stream);
-				if($con->readPacket() !== 0x00)
+				$con = new \Phpcraft\ClientConnection($stream);
+				if($con->isOpen())
 				{
-					@fclose($stream);
-					continue;
-				}
-				$protocol_version = $con->readVarInt();
-				$con->readString(); // hostname/ip
-				$con->ignoreBytes(2); // port
-				$state = $con->readVarInt();
-				if($state != 1 && $state != 2)
-				{
-					echo "closed\n";
-					@fclose($stream);
-					continue;
-				}
-				stream_set_timeout($stream, ini_get("default_socket_timeout"));
-				stream_set_blocking($stream, false);
-				if($state == 1)
-				{
-					array_push($clients, [
-						"connection" => new \Phpcraft\Connection($protocol_version, $stream),
-						"state" => 1,
-						"next_heartbeat" => 0,
-						"disconnect_after" => microtime(true) + 10
-					]);
-				}
-				else if($state == 2)
-				{
-					array_push($clients, [
-						"connection" => new \Phpcraft\Connection($protocol_version, $stream),
-						"state" => 2,
-						"next_heartbeat" => 0,
-						"disconnect_after" => 0
-					]);
-				}
-				else
-				{
-					@fclose($stream);
-					continue;
+					if($con->state == 1)
+					{
+						array_push($clients, [
+							"connection" => $con,
+							"state" => 1,
+							"next_heartbeat" => 0,
+							"disconnect_after" => microtime(true) + 10
+						]);
+					}
+					else
+					{
+						array_push($clients, [
+							"connection" => $con,
+							"state" => 2,
+							"next_heartbeat" => 0,
+							"disconnect_after" => 0
+						]);
+					}
 				}
 			}
 		}
 		if(in_array($stdin, $streams))
 		{
-			$msg = trim(fgets($stdin));
-			if($msg)
+			if($msg = trim(fgets($stdin)))
 			{
 				$msg = [
 					"translate" => "chat.type.announcement",
@@ -312,12 +375,16 @@ do
 				$msg = json_encode($msg);
 				foreach($clients as $c)
 				{
-					if($c["state"] == 3)
+					if($c["state"] == 3 && $c["connection"]->isOpen())
 					{
-						$c["connection"]->startPacket("chat_message");
-						$c["connection"]->writeString($msg);
-						$c["connection"]->writeByte(0);
-						$c["connection"]->send();
+						try
+						{
+							$c["connection"]->startPacket("chat_message");
+							$c["connection"]->writeString($msg);
+							$c["connection"]->writeByte(1);
+							$c["connection"]->send();
+						}
+						catch(Exception $ignored){}
 					}
 				}
 			}

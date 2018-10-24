@@ -4,14 +4,13 @@
 
 - Colorful display of chat messages using ANSI escape codes
 - 1.8 - 1.13.2-pre2 support by protocol hacking
+- Supports online and offline mode
 - Client features:
-	- Supports online and offline mode
 	- Can follow player's entities
 	- Resolves SRV records
 - Server features:
 	- You can chat with other connected players
 - Planned features:
-	- Online mode support for server
 	- Legacy List Ping
 	- Display messages using § colorfully as well
 

@@ -1,7 +1,6 @@
 <?php
 /**
  * Phpcraft
- *
  * @author Tim "timmyRS" Speckhals
  */
 namespace Phpcraft;
@@ -11,9 +10,7 @@ if(version_compare(phpversion(), "7.0.15", "<"))
 	die("Phpcraft requires PHP 7.0.15 or above.\n");
 }
 
-/**
- * Utilities
- */
+/** Utilities. */
 class Utils
 {
 	private static $minecraft_folder = null;
@@ -154,7 +151,7 @@ class Utils
 
 	/**
 	 * Returns an array of extensions missing to enable online mode.
-	 * Phpcraft has no dependencies for normal usage. However, if you want to enable online mode, GMP and mcrypt are required. This function returns a string array of all extensions that are missing or an empty array if you are good to go.
+	 * Phpcraft has no dependencies for normal usage. However, if you want to enable online mode, GMP, openssl, and mcrypt are required. This function returns a string array of all extensions that are missing or an empty array if you are good to go.
 	 * @return array
 	 */
 	static function getExtensionsMissingToGoOnline()
@@ -163,6 +160,10 @@ class Utils
 		if(!extension_loaded("gmp"))
 		{
 			array_push($extensions_needed, "GMP");
+		}
+		if(!extension_loaded("openssl"))
+		{
+			array_push($extensions_needed, "openssl");
 		}
 		$mcrypt = false;
 		foreach(stream_get_filters() as $filter)
@@ -190,6 +191,16 @@ class Utils
 	}
 
 	/**
+	 * Adds hypens to a UUID.
+	 * @param string $uuid
+	 * @return string
+	 */
+	public function addHypensToUUID($uuid)
+	{
+		return substr($uuid, 0, 8)."-".substr($uuid, 8, 4)."-".substr($uuid, 12, 4)."-".substr($uuid, 16, 4)."-".substr($uuid, 20);
+	}
+
+	/**
 	 * Sends an HTTP POST request with a JSON payload.
 	 * The response will always contain a "status" value which will be the HTTP response code, e.g. 200.
 	 * @param string $url
@@ -198,15 +209,13 @@ class Utils
 	 */
 	static function httpPOST($url, $data)
 	{
-		$options = [
+		$res = @file_get_contents($url, false, stream_context_create([
 			"http" => [
 				"header" => "Content-type: application/json\r\n",
 				"method" => "POST",
 				"content" => json_encode($data)
 			]
-		];
-		$context  = stream_context_create($options);
-		$res = @file_get_contents($url, false, $context);
+		]));
 		if($res == "")
 		{
 			$res = [];
@@ -440,9 +449,7 @@ class Utils
 	}
 }
 
-/**
- * A Mojang or Minecraft account.
- */
+/** A Mojang or Minecraft account. */
 class Account
 {
 	private $name;
@@ -623,9 +630,7 @@ class Account
 	}
 }
 
-/**
- * The class used for exceptions thrown by Phpcraft functions.
- */
+/** The class used for exceptions thrown by Phpcraft functions. */
 class Exception extends \Exception
 {
 	/**
@@ -659,12 +664,16 @@ class Connection
 	 */
 	protected $protocol_version;
 	/**
-	 * The amount of bytes a packet needs to be compressed as an integer or false if disabled.
-	 * @var mixed
-	 * @see Connection::setCompressionThreshold()
-	 * @see Connection::getCompressionThreshold()
+	 * The amount of bytes a packet needs for it to be compressed as an integer or -1 if disabled.
+	 * @var integer
 	 */
 	protected $compression_threshold = false;
+	/**
+	 * The state of the connection.
+	 * 1 stands for status, 2 for logging in and 3 for playing.
+	 * @var integer
+	 */
+	public $state;
 	/**
 	 * The write buffer binary string.
 	 * @var string
@@ -719,26 +728,6 @@ class Connection
 			@fclose($this->stream);
 			$this->stream = null;
 		}
-	}
-
-	/**
-	 * Sets the compression threshold.
-	 * @param mixed $compression_threshold
-	 * @see Connection::$compression_threshold
-	 */
-	function setCompressionThreshold($compression_threshold)
-	{
-		$this->compression_threshold = $compression_threshold;
-	}
-
-	/**
-	 * Returns the compression threshold.
-	 * @return mixed
-	 * @see Connection::$compression_threshold
-	 */
-	function getCompressionThreshold()
-	{
-		return $this->compression_threshold;
 	}
 
 	/**
@@ -907,7 +896,7 @@ class Connection
 		if($this->stream != null)
 		{
 			$length = strlen($this->write_buffer);
-			if($this->compression_threshold)
+			if($this->compression_threshold > -1)
 			{
 				if($length >= $this->compression_threshold)
 				{
@@ -973,7 +962,7 @@ class Connection
 		{
 			$this->read_buffer .= fread($this->stream, $length - strlen($this->read_buffer));
 		}
-		if($this->compression_threshold !== false)
+		if($this->compression_threshold > -1)
 		{
 			$uncompressed_length = $this->readVarInt();
 			if($uncompressed_length > 0)
@@ -1215,16 +1204,14 @@ class Connection
 	}
 }
 
-/**
- * A client-to-server connection.
- */
+/** A client-to-server connection. */
 class ServerConnection extends Connection
 {
 	/**
 	 * The constructor.
 	 * @param string $server_name
 	 * @param integer $server_port
-	 * @param integer $next_state 1 stands for status and 2 for play.
+	 * @param integer $next_state 1 stands for status and 2 for login to play.
 	 * @param integer $protocol_version
 	 */
 	function __construct($server_name, $server_port, $next_state, $protocol_version = 404)
@@ -1239,14 +1226,12 @@ class ServerConnection extends Connection
 		$this->writeVarInt($protocol_version);
 		$this->writeString($server_name);
 		$this->writeShort($server_port);
-		$this->writeVarInt($next_state);
+		$this->writeVarInt($this->state = $next_state);
 		$this->send();
 	}
 }
 
-/**
- * A client-to-server connection with the intention of getting the server's status.
- */
+/** A client-to-server connection with the intention of getting the server's status. */
 class ServerStatusConnection extends ServerConnection
 {
 	/**
@@ -1309,9 +1294,7 @@ class ServerStatusConnection extends ServerConnection
 	}
 }
 
-/**
- * A client-to-server connection with the intention of playing on it.
- */
+/** A client-to-server connection with the intention of playing on it. */
 class ServerPlayConnection extends ServerConnection
 {
 	private $username;
@@ -1374,10 +1357,6 @@ class ServerPlayConnection extends ServerConnection
 			else if($id == 0x03) // Set Compression
 			{
 				$this->compression_threshold = $this->readVarInt();
-				if($this->compression_threshold < 1)
-				{
-					$this->compression_threshold = false;
-				}
 			}
 			else if($id == 0x02) // Login Success
 			{
@@ -1388,6 +1367,7 @@ class ServerPlayConnection extends ServerConnection
 					return "Server did not accept our username and would rather call us '{$name}'.";
 				}
 				$this->username = $name;
+				$this->state = 3;
 				return "";
 			}
 			else if($id == 0x01) // Encryption Request
@@ -1397,7 +1377,7 @@ class ServerPlayConnection extends ServerConnection
 					return "The server is in online mode.";
 				}
 				$server_id = $this->readString(20);
-				$publicKey = $this->readString();
+				$public_key = $this->readString();
 				$verify_token = $this->readString();
 				$shared_secret = "";
 				for($i = 0; $i < 16; $i++)
@@ -1407,17 +1387,17 @@ class ServerPlayConnection extends ServerConnection
 				if(Utils::httpPOST("https://sessionserver.mojang.com/session/minecraft/join", [
 					"accessToken" => $account->getAccessToken(),
 					"selectedProfile" => $account->getProfileId(),
-					"serverId" => Utils::sha1($server_id.$shared_secret.$publicKey)
+					"serverId" => Utils::sha1($server_id.$shared_secret.$public_key)
 				]) === false)
 				{
 					return "The session server is down for maintenance.";
 				}
-				$publicKey = openssl_pkey_get_public("-----BEGIN PUBLIC KEY-----\n".base64_encode($publicKey)."\n-----END PUBLIC KEY-----");
+				$public_key = openssl_pkey_get_public("-----BEGIN PUBLIC KEY-----\n".base64_encode($public_key)."\n-----END PUBLIC KEY-----");
 				$this->writeVarInt(0x01); // Encryption Response
 				$crypted = "";
-				openssl_public_encrypt($shared_secret, $crypted, $publicKey, OPENSSL_PKCS1_PADDING);
+				openssl_public_encrypt($shared_secret, $crypted, $public_key, OPENSSL_PKCS1_PADDING);
 				$this->writeString($crypted);
-				openssl_public_encrypt($verify_token, $crypted, $publicKey, OPENSSL_PKCS1_PADDING);
+				openssl_public_encrypt($verify_token, $crypted, $public_key, OPENSSL_PKCS1_PADDING);
 				$this->writeString($crypted);
 				$this->send();
 				$opts = ["mode" => "cfb", "iv" => $shared_secret, "key" => $shared_secret];
@@ -1437,6 +1417,143 @@ class ServerPlayConnection extends ServerConnection
 	}
 }
 
+/** A server-to-client connection. */
+class ClientConnection extends Connection
+{
+	/**
+	 * The constructor.
+	 * The handshake will be read and the connection will be closed when an error occurs.
+	 * After this, you should check {@see Connection::isOpen()} and then {@see Connection::$state} to see if the client wants to get the status (1) or login to play (2).
+	 * @param resource $stream
+	 */
+	function __construct($stream)
+	{
+		parent::__construct(-1, $stream);
+		stream_set_timeout($this->stream, 0, 10000);
+		stream_set_blocking($this->stream, true);
+		if($this->readPacket() === 0x00)
+		{
+			$this->protocol_version = $this->readVarInt();
+			$this->readString(); // hostname/ip
+			$this->ignoreBytes(2); // port
+			$this->state = $this->readVarInt();
+			if($this->state == 1 || $this->state == 2)
+			{
+				if($this->state != 2 || Utils::isProtocolVersionSupported($this->protocol_version))
+				{
+					stream_set_timeout($this->stream, ini_get("default_socket_timeout"));
+					stream_set_blocking($this->stream, false);
+				}
+				else
+				{
+					$this->writeVarInt(0x00);
+					$this->writeString('{"text":"You\'re not using a compatible version."}');
+					$this->send();
+					$this->close();
+				}
+			}
+			else
+			{
+				$this->close();
+			}
+		}
+		else
+		{
+			$this->close();
+		}
+	}
+
+	/**
+	 * Sends an Encryption Request Packet.
+	 * @param string $private_key Your OpenSSL private key resource.
+	 * @return ClientConnection $this
+	 */
+	function sendEncryptionRequest($private_key)
+	{
+		if($this->state == 2)
+		{
+			$this->writeVarInt(0x01);
+			$this->writeString(""); // Server ID
+			$this->writeString(base64_decode(trim(substr(openssl_pkey_get_details($private_key)["key"], 26, -24)))); // Public Key
+			$this->writeString("MATE"); // Verify Token
+			$this->send();
+		}
+		return $this;
+	}
+
+	/**
+	 * Reads an encryption response packet's data, authenticates with Mojang, sets the compression threshold, and finishes login.
+	 * If there is an error, the client is disconnected and false is returned.
+	 * On success, an array looking like this is returned:
+	 * <pre>[
+	 *   "id" => "11111111222233334444555555555555",
+	 *   "name" => "Notch",
+	 *   "properties" => [
+	 *     [
+	 *       "name" => "textures",
+	 *       "value" => "&lt;base64 string&gt;",
+	 *       "signature" => "&lt;base64 string; signed data using Yggdrasil's private key&gt;"
+	 *     ]
+	 *   ]
+	 * ]</pre>
+	 * After this, you should call {@see ClientConnection::finishLogin()}
+	 * @param string $name The name the client presented in the Login Start packet.
+	 * @param string $private_key Your OpenSSL private key resource.
+	 * @return mixed
+	 */
+	function handleEncryptionResponse($name, $private_key)
+	{
+		openssl_private_decrypt($this->readString(), $shared_secret, $private_key, OPENSSL_PKCS1_PADDING);
+		openssl_private_decrypt($this->readString(), $verify_token, $private_key, OPENSSL_PKCS1_PADDING);
+		if($verify_token !== "MATE")
+		{
+			$this->close();
+			return false;
+		}
+		$opts = ["mode" => "cfb", "iv" => $shared_secret, "key" => $shared_secret];
+		stream_filter_append($this->stream, "mcrypt.rijndael-128", STREAM_FILTER_WRITE, $opts);
+		stream_filter_append($this->stream, "mdecrypt.rijndael-128", STREAM_FILTER_READ, $opts);
+		$json = @json_decode(@file_get_contents("https://sessionserver.mojang.com/session/minecraft/hasJoined?username={$name}&serverId=".Utils::sha1($shared_secret.base64_decode(trim(substr(openssl_pkey_get_details($private_key)["key"], 26, -24))))), true);
+		if(!$json || empty($json["id"]) || empty($json["name"]) || $json["name"] != $name)
+		{
+			$this->writeVarInt(0x00);
+			$this->writeString('{"text":"Failed to authenticate against session server."}');
+			$this->send();
+			$this->close();
+			return false;
+		}
+		return $json;
+	}
+
+	/**
+	 * Sets the compression threshold and finishes the login.
+	 * @param string $uuid The client's UUID as a string with hypens.
+	 * @param string $name The name the client presented in the Login Start packet.
+	 * @param integer $compression_threshold Use -1 to disable compression.
+	 * @return ClientConnection $this
+	 * @see Utils::generateUUIDv4()
+	 * @see Utils::addHypensToUUID()
+	 */
+	function finishLogin($uuid, $name, $compression_threshold = 256)
+	{
+		if($this->state == 2)
+		{
+			if($compression_threshold > -1 || $this->protocol_version < 48)
+			{
+				$this->writeVarInt(0x03);
+				$this->writeVarInt($compression_threshold);
+				$this->send();
+			}
+			$this->compression_threshold = $compression_threshold;
+			$this->writeVarInt(0x02);
+			$this->writeString($uuid);
+			$this->writeString($name);
+			$this->send();
+		}
+		return $this;
+	}
+}
+
 /**
  * A Packet.
  * Look at the source code of this class for a list of packet names.
@@ -1444,42 +1561,43 @@ class ServerPlayConnection extends ServerConnection
 abstract class Packet
 {
 	private static $clientbound_packet_ids = [
-		"spawn_player" => [0x05, 0x05, 0x05, 0x05, 0x05, 0x0C],
-		"chat_message" => [0x0E, 0x0F, 0x0F, 0x0F, 0x0F, 0x02],
-		"plugin_message" => [0x19, 0x18, 0x18, 0x18, 0x18, 0x3F],
-		"disconnect" => [0x1B, 0x1A, 0x1A, 0x1A, 0x1A, 0x40],
-		"open_window" => [0x14, 0x13, 0x13, 0x13, 0x13, 0x2D],
-		"keep_alive_request" => [0x21, 0x1F, 0x1F, 0x1F, 0x1F, 0x00],
-		"join_game" => [0x25, 0x23, 0x23, 0x23, 0x23, 0x01],
-		"entity_relative_move" => [0x28, 0x26, 0x26, 0x25, 0x25, 0x15],
-		"entity_look_and_relative_move" => [0x29, 0x27, 0x27, 0x26, 0x26, 0x17],
-		"entity_look" => [0x2A, 0x28, 0x28, 0x27, 0x27, 0x16],
-		"player_list_item" => [0x30, 0x2E, 0x2D, 0x2D, 0x2D, 0x38],
-		"teleport" => [0x32, 0x2F, 0x2E, 0x2E, 0x2E, 0x08],
-		"destroy_entites" => [0x35, 0x32, 0x31, 0x30, 0x30, 0x13],
-		"respawn" => [0x38, 0x35, 0x34, 0x33, 0x33, 0x07],
-		"update_health" => [0x44, 0x41, 0x40, 0x3E, 0x3E, 0x06],
-		"spawn_position" => [0x49, 0x46, 0x45, 0x43, 0x43, 0x05],
-		"time_update" => [0x4A, 0x47, 0x46, 0x44, 0x44, 0x03],
-		"player_list_header_and_footer" => [0x4E, 0x4A, 0x49, 0x47, 0x48, 0x47],
+		"spawn_player" => [0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x0C],
+		"chat_message" => [0x0E, 0x0F, 0x0F, 0x0F, 0x0F, 0x0F, 0x02],
+		"plugin_message" => [0x19, 0x18, 0x18, 0x18, 0x18, 0x18, 0x3F],
+		"disconnect" => [0x1B, 0x1A, 0x1A, 0x1A, 0x1A, 0x1A, 0x40],
+		"open_window" => [0x14, 0x13, 0x13, 0x13, 0x13, 0x13, 0x2D],
+		"change_game_state" => [0x20, 0x1E, 0x1E, 0x1E, 0x1E, 0x1E, 0x2B],
+		"keep_alive_request" => [0x21, 0x1F, 0x1F, 0x1F, 0x1F, 0x1F, 0x00],
+		"join_game" => [0x25, 0x23, 0x23, 0x23, 0x23, 0x23, 0x01],
+		"entity_relative_move" => [0x28, 0x26, 0x26, 0x25, 0x25, 0x25, 0x15],
+		"entity_look_and_relative_move" => [0x29, 0x27, 0x27, 0x26, 0x26, 0x26, 0x17],
+		"entity_look" => [0x2A, 0x28, 0x28, 0x27, 0x27, 0x27, 0x16],
+		"player_list_item" => [0x30, 0x2E, 0x2D, 0x2D, 0x2D, 0x2D, 0x38],
+		"teleport" => [0x32, 0x2F, 0x2E, 0x2E, 0x2E, 0x2E, 0x08],
+		"destroy_entites" => [0x35, 0x32, 0x31, 0x30, 0x30, 0x30, 0x13],
+		"respawn" => [0x38, 0x35, 0x34, 0x33, 0x33, 0x33, 0x07],
+		"update_health" => [0x44, 0x41, 0x40, 0x3E, 0x3E, 0x3E, 0x06],
+		"spawn_position" => [0x49, 0x46, 0x45, 0x43, 0x43, 0x43, 0x05],
+		"time_update" => [0x4A, 0x47, 0x46, 0x44, 0x44, 0x44, 0x03],
+		"player_list_header_and_footer" => [0x4E, 0x4A, 0x49, 0x47, 0x47, 0x48, 0x47],
 		"entity_teleport" => [0x50, 0x4C, 0x4B, 0x49, 0x4A, 0x18]
 	];
 	private static $serverbound_packet_ids = [
 		"teleport_confirm" => [0x00, 0x00, 0x00, 0x00, 0x00, -1],
-		"send_chat_message" => [0x02, 0x02, 0x03, 0x02, 0x02, 0x01],
-		"client_status" => [0x03, 0x03, 0x04, 0x03, 0x03, 0x16],
-		"client_settings" => [0x04, 0x04, 0x05, 0x04, 0x04, 0x15],
-		"close_window" => [0x09, 0x08, 0x09, 0x08, 0x08, 0x0D],
-		"send_plugin_message" => [0x0A, 0x09, 0x0A, 0x09, 0x09, 0x17],
-		"keep_alive_response" => [0x0E, 0x0B, 0x0C, 0x0B, 0x0B, 0x00],
-		"player" => [0x0F, 0x0C, 0x0D, 0x0F, 0x0F, 0x03],
-		"player_position" => [0x10, 0x0D, 0x0E, 0x0C, 0x0C, 0x04],
-		"player_position_and_look" => [0x11, 0x0E, 0x0F, 0x0D, 0x0D, 0x06],
-		"player_look" => [0x12, 0x0F, 0x10, 0x0E, 0x0E, 0x05],
-		"held_item_change" => [0x21, 0x1A, 0x1A, 0x17, 0x17, 0x09],
-		"animation" => [0x27, 0x1D, 0x1D, 0x1A, 0x1A, 0x0A],
-		"player_block_placement" => [0x29, 0x1F, 0x1F, 0x1C, 0x1C, 0x08],
-		"use_item" => [0x2A, 0x20, 0x20, 0x1D, 0x1D, -1],
+		"send_chat_message" => [0x02, 0x02, 0x03, 0x02, 0x02, 0x02, 0x01],
+		"client_status" => [0x03, 0x03, 0x04, 0x03, 0x03, 0x03, 0x16],
+		"client_settings" => [0x04, 0x04, 0x05, 0x04, 0x04, 0x04, 0x15],
+		"close_window" => [0x09, 0x08, 0x09, 0x08, 0x08, 0x08, 0x0D],
+		"send_plugin_message" => [0x0A, 0x09, 0x0A, 0x09, 0x09, 0x09, 0x17],
+		"keep_alive_response" => [0x0E, 0x0B, 0x0C, 0x0B, 0x0B, 0x0B, 0x00],
+		"player" => [0x0F, 0x0C, 0x0D, 0x0F, 0x0F, 0x0F, 0x03],
+		"player_position" => [0x10, 0x0D, 0x0E, 0x0C, 0x0C, 0x0C, 0x04],
+		"player_position_and_look" => [0x11, 0x0E, 0x0F, 0x0D, 0x0D, 0x0D, 0x06],
+		"player_look" => [0x12, 0x0F, 0x10, 0x0E, 0x0E, 0x0E, 0x05],
+		"held_item_change" => [0x21, 0x1A, 0x1A, 0x17, 0x17, 0x17, 0x09],
+		"animation" => [0x27, 0x1D, 0x1D, 0x1A, 0x1A, 0x1A, 0x0A],
+		"player_block_placement" => [0x29, 0x1F, 0x1F, 0x1C, 0x1C, 0x1C, 0x08],
+		"use_item" => [0x2A, 0x20, 0x20, 0x1D, 0x1D, 0x1D, -1],
 	];
 	/**
 	 * The name of the packet.
@@ -1529,11 +1647,15 @@ abstract class Packet
 		{
 			return isset(Packet::$clientbound_packet_ids[$name][3]) ? Packet::$clientbound_packet_ids[$name][3] : (isset(Packet::$serverbound_packet_ids[$name][3]) ? Packet::$serverbound_packet_ids[$name][3] : null);
 		}
-		else if($protocol_version >= 107)
+		else if($protocol_version >= 110)
 		{
 			return isset(Packet::$clientbound_packet_ids[$name][4]) ? Packet::$clientbound_packet_ids[$name][4] : (isset(Packet::$serverbound_packet_ids[$name][4]) ? Packet::$serverbound_packet_ids[$name][4] : null);
 		}
-		return isset(Packet::$clientbound_packet_ids[$name][5]) ? Packet::$clientbound_packet_ids[$name][5] : (isset(Packet::$serverbound_packet_ids[$name][5]) ? Packet::$serverbound_packet_ids[$name][5] : null);
+		else if($protocol_version >= 107)
+		{
+			return isset(Packet::$clientbound_packet_ids[$name][5]) ? Packet::$clientbound_packet_ids[$name][5] : (isset(Packet::$serverbound_packet_ids[$name][5]) ? Packet::$serverbound_packet_ids[$name][5] : null);
+		}
+		return isset(Packet::$clientbound_packet_ids[$name][6]) ? Packet::$clientbound_packet_ids[$name][6] : (isset(Packet::$serverbound_packet_ids[$name][6]) ? Packet::$serverbound_packet_ids[$name][6] : null);
 	}
 
 	/**
@@ -1578,14 +1700,21 @@ abstract class Packet
 					return $n;
 				}
 			}
-			else if($protocol_version >= 107)
+			else if($protocol_version >= 110)
 			{
 				if($v[4] == $id)
 				{
 					return $n;
 				}
 			}
-			else if($v[5] == $id)
+			else if($protocol_version >= 107)
+			{
+				if($v[5] == $id)
+				{
+					return $n;
+				}
+			}
+			else if($v[6] == $id)
 			{
 				return $n;
 			}
@@ -1632,9 +1761,7 @@ abstract class Packet
 	abstract function send($con);
 }
 
-/**
- * The template for the keep alive request and response packets.
- */
+/** The template for the keep alive request and response packets. */
 abstract class KeepAlivePacket extends Packet
 {
 	/**
@@ -1705,9 +1832,7 @@ abstract class KeepAlivePacket extends Packet
 		$con->send();
 	}
 }
-/**
- * Sent by the server to the client to make sure it's still connected
- */
+/** Sent by the server to the client to make sure it's still connected. */
 class KeepAliveRequestPacket extends KeepAlivePacket
 {
 	/**
@@ -1738,9 +1863,7 @@ class KeepAliveRequestPacket extends KeepAlivePacket
 	}
 }
 
-/**
- * Sent by the client to the server in response to {@see KeepAliveRequestPacket}.
- */
+/** Sent by the client to the server in response to {@see KeepAliveRequestPacket}. */
 class KeepAliveResponsePacket extends KeepAlivePacket
 {
 	/**
@@ -1762,9 +1885,7 @@ class KeepAliveResponsePacket extends KeepAlivePacket
 	}
 }
 
-/**
- * A packet that contains a chat object.
- */
+/** A packet that contains a chat object. */
 abstract class ChatPacket extends Packet
 {
 	private $message;
@@ -1821,9 +1942,7 @@ abstract class ChatPacket extends Packet
 	}
 }
 
-/**
- * Sent by the server to the client when it's closing the connection with a chat object as reason.
- */
+/** Sent by the server to the client when it's closing the connection with a chat object as reason. */
 class DisconnectPacket extends ChatPacket
 {
 	/**
@@ -1845,9 +1964,7 @@ class DisconnectPacket extends ChatPacket
 	}
 }
 
-/**
- * Sent by the server to the client when there's a new message.
- */
+/** Sent by the server to the client when there's a new message. */
 class ChatMessagePacket extends ChatPacket
 {
 	private $position = 0;
@@ -1894,9 +2011,7 @@ class ChatMessagePacket extends ChatPacket
 	}
 }
 
-/**
- * Sent by the client to the server when it wants to send a message or execute a command.
- */
+/** Sent by the client to the server when it wants to send a message or execute a command. */
 class SendChatMessagePacket extends Packet
 {
 	private $message;
