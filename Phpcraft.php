@@ -1571,6 +1571,7 @@ class ClientConnection extends Connection
 			$this->writeString($uuid);
 			$this->writeString($name);
 			$this->send();
+			$this->state = 3;
 		}
 		return $this;
 	}

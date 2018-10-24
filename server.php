@@ -74,7 +74,6 @@ if(empty($options["port"]))
 {
 	$options["port"] = 25565;
 }
-$port = isset($options["port"]) ? $options["port"] : 25565;
 if(stristr(PHP_OS, "WIN"))
 {
 	echo "Press enter to acknowledge the following and start the server:\n";
@@ -82,8 +81,8 @@ if(stristr(PHP_OS, "WIN"))
 	echo "- If you're using Windows 8.1 or below, you won't see any colors.\n";
 	fgets($stdin);
 }
-echo "Binding to port {$port}...";
-$server = stream_socket_server("tcp://0.0.0.0:{$port}", $errno, $errstr) or die(" {$errstr}\n");
+echo "Binding to port ".$options["port"]."...";
+$server = stream_socket_server("tcp://0.0.0.0:".$options["port"], $errno, $errstr) or die(" {$errstr}\n");
 stream_set_blocking($server, false);
 echo " Success.\n";
 stream_set_blocking($stdin, false);
@@ -143,7 +142,6 @@ function joinSuccess($i)
 	$con->writeString('{"text":"You can chat with other players here. That\'s it."}');
 	$con->writeByte(1);
 	$con->send();
-	$clients[$i]["state"] = 3;
 	$clients[$i]["next_heartbeat"] = microtime(true) + 15;
 	$msg = [
 		"color" => "yellow",
@@ -158,7 +156,7 @@ function joinSuccess($i)
 	$msg = json_encode($msg);
 	foreach($clients as $c)
 	{
-		if($c["state"] == 3 && $c["connection"]->isOpen())
+		if($c["connection"]->getState() == 3 && $c["connection"]->isOpen())
 		{
 			try
 			{
@@ -181,7 +179,7 @@ do
 		{
 			while(($id = $con->readPacket(false)) !== false)
 			{
-				if($clients[$i]["state"] == 3) // Playing
+				if($con->getState() == 3) // Playing
 				{
 					$packet_name = \Phpcraft\Packet::serverboundPacketIdToName($id, $con->getProtocolVersion());
 					if($packet_name == "keep_alive_response")
@@ -206,7 +204,7 @@ do
 						$msg = json_encode($msg);
 						foreach($clients as $c)
 						{
-							if($c["state"] == 3 && $c["connection"]->isOpen())
+							if($c["connection"]->getState() == 3 && $c["connection"]->isOpen())
 							{
 								try
 								{
@@ -220,7 +218,7 @@ do
 						}
 					}
 				}
-				else if($clients[$i]["state"] == 2) // Login
+				else if($con->getState() == 2) // Login
 				{
 					if($id == 0x00) // Login Start
 					{
@@ -289,7 +287,7 @@ do
 		}
 		else
 		{
-			if($clients[$i]["state"] == 3)
+			if($con->getState() == 3)
 			{
 				$msg = [
 					"color" => "yellow",
@@ -305,7 +303,7 @@ do
 				$msg = json_encode($msg);
 				foreach($clients as $c)
 				{
-					if($c["state"] == 3 && $c["connection"]->isOpen())
+					if($c["connection"]->getState() == 3 && $c["connection"]->isOpen())
 					{
 						try
 						{
@@ -339,7 +337,6 @@ do
 					{
 						array_push($clients, [
 							"connection" => $con,
-							"state" => 1,
 							"next_heartbeat" => 0,
 							"disconnect_after" => microtime(true) + 10
 						]);
@@ -348,7 +345,6 @@ do
 					{
 						array_push($clients, [
 							"connection" => $con,
-							"state" => 2,
 							"next_heartbeat" => 0,
 							"disconnect_after" => 0
 						]);
@@ -375,7 +371,7 @@ do
 				$msg = json_encode($msg);
 				foreach($clients as $c)
 				{
-					if($c["state"] == 3 && $c["connection"]->isOpen())
+					if($c["connection"]->getState() == 3 && $c["connection"]->isOpen())
 					{
 						try
 						{
