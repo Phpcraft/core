@@ -9,6 +9,10 @@ if(version_compare(phpversion(), "7.0.15", "<"))
 {
 	die("Phpcraft requires PHP 7.0.15 or above.\n");
 }
+if(!extension_loaded("mbstring"))
+{
+	die("Phpcraft requires mbstring. Try `apt-get install php-mbstring` or check your PHP configuration.\n");
+}
 
 /** Utilities. */
 class Utils
@@ -151,7 +155,7 @@ class Utils
 
 	/**
 	 * Returns an array of extensions missing to enable online mode.
-	 * Phpcraft has no dependencies for normal usage. However, if you want to enable online mode, GMP, openssl, and mcrypt are required. This function returns a string array of all extensions that are missing or an empty array if you are good to go.
+	 * If you want to enable online mode, GMP, openssl, and mcrypt are required. This function returns a string array of all extensions that are missing. Therefore, an empty array means all required extensions are installed.
 	 * @return array
 	 */
 	static function getExtensionsMissingToGoOnline()
@@ -316,6 +320,123 @@ class Utils
 	}
 
 	/**
+	 * Converts a string using § format codes into a chat object.
+	 * @param string $str
+	 * @param integer $i Ignore this parameter.
+	 * @param boolean $child Ignore this parameter.
+	 */
+	static function textToChat($str, &$i = 0, $child = false)
+	{
+		if(strpos($str, "§") === false)
+		{
+			return ["text" => $str];
+		}
+		if(!$child && $i == 0 && strpos($str, "§r") !== false && strpos(mb_substr($str, 2, null, "utf-8"), "§r") !== false)
+		{
+			$extras = [];
+			while($i < mb_strlen($str, "utf-8"))
+			{
+				array_push($extras, Utils::textToChat($str, $i, true));
+			}
+			return ["text" => "", "extra" => $extras];
+		}
+		$colors = [
+			"0" => "black",
+			"1" => "dark_blue",
+			"2" => "dark_green",
+			"3" => "dark_aqua",
+			"4" => "dark_red",
+			"5" => "dark_purple",
+			"6" => "gold",
+			"7" => "gray",
+			"8" => "dark_gray",
+			"9" => "blue",
+			"a" => "green",
+			"b" => "aqua",
+			"c" => "red",
+			"d" => "light_purple",
+			"e" => "yellow",
+			"f" => "white"
+		];
+		$chat = ["text" => ""];
+		$lastWasParagraph = false;
+		while($i < mb_strlen($str, "utf-8"))
+		{
+			$c = mb_substr($str, $i, 1, "utf-8");
+			if($c == "§")
+			{
+				$lastWasParagraph = true;
+			}
+			else if($lastWasParagraph)
+			{
+				$lastWasParagraph = false;
+				if($chat["text"] == "")
+				{
+					if($c == "r")
+					{
+						if($child)
+						{
+							return $chat;
+						}
+						unset($chat["obfuscated"]);
+						unset($chat["bold"]);
+						unset($chat["strikethrough"]);
+						unset($chat["underlined"]);
+						unset($chat["italic"]);
+						unset($chat["color"]);
+					}
+					else if($c == "k")
+					{
+						$chat["obfuscated"] = true;
+					}
+					else if($c == "l")
+					{
+						$chat["bold"] = true;
+					}
+					else if($c == "m")
+					{
+						$chat["strikethrough"] = true;
+					}
+					else if($c == "n")
+					{
+						$chat["underlined"] = true;
+					}
+					else if($c == "o")
+					{
+						$chat["italic"] = true;
+					}
+					else if(isset($colors[$c]))
+					{
+						$chat["color"] = $colors[$c];
+					}
+				}
+				else
+				{
+					$i--;
+					$component = Utils::textToChat($str, $i, true);
+					if(!empty($component["text"]) || count($component) > 1)
+					{
+						if(empty($chat["extra"]))
+						{
+							$chat["extra"] = [$component];
+						}
+						else
+						{
+							array_push($chat["extra"], $component);
+						}
+					}
+				}
+			}
+			else
+			{
+				$chat["text"] .= $c;
+			}
+			$i++;
+		}
+		return $chat;
+	}
+
+	/**
 	 * Converts a chat object into text with ANSI escape codes so it will be colorful in the console, as well.
 	 * @param mixed $chat The chat object as an array or a string.
 	 * @param array $translations The translations array so translated messages look proper.
@@ -335,8 +456,7 @@ class Utils
 		}
 		if(gettype($chat) == "string")
 		{
-			// TODO: Display messages using § codes properly as well
-			return $chat;
+			$chat = Utils::textToChat($chat);
 		}
 		if($parent === false)
 		{
@@ -428,6 +548,10 @@ class Utils
 		}
 		else if(isset($chat["text"]))
 		{
+			if(strpos($chat["text"], "§") !== false)
+			{
+				$chat = Utils::textToChat($chat["text"]) + $chat;
+			}
 			$text .= $chat["text"];
 		}
 		if(!$child)

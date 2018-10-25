@@ -61,7 +61,7 @@ if($options["online"])
 {
 	if($extensions_needed = \Phpcraft\Utils::getExtensionsMissingToGoOnline())
 	{
-		die("To host an online server, you need ".join(" and ", $extensions_needed).".\nCheck your php.ini, use apt-get install or set online=off.\n");
+		die("To host an online server, you need ".join(" and ", $extensions_needed).".\nTry apt-get install or check your PHP configuration.\n");
 	}
 	echo "Generating 1024-bit RSA keypair...";
 	$private_key = openssl_pkey_new([

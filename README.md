@@ -1,5 +1,6 @@
 # Phpcraft
 
+
 ## Features
 
 - Colorful display of chat messages using ANSI escape codes
@@ -13,14 +14,22 @@
 - Planned features:
   - See other players on the server in the player list
   - Legacy List Ping
-  - Display messages using § colorfully as well
 
-## Client Usage
+## Dependencies
 
-Simply clone this repository and run `php client.php`. You can also provide optional arguments — use `php client.php help` to get list of them.
+- PHP >=7.0.15
+- mbstring
 
-Once the client is running, you can send messages by typing them, but there are also commands, starting with a period (`.`) — type `.help` for a list of them. If you want to send a message starting with a period, use two periods.
+### Additional Dependencies for Online Mode
 
-## Server Usage
+- gmp
+- openssl
+- mbcrypt
 
-Simply clone this repository and run `php server.php`. You can also provide optional arguments — use `php server.php help` to get list of them.
+## Usage
+
+Simply clone this repository and run any file you want — `client.php`, `server.php`, or `listping.php`. You can also provide arguments to the client and server — get a list of supported arguments using `php <file>.php help`.
+
+### Built-in Client Commands
+
+The client has a couple of built-in commands, which start with a period (`.`); type `.help` for a list of them. If you want to send a message starting with a period, use two periods.

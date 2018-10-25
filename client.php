@@ -140,7 +140,7 @@ if($online)
 {
 	if($extensions_needed = \Phpcraft\Utils::getExtensionsMissingToGoOnline())
 	{
-		die("To join online servers, you need ".join(" and ", $extensions_needed).".\nCheck your php.ini or use apt-get install.\n");
+		die("To join online servers, you need ".join(" and ", $extensions_needed).".\nTry apt-get install or check your PHP configuration.\n");
 	}
 	if(!$account->loginUsingProfiles())
 	{
@@ -448,7 +448,7 @@ function handleConsoleMessage($msg)
 $reconnect = false;
 do
 {
-	echo "Connecting using {$minecraft_version} ({$protocol_version})...";
+	echo "Connecting using {$minecraft_version} (protocol version {$protocol_version})...";
 	$con = new \Phpcraft\ServerPlayConnection($protocol_version, $serverarr[0], $serverarr[1]);
 	echo " Connection established.\nLogging in...";
 	if($error = $con->login($account, $translations))
