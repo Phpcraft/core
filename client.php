@@ -2,23 +2,7 @@
 echo "\033[0;97;40mPHP Minecraft Client\nhttps://github.com/timmyrs/Phpcraft\n";
 require __DIR__."/Phpcraft.php";
 
-if(stristr(PHP_OS, "LINUX"))
-{
-	$os = "linux";
-}
-else if(stristr(PHP_OS, "DAR"))
-{
-	$os = "mac";
-}
-else if(stristr(PHP_OS, "WIN"))
-{
-	$os = "windows";
-}
-else
-{
-	$os = "unknown";
-}
-if($os == "windows")
+if(stristr(PHP_OS, "WIN") && !stristr(PHP_OS, "DAR"))
 {
 	$acknowledgements = [
 		"Since you're on Windows, you shouldn't unfocus this window.", // https://bugs.php.net/bug.php?id=34972

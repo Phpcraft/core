@@ -74,7 +74,7 @@ if(empty($options["port"]))
 {
 	$options["port"] = 25565;
 }
-if(stristr(PHP_OS, "WIN"))
+if(stristr(PHP_OS, "WIN") && !stristr(PHP_OS, "DAR"))
 {
 	echo "Press enter to acknowledge the following and start the server:\n";
 	echo "- Since you're on Windows, you shouldn't unfocus this window.\n"; // https://bugs.php.net/bug.php?id=34972
