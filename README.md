@@ -3,7 +3,7 @@
 ## Features
 
 - Colorful display of chat messages using ANSI escape codes
-- 1.8 - 1.13.2-pre2 support by protocol hacking
+- 1.8 - 1.13.2 support by protocol hacking
 - Supports online and offline mode
 - Client features:
   - Can follow player's entities

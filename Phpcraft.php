@@ -910,7 +910,7 @@ class Connection
 	}
 
 	/**
-	 * Sends and clears the write buffer over the stream or does nothing if there is no stream.
+	 * Sends the contents of the write buffer over the stream and clears the write buffer or does nothing if there is no stream.
 	 * @return Connection $this
 	 */
 	function send()
@@ -1574,6 +1574,30 @@ class ClientConnection extends Connection
 			$this->state = 3;
 		}
 		return $this;
+	}
+
+	/**
+	 * Disconnects the client with a reason.
+	 * @param array $reason The reason of the disconnect; chat object.
+	 * @return void
+	 */
+	function disconnect($reason = [])
+	{
+		if($reason)
+		{
+			if($this->state == 2)
+			{
+
+				$this->writeVarInt(0x00);
+				$this->writeString(json_encode($reason));
+				$this->send();
+			}
+			else
+			{
+				(new DisconnectPacket($reason))->send($this);
+			}
+		}
+		$this->close();
 	}
 }
 
