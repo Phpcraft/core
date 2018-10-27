@@ -1,6 +1,5 @@
 # Phpcraft
 
-
 ## Features
 
 - Colorful display of chat messages using ANSI escape codes
@@ -17,7 +16,7 @@
 
 ## Dependencies
 
-- PHP >=7.0.15
+- PHP >= 7.0.15
 - mbstring
 
 ### Additional Dependencies for Online Mode
@@ -32,4 +31,4 @@ Simply clone this repository and run any file you want — `client.php`, `server
 
 ### Built-in Client Commands
 
-The client has a couple of built-in commands, which start with a period (`.`); type `.help` for a list of them. If you want to send a message starting with a period, use two periods.
+The client has a couple of built-in commands, which start with a period (`.`) — type `.help` for a list of them. If you want to send a message starting with a period, use two periods.

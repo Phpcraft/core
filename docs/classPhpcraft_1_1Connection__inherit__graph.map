@@ -1,0 +1,6 @@
+<map id="Phpcraft\Connection" name="Phpcraft\Connection">
+<area shape="rect" id="node2" href="$classPhpcraft_1_1ClientConnection.html" title="Phpcraft\\ClientConnection" alt="" coords="5,80,192,107"/>
+<area shape="rect" id="node3" href="$classPhpcraft_1_1ServerConnection.html" title="Phpcraft\\ServerConnection" alt="" coords="217,80,410,107"/>
+<area shape="rect" id="node4" href="$classPhpcraft_1_1ServerPlayConnection.html" title="Phpcraft\\ServerPlayConnection" alt="" coords="79,155,297,181"/>
+<area shape="rect" id="node5" href="$classPhpcraft_1_1ServerStatusConnection.html" title="Phpcraft\\ServerStatusConnection" alt="" coords="321,155,556,181"/>
+</map>

@@ -322,21 +322,23 @@ class Utils
 	/**
 	 * Converts a string using § format codes into a chat object.
 	 * @param string $str
+	 * @param boolean $allowAnd When true, '&' will be handled like '§'.
 	 * @param integer $i Ignore this parameter.
 	 * @param boolean $child Ignore this parameter.
 	 */
-	static function textToChat($str, &$i = 0, $child = false)
+	static function textToChat($str, $allowAnd = false, &$i = 0, $child = false)
 	{
-		if(strpos($str, "§") === false)
+		if(strpos($str, "§") === false && (!$allowAnd || strpos($str, "&") === false))
 		{
 			return ["text" => $str];
 		}
-		if(!$child && $i == 0 && strpos($str, "§r") !== false && strpos(mb_substr($str, 2, null, "utf-8"), "§r") !== false)
+		if(!$child && $i == 0 && (strpos(mb_substr($str, 2, null, "utf-8"), "§r") !== false || ($allowAnd && strpos(mb_substr($str, 2, null, "utf-8"), "&r") !== false)))
 		{
 			$extras = [];
 			while($i < mb_strlen($str, "utf-8"))
 			{
-				array_push($extras, Utils::textToChat($str, $i, true));
+				array_push($extras, Utils::textToChat($str, $allowAnd, $i, true));
+				$i++;
 			}
 			return ["text" => "", "extra" => $extras];
 		}
@@ -363,21 +365,21 @@ class Utils
 		while($i < mb_strlen($str, "utf-8"))
 		{
 			$c = mb_substr($str, $i, 1, "utf-8");
-			if($c == "§")
+			if($c == "§" || ($allowAnd && $c == "&"))
 			{
 				$lastWasParagraph = true;
 			}
 			else if($lastWasParagraph)
 			{
 				$lastWasParagraph = false;
+				if($child && $c == "r")
+				{
+					return $chat;
+				}
 				if($chat["text"] == "")
 				{
 					if($c == "r")
 					{
-						if($child)
-						{
-							return $chat;
-						}
 						unset($chat["obfuscated"]);
 						unset($chat["bold"]);
 						unset($chat["strikethrough"]);
@@ -413,7 +415,7 @@ class Utils
 				else
 				{
 					$i--;
-					$component = Utils::textToChat($str, $i, true);
+					$component = Utils::textToChat($str, $allowAnd, $i, true);
 					if(!empty($component["text"]) || count($component) > 1)
 					{
 						if(empty($chat["extra"]))
@@ -438,7 +440,7 @@ class Utils
 
 	/**
 	 * Converts a chat object into text with ANSI escape codes so it will be colorful in the console, as well.
-	 * @param mixed $chat The chat object as an array or a string.
+	 * @param array|string $chat The chat object as an array or a string.
 	 * @param array $translations The translations array so translated messages look proper.
 	 * @param mixed $parent The parent chat object so styling is properly inherited. You don't need to set this.
 	 * @return string
@@ -456,6 +458,10 @@ class Utils
 		}
 		if(gettype($chat) == "string")
 		{
+			if(strpos($str, "§") === false)
+			{
+				return $chat;
+			}
 			$chat = Utils::textToChat($chat);
 		}
 		if($parent === false)
@@ -629,7 +635,7 @@ class Account
 
 	/**
 	 * Returns the access token for the account or null if offline.
-	 * @param string
+	 * @return string
 	 */
 	function getAccessToken()
 	{
@@ -712,7 +718,7 @@ class Account
 
 	/**
 	 * Logs into Mojang or Minecraft account using password.
-	 * This function will write the obtained access token into the .minecraft/launcher_profiles.json so you can avoid the password prompt in the future using {@see Account::loginUsingProfiles()}.
+	 * This function will write the obtained access token into the .minecraft/launcher_profiles.json so you can avoid the password prompt in the future using Account::loginUsingProfiles().
 	 * @param string $password
 	 * @return string Error message. Empty on success.
 	 */
@@ -779,30 +785,30 @@ class Connection
 {
 	/**
 	 * The stream of the connection of null.
-	 * @var resource
+	 * @var resource $stream
 	 */
 	protected $stream;
 	/**
 	 * The protocol version that is used for this connection.
-	 * @var integer
+	 * @var integer $protocol_version
 	 */
 	protected $protocol_version;
 	/**
 	 * The amount of bytes a packet needs for it to be compressed as an integer or -1 if disabled.
-	 * @var integer
+	 * @var integer $compression_threshold
 	 * @see Connection::getCompressionThreshold()
 	 */
 	protected $compression_threshold = false;
 	/**
 	 * The state of the connection.
 	 * 1 stands for status, 2 for logging in and 3 for playing.
-	 * @var integer
+	 * @var integer $state
 	 * @see Connection::getState()
 	 */
 	protected $state;
 	/**
 	 * The write buffer binary string.
-	 * @var string
+	 * @var string $write_buffer
 	 * @see Connection::getWriteBuffer()
 	 * @see Connection::getAndClearWriteBuffer()
 	 * @see Connection::clearWriteBuffer()
@@ -810,7 +816,7 @@ class Connection
 	protected $write_buffer = "";
 	/**
 	 * The read buffer binary string.
-	 * @var string
+	 * @var string $read_buffer
 	 */
 	protected $read_buffer = "";
 
@@ -837,7 +843,6 @@ class Connection
 	/**
 	 * Returns the state of the connection.
 	 * @return integer
-	 * @see Connection::$state
 	 */
 	function getState()
 	{
@@ -847,7 +852,6 @@ class Connection
 	/**
 	 * Returns the compression threshold of the connection.
 	 * @return integer
-	 * @see Connection::$compression_threshold
 	 */
 	function getCompressionThreshold()
 	{
@@ -990,7 +994,7 @@ class Connection
 
 	/**
 	 * Clears the write buffer and starts a new packet.
-	 * @param string $name The name of the new packet. For a list of packet names, check the source code of {@see Packet}.
+	 * @param string $name The name of the new packet. For a list of packet names, check the source code of Packet.
 	 * @return Connection $this
 	 */
 	function startPacket($name)
@@ -1068,7 +1072,7 @@ class Connection
 	/**
 	 * Reads a new packet into the read buffer.
 	 * @param boolean $forcefully When true, this function will wait until a packet is received and buffered. When false, it will not wait. When a packet is on the line, it will be received and buffered, regardless of this parameter.
-	 * @throws \Phpcraft\Exception When the packet length or packet id VarInt is too big.
+	 * @throws Exception When the packet length or packet id VarInt is too big.
 	 * @return mixed Boolean false if `$forcefully` is `false` and there is no packet. Otherwise, packet id as an integer.
 	 * @see Packet::clientboundPacketIdToName()
 	 * @see Packet::serverboundPacketIdToName()
@@ -1121,7 +1125,7 @@ class Connection
 
 	/**
 	 * Reads an integer encoded as a VarInt from the read buffer.
-	 * @throws \Phpcraft\Exception When there are not enough bytes to read a VarInt or the VarInt is too big.
+	 * @throws Exception When there are not enough bytes to read a VarInt or the VarInt is too big.
 	 * @return integer
 	 */
 	function readVarInt()
@@ -1153,7 +1157,7 @@ class Connection
 	/**
 	 * Reads a string from the read buffer.
 	 * @param integer $maxLength
-	 * @throws \Phpcraft\Exception When there are not enough bytes to read a string or the string exceeds `$maxLength`.
+	 * @throws Exception When there are not enough bytes to read a string or the string exceeds `$maxLength`.
 	 * @return string
 	 */
 	function readString($maxLength = 32767)
@@ -1179,7 +1183,7 @@ class Connection
 	/**
 	 * Reads a byte from the read buffer.
 	 * @param boolean $signed
-	 * @throws \Phpcraft\Exception When there are not enough bytes to read a byte.
+	 * @throws Exception When there are not enough bytes to read a byte.
 	 * @return integer
 	 */
 	function readByte($signed = false)
@@ -1199,7 +1203,7 @@ class Connection
 
 	/**
 	 * Reads a boolean from the read buffer.
-	 * @throws \Phpcraft\Exception When there are not enough bytes to read a boolean.
+	 * @throws Exception When there are not enough bytes to read a boolean.
 	 * @return boolean
 	 */
 	function readBoolean()
@@ -1216,7 +1220,7 @@ class Connection
 	/**
 	 * Reads a short from the read buffer.
 	 * @param boolean $signed
-	 * @throws \Phpcraft\Exception When there are not enough bytes to read a short.
+	 * @throws Exception When there are not enough bytes to read a short.
 	 * @return integer
 	 */
 	function readShort($signed = true)
@@ -1237,7 +1241,7 @@ class Connection
 	/**
 	 * Reads an integer from the read buffer.
 	 * @param boolean $signed
-	 * @throws \Phpcraft\Exception When there are not enough bytes to read an integer.
+	 * @throws Exception When there are not enough bytes to read an integer.
 	 * @return integer
 	 */
 	function readInt($signed = true)
@@ -1258,7 +1262,7 @@ class Connection
 	/**
 	 * Reads a long from the read buffer.
 	 * @param boolean $signed
-	 * @throws \Phpcraft\Exception When there are not enough bytes to read a long.
+	 * @throws Exception When there are not enough bytes to read a long.
 	 * @return integer
 	 */
 	function readLong($signed = true)
@@ -1382,7 +1386,7 @@ class ServerStatusConnection extends ServerConnection
 {
 	/**
 	 * The constructor.
-	 * After this, you should call {@see ServerStatusConnection::getStatus()}.
+	 * After this, you should call ServerStatusConnection::getStatus().
 	 * @param string $server_name
 	 * @param integer $server_port
 	 */
@@ -1418,9 +1422,7 @@ class ServerStatusConnection extends ServerConnection
 	 *
 	 * Note that a server might not present all of these values, so always check with `isset` first.
 	 *
-	 * Also, the `description` is a chat object, so you can pass it to {@see Utils::chatToANSIText()}.
-	 *
-	 * @see Utils::chatToANSIText()
+	 * Also, the `description` is a chat object, so you can pass it to Utils::chatToANSIText().
 	 * @return array
 	 */
 	function getStatus()
@@ -1448,7 +1450,7 @@ class ServerPlayConnection extends ServerConnection
 
 	/**
 	 * The constructor.
-	 * After this, you should call {@see ServerPlayConnection::login()}, even when joining an offline mode server.
+	 * After this, you should call ServerPlayConnection::login(), even when joining an offline mode server.
 	 * @param integer $protocol_version
 	 * @param string $server_name
 	 * @param integer $server_port
@@ -1460,7 +1462,7 @@ class ServerPlayConnection extends ServerConnection
 
 	/**
 	 * Returns our name on the server.
-	 * The return value will be equal to the return value of {@see Account::getUsername()} of the account passed to {@see ServerPlayConnection::login()}.
+	 * The return value will be equal to the return value of Account::getUsername() of the account passed to ServerPlayConnection::login().
 	 * @return string
 	 */
 	function getUsername()
@@ -1481,8 +1483,8 @@ class ServerPlayConnection extends ServerConnection
 	 * Logs in to the server using the given account.
 	 * This has to be called even when joining an offline mode server.
 	 * @param Account $account
-	 * @param array The translations for {@see Utils::chatToANSIText()}.
-	 * @throws \Phpcraft\Exception When the server responds unexpectedly.
+	 * @param array $translations The translations array so translated messages look proper.
+	 * @throws Exception When the server responds unexpectedly.
 	 * @return string Error message. Empty on success.
 	 */
 	function login($account, $translations = null)
@@ -1569,7 +1571,7 @@ class ClientConnection extends Connection
 	/**
 	 * The constructor.
 	 * The handshake will be read and the connection will be closed when an error occurs.
-	 * After this, you should check {@see Connection::isOpen()} and then {@see Connection::$state} to see if the client wants to get the status (1) or login to play (2).
+	 * After this, you should check Connection::isOpen() and then Connection::getState() to see if the client wants to get the status (1) or login to play (2).
 	 * @param resource $stream
 	 */
 	function __construct($stream)
@@ -1642,7 +1644,7 @@ class ClientConnection extends Connection
 	 *     ]
 	 *   ]
 	 * ]</pre>
-	 * After this, you should call {@see ClientConnection::finishLogin()}
+	 * After this, you should call ClientConnection::finishLogin().
 	 * @param string $name The name the client presented in the Login Start packet.
 	 * @param string $private_key Your OpenSSL private key resource.
 	 * @return mixed
@@ -1731,48 +1733,56 @@ class ClientConnection extends Connection
  */
 abstract class Packet
 {
-	private static $clientbound_packet_ids = [
-		"spawn_player" => [0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x0C],
-		"chat_message" => [0x0E, 0x0F, 0x0F, 0x0F, 0x0F, 0x0F, 0x02],
-		"plugin_message" => [0x19, 0x18, 0x18, 0x18, 0x18, 0x18, 0x3F],
-		"disconnect" => [0x1B, 0x1A, 0x1A, 0x1A, 0x1A, 0x1A, 0x40],
-		"open_window" => [0x14, 0x13, 0x13, 0x13, 0x13, 0x13, 0x2D],
-		"change_game_state" => [0x20, 0x1E, 0x1E, 0x1E, 0x1E, 0x1E, 0x2B],
-		"keep_alive_request" => [0x21, 0x1F, 0x1F, 0x1F, 0x1F, 0x1F, 0x00],
-		"join_game" => [0x25, 0x23, 0x23, 0x23, 0x23, 0x23, 0x01],
-		"entity_relative_move" => [0x28, 0x26, 0x26, 0x25, 0x25, 0x25, 0x15],
-		"entity_look_and_relative_move" => [0x29, 0x27, 0x27, 0x26, 0x26, 0x26, 0x17],
-		"entity_look" => [0x2A, 0x28, 0x28, 0x27, 0x27, 0x27, 0x16],
-		"player_list_item" => [0x30, 0x2E, 0x2D, 0x2D, 0x2D, 0x2D, 0x38],
-		"teleport" => [0x32, 0x2F, 0x2E, 0x2E, 0x2E, 0x2E, 0x08],
-		"destroy_entites" => [0x35, 0x32, 0x31, 0x30, 0x30, 0x30, 0x13],
-		"respawn" => [0x38, 0x35, 0x34, 0x33, 0x33, 0x33, 0x07],
-		"update_health" => [0x44, 0x41, 0x40, 0x3E, 0x3E, 0x3E, 0x06],
-		"spawn_position" => [0x49, 0x46, 0x45, 0x43, 0x43, 0x43, 0x05],
-		"time_update" => [0x4A, 0x47, 0x46, 0x44, 0x44, 0x44, 0x03],
-		"player_list_header_and_footer" => [0x4E, 0x4A, 0x49, 0x47, 0x47, 0x48, 0x47],
-		"entity_teleport" => [0x50, 0x4C, 0x4B, 0x49, 0x4A, 0x18]
-	];
-	private static $serverbound_packet_ids = [
-		"teleport_confirm" => [0x00, 0x00, 0x00, 0x00, 0x00, -1],
-		"send_chat_message" => [0x02, 0x02, 0x03, 0x02, 0x02, 0x02, 0x01],
-		"client_status" => [0x03, 0x03, 0x04, 0x03, 0x03, 0x03, 0x16],
-		"client_settings" => [0x04, 0x04, 0x05, 0x04, 0x04, 0x04, 0x15],
-		"close_window" => [0x09, 0x08, 0x09, 0x08, 0x08, 0x08, 0x0D],
-		"send_plugin_message" => [0x0A, 0x09, 0x0A, 0x09, 0x09, 0x09, 0x17],
-		"keep_alive_response" => [0x0E, 0x0B, 0x0C, 0x0B, 0x0B, 0x0B, 0x00],
-		"player" => [0x0F, 0x0C, 0x0D, 0x0F, 0x0F, 0x0F, 0x03],
-		"player_position" => [0x10, 0x0D, 0x0E, 0x0C, 0x0C, 0x0C, 0x04],
-		"player_position_and_look" => [0x11, 0x0E, 0x0F, 0x0D, 0x0D, 0x0D, 0x06],
-		"player_look" => [0x12, 0x0F, 0x10, 0x0E, 0x0E, 0x0E, 0x05],
-		"held_item_change" => [0x21, 0x1A, 0x1A, 0x17, 0x17, 0x17, 0x09],
-		"animation" => [0x27, 0x1D, 0x1D, 0x1A, 0x1A, 0x1A, 0x0A],
-		"player_block_placement" => [0x29, 0x1F, 0x1F, 0x1C, 0x1C, 0x1C, 0x08],
-		"use_item" => [0x2A, 0x20, 0x20, 0x1D, 0x1D, 0x1D, -1],
-	];
+	private static function clientboundPackets()
+	{
+		return [
+			"spawn_player" => [0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x0C],
+			"chat_message" => [0x0E, 0x0F, 0x0F, 0x0F, 0x0F, 0x0F, 0x02],
+			"plugin_message" => [0x19, 0x18, 0x18, 0x18, 0x18, 0x18, 0x3F],
+			"disconnect" => [0x1B, 0x1A, 0x1A, 0x1A, 0x1A, 0x1A, 0x40],
+			"open_window" => [0x14, 0x13, 0x13, 0x13, 0x13, 0x13, 0x2D],
+			"change_game_state" => [0x20, 0x1E, 0x1E, 0x1E, 0x1E, 0x1E, 0x2B],
+			"keep_alive_request" => [0x21, 0x1F, 0x1F, 0x1F, 0x1F, 0x1F, 0x00],
+			"join_game" => [0x25, 0x23, 0x23, 0x23, 0x23, 0x23, 0x01],
+			"entity_relative_move" => [0x28, 0x26, 0x26, 0x25, 0x25, 0x25, 0x15],
+			"entity_look_and_relative_move" => [0x29, 0x27, 0x27, 0x26, 0x26, 0x26, 0x17],
+			"entity_look" => [0x2A, 0x28, 0x28, 0x27, 0x27, 0x27, 0x16],
+			"player_list_item" => [0x30, 0x2E, 0x2D, 0x2D, 0x2D, 0x2D, 0x38],
+			"teleport" => [0x32, 0x2F, 0x2E, 0x2E, 0x2E, 0x2E, 0x08],
+			"destroy_entites" => [0x35, 0x32, 0x31, 0x30, 0x30, 0x30, 0x13],
+			"respawn" => [0x38, 0x35, 0x34, 0x33, 0x33, 0x33, 0x07],
+			"update_health" => [0x44, 0x41, 0x40, 0x3E, 0x3E, 0x3E, 0x06],
+			"spawn_position" => [0x49, 0x46, 0x45, 0x43, 0x43, 0x43, 0x05],
+			"time_update" => [0x4A, 0x47, 0x46, 0x44, 0x44, 0x44, 0x03],
+			"player_list_header_and_footer" => [0x4E, 0x4A, 0x49, 0x47, 0x47, 0x48, 0x47],
+			"entity_teleport" => [0x50, 0x4C, 0x4B, 0x49, 0x4A, 0x18]
+		];
+	}
+
+	private static function serverboundPackets()
+	{
+		return [
+			"teleport_confirm" => [0x00, 0x00, 0x00, 0x00, 0x00, -1],
+			"send_chat_message" => [0x02, 0x02, 0x03, 0x02, 0x02, 0x02, 0x01],
+			"client_status" => [0x03, 0x03, 0x04, 0x03, 0x03, 0x03, 0x16],
+			"client_settings" => [0x04, 0x04, 0x05, 0x04, 0x04, 0x04, 0x15],
+			"close_window" => [0x09, 0x08, 0x09, 0x08, 0x08, 0x08, 0x0D],
+			"send_plugin_message" => [0x0A, 0x09, 0x0A, 0x09, 0x09, 0x09, 0x17],
+			"keep_alive_response" => [0x0E, 0x0B, 0x0C, 0x0B, 0x0B, 0x0B, 0x00],
+			"player" => [0x0F, 0x0C, 0x0D, 0x0F, 0x0F, 0x0F, 0x03],
+			"player_position" => [0x10, 0x0D, 0x0E, 0x0C, 0x0C, 0x0C, 0x04],
+			"player_position_and_look" => [0x11, 0x0E, 0x0F, 0x0D, 0x0D, 0x0D, 0x06],
+			"player_look" => [0x12, 0x0F, 0x10, 0x0E, 0x0E, 0x0E, 0x05],
+			"held_item_change" => [0x21, 0x1A, 0x1A, 0x17, 0x17, 0x17, 0x09],
+			"animation" => [0x27, 0x1D, 0x1D, 0x1A, 0x1A, 0x1A, 0x0A],
+			"player_block_placement" => [0x29, 0x1F, 0x1F, 0x1C, 0x1C, 0x1C, 0x08],
+			"use_item" => [0x2A, 0x20, 0x20, 0x1D, 0x1D, 0x1D, -1],
+		];
+	}
+
 	/**
 	 * The name of the packet.
-	 * @var string
+	 * @var string $name
 	 */
 	protected $name;
 
@@ -1802,31 +1812,33 @@ abstract class Packet
 	 */
 	static function getId($name, $protocol_version)
 	{
+		$clientbound_packet_ids = Packet::clientboundPackets();
+		$serverbound_packet_ids = Packet::serverboundPackets();
 		if($protocol_version >= 393)
 		{
-			return isset(Packet::$clientbound_packet_ids[$name][0]) ? Packet::$clientbound_packet_ids[$name][0] : (isset(Packet::$serverbound_packet_ids[$name][0]) ? Packet::$serverbound_packet_ids[$name][0] : null);
+			return isset($clientbound_packet_ids[$name][0]) ? $clientbound_packet_ids[$name][0] : (isset($serverbound_packet_ids[$name][0]) ? $serverbound_packet_ids[$name][0] : null);
 		}
 		else if($protocol_version >= 336)
 		{
-			return isset(Packet::$clientbound_packet_ids[$name][1]) ? Packet::$clientbound_packet_ids[$name][1] : (isset(Packet::$serverbound_packet_ids[$name][1]) ? Packet::$serverbound_packet_ids[$name][1] : null);
+			return isset($clientbound_packet_ids[$name][1]) ? $clientbound_packet_ids[$name][1] : (isset($serverbound_packet_ids[$name][1]) ? $serverbound_packet_ids[$name][1] : null);
 		}
 		else if($protocol_version >= 328)
 		{
-			return isset(Packet::$clientbound_packet_ids[$name][2]) ? Packet::$clientbound_packet_ids[$name][2] : (isset(Packet::$serverbound_packet_ids[$name][2]) ? Packet::$serverbound_packet_ids[$name][2] : null);
+			return isset($clientbound_packet_ids[$name][2]) ? $clientbound_packet_ids[$name][2] : (isset($serverbound_packet_ids[$name][2]) ? $serverbound_packet_ids[$name][2] : null);
 		}
 		else if($protocol_version >= 314)
 		{
-			return isset(Packet::$clientbound_packet_ids[$name][3]) ? Packet::$clientbound_packet_ids[$name][3] : (isset(Packet::$serverbound_packet_ids[$name][3]) ? Packet::$serverbound_packet_ids[$name][3] : null);
+			return isset($clientbound_packet_ids[$name][3]) ? $clientbound_packet_ids[$name][3] : (isset($serverbound_packet_ids[$name][3]) ? $serverbound_packet_ids[$name][3] : null);
 		}
 		else if($protocol_version >= 110)
 		{
-			return isset(Packet::$clientbound_packet_ids[$name][4]) ? Packet::$clientbound_packet_ids[$name][4] : (isset(Packet::$serverbound_packet_ids[$name][4]) ? Packet::$serverbound_packet_ids[$name][4] : null);
+			return isset($clientbound_packet_ids[$name][4]) ? $clientbound_packet_ids[$name][4] : (isset($serverbound_packet_ids[$name][4]) ? $serverbound_packet_ids[$name][4] : null);
 		}
 		else if($protocol_version >= 107)
 		{
-			return isset(Packet::$clientbound_packet_ids[$name][5]) ? Packet::$clientbound_packet_ids[$name][5] : (isset(Packet::$serverbound_packet_ids[$name][5]) ? Packet::$serverbound_packet_ids[$name][5] : null);
+			return isset($clientbound_packet_ids[$name][5]) ? $clientbound_packet_ids[$name][5] : (isset($serverbound_packet_ids[$name][5]) ? $serverbound_packet_ids[$name][5] : null);
 		}
-		return isset(Packet::$clientbound_packet_ids[$name][6]) ? Packet::$clientbound_packet_ids[$name][6] : (isset(Packet::$serverbound_packet_ids[$name][6]) ? Packet::$serverbound_packet_ids[$name][6] : null);
+		return isset($clientbound_packet_ids[$name][6]) ? $clientbound_packet_ids[$name][6] : (isset($serverbound_packet_ids[$name][6]) ? $serverbound_packet_ids[$name][6] : null);
 	}
 
 	/**
@@ -1901,7 +1913,7 @@ abstract class Packet
 	 */
 	static function clientboundPacketIdToName($id, $protocol_version)
 	{
-		return Packet::extractPacketNameFromList(Packet::$clientbound_packet_ids, $id, $protocol_version);
+		return Packet::extractPacketNameFromList(Packet::clientboundPackets(), $id, $protocol_version);
 	}
 
 	/**
@@ -1912,21 +1924,19 @@ abstract class Packet
 	 */
 	static function serverboundPacketIdToName($id, $protocol_version)
 	{
-		return Packet::extractPacketNameFromList(Packet::$serverbound_packet_ids, $id, $protocol_version);
+		return Packet::extractPacketNameFromList(Packet::serverboundPackets(), $id, $protocol_version);
 	}
 
 	/**
 	 * Initializes the packet via the Connection.
-	 * Note that you should already have used {@see Connection::readPacket()} and determined that the packet you are initializing has actually been sent.
+	 * Note that you should already have used Connection::readPacket() and determined that the packet you are initializing has actually been sent.
 	 * @param Connection $con
-	 * @see Packet::clientboundPacketIdToName()
-	 * @see Packet::serverboundPacketIdToName()
 	 */
 	abstract static function read($con);
 
 	/**
 	 * Sends the packet over the given Connection.
-	 * There is different behaviour if the Connection object was initialized without a stream. See {@see Connection::send()} for details.
+	 * There is different behaviour if the Connection object was initialized without a stream. See Connection::send() for details.
 	 * @param Connection $con
 	 */
 	abstract function send($con);
@@ -1937,14 +1947,14 @@ abstract class KeepAlivePacket extends Packet
 {
 	/**
 	 * The identifier of the keep alive packet.
-	 * @var integer
+	 * @var integer $keepAliveId
 	 */
 	protected $keepAliveId;
 
 	/**
 	 * The constructor.
-	 * @param string $name {@inheritDoc}
-	 * @param integer keepAliveId The identifier of the keep alive packet.
+	 * @param string $name The name of the packet.
+	 * @param integer $keepAliveId The identifier of the keep alive packet.
 	 */
 	protected function __construct($name, $keepAliveId)
 	{
@@ -1969,7 +1979,7 @@ abstract class KeepAlivePacket extends Packet
 	}
 
 	/**
-	 * Called by children when {@see Packet::read()} is being called.
+	 * Called by children when Packet::read() is being called.
 	 * @param Connection $con
 	 */
 	protected function _read($con)
@@ -1986,7 +1996,8 @@ abstract class KeepAlivePacket extends Packet
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Sends the packet over the given Connection.
+	 * There is different behaviour if the Connection object was initialized without a stream. See Connection::send() for details.
 	 * @param Connection $con
 	 */
 	function send($con)
@@ -2008,7 +2019,7 @@ class KeepAliveRequestPacket extends KeepAlivePacket
 {
 	/**
 	 * The constructor.
-	 * @param integer $keepAliveId {@inheritDoc}
+	 * @param integer $keepAliveId The identifier of the keep alive packet.
 	 */
 	function __construct($keepAliveId = null)
 	{
@@ -2016,7 +2027,8 @@ class KeepAliveRequestPacket extends KeepAlivePacket
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Initializes the packet via the Connection.
+	 * Note that you should already have used Connection::readPacket() and determined that the packet you are initializing has actually been sent.
 	 * @param Connection $con
 	 */
 	static function read($con)
@@ -2034,12 +2046,12 @@ class KeepAliveRequestPacket extends KeepAlivePacket
 	}
 }
 
-/** Sent by the client to the server in response to {@see KeepAliveRequestPacket}. */
+/** Sent by the client to the server in response to KeepAliveRequestPacket. */
 class KeepAliveResponsePacket extends KeepAlivePacket
 {
 	/**
 	 * The constructor.
-	 * @param integer $keepAliveId {@inheritDoc}
+	 * @param integer $keepAliveId The identifier of the keep alive packet.
 	 */
 	function __construct($keepAliveId = null)
 	{
@@ -2047,7 +2059,8 @@ class KeepAliveResponsePacket extends KeepAlivePacket
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Initializes the packet via the Connection.
+	 * Note that you should already have used Connection::readPacket() and determined that the packet you are initializing has actually been sent.
 	 * @param Connection $con
 	 */
 	static function read($con)
@@ -2063,8 +2076,8 @@ abstract class ChatPacket extends Packet
 
 	/**
 	 * The constructor.
-	 * @param string $name {@inheritDoc}
-	 * @param object message The chat object that is being sent.
+	 * @param string $name The name of the packet.
+	 * @param object $message The chat object that is being sent.
 	 */
 	protected function __construct($name, $message)
 	{
@@ -2083,7 +2096,7 @@ abstract class ChatPacket extends Packet
 
 	/**
 	 * Returns the message that is being sent as text with ANSI escape codes so it will be colorful in the console, as well.
-	 * @param array The translations for {@see Utils::chatToANSIText()}.
+	 * @param array $translations The translations array so translated messages look proper.
 	 * @see Utils::chatToANSIText()
 	 */
 	function getMessageAsANSIText($translations = null)
@@ -2092,7 +2105,7 @@ abstract class ChatPacket extends Packet
 	}
 
 	/**
-	 * Called by children when {@see Packet::read()} is being called.
+	 * Called by children when Packet::read() is being called.
 	 * @param Connection $con
 	 */
 	protected function _read($con)
@@ -2102,7 +2115,8 @@ abstract class ChatPacket extends Packet
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Sends the packet over the given Connection.
+	 * There is different behaviour if the Connection object was initialized without a stream. See Connection::send() for details.
 	 * @param Connection $con
 	 */
 	function send($con)
@@ -2118,7 +2132,7 @@ class DisconnectPacket extends ChatPacket
 {
 	/**
 	 * The constructor.
-	 * @param string $message {@inheritDoc}
+	 * @param string $message The disconnect reason; chat object.
 	 */
 	function __construct($message = [])
 	{
@@ -2126,7 +2140,8 @@ class DisconnectPacket extends ChatPacket
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Initializes the packet via the Connection.
+	 * Note that you should already have used Connection::readPacket() and determined that the packet you are initializing has actually been sent.
 	 * @param Connection $con
 	 */
 	static function read($con)
@@ -2142,8 +2157,8 @@ class ChatMessagePacket extends ChatPacket
 
 	/**
 	 * The constructor.
-	 * @param array $message {@inheritDoc}
-	 * @param integer $position can be 0 for player message, 1 for system message, or 2 for game info (above hotbar).
+	 * @param array $message The chat object that is being sent.
+	 * @param integer $position 0 = player message, 1 = system message, 2 = game info (above hotbar).
 	 */
 	function __construct($message = [], $position = 1)
 	{
@@ -2161,7 +2176,8 @@ class ChatMessagePacket extends ChatPacket
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Initializes the packet via the Connection.
+	 * Note that you should already have used Connection::readPacket() and determined that the packet you are initializing has actually been sent.
 	 * @param Connection $con
 	 */
 	static function read($con)
@@ -2170,7 +2186,8 @@ class ChatMessagePacket extends ChatPacket
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Sends the packet over the given Connection.
+	 * There is different behaviour if the Connection object was initialized without a stream. See Connection::send() for details.
 	 * @param Connection $con
 	 */
 	function send($con)
@@ -2198,7 +2215,8 @@ class SendChatMessagePacket extends Packet
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Initializes the packet via the Connection.
+	 * Note that you should already have used Connection::readPacket() and determined that the packet you are initializing has actually been sent.
 	 * @param Connection $con
 	 */
 	static function read($con)
@@ -2207,7 +2225,8 @@ class SendChatMessagePacket extends Packet
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Sends the packet over the given Connection.
+	 * There is different behaviour if the Connection object was initialized without a stream. See Connection::send() for details.
 	 * @param Connection $con
 	 */
 	function send($con)

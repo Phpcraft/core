@@ -1,0 +1,5 @@
+<map id="Phpcraft\ChatPacket" name="Phpcraft\ChatPacket">
+<area shape="rect" id="node3" href="$classPhpcraft_1_1ChatMessagePacket.html" title="Phpcraft\\ChatMessagePacket" alt="" coords="5,155,213,181"/>
+<area shape="rect" id="node4" href="$classPhpcraft_1_1DisconnectPacket.html" title="Phpcraft\\DisconnectPacket" alt="" coords="237,155,429,181"/>
+<area shape="rect" id="node2" href="$classPhpcraft_1_1Packet.html" title="Phpcraft\\Packet" alt="" coords="161,5,282,32"/>
+</map>

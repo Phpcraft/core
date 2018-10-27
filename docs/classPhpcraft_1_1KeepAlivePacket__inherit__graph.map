@@ -1,0 +1,5 @@
+<map id="Phpcraft\KeepAlivePacket" name="Phpcraft\KeepAlivePacket">
+<area shape="rect" id="node3" href="$classPhpcraft_1_1KeepAliveRequestPacket.html" title="Phpcraft\\KeepAliveRequest\lPacket" alt="" coords="5,155,196,196"/>
+<area shape="rect" id="node4" href="$classPhpcraft_1_1KeepAliveResponsePacket.html" title="Phpcraft\\KeepAliveResponse\lPacket" alt="" coords="220,155,421,196"/>
+<area shape="rect" id="node2" href="$classPhpcraft_1_1Packet.html" title="Phpcraft\\Packet" alt="" coords="149,5,271,32"/>
+</map>

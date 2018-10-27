@@ -5,7 +5,7 @@ require __DIR__."/Phpcraft.php";
 $stdin = fopen("php://stdin", "r");
 stream_set_blocking($stdin, true);
 
-$options = [];
+$options = ["online" => true, "port" => 25565, "nocolor" => false];
 for($i = 1; $i < count($argv); $i++)
 {
 	$arg = $argv[$i];
@@ -25,16 +25,12 @@ for($i = 1; $i < count($argv); $i++)
 	}
 	switch($n)
 	{
-		case "online":
-		if($v == "on")
-		{
-			$options[$n] = true;
-		}
-		else if($v == "off")
-		{
-			$options[$n] = false;
-		}
-		else die("Value for argument '{$n}' has to be either 'on' or 'off'.");
+		case "offline":
+		$options["online"] = false;
+		break;
+
+		case "nocolor":
+		$options[$n] = true;
 		break;
 
 		case "port":
@@ -43,7 +39,8 @@ for($i = 1; $i < count($argv); $i++)
 
 		case "?":
 		case "help":
-		echo "online=<on/off>  set online or offline mode\n";
+		echo "offline          disables online mode and allows cracked players\n";
+		echo "nocolor          disallows players to use '&' to write colorfully\n";
 		echo "port=<port>      bind to port <port>\n";
 		exit;
 
@@ -53,10 +50,6 @@ for($i = 1; $i < count($argv); $i++)
 }
 $online_mode = true;
 
-if(!isset($options["online"]))
-{
-	$options["online"] = true;
-}
 if($options["online"])
 {
 	if($extensions_needed = \Phpcraft\Utils::getExtensionsMissingToGoOnline())
@@ -69,10 +62,6 @@ if($options["online"])
 		"private_key_type" => OPENSSL_KEYTYPE_RSA,
 	]);
 	echo " Done.\n";
-}
-if(empty($options["port"]))
-{
-	$options["port"] = 25565;
 }
 if(stristr(PHP_OS, "WIN") && !stristr(PHP_OS, "DAR"))
 {
@@ -189,6 +178,15 @@ do
 					}
 					else if($packet_name == "send_chat_message")
 					{
+						$msg = $con->readString();
+						if($options["nocolor"])
+						{
+							$msg = ["text" => $msg];
+						}
+						else
+						{
+							$msg = \Phpcraft\Utils::textToChat($msg, true);
+						}
 						$msg = [
 							"translate" => "chat.type.text",
 							"with" => [
@@ -196,7 +194,7 @@ do
 									"text" => $clients[$i]["name"]
 								],
 								[
-									"text" => $con->readString()
+									$msg
 								]
 							]
 						];
