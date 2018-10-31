@@ -16,7 +16,7 @@
 
 ## Dependencies
 
-You will need PHP CLI 7.0.15 or above and mbstring:
+You will need 64-bit PHP (CLI) 7.0.15 or above and mbstring:
 
     apt-get install php7.0-cli php-mbstring
 
