@@ -16,18 +16,19 @@
 
 ## Dependencies
 
-- PHP >= 7.0.15
-- mbstring
+You will need PHP CLI 7.0.15 or above and mbstring:
 
-### Additional Dependencies for Online Mode
+    apt-get install php7.0-cli php-mbstring
 
-- gmp
-- openssl
-- mbcrypt
+Aditionally, if you want to go online, you'll need GMP, OpenSSL, and mcrypt:
+
+    apt-get install php-gmp openssl php-mcrypt
+
+If you're on Windows, check your php.ini to enable the required extensions.
 
 ## Usage
 
-Simply clone this repository and run any file you want — `client.php`, `server.php`, or `listping.php`. You can also provide arguments to the client and server — get a list of supported arguments using `php <file>.php help`.
+Simply clone this repository and run any file you want — `client.php`, `server.php`, or `listping.php`. You can also provide arguments to the client and server — get a list of supported arguments using `php <file> help`.
 
 ### Built-in Client Commands
 

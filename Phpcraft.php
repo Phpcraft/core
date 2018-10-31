@@ -5,6 +5,14 @@
  */
 namespace Phpcraft;
 
+if(get_included_files()[0] == __FILE__)
+{
+	die("Phpcraft is not to be executed. Execute client.php, server.php, listping.php, or create something yourself and `require Phpcraft.php`.\n");
+}
+if(empty($argv))
+{
+	die("This is for CLI PHP. Connect to your server via SSH and use `php ".get_included_files()[0]."` to execute it.\n");
+}
 if(version_compare(phpversion(), "7.0.15", "<"))
 {
 	die("Phpcraft requires PHP 7.0.15 or above.\n");
