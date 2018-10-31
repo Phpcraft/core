@@ -466,7 +466,7 @@ class Utils
 		}
 		if(gettype($chat) == "string")
 		{
-			if(strpos($str, "§") === false)
+			if(strpos($chat, "§") === false)
 			{
 				return $chat;
 			}
