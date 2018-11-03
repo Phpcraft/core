@@ -261,11 +261,7 @@ class Utils
 
 	private static function resolveName($server, $withPort = true)
 	{
-		if(ip2long($server) !== false) // No need to resolve IPs.
-		{
-			return $server.($withPort ? ":25565" : "");
-		}
-		if($res = @dns_get_record("_minecraft._tcp.{$server}", DNS_SRV))
+		if(ip2long($server) === false && $res = @dns_get_record("_minecraft._tcp.{$server}", DNS_SRV))
 		{
 			$i = array_rand($res);
 			return Utils::resolveName($res[$i]["target"], false).($withPort ? ":".$res[$i]["port"] : "");
