@@ -17,6 +17,7 @@ var searchData=
   ['getprofiles',['getProfiles',['../classPhpcraft_1_1Utils.html#aafd401725380bbb22f2ec2903ca9d506',1,'Phpcraft::Utils']]],
   ['getprofilesfile',['getProfilesFile',['../classPhpcraft_1_1Utils.html#af36ecaeabc05943adc1a8a36a0271ab3',1,'Phpcraft::Utils']]],
   ['getprotocolversion',['getProtocolVersion',['../classPhpcraft_1_1Connection.html#a7e69a26647489d60f2e33e92b791404a',1,'Phpcraft::Connection']]],
+  ['getprotocolversionfromminecraftversion',['getProtocolVersionFromMinecraftVersion',['../classPhpcraft_1_1Utils.html#a512c09c0eebe48be1a23db0dc81d6802',1,'Phpcraft::Utils']]],
   ['getresponse',['getResponse',['../classPhpcraft_1_1KeepAliveRequestPacket.html#a3a23d43da7dd5e618c62e300b14306e9',1,'Phpcraft::KeepAliveRequestPacket']]],
   ['getstate',['getState',['../classPhpcraft_1_1Connection.html#ad1b457f3046026dcd6026f97ed73d1fa',1,'Phpcraft::Connection']]],
   ['getstatus',['getStatus',['../classPhpcraft_1_1ServerStatusConnection.html#ac9fa7a8d1ab5c0e444b8cc139cf03e51',1,'Phpcraft::ServerStatusConnection']]],

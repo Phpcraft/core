@@ -294,7 +294,7 @@ class Utils
 
 	/**
 	 * Returns whether a given protocol version is supported.
-	 * @param integer $protocol_version
+	 * @param integer $protocol_version e.g., 340
 	 * @return boolean
 	 */
 	static function isProtocolVersionSupported($protocol_version)
@@ -304,12 +304,39 @@ class Utils
 
 	/**
 	 * Returns the Minecraft version corresponding to the given protocol version.
-	 * @param integer $protocol_version
+	 * @param integer $protocol_version e.g., 340 for 1.12.2
 	 * @return string The Minecraft version or null if the protocol version is not supported.
 	 */
 	static function getMinecraftVersionFromProtocolVersion($protocol_version)
 	{
 		return (isset(Utils::$protocol_versions[$protocol_version]) ? Utils::$protocol_versions[$protocol_version] : null);
+	}
+
+	/**
+	 * Returns whether a given Minecraft version is supported.
+	 * @param string $minecraft_version e.g., 1.12.2
+	 * @return boolean
+	 */
+	static function isMinecraftVersionSupported($minecraft_version)
+	{
+		return in_array($minecraft_version, Utils::$protocol_versions);
+	}
+
+	/**
+	 * Returns the Minecraft version corresponding to the given protocol version.
+	 * @param string $minecraft_version e.g., 1.12.2 for 340
+	 * @return integer The protocol version or null if the Minecraft version is not supported.
+	 */
+	static function getProtocolVersionFromMinecraftVersion($minecraft_version)
+	{
+		foreach(Utils::$protocol_versions as $protocol_version => $v)
+		{
+			if($v == $minecraft_version)
+			{
+				return $protocol_version;
+			}
+		}
+		return null;
 	}
 
 	/**

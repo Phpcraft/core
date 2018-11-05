@@ -2,17 +2,17 @@
 echo "\033[0;97;40mPHP Minecraft Client\nhttps://github.com/timmyrs/Phpcraft\n";
 require __DIR__."/Phpcraft.php";
 
-if(stristr(PHP_OS, "WIN") && !stristr(PHP_OS, "DAR"))
+if(PHP_OS == "WINNT")
 {
-	$acknowledgements = [
-		"Since you're on Windows, you shouldn't unfocus this window.", // https://bugs.php.net/bug.php?id=34972
-		"If you're using Windows 8.1 or below, you won't see any colors."
-	];
+	die("Bare Windows is no longer supported. Please use Cygwin or similar, instead.\n");
 }
-else
+/* tput will be a dependency in future versions.
+$res = trim(shell_exec("tput cols"));
+if($res != intval($res))
 {
-	$acknowledgements = [];
+	die("The Phpcraft client requires the `tput` command.\n");
 }
+*/
 
 $options = [];
 for($i = 1; $i < count($argv); $i++)
@@ -34,7 +34,6 @@ for($i = 1; $i < count($argv); $i++)
 	}
 	switch($n)
 	{
-		case "acknowledge":
 		case "noreconnect":
 		$options[$n] = true;
 		break;
@@ -56,19 +55,20 @@ for($i = 1; $i < count($argv); $i++)
 		case "langfile":
 		case "joinmsg":
 		case "locale":
+		case "version":
 		$options[$n] = $v;
 		break;
 
 		case "?":
 		case "help":
-		echo "online=<on/off>  set online or offline mode\n";
-		echo "name=<name>      skip name input and use <name> as name\n";
-		echo "server=<server>  skip server input and connect to <server>\n";
-		echo "langfile=<file>  load Minecraft translations from <file>\n";
-		echo "acknowledge      automatically acknowledge all warnings\n";
-		echo "joinmsg=<msg>    as soon as connected, <msg> will be handled\n";
-		echo "locale=<locale>  sent to the server, default: en_US\n";
-		echo "noreconnect      don't reconnect when server disconnects\n";
+		echo "online=<on/off>   set online or offline mode\n";
+		echo "name=<name>       skip name input and use <name> as name\n";
+		echo "server=<server>   skip server input and connect to <server>\n";
+		echo "langfile=<file>   load Minecraft translations from <file>\n";
+		echo "locale=<locale>   sent to the server, default: en_US\n";
+		echo "joinmsg=<msg>     as soon as connected, <msg> will be handled\n";
+		echo "version=<version> don't check server version, connect using <version>\n";
+		echo "noreconnect       don't reconnect when server disconnects\n";
 		exit;
 
 		default:
@@ -86,7 +86,7 @@ if(isset($options["langfile"]))
 }
 else
 {
-	array_push($acknowledgements, "No language file has been provided. Expect broken messages.");
+	echo "No language file has been provided. Expect broken messages.\n";
 	$translations = null;
 }
 
@@ -179,33 +179,32 @@ if(count($serverarr) != 2)
 {
 	die(" Failed to resolve name. Got {$server}\n");
 }
-echo " Resolved to {$server}\nDetermining version...";
-$con = new \Phpcraft\ServerStatusConnection($serverarr[0], $serverarr[1]);
-$info = $con->getStatus();
-$con->close();
-if(!isset($info["version"]) || !isset($info["version"]["protocol"]))
+echo " Resolved to {$server}\n";
+if(empty($options["version"]))
 {
-	die(" Invalid response:\n".json_encode($info)."\n");
-}
-$protocol_version = $info["version"]["protocol"];
-if(\Phpcraft\Utils::isProtocolVersionSupported($protocol_version))
-{
-	echo " This server is compatible!\n";
+	echo "Determining version... ";
+	$con = new \Phpcraft\ServerStatusConnection($serverarr[0], $serverarr[1]);
+	$info = $con->getStatus();
+	$con->close();
+	if(!isset($info["version"]) || !isset($info["version"]["protocol"]))
+	{
+		die("Invalid response:\n".json_encode($info)."\n");
+	}
+	$protocol_version = $info["version"]["protocol"];
+	$minecraft_version = \Phpcraft\Utils::getMinecraftVersionFromProtocolVersion($protocol_version);
+	if($minecraft_version === null)
+	{
+		die("This server uses an unknown protocol version: {$protocol_version}\n");
+	}
 }
 else
 {
-	die(" This server uses an unsupported protocol version ({$protocol_version}).\n");
-}
-$minecraft_version = \Phpcraft\Utils::getMinecraftVersionFromProtocolVersion($protocol_version);
-
-if($acknowledgements)
-{
-	echo "\nPress enter to acknowledge the following and connect:\n";
-	foreach($acknowledgements as $acknowledgement)
+	$minecraft_version = $options["version"];
+	$protocol_version = \Phpcraft\Utils::getProtocolVersionFromMinecraftVersion($minecraft_version);
+	if($protocol_version === NULL)
 	{
-		echo "- {$acknowledgement}\n";
+		die("Unknown Minecraft version: {$minecraft_version}\n");
 	}
-	fgets($stdin);
 }
 
 function handleConsoleMessage($msg)
@@ -448,7 +447,7 @@ function handleConsoleMessage($msg)
 $reconnect = false;
 do
 {
-	echo "Connecting using {$minecraft_version} (protocol version {$protocol_version})...";
+	echo "Connecting using {$minecraft_version}...";
 	$con = new \Phpcraft\ServerPlayConnection($protocol_version, $serverarr[0], $serverarr[1]);
 	echo " Connection established.\nLogging in...";
 	if($error = $con->login($account, $translations))

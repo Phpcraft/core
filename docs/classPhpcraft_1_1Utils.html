@@ -102,6 +102,10 @@ Static Public Member Functions</h2></td></tr>
 <tr class="separator:ad6d3ee61306f62812dd612e486e8e954"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa8201674b8b797953df1379143846cb8"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Utils.html#aa8201674b8b797953df1379143846cb8">getMinecraftVersionFromProtocolVersion</a> ($protocol_version)</td></tr>
 <tr class="separator:aa8201674b8b797953df1379143846cb8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acd9b25bff9c09f5ebf60148668392939"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Utils.html#acd9b25bff9c09f5ebf60148668392939">isMinecraftVersionSupported</a> ($minecraft_version)</td></tr>
+<tr class="separator:acd9b25bff9c09f5ebf60148668392939"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a512c09c0eebe48be1a23db0dc81d6802"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Utils.html#a512c09c0eebe48be1a23db0dc81d6802">getProtocolVersionFromMinecraftVersion</a> ($minecraft_version)</td></tr>
+<tr class="separator:a512c09c0eebe48be1a23db0dc81d6802"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a457e81e1211e0baa85b6471bf2d1e591"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Utils.html#a457e81e1211e0baa85b6471bf2d1e591">sha1</a> ($str)</td></tr>
 <tr class="separator:a457e81e1211e0baa85b6471bf2d1e591"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa0bb6feab34c7fdcd44dc27a9a2a3d49"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Utils.html#aa0bb6feab34c7fdcd44dc27a9a2a3d49">textToChat</a> ($str, $allowAnd=false, &amp;$i=0, $child=false)</td></tr>
@@ -298,7 +302,7 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Returns the Minecraft version corresponding to the given protocol version. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype">integer</td><td class="paramname">$protocol_version</td><td></td></tr>
+    <tr><td class="paramtype">integer</td><td class="paramname">$protocol_version</td><td>e.g., 340 for 1.12.2 </td></tr>
   </table>
   </dd>
 </dl>
@@ -358,6 +362,39 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <p>Returns the path of the .minecraft/launcher_profiles.json. </p><dl class="section return"><dt>Returns</dt><dd>string </dd></dl>
+
+</div>
+</div>
+<a id="a512c09c0eebe48be1a23db0dc81d6802"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a512c09c0eebe48be1a23db0dc81d6802">&#9670;&nbsp;</a></span>getProtocolVersionFromMinecraftVersion()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static Phpcraft\Utils::getProtocolVersionFromMinecraftVersion </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$minecraft_version</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Returns the Minecraft version corresponding to the given protocol version. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$minecraft_version</td><td>e.g., 1.12.2 for 340 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>integer The protocol version or null if the Minecraft version is not supported. </dd></dl>
 
 </div>
 </div>
@@ -438,6 +475,39 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="acd9b25bff9c09f5ebf60148668392939"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acd9b25bff9c09f5ebf60148668392939">&#9670;&nbsp;</a></span>isMinecraftVersionSupported()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static Phpcraft\Utils::isMinecraftVersionSupported </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$minecraft_version</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Returns whether a given Minecraft version is supported. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$minecraft_version</td><td>e.g., 1.12.2 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>boolean </dd></dl>
+
+</div>
+</div>
 <a id="ad6d3ee61306f62812dd612e486e8e954"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad6d3ee61306f62812dd612e486e8e954">&#9670;&nbsp;</a></span>isProtocolVersionSupported()</h2>
 
@@ -463,7 +533,7 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Returns whether a given protocol version is supported. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype">integer</td><td class="paramname">$protocol_version</td><td></td></tr>
+    <tr><td class="paramtype">integer</td><td class="paramname">$protocol_version</td><td>e.g., 340 </td></tr>
   </table>
   </dd>
 </dl>

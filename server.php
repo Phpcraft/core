@@ -2,6 +2,11 @@
 echo "\033[0;97;40mPHP Minecraft Server\nhttps://github.com/timmyrs/Phpcraft\n";
 require __DIR__."/Phpcraft.php";
 
+if(PHP_OS == "WINNT")
+{
+	die("Bare Windows is no longer supported. Please use Cygwin or similar, instead.\n");
+}
+
 $stdin = fopen("php://stdin", "r");
 stream_set_blocking($stdin, true);
 
@@ -62,13 +67,6 @@ if($options["online"])
 		"private_key_type" => OPENSSL_KEYTYPE_RSA,
 	]);
 	echo " Done.\n";
-}
-if(stristr(PHP_OS, "WIN") && !stristr(PHP_OS, "DAR"))
-{
-	echo "Press enter to acknowledge the following and start the server:\n";
-	echo "- Since you're on Windows, you shouldn't unfocus this window.\n"; // https://bugs.php.net/bug.php?id=34972
-	echo "- If you're using Windows 8.1 or below, you won't see any colors.\n";
-	fgets($stdin);
 }
 echo "Binding to port ".$options["port"]."...";
 $server = stream_socket_server("tcp://0.0.0.0:".$options["port"], $errno, $errstr) or die(" {$errstr}\n");
@@ -193,9 +191,7 @@ do
 								[
 									"text" => $clients[$i]["name"]
 								],
-								[
-									$msg
-								]
+								$msg
 							]
 						];
 						echo \Phpcraft\Utils::chatToANSIText($msg)."\n";
