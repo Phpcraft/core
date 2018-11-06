@@ -16,7 +16,7 @@
 
 ## Dependencies
 
-You will need 64-bit PHP (CLI) 7.0.15 or above and mbstring:
+You will need 64-bit PHP (CLI) 7.0.15 or above, and mbstring:
 
     apt-get install php7.0-cli php-mbstring
 
@@ -24,7 +24,7 @@ Aditionally, if you want to go online, you'll need GMP, OpenSSL, and mcrypt:
 
     apt-get install php-gmp openssl php-mcrypt
 
-If you're on Windows, check your php.ini to enable the required extensions.
+If you're on Windows, use [Cygwin](https://www.cygwin.com/) or similar.
 
 ## Usage
 
