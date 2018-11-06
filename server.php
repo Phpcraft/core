@@ -1,14 +1,15 @@
 <?php
-echo "\033[0;97;40mPHP Minecraft Server\nhttps://github.com/timmyrs/Phpcraft\n";
+echo "PHP Minecraft Server\nhttps://github.com/timmyrs/Phpcraft\n";
 require __DIR__."/Phpcraft.php";
 
 if(PHP_OS == "WINNT")
 {
 	die("Bare Windows is no longer supported. Please use Cygwin or similar, instead.\n");
 }
-
-$stdin = fopen("php://stdin", "r");
-stream_set_blocking($stdin, true);
+if($dependencies = \Phpcraft\UserInterface::getMissingDependencies())
+{
+	die("To spin up the Phpcraft UI, you need ".join(", ", $dependencies).".\n");
+}
 
 $options = ["online" => true, "port" => 25565, "nocolor" => false];
 for($i = 1; $i < count($argv); $i++)
@@ -54,29 +55,28 @@ for($i = 1; $i < count($argv); $i++)
 	}
 }
 $online_mode = true;
-
+$ui = new \Phpcraft\UserInterface("PHP Minecraft Server", "github.com/timmyrs/Phpcraft");
 if($options["online"])
 {
 	if($extensions_needed = \Phpcraft\Utils::getExtensionsMissingToGoOnline())
 	{
 		die("To host an online server, you need ".join(" and ", $extensions_needed).".\nTry apt-get install or check your PHP configuration.\n");
 	}
-	echo "Generating 1024-bit RSA keypair...";
+	$ui->add("Generating 1024-bit RSA keypair... ")->render();
 	$private_key = openssl_pkey_new([
 		"private_key_bits" => 1024,
 		"private_key_type" => OPENSSL_KEYTYPE_RSA,
 	]);
-	echo " Done.\n";
+	$ui->append("Done.")->render();
 }
-echo "Binding to port ".$options["port"]."...";
+$ui->add("Binding to port ".$options["port"]."... ")->render();
 $server = stream_socket_server("tcp://0.0.0.0:".$options["port"], $errno, $errstr) or die(" {$errstr}\n");
 stream_set_blocking($server, false);
-echo " Success.\n";
-stream_set_blocking($stdin, false);
+$ui->append("Success!")->render();
 $clients = [];
 function joinSuccess($i)
 {
-	global $clients;
+	global $ui, $clients;
 	$con = $clients[$i]["connection"];
 	$con->startPacket("join_game");
 	$con->writeInt(1); // Entity ID
@@ -139,7 +139,7 @@ function joinSuccess($i)
 			]
 		]
 	];
-	echo \Phpcraft\Utils::chatToANSIText($msg)."\n";
+	$ui->add(\Phpcraft\Utils::chatToANSIText($msg));
 	$msg = json_encode($msg);
 	foreach($clients as $c)
 	{
@@ -194,7 +194,7 @@ do
 								$msg
 							]
 						];
-						echo \Phpcraft\Utils::chatToANSIText($msg)."\n";
+						$ui->add(\Phpcraft\Utils::chatToANSIText($msg));
 						$msg = json_encode($msg);
 						foreach($clients as $c)
 						{
@@ -293,7 +293,7 @@ do
 					]
 				];
 				unset($clients[$i]);
-				echo \Phpcraft\Utils::chatToANSIText($msg)."\n";
+				$ui->add(\Phpcraft\Utils::chatToANSIText($msg));
 				$msg = json_encode($msg);
 				foreach($clients as $c)
 				{
@@ -316,67 +316,61 @@ do
 			}
 		}
 	}
-	$streams = [$server, $stdin];
+	$read = [$server];
 	$null = null;
-	if(stream_select($streams, $null, $null, 0) > 0)
+	if(stream_select($read, $null, $null, 0))
 	{
-		if(in_array($server, $streams))
+		while(($stream = @stream_socket_accept($server, 0)) !== false)
 		{
-			while(($stream = @stream_socket_accept($server, 0)) !== false)
+			$con = new \Phpcraft\ClientConnection($stream);
+			if($con->isOpen())
 			{
-				$con = new \Phpcraft\ClientConnection($stream);
-				if($con->isOpen())
+				if($con->getState() == 1)
 				{
-					if($con->getState() == 1)
-					{
-						array_push($clients, [
-							"connection" => $con,
-							"next_heartbeat" => 0,
-							"disconnect_after" => microtime(true) + 10
-						]);
-					}
-					else
-					{
-						array_push($clients, [
-							"connection" => $con,
-							"next_heartbeat" => 0,
-							"disconnect_after" => 0
-						]);
-					}
+					array_push($clients, [
+						"connection" => $con,
+						"next_heartbeat" => 0,
+						"disconnect_after" => microtime(true) + 10
+					]);
+				}
+				else
+				{
+					array_push($clients, [
+						"connection" => $con,
+						"next_heartbeat" => 0,
+						"disconnect_after" => 0
+					]);
 				}
 			}
 		}
-		if(in_array($stdin, $streams))
+	}
+	while($msg = $ui->render(true))
+	{
+		$msg = [
+			"translate" => "chat.type.announcement",
+			"with" => [
+				[
+					"text" => "Server"
+				],
+				[
+					"text" => $msg
+				]
+			]
+		];
+		$ui->add(\Phpcraft\Utils::chatToANSIText($msg));
+		$msg = json_encode($msg);
+		foreach($clients as $c)
 		{
-			if($msg = trim(fgets($stdin)))
+			if($c["connection"]->getState() == 3 && $c["connection"]->isOpen())
 			{
-				$msg = [
-					"translate" => "chat.type.announcement",
-					"with" => [
-						[
-							"text" => "Server"
-						],
-						[
-							"text" => $msg
-						]
-					]
-				];
-				echo \Phpcraft\Utils::chatToANSIText($msg)."\n";
-				$msg = json_encode($msg);
-				foreach($clients as $c)
+				try
 				{
-					if($c["connection"]->getState() == 3 && $c["connection"]->isOpen())
-					{
-						try
-						{
-							$c["connection"]->startPacket("chat_message");
-							$c["connection"]->writeString($msg);
-							$c["connection"]->writeByte(1);
-							$c["connection"]->send();
-						}
-						catch(Exception $ignored){}
-					}
+					$c["connection"]->startPacket("chat_message");
+					$c["connection"]->writeString($msg);
+					$c["connection"]->writeByte(1);
+					$c["connection"]->send();
 				}
+				catch(Exception $ignored){}
 			}
 		}
 	}

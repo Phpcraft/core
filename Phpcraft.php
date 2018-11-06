@@ -512,6 +512,7 @@ class Utils
 			"bold" => "1",
 			"italic" => "3",
 			"underlined" => "4",
+			"obfuscated" => "8",
 			"strikethrough" => "9"
 		];
 		$text = "\033[0";
@@ -611,6 +612,181 @@ class Utils
 			}
 		}
 		return $text;
+	}
+}
+
+/** A utility for interfacing with the user. */
+class UserInterface
+{
+	private $title;
+	private $optional_info;
+	private $stdin;
+	/**
+	 * The string displayed before the user's input
+	 * @var string
+	 */
+	public $input_prefix = "$ ";
+	private $input_buffer = "";
+	private $chat_log = [];
+	private $logback = 100;
+	private $next_render;
+
+	/**
+	 * Returns an array of dependencies required for spinning up a UI which are missing on the system.
+	 * To spin up a UI, users need tput and readline, which _should_ be available because WINNT is no longer supported.
+	 * Regardless, make sure the return of this function is an empty array before you initalize a UserInterface.
+	 * @return array
+	 */
+	static function getMissingDependencies()
+	{
+		$dependencies = [];
+		$res = trim(shell_exec("tput cols"));
+		if($res != intval($res))
+		{
+			array_push($dependencies, "tput");
+		}
+		if(!extension_loaded("readline"))
+		{
+			array_push($dependencies, "readline");
+		}
+		return $dependencies;
+	}
+
+	/**
+	 * The constructor.
+	 * Note that from this point forward user input is in the hands of the UI until UserInterface::dispose() is called.
+	 * @param string $title The title displayed at the top left.
+	 * @param string $optional_info Displayed at the top right, if possible.
+	 */
+	function __construct($title, $optional_info = "")
+	{
+		$this->title = $title;
+		$this->optional_info = $optional_info;
+		echo "\033[2J";
+		$this->stdin = fopen("php://stdin", "r");
+		$this->next_render = microtime(true);
+		stream_set_blocking($this->stdin, false);
+		readline_callback_handler_remove();
+		readline_callback_handler_install("", function(){}); // This allows reading STDIN on a char-by-char basis, instead of a line-by-line basis.
+		set_error_handler(function($severity, $message, $file, $line)
+		{
+			if(error_reporting() & $severity)
+			{
+				$this->add("{$message} at {$file}:{$line}")->render();
+			}
+		});
+		set_exception_handler(function(Exception $e)
+		{
+			$this->add("{$e->getMessage()} (".get_class($e).") at {$e->getFile()}:{$e->getLine()}")->render();
+		});
+	}
+
+	/**
+	 * Disposes of the UI.
+	 * @return void
+	 */
+	function dispose()
+	{
+		fclose($this->stdin);
+		readline_callback_handler_remove();
+	}
+
+	/**
+	 * Renders the UI.
+	 * @param boolean $return_input Set to true when you are ready to potentially receive a string as return.
+	 * @return void|string If the user has submitted something and $return_input is true, a string containing their message is returned.
+	 */
+	function render($return_input = false)
+	{
+		$read = [$this->stdin];
+		$null = null;
+		if(stream_select($read, $null, $null, 0))
+		{
+			while(($char = fgetc($this->stdin)) !== FALSE)
+			{
+				if($char == "\n")
+				{
+					if($this->input_buffer == "")
+					{
+						echo "\x07"; // BEL
+					}
+					else
+					{
+						if(!$return_input)
+						{
+							break;
+						}
+						$line = trim($this->input_buffer);
+						$this->input_buffer = "";
+						return $line;
+					}
+				}
+				else if($char == "\x7F") // DEL
+				{
+					if(strlen($this->input_buffer) == 0)
+					{
+						echo "\x07"; // BEL
+					}
+					else
+					{
+						$this->input_buffer = substr($this->input_buffer, 0, -1);
+					}
+				}
+				else
+				{
+					$this->input_buffer .= $char;
+				}
+			}
+		}
+		if($this->next_render < microtime(true))
+		{
+			$width = intval(trim(shell_exec("tput cols")));
+			$height = intval(trim(shell_exec("tput lines")));
+			echo "\033[1;1H\033[30;107m{$this->title}";
+			$len = strlen($this->title);
+			if($width > ($len + strlen($this->optional_info)))
+			{
+				echo str_repeat(" ", $width - ($len + strlen($this->optional_info))).$this->optional_info;
+			}
+			else
+			{
+				echo str_repeat(" ", $width - $len);
+			}
+			echo "\033[97;40m".str_repeat(" ", ($height - 1) * $width)."\033[1;2H";
+			$gol_tahc = array_reverse($this->chat_log);
+			for($i = 2; $i < $height; $i++)
+			{
+				echo "\n".@$gol_tahc[$height - $i - 1]."\033[97;40m";
+			}
+			if(count($this->chat_log) > $this->logback)
+			{
+				array_shift($this->chat_log);
+			}
+			echo "\033[{$height};1H\033[97;40m";
+			echo $this->input_prefix.$this->input_buffer;
+			echo "\033[{$height};".(strlen($this->input_prefix.$this->input_buffer) + 1)."H";
+			$this->next_render = microtime(true) + 0.1;
+		}
+	}
+
+	/**
+	 * Adds a message to the chat log.
+	 * @return $this
+	 */
+	function add($message)
+	{
+		array_push($this->chat_log, $message);
+		return $this;
+	}
+
+	/**
+	 * Appends to the last message in the chat log.
+	 * @return $this
+	 */
+	function append($appendix)
+	{
+		$this->chat_log[count($this->chat_log) - 1] .= $appendix;
+		return $this;
 	}
 }
 

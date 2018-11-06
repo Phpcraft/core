@@ -1,15 +1,14 @@
 <?php
-echo "\033[2JPHP Minecraft Client\nhttps://github.com/timmyrs/Phpcraft\n";
+echo "PHP Minecraft Client\nhttps://github.com/timmyrs/Phpcraft\n";
 require __DIR__."/Phpcraft.php";
 
 if(PHP_OS == "WINNT")
 {
 	die("Bare Windows is no longer supported. Please use Cygwin or similar, instead.\n");
 }
-$res = trim(shell_exec("tput cols"));
-if($res != intval($res))
+if($dependencies = \Phpcraft\UserInterface::getMissingDependencies())
 {
-	die("The Phpcraft client requires the `tput` command.\n");
+	die("To spin up the Phpcraft UI, you need ".join(", ", $dependencies).".\n");
 }
 
 $options = [];
@@ -170,67 +169,34 @@ if(!$server)
 		$server = "localhost";
 	}
 }
-$console_buffer = "";
-function render()
-{
-	global $console_buffer, $chat_log, $account;
-	$width = intval(trim(shell_exec("tput cols")));
-	$height = intval(trim(shell_exec("tput lines")));
-	echo "\033[1;1H\033[30;107mPHP Minecraft Client";
-	if($width > 48)
-	{
-		echo str_repeat(" ", $width - 48);
-		echo "github.com/timmyrs/Phpcraft ";
-	}
-	else
-	{
-		echo str_repeat(" ", $width - 20);
-	}
-	echo "\033[97;40m".str_repeat(" ", ($height - 1) * $width)."\033[1;2H";
-	$gol_tahc = array_reverse($chat_log);
-	for($i = 2; $i < $height; $i++)
-	{
-		echo "\n".@$gol_tahc[$height - $i - 1]."\033[97;40m";
-	}
-	if(count($chat_log) > $height)
-	{
-		array_shift($chat_log);
-	}
-	echo "\033[{$height};1H\033[97;40m";
-	$input_line = (isset($account)?"<{$account->getUsername()}> ":"").$console_buffer;
-	echo $input_line;
-	echo "\033[{$height};".(strlen($input_line) + 1)."H";
-}
-$chat_log = ["Resolving... "];
-render();
+fclose($stdin);
+$ui = new \Phpcraft\UserInterface("PHP Minecraft Client", "github.com/timmyrs/Phpcraft");
+$ui->input_prefix = "<{$account->getUsername()}> ";
+$ui->add("Resolving... ")->render();
 $server = \Phpcraft\Utils::resolve($server);
 $serverarr = explode(":", $server);
 if(count($serverarr) != 2)
 {
-	$chat_log[0] .= "Failed to resolve name. Got {$server}";
-	render();
+	$ui->append("Failed to resolve name. Got {$server}")->render();
 	exit;
 }
-$chat_log[0] .= "Resolved to {$server}";
-render();
+$ui->append("Resolved to {$server}")->render();
 if(empty($options["version"]))
 {
-	$chat_log[1] = "Determining version... ";
+	$ui->add("Determining version... ");
 	$con = new \Phpcraft\ServerStatusConnection($serverarr[0], $serverarr[1]);
 	$info = $con->getStatus();
 	$con->close();
 	if(!isset($info["version"]) || !isset($info["version"]["protocol"]))
 	{
-		$chat_log[1] .= "Invalid response: ".json_encode($info);
-		render();
+		$ui->append("Invalid response: ".json_encode($info))->render();
 		exit;
 	}
 	$protocol_version = $info["version"]["protocol"];
 	$minecraft_version = \Phpcraft\Utils::getMinecraftVersionFromProtocolVersion($protocol_version);
 	if($minecraft_version === null)
 	{
-		$chat_log[1] .= "This server uses an unknown protocol version: {$protocol_version}";
-		render();
+		$ui->append("This server uses an unknown protocol version: {$protocol_version}")->render();
 		exit;
 	}
 }
@@ -240,8 +206,7 @@ else
 	$protocol_version = \Phpcraft\Utils::getProtocolVersionFromMinecraftVersion($minecraft_version);
 	if($protocol_version === NULL)
 	{
-		$chat_log[1] = "Unknown Minecraft version: {$minecraft_version}";
-		render();
+		$ui->append("Unknown Minecraft version: {$minecraft_version}")->render();
 		exit;
 	}
 }
@@ -251,8 +216,8 @@ function handleConsoleMessage($msg)
 	{
 		return;
 	}
-	global $chat_log;
-	array_push($chat_log, $msg);
+	global $ui;
+	$ui->add($msg);
 	$send = true;
 	if(substr($msg, 0, 2) == "..")
 	{
@@ -267,32 +232,32 @@ function handleConsoleMessage($msg)
 		{
 			case "?":
 			case "help":
-			array_push($chat_log, "Yay! You've found commands, which start with a period.");
-			array_push($chat_log, "If you want to send a message starting with a period, use two periods.");
-			array_push($chat_log, "?, help                    shows this help");
-			array_push($chat_log, "pos                        returns the current position");
-			array_push($chat_log, "move <y>, move <x> [y] <z> initates movement");
-			array_push($chat_log, "rot <yaw> <pitch>          change yaw and pitch degrees");
-			array_push($chat_log, "list                       lists all players in the player list");
-			array_push($chat_log, "entities                   lists all player entities");
-			array_push($chat_log, "follow <name>              follows <name>'s player entity");
-			array_push($chat_log, "unfollow                   stops following whoever is being followed");
-			array_push($chat_log, "slot <1-9>                 sets selected hotbar slot");
-			array_push($chat_log, "hit                        swings the main hand");
-			array_push($chat_log, "use                        uses the held item");
-			array_push($chat_log, "reconnect                  reconnects to the server");
+			$ui->add("Yay! You've found commands, which start with a period.");
+			$ui->add("If you want to send a message starting with a period, use two periods.");
+			$ui->add("?, help                    shows this help");
+			$ui->add("pos                        returns the current position");
+			$ui->add("move <y>, move <x> [y] <z> initates movement");
+			$ui->add("rot <yaw> <pitch>          change yaw and pitch degrees");
+			$ui->add("list                       lists all players in the player list");
+			$ui->add("entities                   lists all player entities");
+			$ui->add("follow <name>              follows <name>'s player entity");
+			$ui->add("unfollow                   stops following whoever is being followed");
+			$ui->add("slot <1-9>                 sets selected hotbar slot");
+			$ui->add("hit                        swings the main hand");
+			$ui->add("use                        uses the held item");
+			$ui->add("reconnect                  reconnects to the server");
 			break;
 
 			case "pos":
 			global $x, $y, $z;
-			array_push($chat_log, "$x $y $z");
+			$ui->add("$x $y $z");
 			break;
 
 			case "move":
 			global $followEntity;
 			if($followEntity !== false)
 			{
-				array_push($chat_log, "I'm currently following someone.");
+				$ui->add("I'm currently following someone.");
 			}
 			else
 			{
@@ -302,22 +267,22 @@ function handleConsoleMessage($msg)
 					$motion_x += doubleval($args[1]);
 					$motion_y += doubleval($args[2]);
 					$motion_z += doubleval($args[3]);
-					array_push($chat_log, "Understood.");
+					$ui->add("Understood.");
 				}
 				else if(isset($args[1]) && isset($args[2]))
 				{
 					$motion_x += doubleval($args[1]);
 					$motion_z += doubleval($args[2]);
-					array_push($chat_log, "Understood.");
+					$ui->add("Understood.");
 				}
 				else if(isset($args[1]))
 				{
 					$motion_y += doubleval($args[1]);
-					array_push($chat_log, "Understood.");
+					$ui->add("Understood.");
 				}
 				else
 				{
-					array_push($chat_log, "Syntax: .move <y>, .move <x> [y] <z>");
+					$ui->add("Syntax: .move <y>, .move <x> [y] <z>");
 				}
 			}
 			break;
@@ -326,18 +291,18 @@ function handleConsoleMessage($msg)
 			global $followEntity;
 			if($followEntity !== false)
 			{
-				array_push($chat_log, "I'm currently following someone.");
+				$ui->add("I'm currently following someone.");
 			}
 			else if(isset($args[1]) && isset($args[2]))
 			{
 				global $yaw, $pitch;
 				$yaw = floatval($args[1]);
 				$pitch = floatval($args[2]);
-				array_push($chat_log, "Understood.");
+				$ui->add("Understood.");
 			}
 			else
 			{
-				array_push($chat_log, "Syntax: .rot <yaw> <pitch>");
+				$ui->add("Syntax: .rot <yaw> <pitch>");
 			}
 			break;
 
@@ -349,7 +314,7 @@ function handleConsoleMessage($msg)
 				$con->writeVarInt(0);
 			}
 			$con->send();
-			array_push($chat_log, "Done.");
+			$ui->add("Done.");
 			break;
 
 			case "use":
@@ -370,7 +335,7 @@ function handleConsoleMessage($msg)
 				$con->writeByte(-1); // Cursor Z
 			}
 			$con->send();
-			array_push($chat_log, "Done.");
+			$ui->add("Done.");
 			break;
 
 			case "list":
@@ -383,7 +348,7 @@ function handleConsoleMessage($msg)
 			global $players;
 			foreach($players as $player)
 			{
-				array_push($chat_log, $player["name"].str_repeat(" ", 17 - strlen($player["name"])).str_repeat(" ", 5 - strlen($player["ping"])).$player["ping"]." ms  ".$gamemodes[$player["gamemode"]]." Mode");
+				$ui->add($player["name"].str_repeat(" ", 17 - strlen($player["name"])).str_repeat(" ", 5 - strlen($player["ping"])).$player["ping"]." ms  ".$gamemodes[$player["gamemode"]]." Mode");
 			}
 			break;
 
@@ -391,7 +356,7 @@ function handleConsoleMessage($msg)
 			global $entities;
 			foreach($entities as $eid => $entity)
 			{
-				array_push($chat_log, $eid." ".$entity["x"]." ".$entity["y"]." ".$entity["z"]);
+				$ui->add($eid." ".$entity["x"]." ".$entity["y"]." ".$entity["z"]);
 			}
 			break;
 
@@ -410,11 +375,11 @@ function handleConsoleMessage($msg)
 				}
 				if(count($uuids) == 0)
 				{
-					array_push($chat_log, "Couldn't find ".$args[1]);
+					$ui->add("Couldn't find ".$args[1]);
 				}
 				else if(count($uuids) > 1)
 				{
-					array_push($chat_log, "Ambiguous name; found: ".join(", ", array_keys($uuids)));
+					$ui->add("Ambiguous name; found: ".join(", ", array_keys($uuids)));
 				}
 				else
 				{
@@ -430,24 +395,24 @@ function handleConsoleMessage($msg)
 					}
 					if($followEntity === false)
 					{
-						array_push($chat_log, "Couldn't find {$username}'s entity");
+						$ui->add("Couldn't find {$username}'s entity");
 					}
 					else
 					{
-						array_push($chat_log, "Understood.");
+						$ui->add("Understood.");
 					}
 				}
 			}
 			else
 			{
-				array_push($chat_log, "Syntax: .follow <name>");
+				$ui->add("Syntax: .follow <name>");
 			}
 			break;
 
 			case "unfollow":
 			global $followEntity;
 			$followEntity = false;
-			array_push($chat_log, "Done.");
+			$ui->add("Done.");
 			break;
 
 			case "slot":
@@ -459,13 +424,13 @@ function handleConsoleMessage($msg)
 			}
 			if($slot < 1 || $slot > 9)
 			{
-				array_push($chat_log, "Syntax: .slot <1-9>");
+				$ui->add("Syntax: .slot <1-9>");
 				break;
 			}
 			$con->startPacket("held_item_change");
 			$con->writeShort($slot - 1);
 			$con->send();
-			array_push($chat_log, "Done.");
+			$ui->add("Done.");
 			break;
 
 			case "reconnect":
@@ -474,7 +439,7 @@ function handleConsoleMessage($msg)
 			break;
 
 			default:
-			array_push($chat_log, "Unknown command '.".$args[0]."' -- use '.help' for a list of commands.");
+			$ui->add("Unknown command '.".$args[0]."' -- use '.help' for a list of commands.");
 		}
 	}
 	if($send)
@@ -483,48 +448,18 @@ function handleConsoleMessage($msg)
 		(new \Phpcraft\SendChatMessagePacket($msg))->send($con);
 	}
 }
-stream_set_blocking($stdin, false);
-readline_callback_handler_install("", function(){}); // This allows reading STDIN on a char-by-char basis, instead of a line-by-line basis.
-$first = true;
 do
 {
-	if($first)
-	{
-		$chat_log[1] .= "Connecting using {$minecraft_version}...";
-	}
-	else
-	{
-		array_push($chat_log, "Connecting using {$minecraft_version}...");
-	}
-	render();
+	$ui->append("Connecting using {$minecraft_version}... ")->render();
 	$con = new \Phpcraft\ServerPlayConnection($protocol_version, $serverarr[0], $serverarr[1]);
-	if($first)
-	{
-		$chat_log[1] .= " Connection established.";
-		$chat_log[2] = "Logging in...";
-	}
-	else
-	{
-		array_push($chat_log, "Connection established; logging in...");
-	}
-	render();
+	$ui->append("Connection established.")->add("Logging in...")->render();
 	if($error = $con->login($account, $translations))
 	{
-		array_push($chat_log, $error);
-		render();
+		$ui->add($error)->render();
 		exit;
 	}
-	if($first)
-	{
-		$chat_log[2] .= " Success!";
-	}
-	else
-	{
-		array_push($chat_log, "Success!");
-	}
-	render();
-	array_push($chat_log, "");
-	$first = false;
+	$ui->append(" Success!")->render();
+	$ui->add("");
 	$reconnect = false;
 	$players = [];
 	$x = 0;
@@ -546,7 +481,6 @@ do
 	$dimension = 0;
 	$next_tick = false;
 	$posticks = 0;
-	$next_render = microtime(true);
 	do
 	{
 		$start = microtime(true);
@@ -562,7 +496,7 @@ do
 				$packet = \Phpcraft\ChatMessagePacket::read($con);
 				if($packet->getPosition() != 2) // TODO: Above Hotbar
 				{
-					array_push($chat_log, $packet->getMessageAsANSIText($translations));
+					$ui->add($packet->getMessageAsANSIText($translations));
 				}
 			}
 			else if($packet_name == "player_list_item")
@@ -725,7 +659,7 @@ do
 					{
 						if($followEntity === $eid)
 						{
-							array_push($chat_log, "The entity I was following has been destroyed.");
+							$ui->add("The entity I was following has been destroyed.");
 							$followEntity = false;
 						}
 						unset($entities[$eid]);
@@ -861,40 +795,9 @@ do
 				$next_tick = microtime(true) + 10;
 			}
 		}
-		$read = [$stdin];
-		$null = null;
-		if(stream_select($read, $null, $null, 0))
+		while($message = $ui->render(true))
 		{
-			while(($char = fgetc($stdin)) !== FALSE)
-			{
-				if($char == "\n")
-				{
-					if($console_buffer == "")
-					{
-						echo "\x07"; // BEL
-					}
-					else
-					{
-						handleConsoleMessage(trim($console_buffer));
-						$console_buffer = "";
-					}
-				}
-				else if($char == "\x7F") // DEL
-				{
-					if(strlen($console_buffer) == 0)
-					{
-						echo "\x07"; // BEL
-					}
-					else
-					{
-						$console_buffer = substr($console_buffer, 0, -1);
-					}
-				}
-				else
-				{
-					$console_buffer .= $char;
-				}
-			}
+			handleConsoleMessage($message);
 		}
 		$time = microtime(true);
 		if($next_tick)
@@ -1054,12 +957,6 @@ do
 				$next_tick = ($time + 0.05 - ($time - $next_tick));
 			}
 		}
-		if($next_render < $time)
-		{
-			render();
-			$time = microtime(true);
-			$next_render = $time + 0.1;
-		}
 		$elapsed = ($time - $start);
 		if(($remaining = (0.02 - $elapsed)) > 0) // Make sure we've waited at least 20 ms before going again because otherwise we'd be polling too much
 		{
@@ -1067,5 +964,7 @@ do
 		}
 	}
 	while(!$reconnect && $con->isOpen());
+	$ui->add("");
 }
 while($reconnect || !isset($options["noreconnect"]));
+$ui->dispose();

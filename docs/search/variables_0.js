@@ -1,6 +1,7 @@
 var searchData=
 [
   ['_24compression_5fthreshold',['$compression_threshold',['../classPhpcraft_1_1Connection.html#aaeb27e92dcac0caa63c5594cc93fc63e',1,'Phpcraft::Connection']]],
+  ['_24input_5fprefix',['$input_prefix',['../classPhpcraft_1_1UserInterface.html#a18b77fae761334a5c60ecbaec1bed67f',1,'Phpcraft::UserInterface']]],
   ['_24keepaliveid',['$keepAliveId',['../classPhpcraft_1_1KeepAlivePacket.html#a240a8c4744dc39690e852d38e68a569a',1,'Phpcraft::KeepAlivePacket']]],
   ['_24name',['$name',['../classPhpcraft_1_1Packet.html#a8ef20582b51249287673ded85c049a5a',1,'Phpcraft::Packet']]],
   ['_24protocol_5fversion',['$protocol_version',['../classPhpcraft_1_1Connection.html#a3bf8d5443811f5ebecde6e15ae6e2c78',1,'Phpcraft::Connection']]],
