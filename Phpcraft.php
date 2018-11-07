@@ -515,7 +515,7 @@ class Utils
 			"obfuscated" => "8",
 			"strikethrough" => "9"
 		];
-		$text = "\033[0";
+		$text = "\x1B[0";
 		foreach($attributes as $n => $v)
 		{
 			if(!isset($chat[$n]))
@@ -598,7 +598,7 @@ class Utils
 		}
 		if(!$child)
 		{
-			$text .= "\033[0;97;40m";
+			$text .= "\x1B[0;97;40m";
 		}
 		if(isset($chat["extra"]))
 		{
@@ -608,7 +608,7 @@ class Utils
 			}
 			if(!$child)
 			{
-				$text .= "\033[0;97;40m";
+				$text .= "\x1B[0;97;40m";
 			}
 		}
 		return $text;
@@ -622,14 +622,15 @@ class UserInterface
 	private $optional_info;
 	private $stdin;
 	/**
-	 * The string displayed before the user's input
+	 * The string displayed before the user's input, e.g. `$ `
 	 * @var string
 	 */
-	public $input_prefix = "$ ";
+	public $input_prefix = "";
 	private $input_buffer = "";
+	private $cursorpos = 1;
+	private $screen_scroll = 0;
 	private $chat_log = [];
-	private $logback = 100;
-	private $next_render;
+	private $next_render = 0;
 
 	/**
 	 * Returns an array of dependencies required for spinning up a UI which are missing on the system.
@@ -662,9 +663,8 @@ class UserInterface
 	{
 		$this->title = $title;
 		$this->optional_info = $optional_info;
-		echo "\033[2J";
+		echo "\x1B[2J";
 		$this->stdin = fopen("php://stdin", "r");
-		$this->next_render = microtime(true);
 		stream_set_blocking($this->stdin, false);
 		readline_callback_handler_remove();
 		readline_callback_handler_install("", function(){}); // This allows reading STDIN on a char-by-char basis, instead of a line-by-line basis.
@@ -708,7 +708,7 @@ class UserInterface
 				{
 					if($this->input_buffer == "")
 					{
-						echo "\x07"; // BEL
+						echo "\x07"; // Bell/Alert
 					}
 					else
 					{
@@ -718,23 +718,97 @@ class UserInterface
 						}
 						$line = trim($this->input_buffer);
 						$this->input_buffer = "";
+						$this->cursorpos = 1;
+						$this->next_render = 0;
 						return $line;
 					}
 				}
-				else if($char == "\x7F") // DEL
+				else if($char == "\x7F") // Backspace
 				{
-					if(strlen($this->input_buffer) == 0)
+					if($this->cursorpos == 1 || $this->input_buffer == "")
 					{
-						echo "\x07"; // BEL
+						echo "\x07"; // Bell/Alert
 					}
 					else
 					{
-						$this->input_buffer = substr($this->input_buffer, 0, -1);
+						$this->cursorpos--;
+						$this->input_buffer = mb_substr($this->input_buffer, 0, $this->cursorpos - 1, "utf-8").mb_substr($this->input_buffer, $this->cursorpos, NULL, "utf-8");
+						$this->next_render = 0;
 					}
 				}
 				else
 				{
-					$this->input_buffer .= $char;
+					if($char == "\x1B")
+					{
+						$char = "^";
+					}
+					$this->input_buffer = mb_substr($this->input_buffer, 0, $this->cursorpos - 1, "utf-8").$char.mb_substr($this->input_buffer, $this->cursorpos - 1, NULL, "utf-8");
+					$this->cursorpos++;
+					if(substr($this->input_buffer, $this->cursorpos - 5, 4) == "^[1~") // Pos1
+					{
+						$this->input_buffer = mb_substr($this->input_buffer, 0, $this->cursorpos - 5, "utf-8").mb_substr($this->input_buffer, $this->cursorpos - 1, NULL, "utf-8");
+						$this->cursorpos = 1;
+					}
+					else if(substr($this->input_buffer, $this->cursorpos - 5, 4) == "^[3~") // Delete
+					{
+						$this->input_buffer = mb_substr($this->input_buffer, 0, $this->cursorpos - 5, "utf-8").mb_substr($this->input_buffer, $this->cursorpos, NULL, "utf-8");
+						if($this->input_buffer == "" || $this->cursorpos == mb_strlen($this->input_buffer, "utf-8") + 1)
+						{
+							echo "\x07"; // Bell/Alert
+						}
+						$this->cursorpos -= 4;
+					}
+					else if(substr($this->input_buffer, $this->cursorpos - 5, 4) == "^[4~") // End
+					{
+						$this->input_buffer = mb_substr($this->input_buffer, 0, $this->cursorpos - 5, "utf-8").mb_substr($this->input_buffer, $this->cursorpos - 1, NULL, "utf-8");
+						$this->cursorpos = mb_strlen($this->input_buffer, "utf-8") + 1;
+					}
+					else if(substr($this->input_buffer, $this->cursorpos - 5, 4) == "^[5~") // Screen Up
+					{
+						$this->input_buffer = mb_substr($this->input_buffer, 0, $this->cursorpos - 5, "utf-8").mb_substr($this->input_buffer, $this->cursorpos - 1, NULL, "utf-8");
+						$this->cursorpos -= 4;
+						$this->screen_scroll++;
+					}
+					else if(substr($this->input_buffer, $this->cursorpos - 5, 4) == "^[6~") // Screen Down
+					{
+						$this->input_buffer = mb_substr($this->input_buffer, 0, $this->cursorpos - 5, "utf-8").mb_substr($this->input_buffer, $this->cursorpos - 1, NULL, "utf-8");
+						$this->cursorpos -= 4;
+						if($this->screen_scroll == 0)
+						{
+							echo "\x07"; // Bell/Alert
+						}
+						else
+						{
+							$this->screen_scroll--;
+						}
+					}
+					else if(substr($this->input_buffer, $this->cursorpos - 4, 3) == "^[D") // Arrow Left
+					{
+						$this->input_buffer = substr($this->input_buffer, 0, $this->cursorpos - 4).substr($this->input_buffer, $this->cursorpos - 1);
+						$this->cursorpos -= 3;
+						if($this->cursorpos == 1)
+						{
+							echo "\x07"; // Bell/Alert
+						}
+						else
+						{
+							$this->cursorpos--;
+						}
+					}
+					else if(substr($this->input_buffer, $this->cursorpos - 4, 3) == "^[C") // Arrow Right
+					{
+						$this->input_buffer = substr($this->input_buffer, 0, $this->cursorpos - 4).substr($this->input_buffer, $this->cursorpos - 1);
+						$this->cursorpos -= 3;
+						if($this->cursorpos == mb_strlen($this->input_buffer, "utf-8") + 1)
+						{
+							echo "\x07"; // Bell/Alert
+						}
+						else
+						{
+							$this->cursorpos++;
+						}
+					}
+					$this->next_render = 0;
 				}
 			}
 		}
@@ -742,29 +816,57 @@ class UserInterface
 		{
 			$width = intval(trim(shell_exec("tput cols")));
 			$height = intval(trim(shell_exec("tput lines")));
-			echo "\033[1;1H\033[30;107m{$this->title}";
-			$len = strlen($this->title);
-			if($width > ($len + strlen($this->optional_info)))
+			echo "\x1B[1;1H\x1B[30;107m{$this->title}";
+			$len = mb_strlen($this->title, "utf-8");
+			if($width > ($len + mb_strlen($this->optional_info, "utf-8")))
 			{
-				echo str_repeat(" ", $width - ($len + strlen($this->optional_info))).$this->optional_info;
+				echo str_repeat(" ", $width - ($len + mb_strlen($this->optional_info, "utf-8"))).$this->optional_info;
 			}
-			else
+			else if($width > $len)
 			{
 				echo str_repeat(" ", $width - $len);
 			}
-			echo "\033[97;40m".str_repeat(" ", ($height - 1) * $width)."\033[1;2H";
+			echo "\x1B[97;40m".str_repeat(" ", ($height - 1) * $width)."\x1B[1;2H";
 			$gol_tahc = array_reverse($this->chat_log);
-			for($i = 2; $i < $height; $i++)
+			$input_height = floor(mb_strlen($this->input_prefix.$this->input_buffer, "utf-8") / $width);
+			$j = $this->screen_scroll;
+			if($j > 100 - $height)
 			{
-				echo "\n".@$gol_tahc[$height - $i - 1]."\033[97;40m";
+				$j = 100 - $height;
+				$this->screen_scroll = 100 - $height;
+				echo "\x07"; // Bell/Alert
 			}
-			if(count($this->chat_log) > $this->logback)
+			for($i = $height - $input_height - 1; $i > 1; $i--)
+			{
+				$message = @$gol_tahc[$j++];
+				$len = mb_strlen(preg_replace('/\x1B\[[0-9]{1,3}(\;[0-9]{1,3})*m/i', "", $message), "utf-8");
+				if($len > $width)
+				{
+					$i -= floor(mb_strlen($message, "utf-8") / $width);
+				}
+				echo "\x1B[{$i};1H";
+				echo "{$message}\x1B[97;40m";
+			}
+			echo "\x1B[".($height - $input_height).";1H\x1B[97;40m".$this->input_prefix.$this->input_buffer;
+			$cursor_width = (mb_strlen($this->input_prefix, "utf-8") + $this->cursorpos);
+			if($cursor_width < $width)
+			{
+				$cursor_height = $height;				
+			}
+			else
+			{
+				$overflows = floor(($cursor_width - 1) / $width);
+				$cursor_height = $height - $input_height + $overflows;
+				if($overflows > 0)
+				{
+					$cursor_width -= floor($width / $overflows);
+				}
+			}
+			echo "\x1B[{$cursor_height};{$cursor_width}H";
+			if(count($this->chat_log) > 100)
 			{
 				array_shift($this->chat_log);
 			}
-			echo "\033[{$height};1H\033[97;40m";
-			echo $this->input_prefix.$this->input_buffer;
-			echo "\033[{$height};".(strlen($this->input_prefix.$this->input_buffer) + 1)."H";
 			$this->next_render = microtime(true) + 0.1;
 		}
 	}

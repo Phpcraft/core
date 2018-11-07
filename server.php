@@ -72,6 +72,7 @@ if($options["online"])
 $ui->add("Binding to port ".$options["port"]."... ")->render();
 $server = stream_socket_server("tcp://0.0.0.0:".$options["port"], $errno, $errstr) or die(" {$errstr}\n");
 stream_set_blocking($server, false);
+$ui->input_prefix = "[Server] ";
 $ui->append("Success!")->render();
 $clients = [];
 function joinSuccess($i)

@@ -171,7 +171,6 @@ if(!$server)
 }
 fclose($stdin);
 $ui = new \Phpcraft\UserInterface("PHP Minecraft Client", "github.com/timmyrs/Phpcraft");
-$ui->input_prefix = "<{$account->getUsername()}> ";
 $ui->add("Resolving... ")->render();
 $server = \Phpcraft\Utils::resolve($server);
 $serverarr = explode(":", $server);
@@ -458,6 +457,7 @@ do
 		$ui->add($error)->render();
 		exit;
 	}
+	$ui->input_prefix = "<{$account->getUsername()}> ";
 	$ui->append(" Success!")->render();
 	$ui->add("");
 	$reconnect = false;
