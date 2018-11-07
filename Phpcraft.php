@@ -628,6 +628,11 @@ class UserInterface
 	public $input_prefix = "";
 	private $input_buffer = "";
 	private $cursorpos = 1;
+	/**
+	 * The function called when the user presses the tabulator key with the currently selected word as parameter. The return should be an array of possible completions.
+	 * @var function
+	 */
+	public $tabcomplete_function = null;
 	private $screen_scroll = 0;
 	private $chat_log = [];
 	private $next_render = 0;
@@ -675,7 +680,7 @@ class UserInterface
 				$this->add("{$message} at {$file}:{$line}")->render();
 			}
 		});
-		set_exception_handler(function(Exception $e)
+		set_exception_handler(function($e)
 		{
 			$this->add("{$e->getMessage()} (".get_class($e).") at {$e->getFile()}:{$e->getLine()}")->render();
 		});
@@ -733,6 +738,74 @@ class UserInterface
 					{
 						$this->cursorpos--;
 						$this->input_buffer = mb_substr($this->input_buffer, 0, $this->cursorpos - 1, "utf-8").mb_substr($this->input_buffer, $this->cursorpos, NULL, "utf-8");
+						$this->next_render = 0;
+					}
+				}
+				else if($char == "\t") // Tabulator
+				{
+					$tabcomplete_function = $this->tabcomplete_function;
+					if($tabcomplete_function == NULL)
+					{
+						echo "\x07"; // Bell/Alert
+					}
+					else
+					{
+						$buffer_ = "";
+						$completed = false;
+						foreach(explode(" ", $this->input_buffer) as $word)
+						{
+							if($completed)
+							{
+								$buffer_ .= " ".$word;
+								continue;
+							}
+							if(mb_strlen($buffer_, "utf-8") + mb_strlen($word, "utf-8") + 2 < $this->cursorpos)
+							{
+								if($buffer_ == "")
+								{
+									$buffer_ = $word;
+								}
+								else
+								{
+									$buffer_ .= " ".$word;
+								}
+								continue;
+							}
+							$res = $tabcomplete_function($word);
+							if(count($res) == 1)
+							{
+								if($buffer_ == "")
+								{
+									$buffer_ = $res[0];
+								}
+								else
+								{
+									$buffer_ .= " ".$res[0];
+								}
+								$this->cursorpos += strlen($res[0]) - mb_strlen($word, "utf-8");
+							}
+							else
+							{
+								if(count($res) > 1)
+								{
+									$this->add(join(", ", $res));
+								}
+								if($buffer_ == "")
+								{
+									$buffer_ = $word;
+								}
+								else
+								{
+									$buffer_ .= " ".$word;
+								}
+							}
+							$completed = true;
+						}
+						if($this->cursorpos > mb_strlen($buffer_, "utf-8") + 1)
+						{
+							$this->cursorpos = mb_strlen($buffer_, "utf-8") + 1;
+						}
+						$this->input_buffer = $buffer_;
 						$this->next_render = 0;
 					}
 				}

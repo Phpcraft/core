@@ -8,5 +8,6 @@ var searchData=
   ['_24read_5fbuffer',['$read_buffer',['../classPhpcraft_1_1Connection.html#ab4b47b674ff9c466d4f8edfc6d171d23',1,'Phpcraft::Connection']]],
   ['_24state',['$state',['../classPhpcraft_1_1Connection.html#a22835d4eefaa059692c254456864a405',1,'Phpcraft::Connection']]],
   ['_24stream',['$stream',['../classPhpcraft_1_1Connection.html#af1e92d8d3381fc0384e4c7c175cc10ed',1,'Phpcraft::Connection']]],
+  ['_24tabcomplete_5ffunction',['$tabcomplete_function',['../classPhpcraft_1_1UserInterface.html#ae95454a6ad2f380826fef7e9abd0a1ad',1,'Phpcraft::UserInterface']]],
   ['_24write_5fbuffer',['$write_buffer',['../classPhpcraft_1_1Connection.html#a3084eed19e1ce7d3f53d50cc26aaf767',1,'Phpcraft::Connection']]]
 ];

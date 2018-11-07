@@ -447,6 +447,21 @@ function handleConsoleMessage($msg)
 		(new \Phpcraft\SendChatMessagePacket($msg))->send($con);
 	}
 }
+$ui->tabcomplete_function = function($word)
+{
+	global $players;
+	$word = strtolower($word);
+	$completions = [];
+	$len = strlen($word);
+	foreach($players as $player)
+	{
+		if(strtolower(substr($player["name"], 0, $len)) == $word)
+		{
+			array_push($completions, $player["name"]);
+		}
+	}
+	return $completions;
+};
 do
 {
 	$ui->append("Connecting using {$minecraft_version}... ")->render();

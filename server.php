@@ -75,6 +75,21 @@ stream_set_blocking($server, false);
 $ui->input_prefix = "[Server] ";
 $ui->append("Success!")->render();
 $clients = [];
+$ui->tabcomplete_function = function($word)
+{
+	global $clients;
+	$word = strtolower($word);
+	$completions = [];
+	$len = strlen($word);
+	foreach($clients as $client)
+	{
+		if(strtolower(substr($client["name"], 0, $len)) == $word)
+		{
+			array_push($completions, $client["name"]);
+		}
+	}
+	return $completions;
+};
 function joinSuccess($i)
 {
 	global $ui, $clients;
