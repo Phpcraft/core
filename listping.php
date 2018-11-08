@@ -19,7 +19,7 @@ $info = $con->getStatus();
 echo "\n\n";
 if(isset($info["description"]))
 {
-	echo \Phpcraft\Phpcraft::chatToANSIText($info["description"])."\n\n";
+	echo \Phpcraft\Phpcraft::chatToANSIText($info["description"])."\x1B[0m\n\n";
 }
 else
 {

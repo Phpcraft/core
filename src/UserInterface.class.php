@@ -19,9 +19,13 @@ class UserInterface
 	 * @var function $tabcomplete_function
 	 */
 	public $tabcomplete_function = null;
+	private $rendered_title = false;
 	private $screen_scroll = 0;
 	private $chat_log = [];
+	private $chat_log_cap = 100;
 	private $next_render = 0;
+	private $_width = 0;
+	private $_height = 0;
 
 	/**
 	 * Returns an array of dependencies required for spinning up a UI which are missing on the system.
@@ -103,7 +107,7 @@ class UserInterface
 					}
 					else
 					{
-						if(!$instant)
+						if($instant)
 						{
 							break;
 						}
@@ -168,7 +172,7 @@ class UserInterface
 								{
 									$buffer_ .= " ".$res[0];
 								}
-								$this->cursorpos += strlen($res[0]) - mb_strlen($word, "utf-8");
+								$this->cursorpos += mb_strlen($res[0], "utf-8") - mb_strlen($word, "utf-8");
 							}
 							else
 							{
@@ -203,21 +207,25 @@ class UserInterface
 					}
 					$this->input_buffer = mb_substr($this->input_buffer, 0, $this->cursorpos - 1, "utf-8").$char.mb_substr($this->input_buffer, $this->cursorpos - 1, NULL, "utf-8");
 					$this->cursorpos++;
-					if(substr($this->input_buffer, $this->cursorpos - 4, 3) == "^[A") // Arrow Up
+					if($this->cursorpos > mb_strlen($this->input_buffer, "utf-8") + 1)
 					{
-						$this->input_buffer = substr($this->input_buffer, 0, $this->cursorpos - 4).substr($this->input_buffer, $this->cursorpos - 1);
+						$this->cursorpos = mb_strlen($this->input_buffer, "utf-8") + 1;
+					}
+					if(mb_substr($this->input_buffer, $this->cursorpos - 4, 3, "utf-8") == "^[A") // Arrow Up
+					{
+						$this->input_buffer = mb_substr($this->input_buffer, 0, $this->cursorpos - 4, "utf-8").mb_substr($this->input_buffer, $this->cursorpos - 1, NULL, "utf-8");
 						$this->cursorpos -= 3;
 						$this->screen_scroll++;
 					}
-					else if(substr($this->input_buffer, $this->cursorpos - 4, 3) == "^[B") // Arrow Down
+					else if(mb_substr($this->input_buffer, $this->cursorpos - 4, 3, "utf-8") == "^[B") // Arrow Down
 					{
-						$this->input_buffer = substr($this->input_buffer, 0, $this->cursorpos - 4).substr($this->input_buffer, $this->cursorpos - 1);
+						$this->input_buffer = mb_substr($this->input_buffer, 0, $this->cursorpos - 4, "utf-8").substr($this->input_buffer, $this->cursorpos - 1, NULL, "utf-8");
 						$this->cursorpos -= 3;
 						$this->screen_scroll--;
 					}
-					else if(substr($this->input_buffer, $this->cursorpos - 4, 3) == "^[C") // Arrow Right
+					else if(mb_substr($this->input_buffer, $this->cursorpos - 4, 3, "utf-8") == "^[C") // Arrow Right
 					{
-						$this->input_buffer = substr($this->input_buffer, 0, $this->cursorpos - 4).substr($this->input_buffer, $this->cursorpos - 1);
+						$this->input_buffer = mb_substr($this->input_buffer, 0, $this->cursorpos - 4, "utf-8").mb_substr($this->input_buffer, $this->cursorpos - 1, NULL, "utf-8");
 						$this->cursorpos -= 3;
 						if($this->cursorpos == mb_strlen($this->input_buffer, "utf-8") + 1)
 						{
@@ -228,9 +236,9 @@ class UserInterface
 							$this->cursorpos++;
 						}
 					}
-					else if(substr($this->input_buffer, $this->cursorpos - 4, 3) == "^[D") // Arrow Left
+					else if(mb_substr($this->input_buffer, $this->cursorpos - 4, 3, "utf-8") == "^[D") // Arrow Left
 					{
-						$this->input_buffer = substr($this->input_buffer, 0, $this->cursorpos - 4).substr($this->input_buffer, $this->cursorpos - 1);
+						$this->input_buffer = mb_substr($this->input_buffer, 0, $this->cursorpos - 4, "utf-8").mb_substr($this->input_buffer, $this->cursorpos - 1, NULL, "utf-8");
 						$this->cursorpos -= 3;
 						if($this->cursorpos == 1)
 						{
@@ -241,12 +249,12 @@ class UserInterface
 							$this->cursorpos--;
 						}
 					}
-					else if(substr($this->input_buffer, $this->cursorpos - 5, 4) == "^[1~") // Pos1
+					else if(mb_substr($this->input_buffer, $this->cursorpos - 5, 4, "utf-8") == "^[1~") // Pos1
 					{
 						$this->input_buffer = mb_substr($this->input_buffer, 0, $this->cursorpos - 5, "utf-8").mb_substr($this->input_buffer, $this->cursorpos - 1, NULL, "utf-8");
 						$this->cursorpos = 1;
 					}
-					else if(substr($this->input_buffer, $this->cursorpos - 5, 4) == "^[3~") // Delete
+					else if(mb_substr($this->input_buffer, $this->cursorpos - 5, 4, "utf-8") == "^[3~") // Delete
 					{
 						$this->input_buffer = mb_substr($this->input_buffer, 0, $this->cursorpos - 5, "utf-8").mb_substr($this->input_buffer, $this->cursorpos, NULL, "utf-8");
 						if($this->input_buffer == "" || $this->cursorpos == mb_strlen($this->input_buffer, "utf-8") + 1)
@@ -255,18 +263,18 @@ class UserInterface
 						}
 						$this->cursorpos -= 4;
 					}
-					else if(substr($this->input_buffer, $this->cursorpos - 5, 4) == "^[4~") // End
+					else if(mb_substr($this->input_buffer, $this->cursorpos - 5, 4, "utf-8") == "^[4~") // End
 					{
 						$this->input_buffer = mb_substr($this->input_buffer, 0, $this->cursorpos - 5, "utf-8").mb_substr($this->input_buffer, $this->cursorpos - 1, NULL, "utf-8");
 						$this->cursorpos = mb_strlen($this->input_buffer, "utf-8") + 1;
 					}
-					else if(substr($this->input_buffer, $this->cursorpos - 5, 4) == "^[5~") // Screen Up
+					else if(mb_substr($this->input_buffer, $this->cursorpos - 5, 4, "utf-8") == "^[5~") // Screen Up
 					{
 						$this->input_buffer = mb_substr($this->input_buffer, 0, $this->cursorpos - 5, "utf-8").mb_substr($this->input_buffer, $this->cursorpos - 1, NULL, "utf-8");
 						$this->cursorpos -= 4;
 						$this->screen_scroll++;
 					}
-					else if(substr($this->input_buffer, $this->cursorpos - 5, 4) == "^[6~") // Screen Down
+					else if(mb_substr($this->input_buffer, $this->cursorpos - 5, 4, "utf-8") == "^[6~") // Screen Down
 					{
 						$this->input_buffer = mb_substr($this->input_buffer, 0, $this->cursorpos - 5, "utf-8").mb_substr($this->input_buffer, $this->cursorpos - 1, NULL, "utf-8");
 						$this->cursorpos -= 4;
@@ -280,46 +288,57 @@ class UserInterface
 		{
 			$width = intval(trim(shell_exec("tput cols")));
 			$height = intval(trim(shell_exec("tput lines")));
-			echo "\x1B[1;1H\x1B[30;107m{$this->title}";
-			$len = mb_strlen($this->title, "utf-8");
-			if($width > ($len + mb_strlen($this->optional_info, "utf-8")))
+			if($width != $this->_width || $height != $this->_height)
 			{
-				echo str_repeat(" ", $width - ($len + mb_strlen($this->optional_info, "utf-8"))).$this->optional_info;
+				$this->rendered_title = false;
 			}
-			else if($width > $len)
+			if(!$this->rendered_title)
 			{
-				echo str_repeat(" ", $width - $len);
+				echo "\x1B[1;1H\x1B[30;107m{$this->title}";
+				$len = mb_strlen($this->title, "utf-8");
+				if($width > ($len + mb_strlen($this->optional_info, "utf-8")))
+				{
+					echo str_repeat(" ", $width - ($len + mb_strlen($this->optional_info, "utf-8"))).$this->optional_info;
+				}
+				else if($width > $len)
+				{
+					echo str_repeat(" ", $width - $len);
+				}
+				$this->rendered_title = true;
 			}
-			echo "\x1B[97;40m".str_repeat(" ", ($height - 1) * $width)."\x1B[1;2H";
 			$gol_tahc = array_reverse($this->chat_log);
 			$input_height = floor(mb_strlen($this->input_prefix.$this->input_buffer, "utf-8") / $width);
+			if($this->screen_scroll > ($this->chat_log_cap - $height) + $input_height)
+			{
+				$this->screen_scroll = ($height * -1) + 3 + $input_height;
+				echo "\x07";
+			}
+			else if($this->screen_scroll < ($height * -1) + 3 + $input_height)
+			{
+				$this->screen_scroll = ($this->chat_log_cap - $height) + $input_height;
+				echo "\x07";
+			}
 			$j = $this->screen_scroll;
-			if($j > 100 - $height)
-			{
-				$this->screen_scroll = $j = 100 - $height;
-				echo "\x07"; // Bell/Alert
-			}
-			else if($j < ($height - $input_height - 3) * -1)
-			{
-				$this->screen_scroll = $j = ($height - $input_height - 3) * -1;
-				echo "\x07"; // Bell/Alert
-			}
 			for($i = $height - $input_height - 1; $i > 1; $i--)
 			{
 				$message = @$gol_tahc[$j++];
 				$len = mb_strlen(preg_replace('/\x1B\[[0-9]{1,3}(\;[0-9]{1,3})*m/i', "", $message), "utf-8");
 				if($len > $width)
 				{
-					$i -= floor(mb_strlen($message, "utf-8") / $width);
+					$i -= floor($len / $width);
 				}
-				echo "\x1B[{$i};1H";
-				echo "{$message}\x1B[97;40m";
+				echo "\x1B[{$i};1H\x1B[97;40m{$message}\x1B[97;44m";
+				$line_len = ($len == 0 ? 0 : ($len - (floor(($len - 1) / $width) * $width)));
+				if($line_len < $width)
+				{
+					echo str_repeat(" ", $width - $line_len);
+				}
 			}
 			echo "\x1B[".($height - $input_height).";1H\x1B[97;40m".$this->input_prefix.$this->input_buffer;
 			$cursor_width = (mb_strlen($this->input_prefix, "utf-8") + $this->cursorpos);
 			if($cursor_width < $width)
 			{
-				$cursor_height = $height;				
+				$cursor_height = $height;
 			}
 			else
 			{
@@ -330,12 +349,19 @@ class UserInterface
 					$cursor_width -= floor($width / $overflows);
 				}
 			}
+			$line_len = mb_strlen($this->input_prefix.$this->input_buffer, "utf-8") - ($input_height * $width);
+			if($line_len < $width)
+			{
+				echo str_repeat(" ", $width - $line_len);
+			}
 			echo "\x1B[{$cursor_height};{$cursor_width}H";
-			if(count($this->chat_log) > 100)
+			if(count($this->chat_log) > $this->chat_log_cap)
 			{
 				array_shift($this->chat_log);
 			}
 			$this->next_render = microtime(true) + 0.2;
+			$this->_width = $width;
+			$this->_height = $height;
 		}
 	}
 

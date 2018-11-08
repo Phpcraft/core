@@ -536,7 +536,7 @@ class Phpcraft
 	 * @param mixed $parent The parent chat object so styling is properly inherited. You don't need to set this.
 	 * @return string
 	 */
-	static function chatToANSIText($chat, $translations = null, $parent = false)
+	static function chatToANSIText($chat, $translations = null, $parent = [])
 	{
 		if($translations == null)
 		{
@@ -555,15 +555,6 @@ class Phpcraft
 			}
 			$chat = Phpcraft::textToChat($chat);
 		}
-		if($parent === false)
-		{
-			$child = false;
-			$parent = [];
-		}
-		else
-		{
-			$child = true;
-		}
 		$attributes = [
 			"bold" => "1",
 			"italic" => "3",
@@ -571,7 +562,7 @@ class Phpcraft
 			"obfuscated" => "8",
 			"strikethrough" => "9"
 		];
-		$text = "\x1B[0";
+		$modifiers = [];
 		foreach($attributes as $n => $v)
 		{
 			if(!isset($chat[$n]))
@@ -583,7 +574,7 @@ class Phpcraft
 			}
 			if(isset($chat[$n]) && $chat[$n])
 			{
-				$text .= ";{$v}";
+				array_push($modifiers, $v);
 			}
 		}
 		if(!isset($chat["color"]))
@@ -596,7 +587,7 @@ class Phpcraft
 		if(isset($chat["color"]))
 		{
 			$colors = [
-				"black" => "30;107", // Using a white background on black text
+				"black" => "30",
 				"dark_blue" => "34",
 				"dark_green" => "32",
 				"dark_aqua" => "36",
@@ -615,10 +606,10 @@ class Phpcraft
 			];
 			if(isset($colors[$chat["color"]]))
 			{
-				$text .= ";".$colors[$chat["color"]];
+				array_push($modifiers, $colors[$chat["color"]]);
 			}
 		}
-		$text .= "m";
+		$text = "\x1B[".join(";", $modifiers)."m";
 		if(isset($chat["translate"]))
 		{
 			$raw;
@@ -652,19 +643,11 @@ class Phpcraft
 			}
 			$text .= $chat["text"];
 		}
-		if(!$child)
-		{
-			$text .= "\x1B[0;97;40m";
-		}
 		if(isset($chat["extra"]))
 		{
 			foreach($chat["extra"] as $extra)
 			{
 				$text .= Phpcraft::chatToANSIText($extra, $translations, $chat);
-			}
-			if(!$child)
-			{
-				$text .= "\x1B[0;97;40m";
 			}
 		}
 		return $text;
