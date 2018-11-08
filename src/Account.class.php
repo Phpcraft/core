@@ -1,7 +1,7 @@
 <?php
 namespace Phpcraft;
 require_once __DIR__."/validate.php"; 
-require_once __DIR__."/Utils.class.php"; 
+require_once __DIR__."/Phpcraft.class.php"; 
 /** A Mojang or Minecraft account. */
 class Account
 {
@@ -71,7 +71,7 @@ class Account
 	 */
 	function loginUsingProfiles()
 	{
-		$profiles = Utils::getProfiles();
+		$profiles = Phpcraft::getProfiles();
 		$foundAccount = false;
 		foreach($profiles["authenticationDatabase"] as $n => $v)
 		{
@@ -110,12 +110,12 @@ class Account
 		}
 		if($foundAccount)
 		{
-			if(Utils::httpPOST("https://authserver.mojang.com/validate", [
+			if(Phpcraft::httpPOST("https://authserver.mojang.com/validate", [
 				"accessToken" => $profiles["authenticationDatabase"][$profiles["selectedUser"]["account"]]["accessToken"],
 				"clientToken" => $profiles["clientToken"]
 			])["status"] == "403")
 			{
-				if($res = Utils::httpPOST("https://authserver.mojang.com/refresh", [
+				if($res = Phpcraft::httpPOST("https://authserver.mojang.com/refresh", [
 					"accessToken" => $profiles["authenticationDatabase"][$profiles["selectedUser"]["account"]]["accessToken"],
 					"clientToken" => $profiles["clientToken"]
 				]))
@@ -123,12 +123,12 @@ class Account
 					if(isset($res["accessToken"]))
 					{
 						$profiles["authenticationDatabase"][$profiles["selectedUser"]["account"]]["accessToken"] = $res["accessToken"];
-						Utils::saveProfiles($profiles);
+						Phpcraft::saveProfiles($profiles);
 						return true;
 					}
 				}
 				unset($profiles["authenticationDatabase"][$profiles["selectedUser"]["account"]]);
-				Utils::saveProfiles($profiles);
+				Phpcraft::saveProfiles($profiles);
 				return false;
 			}
 			return true;
@@ -147,8 +147,8 @@ class Account
 	 */
 	function login($password)
 	{
-		$profiles = Utils::getProfiles();
-		if($res = Utils::httpPOST("https://authserver.mojang.com/authenticate", [
+		$profiles = Phpcraft::getProfiles();
+		if($res = Phpcraft::httpPOST("https://authserver.mojang.com/authenticate", [
 			"agent" => [
 				"name" => "Minecraft",
 				"version" => 1
@@ -176,7 +176,7 @@ class Account
 					]
 				]
 			];
-			Utils::saveProfiles($profiles);
+			Phpcraft::saveProfiles($profiles);
 			return "";
 		}
 		return "Invalid credentials";

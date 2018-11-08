@@ -86,14 +86,14 @@ else
 	else
 	{
 		$options["lang"] = strtolower($arr[0])."_".strtoupper($arr[1]);		
-		if(!\Phpcraft\Utils::doesAssetExist("minecraft/lang/".strtolower($options["lang"]).".json"))
+		if(!\Phpcraft\Phpcraft::doesAssetExist("minecraft/lang/".strtolower($options["lang"]).".json"))
 		{
 			echo "Couldn't find translations for ".$options["lang"].", using en_GB.\n";
 			$options["lang"] = "en_GB";
 		}
 	}
 }
-$translations = json_decode(file_get_contents(\Phpcraft\Utils::downloadAsset("minecraft/lang/".strtolower($options["lang"]).".json")), true);
+$translations = json_decode(file_get_contents(\Phpcraft\Phpcraft::downloadAsset("minecraft/lang/".strtolower($options["lang"]).".json")), true);
 
 $stdin = fopen("php://stdin", "r");
 stream_set_blocking($stdin, true);
@@ -133,7 +133,7 @@ while($name == "")
 			$name = "PHPMinecraftUser";
 			break;
 		}
-		if(!\Phpcraft\Utils::validateName($name))
+		if(!\Phpcraft\Phpcraft::validateName($name))
 		{
 			echo "Invalid name.\n";
 			$name = "";
@@ -143,7 +143,7 @@ while($name == "")
 $account = new \Phpcraft\Account($name);
 if($online)
 {
-	if($extensions_needed = \Phpcraft\Utils::getExtensionsMissingToGoOnline())
+	if($extensions_needed = \Phpcraft\Phpcraft::getExtensionsMissingToGoOnline())
 	{
 		die("To join online servers, you need ".join(" and ", $extensions_needed).".\nTry apt-get install or check your PHP configuration.\n");
 	}
@@ -180,7 +180,7 @@ if(!$server)
 fclose($stdin);
 $ui = new \Phpcraft\UserInterface("PHP Minecraft Client", "github.com/timmyrs/Phpcraft");
 $ui->add("Resolving... ")->render();
-$server = \Phpcraft\Utils::resolve($server);
+$server = \Phpcraft\Phpcraft::resolve($server);
 $serverarr = explode(":", $server);
 if(count($serverarr) != 2)
 {
@@ -200,7 +200,7 @@ if(empty($options["version"]))
 		exit;
 	}
 	$protocol_version = $info["version"]["protocol"];
-	if(!($minecraft_versions = \Phpcraft\Utils::getMinecraftVersionsFromProtocolVersion($protocol_version)))
+	if(!($minecraft_versions = \Phpcraft\Phpcraft::getMinecraftVersionsFromProtocolVersion($protocol_version)))
 	{
 		$ui->append("This server uses an unknown protocol version: {$protocol_version}")->render();
 		exit;
@@ -210,7 +210,7 @@ if(empty($options["version"]))
 else
 {
 	$minecraft_version = $options["version"];
-	$protocol_version = \Phpcraft\Utils::getProtocolVersionFromMinecraftVersion($minecraft_version);
+	$protocol_version = \Phpcraft\Phpcraft::getProtocolVersionFromMinecraftVersion($minecraft_version);
 	if($protocol_version === NULL)
 	{
 		$ui->append("Unknown Minecraft version: {$minecraft_version}")->render();

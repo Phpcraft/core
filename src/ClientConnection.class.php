@@ -24,7 +24,7 @@ class ClientConnection extends Connection
 			$this->state = $this->readVarInt();
 			if($this->state == 1 || $this->state == 2)
 			{
-				if($this->state != 2 || Utils::isProtocolVersionSupported($this->protocol_version))
+				if($this->state != 2 || Phpcraft::isProtocolVersionSupported($this->protocol_version))
 				{
 					stream_set_timeout($this->stream, ini_get("default_socket_timeout"));
 					stream_set_blocking($this->stream, false);
@@ -98,7 +98,7 @@ class ClientConnection extends Connection
 		$opts = ["mode" => "cfb", "iv" => $shared_secret, "key" => $shared_secret];
 		stream_filter_append($this->stream, "mcrypt.rijndael-128", STREAM_FILTER_WRITE, $opts);
 		stream_filter_append($this->stream, "mdecrypt.rijndael-128", STREAM_FILTER_READ, $opts);
-		$json = @json_decode(@file_get_contents("https://sessionserver.mojang.com/session/minecraft/hasJoined?username={$name}&serverId=".Utils::sha1($shared_secret.base64_decode(trim(substr(openssl_pkey_get_details($private_key)["key"], 26, -24))))), true);
+		$json = @json_decode(@file_get_contents("https://sessionserver.mojang.com/session/minecraft/hasJoined?username={$name}&serverId=".Phpcraft::sha1($shared_secret.base64_decode(trim(substr(openssl_pkey_get_details($private_key)["key"], 26, -24))))), true);
 		if(!$json || empty($json["id"]) || empty($json["name"]) || $json["name"] != $name)
 		{
 			$this->writeVarInt(0x00);
@@ -116,8 +116,8 @@ class ClientConnection extends Connection
 	 * @param string $name The name the client presented in the Login Start packet.
 	 * @param integer $compression_threshold Use -1 to disable compression.
 	 * @return ClientConnection $this
-	 * @see Utils::generateUUIDv4()
-	 * @see Utils::addHypensToUUID()
+	 * @see Phpcraft::generateUUIDv4()
+	 * @see Phpcraft::addHypensToUUID()
 	 */
 	function finishLogin($uuid, $name, $compression_threshold = 256)
 	{

@@ -58,7 +58,7 @@ $online_mode = true;
 $ui = new \Phpcraft\UserInterface("PHP Minecraft Server", "github.com/timmyrs/Phpcraft");
 if($options["online"])
 {
-	if($extensions_needed = \Phpcraft\Utils::getExtensionsMissingToGoOnline())
+	if($extensions_needed = \Phpcraft\Phpcraft::getExtensionsMissingToGoOnline())
 	{
 		die("To host an online server, you need ".join(" and ", $extensions_needed).".\nTry apt-get install or check your PHP configuration.\n");
 	}
@@ -155,7 +155,7 @@ function joinSuccess($i)
 			]
 		]
 	];
-	$ui->add(\Phpcraft\Utils::chatToANSIText($msg));
+	$ui->add(\Phpcraft\Phpcraft::chatToANSIText($msg));
 	$msg = json_encode($msg);
 	foreach($clients as $c)
 	{
@@ -199,7 +199,7 @@ do
 						}
 						else
 						{
-							$msg = \Phpcraft\Utils::textToChat($msg, true);
+							$msg = \Phpcraft\Phpcraft::textToChat($msg, true);
 						}
 						$msg = [
 							"translate" => "chat.type.text",
@@ -210,7 +210,7 @@ do
 								$msg
 							]
 						];
-						$ui->add(\Phpcraft\Utils::chatToANSIText($msg));
+						$ui->add(\Phpcraft\Phpcraft::chatToANSIText($msg));
 						$msg = json_encode($msg);
 						foreach($clients as $c)
 						{
@@ -233,7 +233,7 @@ do
 					if($id == 0x00) // Login Start
 					{
 						$clients[$i]["name"] = $con->readString();
-						if(\Phpcraft\Utils::validateName($clients[$i]["name"]))
+						if(\Phpcraft\Phpcraft::validateName($clients[$i]["name"]))
 						{
 							if($options["online"])
 							{
@@ -241,7 +241,7 @@ do
 							}
 							else
 							{
-								$con->finishLogin(\Phpcraft\Utils::generateUUIDv4(true), $clients[$i]["name"]);
+								$con->finishLogin(\Phpcraft\Phpcraft::generateUUIDv4(true), $clients[$i]["name"]);
 								joinSuccess($i);
 							}
 						}
@@ -255,7 +255,7 @@ do
 					{
 						if($json = $con->handleEncryptionResponse($clients[$i]["name"], $private_key))
 						{
-							$con->finishLogin(\Phpcraft\Utils::addHypensToUUID($json["id"]), $json["name"]);
+							$con->finishLogin(\Phpcraft\Phpcraft::addHypensToUUID($json["id"]), $json["name"]);
 							joinSuccess($i);
 						}
 					}
@@ -270,7 +270,7 @@ do
 					if($id == 0x00)
 					{
 						$con->writeVarInt(0x00);
-						$con->writeString('{"version":{"name":"Phpcraft","protocol":'.(\Phpcraft\Utils::isProtocolVersionSupported($con->getProtocolVersion())?$con->getProtocolVersion():69).'},"description":{"text":"A Phpcraft Server"}}');
+						$con->writeString('{"version":{"name":"Phpcraft","protocol":'.(\Phpcraft\Phpcraft::isProtocolVersionSupported($con->getProtocolVersion())?$con->getProtocolVersion():69).'},"description":{"text":"A Phpcraft Server"}}');
 						$con->send();
 					}
 					else if($id == 0x01)
@@ -309,7 +309,7 @@ do
 					]
 				];
 				unset($clients[$i]);
-				$ui->add(\Phpcraft\Utils::chatToANSIText($msg));
+				$ui->add(\Phpcraft\Phpcraft::chatToANSIText($msg));
 				$msg = json_encode($msg);
 				foreach($clients as $c)
 				{
@@ -373,7 +373,7 @@ do
 				]
 			]
 		];
-		$ui->add(\Phpcraft\Utils::chatToANSIText($msg));
+		$ui->add(\Phpcraft\Phpcraft::chatToANSIText($msg));
 		$msg = json_encode($msg);
 		foreach($clients as $c)
 		{

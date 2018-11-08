@@ -2,7 +2,7 @@
 namespace Phpcraft;
 require_once __DIR__."/validate.php";
 require_once __DIR__."/Packet.class.php";
-require_once __DIR__."/Utils.class.php";
+require_once __DIR__."/Phpcraft.class.php";
 /** A packet that contains a chat object. */
 abstract class ChatPacket extends Packet
 {
@@ -31,11 +31,11 @@ abstract class ChatPacket extends Packet
 	/**
 	 * Returns the message that is being sent as text with ANSI escape codes so it will be colorful in the console, as well.
 	 * @param array $translations The translations array so translated messages look proper.
-	 * @see Utils::chatToANSIText()
+	 * @see Phpcraft::chatToANSIText()
 	 */
 	function getMessageAsANSIText($translations = null)
 	{
-		return Utils::chatToANSIText($this->message, $translations);
+		return Phpcraft::chatToANSIText($this->message, $translations);
 	}
 
 	/**

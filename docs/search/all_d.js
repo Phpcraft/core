@@ -13,6 +13,6 @@ var searchData=
   ['readstring',['readString',['../classPhpcraft_1_1Connection.html#a338afe376e5305275e7c08a19a469e5b',1,'Phpcraft::Connection']]],
   ['readuuidbytes',['readUUIDBytes',['../classPhpcraft_1_1Connection.html#ad726e1db6e2a95ee0f306244c4fcaf79',1,'Phpcraft::Connection']]],
   ['readvarint',['readVarInt',['../classPhpcraft_1_1Connection.html#a31e927e43beb7463823b8fbb970b49c6',1,'Phpcraft::Connection']]],
-  ['render',['render',['../classPhpcraft_1_1UserInterface.html#a2c948e5391aa5eeb0af2b0206833072e',1,'Phpcraft::UserInterface']]],
-  ['resolve',['resolve',['../classPhpcraft_1_1Utils.html#af1b36533783a93a63c04bab92ebf2003',1,'Phpcraft::Utils']]]
+  ['render',['render',['../classPhpcraft_1_1UserInterface.html#a01752205d008d57225a3b43bc2691cdc',1,'Phpcraft::UserInterface']]],
+  ['resolve',['resolve',['../classPhpcraft_1_1Phpcraft.html#a9b7e2ec4f4baeb054391f3379a09e9d4',1,'Phpcraft::Phpcraft']]]
 ];

@@ -92,10 +92,10 @@ class ServerPlayConnection extends ServerConnection
 				{
 					$shared_secret .= chr(rand(0, 255));
 				}
-				if(Utils::httpPOST("https://sessionserver.mojang.com/session/minecraft/join", [
+				if(Phpcraft::httpPOST("https://sessionserver.mojang.com/session/minecraft/join", [
 					"accessToken" => $account->getAccessToken(),
 					"selectedProfile" => $account->getProfileId(),
-					"serverId" => Utils::sha1($server_id.$shared_secret.$public_key)
+					"serverId" => Phpcraft::sha1($server_id.$shared_secret.$public_key)
 				]) === false)
 				{
 					return "The session server is down for maintenance.";
@@ -114,7 +114,7 @@ class ServerPlayConnection extends ServerConnection
 			}
 			else if($id == 0x00) // Disconnect
 			{
-				return Utils::chatToANSIText(json_decode($this->readString(), true), $translations);
+				return Phpcraft::chatToANSIText(json_decode($this->readString(), true), $translations);
 			}
 			else
 			{

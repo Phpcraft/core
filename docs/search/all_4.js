@@ -4,6 +4,6 @@ var searchData=
   ['disconnectpacket',['DisconnectPacket',['../classPhpcraft_1_1DisconnectPacket.html',1,'Phpcraft']]],
   ['disconnectpacket_2eclass_2ephp',['DisconnectPacket.class.php',['../DisconnectPacket_8class_8php.html',1,'']]],
   ['dispose',['dispose',['../classPhpcraft_1_1UserInterface.html#a822624e5c7f1724fcc90c892efa95b5c',1,'Phpcraft::UserInterface']]],
-  ['doesassetexist',['doesAssetExist',['../classPhpcraft_1_1Utils.html#a1b690a02174f800c496adfd6a5010227',1,'Phpcraft::Utils']]],
-  ['downloadasset',['downloadAsset',['../classPhpcraft_1_1Utils.html#a34eb5fc5ef190f751739d98d71ed48ff',1,'Phpcraft::Utils']]]
+  ['doesassetexist',['doesAssetExist',['../classPhpcraft_1_1Phpcraft.html#a93183ec27d40d9d33f5ebf6715bd906c',1,'Phpcraft::Phpcraft']]],
+  ['downloadasset',['downloadAsset',['../classPhpcraft_1_1Phpcraft.html#ad06da15d94df597cc545dac90320d78d',1,'Phpcraft::Phpcraft']]]
 ];

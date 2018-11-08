@@ -78,8 +78,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:acb587f31584fb28e6c66aa3f46774bf1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a822624e5c7f1724fcc90c892efa95b5c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1UserInterface.html#a822624e5c7f1724fcc90c892efa95b5c">dispose</a> ()</td></tr>
 <tr class="separator:a822624e5c7f1724fcc90c892efa95b5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2c948e5391aa5eeb0af2b0206833072e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1UserInterface.html#a2c948e5391aa5eeb0af2b0206833072e">render</a> ($return_input=false)</td></tr>
-<tr class="separator:a2c948e5391aa5eeb0af2b0206833072e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01752205d008d57225a3b43bc2691cdc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1UserInterface.html#a01752205d008d57225a3b43bc2691cdc">render</a> ($instant=true)</td></tr>
+<tr class="separator:a01752205d008d57225a3b43bc2691cdc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad435b45d17debdda4fcf3ee94a0c38a6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1UserInterface.html#ad435b45d17debdda4fcf3ee94a0c38a6">add</a> ($message)</td></tr>
 <tr class="separator:ad435b45d17debdda4fcf3ee94a0c38a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a326048e06cf1eaea72b01fd4c4a453ed"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1UserInterface.html#a326048e06cf1eaea72b01fd4c4a453ed">append</a> ($appendix)</td></tr>
@@ -218,8 +218,8 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a2c948e5391aa5eeb0af2b0206833072e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2c948e5391aa5eeb0af2b0206833072e">&#9670;&nbsp;</a></span>render()</h2>
+<a id="a01752205d008d57225a3b43bc2691cdc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a01752205d008d57225a3b43bc2691cdc">&#9670;&nbsp;</a></span>render()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -228,18 +228,18 @@ Public Attributes</h2></td></tr>
           <td class="memname">Phpcraft\UserInterface::render </td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>$return_input</em> = <code>false</code></td><td>)</td>
+          <td class="paramname"><em>$instant</em> = <code>true</code></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 <p>Renders the UI. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype">boolean</td><td class="paramname">$return_input</td><td>Set to true when you are ready to potentially receive a string as return. </td></tr>
+    <tr><td class="paramtype">boolean</td><td class="paramname">$instant</td><td>Set this to false when you're calling render in a loop and are ready to handle user input. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>void|string If the user has submitted something and $return_input is true, a string containing their message is returned. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>string If $instant is false and the user has submitted a line, the return will be that line; otherwise it will be null. </dd></dl>
 
 </div>
 </div>

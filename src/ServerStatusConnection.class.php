@@ -43,7 +43,7 @@ class ServerStatusConnection extends ServerConnection
 	 *
 	 * Note that a server might not present all of these values, so always check with `isset` first.
 	 *
-	 * Also, the `description` is a chat object, so you can pass it to Utils::chatToANSIText().
+	 * Also, the `description` is a chat object, so you can pass it to Phpcraft::chatToANSIText().
 	 * @return array
 	 */
 	function getStatus()

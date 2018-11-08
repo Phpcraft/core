@@ -2,7 +2,7 @@
 namespace Phpcraft;
 require_once __DIR__."/validate.php";
 require_once __DIR__."/Exception.class.php";
-require_once __DIR__."/Utils.class.php";
+require_once __DIR__."/Phpcraft.class.php";
 require_once __DIR__."/Packet.class.php";
 /**
  * A wrapper to read and write from streams.
@@ -140,7 +140,7 @@ class Connection
 	 */
 	function writeVarInt($value)
 	{
-		$this->write_buffer .= Utils::intToVarInt($value);
+		$this->write_buffer .= Phpcraft::intToVarInt($value);
 		return $this;
 	}
 
@@ -151,7 +151,7 @@ class Connection
 	 */
 	function writeString($value)
 	{
-		$this->write_buffer .= Utils::intToVarInt(strlen($value)).$value;
+		$this->write_buffer .= Phpcraft::intToVarInt(strlen($value)).$value;
 		return $this;
 	}
 
@@ -230,7 +230,7 @@ class Connection
 	 */
 	function startPacket($name)
 	{
-		$this->write_buffer = Utils::intToVarInt(Packet::getId($name, $this->protocol_version));
+		$this->write_buffer = Phpcraft::intToVarInt(Packet::getId($name, $this->protocol_version));
 		return $this;
 	}
 
@@ -282,18 +282,18 @@ class Connection
 				if($length >= $this->compression_threshold)
 				{
 					$compressed = gzcompress($this->write_buffer, 1);
-					$compressed_length_varint = Utils::intToVarInt(strlen($compressed));
+					$compressed_length_varint = Phpcraft::intToVarInt(strlen($compressed));
 					$length += strlen($compressed_length_varint);
-					fwrite($this->stream, Utils::intToVarInt($length).$compressed_length_varint.$compressed);
+					fwrite($this->stream, Phpcraft::intToVarInt($length).$compressed_length_varint.$compressed);
 				}
 				else
 				{
-					fwrite($this->stream, Utils::intToVarInt($length + 1)."\x00".$this->write_buffer);
+					fwrite($this->stream, Phpcraft::intToVarInt($length + 1)."\x00".$this->write_buffer);
 				}
 			}
 			else
 			{
-				fwrite($this->stream, Utils::intToVarInt($length).$this->write_buffer);
+				fwrite($this->stream, Phpcraft::intToVarInt($length).$this->write_buffer);
 			}
 			$this->write_buffer = "";
 		}

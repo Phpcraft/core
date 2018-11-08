@@ -6,7 +6,7 @@ if(empty($argv[1]))
 	die("Syntax: ".$argv[0]." <ip[:port]>\n");
 }
 echo "Resolving...";
-$server = \Phpcraft\Utils::resolve($argv[1]);
+$server = \Phpcraft\Phpcraft::resolve($argv[1]);
 $serverarr = explode(":", $server);
 if(count($serverarr) != 2)
 {
@@ -19,7 +19,7 @@ $info = $con->getStatus();
 echo "\n\n";
 if(isset($info["description"]))
 {
-	echo \Phpcraft\Utils::chatToANSIText($info["description"])."\n\n";
+	echo \Phpcraft\Phpcraft::chatToANSIText($info["description"])."\n\n";
 }
 else
 {
@@ -27,7 +27,7 @@ else
 }
 if(isset($info["version"]) && isset($info["version"]["protocol"]))
 {
-	if($minecraft_versions = \Phpcraft\Utils::getMinecraftVersionsFromProtocolVersion($info["version"]["protocol"]))
+	if($minecraft_versions = \Phpcraft\Phpcraft::getMinecraftVersionsFromProtocolVersion($info["version"]["protocol"]))
 	{
 		if(isset($info["version"]["name"]))
 		{

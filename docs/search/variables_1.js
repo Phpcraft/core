@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['pre2',['pre2',['../classPhpcraft_1_1Utils.html#a1b9294c47a20d3353cff6af3dc89daf8',1,'Phpcraft::Utils']]]
+  ['pre2',['pre2',['../classPhpcraft_1_1Phpcraft.html#ac1e3d3bd800734ed642e7eb4d235f978',1,'Phpcraft::Phpcraft']]]
 ];

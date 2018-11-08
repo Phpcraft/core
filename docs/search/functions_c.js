@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['validatename',['validateName',['../classPhpcraft_1_1Utils.html#a111a905f90a4b8b13119dce34f9cc2a2',1,'Phpcraft::Utils']]]
+  ['validatename',['validateName',['../classPhpcraft_1_1Phpcraft.html#ace43d10099c374346810cf2b06fbd74e',1,'Phpcraft::Phpcraft']]]
 ];

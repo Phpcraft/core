@@ -2,7 +2,7 @@
 namespace Phpcraft;
 require_once __DIR__."/validate.php"; 
 /** Utilities. */
-class Utils
+class Phpcraft
 {
 	private static $minecraft_folder = null;
 	private static $versions = [
@@ -47,30 +47,30 @@ class Utils
 	 */
 	static function getMinecraftFolder()
 	{
-		if(Utils::$minecraft_folder === null)
+		if(Phpcraft::$minecraft_folder === null)
 		{
 			if(stristr(PHP_OS, "LINUX"))
 			{
-				Utils::$minecraft_folder = getenv("HOME")."/.minecraft";
+				Phpcraft::$minecraft_folder = getenv("HOME")."/.minecraft";
 			}
 			else if(stristr(PHP_OS, "DAR"))
 			{
-				Utils::$minecraft_folder = getenv("HOME")."/Library/Application Support/minecraft";
+				Phpcraft::$minecraft_folder = getenv("HOME")."/Library/Application Support/minecraft";
 			}
 			else if(stristr(PHP_OS, "WIN"))
 			{
-				Utils::$minecraft_folder = getenv("APPDATA")."\\.minecraft";
+				Phpcraft::$minecraft_folder = getenv("APPDATA")."\\.minecraft";
 			}
 			else
 			{
-				Utils::$minecraft_folder = __DIR__."/.minecraft";
+				Phpcraft::$minecraft_folder = __DIR__."/.minecraft";
 			}
-			if(!file_exists(Utils::$minecraft_folder) || !is_dir(Utils::$minecraft_folder))
+			if(!file_exists(Phpcraft::$minecraft_folder) || !is_dir(Phpcraft::$minecraft_folder))
 			{
-				mkdir(Utils::$minecraft_folder);
+				mkdir(Phpcraft::$minecraft_folder);
 			}
 		}
-		return Utils::$minecraft_folder;
+		return Phpcraft::$minecraft_folder;
 	}
 
 	/**
@@ -79,18 +79,18 @@ class Utils
 	 */
 	static function getProfilesFile()
 	{
-		return Utils::getMinecraftFolder()."/launcher_profiles.json";
+		return Phpcraft::getMinecraftFolder()."/launcher_profiles.json";
 	}
 
 	/**
 	 * Returns the contents of the .minecraft/launcher_profiles.json with some values being set if they are unset.
 	 * @return array
-	 * @see Utils::getProfilesFile()
-	 * @see Utils::saveProfiles()
+	 * @see Phpcraft::getProfilesFile()
+	 * @see Phpcraft::saveProfiles()
 	 */
 	static function getProfiles()
 	{
-		$profiles_file = Utils::getProfilesFile();
+		$profiles_file = Phpcraft::getProfilesFile();
 		if(file_exists($profiles_file) && is_file($profiles_file))
 		{
 			$profiles = json_decode(file_get_contents($profiles_file), true);
@@ -101,7 +101,7 @@ class Utils
 		}
 		if(empty($profiles["clientToken"]))
 		{
-			$profiles["clientToken"] = Utils::generateUUIDv4();
+			$profiles["clientToken"] = Phpcraft::generateUUIDv4();
 		}
 		if(!isset($profiles["selectedUser"]))
 		{
@@ -121,7 +121,7 @@ class Utils
 	 */
 	static function saveProfiles($profiles)
 	{
-		file_put_contents(Utils::getProfilesFile(), json_encode($profiles, JSON_PRETTY_PRINT));
+		file_put_contents(Phpcraft::getProfilesFile(), json_encode($profiles, JSON_PRETTY_PRINT));
 	}
 
 	/**
@@ -130,7 +130,7 @@ class Utils
 	 */
 	static function getAssetIndex()
 	{
-		$assets_dir = Utils::getMinecraftFolder()."/assets";
+		$assets_dir = Phpcraft::getMinecraftFolder()."/assets";
 		if(!file_exists($assets_dir) || !is_dir($assets_dir))
 		{
 			mkdir($assets_dir);
@@ -159,7 +159,7 @@ class Utils
 	 */
 	static function doesAssetExist($name)
 	{
-		return isset(Utils::getAssetIndex()["objects"][$name]);
+		return isset(Phpcraft::getAssetIndex()["objects"][$name]);
 	}
 
 	/**
@@ -169,8 +169,8 @@ class Utils
 	 */
 	static function downloadAsset($name)
 	{
-		$index = Utils::getAssetIndex();
-		$objects_dir = Utils::getMinecraftFolder()."/assets/objects";
+		$index = Phpcraft::getAssetIndex();
+		$objects_dir = Phpcraft::getMinecraftFolder()."/assets/objects";
 		if(!file_exists($objects_dir) || !is_dir($objects_dir))
 		{
 			mkdir($objects_dir);
@@ -309,9 +309,9 @@ class Utils
 		$arr = explode(":", $server);
 		if(count($arr) > 1)
 		{
-			return Utils::resolveName($arr[0], false).":".$arr[1];
+			return Phpcraft::resolveName($arr[0], false).":".$arr[1];
 		}
-		return Utils::resolveName($server, true);
+		return Phpcraft::resolveName($server, true);
 	}
 
 	private static function resolveName($server, $withPort = true)
@@ -319,7 +319,7 @@ class Utils
 		if(ip2long($server) === false && $res = @dns_get_record("_minecraft._tcp.{$server}", DNS_SRV))
 		{
 			$i = array_rand($res);
-			return Utils::resolveName($res[$i]["target"], false).($withPort ? ":".$res[$i]["port"] : "");
+			return Phpcraft::resolveName($res[$i]["target"], false).($withPort ? ":".$res[$i]["port"] : "");
 		}
 		return $server.($withPort ? ":25565" : "");
 	}
@@ -354,7 +354,7 @@ class Utils
 	 */
 	static function isProtocolVersionSupported($protocol_version)
 	{
-		return in_array($protocol_version, Utils::$versions);
+		return in_array($protocol_version, Phpcraft::$versions);
 	}
 
 	/**
@@ -365,7 +365,7 @@ class Utils
 	static function getMinecraftVersionsFromProtocolVersion($protocol_version)
 	{
 		$minecraft_versions = [];
-		foreach(Utils::$versions as $k => $v)
+		foreach(Phpcraft::$versions as $k => $v)
 		{
 			if($v == $protocol_version)
 			{
@@ -382,7 +382,7 @@ class Utils
 	 */
 	static function isMinecraftVersionSupported($minecraft_version)
 	{
-		return isset(Utils::$versions[$minecraft_version]);
+		return isset(Phpcraft::$versions[$minecraft_version]);
 	}
 
 	/**
@@ -392,7 +392,7 @@ class Utils
 	 */
 	static function getProtocolVersionFromMinecraftVersion($minecraft_version)
 	{
-		return @Utils::$versions[$minecraft_version];
+		return @Phpcraft::$versions[$minecraft_version];
 	}
 
 	/**
@@ -428,7 +428,7 @@ class Utils
 			$extras = [];
 			while($i < mb_strlen($str, "utf-8"))
 			{
-				array_push($extras, Utils::textToChat($str, $allowAnd, $i, true));
+				array_push($extras, Phpcraft::textToChat($str, $allowAnd, $i, true));
 				$i++;
 			}
 			return ["text" => "", "extra" => $extras];
@@ -506,7 +506,7 @@ class Utils
 				else
 				{
 					$i--;
-					$component = Utils::textToChat($str, $allowAnd, $i, true);
+					$component = Phpcraft::textToChat($str, $allowAnd, $i, true);
 					if(!empty($component["text"]) || count($component) > 1)
 					{
 						if(empty($chat["extra"]))
@@ -553,7 +553,7 @@ class Utils
 			{
 				return $chat;
 			}
-			$chat = Utils::textToChat($chat);
+			$chat = Phpcraft::textToChat($chat);
 		}
 		if($parent === false)
 		{
@@ -635,7 +635,7 @@ class Utils
 				$with = [];
 				foreach($chat["with"] as $extra)
 				{
-					array_push($with, Utils::chatToANSIText($extra, $translations, $chat));
+					array_push($with, Phpcraft::chatToANSIText($extra, $translations, $chat));
 				}
 				if(($formatted = @vsprintf($raw, $with)) !== false)
 				{
@@ -648,7 +648,7 @@ class Utils
 		{
 			if(strpos($chat["text"], "§") !== false)
 			{
-				$chat = Utils::textToChat($chat["text"]) + $chat;
+				$chat = Phpcraft::textToChat($chat["text"]) + $chat;
 			}
 			$text .= $chat["text"];
 		}
@@ -660,7 +660,7 @@ class Utils
 		{
 			foreach($chat["extra"] as $extra)
 			{
-				$text .= Utils::chatToANSIText($extra, $translations, $chat);
+				$text .= Phpcraft::chatToANSIText($extra, $translations, $chat);
 			}
 			if(!$child)
 			{
