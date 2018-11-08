@@ -354,7 +354,7 @@ class Utils
 	 */
 	static function isProtocolVersionSupported($protocol_version)
 	{
-		return in_array($protocol, Utils::$versions);
+		return in_array($protocol_version, Utils::$versions);
 	}
 
 	/**

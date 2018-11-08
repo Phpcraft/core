@@ -203,7 +203,45 @@ class UserInterface
 					}
 					$this->input_buffer = mb_substr($this->input_buffer, 0, $this->cursorpos - 1, "utf-8").$char.mb_substr($this->input_buffer, $this->cursorpos - 1, NULL, "utf-8");
 					$this->cursorpos++;
-					if(substr($this->input_buffer, $this->cursorpos - 5, 4) == "^[1~") // Pos1
+					if(substr($this->input_buffer, $this->cursorpos - 4, 3) == "^[A") // Arrow Up
+					{
+						$this->input_buffer = substr($this->input_buffer, 0, $this->cursorpos - 4).substr($this->input_buffer, $this->cursorpos - 1);
+						$this->cursorpos -= 3;
+						$this->screen_scroll++;
+					}
+					else if(substr($this->input_buffer, $this->cursorpos - 4, 3) == "^[B") // Arrow Down
+					{
+						$this->input_buffer = substr($this->input_buffer, 0, $this->cursorpos - 4).substr($this->input_buffer, $this->cursorpos - 1);
+						$this->cursorpos -= 3;
+						$this->screen_scroll--;
+					}
+					else if(substr($this->input_buffer, $this->cursorpos - 4, 3) == "^[C") // Arrow Right
+					{
+						$this->input_buffer = substr($this->input_buffer, 0, $this->cursorpos - 4).substr($this->input_buffer, $this->cursorpos - 1);
+						$this->cursorpos -= 3;
+						if($this->cursorpos == mb_strlen($this->input_buffer, "utf-8") + 1)
+						{
+							echo "\x07"; // Bell/Alert
+						}
+						else
+						{
+							$this->cursorpos++;
+						}
+					}
+					else if(substr($this->input_buffer, $this->cursorpos - 4, 3) == "^[D") // Arrow Left
+					{
+						$this->input_buffer = substr($this->input_buffer, 0, $this->cursorpos - 4).substr($this->input_buffer, $this->cursorpos - 1);
+						$this->cursorpos -= 3;
+						if($this->cursorpos == 1)
+						{
+							echo "\x07"; // Bell/Alert
+						}
+						else
+						{
+							$this->cursorpos--;
+						}
+					}
+					else if(substr($this->input_buffer, $this->cursorpos - 5, 4) == "^[1~") // Pos1
 					{
 						$this->input_buffer = mb_substr($this->input_buffer, 0, $this->cursorpos - 5, "utf-8").mb_substr($this->input_buffer, $this->cursorpos - 1, NULL, "utf-8");
 						$this->cursorpos = 1;
@@ -232,40 +270,7 @@ class UserInterface
 					{
 						$this->input_buffer = mb_substr($this->input_buffer, 0, $this->cursorpos - 5, "utf-8").mb_substr($this->input_buffer, $this->cursorpos - 1, NULL, "utf-8");
 						$this->cursorpos -= 4;
-						if($this->screen_scroll == 0)
-						{
-							echo "\x07"; // Bell/Alert
-						}
-						else
-						{
-							$this->screen_scroll--;
-						}
-					}
-					else if(substr($this->input_buffer, $this->cursorpos - 4, 3) == "^[D") // Arrow Left
-					{
-						$this->input_buffer = substr($this->input_buffer, 0, $this->cursorpos - 4).substr($this->input_buffer, $this->cursorpos - 1);
-						$this->cursorpos -= 3;
-						if($this->cursorpos == 1)
-						{
-							echo "\x07"; // Bell/Alert
-						}
-						else
-						{
-							$this->cursorpos--;
-						}
-					}
-					else if(substr($this->input_buffer, $this->cursorpos - 4, 3) == "^[C") // Arrow Right
-					{
-						$this->input_buffer = substr($this->input_buffer, 0, $this->cursorpos - 4).substr($this->input_buffer, $this->cursorpos - 1);
-						$this->cursorpos -= 3;
-						if($this->cursorpos == mb_strlen($this->input_buffer, "utf-8") + 1)
-						{
-							echo "\x07"; // Bell/Alert
-						}
-						else
-						{
-							$this->cursorpos++;
-						}
+						$this->screen_scroll--;
 					}
 					$this->next_render = 0;
 				}
@@ -291,8 +296,12 @@ class UserInterface
 			$j = $this->screen_scroll;
 			if($j > 100 - $height)
 			{
-				$j = 100 - $height;
-				$this->screen_scroll = 100 - $height;
+				$this->screen_scroll = $j = 100 - $height;
+				echo "\x07"; // Bell/Alert
+			}
+			else if($j < ($height - $input_height - 3) * -1)
+			{
+				$this->screen_scroll = $j = ($height - $input_height - 3) * -1;
 				echo "\x07"; // Bell/Alert
 			}
 			for($i = $height - $input_height - 1; $i > 1; $i--)
@@ -326,7 +335,7 @@ class UserInterface
 			{
 				array_shift($this->chat_log);
 			}
-			$this->next_render = microtime(true) + 0.1;
+			$this->next_render = microtime(true) + 0.2;
 		}
 	}
 
