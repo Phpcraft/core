@@ -1,6 +1,6 @@
 <?php
+require __DIR__."/src/autoload.php";
 echo "PHP Minecraft Client\nhttps://github.com/timmyrs/Phpcraft\n";
-require __DIR__."/Phpcraft.php";
 
 if(PHP_OS == "WINNT")
 {
@@ -49,9 +49,8 @@ for($i = 1; $i < count($argv); $i++)
 
 		case "name":
 		case "server":
-		case "langfile":
+		case "lang":
 		case "joinmsg":
-		case "locale":
 		case "version":
 		$options[$n] = $v;
 		break;
@@ -61,8 +60,7 @@ for($i = 1; $i < count($argv); $i++)
 		echo "online=<on/off>   set online or offline mode\n";
 		echo "name=<name>       skip name input and use <name> as name\n";
 		echo "server=<server>   skip server input and connect to <server>\n";
-		echo "langfile=<file>   load Minecraft translations from <file>\n";
-		echo "locale=<locale>   sent to the server, default: en_US\n";
+		echo "lang=<lang>       use Minecraft language <lang>, default: en_GB\n";
 		echo "joinmsg=<msg>     as soon as connected, <msg> will be handled\n";
 		echo "version=<version> don't check server version, connect using <version>\n";
 		echo "noreconnect       don't reconnect when server disconnects\n";
@@ -73,19 +71,29 @@ for($i = 1; $i < count($argv); $i++)
 	}
 }
 
-if(isset($options["langfile"]))
+if(empty($options["lang"]))
 {
-	if(!file_exists($options["langfile"]) || !is_file($options["langfile"]))
-	{
-		die($options["langfile"]." doesn't exist.\n");
-	}
-	$translations = json_decode(file_get_contents($options["langfile"]), true);
+	$options["lang"] = "en_GB";
 }
 else
 {
-	$translations = null;
-	echo "No language file has been provided. Expect broken messages.\n";
+	$arr = explode("_", $options["lang"]);
+	if(count($arr) != 2)
+	{
+		echo "'".$options["lang"]."' is not a valid language code, using en_GB.\n";
+		$options["lang"] = "en_GB";
+	}
+	else
+	{
+		$options["lang"] = strtolower($arr[0])."_".strtoupper($arr[1]);		
+		if(!\Phpcraft\Utils::doesAssetExist("minecraft/lang/".strtolower($options["lang"]).".json"))
+		{
+			echo "Couldn't find translations for ".$options["lang"].", using en_GB.\n";
+			$options["lang"] = "en_GB";
+		}
+	}
 }
+$translations = json_decode(file_get_contents(\Phpcraft\Utils::downloadAsset("minecraft/lang/".strtolower($options["lang"]).".json")), true);
 
 $stdin = fopen("php://stdin", "r");
 stream_set_blocking($stdin, true);
@@ -192,12 +200,12 @@ if(empty($options["version"]))
 		exit;
 	}
 	$protocol_version = $info["version"]["protocol"];
-	$minecraft_version = \Phpcraft\Utils::getMinecraftVersionFromProtocolVersion($protocol_version);
-	if($minecraft_version === null)
+	if(!($minecraft_versions = \Phpcraft\Utils::getMinecraftVersionsFromProtocolVersion($protocol_version)))
 	{
 		$ui->append("This server uses an unknown protocol version: {$protocol_version}")->render();
 		exit;
 	}
+	$minecraft_version = $minecraft_versions[0];
 }
 else
 {
@@ -777,7 +785,7 @@ do
 				$con->writeString("Phpcraft");
 				$con->send();
 				$con->startPacket("client_settings");
-				$con->writeString(isset($options["locale"]) ? $options["locale"] : "en_US");
+				$con->writeString($options["lang"]);
 				$con->writeByte(2); // View Distance
 				$con->writeVarInt(0); // Chat Mode (0 = all)
 				$con->writeBoolean(true); // Chat colors

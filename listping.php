@@ -1,6 +1,6 @@
 <?php
-echo "\033[0;97;40mMinecraft Server List Ping\nhttps://github.com/timmyrs/Phpcraft\n";
-require __DIR__."/Phpcraft.php";
+require __DIR__."/src/autoload.php";
+echo "PHP Minecraft Server List Pinger\nhttps://github.com/timmyrs/Phpcraft\n";
 if(empty($argv[1]))
 {
 	die("Syntax: ".$argv[0]." <ip[:port]>\n");
@@ -27,26 +27,26 @@ else
 }
 if(isset($info["version"]) && isset($info["version"]["protocol"]))
 {
-	if(\Phpcraft\Utils::isProtocolVersionSupported($info["version"]["protocol"]))
+	if($minecraft_versions = \Phpcraft\Utils::getMinecraftVersionsFromProtocolVersion($info["version"]["protocol"]))
 	{
 		if(isset($info["version"]["name"]))
 		{
-			echo "This server is running a compatible ".$info["version"]["name"]." (".\Phpcraft\Utils::getMinecraftVersionFromProtocolVersion($info["version"]["protocol"]).") server.\n";
+			echo "This server is running a Phpcraft-compatible ".$info["version"]["name"]." (".$minecraft_versions[0].") server.\n";
 		}
 		else
 		{
-			echo "This server is running a compatible ".\Phpcraft\Utils::getMinecraftVersionFromProtocolVersion($info["version"]["protocol"])." server.\n";
+			echo "This server is running a Phpcraft-compatible ".$minecraft_versions[0]." server.\n";
 		}
 	}
 	else
 	{
 		if(isset($info["version"]["name"]))
 		{
-			echo "This server is running an incompatible ".$info["version"]["name"]." server.\n";
+			echo "This server is running a Phpcraft-incompatible ".$info["version"]["name"]." server.\n";
 		}
 		else
 		{
-			echo "This server is running an incompatible version.\n";
+			echo "This server is running a Phpcraft-incompatible version.\n";
 		}
 	}
 }

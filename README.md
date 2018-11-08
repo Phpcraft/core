@@ -16,9 +16,9 @@
 
 ## Dependencies
 
-You will need 64-bit PHP (CLI) 7.0.15 or above, and mbstring:
+You will need 64-bit CLI PHP 7.0.15 or above, and mbstring:
 
-    apt-get install php7.0-cli php-mbstring
+    apt-get install php-cli php-mbstring
 
 Aditionally, if you want to go online, you'll need GMP, OpenSSL, and mcrypt:
 
@@ -28,8 +28,6 @@ If you're on Windows, use [Cygwin](https://www.cygwin.com/) or similar.
 
 ## Usage
 
-Simply clone this repository and run any file you want — `client.php`, `server.php`, or `listping.php`. You can also provide arguments to the client and server — get a list of supported arguments using `php <file> help`.
+If you're a PHP developer, feel free to clone this repository, `require "src/autoload.php";`, and feel free to use [the many available APIs](https://timmyrs.github.io/Phpcraft/namespacePhpcraft.html).
 
-### Built-in Client Commands
-
-The client has a couple of built-in commands, which start with a period (`.`) — type `.help` for a list of them. If you want to send a message starting with a period, use two periods.
+Otherwise, feel free to use the pre-made `client.php`, `server.php`, and `listping.php`. You can also provide arguments to the client and server; get a list of possible arguments using `php <file> help`. Also, the client has a couple of built-in commands — type `.help` in it for more information.

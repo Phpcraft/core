@@ -1,6 +1,6 @@
 <?php
+require __DIR__."/src/autoload.php";
 echo "PHP Minecraft Server\nhttps://github.com/timmyrs/Phpcraft\n";
-require __DIR__."/Phpcraft.php";
 
 if(PHP_OS == "WINNT")
 {
