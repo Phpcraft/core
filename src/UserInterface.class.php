@@ -84,10 +84,10 @@ class UserInterface
 
 	/**
 	 * Renders the UI.
-	 * @param boolean $return_input Set to true when you are ready to potentially receive a string as return.
-	 * @return void|string If the user has submitted something and $return_input is true, a string containing their message is returned.
+	 * @param boolean $instant Set this to false when you're calling render in a loop and are ready to handle user input.
+	 * @return string If $instant is false and the user has submitted a line, the return will be that line; otherwise it will be null.
 	 */
-	function render($return_input = false)
+	function render($instant = true)
 	{
 		$read = [$this->stdin];
 		$null = null;
@@ -103,7 +103,7 @@ class UserInterface
 					}
 					else
 					{
-						if(!$return_input)
+						if(!$instant)
 						{
 							break;
 						}
@@ -276,7 +276,7 @@ class UserInterface
 				}
 			}
 		}
-		if($this->next_render < microtime(true))
+		if($instant || $this->next_render < microtime(true))
 		{
 			$width = intval(trim(shell_exec("tput cols")));
 			$height = intval(trim(shell_exec("tput lines")));

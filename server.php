@@ -360,7 +360,7 @@ do
 			}
 		}
 	}
-	while($msg = $ui->render(true))
+	while($msg = $ui->render(false))
 	{
 		$msg = [
 			"translate" => "chat.type.announcement",

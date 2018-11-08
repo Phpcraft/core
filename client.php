@@ -818,7 +818,7 @@ do
 				$next_tick = microtime(true) + 10;
 			}
 		}
-		while($message = $ui->render(true))
+		while($message = $ui->render(false))
 		{
 			handleConsoleMessage($message);
 		}
