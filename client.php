@@ -31,6 +31,7 @@ for($i = 1; $i < count($argv); $i++)
 	}
 	switch($n)
 	{
+		case "plain":
 		case "noreconnect":
 		$options[$n] = true;
 		break;
@@ -63,6 +64,7 @@ for($i = 1; $i < count($argv); $i++)
 		echo "lang=<lang>       use Minecraft language <lang>, default: en_GB\n";
 		echo "joinmsg=<msg>     as soon as connected, <msg> will be handled\n";
 		echo "version=<version> don't check server version, connect using <version>\n";
+		echo "plain             replaces the fancy user interface with a plain one\n";
 		echo "noreconnect       don't reconnect when server disconnects\n";
 		exit;
 
@@ -178,7 +180,7 @@ if(!$server)
 	}
 }
 fclose($stdin);
-$ui = new \Phpcraft\UserInterface("PHP Minecraft Client", "github.com/timmyrs/Phpcraft");
+$ui = ($options["plain"] ? new \Phpcraft\PlainUserInterface() : new \Phpcraft\UserInterface("PHP Minecraft Client", "github.com/timmyrs/Phpcraft"));
 $ui->add("Resolving... ")->render();
 $server = \Phpcraft\Phpcraft::resolve($server);
 $serverarr = explode(":", $server);

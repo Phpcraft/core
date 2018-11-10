@@ -12,7 +12,7 @@ var searchData=
   ['getmessageasansitext',['getMessageAsANSIText',['../classPhpcraft_1_1ChatPacket.html#a9a8039d140fe73d2e72389597e95f561',1,'Phpcraft::ChatPacket']]],
   ['getminecraftfolder',['getMinecraftFolder',['../classPhpcraft_1_1Phpcraft.html#abecdf68100423f0f529df5aef75390e9',1,'Phpcraft::Phpcraft']]],
   ['getminecraftversionsfromprotocolversion',['getMinecraftVersionsFromProtocolVersion',['../classPhpcraft_1_1Phpcraft.html#a701328ddbc1faf994874bbab0a2fdcca',1,'Phpcraft::Phpcraft']]],
-  ['getmissingdependencies',['getMissingDependencies',['../classPhpcraft_1_1UserInterface.html#ad1161b358fdb0cee17f4bec25986e7bf',1,'Phpcraft::UserInterface']]],
+  ['getmissingdependencies',['getMissingDependencies',['../classPhpcraft_1_1PlainUserInterface.html#a11e40c25d8516f0e8af391e08722136b',1,'Phpcraft\PlainUserInterface\getMissingDependencies()'],['../classPhpcraft_1_1UserInterface.html#ad1161b358fdb0cee17f4bec25986e7bf',1,'Phpcraft\UserInterface\getMissingDependencies()']]],
   ['getname',['getName',['../classPhpcraft_1_1Account.html#ab05c6e61d9e020024c1440089b5e2c23',1,'Phpcraft\Account\getName()'],['../classPhpcraft_1_1Packet.html#a599e5b0659e329842804f0f0ff628a70',1,'Phpcraft\Packet\getName()']]],
   ['getposition',['getPosition',['../classPhpcraft_1_1ChatMessagePacket.html#a07a4c6abe2b6d5f4c57b27ef275a9277',1,'Phpcraft::ChatMessagePacket']]],
   ['getprofileid',['getProfileId',['../classPhpcraft_1_1Account.html#a33637a2a9aac5646d38b1ce7017096e5',1,'Phpcraft::Account']]],

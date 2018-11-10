@@ -11,7 +11,7 @@ if($dependencies = \Phpcraft\UserInterface::getMissingDependencies())
 	die("To spin up the Phpcraft UI, you need ".join(", ", $dependencies).".\n");
 }
 
-$options = ["online" => true, "port" => 25565, "nocolor" => false];
+$options = ["offline" => false, "port" => 25565, "nocolor" => false, "plain" => false];
 for($i = 1; $i < count($argv); $i++)
 {
 	$arg = $argv[$i];
@@ -31,32 +31,30 @@ for($i = 1; $i < count($argv); $i++)
 	}
 	switch($n)
 	{
-		case "offline":
-		$options["online"] = false;
-		break;
-
-		case "nocolor":
-		$options[$n] = true;
-		break;
-
 		case "port":
 		$options[$n] = $v;
 		break;
 
+		case "offline":
+		case "nocolor":
+		case "plain":
+		$options[$n] = true;
+		break;
+
 		case "?":
 		case "help":
-		echo "offline          disables online mode and allows cracked players\n";
-		echo "nocolor          disallows players to use '&' to write colorfully\n";
-		echo "port=<port>      bind to port <port>\n";
+		echo "port=<port>  bind to port <port>\n";
+		echo "offline      disables online mode and allows cracked players\n";
+		echo "nocolor      disallows players to use '&' to write colorfully\n";
+		echo "plain        replaces the fancy user interface with a plain one\n";
 		exit;
 
 		default:
 		die("Unknown argument '{$n}' -- try 'help' for a list of arguments.\n");
 	}
 }
-$online_mode = true;
-$ui = new \Phpcraft\UserInterface("PHP Minecraft Server", "github.com/timmyrs/Phpcraft");
-if($options["online"])
+$ui = ($options["plain"] ? new \Phpcraft\PlainUserInterface() : new \Phpcraft\UserInterface("PHP Minecraft Server", "github.com/timmyrs/Phpcraft"));
+if(!$options["offline"])
 {
 	if($extensions_needed = \Phpcraft\Phpcraft::getExtensionsMissingToGoOnline())
 	{
@@ -235,14 +233,14 @@ do
 						$clients[$i]["name"] = $con->readString();
 						if(\Phpcraft\Phpcraft::validateName($clients[$i]["name"]))
 						{
-							if($options["online"])
-							{
-								$con->sendEncryptionRequest($private_key);
-							}
-							else
+							if($options["offline"])
 							{
 								$con->finishLogin(\Phpcraft\Phpcraft::generateUUIDv4(true), $clients[$i]["name"]);
 								joinSuccess($i);
+							}
+							else
+							{
+								$con->sendEncryptionRequest($private_key);
 							}
 						}
 						else

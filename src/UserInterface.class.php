@@ -1,12 +1,12 @@
 <?php
 namespace Phpcraft;
-require_once __DIR__."/validate.php"; 
-/** A utility for interfacing with the user. */
-class UserInterface
+require_once __DIR__."/validate.php";
+require_once __DIR__."/PlainUserInterface.class.php";
+/** A utility for interfacing with the user in a fancy manner. */
+class UserInterface extends PlainUserInterface
 {
 	private $title;
 	private $optional_info;
-	private $stdin;
 	/**
 	 * The string displayed before the user's input, e.g. `$ `
 	 * @var string $input_prefix
@@ -56,34 +56,12 @@ class UserInterface
 	 */
 	function __construct($title, $optional_info = "")
 	{
+		parent::__construct();
 		$this->title = $title;
 		$this->optional_info = $optional_info;
 		echo "\x1B[2J";
-		$this->stdin = fopen("php://stdin", "r");
-		stream_set_blocking($this->stdin, false);
 		readline_callback_handler_remove();
 		readline_callback_handler_install("", function(){}); // This allows reading STDIN on a char-by-char basis, instead of a line-by-line basis.
-		set_error_handler(function($severity, $message, $file, $line)
-		{
-			if(error_reporting() & $severity)
-			{
-				$this->add("{$message} at {$file}:{$line}")->render();
-			}
-		});
-		set_exception_handler(function($e)
-		{
-			$this->add("{$e->getMessage()} (".get_class($e).") at {$e->getFile()}:{$e->getLine()}")->render();
-		});
-	}
-
-	/**
-	 * Disposes of the UI.
-	 * @return void
-	 */
-	function dispose()
-	{
-		fclose($this->stdin);
-		readline_callback_handler_remove();
 	}
 
 	/**
