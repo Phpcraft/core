@@ -53,7 +53,7 @@ for($i = 1; $i < count($argv); $i++)
 		die("Unknown argument '{$n}' -- try 'help' for a list of arguments.\n");
 	}
 }
-$ui = ($options["plain"] ? new \Phpcraft\PlainUserInterface() : new \Phpcraft\UserInterface("PHP Minecraft Server", "github.com/timmyrs/Phpcraft"));
+$ui = (isset($options["plain"]) ? new \Phpcraft\PlainUserInterface() : new \Phpcraft\UserInterface("PHP Minecraft Server", "github.com/timmyrs/Phpcraft"));
 if(!$options["offline"])
 {
 	if($extensions_needed = \Phpcraft\Phpcraft::getExtensionsMissingToGoOnline())

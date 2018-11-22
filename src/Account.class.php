@@ -108,35 +108,33 @@ class Account
 				}
 			}
 		}
-		if($foundAccount)
+		return $foundAccount && $this->validate($profiles) == "";
+	}
+
+	private function validate(&$profiles)
+	{
+		if(Phpcraft::httpPOST("https://authserver.mojang.com/validate", [
+			"accessToken" => $profiles["authenticationDatabase"][$profiles["selectedUser"]["account"]]["accessToken"],
+			"clientToken" => $profiles["clientToken"]
+		])["status"] == "403")
 		{
-			if(Phpcraft::httpPOST("https://authserver.mojang.com/validate", [
+			if($res = Phpcraft::httpPOST("https://authserver.mojang.com/refresh", [
 				"accessToken" => $profiles["authenticationDatabase"][$profiles["selectedUser"]["account"]]["accessToken"],
 				"clientToken" => $profiles["clientToken"]
-			])["status"] == "403")
+			]))
 			{
-				if($res = Phpcraft::httpPOST("https://authserver.mojang.com/refresh", [
-					"accessToken" => $profiles["authenticationDatabase"][$profiles["selectedUser"]["account"]]["accessToken"],
-					"clientToken" => $profiles["clientToken"]
-				]))
+				if(isset($res["accessToken"]))
 				{
-					if(isset($res["accessToken"]))
-					{
-						$profiles["authenticationDatabase"][$profiles["selectedUser"]["account"]]["accessToken"] = $res["accessToken"];
-						Phpcraft::saveProfiles($profiles);
-						return true;
-					}
+					$profiles["authenticationDatabase"][$profiles["selectedUser"]["account"]]["accessToken"] = $res["accessToken"];
+					Phpcraft::saveProfiles($profiles);
+					return "";
 				}
-				unset($profiles["authenticationDatabase"][$profiles["selectedUser"]["account"]]);
-				Phpcraft::saveProfiles($profiles);
-				return false;
 			}
-			return true;
+			unset($profiles["authenticationDatabase"][$profiles["selectedUser"]["account"]]);
+			Phpcraft::saveProfiles($profiles);
+			return "Failed to refresh invalid access token";
 		}
-		else
-		{
-			return false;
-		}
+		return "";
 	}
 
 	/**
@@ -177,7 +175,7 @@ class Account
 				]
 			];
 			Phpcraft::saveProfiles($profiles);
-			return "";
+			return $this->validate($profiles);
 		}
 		return "Invalid credentials";
 	}

@@ -197,7 +197,7 @@ class UserInterface extends PlainUserInterface
 					}
 					else if(mb_substr($this->input_buffer, $this->cursorpos - 4, 3, "utf-8") == "^[B") // Arrow Down
 					{
-						$this->input_buffer = mb_substr($this->input_buffer, 0, $this->cursorpos - 4, "utf-8").substr($this->input_buffer, $this->cursorpos - 1, NULL, "utf-8");
+						$this->input_buffer = mb_substr($this->input_buffer, 0, $this->cursorpos - 4, "utf-8").mb_substr($this->input_buffer, $this->cursorpos - 1, NULL, "utf-8");
 						$this->cursorpos -= 3;
 						$this->screen_scroll--;
 					}
@@ -335,7 +335,7 @@ class UserInterface extends PlainUserInterface
 			echo "\x1B[{$cursor_height};{$cursor_width}H";
 			if(count($this->chat_log) > $this->chat_log_cap)
 			{
-				array_shift($this->chat_log);
+				$this->chat_log = array_slice($this->chat_log, 1);
 			}
 			$this->next_render = microtime(true) + 0.2;
 			$this->_width = $width;

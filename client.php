@@ -180,7 +180,7 @@ if(!$server)
 	}
 }
 fclose($stdin);
-$ui = ($options["plain"] ? new \Phpcraft\PlainUserInterface() : new \Phpcraft\UserInterface("PHP Minecraft Client", "github.com/timmyrs/Phpcraft"));
+$ui = (isset($options["plain"]) ? new \Phpcraft\PlainUserInterface() : new \Phpcraft\UserInterface("PHP Minecraft Client", "github.com/timmyrs/Phpcraft"));
 $ui->add("Resolving... ")->render();
 $server = \Phpcraft\Phpcraft::resolve($server);
 $serverarr = explode(":", $server);
