@@ -226,7 +226,6 @@ function handleConsoleMessage($msg)
 		return;
 	}
 	global $ui;
-	$ui->add($msg);
 	$send = true;
 	if(substr($msg, 0, 2) == "..")
 	{
@@ -799,6 +798,7 @@ do
 				$con->send();
 				if(isset($options["joinmsg"]))
 				{
+					$ui->add($msg);
 					handleConsoleMessage($options["joinmsg"]);
 				}
 			}
