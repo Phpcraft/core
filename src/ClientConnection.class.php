@@ -60,16 +60,15 @@ class ClientConnection extends Connection
 			$this->writeVarInt(0x01);
 			$this->writeString(""); // Server ID
 			$this->writeString(base64_decode(trim(substr(openssl_pkey_get_details($private_key)["key"], 26, -24)))); // Public Key
-			$this->writeString("MATE"); // Verify Token
+			$this->writeString("1337"); // Verify Token
 			$this->send();
 		}
 		return $this;
 	}
 
 	/**
-	 * Reads an encryption response packet's data, authenticates with Mojang, sets the compression threshold, and finishes login.
-	 * If there is an error, the client is disconnected and false is returned.
-	 * On success, an array looking like this is returned:
+	 * Reads an encryption response packet and authenticates with Mojang.
+	 * If there is an error, the client is disconnected and false is returned, and on success an array looking like this is returned:
 	 * <pre>[
 	 *   "id" => "11111111222233334444555555555555",
 	 *   "name" => "Notch",
@@ -90,7 +89,7 @@ class ClientConnection extends Connection
 	{
 		openssl_private_decrypt($this->readString(), $shared_secret, $private_key, OPENSSL_PKCS1_PADDING);
 		openssl_private_decrypt($this->readString(), $verify_token, $private_key, OPENSSL_PKCS1_PADDING);
-		if($verify_token !== "MATE")
+		if($verify_token !== "1337")
 		{
 			$this->close();
 			return false;

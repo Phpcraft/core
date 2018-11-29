@@ -413,22 +413,22 @@ class Phpcraft
 	/**
 	 * Converts a string using § format codes into a chat object.
 	 * @param string $str
-	 * @param boolean $allowAnd When true, '&' will be handled like '§'.
+	 * @param boolean $allowAmp If true, '&' will be handled like '§'.
 	 * @param integer $i Ignore this parameter.
 	 * @param boolean $child Ignore this parameter.
 	 */
-	static function textToChat($str, $allowAnd = false, &$i = 0, $child = false)
+	static function textToChat($str, $allowAmp = false, &$i = 0, $child = false)
 	{
-		if(strpos($str, "§") === false && (!$allowAnd || strpos($str, "&") === false))
+		if(strpos($str, "§") === false && (!$allowAmp || strpos($str, "&") === false))
 		{
 			return ["text" => $str];
 		}
-		if(!$child && $i == 0 && (strpos(mb_substr($str, 2, null, "utf-8"), "§r") !== false || ($allowAnd && strpos(mb_substr($str, 2, null, "utf-8"), "&r") !== false)))
+		if(!$child && $i == 0 && (strpos(mb_substr($str, 2, null, "utf-8"), "§r") !== false || ($allowAmp && strpos(mb_substr($str, 2, null, "utf-8"), "&r") !== false)))
 		{
 			$extras = [];
 			while($i < mb_strlen($str, "utf-8"))
 			{
-				array_push($extras, Phpcraft::textToChat($str, $allowAnd, $i, true));
+				array_push($extras, Phpcraft::textToChat($str, $allowAmp, $i, true));
 				$i++;
 			}
 			return ["text" => "", "extra" => $extras];
@@ -456,7 +456,7 @@ class Phpcraft
 		while($i < mb_strlen($str, "utf-8"))
 		{
 			$c = mb_substr($str, $i, 1, "utf-8");
-			if($c == "§" || ($allowAnd && $c == "&"))
+			if($c == "§" || ($allowAmp && $c == "&"))
 			{
 				$lastWasParagraph = true;
 			}
@@ -506,7 +506,7 @@ class Phpcraft
 				else
 				{
 					$i--;
-					$component = Phpcraft::textToChat($str, $allowAnd, $i, true);
+					$component = Phpcraft::textToChat($str, $allowAmp, $i, true);
 					if(!empty($component["text"]) || count($component) > 1)
 					{
 						if(empty($chat["extra"]))
@@ -533,7 +533,7 @@ class Phpcraft
 	 * Converts a chat object into text with ANSI escape codes so it will be colorful in the console, as well.
 	 * @param array|string $chat The chat object as an array or a string.
 	 * @param array $translations The translations array so translated messages look proper.
-	 * @param mixed $parent The parent chat object so styling is properly inherited. You don't need to set this.
+	 * @param array $parent Ignore this parameter.
 	 * @return string
 	 */
 	static function chatToANSIText($chat, $translations = null, $parent = [])

@@ -308,7 +308,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Reads an encryption response packet's data, authenticates with Mojang, sets the compression threshold, and finishes login. If there is an error, the client is disconnected and false is returned. On success, an array looking like this is returned: </p><pre>[
+<p>Reads an encryption response packet and authenticates with Mojang. If there is an error, the client is disconnected and false is returned, and on success an array looking like this is returned: </p><pre>[
   "id" =&gt; "11111111222233334444555555555555",
   "name" =&gt; "Notch",
   "properties" =&gt; [
