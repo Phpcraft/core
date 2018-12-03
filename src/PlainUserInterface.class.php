@@ -71,7 +71,7 @@ class PlainUserInterface
 	 */
 	function add($message)
 	{
-		echo $message."\n";
+		echo "{$message}\n\x1B[97;40m";
 		return $this;
 	}
 
@@ -81,7 +81,6 @@ class PlainUserInterface
 	 */
 	function append($message)
 	{
-		echo $message."\n";
-		return $this;
+		return $this->add($message);
 	}
 }
