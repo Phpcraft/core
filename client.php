@@ -215,9 +215,10 @@ else
 	$protocol_version = \Phpcraft\Phpcraft::getProtocolVersionFromMinecraftVersion($minecraft_version);
 	if($protocol_version === NULL)
 	{
-		$ui->append("Unknown Minecraft version: {$minecraft_version}")->render();
+		$ui->add("Unknown Minecraft version: {$minecraft_version}")->render();
 		exit;
 	}
+	$ui->add("");
 }
 function handleConsoleMessage($msg)
 {
@@ -226,6 +227,7 @@ function handleConsoleMessage($msg)
 		return;
 	}
 	global $ui;
+	$ui->add($msg);
 	$send = true;
 	if(substr($msg, 0, 2) == "..")
 	{
@@ -254,6 +256,7 @@ function handleConsoleMessage($msg)
 			$ui->add("hit                        swings the main hand");
 			$ui->add("use                        uses the held item");
 			$ui->add("reconnect                  reconnects to the server");
+			$ui->add("quit, disconnect           disconnects from the server");
 			break;
 
 			case "pos":
@@ -444,6 +447,13 @@ function handleConsoleMessage($msg)
 			case "reconnect":
 			global $reconnect;
 			$reconnect = true;
+			break;
+
+			case "quit":
+			case "disconnect":
+			global $con, $options;
+			$options["noreconnect"] = true;
+			$con->close();
 			break;
 
 			default:
@@ -798,7 +808,6 @@ do
 				$con->send();
 				if(isset($options["joinmsg"]))
 				{
-					$ui->add($msg);
 					handleConsoleMessage($options["joinmsg"]);
 				}
 			}
@@ -972,7 +981,7 @@ do
 						$posticks = 0;
 					}
 				}
-				else if($protocol_version <= 47 && ++$posticks == 20)
+				else if($protocol_version <= 47 || ++$posticks == 20)
 				{
 					$con->startPacket("player");
 					$con->writeBoolean($onGround);
@@ -993,3 +1002,4 @@ do
 }
 while($reconnect || !isset($options["noreconnect"]));
 $ui->dispose();
+echo "\n";

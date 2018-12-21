@@ -305,7 +305,8 @@ class UserInterface extends PlainUserInterface
 				{
 					$i -= floor($len / $width);
 				}
-				echo "\x1B[{$i};1H\x1B[97;40m{$message}\x1B[97;44m";
+				//echo "\x1B[{$i};1H\x1B[97;40m{$message}\x1B[97;44m";
+				echo "\x1B[{$i};1H\x1B[97;40m{$message}";
 				$line_len = ($len == 0 ? 0 : ($len - (floor(($len - 1) / $width) * $width)));
 				if($line_len < $width)
 				{
