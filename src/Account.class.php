@@ -108,33 +108,29 @@ class Account
 				}
 			}
 		}
-		return $foundAccount && $this->validate($profiles) == "";
-	}
-
-	private function validate(&$profiles)
-	{
+		if($foundAccount)
+		{
+			return false;
+		}
 		if(Phpcraft::httpPOST("https://authserver.mojang.com/validate", [
+		"accessToken" => $profiles["authenticationDatabase"][$profiles["selectedUser"]["account"]]["accessToken"],
+		"clientToken" => $profiles["clientToken"]
+		])["status"] == "204")
+		{
+			return true;
+		}
+		if($res = Phpcraft::httpPOST("https://authserver.mojang.com/refresh", [
 			"accessToken" => $profiles["authenticationDatabase"][$profiles["selectedUser"]["account"]]["accessToken"],
 			"clientToken" => $profiles["clientToken"]
-		])["status"] == "403")
+		]) && isset($res["accessToken"]))
 		{
-			if($res = Phpcraft::httpPOST("https://authserver.mojang.com/refresh", [
-				"accessToken" => $profiles["authenticationDatabase"][$profiles["selectedUser"]["account"]]["accessToken"],
-				"clientToken" => $profiles["clientToken"]
-			]))
-			{
-				if(isset($res["accessToken"]))
-				{
-					$profiles["authenticationDatabase"][$profiles["selectedUser"]["account"]]["accessToken"] = $res["accessToken"];
-					Phpcraft::saveProfiles($profiles);
-					return "";
-				}
-			}
-			unset($profiles["authenticationDatabase"][$profiles["selectedUser"]["account"]]);
+			$profiles["authenticationDatabase"][$profiles["selectedUser"]["account"]]["accessToken"] = $res["accessToken"];
 			Phpcraft::saveProfiles($profiles);
-			return "Failed to refresh invalid access token";
+			return true;
 		}
-		return "";
+		unset($profiles["authenticationDatabase"][$profiles["selectedUser"]["account"]]);
+		Phpcraft::saveProfiles($profiles);
+		return false;
 	}
 
 	/**
@@ -175,7 +171,7 @@ class Account
 				]
 			];
 			Phpcraft::saveProfiles($profiles);
-			return $this->validate($profiles);
+			return "";
 		}
 		return "Invalid credentials";
 	}

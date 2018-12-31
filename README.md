@@ -1,30 +1,37 @@
 # Phpcraft
 
+Interact with the Minecraft Protocol in PHP. Includes a chat client, server, and listping utility.
+
 ## Features
 
 - Colorful display of chat messages using ANSI escape codes
 - 1.8 - 1.13.2 support by protocol hacking
 - Supports online and offline mode
-- Client features:
-  - Can follow player's entities
-  - Resolves SRV records
-- Server features:
-  - You can chat with other connected players
+- Ability to resolve SRV records
 - Planned features:
   - See other players on the server in the player list
   - Legacy List Ping
 
 ## Dependencies
 
-You will need 64-bit CLI PHP 7.0.15 or above, and mbstring:
+Please note that bare Windows is not supported due to implementation bugs in PHP's Windows port. Instead, use [the Windows Subsystem for Linux](https://aka.ms/wslinstall).
 
-    apt-get install php-cli php-mbstring
+You will need 64-bit PHP-CLI 7.0.15 or above, and mbstring:
 
-Aditionally, if you want to go online, you'll need GMP, OpenSSL, and mcrypt:
+    sudo apt-get -y install php-cli php-mbstring
 
-    apt-get install php-gmp openssl php-mcrypt
+Aditionally, if you want to go online, you'll need GMP, OpenSSL, and mcrypt.
 
-If you're on Windows, use [Cygwin](https://www.cygwin.com/) or similar.
+    sudo apt-get -y install php-gmp openssl php-mcrypt
+
+If `php-mcrypt` does not have an installation candiate:
+
+    apt-get -y install gcc make autoconf libc-dev pkg-config
+    apt-get -y install php7.2-dev
+    apt-get -y install libmcrypt-dev
+    pecl install mcrypt-1.0.1
+
+If you're still facing issues with dependencies, check your PHP configuration.
 
 ## Usage
 

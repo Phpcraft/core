@@ -1,14 +1,18 @@
 <?php
+if(empty($argv))
+{
+	die("This is for PHP-CLI. Connect to your server via SSH and use `php client.php`.\n");
+}
 require __DIR__."/src/autoload.php";
 echo "PHP Minecraft Client\nhttps://github.com/timmyrs/Phpcraft\n";
 
 if(PHP_OS == "WINNT")
 {
-	die("Bare Windows is no longer supported. Please use Cygwin or similar, instead.\n");
+	die("Bare Windows is not supported due to implementation bugs in PHP's Windows port. Instead, use the Windows Subsystem for Linux: https://aka.ms/wslinstall\n");
 }
 if($dependencies = \Phpcraft\UserInterface::getMissingDependencies())
 {
-	die("To spin up the Phpcraft UI, you need ".join(", ", $dependencies).".\n");
+	die("To spin up the Phpcraft UI, you need ".join(", ", $dependencies).". Check the readme for help with dependencies.\n");
 }
 
 $options = [];
@@ -113,6 +117,13 @@ else if(!isset($options["online"]))
 		$online = true;
 	}
 }
+if($online)
+{
+	if($extensions_needed = \Phpcraft\Phpcraft::getExtensionsMissingToGoOnline())
+	{
+		die("To join online servers, you need ".join(" and ", $extensions_needed).".\nCheck the readme for help with dependencies.\n");
+	}
+}
 
 $name = "";
 if(isset($options["name"]))
@@ -143,26 +154,19 @@ while($name == "")
 	}
 }
 $account = new \Phpcraft\Account($name);
-if($online)
+if($online && !$account->loginUsingProfiles())
 {
-	if($extensions_needed = \Phpcraft\Phpcraft::getExtensionsMissingToGoOnline())
+	do
 	{
-		die("To join online servers, you need ".join(" and ", $extensions_needed).".\nTry apt-get install or check your PHP configuration.\n");
-	}
-	if(!$account->loginUsingProfiles())
-	{
-		do
+		echo "What's your account password? (visible!) ";
+		$pass = trim(fgets($stdin));
+		if($error = $account->login($pass))
 		{
-			echo "What's your account password? (visible!) ";
-			$pass = trim(fgets($stdin));
-			if($error = $account->login($pass))
-			{
-				echo $error."\n";
-			}
-			else break;
+			echo $error."\n";
 		}
-		while(true);
+		else break;
 	}
+	while(true);
 }
 
 $server = "";

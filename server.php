@@ -1,14 +1,18 @@
 <?php
+if(empty($argv))
+{
+	die("This is for PHP-CLI. Connect to your server via SSH and use `php server.php`.\n");
+}
 require __DIR__."/src/autoload.php";
 echo "PHP Minecraft Server\nhttps://github.com/timmyrs/Phpcraft\n";
 
 if(PHP_OS == "WINNT")
 {
-	die("Bare Windows is no longer supported. Please use Cygwin or similar, instead.\n");
+	die("Bare Windows is not supported due to implementation bugs in PHP's Windows port. Instead, use the Windows Subsystem for Linux: https://aka.ms/wslinstall\n");
 }
 if($dependencies = \Phpcraft\UserInterface::getMissingDependencies())
 {
-	die("To spin up the Phpcraft UI, you need ".join(", ", $dependencies).".\n");
+	die("To spin up the Phpcraft UI, you need ".join(", ", $dependencies).". Check the readme for help with dependencies.\n");
 }
 
 $options = ["offline" => false, "port" => 25565, "nocolor" => false, "plain" => false];
@@ -58,7 +62,7 @@ if(!$options["offline"])
 {
 	if($extensions_needed = \Phpcraft\Phpcraft::getExtensionsMissingToGoOnline())
 	{
-		die("To host an online server, you need ".join(" and ", $extensions_needed).".\nTry apt-get install or check your PHP configuration.\n");
+		die("To host an online server, you need ".join(" and ", $extensions_needed).". Check the readme for help with dependencies.\n");
 	}
 	$ui->add("Generating 1024-bit RSA keypair... ")->render();
 	$private_key = openssl_pkey_new([
