@@ -156,6 +156,17 @@ class Connection
 	}
 
 	/**
+	 * Adds the byte string to the write buffer.
+	 * @param string $value
+	 * @return Connection $this
+	 */
+	function writeRaw($value)
+	{
+		$this->write_buffer .= $value;
+		return $this;
+	}
+
+	/**
 	 * Adds a short to the write buffer.
 	 * @param integer $value
 	 * @return Connection $this
@@ -270,30 +281,38 @@ class Connection
 
 	/**
 	 * Sends the contents of the write buffer over the stream and clears the write buffer or does nothing if there is no stream.
+	 * @param boolean $raw When true, the write buffer is sent as-is, without length prefix or compression, which you probably don't want.
 	 * @return Connection $this
 	 */
-	function send()
+	function send($raw = false)
 	{
 		if($this->stream != null)
 		{
-			$length = strlen($this->write_buffer);
-			if($this->compression_threshold > -1)
+			if($raw)
 			{
-				if($length >= $this->compression_threshold)
-				{
-					$compressed = gzcompress($this->write_buffer, 1);
-					$compressed_length_varint = Phpcraft::intToVarInt(strlen($compressed));
-					$length += strlen($compressed_length_varint);
-					fwrite($this->stream, Phpcraft::intToVarInt($length).$compressed_length_varint.$compressed);
-				}
-				else
-				{
-					fwrite($this->stream, Phpcraft::intToVarInt($length + 1)."\x00".$this->write_buffer);
-				}
+				fwrite($this->stream, $this->write_buffer);
 			}
 			else
 			{
-				fwrite($this->stream, Phpcraft::intToVarInt($length).$this->write_buffer);
+				$length = strlen($this->write_buffer);
+				if($this->compression_threshold > -1)
+				{
+					if($length >= $this->compression_threshold)
+					{
+						$compressed = gzcompress($this->write_buffer, 1);
+						$compressed_length_varint = Phpcraft::intToVarInt(strlen($compressed));
+						$length += strlen($compressed_length_varint);
+						fwrite($this->stream, Phpcraft::intToVarInt($length).$compressed_length_varint.$compressed);
+					}
+					else
+					{
+						fwrite($this->stream, Phpcraft::intToVarInt($length + 1)."\x00".$this->write_buffer);
+					}
+				}
+				else
+				{
+					fwrite($this->stream, Phpcraft::intToVarInt($length).$this->write_buffer);
+				}
 			}
 			$this->write_buffer = "";
 		}
@@ -301,30 +320,42 @@ class Connection
 	}
 
 	/**
-	 * Reads a new packet into the read buffer.
-	 * @param boolean $forcefully When true, this function will wait until a packet is received and buffered. When false, it will not wait. When a packet is on the line, it will be received and buffered, regardless of this parameter.
+	 * Puts a new packet into the read buffer.
+	 * @param float $timeout The amount of seconds to wait before read is aborted.
+	 * @param boolean $raw When true, the read buffer is filled with whatever is on the line and it won't be processed in any way, which you probably don't want.
 	 * @throws Exception When the packet length or packet id VarInt is too big.
-	 * @return mixed Boolean false if `$forcefully` is `false` and there is no packet. Otherwise, packet id as an integer.
+	 * @return integer|boolean False if no packet was received within the time limit, and on success, either the packet's ID or true if raw.
 	 * @see Packet::clientboundPacketIdToName()
 	 * @see Packet::serverboundPacketIdToName()
 	 */
-	function readPacket($forcefully = true)
+	function readPacket($timeout = 3.000, $raw = false)
 	{
+		$start = microtime(true);
+		if($raw)
+		{
+			$this->read_buffer = fread($this->stream, 8192);
+			while($this->read_buffer == "")
+			{
+				if((microtime(true) - $start) >= $timeout)
+				{
+					return false;
+				}
+				$this->read_buffer = fread($this->stream, 8192);
+			}
+			return true;
+		}
 		$length = 0;
 		$read = 0;
 		do
 		{
 			$byte = @fgetc($this->stream);
-			if($byte === false)
+			while($byte === false)
 			{
-				if(!$forcefully && $read == 0)
+				if((microtime(true) - $start) >= $timeout)
 				{
 					return false;
 				}
-				while($byte === false)
-				{
-					$byte = @fgetc($this->stream);
-				}
+				$byte = @fgetc($this->stream);
 			}
 			$byte = ord($byte);
 			$length |= (($byte & 0x7F) << ($read++ * 7));
@@ -352,6 +383,15 @@ class Connection
 			}
 		}
 		return $this->readVarInt();
+	}
+
+	/**
+	 * Returns the contents of the read buffer.
+	 * @return string
+	 */
+	function getReadBuffer()
+	{
+		return $this->read_buffer;
 	}
 
 	/**

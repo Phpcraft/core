@@ -522,7 +522,7 @@ do
 	do
 	{
 		$start = microtime(true);
-		while(($id = $con->readPacket(false)) !== false)
+		while(($id = $con->readPacket(0)) !== false)
 		{
 			$packet_name = \Phpcraft\Packet::clientboundPacketIdToName($id, $protocol_version);
 			if($packet_name === null)

@@ -182,7 +182,7 @@ do
 		$con = $clients[$i]["connection"];
 		if($con->isOpen())
 		{
-			while(($id = $con->readPacket(false)) !== false)
+			while(($id = $con->readPacket(0)) !== false)
 			{
 				if($con->getState() == 3) // Playing
 				{

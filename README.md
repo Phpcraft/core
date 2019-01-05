@@ -8,9 +8,6 @@ Interact with the Minecraft Protocol in PHP. Includes a chat client, server, and
 - 1.8 - 1.13.2 support by protocol hacking
 - Supports online and offline mode
 - Ability to resolve SRV records
-- Planned features:
-  - See other players on the server in the player list
-  - Legacy List Ping
 
 ## Dependencies
 
