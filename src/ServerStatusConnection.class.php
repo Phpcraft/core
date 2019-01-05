@@ -34,7 +34,7 @@ class ServerStatusConnection
 	 *     "sample" => [
 	 *       [
 	 *         "name" => "timmyRS",
-	 *         "id" => "4566e69f-c907-48ee-8d71-d7ba5aa00d20"
+	 *         "id" => "e0603b59-2edc-45f7-acc7-b0cccd6656e1"
 	 *       ]
 	 *     ]
 	 *   ],
