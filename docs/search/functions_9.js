@@ -7,7 +7,7 @@ var searchData=
   ['readfloat',['readFloat',['../classPhpcraft_1_1Connection.html#a425a6f10548a0bd9ba47c1f180ec6c02',1,'Phpcraft::Connection']]],
   ['readint',['readInt',['../classPhpcraft_1_1Connection.html#a18e370be004dc9d2a4354769cb2e03ef',1,'Phpcraft::Connection']]],
   ['readlong',['readLong',['../classPhpcraft_1_1Connection.html#af4dd5b8b960ed50cf7494f99e24bdbb2',1,'Phpcraft::Connection']]],
-  ['readpacket',['readPacket',['../classPhpcraft_1_1Connection.html#a30f52cce74e8b63e2cf02971feae3e4f',1,'Phpcraft::Connection']]],
+  ['readpacket',['readPacket',['../classPhpcraft_1_1Connection.html#aae3b39b92491d7b437fb6b3cad0a069e',1,'Phpcraft::Connection']]],
   ['readposition',['readPosition',['../classPhpcraft_1_1Connection.html#ab1afcb6dd5f093420bbe7adb632e9087',1,'Phpcraft::Connection']]],
   ['readshort',['readShort',['../classPhpcraft_1_1Connection.html#a754a1f35b18923e9ee1da9fe84530e27',1,'Phpcraft::Connection']]],
   ['readstring',['readString',['../classPhpcraft_1_1Connection.html#a338afe376e5305275e7c08a19a469e5b',1,'Phpcraft::Connection']]],

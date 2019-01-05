@@ -20,9 +20,10 @@ var searchData=
   ['getprofilesfile',['getProfilesFile',['../classPhpcraft_1_1Phpcraft.html#a738a4fbf79ff882e42fc90007ad4b83b',1,'Phpcraft::Phpcraft']]],
   ['getprotocolversion',['getProtocolVersion',['../classPhpcraft_1_1Connection.html#a7e69a26647489d60f2e33e92b791404a',1,'Phpcraft::Connection']]],
   ['getprotocolversionfromminecraftversion',['getProtocolVersionFromMinecraftVersion',['../classPhpcraft_1_1Phpcraft.html#af9e9c0c1e239daaa120d1d041616ae8d',1,'Phpcraft::Phpcraft']]],
+  ['getreadbuffer',['getReadBuffer',['../classPhpcraft_1_1Connection.html#acc65a0351bbbdbc8f70d1bac359ef04f',1,'Phpcraft::Connection']]],
   ['getresponse',['getResponse',['../classPhpcraft_1_1KeepAliveRequestPacket.html#a3a23d43da7dd5e618c62e300b14306e9',1,'Phpcraft::KeepAliveRequestPacket']]],
   ['getstate',['getState',['../classPhpcraft_1_1Connection.html#ad1b457f3046026dcd6026f97ed73d1fa',1,'Phpcraft::Connection']]],
-  ['getstatus',['getStatus',['../classPhpcraft_1_1ServerStatusConnection.html#ac9fa7a8d1ab5c0e444b8cc139cf03e51',1,'Phpcraft::ServerStatusConnection']]],
+  ['getstatus',['getStatus',['../classPhpcraft_1_1ServerStatusConnection.html#a8f3407c64f93cab68db981210cb07ee3',1,'Phpcraft::ServerStatusConnection']]],
   ['getusername',['getUsername',['../classPhpcraft_1_1Account.html#a922c847a57ad381d7cd690650039319d',1,'Phpcraft\Account\getUsername()'],['../classPhpcraft_1_1ServerPlayConnection.html#a02eddc36d521848895d9e2e245453226',1,'Phpcraft\ServerPlayConnection\getUsername()']]],
   ['getuuid',['getUUID',['../classPhpcraft_1_1ServerPlayConnection.html#a36d31193121fc2c4c7e654a02ad71bbd',1,'Phpcraft::ServerPlayConnection']]],
   ['getwritebuffer',['getWriteBuffer',['../classPhpcraft_1_1Connection.html#ad7b00275933b8a1fb1d5a3215dfc40c7',1,'Phpcraft::Connection']]]
