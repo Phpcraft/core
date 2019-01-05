@@ -13,15 +13,17 @@ Interact with the Minecraft Protocol in PHP. Includes a chat client, server, and
 
 Please note that bare Windows is not supported due to implementation bugs in PHP's Windows port. Instead, use [the Windows Subsystem for Linux](https://aka.ms/wslinstall).
 
-You will need 64-bit PHP-CLI 7.0.15 or above, and mbstring:
+You will need 64-bit PHP-CLI 7.0.15 or above, and mbstring.
+To install them, run these commands as root:
 
-    sudo apt-get -y install php-cli php-mbstring
+    apt-get -y install php-cli php-mbstring
 
 Aditionally, if you want to go online, you'll need GMP, OpenSSL, and mcrypt.
+To install them, run these commands as root:
 
-    sudo apt-get -y install php-gmp openssl php-mcrypt
+    apt-get -y install php-gmp openssl php-mcrypt
 
-If `php-mcrypt` does not have an installation candiate:
+If `php-mcrypt` does not have an installation candiate, run these commands as root:
 
     apt-get -y install gcc make autoconf libc-dev pkg-config
     apt-get -y install php7.2-dev
