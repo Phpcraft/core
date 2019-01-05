@@ -182,76 +182,92 @@ do
 		$con = $clients[$i]["connection"];
 		if($con->isOpen())
 		{
-			while(($id = $con->readPacket(0)) !== false)
+			try
 			{
-				if($con->getState() == 3) // Playing
+				while(($id = $con->readPacket(0)) !== false)
 				{
-					$packet_name = \Phpcraft\Packet::serverboundPacketIdToName($id, $con->getProtocolVersion());
-					if($packet_name == "keep_alive_response")
+					if($con->getState() == 3) // Playing
 					{
-						$clients[$i]["next_heartbeat"] = microtime(true) + 15;
-						$clients[$i]["disconnect_after"] = 0;
-					}
-					else if($packet_name == "send_chat_message")
-					{
-						$msg = $con->readString();
-						if($msg == "crash me")
+						$packet_name = \Phpcraft\Packet::serverboundPacketIdToName($id, $con->getProtocolVersion());
+						if($packet_name == "keep_alive_response")
 						{
-							$con->startPacket("change_game_state");
-							$con->writeByte(7);
-							$con->writeFloat(1337);
-							$con->send();
+							$clients[$i]["next_heartbeat"] = microtime(true) + 15;
+							$clients[$i]["disconnect_after"] = 0;
 						}
-						if($options["nocolor"])
+						else if($packet_name == "send_chat_message")
 						{
-							$msg = ["text" => $msg];
-						}
-						else
-						{
-							$msg = \Phpcraft\Phpcraft::textToChat($msg, true);
-						}
-						$msg = [
-							"translate" => "chat.type.text",
-							"with" => [
-								[
-									"text" => $clients[$i]["name"]
-								],
-								$msg
-							]
-						];
-						$ui->add(\Phpcraft\Phpcraft::chatToANSIText($msg));
-						$msg = json_encode($msg);
-						foreach($clients as $c)
-						{
-							if($c["connection"]->getState() == 3 && $c["connection"]->isOpen())
+							$msg = $con->readString();
+							if($msg == "crash me")
 							{
-								try
-								{
-									$c["connection"]->startPacket("chat_message");
-									$c["connection"]->writeString($msg);
-									$c["connection"]->writeByte(1);
-									$c["connection"]->send();
-								}
-								catch(Exception $ignored){}
+								$con->startPacket("change_game_state");
+								$con->writeByte(7);
+								$con->writeFloat(1337);
+								$con->send();
 							}
-						}
-					}
-				}
-				else if($con->getState() == 2) // Login
-				{
-					if($id == 0x00) // Login Start
-					{
-						$clients[$i]["name"] = $con->readString();
-						if(\Phpcraft\Phpcraft::validateName($clients[$i]["name"]))
-						{
-							if($options["offline"])
+							if($options["nocolor"])
 							{
-								$con->finishLogin(\Phpcraft\Phpcraft::generateUUIDv4(true), $clients[$i]["name"]);
-								joinSuccess($i);
+								$msg = ["text" => $msg];
 							}
 							else
 							{
-								$con->sendEncryptionRequest($private_key);
+								$msg = \Phpcraft\Phpcraft::textToChat($msg, true);
+							}
+							$msg = [
+								"translate" => "chat.type.text",
+								"with" => [
+									[
+										"text" => $clients[$i]["name"]
+									],
+									$msg
+								]
+							];
+							$ui->add(\Phpcraft\Phpcraft::chatToANSIText($msg));
+							$msg = json_encode($msg);
+							foreach($clients as $c)
+							{
+								if($c["connection"]->getState() == 3 && $c["connection"]->isOpen())
+								{
+									try
+									{
+										$c["connection"]->startPacket("chat_message");
+										$c["connection"]->writeString($msg);
+										$c["connection"]->writeByte(1);
+										$c["connection"]->send();
+									}
+									catch(Exception $ignored){}
+								}
+							}
+						}
+					}
+					else if($con->getState() == 2) // Login
+					{
+						if($id == 0x00) // Login Start
+						{
+							$clients[$i]["name"] = $con->readString();
+							if(\Phpcraft\Phpcraft::validateName($clients[$i]["name"]))
+							{
+								if($options["offline"])
+								{
+									$con->finishLogin(\Phpcraft\Phpcraft::generateUUIDv4(true), $clients[$i]["name"]);
+									joinSuccess($i);
+								}
+								else
+								{
+									$con->sendEncryptionRequest($private_key);
+								}
+							}
+							else
+							{
+								$clients[$i]["disconnect_after"] = microtime(true);
+								break;
+							}
+						}
+						else if($id == 0x01 && isset($clients[$i]["name"])) // Encryption Response
+						{
+							if($json = $con->handleEncryptionResponse($clients[$i]["name"], $private_key))
+							{
+								$con->finishLogin(\Phpcraft\Phpcraft::addHypensToUUID($json["id"]), $json["name"]);
+								joinSuccess($i);
 							}
 						}
 						else
@@ -260,37 +276,29 @@ do
 							break;
 						}
 					}
-					else if($id == 0x01 && isset($clients[$i]["name"])) // Encryption Response
+					else // Can only be 1; Status
 					{
-						if($json = $con->handleEncryptionResponse($clients[$i]["name"], $private_key))
+						if($id == 0x00)
 						{
-							$con->finishLogin(\Phpcraft\Phpcraft::addHypensToUUID($json["id"]), $json["name"]);
-							joinSuccess($i);
+							$con->writeVarInt(0x00);
+							$con->writeString('{"version":{"name":"Phpcraft","protocol":'.(\Phpcraft\Phpcraft::isProtocolVersionSupported($con->getProtocolVersion())?$con->getProtocolVersion():69).'},"description":{"text":"A Phpcraft Server"}}');
+							$con->send();
+						}
+						else if($id == 0x01)
+						{
+							$con->writeVarInt(0x01);
+							$con->writeLong($con->readLong());
+							$con->send();
+							$clients[$i]["disconnect_after"] = microtime(true);
+							break;
 						}
 					}
-					else
-					{
-						$clients[$i]["disconnect_after"] = microtime(true);
-						break;
-					}
 				}
-				else // Can only be 1; Status
-				{
-					if($id == 0x00)
-					{
-						$con->writeVarInt(0x00);
-						$con->writeString('{"version":{"name":"Phpcraft","protocol":'.(\Phpcraft\Phpcraft::isProtocolVersionSupported($con->getProtocolVersion())?$con->getProtocolVersion():69).'},"description":{"text":"A Phpcraft Server"}}');
-						$con->send();
-					}
-					else if($id == 0x01)
-					{
-						$con->writeVarInt(0x01);
-						$con->writeLong($con->readLong());
-						$con->send();
-						$clients[$i]["disconnect_after"] = microtime(true);
-						break;
-					}
-				}
+			}
+			catch(Exception $e)
+			{
+				$con->disconnect(get_class($e).": ".$e->getMessage());
+				continue;
 			}
 			if($clients[$i]["disconnect_after"] != 0 && $clients[$i]["disconnect_after"] <= microtime(true))
 			{
