@@ -117,8 +117,10 @@ Static Public Member Functions</h2></td></tr>
 <tr class="separator:ac90f4eac0ce4e5cef9dd62fd949dd705"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a90d514b456df149307e621dc727ddc55"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Phpcraft.html#a90d514b456df149307e621dc727ddc55">textToChat</a> ($str, $allowAmp=false, &amp;$i=0, $child=false)</td></tr>
 <tr class="separator:a90d514b456df149307e621dc727ddc55"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0d6c653d433aeee4516b7ea1e56ce51f"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Phpcraft.html#a0d6c653d433aeee4516b7ea1e56ce51f">chatToANSIText</a> ($chat, $translations=null, $parent=[])</td></tr>
-<tr class="separator:a0d6c653d433aeee4516b7ea1e56ce51f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a187405c203a3f0d0f2a9992ee8407d0d"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Phpcraft.html#a187405c203a3f0d0f2a9992ee8407d0d">chatToANSIText</a> ($chat, $translations=null)</td></tr>
+<tr class="separator:a187405c203a3f0d0f2a9992ee8407d0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae90911472c46e1559429fa03d5c07451"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Phpcraft.html#ae90911472c46e1559429fa03d5c07451">chatToText</a> ($chat, $useAnsiCodes=false, $translations=null, $parent=[])</td></tr>
+<tr class="separator:ae90911472c46e1559429fa03d5c07451"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
@@ -153,8 +155,8 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a0d6c653d433aeee4516b7ea1e56ce51f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0d6c653d433aeee4516b7ea1e56ce51f">&#9670;&nbsp;</a></span>chatToANSIText()</h2>
+<a id="a187405c203a3f0d0f2a9992ee8407d0d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a187405c203a3f0d0f2a9992ee8407d0d">&#9670;&nbsp;</a></span>chatToANSIText()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -167,6 +169,58 @@ Static Public Attributes</h2></td></tr>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname"><em>$chat</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$translations</em> = <code>null</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Converts a chat object into text with ANSI escape codes so you can experience color in your console. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">array&#160;|&#160;string</td><td class="paramname">$chat</td><td>The chat object as an array or a string. </td></tr>
+    <tr><td class="paramtype">array</td><td class="paramname">$translations</td><td>The translations array so translated messages look proper. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000001">Deprecated:</a></b></dt><dd>Use chatToText instead. </dd></dl>
+<dl class="section see"><dt>See also</dt><dd>Phpcraft::chatToText </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>string </dd></dl>
+
+</div>
+</div>
+<a id="ae90911472c46e1559429fa03d5c07451"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae90911472c46e1559429fa03d5c07451">&#9670;&nbsp;</a></span>chatToText()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static Phpcraft\Phpcraft::chatToText </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$chat</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$useAnsiCodes</em> = <code>false</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -192,9 +246,10 @@ Static Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Converts a chat object into text with ANSI escape codes so it will be colorful in the console, as well. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Converts a chat object into text. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype">array&#160;|&#160;string</td><td class="paramname">$chat</td><td>The chat object as an array or a string. </td></tr>
+    <tr><td class="paramtype">array&#160;|&#160;string</td><td class="paramname">$chat</td><td>The chat object as an array or string. </td></tr>
+    <tr><td class="paramtype">boolean</td><td class="paramname">$useAnsiCodes</td><td>Use ANSI escape codes so you can experience color in the console. </td></tr>
     <tr><td class="paramtype">array</td><td class="paramname">$translations</td><td>The translations array so translated messages look proper. </td></tr>
     <tr><td class="paramtype">array</td><td class="paramname">$parent</td><td>Ignore this parameter. </td></tr>
   </table>
