@@ -60,9 +60,7 @@ class ServerStatusConnection
 			$start = microtime(true);
 			$con->writeVarInt(0x00);
 			$con->send();
-			$id = $con->readPacket($timeout);
-			var_dump($id);
-			if($id === 0x00)
+			if($con->readPacket($timeout) === 0x00)
 			{
 				$json = json_decode($con->readString(), true);
 				$json["ping"] = microtime(true) - $start;

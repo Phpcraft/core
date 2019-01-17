@@ -530,13 +530,27 @@ class Phpcraft
 	}
 
 	/**
-	 * Converts a chat object into text with ANSI escape codes so it will be colorful in the console, as well.
+	 * Converts a chat object into text with ANSI escape codes so you can experience color in your console.
 	 * @param array|string $chat The chat object as an array or a string.
+	 * @param array $translations The translations array so translated messages look proper.
+	 * @deprecated Use chatToText instead.
+	 * @see Phpcraft::chatToText
+	 * @return string
+	 */
+	static function chatToANSIText($chat, $translations = null)
+	{
+		return Phpcraft::chatToText($chat, true, $translations);
+	}
+
+	/**
+	 * Converts a chat object into text.
+	 * @param array|string $chat The chat object as an array or string.
+	 * @param boolean $useAnsiCodes Use ANSI escape codes so you can experience color in the console.
 	 * @param array $translations The translations array so translated messages look proper.
 	 * @param array $parent Ignore this parameter.
 	 * @return string
 	 */
-	static function chatToANSIText($chat, $translations = null, $parent = [])
+	static function chatToText($chat, $useAnsiCodes = false, $translations = null, $parent = [])
 	{
 		if($translations == null)
 		{
@@ -555,61 +569,68 @@ class Phpcraft
 			}
 			$chat = Phpcraft::textToChat($chat);
 		}
-		$attributes = [
-			"bold" => "1",
-			"italic" => "3",
-			"underlined" => "4",
-			"obfuscated" => "8",
-			"strikethrough" => "9"
-		];
-		$modifiers = [];
-		foreach($attributes as $n => $v)
+		if($useAnsiCodes)
 		{
-			if(!isset($chat[$n]))
+			$attributes = [
+				"bold" => "1",
+				"italic" => "3",
+				"underlined" => "4",
+				"obfuscated" => "8",
+				"strikethrough" => "9"
+			];
+			$modifiers = [];
+			foreach($attributes as $n => $v)
 			{
-				if(isset($parent[$n]))
+				if(!isset($chat[$n]))
 				{
-					$chat[$n] = $parent[$n];
+					if(isset($parent[$n]))
+					{
+						$chat[$n] = $parent[$n];
+					}
+				}
+				if(isset($chat[$n]) && $chat[$n])
+				{
+					array_push($modifiers, $v);
 				}
 			}
-			if(isset($chat[$n]) && $chat[$n])
+			if(!isset($chat["color"]))
 			{
-				array_push($modifiers, $v);
+				if(isset($parent["color"]))
+				{
+					$chat["color"] = $parent["color"];
+				}
 			}
+			if(isset($chat["color"]))
+			{
+				$colors = [
+					"black" => "30",
+					"dark_blue" => "34",
+					"dark_green" => "32",
+					"dark_aqua" => "36",
+					"dark_red" => "31",
+					"dark_purple" => "35",
+					"gold" => "33",
+					"gray" => "37",
+					"dark_gray" => "90",
+					"blue" => "94",
+					"green" => "92",
+					"aqua" => "96",
+					"red" => "91",
+					"light_purple" => "95",
+					"yellow" => "93",
+					"white" => "97"
+				];
+				if(isset($colors[$chat["color"]]))
+				{
+					array_push($modifiers, $colors[$chat["color"]]);
+				}
+			}
+			$text = "\x1B[".join(";", $modifiers)."m";
 		}
-		if(!isset($chat["color"]))
+		else
 		{
-			if(isset($parent["color"]))
-			{
-				$chat["color"] = $parent["color"];
-			}
+			$text = "";
 		}
-		if(isset($chat["color"]))
-		{
-			$colors = [
-				"black" => "30",
-				"dark_blue" => "34",
-				"dark_green" => "32",
-				"dark_aqua" => "36",
-				"dark_red" => "31",
-				"dark_purple" => "35",
-				"gold" => "33",
-				"gray" => "37",
-				"dark_gray" => "90",
-				"blue" => "94",
-				"green" => "92",
-				"aqua" => "96",
-				"red" => "91",
-				"light_purple" => "95",
-				"yellow" => "93",
-				"white" => "97"
-			];
-			if(isset($colors[$chat["color"]]))
-			{
-				array_push($modifiers, $colors[$chat["color"]]);
-			}
-		}
-		$text = "\x1B[".join(";", $modifiers)."m";
 		if(isset($chat["translate"]))
 		{
 			$raw;
@@ -626,7 +647,7 @@ class Phpcraft
 				$with = [];
 				foreach($chat["with"] as $extra)
 				{
-					array_push($with, Phpcraft::chatToANSIText($extra, $translations, $chat));
+					array_push($with, Phpcraft::chatToText($extra, $useAnsiCodes, $translations, $chat));
 				}
 				if(($formatted = @vsprintf($raw, $with)) !== false)
 				{
@@ -647,7 +668,7 @@ class Phpcraft
 		{
 			foreach($chat["extra"] as $extra)
 			{
-				$text .= Phpcraft::chatToANSIText($extra, $translations, $chat);
+				$text .= Phpcraft::chatToText($extra, $useAnsiCodes, $translations, $chat);
 			}
 		}
 		return $text;
