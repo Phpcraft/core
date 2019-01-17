@@ -23,6 +23,10 @@ class PlainUserInterface
 		return $dependencies;
 	}
 
+	/**
+	 * The constructor.
+	 * Note that from this point forward user input is in the hands of the UI until PlainUserInterface::dispose() is called.
+	 */
 	function __construct()
 	{
 		$this->stdin = fopen("php://stdin", "r");

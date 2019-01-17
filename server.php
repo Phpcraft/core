@@ -408,7 +408,7 @@ do
 		}
 	}
 	$elapsed = (microtime(true) - $start);
-	if(($remaining = (0.02 - $elapsed)) > 0) // Make sure we've waited at least 20 ms before going again because otherwise we'd be polling too much
+	if(($remaining = (0.020 - $elapsed)) > 0) // Make sure we've waited at least 20 ms before going again because otherwise we'd be polling too much
 	{
 		time_nanosleep(0, $remaining * 1000000000); // usleep seems to bring the CPU to 100
 	}
