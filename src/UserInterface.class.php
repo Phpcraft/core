@@ -50,7 +50,7 @@ class UserInterface extends PlainUserInterface
 
 	/**
 	 * The constructor.
-	 * Note that from this point forward user input is in the hands of the UI until UserInterface::dispose() is called.
+	 * Note that from this point forward user input is in the hands of the UI until PlainUserInterface::dispose() is called.
 	 * @param string $title The title displayed at the top left.
 	 * @param string $optional_info Displayed at the top right, if possible.
 	 */
