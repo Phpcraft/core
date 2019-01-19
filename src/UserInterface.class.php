@@ -1,6 +1,5 @@
 <?php
 namespace Phpcraft;
-require_once __DIR__."/validate.php";
 require_once __DIR__."/PlainUserInterface.class.php";
 /** A utility for interfacing with the user in a fancy manner. */
 class UserInterface extends PlainUserInterface
@@ -363,4 +362,9 @@ class UserInterface extends PlainUserInterface
 		$this->chat_log[count($this->chat_log) - 1] .= $appendix;
 		return $this;
 	}
+}
+
+if(!extension_loaded("mbstring"))
+{
+	die("\Phpcraft\UserInterface requires mbstring. Try `apt-get install php-mbstring`.\n");
 }

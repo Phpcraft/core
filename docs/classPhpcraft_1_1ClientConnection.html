@@ -64,6 +64,7 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="classPhpcraft_1_1ClientConnection-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Phpcraft\ClientConnection Class Reference</div>  </div>
@@ -90,6 +91,8 @@ Collaboration diagram for Phpcraft\ClientConnection:</div>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:adbd606b1ba8e231d6fa44b262edee589"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#adbd606b1ba8e231d6fa44b262edee589">__construct</a> ($stream)</td></tr>
 <tr class="separator:adbd606b1ba8e231d6fa44b262edee589"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:add6f1a7c934ae44ebebb25baf52f843d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#add6f1a7c934ae44ebebb25baf52f843d">handleInitialPacket</a> ()</td></tr>
+<tr class="separator:add6f1a7c934ae44ebebb25baf52f843d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a46c17ecc49a8c218ed013f26ba947549"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#a46c17ecc49a8c218ed013f26ba947549">sendEncryptionRequest</a> ($private_key)</td></tr>
 <tr class="separator:a46c17ecc49a8c218ed013f26ba947549"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad1619a42f8728bc626fca600a5b1acaa"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#ad1619a42f8728bc626fca600a5b1acaa">handleEncryptionResponse</a> ($name, $private_key)</td></tr>
@@ -135,18 +138,12 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a62c8bdc28feaa69fa9247e2a366872e3 inherit pub_methods_classPhpcraft_1_1Connection"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3fb102f9ad9099ec2e4b318e0a845cab inherit pub_methods_classPhpcraft_1_1Connection"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#a3fb102f9ad9099ec2e4b318e0a845cab">startPacket</a> ($name)</td></tr>
 <tr class="separator:a3fb102f9ad9099ec2e4b318e0a845cab inherit pub_methods_classPhpcraft_1_1Connection"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad7b00275933b8a1fb1d5a3215dfc40c7 inherit pub_methods_classPhpcraft_1_1Connection"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#ad7b00275933b8a1fb1d5a3215dfc40c7">getWriteBuffer</a> ()</td></tr>
-<tr class="separator:ad7b00275933b8a1fb1d5a3215dfc40c7 inherit pub_methods_classPhpcraft_1_1Connection"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a06f7b83491a02a397b78ecb8837e8e7a inherit pub_methods_classPhpcraft_1_1Connection"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#a06f7b83491a02a397b78ecb8837e8e7a">getAndClearWriteBuffer</a> ()</td></tr>
-<tr class="separator:a06f7b83491a02a397b78ecb8837e8e7a inherit pub_methods_classPhpcraft_1_1Connection"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7b35da6b3d44d496c84517b63482c41c inherit pub_methods_classPhpcraft_1_1Connection"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#a7b35da6b3d44d496c84517b63482c41c">clearWriteBuffer</a> ()</td></tr>
-<tr class="separator:a7b35da6b3d44d496c84517b63482c41c inherit pub_methods_classPhpcraft_1_1Connection"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa3bc95b2e2c06d78fed179399869f990 inherit pub_methods_classPhpcraft_1_1Connection"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#aa3bc95b2e2c06d78fed179399869f990">send</a> ($raw=false)</td></tr>
 <tr class="separator:aa3bc95b2e2c06d78fed179399869f990 inherit pub_methods_classPhpcraft_1_1Connection"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aae3b39b92491d7b437fb6b3cad0a069e inherit pub_methods_classPhpcraft_1_1Connection"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#aae3b39b92491d7b437fb6b3cad0a069e">readPacket</a> ($timeout=3.000, $raw=false)</td></tr>
-<tr class="separator:aae3b39b92491d7b437fb6b3cad0a069e inherit pub_methods_classPhpcraft_1_1Connection"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acc65a0351bbbdbc8f70d1bac359ef04f inherit pub_methods_classPhpcraft_1_1Connection"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#acc65a0351bbbdbc8f70d1bac359ef04f">getReadBuffer</a> ()</td></tr>
-<tr class="separator:acc65a0351bbbdbc8f70d1bac359ef04f inherit pub_methods_classPhpcraft_1_1Connection"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb959d7dc07e273bcc490774e819ceb0 inherit pub_methods_classPhpcraft_1_1Connection"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#adb959d7dc07e273bcc490774e819ceb0">readPacket</a> ($timeout=3.000, $raw=0)</td></tr>
+<tr class="separator:adb959d7dc07e273bcc490774e819ceb0 inherit pub_methods_classPhpcraft_1_1Connection"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac075a35f87e5e47a0647f3ef08c56f81 inherit pub_methods_classPhpcraft_1_1Connection"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#ac075a35f87e5e47a0647f3ef08c56f81">readRaw</a> ($bytes)</td></tr>
+<tr class="separator:ac075a35f87e5e47a0647f3ef08c56f81 inherit pub_methods_classPhpcraft_1_1Connection"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a31e927e43beb7463823b8fbb970b49c6 inherit pub_methods_classPhpcraft_1_1Connection"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#a31e927e43beb7463823b8fbb970b49c6">readVarInt</a> ()</td></tr>
 <tr class="separator:a31e927e43beb7463823b8fbb970b49c6 inherit pub_methods_classPhpcraft_1_1Connection"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a338afe376e5305275e7c08a19a469e5b inherit pub_methods_classPhpcraft_1_1Connection"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#a338afe376e5305275e7c08a19a469e5b">readString</a> ($maxLength=32767)</td></tr>
@@ -172,21 +169,37 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ad78f9121f2de40d9d21c52ce8f9ffbb6 inherit pub_methods_classPhpcraft_1_1Connection"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#ad78f9121f2de40d9d21c52ce8f9ffbb6">ignoreBytes</a> ($bytes)</td></tr>
 <tr class="separator:ad78f9121f2de40d9d21c52ce8f9ffbb6 inherit pub_methods_classPhpcraft_1_1Connection"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:aef02584d8761920cb08595efeb48f1ef"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#aef02584d8761920cb08595efeb48f1ef">$hostname</a></td></tr>
+<tr class="separator:aef02584d8761920cb08595efeb48f1ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad32237c3b52c20b5cb3468737f8a1996"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#ad32237c3b52c20b5cb3468737f8a1996">$hostport</a></td></tr>
+<tr class="separator:ad32237c3b52c20b5cb3468737f8a1996"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a40ca8bff0bcce3ed004e46bf4341d880"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#a40ca8bff0bcce3ed004e46bf4341d880">$username</a></td></tr>
+<tr class="separator:a40ca8bff0bcce3ed004e46bf4341d880"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a76c1342a26529ce5d51b0eb5358c958b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#a76c1342a26529ce5d51b0eb5358c958b">$uuid</a></td></tr>
+<tr class="separator:a76c1342a26529ce5d51b0eb5358c958b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab81ef85b6185e1211f075611d6844b59"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#ab81ef85b6185e1211f075611d6844b59">$next_heartbeat</a> = 0</td></tr>
+<tr class="separator:ab81ef85b6185e1211f075611d6844b59"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3122283000e4c184351298949769300d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#a3122283000e4c184351298949769300d">$disconnect_after</a> = 0</td></tr>
+<tr class="separator:a3122283000e4c184351298949769300d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_attribs_classPhpcraft_1_1Connection"><td colspan="2" onclick="javascript:toggleInherit('pub_attribs_classPhpcraft_1_1Connection')"><img src="closed.png" alt="-"/>&#160;Public Attributes inherited from <a class="el" href="classPhpcraft_1_1Connection.html">Phpcraft\Connection</a></td></tr>
+<tr class="memitem:af1e92d8d3381fc0384e4c7c175cc10ed inherit pub_attribs_classPhpcraft_1_1Connection"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#af1e92d8d3381fc0384e4c7c175cc10ed">$stream</a></td></tr>
+<tr class="separator:af1e92d8d3381fc0384e4c7c175cc10ed inherit pub_attribs_classPhpcraft_1_1Connection"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3084eed19e1ce7d3f53d50cc26aaf767 inherit pub_attribs_classPhpcraft_1_1Connection"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#a3084eed19e1ce7d3f53d50cc26aaf767">$write_buffer</a> = &quot;&quot;</td></tr>
+<tr class="separator:a3084eed19e1ce7d3f53d50cc26aaf767 inherit pub_attribs_classPhpcraft_1_1Connection"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab4b47b674ff9c466d4f8edfc6d171d23 inherit pub_attribs_classPhpcraft_1_1Connection"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#ab4b47b674ff9c466d4f8edfc6d171d23">$read_buffer</a> = &quot;&quot;</td></tr>
+<tr class="separator:ab4b47b674ff9c466d4f8edfc6d171d23 inherit pub_attribs_classPhpcraft_1_1Connection"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
 <tr class="inherit_header pro_attribs_classPhpcraft_1_1Connection"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classPhpcraft_1_1Connection')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classPhpcraft_1_1Connection.html">Phpcraft\Connection</a></td></tr>
-<tr class="memitem:af1e92d8d3381fc0384e4c7c175cc10ed inherit pro_attribs_classPhpcraft_1_1Connection"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#af1e92d8d3381fc0384e4c7c175cc10ed">$stream</a></td></tr>
-<tr class="separator:af1e92d8d3381fc0384e4c7c175cc10ed inherit pro_attribs_classPhpcraft_1_1Connection"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3bf8d5443811f5ebecde6e15ae6e2c78 inherit pro_attribs_classPhpcraft_1_1Connection"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#a3bf8d5443811f5ebecde6e15ae6e2c78">$protocol_version</a></td></tr>
 <tr class="separator:a3bf8d5443811f5ebecde6e15ae6e2c78 inherit pro_attribs_classPhpcraft_1_1Connection"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaeb27e92dcac0caa63c5594cc93fc63e inherit pro_attribs_classPhpcraft_1_1Connection"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#aaeb27e92dcac0caa63c5594cc93fc63e">$compression_threshold</a> = false</td></tr>
 <tr class="separator:aaeb27e92dcac0caa63c5594cc93fc63e inherit pro_attribs_classPhpcraft_1_1Connection"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a22835d4eefaa059692c254456864a405 inherit pro_attribs_classPhpcraft_1_1Connection"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#a22835d4eefaa059692c254456864a405">$state</a></td></tr>
 <tr class="separator:a22835d4eefaa059692c254456864a405 inherit pro_attribs_classPhpcraft_1_1Connection"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3084eed19e1ce7d3f53d50cc26aaf767 inherit pro_attribs_classPhpcraft_1_1Connection"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#a3084eed19e1ce7d3f53d50cc26aaf767">$write_buffer</a> = &quot;&quot;</td></tr>
-<tr class="separator:a3084eed19e1ce7d3f53d50cc26aaf767 inherit pro_attribs_classPhpcraft_1_1Connection"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab4b47b674ff9c466d4f8edfc6d171d23 inherit pro_attribs_classPhpcraft_1_1Connection"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#ab4b47b674ff9c466d4f8edfc6d171d23">$read_buffer</a> = &quot;&quot;</td></tr>
-<tr class="separator:ab4b47b674ff9c466d4f8edfc6d171d23 inherit pro_attribs_classPhpcraft_1_1Connection"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A server-to-client connection. </p>
@@ -206,7 +219,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>The constructor. The handshake will be read and the connection will be closed when an error occurs. After this, you should check <a class="el" href="classPhpcraft_1_1Connection.html#a97d64586a07790901e0e9dc83a9cfd66">Connection::isOpen()</a> and then <a class="el" href="classPhpcraft_1_1Connection.html#ad1b457f3046026dcd6026f97ed73d1fa">Connection::getState()</a> to see if the client wants to get the status (1) or login to play (2). </p><dl class="params"><dt>Parameters</dt><dd>
+<p>The constructor. After this, you should call <a class="el" href="classPhpcraft_1_1ClientConnection.html#add6f1a7c934ae44ebebb25baf52f843d">ClientConnection::handleInitialPacket()</a>. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramtype">resource</td><td class="paramname">$stream</td><td></td></tr>
   </table>
@@ -237,7 +250,6 @@ Additional Inherited Members</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
 
 </div>
 </div>
@@ -333,6 +345,24 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
+<a id="add6f1a7c934ae44ebebb25baf52f843d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#add6f1a7c934ae44ebebb25baf52f843d">&#9670;&nbsp;</a></span>handleInitialPacket()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Phpcraft\ClientConnection::handleInitialPacket </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Deals with the first packet the client has sent. This function deals with the handshake or legacy list ping packet. Errors will cause the connection to be closed. </p><dl class="section return"><dt>Returns</dt><dd>integer Status: 0 = An error occured and the connection has been closed. 1 = Handshake was successfully read; use <a class="el" href="classPhpcraft_1_1Connection.html#ad1b457f3046026dcd6026f97ed73d1fa">Connection::getState()</a> to see if the client wants to get the status (1) or login to play (2). 2 = A legacy list ping has been detected and "MC|PingHost" was read. </dd></dl>
+
+</div>
+</div>
 <a id="a46c17ecc49a8c218ed013f26ba947549"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a46c17ecc49a8c218ed013f26ba947549">&#9670;&nbsp;</a></span>sendEncryptionRequest()</h2>
 
@@ -355,6 +385,97 @@ Additional Inherited Members</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="classPhpcraft_1_1ClientConnection.html">ClientConnection</a> $this </dd></dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a3122283000e4c184351298949769300d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3122283000e4c184351298949769300d">&#9670;&nbsp;</a></span>$disconnect_after</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">integer Phpcraft\ClientConnection::$disconnect_after = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>This variable is for servers to keep track of how long clients have to answer keep alive packets. </p>
+
+</div>
+</div>
+<a id="aef02584d8761920cb08595efeb48f1ef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aef02584d8761920cb08595efeb48f1ef">&#9670;&nbsp;</a></span>$hostname</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">string Phpcraft\ClientConnection::$hostname</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The hostname the client connected to. </p><dl class="section see"><dt>See also</dt><dd><a class="el" href="classPhpcraft_1_1ClientConnection.html#add6f1a7c934ae44ebebb25baf52f843d">ClientConnection::handleInitialPacket()</a> </dd></dl>
+
+</div>
+</div>
+<a id="ad32237c3b52c20b5cb3468737f8a1996"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad32237c3b52c20b5cb3468737f8a1996">&#9670;&nbsp;</a></span>$hostport</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">number Phpcraft\ClientConnection::$hostport</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The port the client connected to. </p><dl class="section see"><dt>See also</dt><dd><a class="el" href="classPhpcraft_1_1ClientConnection.html#add6f1a7c934ae44ebebb25baf52f843d">ClientConnection::handleInitialPacket()</a> </dd></dl>
+
+</div>
+</div>
+<a id="ab81ef85b6185e1211f075611d6844b59"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab81ef85b6185e1211f075611d6844b59">&#9670;&nbsp;</a></span>$next_heartbeat</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">integer Phpcraft\ClientConnection::$next_heartbeat = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>This variable is for servers to keep track of when to send the next keep alive packet to clients. </p>
+
+</div>
+</div>
+<a id="a40ca8bff0bcce3ed004e46bf4341d880"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a40ca8bff0bcce3ed004e46bf4341d880">&#9670;&nbsp;</a></span>$username</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">string Phpcraft\ClientConnection::$username</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The client's in-game name. </p>
+
+</div>
+</div>
+<a id="a76c1342a26529ce5d51b0eb5358c958b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a76c1342a26529ce5d51b0eb5358c958b">&#9670;&nbsp;</a></span>$uuid</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">string Phpcraft\ClientConnection::$uuid</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The client's UUID. </p>
 
 </div>
 </div>

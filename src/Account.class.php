@@ -1,6 +1,5 @@
 <?php
 namespace Phpcraft;
-require_once __DIR__."/validate.php"; 
 require_once __DIR__."/Phpcraft.class.php"; 
 /** A Mojang or Minecraft account. */
 class Account
@@ -108,13 +107,13 @@ class Account
 				}
 			}
 		}
-		if($foundAccount)
+		if(!$foundAccount)
 		{
 			return false;
 		}
 		if(Phpcraft::httpPOST("https://authserver.mojang.com/validate", [
-		"accessToken" => $profiles["authenticationDatabase"][$profiles["selectedUser"]["account"]]["accessToken"],
-		"clientToken" => $profiles["clientToken"]
+			"accessToken" => $profiles["authenticationDatabase"][$profiles["selectedUser"]["account"]]["accessToken"],
+			"clientToken" => $profiles["clientToken"]
 		])["status"] == "204")
 		{
 			return true;

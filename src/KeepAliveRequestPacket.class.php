@@ -1,6 +1,5 @@
 <?php
 namespace Phpcraft;
-require_once __DIR__."/validate.php";
 require_once __DIR__."/KeepAliveResponsePacket.class.php";
 /** Sent by the server to the client to make sure it's still connected. */
 class KeepAliveRequestPacket extends KeepAlivePacket
@@ -15,9 +14,7 @@ class KeepAliveRequestPacket extends KeepAlivePacket
 	}
 
 	/**
-	 * Initializes the packet via the Connection.
-	 * Note that you should already have used Connection::readPacket() and determined that the packet you are initializing has actually been sent.
-	 * @param Connection $con
+	 * @copydoc Packet::read
 	 */
 	static function read(\Phpcraft\Connection $con)
 	{

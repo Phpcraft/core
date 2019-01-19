@@ -1,51 +1,103 @@
 <?php
 namespace Phpcraft;
-require_once __DIR__."/validate.php";
 require_once __DIR__."/Connection.class.php";
 /** A server-to-client connection. */
 class ClientConnection extends Connection
 {
 	/**
+	 * The hostname the client connected to.
+	 * @see ClientConnection::handleInitialPacket()
+	 * @var string $hostname
+	 */
+	public $hostname;
+	/**
+	 * The port the client connected to.
+	 * @see ClientConnection::handleInitialPacket()
+	 * @var number $hostport
+	 */
+	public $hostport;
+	/**
+	 * The client's in-game name.
+	 * @var string $username
+	 */
+	public $username;
+	/**
+	 * The client's UUID.
+	 * @var string $uuid
+	 */
+	public $uuid;
+	/**
+	 * This variable is for servers to keep track of when to send the next keep alive packet to clients.
+	 * @var integer $next_heartbeat
+	 */
+	public $next_heartbeat = 0;
+	/**
+	 * This variable is for servers to keep track of how long clients have to answer keep alive packets.
+	 * @var integer $disconnect_after
+	 */
+	public $disconnect_after = 0;
+
+	/**
 	 * The constructor.
-	 * The handshake will be read and the connection will be closed when an error occurs.
-	 * After this, you should check Connection::isOpen() and then Connection::getState() to see if the client wants to get the status (1) or login to play (2).
+	 * After this, you should call ClientConnection::handleInitialPacket().
 	 * @param resource $stream
 	 */
 	function __construct($stream)
 	{
 		parent::__construct(-1, $stream);
-		stream_set_timeout($this->stream, 0, 10000);
-		stream_set_blocking($this->stream, true);
-		if($this->readPacket() === 0x00)
+	}
+
+	/**
+	 * Deals with the first packet the client has sent.
+	 * This function deals with the handshake or legacy list ping packet.
+	 * Errors will cause the connection to be closed.
+	 * @return integer Status: 0 = An error occured and the connection has been closed. 1 = Handshake was successfully read; use Connection::getState() to see if the client wants to get the status (1) or login to play (2). 2 = A legacy list ping has been detected and "MC|PingHost" was read.
+	 */
+	function handleInitialPacket()
+	{
+		try
 		{
-			$this->protocol_version = $this->readVarInt();
-			$this->readString(); // hostname/ip
-			$this->ignoreBytes(2); // port
-			$this->state = $this->readVarInt();
-			if($this->state == 1 || $this->state == 2)
+			if($this->readPacket(0, 1))
 			{
-				if($this->state != 2 || Phpcraft::isProtocolVersionSupported($this->protocol_version))
+				$packet_length = $this->readByte();
+				if($packet_length == -2)
 				{
-					stream_set_timeout($this->stream, ini_get("default_socket_timeout"));
-					stream_set_blocking($this->stream, false);
+					if($this->readPacket(0, 8192) && $this->readByte() == 0x01 && $this->readByte() == -6 && $this->readShort() == 11 && $this->readRaw(22) == mb_convert_encoding("MC|PingHost", "utf-16be"))
+					{
+						return 2;
+					}
 				}
-				else
+				else if($this->readPacket(0, $packet_length))
 				{
-					$this->writeVarInt(0x00);
-					$this->writeString('{"text":"You\'re not using a compatible version."}');
-					$this->send();
-					$this->close();
+					$packet_id = $this->readVarInt();
+					if($packet_id === 0x00)
+					{
+						$this->protocol_version = $this->readVarInt();
+						$this->hostname = $this->readString();
+						$this->hostport = $this->readShort();
+						$this->state = $this->readVarInt();
+						if($this->state == 1)
+						{
+							$this->disconnect_after = microtime(true) + 10;
+							return 1;
+						}
+						else if($this->state == 2)
+						{
+							if(Phpcraft::isProtocolVersionSupported($this->protocol_version))
+							{
+								return 1;
+							}
+							$this->writeVarInt(0x00);
+							$this->writeString('{"text":"You\'re using an incompatible version."}');
+							$this->send();
+						}
+					}
 				}
 			}
-			else
-			{
-				$this->close();
-			}
 		}
-		else
-		{
-			$this->close();
-		}
+		catch(Exception $ignored){}
+		$this->close();
+		return 0;
 	}
 
 	/**
@@ -130,7 +182,7 @@ class ClientConnection extends Connection
 			}
 			$this->compression_threshold = $compression_threshold;
 			$this->writeVarInt(0x02);
-			$this->writeString($uuid);
+			$this->writeString($this->uuid = $uuid);
 			$this->writeString($name);
 			$this->send();
 			$this->state = 3;
@@ -141,23 +193,21 @@ class ClientConnection extends Connection
 	/**
 	 * Disconnects the client with a reason.
 	 * @param array $reason The reason of the disconnect; chat object.
-	 * @return void
 	 */
 	function disconnect($reason = [])
 	{
-		if($reason)
+		if($reason && $this->state > 1)
 		{
 			if($this->state == 2)
 			{
-
 				$this->writeVarInt(0x00);
-				$this->writeString(json_encode($reason));
-				$this->send();
 			}
 			else
 			{
-				(new DisconnectPacket($reason))->send($this);
+				$this->startPacket("disconnect");
 			}
+			$this->writeString(json_encode($reason));
+			$this->send();
 		}
 		$this->close();
 	}

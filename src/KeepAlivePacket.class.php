@@ -1,6 +1,5 @@
 <?php
 namespace Phpcraft;
-require_once __DIR__."/validate.php";
 require_once __DIR__."/Packet.class.php";
 /** The template for the keep alive request and response packets. */
 abstract class KeepAlivePacket extends Packet
@@ -56,9 +55,7 @@ abstract class KeepAlivePacket extends Packet
 	}
 
 	/**
-	 * Sends the packet over the given Connection.
-	 * There is different behaviour if the Connection object was initialized without a stream. See Connection::send() for details.
-	 * @param Connection $con
+	 * @copydoc Packet::send
 	 */
 	function send(\Phpcraft\Connection $con)
 	{

@@ -1,6 +1,5 @@
 <?php
 namespace Phpcraft;
-require_once __DIR__."/validate.php";
 /** The class used for exceptions thrown by Phpcraft functions. */
 class Exception extends \Exception
 {

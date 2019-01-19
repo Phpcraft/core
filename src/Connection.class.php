@@ -1,9 +1,8 @@
 <?php
 namespace Phpcraft;
-require_once __DIR__."/validate.php";
 require_once __DIR__."/Exception.class.php";
-require_once __DIR__."/Phpcraft.class.php";
 require_once __DIR__."/Packet.class.php";
+require_once __DIR__."/Phpcraft.class.php";
 /**
  * A wrapper to read and write from streams.
  * The Connection object can also be utilized without a stream:
@@ -15,15 +14,15 @@ require_once __DIR__."/Packet.class.php";
 class Connection
 {
 	/**
-	 * The stream of the connection of null.
-	 * @var resource $stream
-	 */
-	protected $stream;
-	/**
 	 * The protocol version that is used for this connection.
 	 * @var integer $protocol_version
 	 */
 	protected $protocol_version;
+	/**
+	 * The stream of the connection of null.
+	 * @var resource $stream
+	 */
+	public $stream;
 	/**
 	 * The amount of bytes a packet needs for it to be compressed as an integer or -1 if disabled.
 	 * @var integer $compression_threshold
@@ -32,7 +31,7 @@ class Connection
 	protected $compression_threshold = false;
 	/**
 	 * The state of the connection.
-	 * 1 stands for status, 2 for logging in and 3 for playing.
+	 * 1 stands for status, 2 for logging in, and 3 for playing.
 	 * @var integer $state
 	 * @see Connection::getState()
 	 */
@@ -40,16 +39,13 @@ class Connection
 	/**
 	 * The write buffer binary string.
 	 * @var string $write_buffer
-	 * @see Connection::getWriteBuffer()
-	 * @see Connection::getAndClearWriteBuffer()
-	 * @see Connection::clearWriteBuffer()
 	 */
-	protected $write_buffer = "";
+	public $write_buffer = "";
 	/**
 	 * The read buffer binary string.
 	 * @var string $read_buffer
 	 */
-	protected $read_buffer = "";
+	public $read_buffer = "";
 
 	/**
 	 * The constructor.
@@ -58,8 +54,12 @@ class Connection
 	 */
 	function __construct($protocol_version = -1, $stream = null)
 	{
-		$this->stream = $stream;
 		$this->protocol_version = $protocol_version;
+		if($stream)
+		{
+			stream_set_blocking($stream, false);
+			$this->stream = $stream;
+		}
 	}
 
 	/**
@@ -246,40 +246,6 @@ class Connection
 	}
 
 	/**
-	 * Returns the contents of the write buffer.
-	 * @return string
-	 * @see Connection::getAndClearWriteBuffer()
-	 * @see Connection::clearWriteBuffer()
-	 */
-	function getWriteBuffer()
-	{
-		return $this->write_buffer;
-	}
-
-	/**
-	 * Returns and clears the contents of the write buffer.
-	 * @return string
-	 * @see Connection::getWriteBuffer()
-	 * @see Connection::clearWriteBuffer()
-	 */
-	function getAndClearWriteBuffer()
-	{
-		$write_buffer = $this->write_buffer;
-		$this->write_buffer = "";
-		return $write_buffer;
-	}
-
-	/**
-	 * Clears the contents of the write buffer.
-	 * @return Connection $this
-	 */
-	function clearWriteBuffer()
-	{
-		$this->write_buffer = "";
-		return $this;
-	}
-
-	/**
 	 * Sends the contents of the write buffer over the stream and clears the write buffer or does nothing if there is no stream.
 	 * @param boolean $raw When true, the write buffer is sent as-is, without length prefix or compression, which you probably don't want.
 	 * @return Connection $this
@@ -322,27 +288,25 @@ class Connection
 	/**
 	 * Puts a new packet into the read buffer.
 	 * @param float $timeout The amount of seconds to wait before read is aborted.
-	 * @param boolean $raw When true, the read buffer is filled with whatever is on the line and it won't be processed in any way, which you probably don't want.
+	 * @param intger $raw If higher than 0, the read buffer is filled with up to $raw bytes on the line, which you probably don't want.
 	 * @throws Exception When the packet length or packet id VarInt is too big.
-	 * @return integer|boolean False if no packet was received within the time limit, and on success, either the packet's ID or true if raw.
+	 * @return integer|boolean False if no packet was received within the time limit. Otherwise, the packet's ID or true if 1 or more raw bytes were buffered.
 	 * @see Packet::clientboundPacketIdToName()
 	 * @see Packet::serverboundPacketIdToName()
 	 */
-	function readPacket($timeout = 3.000, $raw = false)
+	function readPacket($timeout = 3.000, $raw = 0)
 	{
 		$start = microtime(true);
-		if($raw)
+		if($raw > 0)
 		{
-			$this->read_buffer = fread($this->stream, 8192);
-			while($this->read_buffer == "")
+			$this->read_buffer = fread($this->stream, $raw);
+			$buffered_bytes = strlen($this->read_buffer);
+			while($buffered_bytes < $raw && (microtime(true) - $start) < $timeout)
 			{
-				if((microtime(true) - $start) >= $timeout)
-				{
-					return false;
-				}
-				$this->read_buffer = fread($this->stream, 8192);
+				$this->read_buffer .= fread($this->stream, $raw - $buffered_bytes);
+				$buffered_bytes = strlen($this->read_buffer);
 			}
-			return true;
+			return $buffered_bytes > 0;
 		}
 		$length = 0;
 		$read = 0;
@@ -369,9 +333,18 @@ class Connection
 			}
 		}
 		while(true);
+		if($timeout == 0)
+		{
+			// It's established that a packet is on the line, but it could take more than one read to get it into the read buffer, so some time is forcefully allocated.
+			$timeout = 0.5;
+		}
 		$this->read_buffer = fread($this->stream, $length);
 		while(strlen($this->read_buffer) < $length)
 		{
+			if((microtime(true) - $start) >= $timeout)
+			{
+				return false;
+			}
 			$this->read_buffer .= fread($this->stream, $length - strlen($this->read_buffer));
 		}
 		if($this->compression_threshold > -1)
@@ -379,19 +352,26 @@ class Connection
 			$uncompressed_length = $this->readVarInt();
 			if($uncompressed_length > 0)
 			{
-				$this->read_buffer = gzuncompress($this->read_buffer, $uncompressed_length);
+				$this->read_buffer = @gzuncompress($this->read_buffer, $uncompressed_length);
+				if(!$this->read_buffer)
+				{
+					return false;
+				}
 			}
 		}
 		return $this->readVarInt();
 	}
 
 	/**
-	 * Returns the contents of the read buffer.
+	 * Read the specified amount of bytes from the read buffer.
+	 * @param integer $bytes
 	 * @return string
 	 */
-	function getReadBuffer()
+	function readRaw($bytes)
 	{
-		return $this->read_buffer;
+		$str = substr($this->read_buffer, 0, $bytes);
+		$this->read_buffer = substr($this->read_buffer, $bytes);
+		return $str;
 	}
 
 	/**
@@ -407,14 +387,14 @@ class Connection
 		{
 			if(strlen($this->read_buffer) == 0)
 			{
-				throw new \Phpcraft\Exception("Not enough bytes to read VarInt\n");
+				throw new \Phpcraft\Exception("Not enough bytes to read VarInt");
 			}
 			$byte = ord(substr($this->read_buffer, 0, 1));
 			$this->read_buffer = substr($this->read_buffer, 1);
 			$value |= (($byte & 0x7F) << ($read++ * 7));
 			if($read > 5)
 			{
-				throw new \Phpcraft\Exception("VarInt is too big\n");
+				throw new \Phpcraft\Exception("VarInt is too big");
 			}
 			if(($byte & 0x80) != 128)
 			{

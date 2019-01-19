@@ -1,14 +1,26 @@
 var searchData=
 [
+  ['_24clients',['$clients',['../classPhpcraft_1_1Server.html#ae5ccc8ddd363734e7ff6fd8fe9c7bd5e',1,'Phpcraft::Server']]],
   ['_24compression_5fthreshold',['$compression_threshold',['../classPhpcraft_1_1Connection.html#aaeb27e92dcac0caa63c5594cc93fc63e',1,'Phpcraft::Connection']]],
+  ['_24disconnect_5fafter',['$disconnect_after',['../classPhpcraft_1_1ClientConnection.html#a3122283000e4c184351298949769300d',1,'Phpcraft::ClientConnection']]],
+  ['_24disconnect_5ffunction',['$disconnect_function',['../classPhpcraft_1_1Server.html#a7a4793d725f6840c57abdcca21866f79',1,'Phpcraft::Server']]],
+  ['_24hostname',['$hostname',['../classPhpcraft_1_1ClientConnection.html#aef02584d8761920cb08595efeb48f1ef',1,'Phpcraft::ClientConnection']]],
+  ['_24hostport',['$hostport',['../classPhpcraft_1_1ClientConnection.html#ad32237c3b52c20b5cb3468737f8a1996',1,'Phpcraft::ClientConnection']]],
   ['_24input_5fprefix',['$input_prefix',['../classPhpcraft_1_1UserInterface.html#aec49ed3a72c4a09b90268d00ae5f720d',1,'Phpcraft::UserInterface']]],
+  ['_24join_5ffunction',['$join_function',['../classPhpcraft_1_1Server.html#a806ec54f8cc41e5b811431c5e3d7144f',1,'Phpcraft::Server']]],
   ['_24keepaliveid',['$keepAliveId',['../classPhpcraft_1_1KeepAlivePacket.html#a240a8c4744dc39690e852d38e68a569a',1,'Phpcraft::KeepAlivePacket']]],
+  ['_24motd',['$motd',['../classPhpcraft_1_1Server.html#a724b4b39a4e6d9d730104e5f6b26fff0',1,'Phpcraft::Server']]],
   ['_24name',['$name',['../classPhpcraft_1_1Packet.html#a8ef20582b51249287673ded85c049a5a',1,'Phpcraft::Packet']]],
+  ['_24next_5fheartbeat',['$next_heartbeat',['../classPhpcraft_1_1ClientConnection.html#ab81ef85b6185e1211f075611d6844b59',1,'Phpcraft::ClientConnection']]],
+  ['_24packet_5ffunction',['$packet_function',['../classPhpcraft_1_1Server.html#a8ee363615c373c001b0fbb92aa288406',1,'Phpcraft::Server']]],
+  ['_24private_5fkey',['$private_key',['../classPhpcraft_1_1Server.html#ab5129d24aa1f235130bc8132be0a417a',1,'Phpcraft::Server']]],
   ['_24protocol_5fversion',['$protocol_version',['../classPhpcraft_1_1Connection.html#a3bf8d5443811f5ebecde6e15ae6e2c78',1,'Phpcraft::Connection']]],
   ['_24read_5fbuffer',['$read_buffer',['../classPhpcraft_1_1Connection.html#ab4b47b674ff9c466d4f8edfc6d171d23',1,'Phpcraft::Connection']]],
   ['_24state',['$state',['../classPhpcraft_1_1Connection.html#a22835d4eefaa059692c254456864a405',1,'Phpcraft::Connection']]],
   ['_24stdin',['$stdin',['../classPhpcraft_1_1PlainUserInterface.html#a3fba98eb073211cc5c3038d34660c3d6',1,'Phpcraft::PlainUserInterface']]],
-  ['_24stream',['$stream',['../classPhpcraft_1_1Connection.html#af1e92d8d3381fc0384e4c7c175cc10ed',1,'Phpcraft::Connection']]],
+  ['_24stream',['$stream',['../classPhpcraft_1_1Connection.html#af1e92d8d3381fc0384e4c7c175cc10ed',1,'Phpcraft\Connection\$stream()'],['../classPhpcraft_1_1Server.html#a7e900482f4d4db56ccbca75464738fde',1,'Phpcraft\Server\$stream()']]],
   ['_24tabcomplete_5ffunction',['$tabcomplete_function',['../classPhpcraft_1_1UserInterface.html#a2ae393b7d1b0cea0d13168393394b99e',1,'Phpcraft::UserInterface']]],
+  ['_24username',['$username',['../classPhpcraft_1_1ClientConnection.html#a40ca8bff0bcce3ed004e46bf4341d880',1,'Phpcraft::ClientConnection']]],
+  ['_24uuid',['$uuid',['../classPhpcraft_1_1ClientConnection.html#a76c1342a26529ce5d51b0eb5358c958b',1,'Phpcraft::ClientConnection']]],
   ['_24write_5fbuffer',['$write_buffer',['../classPhpcraft_1_1Connection.html#a3084eed19e1ce7d3f53d50cc26aaf767',1,'Phpcraft::Connection']]]
 ];

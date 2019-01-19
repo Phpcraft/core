@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['disconnectpacket',['DisconnectPacket',['../classPhpcraft_1_1DisconnectPacket.html',1,'Phpcraft']]]
+  ['exception',['Exception',['../classPhpcraft_1_1Exception.html',1,'Phpcraft']]]
 ];

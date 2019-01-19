@@ -1,9 +1,5 @@
 <map id="Phpcraft\Packet" name="Phpcraft\Packet">
-<area shape="rect" id="node2" href="$classPhpcraft_1_1ChatPacket.html" title="Phpcraft\\ChatPacket" alt="" coords="199,56,349,83"/>
-<area shape="rect" id="node5" href="$classPhpcraft_1_1KeepAlivePacket.html" title="Phpcraft\\KeepAlivePacket" alt="" coords="183,115,365,141"/>
-<area shape="rect" id="node8" href="$classPhpcraft_1_1SendChatMessagePacket.html" title="Phpcraft\\SendChatMessage\lPacket" alt="" coords="175,166,373,207"/>
-<area shape="rect" id="node3" href="$classPhpcraft_1_1ChatMessagePacket.html" title="Phpcraft\\ChatMessagePacket" alt="" coords="421,5,629,32"/>
-<area shape="rect" id="node4" href="$classPhpcraft_1_1DisconnectPacket.html" title="Phpcraft\\DisconnectPacket" alt="" coords="429,56,621,83"/>
-<area shape="rect" id="node6" href="$classPhpcraft_1_1KeepAliveRequestPacket.html" title="Phpcraft\\KeepAliveRequest\lPacket" alt="" coords="430,107,621,149"/>
-<area shape="rect" id="node7" href="$classPhpcraft_1_1KeepAliveResponsePacket.html" title="Phpcraft\\KeepAliveResponse\lPacket" alt="" coords="425,173,626,214"/>
+<area shape="rect" id="node2" href="$classPhpcraft_1_1KeepAlivePacket.html" title="Phpcraft\\KeepAlivePacket" alt="" coords="119,80,301,107"/>
+<area shape="rect" id="node3" href="$classPhpcraft_1_1KeepAliveRequestPacket.html" title="Phpcraft\\KeepAliveRequest\lPacket" alt="" coords="5,155,196,196"/>
+<area shape="rect" id="node4" href="$classPhpcraft_1_1KeepAliveResponsePacket.html" title="Phpcraft\\KeepAliveResponse\lPacket" alt="" coords="220,155,421,196"/>
 </map>

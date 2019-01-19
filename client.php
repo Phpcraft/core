@@ -3,13 +3,11 @@ if(empty($argv))
 {
 	die("This is for PHP-CLI. Connect to your server via SSH and use `php client.php`.\n");
 }
-require __DIR__."/src/autoload.php";
+require_once __DIR__."/src/Account.class.php";
+require_once __DIR__."/src/KeepAliveRequestPacket.class.php";
+require_once __DIR__."/src/Phpcraft.class.php";
+require_once __DIR__."/src/UserInterface.class.php";
 echo "PHP Minecraft Client\nhttps://github.com/timmyrs/Phpcraft\n";
-
-if(PHP_OS == "WINNT")
-{
-	die("Bare Windows is not supported due to implementation bugs in PHP's Windows port. Instead, use the Windows Subsystem for Linux: https://aka.ms/wslinstall\n");
-}
 if($dependencies = \Phpcraft\UserInterface::getMissingDependencies())
 {
 	die("To spin up the Phpcraft UI, you need ".join(", ", $dependencies).". Check the readme for help with dependencies.\n");
@@ -49,7 +47,7 @@ for($i = 1; $i < count($argv); $i++)
 		{
 			$options[$n] = false;
 		}
-		else die("Value for argument '{$n}' has to be either 'on' or 'off'.");
+		else die("Value for argument '{$n}' has to be either 'on' or 'off'.\n");
 		break;
 
 		case "name":
@@ -164,7 +162,10 @@ if($online && !$account->loginUsingProfiles())
 		{
 			echo $error."\n";
 		}
-		else break;
+		else
+		{
+			break;
+		}
 	}
 	while(true);
 }
@@ -196,13 +197,10 @@ if(count($serverarr) != 2)
 $ui->append("Resolved to {$server}")->render();
 if(empty($options["version"]))
 {
-	$ui->add("Determining version... ");
-	$con = new \Phpcraft\ServerStatusConnection($serverarr[0], $serverarr[1]);
-	$info = $con->getStatus();
-	$con->close();
-	if(!isset($info["version"]) || !isset($info["version"]["protocol"]))
+	$info = \Phpcraft\Phpcraft::getServerStatus($serverarr[0], $serverarr[1], 3, 1);
+	if(empty($info) || empty($info["version"]) || empty($info["version"]["protocol"]))
 	{
-		$ui->append("Invalid response: ".json_encode($info))->render();
+		$ui->append("Invalid status: ".json_encode($info))->render();
 		exit;
 	}
 	$protocol_version = $info["version"]["protocol"];
@@ -467,7 +465,9 @@ function handleConsoleMessage($msg)
 	if($send)
 	{
 		global $con;
-		(new \Phpcraft\SendChatMessagePacket($msg))->send($con);
+		$con->startPacket("send_chat_message");
+		$con->writeString($msg);
+		$con->send();
 	}
 }
 $ui->tabcomplete_function = function($word)
@@ -488,7 +488,9 @@ $ui->tabcomplete_function = function($word)
 do
 {
 	$ui->append("Connecting using {$minecraft_version}... ")->render();
-	$con = new \Phpcraft\ServerPlayConnection($protocol_version, $serverarr[0], $serverarr[1]);
+	$stream = fsockopen($serverarr[0], $serverarr[1], $errno, $errstr, 3) or die($errstr."\n");
+	$con = new \Phpcraft\ServerConnection($stream, $protocol_version);
+	$con->sendHandshake($serverarr[0], $serverarr[1], 2);
 	$ui->append("Connection established.")->add("Logging in...")->render();
 	if($error = $con->login($account, $translations))
 	{
@@ -522,19 +524,19 @@ do
 	do
 	{
 		$start = microtime(true);
-		while(($id = $con->readPacket(0)) !== false)
+		while(($packet_id = $con->readPacket(0)) !== false)
 		{
-			$packet_name = \Phpcraft\Packet::clientboundPacketIdToName($id, $protocol_version);
+			$packet_name = \Phpcraft\Packet::clientboundPacketIdToName($packet_id, $protocol_version);
 			if($packet_name === null)
 			{
 				continue;
 			}
 			if($packet_name == "chat_message")
 			{
-				$packet = \Phpcraft\ChatMessagePacket::read($con);
-				if($packet->getPosition() != 2) // TODO: Above Hotbar
+				$message = $con->readString();
+				if($con->readByte() != 2) // TODO: Above Hotbar
 				{
-					$ui->add($packet->getMessageAsANSIText($translations));
+					$ui->add(\Phpcraft\Phpcraft::chatToText(json_decode($message, true), true, $translations));
 				}
 			}
 			else if($packet_name == "player_list_item")

@@ -1,6 +1,5 @@
 <?php
 namespace Phpcraft;
-require_once __DIR__."/validate.php";
 /** A plain user interface, using only STDIN & STDOUT without anything fancy. */
 class PlainUserInterface
 {
