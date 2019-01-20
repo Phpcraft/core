@@ -9,7 +9,7 @@ var searchData=
   ['_24input_5fprefix',['$input_prefix',['../classPhpcraft_1_1UserInterface.html#aec49ed3a72c4a09b90268d00ae5f720d',1,'Phpcraft::UserInterface']]],
   ['_24join_5ffunction',['$join_function',['../classPhpcraft_1_1Server.html#a806ec54f8cc41e5b811431c5e3d7144f',1,'Phpcraft::Server']]],
   ['_24keepaliveid',['$keepAliveId',['../classPhpcraft_1_1KeepAlivePacket.html#a240a8c4744dc39690e852d38e68a569a',1,'Phpcraft::KeepAlivePacket']]],
-  ['_24motd',['$motd',['../classPhpcraft_1_1Server.html#a724b4b39a4e6d9d730104e5f6b26fff0',1,'Phpcraft::Server']]],
+  ['_24list_5fping_5ffunction',['$list_ping_function',['../classPhpcraft_1_1Server.html#a8d600041c4ed3dacefff2d5df6d2aeaa',1,'Phpcraft::Server']]],
   ['_24name',['$name',['../classPhpcraft_1_1Packet.html#a8ef20582b51249287673ded85c049a5a',1,'Phpcraft::Packet']]],
   ['_24next_5fheartbeat',['$next_heartbeat',['../classPhpcraft_1_1ClientConnection.html#ab81ef85b6185e1211f075611d6844b59',1,'Phpcraft::ClientConnection']]],
   ['_24packet_5ffunction',['$packet_function',['../classPhpcraft_1_1Server.html#a8ee363615c373c001b0fbb92aa288406',1,'Phpcraft::Server']]],

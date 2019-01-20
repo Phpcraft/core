@@ -15,11 +15,6 @@ class Server
 	 */
 	public $private_key;
 	/**
-	 * The message of the day (motd) visible in the server list; chat object.
-	 * @var string $motd
-	 */
-	public $motd = ["text" => "A Phpcraft Server"];
-	/**
 	 * A ClientConnection array of all clients that are connected to the server.
 	 * @var array $clients
 	 */
@@ -42,25 +37,40 @@ class Server
 	 * @var function $disconnect_function
 	 */
 	public $disconnect_function = null;
+	/**
+	 * The function called when to get the server's response to a list ping request with the ClientConnection as argument.
+	 * See Phpcraft::getServerStatus for an example of all the data a server may respond with.
+	 * @see Server::accept()
+	 * @see Server::handle()
+	 * @var function $list_ping_function
+	 */
+	public $list_ping_function = null;
 
 	/**
 	 * The constructor.
 	 * @param resource $stream A stream created by stream_socket_server.
-	 * @param array $motd The message of the day (motd) visible in the server list; chat object.
 	 * @param resource $private_key A private key generated using openssl_pkey_new(["private_key_bits" => 1024, "private_key_type" => OPENSSL_KEYTYPE_RSA]) to use for online mode, or null to use offline mode.
 	 */
-	function __construct($stream = null, $motd = ["text" => "A Phpcraft Server"], $private_key = null)
+	function __construct($stream = null, $private_key = null)
 	{
 		if($stream)
 		{
 			stream_set_blocking($stream, false);
 			$this->stream = $stream;
 		}
-		if($motd)
-		{
-			$this->motd = $motd;
-		}
 		$this->private_key = $private_key;
+		$this->list_ping_function = function($con)
+		{
+			return [
+				"version" => [
+					"name" => "\\Phpcraft\\Server",
+					"protocol" => (\Phpcraft\Phpcraft::isProtocolVersionSupported($con->getProtocolVersion()) ? $con->getProtocolVersion() : 69)
+				],
+				"description" => [
+					"text" => "A \\Phpcraft\\Server"
+				]
+			];
+		};
 	}
 
 	/**
@@ -91,8 +101,27 @@ class Server
 				array_push($this->clients, $con);
 				break;
 
-				case 2:
-				// TODO: Legacy List Ping
+				case 2: // Legacy List Ping
+				$json = ($this->list_ping_function)($con);
+				if(!isset($json["players"]))
+				{
+					$json["players"] = [];
+				}
+				if(!isset($json["players"]["online"]))
+				{
+					$json["players"]["online"] = 0;
+				}
+				if(!isset($json["players"]["max"]))
+				{
+					$json["players"]["max"] = 0;
+				}
+				$data = "§1\x00127\x00".@$json["version"]["name"]."\x00".\Phpcraft\Phpcraft::chatToText(@$json["description"], 2)."\x00".$json["players"]["online"]."\x00".$json["players"]["max"];
+				//$data = "§1\x0078\x001.6.4\x00A Minecraft Server\x000\x0020";
+				$con->writeByte(0xFF);
+				$con->writeShort(strlen($data) - 1);
+				$con->writeRaw(mb_convert_encoding($data, "utf-16be"));
+				$con->send(true);
+				$con->close();
 			}
 		}
 		return $this;
@@ -106,9 +135,6 @@ class Server
 	 */
 	function handle()
 	{
-		$join_function = $this->join_function;
-		$packet_function = $this->packet_function;
-		$disconnect_function = $this->disconnect_function;
 		foreach($this->clients as $i => $con)
 		{
 			if($con->isOpen())
@@ -125,9 +151,9 @@ class Server
 								$con->next_heartbeat = microtime(true) + 15;
 								$con->disconnect_after = 0;
 							}
-							else if($packet_function)
+							else if($this->packet_function)
 							{
-								$packet_function($con, $packet_name, $packet_id);
+								($this->packet_function)($con, $packet_name, $packet_id);
 							}
 						}
 						else if($con->getState() == 2) // Login
@@ -144,9 +170,9 @@ class Server
 									else
 									{
 										$con->finishLogin(\Phpcraft\Phpcraft::generateUUIDv4(true), $con->username);
-										if($join_function)
+										if($this->join_function)
 										{
-											$join_function($con);
+											($this->join_function)($con);
 										}
 										$con->next_heartbeat = microtime(true) + 15;
 									}
@@ -162,9 +188,9 @@ class Server
 								if($json = $con->handleEncryptionResponse($con->username, $this->private_key))
 								{
 									$con->finishLogin(\Phpcraft\Phpcraft::addHypensToUUID($json["id"]), $con->username);
-									if($join_function)
+									if($this->join_function)
 									{
-										$join_function($con);
+										($this->join_function)($con);
 									}
 									$con->next_heartbeat = microtime(true) + 15;
 								}
@@ -180,13 +206,7 @@ class Server
 							if($packet_id == 0x00)
 							{
 								$con->writeVarInt(0x00);
-								$con->writeString(json_encode([
-									"version" => [
-										"name" => "\\Phpcraft\\Server",
-										"protocol" => (\Phpcraft\Phpcraft::isProtocolVersionSupported($con->getProtocolVersion()) ? $con->getProtocolVersion() : 69)
-									],
-									"description" => $this->motd
-								]));
+								$con->writeString(json_encode(($this->list_ping_function)($con)));
 								$con->send();
 							}
 							else if($packet_id == 0x01)
@@ -217,9 +237,9 @@ class Server
 			}
 			if(!$con->isOpen())
 			{
-				if($disconnect_function)
+				if($this->disconnect_function)
 				{
-					$disconnect_function($con);
+					($this->disconnect_function)($con);
 				}
 				unset($this->clients[$i]);
 			}

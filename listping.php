@@ -29,29 +29,36 @@ if($info)
 	{
 		echo "This server has no description/MOTD.\n";
 	}
-	if(isset($info["version"]) && isset($info["version"]["protocol"]))
+	if(isset($info["version"]))
 	{
-		if($minecraft_versions = \Phpcraft\Phpcraft::getMinecraftVersionsFromProtocolVersion($info["version"]["protocol"]))
+		if(isset($info["version"]["protocol"]))
 		{
-			if(isset($info["version"]["name"]))
+			if($minecraft_versions = \Phpcraft\Phpcraft::getMinecraftVersionsFromProtocolVersion($info["version"]["protocol"]))
 			{
-				echo "This server is running a Phpcraft-compatible ".$info["version"]["name"]." (".$minecraft_versions[0].") server.\n";
+				if(isset($info["version"]["name"]))
+				{
+					echo "This server is running a Phpcraft-compatible ".$info["version"]["name"]." (".$minecraft_versions[0].") server.\n";
+				}
+				else
+				{
+					echo "This server is running a Phpcraft-compatible ".$minecraft_versions[0]." server.\n";
+				}
 			}
 			else
 			{
-				echo "This server is running a Phpcraft-compatible ".$minecraft_versions[0]." server.\n";
+				if(isset($info["version"]["name"]))
+				{
+					echo "This server is running a Phpcraft-incompatible ".$info["version"]["name"]." server.\n";
+				}
+				else
+				{
+					echo "This server is running a Phpcraft-incompatible version.\n";
+				}
 			}
 		}
-		else
+		else if(isset($info["version"]["name"]))
 		{
-			if(isset($info["version"]["name"]))
-			{
-				echo "This server is running a Phpcraft-incompatible ".$info["version"]["name"]." server.\n";
-			}
-			else
-			{
-				echo "This server is running a Phpcraft-incompatible version.\n";
-			}
+			echo "This server is running a ".$info["version"]["name"]." server.\n";
 		}
 	}
 	if(isset($info["players"]))

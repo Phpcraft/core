@@ -74,7 +74,7 @@ else
 }
 $ui->add("Binding to port ".$options["port"]."... ")->render();
 $stream = stream_socket_server("tcp://0.0.0.0:".$options["port"], $errno, $errstr) or die(" {$errstr}\n");
-$server = new \Phpcraft\Server($stream, null, $private_key);
+$server = new \Phpcraft\Server($stream, $private_key);
 $ui->input_prefix = "[Server] ";
 $ui->append("Success!")->render();
 $ui->tabcomplete_function = function($word)

@@ -73,8 +73,8 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ac9e9941969c8f1fa03fb490ed954cc26"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Server.html#ac9e9941969c8f1fa03fb490ed954cc26">__construct</a> ($stream=null, $motd=[&quot;text&quot;=&gt; &quot;A <a class="el" href="classPhpcraft_1_1Phpcraft.html">Phpcraft</a> <a class="el" href="classPhpcraft_1_1Server.html">Server</a>&quot;], $private_key=null)</td></tr>
-<tr class="separator:ac9e9941969c8f1fa03fb490ed954cc26"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade04d71f1ef77c77a8bd5998abce4299"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Server.html#ade04d71f1ef77c77a8bd5998abce4299">__construct</a> ($stream=null, $private_key=null)</td></tr>
+<tr class="separator:ade04d71f1ef77c77a8bd5998abce4299"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a75d9cf1effa434c6ec3f967eb97c6254"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Server.html#a75d9cf1effa434c6ec3f967eb97c6254">isOpen</a> ()</td></tr>
 <tr class="separator:a75d9cf1effa434c6ec3f967eb97c6254"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a172423393c7cd2339523706457c05c37"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Server.html#a172423393c7cd2339523706457c05c37">accept</a> ()</td></tr>
@@ -90,8 +90,6 @@ Public Attributes</h2></td></tr>
 <tr class="separator:a7e900482f4d4db56ccbca75464738fde"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab5129d24aa1f235130bc8132be0a417a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Server.html#ab5129d24aa1f235130bc8132be0a417a">$private_key</a></td></tr>
 <tr class="separator:ab5129d24aa1f235130bc8132be0a417a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a724b4b39a4e6d9d730104e5f6b26fff0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Server.html#a724b4b39a4e6d9d730104e5f6b26fff0">$motd</a> = [&quot;text&quot; =&gt; &quot;A <a class="el" href="classPhpcraft_1_1Phpcraft.html">Phpcraft</a> <a class="el" href="classPhpcraft_1_1Server.html">Server</a>&quot;]</td></tr>
-<tr class="separator:a724b4b39a4e6d9d730104e5f6b26fff0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae5ccc8ddd363734e7ff6fd8fe9c7bd5e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Server.html#ae5ccc8ddd363734e7ff6fd8fe9c7bd5e">$clients</a> = []</td></tr>
 <tr class="separator:ae5ccc8ddd363734e7ff6fd8fe9c7bd5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a806ec54f8cc41e5b811431c5e3d7144f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Server.html#a806ec54f8cc41e5b811431c5e3d7144f">$join_function</a> = null</td></tr>
@@ -100,10 +98,12 @@ Public Attributes</h2></td></tr>
 <tr class="separator:a8ee363615c373c001b0fbb92aa288406"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7a4793d725f6840c57abdcca21866f79"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Server.html#a7a4793d725f6840c57abdcca21866f79">$disconnect_function</a> = null</td></tr>
 <tr class="separator:a7a4793d725f6840c57abdcca21866f79"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d600041c4ed3dacefff2d5df6d2aeaa"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Server.html#a8d600041c4ed3dacefff2d5df6d2aeaa">$list_ping_function</a> = null</td></tr>
+<tr class="separator:a8d600041c4ed3dacefff2d5df6d2aeaa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ac9e9941969c8f1fa03fb490ed954cc26"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac9e9941969c8f1fa03fb490ed954cc26">&#9670;&nbsp;</a></span>__construct()</h2>
+<a id="ade04d71f1ef77c77a8bd5998abce4299"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade04d71f1ef77c77a8bd5998abce4299">&#9670;&nbsp;</a></span>__construct()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -113,18 +113,6 @@ Public Attributes</h2></td></tr>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname"><em>$stream</em> = <code>null</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>$motd</em> = <code>[&quot;text&quot;&#160;=</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&quot;A <a class="el" href="classPhpcraft_1_1Phpcraft.html">Phpcraft</a> <a class="el" href="classPhpcraft_1_1Server.html">Server</a>&quot;]&#160;</td>
-          <td class="paramname">, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -142,7 +130,6 @@ Public Attributes</h2></td></tr>
 <p>The constructor. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramtype">resource</td><td class="paramname">$stream</td><td>A stream created by stream_socket_server. </td></tr>
-    <tr><td class="paramtype">array</td><td class="paramname">$motd</td><td>The message of the day (motd) visible in the server list; chat object. </td></tr>
     <tr><td class="paramtype">resource</td><td class="paramname">$private_key</td><td>A private key generated using openssl_pkey_new(["private_key_bits" =&gt; 1024, "private_key_type" =&gt; OPENSSL_KEYTYPE_RSA]) to use for online mode, or null to use offline mode. </td></tr>
   </table>
   </dd>
@@ -275,18 +262,20 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a724b4b39a4e6d9d730104e5f6b26fff0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a724b4b39a4e6d9d730104e5f6b26fff0">&#9670;&nbsp;</a></span>$motd</h2>
+<a id="a8d600041c4ed3dacefff2d5df6d2aeaa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8d600041c4ed3dacefff2d5df6d2aeaa">&#9670;&nbsp;</a></span>$list_ping_function</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">string Phpcraft\Server::$motd = [&quot;text&quot; =&gt; &quot;A <a class="el" href="classPhpcraft_1_1Phpcraft.html">Phpcraft</a> <a class="el" href="classPhpcraft_1_1Server.html">Server</a>&quot;]</td>
+          <td class="memname">function Phpcraft\Server::$list_ping_function = null</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>The message of the day (motd) visible in the server list; chat object. </p>
+<p>The function called when to get the server's response to a list ping request with the <a class="el" href="classPhpcraft_1_1ClientConnection.html">ClientConnection</a> as argument. See <a class="el" href="classPhpcraft_1_1Phpcraft.html#a5648f15ca17f8f1e2b0e74692e355072">Phpcraft::getServerStatus</a> for an example of all the data a server may respond with. </p><dl class="section see"><dt>See also</dt><dd><a class="el" href="classPhpcraft_1_1Server.html#a172423393c7cd2339523706457c05c37">Server::accept()</a> </dd>
+<dd>
+<a class="el" href="classPhpcraft_1_1Server.html#a4f4c7ec689744dd6eed990527a773f00">Server::handle()</a> </dd></dl>
 
 </div>
 </div>

@@ -5,14 +5,16 @@ require_once __DIR__."/Connection.class.php";
 class ClientConnection extends Connection
 {
 	/**
-	 * The hostname the client connected to.
-	 * @see ClientConnection::handleInitialPacket()
+	 * The hostname the client had connected to.
+	 * @see ClientConnection::getHost
+	 * @see ClientConnection::handleInitialPacket
 	 * @var string $hostname
 	 */
 	public $hostname;
 	/**
-	 * The port the client connected to.
-	 * @see ClientConnection::handleInitialPacket()
+	 * The port the client had connected to.
+	 * @see ClientConnection::handleInitialPacket
+	 * @see ClientConnection::getHost
 	 * @var number $hostport
 	 */
 	public $hostport;
@@ -51,23 +53,27 @@ class ClientConnection extends Connection
 	 * Deals with the first packet the client has sent.
 	 * This function deals with the handshake or legacy list ping packet.
 	 * Errors will cause the connection to be closed.
-	 * @return integer Status: 0 = An error occured and the connection has been closed. 1 = Handshake was successfully read; use Connection::getState() to see if the client wants to get the status (1) or login to play (2). 2 = A legacy list ping has been detected and "MC|PingHost" was read.
+	 * @return integer Status: 0 = An error occured and the connection has been closed. 1 = Handshake was successfully read; use Connection::getState() to see if the client wants to get the status (1) or login to play (2). 2 = A legacy list ping packet has been received.
 	 */
 	function handleInitialPacket()
 	{
 		try
 		{
-			if($this->readPacket(0, 1))
+			if($this->readRawPacket(0, 1))
 			{
 				$packet_length = $this->readByte();
-				if($packet_length == -2)
+				if($packet_length == 0xFE)
 				{
-					if($this->readPacket(0, 8192) && $this->readByte() == 0x01 && $this->readByte() == -6 && $this->readShort() == 11 && $this->readRaw(22) == mb_convert_encoding("MC|PingHost", "utf-16be"))
+					if($this->readRawPacket(0) && $this->readByte() == 0x01 && $this->readByte() == 0xFA && $this->readShort() == 11 && $this->readRaw(22) == mb_convert_encoding("MC|PingHost", "utf-16be"))
 					{
+						$this->ignoreBytes(2);
+						$this->protocol_version = $this->readByte();
+						$this->hostname = mb_convert_encoding($this->readRaw($this->readShort() * 2), "utf-8", "utf-16be");
+						$this->hostport = $this->readInt();
 						return 2;
 					}
 				}
-				else if($this->readPacket(0, $packet_length))
+				else if($this->readRawPacket(0, $packet_length))
 				{
 					$packet_id = $this->readVarInt();
 					if($packet_id === 0x00)
@@ -98,6 +104,15 @@ class ClientConnection extends Connection
 		catch(Exception $ignored){}
 		$this->close();
 		return 0;
+	}
+
+	/**
+	 * Returns the host the client had connected to, e.g. localhost:25565.
+	 * @return string
+	 */
+	function getHost()
+	{
+		return $this->hostname.":".$this->hostport;
 	}
 
 	/**

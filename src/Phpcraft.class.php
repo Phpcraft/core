@@ -580,12 +580,12 @@ class Phpcraft
 	/**
 	 * Converts a chat object into text.
 	 * @param array|string $chat The chat object as an array or string.
-	 * @param boolean $useAnsiCodes Use ANSI escape codes so you can experience color in the console.
+	 * @param integer $format 0 = Dispose of color and formatting. 1 = Convert to ANSI escape codes (for colors in the console). 2 = Convert to paragraph (§) formatting.
 	 * @param array $translations The translations array so translated messages look proper.
 	 * @param array $parent Ignore this parameter.
 	 * @return string
 	 */
-	static function chatToText($chat, $useAnsiCodes = false, $translations = null, $parent = [])
+	static function chatToText($chat, $format = 0, $translations = null, $parent = [])
 	{
 		if($translations == null)
 		{
@@ -604,16 +604,32 @@ class Phpcraft
 			}
 			$chat = Phpcraft::textToChat($chat);
 		}
-		if($useAnsiCodes)
+		$text = "";
+		if($format > 0)
 		{
-			$attributes = [
-				"bold" => "1",
-				"italic" => "3",
-				"underlined" => "4",
-				"obfuscated" => "8",
-				"strikethrough" => "9"
-			];
-			$modifiers = [];
+			$ansi_modifiers = [];
+			if($format == 1)
+			{
+				$attributes = [
+					"reset" => "0",
+					"bold" => "1",
+					"italic" => "3",
+					"underlined" => "4",
+					"obfuscated" => "8",
+					"strikethrough" => "9"
+				];
+			}
+			else
+			{
+				$attributes = [
+					"obfuscated" => "k",
+					"bold" => "l",
+					"strikethrough" => "m",
+					"underlined" => "n",
+					"italic" => "o",
+					"reset" => "r"
+				];
+			}
 			foreach($attributes as $n => $v)
 			{
 				if(!isset($chat[$n]))
@@ -625,7 +641,14 @@ class Phpcraft
 				}
 				if(isset($chat[$n]) && $chat[$n])
 				{
-					array_push($modifiers, $v);
+					if($format == 1)
+					{
+						array_push($ansi_modifiers, $v);
+					}
+					else
+					{
+						$text .= "§".$v;
+					}
 				}
 			}
 			if(!isset($chat["color"]))
@@ -655,16 +678,22 @@ class Phpcraft
 					"yellow" => "93",
 					"white" => "97"
 				];
-				if(isset($colors[$chat["color"]]))
+				if($format == 1)
 				{
-					array_push($modifiers, $colors[$chat["color"]]);
+					if(isset($colors[$chat["color"]]))
+					{
+						array_push($ansi_modifiers, $colors[$chat["color"]]);
+					}
+				}
+				else if(($i = array_search($chat["color"], array_keys($colors))) !== false)
+				{
+					$text .= "§".dechex($i);
 				}
 			}
-			$text = "\x1B[".join(";", $modifiers)."m";
-		}
-		else
-		{
-			$text = "";
+			if($ansi_modifiers)
+			{
+				$text = "\x1B[".join(";", $ansi_modifiers)."m";
+			}
 		}
 		if(isset($chat["translate"]))
 		{
@@ -682,7 +711,7 @@ class Phpcraft
 				$with = [];
 				foreach($chat["with"] as $extra)
 				{
-					array_push($with, Phpcraft::chatToText($extra, $useAnsiCodes, $translations, $chat));
+					array_push($with, Phpcraft::chatToText($extra, $format, $translations, $chat));
 				}
 				if(($formatted = @vsprintf($raw, $with)) !== false)
 				{
@@ -703,7 +732,7 @@ class Phpcraft
 		{
 			foreach($chat["extra"] as $extra)
 			{
-				$text .= Phpcraft::chatToText($extra, $useAnsiCodes, $translations, $chat);
+				$text .= Phpcraft::chatToText($extra, $format, $translations, $chat);
 			}
 		}
 		return $text;
@@ -718,8 +747,8 @@ class Phpcraft
 	 *     "protocol" => 340
 	 *   ],
 	 *   "players" => [
-	 *     "max" => 20,
 	 *     "online" => 1,
+	 *     "max" => 20,
 	 *     "sample" => [
 	 *       [
 	 *         "name" => "timmyRS",
@@ -782,13 +811,12 @@ class Phpcraft
 				$con->writeRaw($host);
 				$con->writeInt($server_port);
 				$con->send(true);
-				if($con->readPacket($timeout, true))
+				if($con->readRawPacket($timeout))
 				{
-					$arr = explode("\x00\x00", substr($con->getReadBuffer(), 9));
+					$arr = explode("\x00\x00", substr($con->read_buffer, 9));
 					$con->close();
 					return [
 						"version" => [
-							"protocol" => mb_convert_encoding($arr[0], mb_internal_encoding(), "utf-16be"),
 							"name" => mb_convert_encoding($arr[1], mb_internal_encoding(), "utf-16be")
 						],
 						"players" => [

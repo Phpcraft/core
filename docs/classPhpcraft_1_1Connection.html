@@ -95,8 +95,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a97d64586a07790901e0e9dc83a9cfd66"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae2c43093e8d0dc952337a0ce4ec9b341"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#ae2c43093e8d0dc952337a0ce4ec9b341">close</a> ()</td></tr>
 <tr class="separator:ae2c43093e8d0dc952337a0ce4ec9b341"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae14da368b862abe68de868576008c3eb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#ae14da368b862abe68de868576008c3eb">writeByte</a> ($value)</td></tr>
-<tr class="separator:ae14da368b862abe68de868576008c3eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4006004b747ea72f1cd55a308f9ed5b8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#a4006004b747ea72f1cd55a308f9ed5b8">writeByte</a> ($value, $signed=false)</td></tr>
+<tr class="separator:a4006004b747ea72f1cd55a308f9ed5b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a70e2522f49300f980e56447a23fc590c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#a70e2522f49300f980e56447a23fc590c">writeBoolean</a> ($value)</td></tr>
 <tr class="separator:a70e2522f49300f980e56447a23fc590c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6d8f5b65887ec4d3dc1809563231911f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#a6d8f5b65887ec4d3dc1809563231911f">writeVarInt</a> ($value)</td></tr>
@@ -121,8 +121,10 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a3fb102f9ad9099ec2e4b318e0a845cab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa3bc95b2e2c06d78fed179399869f990"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#aa3bc95b2e2c06d78fed179399869f990">send</a> ($raw=false)</td></tr>
 <tr class="separator:aa3bc95b2e2c06d78fed179399869f990"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adb959d7dc07e273bcc490774e819ceb0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#adb959d7dc07e273bcc490774e819ceb0">readPacket</a> ($timeout=3.000, $raw=0)</td></tr>
-<tr class="separator:adb959d7dc07e273bcc490774e819ceb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a35890fe849cb0725cdcea2a71933353b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#a35890fe849cb0725cdcea2a71933353b">readRawPacket</a> ($timeout=3.000, $bytes=0)</td></tr>
+<tr class="separator:a35890fe849cb0725cdcea2a71933353b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa55747edacdfdc984ae4fb7af0322901"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#aa55747edacdfdc984ae4fb7af0322901">readPacket</a> ($timeout=3.000)</td></tr>
+<tr class="separator:aa55747edacdfdc984ae4fb7af0322901"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac075a35f87e5e47a0647f3ef08c56f81"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#ac075a35f87e5e47a0647f3ef08c56f81">readRaw</a> ($bytes)</td></tr>
 <tr class="separator:ac075a35f87e5e47a0647f3ef08c56f81"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a31e927e43beb7463823b8fbb970b49c6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#a31e927e43beb7463823b8fbb970b49c6">readVarInt</a> ()</td></tr>
@@ -172,7 +174,7 @@ Protected Attributes</h2></td></tr>
 <div class="textblock"><p>A wrapper to read and write from streams. The <a class="el" href="classPhpcraft_1_1Connection.html">Connection</a> object can also be utilized without a stream: </p><pre>$con = new <a class="el" href="classPhpcraft_1_1Connection.html">Connection</a>($protocol_version);
 $packet = new ChatMessagePacket(["text" =&gt; "Hello, world!"]);
 $packet-&gt;send($con);
-echo hex2bin($con-&gt;getAndClearWriteBuffer())."\n";</pre> </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+echo hex2bin($con-&gt;write_buffer)."\n";</pre> </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a6b873d0ddfe04ce6e9a86d3060e8785d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6b873d0ddfe04ce6e9a86d3060e8785d">&#9670;&nbsp;</a></span>__construct()</h2>
 
@@ -477,8 +479,8 @@ echo hex2bin($con-&gt;getAndClearWriteBuffer())."\n";</pre> </div><h2 class="gro
 
 </div>
 </div>
-<a id="adb959d7dc07e273bcc490774e819ceb0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adb959d7dc07e273bcc490774e819ceb0">&#9670;&nbsp;</a></span>readPacket()</h2>
+<a id="aa55747edacdfdc984ae4fb7af0322901"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa55747edacdfdc984ae4fb7af0322901">&#9670;&nbsp;</a></span>readPacket()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -487,25 +489,15 @@ echo hex2bin($con-&gt;getAndClearWriteBuffer())."\n";</pre> </div><h2 class="gro
           <td class="memname">Phpcraft\Connection::readPacket </td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>$timeout</em> = <code>3.000</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramname"><em>$timeout</em> = <code>3.000</code></td><td>)</td>
           <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>$raw</em> = <code>0</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Puts a new packet into the read buffer. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Puts a new packet into the read buffer. </p><dl class="section see"><dt>See also</dt><dd><a class="el" href="classPhpcraft_1_1Connection.html#a35890fe849cb0725cdcea2a71933353b">Connection::readRawPacket</a> </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramtype">float</td><td class="paramname">$timeout</td><td>The amount of seconds to wait before read is aborted. </td></tr>
-    <tr><td class="paramtype">intger</td><td class="paramname">$raw</td><td>If higher than 0, the read buffer is filled with up to $raw bytes on the line, which you probably don't want. </td></tr>
   </table>
   </dd>
 </dl>
@@ -515,7 +507,7 @@ echo hex2bin($con-&gt;getAndClearWriteBuffer())."\n";</pre> </div><h2 class="gro
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>integer|boolean False if no packet was received within the time limit. Otherwise, the packet's ID or true if 1 or more raw bytes were buffered. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>integer|boolean The packet's id or false if no packet was received within the time limit. </dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classPhpcraft_1_1Packet.html#a7f1cc0e9c3b7a3b86189c3c662ab88e7">Packet::clientboundPacketIdToName()</a> </dd>
 <dd>
 <a class="el" href="classPhpcraft_1_1Packet.html#aaca26f88750d14ec3dea737c1b996ab0">Packet::serverboundPacketIdToName()</a> </dd></dl>
@@ -562,6 +554,43 @@ echo hex2bin($con-&gt;getAndClearWriteBuffer())."\n";</pre> </div><h2 class="gro
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>string </dd></dl>
+
+</div>
+</div>
+<a id="a35890fe849cb0725cdcea2a71933353b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a35890fe849cb0725cdcea2a71933353b">&#9670;&nbsp;</a></span>readRawPacket()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Phpcraft\Connection::readRawPacket </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$timeout</em> = <code>3.000</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$bytes</em> = <code>0</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Puts a raw bytes into the read buffer, which you probably don't want. </p><dl class="section see"><dt>See also</dt><dd><a class="el" href="classPhpcraft_1_1Connection.html#aa55747edacdfdc984ae4fb7af0322901">Connection::readPacket</a> </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">float</td><td class="paramname">$timeout</td><td>The amount of seconds to wait before read is aborted. </td></tr>
+    <tr><td class="paramtype">integer</td><td class="paramname">$bytes</td><td>The exact amount of bytes you would like to receive. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>boolean True on success. </dd></dl>
 
 </div>
 </div>
@@ -744,8 +773,8 @@ echo hex2bin($con-&gt;getAndClearWriteBuffer())."\n";</pre> </div><h2 class="gro
 
 </div>
 </div>
-<a id="ae14da368b862abe68de868576008c3eb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae14da368b862abe68de868576008c3eb">&#9670;&nbsp;</a></span>writeByte()</h2>
+<a id="a4006004b747ea72f1cd55a308f9ed5b8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4006004b747ea72f1cd55a308f9ed5b8">&#9670;&nbsp;</a></span>writeByte()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -754,14 +783,25 @@ echo hex2bin($con-&gt;getAndClearWriteBuffer())."\n";</pre> </div><h2 class="gro
           <td class="memname">Phpcraft\Connection::writeByte </td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>$value</em></td><td>)</td>
+          <td class="paramname"><em>$value</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$signed</em> = <code>false</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 <p>Adds a byte to the write buffer. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramtype">integer</td><td class="paramname">$value</td><td></td></tr>
+    <tr><td class="paramtype">boolean</td><td class="paramname">$signed</td><td></td></tr>
   </table>
   </dd>
 </dl>

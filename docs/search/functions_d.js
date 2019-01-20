@@ -1,7 +1,7 @@
 var searchData=
 [
   ['writeboolean',['writeBoolean',['../classPhpcraft_1_1Connection.html#a70e2522f49300f980e56447a23fc590c',1,'Phpcraft::Connection']]],
-  ['writebyte',['writeByte',['../classPhpcraft_1_1Connection.html#ae14da368b862abe68de868576008c3eb',1,'Phpcraft::Connection']]],
+  ['writebyte',['writeByte',['../classPhpcraft_1_1Connection.html#a4006004b747ea72f1cd55a308f9ed5b8',1,'Phpcraft::Connection']]],
   ['writedouble',['writeDouble',['../classPhpcraft_1_1Connection.html#a2264e967503660c823b01714c00427f6',1,'Phpcraft::Connection']]],
   ['writefloat',['writeFloat',['../classPhpcraft_1_1Connection.html#a82ed1c92bec8da24ca4722f79fd912db',1,'Phpcraft::Connection']]],
   ['writeint',['writeInt',['../classPhpcraft_1_1Connection.html#a0b6009798199daa32f39d340cea0f33f',1,'Phpcraft::Connection']]],

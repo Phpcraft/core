@@ -9,7 +9,7 @@ require_once __DIR__."/Phpcraft.class.php";
  * <pre>$con = new Connection($protocol_version);
  * $packet = new ChatMessagePacket(["text" => "Hello, world!"]);
  * $packet->send($con);
- * echo hex2bin($con->getAndClearWriteBuffer())."\n";</pre>
+ * echo hex2bin($con->write_buffer)."\n";</pre>
  */
 class Connection
 {
@@ -114,11 +114,12 @@ class Connection
 	/**
 	 * Adds a byte to the write buffer.
 	 * @param integer $value
+	 * @param boolean $signed
 	 * @return Connection $this
 	 */
-	function writeByte($value)
+	function writeByte($value, $signed = false)
 	{
-		$this->write_buffer .= pack("c", $value);
+		$this->write_buffer .= pack(($signed ? "c" : "C"), $value);
 		return $this;
 	}
 
@@ -129,7 +130,7 @@ class Connection
 	 */
 	function writeBoolean($value)
 	{
-		$this->write_buffer .= pack("c", ($value ? 1 : 0));
+		$this->write_buffer .= pack("C", ($value ? 1 : 0));
 		return $this;
 	}
 
@@ -286,28 +287,58 @@ class Connection
 	}
 
 	/**
-	 * Puts a new packet into the read buffer.
+	 * Puts a raw bytes into the read buffer, which you probably don't want.
+	 * @see Connection::readPacket
 	 * @param float $timeout The amount of seconds to wait before read is aborted.
-	 * @param intger $raw If higher than 0, the read buffer is filled with up to $raw bytes on the line, which you probably don't want.
+	 * @param integer $bytes The exact amount of bytes you would like to receive.
+	 * @return boolean True on success.
+	 */
+	function readRawPacket($timeout = 3.000, $bytes = 0)
+	{
+		$start = microtime(true);
+		if($bytes == 0)
+		{
+			$this->read_buffer = fread($this->stream, 8192);
+			while($this->read_buffer == "")
+			{
+				if((microtime(true) - $start) >= $timeout)
+				{
+					return false;
+				}
+				$this->read_buffer .= fread($this->stream, 8192);
+			}
+		}
+		else
+		{
+			$this->read_buffer = fread($this->stream, $bytes);
+			if(strlen($this->read_buffer) > 0)
+			{
+				$timeout += 0.1;
+			}
+			while(strlen($this->read_buffer) < $bytes)
+			{
+				if((microtime(true) - $start) >= $timeout)
+				{
+					return false;
+				}
+				$this->read_buffer .= fread($this->stream, $bytes - strlen($this->read_buffer));
+			}
+		}
+		return strlen($this->read_buffer) > 0;
+	}
+
+	/**
+	 * Puts a new packet into the read buffer.
+	 * @see Connection::readRawPacket
+	 * @param float $timeout The amount of seconds to wait before read is aborted.
 	 * @throws Exception When the packet length or packet id VarInt is too big.
-	 * @return integer|boolean False if no packet was received within the time limit. Otherwise, the packet's ID or true if 1 or more raw bytes were buffered.
+	 * @return integer|boolean The packet's id or false if no packet was received within the time limit.
 	 * @see Packet::clientboundPacketIdToName()
 	 * @see Packet::serverboundPacketIdToName()
 	 */
-	function readPacket($timeout = 3.000, $raw = 0)
+	function readPacket($timeout = 3.000)
 	{
 		$start = microtime(true);
-		if($raw > 0)
-		{
-			$this->read_buffer = fread($this->stream, $raw);
-			$buffered_bytes = strlen($this->read_buffer);
-			while($buffered_bytes < $raw && (microtime(true) - $start) < $timeout)
-			{
-				$this->read_buffer .= fread($this->stream, $raw - $buffered_bytes);
-				$buffered_bytes = strlen($this->read_buffer);
-			}
-			return $buffered_bytes > 0;
-		}
 		$length = 0;
 		$read = 0;
 		do
@@ -333,11 +364,8 @@ class Connection
 			}
 		}
 		while(true);
-		if($timeout == 0)
-		{
-			// It's established that a packet is on the line, but it could take more than one read to get it into the read buffer, so some time is forcefully allocated.
-			$timeout = 0.5;
-		}
+		// It's established that a packet is on the line, but it could take more than one read to get it into the read buffer, so some additional time is forcefully allocated.
+		$timeout += 0.1;
 		$this->read_buffer = fread($this->stream, $length);
 		while(strlen($this->read_buffer) < $length)
 		{
@@ -443,12 +471,8 @@ class Connection
 		{
 			throw new \Phpcraft\Exception("Not enough bytes to read byte");
 		}
-		$byte = unpack("cbyte", substr($this->read_buffer, 0, 1))["byte"];
+		$byte = unpack(($signed ? "c" : "C")."byte", substr($this->read_buffer, 0, 1))["byte"];
 		$this->read_buffer = substr($this->read_buffer, 1);
-		if($signed && $byte >= 0x80)
-		{
-			return ((($byte ^ 0xFF) + 1) * -1);
-		}
 		return $byte;
 	}
 

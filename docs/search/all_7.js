@@ -5,6 +5,7 @@ var searchData=
   ['getassetindex',['getAssetIndex',['../classPhpcraft_1_1Phpcraft.html#a0bce8b7fd625ea3e6b358ce10b739039',1,'Phpcraft::Phpcraft']]],
   ['getcompressionthreshold',['getCompressionThreshold',['../classPhpcraft_1_1Connection.html#a953de169c80c01ae690031150d8ad93b',1,'Phpcraft::Connection']]],
   ['getextensionsmissingtogoonline',['getExtensionsMissingToGoOnline',['../classPhpcraft_1_1Phpcraft.html#aa88b2dbf732a16a205120335d0ee6e08',1,'Phpcraft::Phpcraft']]],
+  ['gethost',['getHost',['../classPhpcraft_1_1ClientConnection.html#a0bc689bdd17c4aa9eba4721423645a74',1,'Phpcraft::ClientConnection']]],
   ['getid',['getId',['../classPhpcraft_1_1Packet.html#a6eb892f2664a88de697456968821942a',1,'Phpcraft::Packet']]],
   ['getkeepaliveid',['getKeepAliveId',['../classPhpcraft_1_1KeepAlivePacket.html#a8575b957521cd8ab395218836586ccf7',1,'Phpcraft::KeepAlivePacket']]],
   ['getminecraftfolder',['getMinecraftFolder',['../classPhpcraft_1_1Phpcraft.html#abecdf68100423f0f529df5aef75390e9',1,'Phpcraft::Phpcraft']]],
