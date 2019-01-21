@@ -6,9 +6,9 @@ A PHP library for all things Minecraft. Supports 1.8 - 1.13.2 protocol and inclu
 
 ## Usage
 
-First, you'll need to clone this repository, and [download or install Composer](https://getcomposer.org/download/). With composer, run `composer install` in this directory.
+First, you'll need to clone this repository, and [download or install Composer](https://getcomposer.org/download/), and then run `composer install` in this directory.
 
-If you're having issues getting mbcrypt installed, run these commands.
+If you're having issues getting mbcrypt installed, run these commands:
 
     sudo apt-get -y install gcc make autoconf libc-dev pkg-config php-dev libmcrypt-dev
     sudo pecl install mcrypt-1.0.1
@@ -33,4 +33,4 @@ You can get use Phpcraft as a library by creating a `composer.json` with this co
        	}
     }
 
-and then running the same installation command as above. Finally, you can  `require "vendor/autoload.php";` use [the many available APIs](https://timmyrs.github.io/Phpcraft/namespacePhpcraft.html).
+and then running `composer install` (see [Usage](#usage) for help). Finally, you can  `require "vendor/autoload.php";` to [the many available APIs](https://timmyrs.github.io/Phpcraft/namespacePhpcraft.html).
