@@ -3,14 +3,8 @@ if(empty($argv))
 {
 	die("This is for PHP-CLI. Connect to your server via SSH and use `php server.php`.\n");
 }
-require_once __DIR__."/src/UserInterface.class.php";
-require_once __DIR__."/src/Phpcraft.class.php";
-require_once __DIR__."/src/Server.class.php";
+require "vendor/autoload.php";
 echo "PHP Minecraft Server\nhttps://github.com/timmyrs/Phpcraft\n";
-if($dependencies = \Phpcraft\UserInterface::getMissingDependencies())
-{
-	die("To spin up the Phpcraft UI, you need ".join(", ", $dependencies).". Check the readme for help with dependencies.\n");
-}
 
 $options = ["offline" => false, "port" => 25565, "nocolor" => false, "plain" => false];
 for($i = 1; $i < count($argv); $i++)
@@ -61,10 +55,6 @@ if($options["offline"])
 }
 else
 {
-	if($extensions_needed = \Phpcraft\Phpcraft::getExtensionsMissingToGoOnline())
-	{
-		die("To host an online server, you need ".join(" and ", $extensions_needed).". Check the readme for help with dependencies.\n");
-	}
 	$ui->add("Generating 1024-bit RSA keypair... ")->render();
 	$private_key = openssl_pkey_new([
 		"private_key_bits" => 1024,

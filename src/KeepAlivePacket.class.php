@@ -1,6 +1,5 @@
 <?php
 namespace Phpcraft;
-require_once __DIR__."/Packet.class.php";
 /** The template for the keep alive request and response packets. */
 abstract class KeepAlivePacket extends Packet
 {

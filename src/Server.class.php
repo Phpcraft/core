@@ -1,7 +1,5 @@
 <?php
 namespace Phpcraft;
-require_once __DIR__."/ClientConnection.class.php";
-require_once __DIR__."/KeepAliveRequestPacket.class.php";
 class Server
 {
 	/**

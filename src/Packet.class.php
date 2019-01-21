@@ -1,6 +1,5 @@
 <?php
 namespace Phpcraft;
-require_once __DIR__."/Connection.class.php";
 /**
  * A Packet.
  * Look at the source code of this class for a list of packet names.

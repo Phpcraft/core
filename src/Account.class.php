@@ -1,6 +1,5 @@
 <?php
 namespace Phpcraft;
-require_once __DIR__."/Phpcraft.class.php"; 
 /** A Mojang or Minecraft account. */
 class Account
 {

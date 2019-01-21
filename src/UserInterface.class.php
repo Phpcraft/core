@@ -1,6 +1,5 @@
 <?php
 namespace Phpcraft;
-require_once __DIR__."/PlainUserInterface.class.php";
 /** A utility for interfacing with the user in a fancy manner. */
 class UserInterface extends PlainUserInterface
 {
@@ -25,27 +24,6 @@ class UserInterface extends PlainUserInterface
 	private $next_render = 0;
 	private $_width = 0;
 	private $_height = 0;
-
-	/**
-	 * Returns an array of dependencies required for spinning up a UI which are missing on the system.
-	 * To spin up a UI, users need tput and readline, which _should_ be available because WINNT is no longer supported.
-	 * Regardless, make sure the return of this function is an empty array before you initalize a UserInterface.
-	 * @return array
-	 */
-	static function getMissingDependencies()
-	{
-		$dependencies = [];
-		$res = trim(shell_exec("tput cols"));
-		if($res != intval($res))
-		{
-			array_push($dependencies, "tput");
-		}
-		if(!extension_loaded("readline"))
-		{
-			array_push($dependencies, "readline");
-		}
-		return $dependencies;
-	}
 
 	/**
 	 * The constructor.
@@ -362,9 +340,4 @@ class UserInterface extends PlainUserInterface
 		$this->chat_log[count($this->chat_log) - 1] .= $appendix;
 		return $this;
 	}
-}
-
-if(!extension_loaded("mbstring"))
-{
-	die("\Phpcraft\UserInterface requires mbstring. Try `apt-get install php-mbstring`.\n");
 }

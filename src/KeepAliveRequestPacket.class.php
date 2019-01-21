@@ -1,6 +1,5 @@
 <?php
 namespace Phpcraft;
-require_once __DIR__."/KeepAliveResponsePacket.class.php";
 /** Sent by the server to the client to make sure it's still connected. */
 class KeepAliveRequestPacket extends KeepAlivePacket
 {

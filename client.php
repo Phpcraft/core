@@ -3,15 +3,8 @@ if(empty($argv))
 {
 	die("This is for PHP-CLI. Connect to your server via SSH and use `php client.php`.\n");
 }
-require_once __DIR__."/src/Account.class.php";
-require_once __DIR__."/src/KeepAliveRequestPacket.class.php";
-require_once __DIR__."/src/Phpcraft.class.php";
-require_once __DIR__."/src/UserInterface.class.php";
+require "vendor/autoload.php";
 echo "PHP Minecraft Client\nhttps://github.com/timmyrs/Phpcraft\n";
-if($dependencies = \Phpcraft\UserInterface::getMissingDependencies())
-{
-	die("To spin up the Phpcraft UI, you need ".join(", ", $dependencies).". Check the readme for help with dependencies.\n");
-}
 
 $options = [];
 for($i = 1; $i < count($argv); $i++)
@@ -113,13 +106,6 @@ else if(!isset($options["online"]))
 	if(substr(trim(fgets($stdin)), 0, 1) == "y")
 	{
 		$online = true;
-	}
-}
-if($online)
-{
-	if($extensions_needed = \Phpcraft\Phpcraft::getExtensionsMissingToGoOnline())
-	{
-		die("To join online servers, you need ".join(" and ", $extensions_needed).".\nCheck the readme for help with dependencies.\n");
 	}
 }
 

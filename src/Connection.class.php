@@ -1,8 +1,5 @@
 <?php
 namespace Phpcraft;
-require_once __DIR__."/Exception.class.php";
-require_once __DIR__."/Packet.class.php";
-require_once __DIR__."/Phpcraft.class.php";
 /**
  * A wrapper to read and write from streams.
  * The Connection object can also be utilized without a stream:

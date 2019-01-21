@@ -1,6 +1,5 @@
 <?php
 namespace Phpcraft;
-require_once __DIR__."/Connection.class.php";
 /** A client-to-server connection. */
 class ServerConnection extends Connection
 {

@@ -1,6 +1,5 @@
 <?php
 namespace Phpcraft;
-require_once __DIR__."/ServerConnection.class.php";
 class Phpcraft
 {
 	private static $minecraft_folder = null;
@@ -217,37 +216,6 @@ class Phpcraft
 			}
 		}
 		return true;
-	}
-
-	/**
-	 * Returns an array of extensions missing to enable online mode.
-	 * If you want to enable online mode, GMP, openssl, and mcrypt are required. This function returns a string array of all extensions that are missing. Therefore, an empty array means all required extensions are installed.
-	 * @return array
-	 */
-	static function getExtensionsMissingToGoOnline()
-	{
-		$extensions_needed = [];
-		if(!extension_loaded("gmp"))
-		{
-			array_push($extensions_needed, "GMP");
-		}
-		if(!extension_loaded("openssl"))
-		{
-			array_push($extensions_needed, "openssl");
-		}
-		$mcrypt = false;
-		foreach(stream_get_filters() as $filter)
-		{
-			if(stristr($filter, "mcrypt"))
-			{
-				$mcrypt = true;
-			}
-		}
-		if(!$mcrypt)
-		{
-			array_push($extensions_needed, "mcrypt");
-		}
-		return $extensions_needed;
 	}
 
 	/**
@@ -832,21 +800,4 @@ class Phpcraft
 		}
 		return [];
 	}
-}
-
-if(PHP_OS == "WINNT")
-{
-	die("Phpcraft doesn't support Bare Windows due to implementation bugs in PHP's Windows port. Instead, use the Windows Subsystem for Linux: https://aka.ms/wslinstall\n");
-}
-if(PHP_INT_SIZE < 8)
-{
-	die("Phpcraft requires 64-bit PHP.\n");
-}
-if(version_compare(phpversion(), "7.0.15", "<"))
-{
-	die("Phpcraft requires PHP 7.0.15 or above.\n");
-}
-if(!extension_loaded("mbstring"))
-{
-	die("Phpcraft requires mbstring. Try `apt-get install php-mbstring`.\n");
 }

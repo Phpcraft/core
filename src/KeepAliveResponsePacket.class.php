@@ -1,6 +1,5 @@
 <?php
 namespace Phpcraft;
-require_once __DIR__."/KeepAlivePacket.class.php";
 /** Sent by the client to the server in response to KeepAliveRequestPacket. */
 class KeepAliveResponsePacket extends KeepAlivePacket
 {
