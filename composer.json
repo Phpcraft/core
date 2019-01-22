@@ -1,5 +1,5 @@
 {
-	"name": "Phpcraft",
+	"name": "timmyrs/phpcraft",
 	"description": "A PHP library for all things Minecraft.",
 	"keywords": ["minecraft", "minecraft-protocol"],
 	"homepage": "https://github.com/timmyrs/Phpcraft",

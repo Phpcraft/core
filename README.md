@@ -29,7 +29,7 @@ You can get use Phpcraft as a library by creating a `composer.json` with this co
       		}
        	],
        	"require": {
-      		"Phpcraft": "dev-master"
+      		"timmyrs/phpcraft": "dev-master"
        	}
     }
 
