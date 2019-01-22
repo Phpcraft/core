@@ -3,7 +3,9 @@ if(empty($argv))
 {
 	die("This is for PHP-CLI. Connect to your server via SSH and use `php listping.php`.\n");
 }
-require "vendor/autoload.php";
+require "src/Phpcraft.class.php";
+require "src/Connection.class.php";
+require "src/ServerConnection.class.php";
 echo "PHP Minecraft Server List Pinger\nhttps://github.com/timmyrs/Phpcraft\n";
 if(empty($argv[1]))
 {

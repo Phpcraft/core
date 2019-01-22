@@ -3,7 +3,13 @@ if(empty($argv))
 {
 	die("This is for PHP-CLI. Connect to your server via SSH and use `php server.php`.\n");
 }
-require "vendor/autoload.php";
+require "src/Phpcraft.class.php";
+require "src/Connection.class.php";
+require "src/ClientConnection.class.php";
+require "src/Server.class.php";
+require "src/PlainUserInterface.class.php";
+require "src/UserInterface.class.php";
+require "src/Packet.class.php";
 echo "PHP Minecraft Server\nhttps://github.com/timmyrs/Phpcraft\n";
 
 $options = ["offline" => false, "port" => 25565, "nocolor" => false, "plain" => false];

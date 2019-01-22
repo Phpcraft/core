@@ -1,26 +1,26 @@
 # Phpcraft
 
-A PHP library for all things Minecraft. Supports 1.8 - 1.13.2 protocol and includes a chat client, server, and listping utility.
+A PHP library for all things Minecraft. Includes a pre-made client, server, and listping utility.
 
 *PHP's Windows Port is not supported due to [a bug](https://bugs.php.net/bug.php?id=34972). Instead, use [the Windows Subsystem for Linux](https://aka.ms/wslinstall).*
 
-## Usage
+## Dependencies
 
-First, make sure you've got [Composer](https://getcomposer.org/) installed or downloaded at least.
+For basic usage, all you need is PHP-CLI and mbstring:
 
-### Using Phpcraft as a library
+	sudo apt-get -y install php-cli php-mbstring
 
-In your project folder, run `composer require timmyrs/phpcraft:dev-master`, and that's it; you can now  `require "vendor/autoload.php";` to use [the many available APIs](https://timmyrs.github.io/Phpcraft/namespacePhpcraft.html).
+Please note that some network features require 64-bit PHP at version 7.0.15 or above.
 
-### Using the Phpcraft client, server, or listping utility
+If you want to create or join an online mode server, you'll need GMP, OpenSSl, and mcrypt:
 
-Clone this repository, run `composer install`, and then you can run the `client.php`, `server.php`, and `listping.php`. You can also provide arguments to the client and server; get a list of possible arguments using `php <file> help`. The client has a couple of built-in commands — type `.help` in it for more information.
-
-## Resolving Dependency Issues
-
-If you're having issues getting mcrypt installed, run these commands:
-
-    sudo apt-get -y install gcc make autoconf libc-dev pkg-config php-dev libmcrypt-dev
+    sudo apt-get -y install php-gmp openssl gcc make autoconf libc-dev pkg-config php-dev libmcrypt-dev
     sudo pecl install mcrypt-1.0.1
-    
-If you're still having dependency issues, run `composer install --no-dev`; however, note that you won't be able to join or create servers in online mode without the "dev" dependencies.
+
+## Using the Phpcraft client, server, or listping utility
+
+Clone this repository, and then you can run the `client.php`, `server.php`, and `listping.php`. You can also provide arguments to the client and server; get a list of possible arguments using `php <file> help`. The client has a couple of built-in commands — type `.help` in it for more information.
+
+## Using Phpcraft as a library
+
+Thanks to [Composer](https://getcomposer.org/), using Phpcraft as a library is really easy. Just head into your project folder, run `composer require timmyrs/phpcraft:dev-master`, and that's it; you can now `require "vendor/autoload.php";` to use [the many available APIs](https://timmyrs.github.io/Phpcraft/namespacePhpcraft.html).

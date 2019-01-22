@@ -3,7 +3,16 @@ if(empty($argv))
 {
 	die("This is for PHP-CLI. Connect to your server via SSH and use `php client.php`.\n");
 }
-require "vendor/autoload.php";
+require "src/Phpcraft.class.php";
+require "src/Connection.class.php";
+require "src/ServerConnection.class.php";
+require "src/PlainUserInterface.class.php";
+require "src/UserInterface.class.php";
+require "src/Account.class.php";
+require "src/Packet.class.php";
+require "src/KeepAlivePacket.class.php";
+require "src/KeepAliveRequestPacket.class.php";
+require "src/KeepAliveResponsePacket.class.php";
 echo "PHP Minecraft Client\nhttps://github.com/timmyrs/Phpcraft\n";
 
 $options = [];
@@ -206,8 +215,8 @@ else
 		$ui->add("Unknown Minecraft version: {$minecraft_version}")->render();
 		exit;
 	}
-	$ui->add("");
 }
+$ui->add("");
 function handleConsoleMessage($msg)
 {
 	if($msg == "")
@@ -522,7 +531,7 @@ do
 				$message = $con->readString();
 				if($con->readByte() != 2) // TODO: Above Hotbar
 				{
-					$ui->add(\Phpcraft\Phpcraft::chatToText(json_decode($message, true), true, $translations));
+					$ui->add(\Phpcraft\Phpcraft::chatToText(json_decode($message, true), 1, $translations));
 				}
 			}
 			else if($packet_name == "player_list_item")
@@ -816,7 +825,7 @@ do
 			}
 			else if($packet_name == "disconnect")
 			{
-				echo "Server closed connection: ".\Phpcraft\DisconnectPacket::read($con)->getMessageAsANSIText($translations)."\n";
+				echo "Server closed connection: ".Phpcraft::chatToText($con->readString(), 1)."\n";
 				$reconnect = !isset($options["noreconnect"]);
 				$next_tick = microtime(true) + 10;
 			}

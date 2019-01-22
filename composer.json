@@ -5,15 +5,6 @@
 	"homepage": "https://github.com/timmyrs/Phpcraft",
 	"type": "library",
 	"license": "MIT",
-	"require": {
-		"php-64bit": "^7.0.15",
-		"ext-mbstring": "*"
-	},
-	"require-dev": {
-		"ext-gmp": "*",
-		"ext-openssl": "*",
-		"ext-mcrypt": "*"
-	},
 	"autoload": {
 		"files": [
 			"src/Account.class.php",

@@ -572,7 +572,6 @@ class Phpcraft
 			}
 			$chat = Phpcraft::textToChat($chat);
 		}
-		$text = "";
 		if($format > 0)
 		{
 			$ansi_modifiers = [];
@@ -658,10 +657,18 @@ class Phpcraft
 					$text .= "§".dechex($i);
 				}
 			}
-			if($ansi_modifiers)
+			if($format == 1)
 			{
 				$text = "\x1B[".join(";", $ansi_modifiers)."m";
 			}
+			else
+			{
+				$text = "§r";
+			}
+		}
+		else
+		{
+			$text = "";
 		}
 		if(isset($chat["translate"]))
 		{
