@@ -25,8 +25,10 @@ PluginManager::registerPlugin("WorldSaver", function($plugin)
 		if(in_array($event->data["packet_name"], [
 			"spawn_mob",
 			"spawn_player",
+			"block_change",
 			"boss_bar",
 			"chat_message",
+			"multi_block_change",
 			"plugin_message",
 			"chunk_data",
 			"entity_relative_move",

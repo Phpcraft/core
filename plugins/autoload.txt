@@ -5,7 +5,7 @@
 WorldSaver
 
 # Phpcraft Server Plugins:
+BasicCommands
 CrashClients
-GamemodeCommand
 ServerReloadCommand
 WorldImmitator

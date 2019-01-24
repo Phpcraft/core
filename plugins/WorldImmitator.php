@@ -39,11 +39,11 @@ PluginManager::registerPlugin("WorldImmitator", function($plugin)
 		$fh = fopen("world.bin", "r");
 		$con = new \Phpcraft\Connection($WorldImmitator_version, $fh);
 		$con->readPacket();
-		while($id = $con->readPacket())
+		while($id = $con->readPacket(0))
 		{
 			$event->data["client"]->write_buffer = \Phpcraft\Phpcraft::intToVarInt($id).$con->read_buffer;
 			$event->data["client"]->send();
-			time_nanosleep(0, 10000000); // 10 ms
+			time_nanosleep(0, 1000000); // 1 ms
 		}
 		fclose($fh);
 	});
