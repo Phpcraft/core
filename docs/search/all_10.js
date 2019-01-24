@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['userinterface',['UserInterface',['../classPhpcraft_1_1UserInterface.html',1,'Phpcraft']]],
-  ['userinterface_2eclass_2ephp',['UserInterface.class.php',['../UserInterface_8class_8php.html',1,'']]]
+  ['texttochat',['textToChat',['../classPhpcraft_1_1Phpcraft.html#a90d514b456df149307e621dc727ddc55',1,'Phpcraft::Phpcraft']]]
 ];

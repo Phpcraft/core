@@ -14,7 +14,7 @@ class Connection
 	 * The protocol version that is used for this connection.
 	 * @var integer $protocol_version
 	 */
-	protected $protocol_version;
+	public $protocol_version;
 	/**
 	 * The stream of the connection of null.
 	 * @var resource $stream
@@ -23,16 +23,14 @@ class Connection
 	/**
 	 * The amount of bytes a packet needs for it to be compressed as an integer or -1 if disabled.
 	 * @var integer $compression_threshold
-	 * @see Connection::getCompressionThreshold()
 	 */
-	protected $compression_threshold = false;
+	public $compression_threshold = -1;
 	/**
 	 * The state of the connection.
 	 * 1 stands for status, 2 for logging in, and 3 for playing.
 	 * @var integer $state
-	 * @see Connection::getState()
 	 */
-	protected $state;
+	public $state;
 	/**
 	 * The write buffer binary string.
 	 * @var string $write_buffer
@@ -57,33 +55,6 @@ class Connection
 			stream_set_blocking($stream, false);
 			$this->stream = $stream;
 		}
-	}
-
-	/**
-	 * Returns the protocol version that is used for this connection.
-	 * @return string
-	 */
-	function getProtocolVersion()
-	{
-		return $this->protocol_version;
-	}
-
-	/**
-	 * Returns the state of the connection.
-	 * @return integer
-	 */
-	function getState()
-	{
-		return $this->state;
-	}
-
-	/**
-	 * Returns the compression threshold of the connection.
-	 * @return integer
-	 */
-	function getCompressionThreshold()
-	{
-		return $this->compression_threshold;
 	}
 
 	/**
@@ -246,40 +217,42 @@ class Connection
 	/**
 	 * Sends the contents of the write buffer over the stream and clears the write buffer or does nothing if there is no stream.
 	 * @param boolean $raw When true, the write buffer is sent as-is, without length prefix or compression, which you probably don't want.
+	 * @throws Exception If the connection is not open.
 	 * @return Connection $this
 	 */
 	function send($raw = false)
 	{
-		if($this->stream != null)
+		if(!$this->isOpen())
 		{
-			if($raw)
+			throw new \Phpcraft\Exception("Can't send to connection that's not open.");
+		}
+		if($raw)
+		{
+			fwrite($this->stream, $this->write_buffer);
+		}
+		else
+		{
+			$length = strlen($this->write_buffer);
+			if($this->compression_threshold > -1)
 			{
-				fwrite($this->stream, $this->write_buffer);
-			}
-			else
-			{
-				$length = strlen($this->write_buffer);
-				if($this->compression_threshold > -1)
+				if($length >= $this->compression_threshold)
 				{
-					if($length >= $this->compression_threshold)
-					{
-						$compressed = gzcompress($this->write_buffer, 1);
-						$compressed_length_varint = Phpcraft::intToVarInt(strlen($compressed));
-						$length += strlen($compressed_length_varint);
-						fwrite($this->stream, Phpcraft::intToVarInt($length).$compressed_length_varint.$compressed);
-					}
-					else
-					{
-						fwrite($this->stream, Phpcraft::intToVarInt($length + 1)."\x00".$this->write_buffer);
-					}
+					$compressed = gzcompress($this->write_buffer, 1);
+					$compressed_length = strlen($compressed);
+					$length_varint = Phpcraft::intToVarInt($length);
+					fwrite($this->stream, Phpcraft::intToVarInt($compressed_length + strlen($length_varint)).$length_varint.$compressed);
 				}
 				else
 				{
-					fwrite($this->stream, Phpcraft::intToVarInt($length).$this->write_buffer);
+					fwrite($this->stream, Phpcraft::intToVarInt($length + 1)."\x00".$this->write_buffer);
 				}
 			}
-			$this->write_buffer = "";
+			else
+			{
+				fwrite($this->stream, Phpcraft::intToVarInt($length).$this->write_buffer);
+			}
 		}
+		$this->write_buffer = "";
 		return $this;
 	}
 
@@ -414,19 +387,18 @@ class Connection
 			{
 				throw new \Phpcraft\Exception("Not enough bytes to read VarInt");
 			}
-			$byte = ord(substr($this->read_buffer, 0, 1));
-			$this->read_buffer = substr($this->read_buffer, 1);
-			$value |= (($byte & 0x7F) << ($read++ * 7));
+			$byte = $this->readByte();
+			$value |= (($byte & 0b01111111) << (7 * $read++));
 			if($read > 5)
 			{
 				throw new \Phpcraft\Exception("VarInt is too big");
 			}
-			if(($byte & 0x80) != 128)
-			{
-				break;
-			}
 		}
-		while(true);
+		while(($byte & 0b10000000) != 0);
+		if($value >= 0x80000000)
+		{
+			$value = ((($value ^ 0xFFFFFFFF) + 1) * -1);
+		}
 		return $value;
 	}
 

@@ -65,11 +65,17 @@ $(function() {
 <li>$compression_threshold
 : <a class="el" href="classPhpcraft_1_1Connection.html#aaeb27e92dcac0caa63c5594cc93fc63e">Phpcraft\Connection</a>
 </li>
+<li>$data
+: <a class="el" href="classPhpcraft_1_1Event.html#ae51b8fac8555a4cf8314034926576190">Phpcraft\Event</a>
+</li>
 <li>$disconnect_after
 : <a class="el" href="classPhpcraft_1_1ClientConnection.html#a3122283000e4c184351298949769300d">Phpcraft\ClientConnection</a>
 </li>
 <li>$disconnect_function
 : <a class="el" href="classPhpcraft_1_1Server.html#a7a4793d725f6840c57abdcca21866f79">Phpcraft\Server</a>
+</li>
+<li>$event_handlers
+: <a class="el" href="classPhpcraft_1_1Plugin.html#a96c8ce36340ba14a975f26cf98580c68">Phpcraft\Plugin</a>
 </li>
 <li>$hostname
 : <a class="el" href="classPhpcraft_1_1ClientConnection.html#aef02584d8761920cb08595efeb48f1ef">Phpcraft\ClientConnection</a>
@@ -78,7 +84,7 @@ $(function() {
 : <a class="el" href="classPhpcraft_1_1ClientConnection.html#ad32237c3b52c20b5cb3468737f8a1996">Phpcraft\ClientConnection</a>
 </li>
 <li>$input_prefix
-: <a class="el" href="classPhpcraft_1_1UserInterface.html#aec49ed3a72c4a09b90268d00ae5f720d">Phpcraft\UserInterface</a>
+: <a class="el" href="classPhpcraft_1_1FancyUserInterface.html#a026289d3c34007c47b70ae74458d8616">Phpcraft\FancyUserInterface</a>
 </li>
 <li>$join_function
 : <a class="el" href="classPhpcraft_1_1Server.html#a806ec54f8cc41e5b811431c5e3d7144f">Phpcraft\Server</a>
@@ -89,14 +95,21 @@ $(function() {
 <li>$list_ping_function
 : <a class="el" href="classPhpcraft_1_1Server.html#a8d600041c4ed3dacefff2d5df6d2aeaa">Phpcraft\Server</a>
 </li>
+<li>$loaded_plugins
+: <a class="el" href="classPhpcraft_1_1PluginManager.html#a229377a05bf3b893acebc64467e53eeb">Phpcraft\PluginManager</a>
+</li>
 <li>$name
-: <a class="el" href="classPhpcraft_1_1Packet.html#a8ef20582b51249287673ded85c049a5a">Phpcraft\Packet</a>
+: <a class="el" href="classPhpcraft_1_1Event.html#a6ba99c261a50acab106e901a9cda7b1e">Phpcraft\Event</a>
+, <a class="el" href="classPhpcraft_1_1Packet.html#a8ef20582b51249287673ded85c049a5a">Phpcraft\Packet</a>
 </li>
 <li>$next_heartbeat
 : <a class="el" href="classPhpcraft_1_1ClientConnection.html#ab81ef85b6185e1211f075611d6844b59">Phpcraft\ClientConnection</a>
 </li>
 <li>$packet_function
 : <a class="el" href="classPhpcraft_1_1Server.html#a8ee363615c373c001b0fbb92aa288406">Phpcraft\Server</a>
+</li>
+<li>$platform
+: <a class="el" href="classPhpcraft_1_1PluginManager.html#a7d5aa2abac8c500481140ba132263bc5">Phpcraft\PluginManager</a>
 </li>
 <li>$private_key
 : <a class="el" href="classPhpcraft_1_1Server.html#ab5129d24aa1f235130bc8132be0a417a">Phpcraft\Server</a>
@@ -111,14 +124,14 @@ $(function() {
 : <a class="el" href="classPhpcraft_1_1Connection.html#a22835d4eefaa059692c254456864a405">Phpcraft\Connection</a>
 </li>
 <li>$stdin
-: <a class="el" href="classPhpcraft_1_1PlainUserInterface.html#a3fba98eb073211cc5c3038d34660c3d6">Phpcraft\PlainUserInterface</a>
+: <a class="el" href="classPhpcraft_1_1UserInterface.html#ac111125b65a6e6fd4a22062a56cf8781">Phpcraft\UserInterface</a>
 </li>
 <li>$stream
 : <a class="el" href="classPhpcraft_1_1Connection.html#af1e92d8d3381fc0384e4c7c175cc10ed">Phpcraft\Connection</a>
 , <a class="el" href="classPhpcraft_1_1Server.html#a7e900482f4d4db56ccbca75464738fde">Phpcraft\Server</a>
 </li>
 <li>$tabcomplete_function
-: <a class="el" href="classPhpcraft_1_1UserInterface.html#a2ae393b7d1b0cea0d13168393394b99e">Phpcraft\UserInterface</a>
+: <a class="el" href="classPhpcraft_1_1FancyUserInterface.html#a4666084d1bb181c272b295f199caf268">Phpcraft\FancyUserInterface</a>
 </li>
 <li>$username
 : <a class="el" href="classPhpcraft_1_1ClientConnection.html#a40ca8bff0bcce3ed004e46bf4341d880">Phpcraft\ClientConnection</a>
@@ -128,9 +141,6 @@ $(function() {
 </li>
 <li>$write_buffer
 : <a class="el" href="classPhpcraft_1_1Connection.html#a3084eed19e1ce7d3f53d50cc26aaf767">Phpcraft\Connection</a>
-</li>
-<li>pre2
-: <a class="el" href="classPhpcraft_1_1Phpcraft.html#ac1e3d3bd800734ed642e7eb4d235f978">Phpcraft\Phpcraft</a>
 </li>
 </ul>
 </div><!-- contents -->

@@ -3,16 +3,7 @@ if(empty($argv))
 {
 	die("This is for PHP-CLI. Connect to your server via SSH and use `php client.php`.\n");
 }
-require "src/Phpcraft.class.php";
-require "src/Connection.class.php";
-require "src/ServerConnection.class.php";
-require "src/PlainUserInterface.class.php";
-require "src/UserInterface.class.php";
-require "src/Account.class.php";
-require "src/Packet.class.php";
-require "src/KeepAlivePacket.class.php";
-require "src/KeepAliveRequestPacket.class.php";
-require "src/KeepAliveResponsePacket.class.php";
+require "vendor/autoload.php";
 echo "PHP Minecraft Client\nhttps://github.com/timmyrs/Phpcraft\n";
 
 $options = [];
@@ -132,11 +123,11 @@ while($name == "")
 	}
 	else
 	{
-		echo "How would you like to be called in-game? [PHPMinecraftUser] ";
+		echo "How would you like to be called in-game? [PhpcraftUser] ";
 		$name = trim(fgets($stdin));
 		if($name == "")
 		{
-			$name = "PHPMinecraftUser";
+			$name = "PhpcraftUser";
 			break;
 		}
 		if(!\Phpcraft\Phpcraft::validateName($name))
@@ -151,7 +142,7 @@ if($online && !$account->loginUsingProfiles())
 {
 	do
 	{
-		echo "What's your account password? (visible!) ";
+		readline_callback_handler_install("What's your account password? (hidden) ", function($input){});
 		$pass = trim(fgets($stdin));
 		if($error = $account->login($pass))
 		{
@@ -159,10 +150,12 @@ if($online && !$account->loginUsingProfiles())
 		}
 		else
 		{
+			echo "\n";
 			break;
 		}
 	}
 	while(true);
+	readline_callback_handler_remove();
 }
 
 $server = "";
@@ -180,7 +173,7 @@ if(!$server)
 	}
 }
 fclose($stdin);
-$ui = (isset($options["plain"]) ? new \Phpcraft\PlainUserInterface() : new \Phpcraft\UserInterface("PHP Minecraft Client", "github.com/timmyrs/Phpcraft"));
+$ui = (isset($options["plain"]) ? new \Phpcraft\UserInterface() : new \Phpcraft\FancyUserInterface("PHP Minecraft Client", "github.com/timmyrs/Phpcraft"));
 $ui->add("Resolving... ")->render();
 $server = \Phpcraft\Phpcraft::resolve($server);
 $serverarr = explode(":", $server);
@@ -195,13 +188,13 @@ if(empty($options["version"]))
 	$info = \Phpcraft\Phpcraft::getServerStatus($serverarr[0], $serverarr[1], 3, 1);
 	if(empty($info) || empty($info["version"]) || empty($info["version"]["protocol"]))
 	{
-		$ui->append("Invalid status: ".json_encode($info))->render();
+		$ui->add("Invalid status: ".json_encode($info))->render();
 		exit;
 	}
 	$protocol_version = $info["version"]["protocol"];
 	if(!($minecraft_versions = \Phpcraft\Phpcraft::getMinecraftVersionsFromProtocolVersion($protocol_version)))
 	{
-		$ui->append("This server uses an unknown protocol version: {$protocol_version}")->render();
+		$ui->add("This server uses an unknown protocol version: {$protocol_version}")->render();
 		exit;
 	}
 	$minecraft_version = $minecraft_versions[0];
@@ -216,10 +209,29 @@ else
 		exit;
 	}
 }
-$ui->add("");
+\Phpcraft\PluginManager::$platform = "phpcraft:client";
+function autoloadPlugins()
+{
+	global $ui, $minecraft_version, $protocol_version;
+	$ui->add("Autoloading plugins... ")->render();
+	\Phpcraft\PluginManager::$loaded_plugins = [];
+	\Phpcraft\PluginManager::autoloadPlugins();
+	\Phpcraft\PluginManager::fire(new \Phpcraft\Event("load", [
+		"server_minecraft_version" => $minecraft_version,
+		"server_protocol_version" => $protocol_version
+	]));
+	$ui->append("Loaded ".count(\Phpcraft\PluginManager::$loaded_plugins)." plugin(s).")->render();
+}
+autoloadPlugins();
 function handleConsoleMessage($msg)
 {
 	if($msg == "")
+	{
+		return;
+	}
+	if(\Phpcraft\PluginManager::fire(new \Phpcraft\Event("console_message", [
+		"message" => $msg
+	])))
 	{
 		return;
 	}
@@ -252,6 +264,7 @@ function handleConsoleMessage($msg)
 			$ui->add("slot <1-9>                 sets selected hotbar slot");
 			$ui->add("hit                        swings the main hand");
 			$ui->add("use                        uses the held item");
+			$ui->add("reload                     reloads all autoloaded plugins");
 			$ui->add("reconnect                  reconnects to the server");
 			$ui->add("quit, disconnect           disconnects from the server");
 			break;
@@ -441,6 +454,10 @@ function handleConsoleMessage($msg)
 			$ui->add("Done.");
 			break;
 
+			case "reload":
+			autoloadPlugins();
+			break;
+
 			case "reconnect":
 			global $reconnect;
 			$reconnect = true;
@@ -482,7 +499,7 @@ $ui->tabcomplete_function = function($word)
 };
 do
 {
-	$ui->append("Connecting using {$minecraft_version}... ")->render();
+	$ui->add("Connecting using {$minecraft_version}... ")->render();
 	$stream = fsockopen($serverarr[0], $serverarr[1], $errno, $errstr, 3) or die($errstr."\n");
 	$con = new \Phpcraft\ServerConnection($stream, $protocol_version);
 	$con->sendHandshake($serverarr[0], $serverarr[1], 2);
@@ -521,8 +538,14 @@ do
 		$start = microtime(true);
 		while(($packet_id = $con->readPacket(0)) !== false)
 		{
-			$packet_name = \Phpcraft\Packet::clientboundPacketIdToName($packet_id, $protocol_version);
-			if($packet_name === null)
+			if(!($packet_name = \Phpcraft\Packet::clientboundPacketIdToName($packet_id, $protocol_version)))
+			{
+				continue;
+			}
+			if(\Phpcraft\PluginManager::fire(new \Phpcraft\Event("packet", [
+				"packet_name" => $packet_name,
+				"connection" => $con
+			])))
 			{
 				continue;
 			}
@@ -798,7 +821,7 @@ do
 				$con->send();
 				$con->startPacket("client_settings");
 				$con->writeString($options["lang"]);
-				$con->writeByte(2); // View Distance
+				$con->writeByte(16); // View Distance
 				$con->writeVarInt(0); // Chat Mode (0 = all)
 				$con->writeBoolean(true); // Chat colors
 				$con->writeByte(0x7F); // Displayed Skin Parts (7F = all)
@@ -823,14 +846,21 @@ do
 					$dimension = $con->readByte();
 				}
 			}
+			else if($packet_name == "change_game_state")
+			{
+				if($con->readByte() == 7 && $con->readFloat() > 1)
+				{
+					$ui->add("The server just sent a packet that would crash a vanilla client.")->render();
+				}
+			}
 			else if($packet_name == "disconnect")
 			{
-				echo "Server closed connection: ".Phpcraft::chatToText($con->readString(), 1)."\n";
+				$ui->add("Server closed connection: ".\Phpcraft\Phpcraft::chatToText($con->readString(), 1))->render();
 				$reconnect = !isset($options["noreconnect"]);
 				$next_tick = microtime(true) + 10;
 			}
 		}
-		while($message = $ui->render(false))
+		while($message = $ui->render(true))
 		{
 			handleConsoleMessage($message);
 		}
@@ -999,8 +1029,5 @@ do
 		}
 	}
 	while(!$reconnect && $con->isOpen());
-	$ui->add("");
 }
 while($reconnect || !isset($options["noreconnect"]));
-$ui->dispose();
-echo "\n";

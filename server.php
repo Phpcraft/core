@@ -3,13 +3,7 @@ if(empty($argv))
 {
 	die("This is for PHP-CLI. Connect to your server via SSH and use `php server.php`.\n");
 }
-require "src/Phpcraft.class.php";
-require "src/Connection.class.php";
-require "src/ClientConnection.class.php";
-require "src/Server.class.php";
-require "src/PlainUserInterface.class.php";
-require "src/UserInterface.class.php";
-require "src/Packet.class.php";
+require "vendor/autoload.php";
 echo "PHP Minecraft Server\nhttps://github.com/timmyrs/Phpcraft\n";
 
 $options = ["offline" => false, "port" => 25565, "nocolor" => false, "plain" => false];
@@ -54,7 +48,7 @@ for($i = 1; $i < count($argv); $i++)
 		die("Unknown argument '{$n}' -- try 'help' for a list of arguments.\n");
 	}
 }
-$ui = ($options["plain"] ? new \Phpcraft\PlainUserInterface() : new \Phpcraft\UserInterface("PHP Minecraft Server", "github.com/timmyrs/Phpcraft"));
+$ui = ($options["plain"] ? new \Phpcraft\UserInterface() : new \Phpcraft\FancyUserInterface("PHP Minecraft Server", "github.com/timmyrs/Phpcraft"));
 if($options["offline"])
 {
 	$private_key = null;
@@ -72,7 +66,10 @@ $ui->add("Binding to port ".$options["port"]."... ")->render();
 $stream = stream_socket_server("tcp://0.0.0.0:".$options["port"], $errno, $errstr) or die(" {$errstr}\n");
 $server = new \Phpcraft\Server($stream, $private_key);
 $ui->input_prefix = "[Server] ";
-$ui->append("Success!")->render();
+$ui->append("Success!")->add("Autoloading plugins... ")->render();
+\Phpcraft\PluginManager::$platform = "phpcraft:server";
+\Phpcraft\PluginManager::autoloadPlugins();
+$ui->append("Loaded ".count(\Phpcraft\PluginManager::$loaded_plugins)." plugin(s).")->render();
 $ui->tabcomplete_function = function($word)
 {
 	global $server;
@@ -91,10 +88,16 @@ $ui->tabcomplete_function = function($word)
 $server->join_function = function($con)
 {
 	global $ui, $server;
+	if(\Phpcraft\PluginManager::fire(new \Phpcraft\Event("join", [
+		"client" => $con
+	])))
+	{
+		return;
+	}
 	$con->startPacket("join_game");
-	$con->writeInt(1); // Entity ID
+	$con->writeInt(1337); // Entity ID
 	$con->writeByte(1); // Gamemode
-	if($con->getProtocolVersion() > 107) // Dimension
+	if($con->protocol_version > 107) // Dimension
 	{
 		$con->writeInt(0);
 	}
@@ -108,7 +111,7 @@ $server->join_function = function($con)
 	$con->writeBoolean(false); // Reduced Debug Info
 	$con->send();
 	$con->startPacket("plugin_message");
-	$con->writeString($con->getProtocolVersion() > 340 ? "minecraft:brand" : "MC|Brand");
+	$con->writeString($con->protocol_version > 340 ? "minecraft:brand" : "MC|Brand");
 	$con->writeString("\\Phpcraft\\Server");
 	$con->send();
 	$con->startPacket("spawn_position");
@@ -121,7 +124,7 @@ $server->join_function = function($con)
 	$con->writeFloat(0);
 	$con->writeFloat(0);
 	$con->writeByte(0);
-	if($con->getProtocolVersion() > 47)
+	if($con->protocol_version > 47)
 	{
 		$con->writeVarInt(0); // Teleport ID
 	}
@@ -155,7 +158,7 @@ $server->join_function = function($con)
 	$msg = json_encode($msg);
 	foreach($server->clients as $c)
 	{
-		if($c->getState() == 3)
+		if($c->state == 3)
 		{
 			try
 			{
@@ -167,19 +170,29 @@ $server->join_function = function($con)
 			catch(Exception $ignored){}
 		}
 	}
+	\Phpcraft\PluginManager::fire(new \Phpcraft\Event("joined", [
+		"client" => $con
+	]));
 };
 $server->packet_function = function($con, $packet_name, $packet_id)
 {
 	global $options, $ui, $server;
+	if(\Phpcraft\PluginManager::fire(new \Phpcraft\Event("packet", [
+		"packet_name" => $packet_name,
+		"client" => $con
+	])))
+	{
+		return;
+	}
 	if($packet_name == "send_chat_message")
 	{
 		$msg = $con->readString();
-		if($msg == "crash me")
+		if(\Phpcraft\PluginManager::fire(new \Phpcraft\Event("chat_message", [
+			"message" => $msg,
+			"client" => $con
+		])))
 		{
-			$con->startPacket("change_game_state");
-			$con->writeByte(7);
-			$con->writeFloat(1337);
-			$con->send();
+			return;
 		}
 		if($options["nocolor"])
 		{
@@ -202,7 +215,7 @@ $server->packet_function = function($con, $packet_name, $packet_id)
 		$msg = json_encode($msg);
 		foreach($server->clients as $c)
 		{
-			if($c->getState() == 3)
+			if($c->state == 3)
 			{
 				try
 				{
@@ -219,7 +232,7 @@ $server->packet_function = function($con, $packet_name, $packet_id)
 $server->disconnect_function = function($con)
 {
 	global $ui, $server;
-	if($con->getState() == 3)
+	if($con->state == 3)
 	{
 		$msg = [
 			"color" => "yellow",
@@ -234,7 +247,7 @@ $server->disconnect_function = function($con)
 		$msg = json_encode($msg);
 		foreach($server->clients as $c)
 		{
-			if($c->getState() == 3)
+			if($c->state == 3)
 			{
 				try
 				{
@@ -253,8 +266,14 @@ do
 	$start = microtime(true);
 	$server->accept();
 	$server->handle();
-	while($msg = $ui->render(false))
+	while($msg = $ui->render(true))
 	{
+		if(\Phpcraft\PluginManager::fire(new \Phpcraft\Event("console_message", [
+			"message" => $msg
+		])))
+		{
+			continue;
+		}
 		$msg = [
 			"translate" => "chat.type.announcement",
 			"with" => [
@@ -270,7 +289,7 @@ do
 		$msg = json_encode($msg);
 		foreach($server->clients as $c)
 		{
-			if($c->getState() == 3)
+			if($c->state == 3)
 			{
 				try
 				{

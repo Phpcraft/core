@@ -62,7 +62,7 @@ class Server
 			return [
 				"version" => [
 					"name" => "\\Phpcraft\\Server",
-					"protocol" => (\Phpcraft\Phpcraft::isProtocolVersionSupported($con->getProtocolVersion()) ? $con->getProtocolVersion() : 69)
+					"protocol" => (\Phpcraft\Phpcraft::isProtocolVersionSupported($con->protocol_version) ? $con->protocol_version : 69)
 				],
 				"description" => [
 					"text" => "A \\Phpcraft\\Server"
@@ -88,37 +88,43 @@ class Server
 	{
 		while(($stream = @stream_socket_accept($this->stream, 0)) !== false)
 		{
-			$con = new \Phpcraft\ClientConnection($stream);
-			switch($con->handleInitialPacket())
+			try
 			{
-				case 1:
-				if($con->getState() == 1)
+				$con = new \Phpcraft\ClientConnection($stream);
+				switch($con->handleInitialPacket())
 				{
-					$con->disconnect_after = microtime(true) + 10;
-				}
-				array_push($this->clients, $con);
-				break;
+					case 1:
+					if($con->state == 1)
+					{
+						$con->disconnect_after = microtime(true) + 10;
+					}
+					array_push($this->clients, $con);
+					break;
 
-				case 2: // Legacy List Ping
-				$json = ($this->list_ping_function)($con);
-				if(!isset($json["players"]))
-				{
-					$json["players"] = [];
+					case 2: // Legacy List Ping
+					$json = ($this->list_ping_function)($con);
+					if(!isset($json["players"]))
+					{
+						$json["players"] = [];
+					}
+					if(!isset($json["players"]["online"]))
+					{
+						$json["players"]["online"] = 0;
+					}
+					if(!isset($json["players"]["max"]))
+					{
+						$json["players"]["max"] = 0;
+					}
+					$data = "§1\x00127\x00".@$json["version"]["name"]."\x00".\Phpcraft\Phpcraft::chatToText(@$json["description"], 2)."\x00".$json["players"]["online"]."\x00".$json["players"]["max"];
+					$con->writeByte(0xFF);
+					$con->writeShort(strlen($data) - 1);
+					$con->writeRaw(mb_convert_encoding($data, "utf-16be"));
+					$con->send(true);
+					$con->close();
 				}
-				if(!isset($json["players"]["online"]))
-				{
-					$json["players"]["online"] = 0;
-				}
-				if(!isset($json["players"]["max"]))
-				{
-					$json["players"]["max"] = 0;
-				}
-				$data = "§1\x00127\x00".@$json["version"]["name"]."\x00".\Phpcraft\Phpcraft::chatToText(@$json["description"], 2)."\x00".$json["players"]["online"]."\x00".$json["players"]["max"];
-				//$data = "§1\x0078\x001.6.4\x00A Minecraft Server\x000\x0020";
-				$con->writeByte(0xFF);
-				$con->writeShort(strlen($data) - 1);
-				$con->writeRaw(mb_convert_encoding($data, "utf-16be"));
-				$con->send(true);
+			}
+			catch(Exception $ignored)
+			{
 				$con->close();
 			}
 		}
@@ -141,9 +147,9 @@ class Server
 				{
 					while(($packet_id = $con->readPacket(0)) !== false)
 					{
-						if($con->getState() == 3) // Playing
+						if($con->state == 3) // Playing
 						{
-							$packet_name = \Phpcraft\Packet::serverboundPacketIdToName($packet_id, $con->getProtocolVersion());
+							$packet_name = \Phpcraft\Packet::serverboundPacketIdToName($packet_id, $con->protocol_version);
 							if($packet_name == "keep_alive_response")
 							{
 								$con->next_heartbeat = microtime(true) + 15;
@@ -154,7 +160,7 @@ class Server
 								($this->packet_function)($con, $packet_name, $packet_id);
 							}
 						}
-						else if($con->getState() == 2) // Login
+						else if($con->state == 2) // Login
 						{
 							if($packet_id == 0x00) // Login Start
 							{
@@ -220,7 +226,11 @@ class Server
 				}
 				catch(Exception $e)
 				{
-					$con->disconnect(get_class($e).": ".$e->getMessage());
+					if($con->username)
+					{
+						echo "Disconnected ".$con->username.": ".get_class($e).": ".$e->getMessage()."\n".$e->getTraceAsString()."\n";
+					}
+					$con->disconnect(get_class($e).": ".$e->getMessage()."\n".$e->getTraceAsString());
 				}
 				if($con->disconnect_after != 0 && $con->disconnect_after <= microtime(true))
 				{

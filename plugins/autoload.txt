@@ -1,0 +1,11 @@
+# Add the file names of the plugins you'd like to have loaded automatically.
+# Lines starting with a pound sign (#) are ignored.
+
+# Phpcraft Client Plugins:
+WorldSaver
+
+# Phpcraft Server Plugins:
+CrashClients
+GamemodeCommand
+ServerReloadCommand
+WorldImmitator

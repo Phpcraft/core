@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['packet',['Packet',['../classPhpcraft_1_1Packet.html',1,'Phpcraft']]],
-  ['phpcraft',['Phpcraft',['../classPhpcraft_1_1Phpcraft.html',1,'Phpcraft']]],
-  ['plainuserinterface',['PlainUserInterface',['../classPhpcraft_1_1PlainUserInterface.html',1,'Phpcraft']]]
+  ['keepalivepacket',['KeepAlivePacket',['../classPhpcraft_1_1KeepAlivePacket.html',1,'Phpcraft']]],
+  ['keepaliverequestpacket',['KeepAliveRequestPacket',['../classPhpcraft_1_1KeepAliveRequestPacket.html',1,'Phpcraft']]],
+  ['keepaliveresponsepacket',['KeepAliveResponsePacket',['../classPhpcraft_1_1KeepAliveResponsePacket.html',1,'Phpcraft']]]
 ];

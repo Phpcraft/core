@@ -3,44 +3,48 @@ namespace Phpcraft;
 class Phpcraft
 {
 	private static $minecraft_folder = null;
-	private static $versions = [
-		"1.13.2" => 404,
-		"1.13.2-pre2" => 403,
-		"1.13.2-pre1" => 402,
-		"1.13.1" => 401,
-		"1.13" => 393,
-		"1.12.2" => 340,
-		"1.12.2-pre2" => 339,
-		"1.12.1" => 338,
-		"1.12.1-pre2" => 337,
-		"1.12.1-pre1" => 337,
-		"17w31a" => 336,
-		"1.12" => 335,
-		"1.11.2" => 316,
-		"1.11.1" => 316,
-		"1.11" => 315,
-		"1.10.2" => 210,
-		"1.10.1" => 210,
-		"1.10" => 210,
-		"1.9.4" => 110,
-		"1.9.3" => 110,
-		"1.9.2" => 109,
-		"1.9.1" => 108,
-		"1.9" => 107,
-		"1.8.9" => 47,
-		"1.8.8" => 47,
-		"1.8.7" => 47,
-		"1.8.6" => 47,
-		"1.8.5" => 47,
-		"1.8.4" => 47,
-		"1.8.3" => 47,
-		"1.8.2" => 47,
-		"1.8.1" => 47,
-		"1.8" => 47
-	];
+
+	private static function versions()
+	{
+		return [
+			"1.13.2" => 404,
+			"1.13.2-pre2" => 403,
+			"1.13.2-pre1" => 402,
+			"1.13.1" => 401,
+			"1.13" => 393,
+			"1.12.2" => 340,
+			"1.12.2-pre2" => 339,
+			"1.12.1" => 338,
+			"1.12.1-pre2" => 337,
+			"1.12.1-pre1" => 337,
+			"17w31a" => 336,
+			"1.12" => 335,
+			"1.11.2" => 316,
+			"1.11.1" => 316,
+			"1.11" => 315,
+			"1.10.2" => 210,
+			"1.10.1" => 210,
+			"1.10" => 210,
+			"1.9.4" => 110,
+			"1.9.3" => 110,
+			"1.9.2" => 109,
+			"1.9.1" => 108,
+			"1.9" => 107,
+			"1.8.9" => 47,
+			"1.8.8" => 47,
+			"1.8.7" => 47,
+			"1.8.6" => 47,
+			"1.8.5" => 47,
+			"1.8.4" => 47,
+			"1.8.3" => 47,
+			"1.8.2" => 47,
+			"1.8.1" => 47,
+			"1.8" => 47
+		];
+	}
 
 	/**
-	 * Returns the path of the .minecraft folder without a slash at the end.
+	 * Returns the path of the .minecraft folder without a folder seperator at the end.
 	 * @return string
 	 */
 	static function getMinecraftFolder()
@@ -72,7 +76,7 @@ class Phpcraft
 	}
 
 	/**
-	 * Returns the path of the .minecraft/launcher_profiles.json.
+	 * Returns the path of Minecraft's launcher_profiles.json.
 	 * @return string
 	 */
 	static function getProfilesFile()
@@ -81,7 +85,7 @@ class Phpcraft
 	}
 
 	/**
-	 * Returns the contents of the .minecraft/launcher_profiles.json with some values being set if they are unset.
+	 * Returns the contents of Minecraft's launcher_profiles.json with some values being set if they are unset.
 	 * @return array
 	 * @see Phpcraft::getProfilesFile()
 	 * @see Phpcraft::saveProfiles()
@@ -113,7 +117,7 @@ class Phpcraft
 	}
 
 	/**
-	 * Saves the profiles array into the .minecraft/launcher_profiles.json.
+	 * Saves the profiles array into Minecraft's launcher_profiles.json.
 	 * @param array $profiles
 	 * @return void
 	 */
@@ -298,17 +302,20 @@ class Phpcraft
 	 */
 	static function intToVarInt($value)
 	{
+		if($value < 0)
+		{
+			$value = ((($value ^ 0xFFFFFFFF) + 1) * -1);
+		}
 		$bytes = "";
-		global $write_buffer;
 		do
 		{
 			$temp = ($value & 0b01111111);
-			$value = (($value >> 7) & 0b01111111);
+			$value = ($value >> 7);
 			if($value != 0)
 			{
 				$temp |= 0b10000000;
 			}
-			$bytes .= pack("c", $temp);
+			$bytes .= pack("C", $temp);
 		}
 		while($value != 0);
 		return $bytes;
@@ -321,7 +328,7 @@ class Phpcraft
 	 */
 	static function isProtocolVersionSupported($protocol_version)
 	{
-		return in_array($protocol_version, Phpcraft::$versions);
+		return in_array($protocol_version, Phpcraft::versions());
 	}
 
 	/**
@@ -332,7 +339,7 @@ class Phpcraft
 	static function getMinecraftVersionsFromProtocolVersion($protocol_version)
 	{
 		$minecraft_versions = [];
-		foreach(Phpcraft::$versions as $k => $v)
+		foreach(Phpcraft::versions() as $k => $v)
 		{
 			if($v == $protocol_version)
 			{
@@ -343,13 +350,33 @@ class Phpcraft
 	}
 
 	/**
+	 * Returns a human-readable range of Minecraft versions corresponding to the given protocol version.
+	 * @param integer $protocol_version e.g., 47 for 1.8 - 1.8.9
+	 * @return string The version range or an empty string if the given protocol version is not supported.
+	 */
+	static function getMinecraftVersionRangeFromProtocolVersion($protocol_version)
+	{
+		$minecraft_versions = \Phpcraft\Phpcraft::getMinecraftVersionsFromProtocolVersion($protocol_version);
+		$count = count($minecraft_versions);
+		if($count == 0)
+		{
+			return "";
+		}
+		if($count == 1)
+		{
+			return $minecraft_versions[0];
+		}
+		return $minecraft_versions[$count - 1]." - ".$minecraft_versions[0];
+	}
+
+	/**
 	 * Returns whether a given Minecraft version is supported.
 	 * @param string $minecraft_version e.g., 1.12.2
 	 * @return boolean
 	 */
 	static function isMinecraftVersionSupported($minecraft_version)
 	{
-		return isset(Phpcraft::$versions[$minecraft_version]);
+		return isset(Phpcraft::versions()[$minecraft_version]);
 	}
 
 	/**
@@ -359,7 +386,7 @@ class Phpcraft
 	 */
 	static function getProtocolVersionFromMinecraftVersion($minecraft_version)
 	{
-		return @Phpcraft::$versions[$minecraft_version];
+		return @Phpcraft::versions()[$minecraft_version];
 	}
 
 	/**
@@ -368,7 +395,7 @@ class Phpcraft
 	 */
 	static function getSupportedProtocolVersions()
 	{
-		return array_values(Phpcraft::$versions);
+		return array_values(Phpcraft::versions());
 	}
 
 	/**
@@ -378,36 +405,11 @@ class Phpcraft
 	static function getSupportedMinecraftVersions()
 	{
 		$minecraft_versions = [];
-		foreach(Phpcraft::$versions as $k => $v)
+		foreach(Phpcraft::versions() as $k => $v)
 		{
 			array_push($minecraft_versions, $k);
 		}
 		return $minecraft_versions;
-	}
-
-	/**
-	 * Adds a protocol version to the internal list of supported versions.
-	 * @param string $minecraft_version A unique versions string for the applying Minecraft version. If more than one Minecraft version applies, you can call this function multiple times with the same protocol version.
-	 * @param integer $protocol_version
-	 */
-	static function addSupportedProtocolVersion($minecraft_version, $protocol_version)
-	{
-		Phpcraft::$versions[$minecraft_version] = $protocol_version;
-	}
-
-	/**
-	 * Removes a protocol version from the interal list of supported versions.
-	 * @param integer $protocol_version
-	 */
-	static function removeSupportedProtocolVersion($protocol_version)
-	{
-		foreach(Phpcraft::$versions as $k => $v)
-		{
-			if($v == $protocol_version)
-			{
-				unset(Phpcraft::$versions[$k]);
-			}
-		}
 	}
 
 	/**
@@ -751,7 +753,7 @@ class Phpcraft
 	{
 		if($method != 2)
 		{
-			if($stream = fsockopen($server_name, $server_port, $errno, $errstr, $timeout))
+			if($stream = @fsockopen($server_name, $server_port, $errno, $errstr, $timeout))
 			{
 				$con = new ServerConnection($stream);
 				$start = microtime(true);
@@ -770,7 +772,7 @@ class Phpcraft
 		}
 		if($method != 1)
 		{
-			if($stream = fsockopen($server_name, $server_port, $errno, $errstr, $timeout))
+			if($stream = @fsockopen($server_name, $server_port, $errno, $errstr, $timeout))
 			{
 				$con = new ServerConnection($stream, 0);
 				$start = microtime(true);

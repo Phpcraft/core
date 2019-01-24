@@ -42,7 +42,7 @@ abstract class KeepAlivePacket extends Packet
 	 */
 	protected function _read(\Phpcraft\Connection $con)
 	{
-		if($con->getProtocolVersion() >= 339)
+		if($con->protocol_version >= 339)
 		{
 			$this->keepAliveId = $con->readLong();
 		}
@@ -59,7 +59,7 @@ abstract class KeepAlivePacket extends Packet
 	function send(\Phpcraft\Connection $con)
 	{
 		$con->startPacket($this->name);
-		if($con->getProtocolVersion() >= 339)
+		if($con->protocol_version >= 339)
 		{
 			$con->writeLong($this->keepAliveId);
 		}

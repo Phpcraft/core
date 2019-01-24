@@ -7,19 +7,22 @@
 	"license": "MIT",
 	"autoload": {
 		"files": [
+			"src/Exception.class.php",
 			"src/Account.class.php",
 			"src/Connection.class.php",
 			"src/ClientConnection.class.php",
-			"src/Exception.class.php",
+			"src/ServerConnection.class.php",
+			"src/Server.class.php",
+			"src/Phpcraft.class.php",
 			"src/Packet.class.php",
 			"src/KeepAlivePacket.class.php",
 			"src/KeepAliveRequestPacket.class.php",
 			"src/KeepAliveResponsePacket.class.php",
-			"src/Phpcraft.class.php",
-			"src/PlainUserInterface.class.php",
-			"src/Server.class.php",
-			"src/ServerConnection.class.php",
-			"src/UserInterface.class.php"
+			"src/UserInterface.class.php",
+			"src/FancyUserInterface.class.php",
+			"src/Plugin.class.php",
+			"src/PluginManager.class.php",
+			"src/Event.class.php"
 		]
 	},
 	"optimize-autoloader": true

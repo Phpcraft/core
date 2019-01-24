@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['userinterface',['UserInterface',['../classPhpcraft_1_1UserInterface.html',1,'Phpcraft']]]
+  ['server',['Server',['../classPhpcraft_1_1Server.html',1,'Phpcraft']]],
+  ['serverconnection',['ServerConnection',['../classPhpcraft_1_1ServerConnection.html',1,'Phpcraft']]]
 ];

@@ -2,7 +2,7 @@
 
 A PHP library for all things Minecraft. Includes a pre-made client, server, and listping utility.
 
-*PHP's Windows Port is not supported due to [a bug](https://bugs.php.net/bug.php?id=34972). Instead, use [the Windows Subsystem for Linux](https://aka.ms/wslinstall).*
+*Windows might work for some features, but it's not supported due to [a bug](https://bugs.php.net/bug.php?id=34972) and a general lack of features. Instead, use [the Windows Subsystem for Linux](https://aka.ms/wslinstall).*
 
 ## Dependencies
 

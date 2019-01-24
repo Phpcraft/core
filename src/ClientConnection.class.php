@@ -52,7 +52,7 @@ class ClientConnection extends Connection
 	 * Deals with the first packet the client has sent.
 	 * This function deals with the handshake or legacy list ping packet.
 	 * Errors will cause the connection to be closed.
-	 * @return integer Status: 0 = An error occured and the connection has been closed. 1 = Handshake was successfully read; use Connection::getState() to see if the client wants to get the status (1) or login to play (2). 2 = A legacy list ping packet has been received.
+	 * @return integer Status: 0 = An error occured and the connection has been closed. 1 = Handshake was successfully read; use Connection::$state to see if the client wants to get the status (1) or login to play (2). 2 = A legacy list ping packet has been received.
 	 */
 	function handleInitialPacket()
 	{
@@ -210,19 +210,23 @@ class ClientConnection extends Connection
 	 */
 	function disconnect($reason = [])
 	{
-		if($reason && $this->state > 1)
+		try
 		{
-			if($this->state == 2)
+			if($reason && $this->state > 1)
 			{
-				$this->writeVarInt(0x00);
+				if($this->state == 2)
+				{
+					$this->writeVarInt(0x00);
+				}
+				else
+				{
+					$this->startPacket("disconnect");
+				}
+				$this->writeString(json_encode($reason));
+				$this->send();
 			}
-			else
-			{
-				$this->startPacket("disconnect");
-			}
-			$this->writeString(json_encode($reason));
-			$this->send();
 		}
+		catch(Exception $ignored){}
 		$this->close();
 	}
 }
