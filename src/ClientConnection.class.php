@@ -214,11 +214,12 @@ class ClientConnection extends Connection
 		{
 			if($reason && $this->state > 1)
 			{
-				if($this->state == 2)
+				if($this->state == 2) // Login
 				{
+					$this->write_buffer = "";
 					$this->writeVarInt(0x00);
 				}
-				else
+				else // Play
 				{
 					$this->startPacket("disconnect");
 				}
