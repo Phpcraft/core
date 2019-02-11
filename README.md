@@ -2,17 +2,17 @@
 
 A PHP library for all things Minecraft. Includes a pre-made client, server, and listping utility.
 
-*Windows might work for some features, but it's not supported due to [a bug](https://bugs.php.net/bug.php?id=34972) and a general lack of features. Instead, use [the Windows Subsystem for Linux](https://aka.ms/wslinstall).*
-
 ## Dependencies
+
+Windows might work for some features, but it's not supported due to [a bug](https://bugs.php.net/bug.php?id=34972) and a general lack of features. Instead, use [the Windows Subsystem for Linux](https://aka.ms/wslinstall).
 
 For basic usage, all you need is PHP-CLI and mbstring:
 
 	sudo apt-get -y install php-cli php-mbstring
 
-Please note that some network features require 64-bit PHP at version 7.0.15 or above.
+64-bit PHP at version 7.0.15 or above is recommended to avoid issues with some networking features.
 
-If you want to create or join an online mode server, you'll need GMP, OpenSSl, and mcrypt:
+If you want to create or join an online mode server, you'll also need GMP, OpenSSl, and mcrypt:
 
     sudo apt-get -y install php-gmp openssl gcc make autoconf libc-dev pkg-config php-dev libmcrypt-dev
     sudo pecl install mcrypt-1.0.1
