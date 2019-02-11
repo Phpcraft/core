@@ -92,6 +92,7 @@ $server->join_function = function($con)
 		"client" => $con
 	])))
 	{
+		$con->close();
 		return;
 	}
 	$con->startPacket("join_game");
