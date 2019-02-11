@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit5a5b504021297fbccc2686816b516e0f
+class ComposerStaticInitb01ebcf9648a6fde88428c8cb797b804
 {
     public static $files = array (
         '647e68ce888e9e6193da9775be88cc6b' => __DIR__ . '/../..' . '/src/Exception.class.php',
