@@ -43,7 +43,7 @@ PluginManager::registerPlugin("WorldImmitator", function($plugin)
 		{
 			$event->data["client"]->write_buffer = \Phpcraft\Phpcraft::intToVarInt($id).$con->read_buffer;
 			$event->data["client"]->send();
-			time_nanosleep(0, 1000000); // 1 ms
+			time_nanosleep(0, 2000000); // 2 ms
 		}
 		fclose($fh);
 	});
