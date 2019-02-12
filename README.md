@@ -8,13 +8,13 @@ Windows might work for some features, but it's not supported due to [a bug](http
 
 For basic usage, all you need is PHP-CLI and mbstring:
 
-	sudo apt-get -y install php-cli php-mbstring
+	sudo apt-get -y install php php-cli php-mbstring
 
 64-bit PHP at version 7.0.15 or above is recommended to avoid issues with some networking features.
 
 If you want to create or join an online mode server, you'll also need GMP, OpenSSl, and mcrypt:
 
-    sudo apt-get -y install php-gmp openssl gcc make autoconf libc-dev pkg-config php-dev libmcrypt-dev
+    sudo apt-get -y install php-gmp openssl php-dev php-xml gcc make autoconf libc-dev pkg-config libmcrypt-dev php-pear
     sudo pecl install mcrypt-1.0.1
 
 ## Using the Phpcraft client, server, or listping utility
