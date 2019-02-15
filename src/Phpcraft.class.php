@@ -580,6 +580,10 @@ class Phpcraft
 		}
 		if($format > 0)
 		{
+			if($format == 2)
+			{
+				$text = "§r";
+			}
 			$ansi_modifiers = [];
 			if($format == 1)
 			{
@@ -624,6 +628,10 @@ class Phpcraft
 					}
 				}
 			}
+			if($format == 1)
+			{
+				$text = "\x1B[".join(";", $ansi_modifiers)."m";
+			}
 			if(!isset($chat["color"]))
 			{
 				if(isset($parent["color"]))
@@ -662,14 +670,6 @@ class Phpcraft
 				{
 					$text .= "§".dechex($i);
 				}
-			}
-			if($format == 1)
-			{
-				$text = "\x1B[".join(";", $ansi_modifiers)."m";
-			}
-			else
-			{
-				$text = "§r";
 			}
 		}
 		else
