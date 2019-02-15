@@ -23,7 +23,7 @@ class ClientConnection extends Connection
 	 */
 	public $username;
 	/**
-	 * The client's UUID.
+	 * The client's UUID with hypens.
 	 * @var string $uuid
 	 */
 	public $uuid;

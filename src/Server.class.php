@@ -37,7 +37,7 @@ class Server
 	public $disconnect_function = null;
 	/**
 	 * The function called when to get the server's response to a list ping request with the ClientConnection as argument.
-	 * See Phpcraft::getServerStatus for an example of all the data a server may respond with.
+	 * See Phpcraft::getServerStatus for an example of all the data a server may respond with (excluding "ping").
 	 * @see Server::accept()
 	 * @see Server::handle()
 	 * @var function $list_ping_function
@@ -59,10 +59,26 @@ class Server
 		$this->private_key = $private_key;
 		$this->list_ping_function = function($con)
 		{
+			$players = [];
+			foreach($this->clients as $client)
+			{
+				if($client->state == 3)
+				{
+					array_push($players, [
+						"name" => $client->username,
+						"id" => $client->uuid
+					]);
+				}
+			}
 			return [
 				"version" => [
 					"name" => "\\Phpcraft\\Server",
 					"protocol" => (\Phpcraft\Phpcraft::isProtocolVersionSupported($con->protocol_version) ? $con->protocol_version : 69)
+				],
+				"players" => [
+					"online" => count($players),
+					"max" => count($players) + 1,
+					"sample" => $players
 				],
 				"description" => [
 					"text" => "A \\Phpcraft\\Server"

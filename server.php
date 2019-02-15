@@ -78,7 +78,7 @@ $ui->tabcomplete_function = function($word)
 	$len = strlen($word);
 	foreach($server->clients as $c)
 	{
-		if(strtolower(substr($c->username, 0, $len)) == $word)
+		if($c->state == 3 && strtolower(substr($c->username, 0, $len)) == $word)
 		{
 			array_push($completions, $c->username);
 		}

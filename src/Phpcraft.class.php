@@ -237,8 +237,12 @@ class Phpcraft
 	 * @param string $uuid
 	 * @return string
 	 */
-	public function addHypensToUUID($uuid)
+	static function addHypensToUUID($uuid)
 	{
+		if(strlen($uuid) != 32)
+		{
+			return $uuid;
+		}
 		return substr($uuid, 0, 8)."-".substr($uuid, 8, 4)."-".substr($uuid, 12, 4)."-".substr($uuid, 16, 4)."-".substr($uuid, 20);
 	}
 

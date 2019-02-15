@@ -12,4 +12,10 @@ final class PhpcraftTest extends \PHPUnit\Framework\TestCase
 		$this->assertEquals(1, $con->readInt());
 		$this->assertEquals(-1, $con->readInt());
 	}
+
+	public function testUUID()
+	{
+		$this->assertEquals("e0603b59-2edc-45f7-acc7-b0cccd6656e1", \Phpcraft\Phpcraft::addHypensToUUID("e0603b592edc45f7acc7b0cccd6656e1"));
+		$this->assertEquals("e0603b59-2edc-45f7-acc7-b0cccd6656e1", \Phpcraft\Phpcraft::addHypensToUUID("e0603b59-2edc-45f7-acc7-b0cccd6656e1"));
+	}
 }
