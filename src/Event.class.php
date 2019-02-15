@@ -18,7 +18,6 @@ class Event
 	 * The constructor.
 	 * @param string $name
 	 * @param array $data
-	 * @param boolean True if you'd like the event to be cancelable.
 	 */
 	function __construct($name, $data = [])
 	{

@@ -100,6 +100,8 @@ Static Public Member Functions</h2></td></tr>
 <tr class="separator:a7f1cc0e9c3b7a3b86189c3c662ab88e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaca26f88750d14ec3dea737c1b996ab0"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Packet.html#aaca26f88750d14ec3dea737c1b996ab0">serverboundPacketIdToName</a> ($id, $protocol_version)</td></tr>
 <tr class="separator:aaca26f88750d14ec3dea737c1b996ab0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad433d5a46d128f98c1af8751de33303a"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Packet.html#ad433d5a46d128f98c1af8751de33303a">instanceFromName</a> ($name)</td></tr>
+<tr class="separator:ad433d5a46d128f98c1af8751de33303a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7f95e599c9b5d109aef3faecde116bc0"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Packet.html#a7f95e599c9b5d109aef3faecde116bc0">read</a> (\<a class="el" href="classPhpcraft_1_1Connection.html">Phpcraft\Connection</a> $con)</td></tr>
 <tr class="separator:a7f95e599c9b5d109aef3faecde116bc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -285,6 +287,33 @@ Protected Attributes</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>integer -1 if not applicable for protocol version or null if the packet is unknown. </dd></dl>
+
+</div>
+</div>
+<a id="ad433d5a46d128f98c1af8751de33303a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad433d5a46d128f98c1af8751de33303a">&#9670;&nbsp;</a></span>instanceFromName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static Phpcraft\Packet::instanceFromName </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$name</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Instanciates an object for the given packet name. </p><dl class="section return"><dt>Returns</dt><dd><a class="el" href="classPhpcraft_1_1Packet.html">Packet</a> Null if a class is not available. </dd></dl>
 
 </div>
 </div>
