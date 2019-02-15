@@ -6,4 +6,4 @@ php:
   - '7.2'
   - '7.3'
   - nightly
-script: phpunit test.php
+script: phpunit tests/ --testdox
