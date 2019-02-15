@@ -212,6 +212,22 @@ abstract class Packet
 	}
 
 	/**
+	 * Instanciates an object for the given packet name.
+	 * @return Packet Null if a class is not available.
+	 */
+	static function instanceFromName($name)
+	{
+		switch($name)
+		{
+			case "keep_alive_request":
+			return new \Phpcraft\KeepAliveRequest();
+
+			case "keep_alive_response":
+			return new \Phpcraft\KeepAliveResponse();
+		}
+	}
+
+	/**
 	 * Initializes the packet via the Connection.
 	 * Note that you should already have used Connection::readPacket() and determined that the packet you are initializing has actually been sent.
 	 * @param Connection $con

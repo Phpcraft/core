@@ -143,8 +143,11 @@ if($online && !$account->loginUsingProfiles())
 	do
 	{
 		readline_callback_handler_install("What's your account password? (hidden) ", function($input){});
-		$pass = trim(fgets($stdin));
-		if($error = $account->login($pass))
+		if(!($pass = trim(fgets($stdin))))
+		{
+			echo "No password provided.\n";
+		}
+		else if($error = $account->login($pass))
 		{
 			echo $error."\n";
 		}

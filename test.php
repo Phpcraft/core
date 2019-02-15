@@ -1,6 +1,6 @@
 <?php
-require __DIR__."/../vendor/autoload.php";
-final class ConnectionTest extends \PHPUnit\Framework\TestCase
+require "vendor/autoload.php";
+final class PhpcraftTest extends \PHPUnit\Framework\TestCase
 {
 	public function testInt()
 	{
