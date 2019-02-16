@@ -1,8 +1,8 @@
 <?php
-require __DIR__."/../vendor/autoload.php";
+require_once __DIR__."/../vendor/autoload.php";
 final class ConnectionTest extends \PHPUnit\Framework\TestCase
 {
-	public function testReadAndWriteInts()
+	function testReadAndWriteInts()
 	{
 		$con = new \Phpcraft\Connection();
 		$con->writeInt(1);
@@ -13,7 +13,7 @@ final class ConnectionTest extends \PHPUnit\Framework\TestCase
 		$this->assertEquals(-1, $con->readInt());
 	}
 
-	public function testReadAndWriteFloats()
+	function testReadAndWriteFloats()
 	{
 		$con = new \Phpcraft\Connection();
 		$con->writeFloat(1);
@@ -25,7 +25,7 @@ final class ConnectionTest extends \PHPUnit\Framework\TestCase
 		$this->assertEquals(0.5, $con->readFloat());
 	}
 
-	public function testReadAndWriteDoubles()
+	function testReadAndWriteDoubles()
 	{
 		$con = new \Phpcraft\Connection();
 		$con->writeDouble(1);
@@ -37,7 +37,7 @@ final class ConnectionTest extends \PHPUnit\Framework\TestCase
 		$this->assertEquals(0.5, $con->readDouble());
 	}
 
-	public function testWriteVarintAndReadBytes()
+	function testWriteVarintAndReadBytes()
 	{
 		$con = new \Phpcraft\Connection();
 		$con->writeVarInt(255);
@@ -47,7 +47,7 @@ final class ConnectionTest extends \PHPUnit\Framework\TestCase
 		$this->assertEquals(0b00000001, $con->readByte());
 	}
 
-	public function testWriteBytesAndReadVarint()
+	function testWriteBytesAndReadVarint()
 	{
 		$con = new \Phpcraft\Connection();
 		$con->writeByte(0b11111111);
@@ -57,7 +57,7 @@ final class ConnectionTest extends \PHPUnit\Framework\TestCase
 		$this->assertEquals(255, $con->readVarInt());
 	}
 
-	public function testReadAndWriteStrings()
+	function testReadAndWriteStrings()
 	{
 		$con = new \Phpcraft\Connection();
 		$con->writeString("Ä");

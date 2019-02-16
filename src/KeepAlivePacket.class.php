@@ -7,7 +7,7 @@ abstract class KeepAlivePacket extends Packet
 	 * The identifier of the keep alive packet.
 	 * @var integer $keepAliveId
 	 */
-	protected $keepAliveId;
+	public $keepAliveId;
 
 	/**
 	 * The constructor.
@@ -25,15 +25,6 @@ abstract class KeepAlivePacket extends Packet
 		{
 			$this->keepAliveId = $keepAliveId;
 		}
-	}
-
-	/**
-	 * Returns the identifier of the keep alive packet.
-	 * @return integer
-	 */
-	function getKeepAliveId()
-	{
-		return $this->keepAliveId;
 	}
 
 	/**

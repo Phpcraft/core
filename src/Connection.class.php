@@ -222,7 +222,11 @@ class Connection
 	 */
 	function send($raw = false)
 	{
-		if(!$this->isOpen())
+		if($this->stream == null)
+		{
+			return;
+		}
+		if(@feof($this->stream) !== false)
 		{
 			throw new \Phpcraft\Exception("Can't send to connection that's not open.");
 		}
