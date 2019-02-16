@@ -37,7 +37,7 @@ final class ConnectionTest extends \PHPUnit\Framework\TestCase
 		$this->assertEquals(0.5, $con->readDouble());
 	}
 
-	public function testWriteVarintAndReadByte()
+	public function testWriteVarintAndReadBytes()
 	{
 		$con = new \Phpcraft\Connection();
 		$con->writeVarInt(255);
