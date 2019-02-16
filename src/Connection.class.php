@@ -222,41 +222,40 @@ class Connection
 	 */
 	function send($raw = false)
 	{
-		if($this->stream == null)
+		if($this->stream != null)
 		{
-			return;
-		}
-		if(@feof($this->stream) !== false)
-		{
-			throw new \Phpcraft\Exception("Can't send to connection that's not open.");
-		}
-		if($raw)
-		{
-			fwrite($this->stream, $this->write_buffer);
-		}
-		else
-		{
-			$length = strlen($this->write_buffer);
-			if($this->compression_threshold > -1)
+			if(@feof($this->stream) !== false)
 			{
-				if($length >= $this->compression_threshold)
-				{
-					$compressed = gzcompress($this->write_buffer, 1);
-					$compressed_length = strlen($compressed);
-					$length_varint = Phpcraft::intToVarInt($length);
-					fwrite($this->stream, Phpcraft::intToVarInt($compressed_length + strlen($length_varint)).$length_varint.$compressed);
-				}
-				else
-				{
-					fwrite($this->stream, Phpcraft::intToVarInt($length + 1)."\x00".$this->write_buffer);
-				}
+				throw new \Phpcraft\Exception("Can't send to connection that's not open.");
+			}
+			if($raw)
+			{
+				fwrite($this->stream, $this->write_buffer);
 			}
 			else
 			{
-				fwrite($this->stream, Phpcraft::intToVarInt($length).$this->write_buffer);
+				$length = strlen($this->write_buffer);
+				if($this->compression_threshold > -1)
+				{
+					if($length >= $this->compression_threshold)
+					{
+						$compressed = gzcompress($this->write_buffer, 1);
+						$compressed_length = strlen($compressed);
+						$length_varint = Phpcraft::intToVarInt($length);
+						fwrite($this->stream, Phpcraft::intToVarInt($compressed_length + strlen($length_varint)).$length_varint.$compressed);
+					}
+					else
+					{
+						fwrite($this->stream, Phpcraft::intToVarInt($length + 1)."\x00".$this->write_buffer);
+					}
+				}
+				else
+				{
+					fwrite($this->stream, Phpcraft::intToVarInt($length).$this->write_buffer);
+				}
 			}
+			$this->write_buffer = "";
 		}
-		$this->write_buffer = "";
 		return $this;
 	}
 
