@@ -14,7 +14,7 @@ abstract class KeepAlivePacket extends Packet
 	 * @param string $name The name of the packet.
 	 * @param integer $keepAliveId The identifier of the keep alive packet.
 	 */
-	protected function __construct($name, $keepAliveId)
+	function __construct($name, $keepAliveId)
 	{
 		parent::__construct($name);
 		if($keepAliveId == null)
