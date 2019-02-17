@@ -98,6 +98,12 @@ Static Public Member Functions</h2></td></tr>
 <tr class="separator:a9b7e2ec4f4baeb054391f3379a09e9d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a98f9997cbdfcf0c06c1292db9293d5a2"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Phpcraft.html#a98f9997cbdfcf0c06c1292db9293d5a2">intToVarInt</a> ($value)</td></tr>
 <tr class="separator:a98f9997cbdfcf0c06c1292db9293d5a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a67e256355a21ebc8924425790f1c2357"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Phpcraft.html#a67e256355a21ebc8924425790f1c2357">getVersions</a> ()</td></tr>
+<tr class="separator:a67e256355a21ebc8924425790f1c2357"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01e87779de37f97112c11fe2571bbf82"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Phpcraft.html#a01e87779de37f97112c11fe2571bbf82">getSupportedProtocolVersions</a> ()</td></tr>
+<tr class="separator:a01e87779de37f97112c11fe2571bbf82"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a11b3d5a16f7be797637b6c267f3e01d5"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Phpcraft.html#a11b3d5a16f7be797637b6c267f3e01d5">getSupportedMinecraftVersions</a> ()</td></tr>
+<tr class="separator:a11b3d5a16f7be797637b6c267f3e01d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4c1346696cd92f63a127d7a750b918d1"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Phpcraft.html#a4c1346696cd92f63a127d7a750b918d1">isProtocolVersionSupported</a> ($protocol_version)</td></tr>
 <tr class="separator:a4c1346696cd92f63a127d7a750b918d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a701328ddbc1faf994874bbab0a2fdcca"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Phpcraft.html#a701328ddbc1faf994874bbab0a2fdcca">getMinecraftVersionsFromProtocolVersion</a> ($protocol_version)</td></tr>
@@ -108,10 +114,6 @@ Static Public Member Functions</h2></td></tr>
 <tr class="separator:a2f270d509abc4722b1ec784d49822df5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af9e9c0c1e239daaa120d1d041616ae8d"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Phpcraft.html#af9e9c0c1e239daaa120d1d041616ae8d">getProtocolVersionFromMinecraftVersion</a> ($minecraft_version)</td></tr>
 <tr class="separator:af9e9c0c1e239daaa120d1d041616ae8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01e87779de37f97112c11fe2571bbf82"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Phpcraft.html#a01e87779de37f97112c11fe2571bbf82">getSupportedProtocolVersions</a> ()</td></tr>
-<tr class="separator:a01e87779de37f97112c11fe2571bbf82"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a11b3d5a16f7be797637b6c267f3e01d5"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Phpcraft.html#a11b3d5a16f7be797637b6c267f3e01d5">getSupportedMinecraftVersions</a> ()</td></tr>
-<tr class="separator:a11b3d5a16f7be797637b6c267f3e01d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac90f4eac0ce4e5cef9dd62fd949dd705"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Phpcraft.html#ac90f4eac0ce4e5cef9dd62fd949dd705">sha1</a> ($str)</td></tr>
 <tr class="separator:ac90f4eac0ce4e5cef9dd62fd949dd705"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a90d514b456df149307e621dc727ddc55"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Phpcraft.html#a90d514b456df149307e621dc727ddc55">textToChat</a> ($str, $allowAmp=false, &amp;$i=0, $child=false)</td></tr>
@@ -640,6 +642,32 @@ Phpcraft::saveProfiles() </dd></dl>
 </table>
 </div><div class="memdoc">
 <p>Returns a list of supported Protocol versions. </p><dl class="section return"><dt>Returns</dt><dd>string[] </dd></dl>
+
+</div>
+</div>
+<a id="a67e256355a21ebc8924425790f1c2357"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a67e256355a21ebc8924425790f1c2357">&#9670;&nbsp;</a></span>getVersions()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static Phpcraft\Phpcraft::getVersions </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Returns an array of supported Minecraft versions with its protocol version as value. </p><dl class="section return"><dt>Returns</dt><dd>array </dd></dl>
 
 </div>
 </div>

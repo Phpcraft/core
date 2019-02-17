@@ -5,7 +5,6 @@ var searchData=
   ['getassetindex',['getAssetIndex',['../classPhpcraft_1_1Phpcraft.html#a0bce8b7fd625ea3e6b358ce10b739039',1,'Phpcraft::Phpcraft']]],
   ['gethost',['getHost',['../classPhpcraft_1_1ClientConnection.html#a0bc689bdd17c4aa9eba4721423645a74',1,'Phpcraft::ClientConnection']]],
   ['getid',['getId',['../classPhpcraft_1_1Packet.html#a6eb892f2664a88de697456968821942a',1,'Phpcraft::Packet']]],
-  ['getkeepaliveid',['getKeepAliveId',['../classPhpcraft_1_1KeepAlivePacket.html#a8575b957521cd8ab395218836586ccf7',1,'Phpcraft::KeepAlivePacket']]],
   ['getminecraftfolder',['getMinecraftFolder',['../classPhpcraft_1_1Phpcraft.html#abecdf68100423f0f529df5aef75390e9',1,'Phpcraft::Phpcraft']]],
   ['getminecraftversionrangefromprotocolversion',['getMinecraftVersionRangeFromProtocolVersion',['../classPhpcraft_1_1Phpcraft.html#a887bc2828529be22f69f8a465b5aacfc',1,'Phpcraft::Phpcraft']]],
   ['getminecraftversionsfromprotocolversion',['getMinecraftVersionsFromProtocolVersion',['../classPhpcraft_1_1Phpcraft.html#a701328ddbc1faf994874bbab0a2fdcca',1,'Phpcraft::Phpcraft']]],
@@ -19,5 +18,6 @@ var searchData=
   ['getsupportedminecraftversions',['getSupportedMinecraftVersions',['../classPhpcraft_1_1Phpcraft.html#a11b3d5a16f7be797637b6c267f3e01d5',1,'Phpcraft::Phpcraft']]],
   ['getsupportedprotocolversions',['getSupportedProtocolVersions',['../classPhpcraft_1_1Phpcraft.html#a01e87779de37f97112c11fe2571bbf82',1,'Phpcraft::Phpcraft']]],
   ['getusername',['getUsername',['../classPhpcraft_1_1Account.html#a922c847a57ad381d7cd690650039319d',1,'Phpcraft\Account\getUsername()'],['../classPhpcraft_1_1ServerConnection.html#a9107608f3f52c93e245cae76258dfed1',1,'Phpcraft\ServerConnection\getUsername()']]],
-  ['getuuid',['getUUID',['../classPhpcraft_1_1ServerConnection.html#af5607b90f326697d656d63ffcb0ff8e1',1,'Phpcraft::ServerConnection']]]
+  ['getuuid',['getUUID',['../classPhpcraft_1_1ServerConnection.html#af5607b90f326697d656d63ffcb0ff8e1',1,'Phpcraft::ServerConnection']]],
+  ['getversions',['getVersions',['../classPhpcraft_1_1Phpcraft.html#a67e256355a21ebc8924425790f1c2357',1,'Phpcraft::Phpcraft']]]
 ];

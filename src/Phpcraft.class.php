@@ -4,45 +4,6 @@ class Phpcraft
 {
 	private static $minecraft_folder = null;
 
-	private static function versions()
-	{
-		return [
-			"1.13.2" => 404,
-			"1.13.2-pre2" => 403,
-			"1.13.2-pre1" => 402,
-			"1.13.1" => 401,
-			"1.13" => 393,
-			"1.12.2" => 340,
-			"1.12.2-pre2" => 339,
-			"1.12.1" => 338,
-			"1.12.1-pre2" => 337,
-			"1.12.1-pre1" => 337,
-			"17w31a" => 336,
-			"1.12" => 335,
-			"1.11.2" => 316,
-			"1.11.1" => 316,
-			"1.11" => 315,
-			"1.10.2" => 210,
-			"1.10.1" => 210,
-			"1.10" => 210,
-			"1.9.4" => 110,
-			"1.9.3" => 110,
-			"1.9.2" => 109,
-			"1.9.1" => 108,
-			"1.9" => 107,
-			"1.8.9" => 47,
-			"1.8.8" => 47,
-			"1.8.7" => 47,
-			"1.8.6" => 47,
-			"1.8.5" => 47,
-			"1.8.4" => 47,
-			"1.8.3" => 47,
-			"1.8.2" => 47,
-			"1.8.1" => 47,
-			"1.8" => 47
-		];
-	}
-
 	/**
 	 * Returns the path of the .minecraft folder without a folder seperator at the end.
 	 * @return string
@@ -326,13 +287,79 @@ class Phpcraft
 	}
 
 	/**
+	 * Returns an array of supported Minecraft versions with its protocol version as value.
+	 * @return array
+	 */
+	static function getVersions()
+	{
+		return [
+			"1.13.2" => 404,
+			"1.13.2-pre2" => 403,
+			"1.13.2-pre1" => 402,
+			"1.13.1" => 401,
+			"1.13" => 393,
+			"1.12.2" => 340,
+			"1.12.2-pre2" => 339,
+			"1.12.1" => 338,
+			"1.12.1-pre2" => 337,
+			"1.12.1-pre1" => 337,
+			"17w31a" => 336,
+			"1.12" => 335,
+			"1.11.2" => 316,
+			"1.11.1" => 316,
+			"1.11" => 315,
+			"1.10.2" => 210,
+			"1.10.1" => 210,
+			"1.10" => 210,
+			"1.9.4" => 110,
+			"1.9.3" => 110,
+			"1.9.2" => 109,
+			"1.9.1" => 108,
+			"1.9" => 107,
+			"1.8.9" => 47,
+			"1.8.8" => 47,
+			"1.8.7" => 47,
+			"1.8.6" => 47,
+			"1.8.5" => 47,
+			"1.8.4" => 47,
+			"1.8.3" => 47,
+			"1.8.2" => 47,
+			"1.8.1" => 47,
+			"1.8" => 47
+		];
+	}
+
+	/**
+	 * Returns a list of supported Protocol versions.
+	 * @return string[]
+	 */
+	static function getSupportedProtocolVersions()
+	{
+		return array_values(Phpcraft::getVersions());
+	}
+
+	/**
+	 * Returns a list of supported Minecraft versions.
+	 * @return string[]
+	 */
+	static function getSupportedMinecraftVersions()
+	{
+		$minecraft_versions = [];
+		foreach(Phpcraft::getVersions() as $k => $v)
+		{
+			array_push($minecraft_versions, $k);
+		}
+		return $minecraft_versions;
+	}
+
+	/**
 	 * Returns whether a given protocol version is supported.
 	 * @param integer $protocol_version e.g., 340
 	 * @return boolean
 	 */
 	static function isProtocolVersionSupported($protocol_version)
 	{
-		return in_array($protocol_version, Phpcraft::versions());
+		return in_array($protocol_version, Phpcraft::getVersions());
 	}
 
 	/**
@@ -343,7 +370,7 @@ class Phpcraft
 	static function getMinecraftVersionsFromProtocolVersion($protocol_version)
 	{
 		$minecraft_versions = [];
-		foreach(Phpcraft::versions() as $k => $v)
+		foreach(Phpcraft::getVersions() as $k => $v)
 		{
 			if($v == $protocol_version)
 			{
@@ -380,7 +407,7 @@ class Phpcraft
 	 */
 	static function isMinecraftVersionSupported($minecraft_version)
 	{
-		return isset(Phpcraft::versions()[$minecraft_version]);
+		return isset(Phpcraft::getVersions()[$minecraft_version]);
 	}
 
 	/**
@@ -390,30 +417,7 @@ class Phpcraft
 	 */
 	static function getProtocolVersionFromMinecraftVersion($minecraft_version)
 	{
-		return @Phpcraft::versions()[$minecraft_version];
-	}
-
-	/**
-	 * Returns a list of supported Protocol versions.
-	 * @return string[]
-	 */
-	static function getSupportedProtocolVersions()
-	{
-		return array_values(Phpcraft::versions());
-	}
-
-	/**
-	 * Returns a list of supported Minecraft versions.
-	 * @return string[]
-	 */
-	static function getSupportedMinecraftVersions()
-	{
-		$minecraft_versions = [];
-		foreach(Phpcraft::versions() as $k => $v)
-		{
-			array_push($minecraft_versions, $k);
-		}
-		return $minecraft_versions;
+		return @Phpcraft::getVersions()[$minecraft_version];
 	}
 
 	/**
