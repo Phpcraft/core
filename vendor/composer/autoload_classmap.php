@@ -6,4 +6,24 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Phpcraft\\Account' => $baseDir . '/src/Account.class.php',
+    'Phpcraft\\ClientConnection' => $baseDir . '/src/ClientConnection.class.php',
+    'Phpcraft\\Connection' => $baseDir . '/src/Connection.class.php',
+    'Phpcraft\\Difficulty' => $baseDir . '/src/Difficulty.class.php',
+    'Phpcraft\\Dimension' => $baseDir . '/src/Dimension.class.php',
+    'Phpcraft\\Event' => $baseDir . '/src/Event.class.php',
+    'Phpcraft\\Exception' => $baseDir . '/src/Exception.class.php',
+    'Phpcraft\\FancyUserInterface' => $baseDir . '/src/FancyUserInterface.class.php',
+    'Phpcraft\\Gamemode' => $baseDir . '/src/Gamemode.class.php',
+    'Phpcraft\\JoinGamePacket' => $baseDir . '/src/JoinGamePacket.class.php',
+    'Phpcraft\\KeepAlivePacket' => $baseDir . '/src/KeepAlivePacket.class.php',
+    'Phpcraft\\KeepAliveRequestPacket' => $baseDir . '/src/KeepAliveRequestPacket.class.php',
+    'Phpcraft\\KeepAliveResponsePacket' => $baseDir . '/src/KeepAliveResponsePacket.class.php',
+    'Phpcraft\\Packet' => $baseDir . '/src/Packet.class.php',
+    'Phpcraft\\Phpcraft' => $baseDir . '/src/Phpcraft.class.php',
+    'Phpcraft\\Plugin' => $baseDir . '/src/Plugin.class.php',
+    'Phpcraft\\PluginManager' => $baseDir . '/src/PluginManager.class.php',
+    'Phpcraft\\Server' => $baseDir . '/src/Server.class.php',
+    'Phpcraft\\ServerConnection' => $baseDir . '/src/ServerConnection.class.php',
+    'Phpcraft\\UserInterface' => $baseDir . '/src/UserInterface.class.php',
 );
