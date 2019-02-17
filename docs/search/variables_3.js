@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['destroy_5fentites',['destroy_entites',['../classPhpcraft_1_1Packet.html#a2f86131dfb1450c834fbdc6665294322',1,'Phpcraft::Packet']]],
-  ['disconnect',['disconnect',['../classPhpcraft_1_1Packet.html#a35ad56eb409489c0a0e69aacf802797c',1,'Phpcraft::Packet']]]
+  ['spectator',['SPECTATOR',['../classPhpcraft_1_1Gamemode.html#a8bb19b6b078c7e40bcfd9969ae8db29c',1,'Phpcraft::Gamemode']]],
+  ['survival',['SURVIVAL',['../classPhpcraft_1_1Gamemode.html#a1587fe71d358cc548a2360b2e055dd46',1,'Phpcraft::Gamemode']]]
 ];

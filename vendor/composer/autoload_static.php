@@ -7,22 +7,23 @@ namespace Composer\Autoload;
 class ComposerStaticInitb01ebcf9648a6fde88428c8cb797b804
 {
     public static $files = array (
-        '647e68ce888e9e6193da9775be88cc6b' => __DIR__ . '/../..' . '/src/Exception.class.php',
         '715436f737211cb461ececda475f9a87' => __DIR__ . '/../..' . '/src/Account.class.php',
+        '8fe006ffc5447113cb46129a845b1771' => __DIR__ . '/../..' . '/src/Event.class.php',
+        '647e68ce888e9e6193da9775be88cc6b' => __DIR__ . '/../..' . '/src/Exception.class.php',
+        '22d9a2f3fbecaeffdc3110ce6743452f' => __DIR__ . '/../..' . '/src/Gamemode.class.php',
+        '96bdf00a073f2d524784939c50dc9464' => __DIR__ . '/../..' . '/src/Packet.class.php',
+        '80200b13232e8f1dfd03dee46b89872e' => __DIR__ . '/../..' . '/src/Phpcraft.class.php',
+        'bfecf4388f33f524d4a11d50e2dccc8d' => __DIR__ . '/../..' . '/src/Server.class.php',
+        'c33f7f6802dd3433ffae7c235e7d8a2d' => __DIR__ . '/../..' . '/src/Plugin.class.php',
+        '9d447f74b626693a40c13c4b14082541' => __DIR__ . '/../..' . '/src/PluginManager.class.php',
         '4351b3080f94fe0875669a4e6b0cc153' => __DIR__ . '/../..' . '/src/Connection.class.php',
         'f631eaf376dd18a8ed7285269bf8f5e1' => __DIR__ . '/../..' . '/src/ClientConnection.class.php',
         'c83d2f8e74f21a2d429285863ae8fc53' => __DIR__ . '/../..' . '/src/ServerConnection.class.php',
-        'bfecf4388f33f524d4a11d50e2dccc8d' => __DIR__ . '/../..' . '/src/Server.class.php',
-        '80200b13232e8f1dfd03dee46b89872e' => __DIR__ . '/../..' . '/src/Phpcraft.class.php',
-        '96bdf00a073f2d524784939c50dc9464' => __DIR__ . '/../..' . '/src/Packet.class.php',
         '3999527d6f5e4fad385ac050601148bd' => __DIR__ . '/../..' . '/src/KeepAlivePacket.class.php',
         '2a0215b213c25ea9f7a91e8091c81242' => __DIR__ . '/../..' . '/src/KeepAliveRequestPacket.class.php',
         'ba21be7e169138a3153d6931f5ff7598' => __DIR__ . '/../..' . '/src/KeepAliveResponsePacket.class.php',
         '02f548ce96fbb2579397beffea16b9bc' => __DIR__ . '/../..' . '/src/UserInterface.class.php',
         '0d59d37018f2185592fc57c7cae9e6e0' => __DIR__ . '/../..' . '/src/FancyUserInterface.class.php',
-        'c33f7f6802dd3433ffae7c235e7d8a2d' => __DIR__ . '/../..' . '/src/Plugin.class.php',
-        '9d447f74b626693a40c13c4b14082541' => __DIR__ . '/../..' . '/src/PluginManager.class.php',
-        '8fe006ffc5447113cb46129a845b1771' => __DIR__ . '/../..' . '/src/Event.class.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

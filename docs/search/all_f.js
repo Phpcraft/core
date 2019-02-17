@@ -10,5 +10,7 @@ var searchData=
   ['serverconnection',['ServerConnection',['../classPhpcraft_1_1ServerConnection.html',1,'Phpcraft']]],
   ['serverconnection_2eclass_2ephp',['ServerConnection.class.php',['../ServerConnection_8class_8php.html',1,'']]],
   ['sha1',['sha1',['../classPhpcraft_1_1Phpcraft.html#ac90f4eac0ce4e5cef9dd62fd949dd705',1,'Phpcraft::Phpcraft']]],
-  ['startpacket',['startPacket',['../classPhpcraft_1_1Connection.html#a3fb102f9ad9099ec2e4b318e0a845cab',1,'Phpcraft::Connection']]]
+  ['spectator',['SPECTATOR',['../classPhpcraft_1_1Gamemode.html#a8bb19b6b078c7e40bcfd9969ae8db29c',1,'Phpcraft::Gamemode']]],
+  ['startpacket',['startPacket',['../classPhpcraft_1_1Connection.html#a3fb102f9ad9099ec2e4b318e0a845cab',1,'Phpcraft::Connection']]],
+  ['survival',['SURVIVAL',['../classPhpcraft_1_1Gamemode.html#a1587fe71d358cc548a2360b2e055dd46',1,'Phpcraft::Gamemode']]]
 ];

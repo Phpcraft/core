@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['validate_2ephp',['validate.php',['../validate_8php.html',1,'']]]
+  ['userinterface_2eclass_2ephp',['UserInterface.class.php',['../UserInterface_8class_8php.html',1,'']]]
 ];

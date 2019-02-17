@@ -1,6 +1,6 @@
 <?php
 namespace Phpcraft;
-class Phpcraft
+abstract class Phpcraft
 {
 	private static $minecraft_folder = null;
 

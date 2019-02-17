@@ -1,5 +1,7 @@
 var searchData=
 [
+  ['gamemode',['Gamemode',['../classPhpcraft_1_1Gamemode.html',1,'Phpcraft']]],
+  ['gamemode_2eclass_2ephp',['Gamemode.class.php',['../Gamemode_8class_8php.html',1,'']]],
   ['generateuuidv4',['generateUUIDv4',['../classPhpcraft_1_1Phpcraft.html#a9bbff93ce90e3b25b5369b9e65a2b289',1,'Phpcraft::Phpcraft']]],
   ['getaccesstoken',['getAccessToken',['../classPhpcraft_1_1Account.html#ab3bf0e2cf8a19dd0a5ea7e7fe0e1c326',1,'Phpcraft::Account']]],
   ['getassetindex',['getAssetIndex',['../classPhpcraft_1_1Phpcraft.html#a0bce8b7fd625ea3e6b358ce10b739039',1,'Phpcraft::Phpcraft']]],

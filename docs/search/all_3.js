@@ -7,5 +7,6 @@ var searchData=
   ['clientconnection_2eclass_2ephp',['ClientConnection.class.php',['../ClientConnection_8class_8php.html',1,'']]],
   ['close',['close',['../classPhpcraft_1_1Connection.html#ae2c43093e8d0dc952337a0ce4ec9b341',1,'Phpcraft\Connection\close()'],['../classPhpcraft_1_1Server.html#ae5413fde7de5d2f804607b6c91859276',1,'Phpcraft\Server\close()']]],
   ['connection',['Connection',['../classPhpcraft_1_1Connection.html',1,'Phpcraft']]],
-  ['connection_2eclass_2ephp',['Connection.class.php',['../Connection_8class_8php.html',1,'']]]
+  ['connection_2eclass_2ephp',['Connection.class.php',['../Connection_8class_8php.html',1,'']]],
+  ['creative',['CREATIVE',['../classPhpcraft_1_1Gamemode.html#aa96d5c85caa9939b8dd850fe3dfd32d2',1,'Phpcraft::Gamemode']]]
 ];
