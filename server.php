@@ -95,22 +95,12 @@ $server->join_function = function($con)
 		$con->close();
 		return;
 	}
-	$con->startPacket("join_game");
-	$con->writeInt(1337); // Entity ID
-	$con->writeByte(1); // Gamemode
-	if($con->protocol_version > 107) // Dimension
-	{
-		$con->writeInt(0);
-	}
-	else
-	{
-		$con->writeByte(0);
-	}
-	$con->writeByte(0); // Difficulty
-	$con->writeByte(100); // Max Players
-	$con->writeString("default"); // Level Type
-	$con->writeBoolean(false); // Reduced Debug Info
-	$con->send();
+	$packet = new \Phpcraft\JoinGamePacket();
+	$packet->entityId = 1337;
+	$packet->gamemode = \Phpcraft\Gamemode::CREATIVE;
+	$packet->dimension = \Phpcraft\Dimension::OVERWORLD;
+	$packet->difficulty = \Phpcraft\Difficulty::PEACEFUL;
+	$packet->send($con);
 	$con->startPacket("plugin_message");
 	$con->writeString($con->protocol_version > 340 ? "minecraft:brand" : "MC|Brand");
 	$con->writeString("\\Phpcraft\\Server");

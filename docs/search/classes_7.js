@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['server',['Server',['../classPhpcraft_1_1Server.html',1,'Phpcraft']]],
-  ['serverconnection',['ServerConnection',['../classPhpcraft_1_1ServerConnection.html',1,'Phpcraft']]]
+  ['keepalivepacket',['KeepAlivePacket',['../classPhpcraft_1_1KeepAlivePacket.html',1,'Phpcraft']]],
+  ['keepaliverequestpacket',['KeepAliveRequestPacket',['../classPhpcraft_1_1KeepAliveRequestPacket.html',1,'Phpcraft']]],
+  ['keepaliveresponsepacket',['KeepAliveResponsePacket',['../classPhpcraft_1_1KeepAliveResponsePacket.html',1,'Phpcraft']]]
 ];

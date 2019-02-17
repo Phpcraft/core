@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['fancyuserinterface',['FancyUserInterface',['../classPhpcraft_1_1FancyUserInterface.html',1,'Phpcraft']]]
+  ['event',['Event',['../classPhpcraft_1_1Event.html',1,'Phpcraft']]],
+  ['exception',['Exception',['../classPhpcraft_1_1Exception.html',1,'Phpcraft']]]
 ];

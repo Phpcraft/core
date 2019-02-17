@@ -11,6 +11,8 @@ class ComposerStaticInitb01ebcf9648a6fde88428c8cb797b804
         '8fe006ffc5447113cb46129a845b1771' => __DIR__ . '/../..' . '/src/Event.class.php',
         '647e68ce888e9e6193da9775be88cc6b' => __DIR__ . '/../..' . '/src/Exception.class.php',
         '22d9a2f3fbecaeffdc3110ce6743452f' => __DIR__ . '/../..' . '/src/Gamemode.class.php',
+        '184b051d2c1b1a2174527386858e3be9' => __DIR__ . '/../..' . '/src/Difficulty.class.php',
+        'cdcc2c3787aed43d2d11d206d6018c06' => __DIR__ . '/../..' . '/src/Dimension.class.php',
         '96bdf00a073f2d524784939c50dc9464' => __DIR__ . '/../..' . '/src/Packet.class.php',
         '80200b13232e8f1dfd03dee46b89872e' => __DIR__ . '/../..' . '/src/Phpcraft.class.php',
         'bfecf4388f33f524d4a11d50e2dccc8d' => __DIR__ . '/../..' . '/src/Server.class.php',
@@ -22,6 +24,7 @@ class ComposerStaticInitb01ebcf9648a6fde88428c8cb797b804
         '3999527d6f5e4fad385ac050601148bd' => __DIR__ . '/../..' . '/src/KeepAlivePacket.class.php',
         '2a0215b213c25ea9f7a91e8091c81242' => __DIR__ . '/../..' . '/src/KeepAliveRequestPacket.class.php',
         'ba21be7e169138a3153d6931f5ff7598' => __DIR__ . '/../..' . '/src/KeepAliveResponsePacket.class.php',
+        'f0d329430c68ee11650e4d6e354c8504' => __DIR__ . '/../..' . '/src/JoinGamePacket.class.php',
         '02f548ce96fbb2579397beffea16b9bc' => __DIR__ . '/../..' . '/src/UserInterface.class.php',
         '0d59d37018f2185592fc57c7cae9e6e0' => __DIR__ . '/../..' . '/src/FancyUserInterface.class.php',
     );

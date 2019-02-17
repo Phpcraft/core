@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['read',['read',['../classPhpcraft_1_1KeepAliveRequestPacket.html#a0dc47d14514b40f2f216cde6ba86f73d',1,'Phpcraft\KeepAliveRequestPacket\read()'],['../classPhpcraft_1_1KeepAliveResponsePacket.html#a477cd2031eef3f207543025bc866dc50',1,'Phpcraft\KeepAliveResponsePacket\read()'],['../classPhpcraft_1_1Packet.html#a7f95e599c9b5d109aef3faecde116bc0',1,'Phpcraft\Packet\read()']]],
+  ['read',['read',['../classPhpcraft_1_1JoinGamePacket.html#a5c453efd47c1cf702d906f79cc9382bb',1,'Phpcraft\JoinGamePacket\read()'],['../classPhpcraft_1_1KeepAliveRequestPacket.html#a0dc47d14514b40f2f216cde6ba86f73d',1,'Phpcraft\KeepAliveRequestPacket\read()'],['../classPhpcraft_1_1KeepAliveResponsePacket.html#a477cd2031eef3f207543025bc866dc50',1,'Phpcraft\KeepAliveResponsePacket\read()'],['../classPhpcraft_1_1Packet.html#a7f95e599c9b5d109aef3faecde116bc0',1,'Phpcraft\Packet\read()']]],
   ['readboolean',['readBoolean',['../classPhpcraft_1_1Connection.html#ad571d3e9a22f18235cffdb60c44983c9',1,'Phpcraft::Connection']]],
   ['readbyte',['readByte',['../classPhpcraft_1_1Connection.html#a16ef74df7b8f2cc07cd5a73fbca41b4c',1,'Phpcraft::Connection']]],
   ['readdouble',['readDouble',['../classPhpcraft_1_1Connection.html#acaad829071825b6aa4e961f7a99e2d3d',1,'Phpcraft::Connection']]],

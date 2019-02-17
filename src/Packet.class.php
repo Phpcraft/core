@@ -130,24 +130,15 @@ abstract class Packet
 	 * The name of the packet.
 	 * @var string $name
 	 */
-	protected $name;
+	public $name;
 
 	/**
 	 * The constructor.
 	 * @param string $name The name of the packet.
 	 */
-	protected function __construct($name)
+	function __construct($name)
 	{
 		$this->name = $name;
-	}
-
-	/**
-	 * Returns the name of the packet.
-	 * @return string
-	 */
-	final function getName()
-	{
-		return $this->name;
 	}
 
 	/**

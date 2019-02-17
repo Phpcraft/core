@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['validatename',['validateName',['../classPhpcraft_1_1Phpcraft.html#ace43d10099c374346810cf2b06fbd74e',1,'Phpcraft::Phpcraft']]]
+  ['texttochat',['textToChat',['../classPhpcraft_1_1Phpcraft.html#a90d514b456df149307e621dc727ddc55',1,'Phpcraft::Phpcraft']]]
 ];

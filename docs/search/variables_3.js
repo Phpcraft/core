@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['spectator',['SPECTATOR',['../classPhpcraft_1_1Gamemode.html#a8bb19b6b078c7e40bcfd9969ae8db29c',1,'Phpcraft::Gamemode']]],
-  ['survival',['SURVIVAL',['../classPhpcraft_1_1Gamemode.html#a1587fe71d358cc548a2360b2e055dd46',1,'Phpcraft::Gamemode']]]
+  ['easy',['EASY',['../classPhpcraft_1_1Difficulty.html#ad05e4afed8cca0688f424911bfe232a2',1,'Phpcraft::Difficulty']]],
+  ['end',['END',['../classPhpcraft_1_1Dimension.html#aecd2efbf53a998e35fe4b7807ac4c5fc',1,'Phpcraft::Dimension']]]
 ];

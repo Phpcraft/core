@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['held_5fitem_5fchange',['held_item_change',['../classPhpcraft_1_1Packet.html#ae8345375bce80d84696eccc565e60f2b',1,'Phpcraft::Packet']]]
+  ['nether',['NETHER',['../classPhpcraft_1_1Dimension.html#a4f3845ea5735421ce6daa642fb1818b4',1,'Phpcraft::Dimension']]],
+  ['normal',['NORMAL',['../classPhpcraft_1_1Difficulty.html#aa4f109edbbc996c0f4406f05f4b59bfb',1,'Phpcraft::Difficulty']]]
 ];

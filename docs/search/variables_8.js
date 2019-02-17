@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['open_5fwindow',['open_window',['../classPhpcraft_1_1Packet.html#a025a50bb99a924ac45e9857e889e65d9',1,'Phpcraft::Packet']]]
+  ['spectator',['SPECTATOR',['../classPhpcraft_1_1Gamemode.html#a8bb19b6b078c7e40bcfd9969ae8db29c',1,'Phpcraft::Gamemode']]],
+  ['survival',['SURVIVAL',['../classPhpcraft_1_1Gamemode.html#a1587fe71d358cc548a2360b2e055dd46',1,'Phpcraft::Gamemode']]]
 ];
