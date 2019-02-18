@@ -138,11 +138,48 @@ class Connection
 	/**
 	 * Adds a short to the write buffer.
 	 * @param integer $value
+	 * @param boolean $signed
 	 * @return Connection $this
 	 */
-	function writeShort($value)
+	function writeShort($value, $signed = false)
 	{
+		if($signed && $value > 0x7FFF)
+		{
+			$value -= 0x10000;
+		}
 		$this->write_buffer .= pack("n", $value);
+		return $this;
+	}
+
+	/**
+	 * Adds an integer to the write buffer.
+	 * @param integer $value
+	 * @param boolean $signed
+	 * @return Connection $this
+	 */
+	function writeInt($value, $signed = false)
+	{
+		if($signed && $value > 0x7FFFFFFF)
+		{
+			$value -= 0x100000000;
+		}
+		$this->write_buffer .= pack("N", $value);
+		return $this;
+	}
+
+	/**
+	 * Adds a long to the write buffer.
+	 * @param integer $value
+	 * @param boolean $signed
+	 * @return Connection $this
+	 */
+	function writeLong($value, $signed = false)
+	{
+		if($signed && $value > 0x7FFFFFFFFFFFFFFF)
+		{
+			$value -= 0x10000000000000000;
+		}
+		$this->write_buffer .= pack("J", $value);
 		return $this;
 	}
 
@@ -154,28 +191,6 @@ class Connection
 	function writeFloat($value)
 	{
 		$this->write_buffer .= pack("G", $value);
-		return $this;
-	}
-
-	/**
-	 * Adds an integer to the write buffer.
-	 * @param integer $value
-	 * @return Connection $this
-	 */
-	function writeInt($value)
-	{
-		$this->write_buffer .= pack("N", $value);
-		return $this;
-	}
-
-	/**
-	 * Adds a long to the write buffer.
-	 * @param integer $value
-	 * @return Connection $this
-	 */
-	function writeLong($value)
-	{
-		$this->write_buffer .= pack("J", $value);
 		return $this;
 	}
 
@@ -512,19 +527,21 @@ class Connection
 	 * @throws Exception When there are not enough bytes to read a long.
 	 * @return integer
 	 */
-	function readLong($signed = true)
+	function readLong($signed = false)
 	{
 		if(strlen($this->read_buffer) < 8)
 		{
 			throw new \Phpcraft\Exception("Not enough bytes to read long");
 		}
-		$long = unpack("Jlong", substr($this->read_buffer, 0, 8))["long"];
+		$int1 = unpack("Nint", substr($this->read_buffer, 0, 4))["int"];
+		$int2 = unpack("Nint", substr($this->read_buffer, 4, 4))["int"];
 		$this->read_buffer = substr($this->read_buffer, 8);
-		if($signed && $long >= 0x8000000000000000)
+		$long = gmp_add($int2, gmp_mul($int1, "4294967296"));
+		if($signed && gmp_cmp($long, gmp_pow(2, 63)) >= 0)
 		{
-			return ((($long ^ 0xFFFFFFFFFFFFFFFF) + 1) * -1);
+			$long = gmp_sub($long, gmp_pow(2, 64));
 		}
-		return $long;
+		return gmp_strval($long);
 	}
 
 	/**
@@ -587,7 +604,7 @@ class Connection
 
 	/**
 	 * Reads an NbtTag.
-	 * @param boolean $inList Ignore this parameter.
+	 * @param boolean $type Ignore this parameter.
 	 * @return NbtTag
 	 */
 	function readNBT($type = 0)
@@ -604,16 +621,16 @@ class Connection
 			return new \Phpcraft\NbtEnd();
 
 			case 1:
-			return new \Phpcraft\NbtByte($name, $this->readByte());
+			return new \Phpcraft\NbtByte($name, $this->readByte(true));
 
 			case 2:
-			return new \Phpcraft\NbtShort($name, $this->readShort());
+			return new \Phpcraft\NbtShort($name, $this->readShort(true));
 
 			case 3:
-			return new \Phpcraft\NbtInt($name, $this->readInt());
+			return new \Phpcraft\NbtInt($name, $this->readInt(true));
 
 			case 4:
-			return new \Phpcraft\NbtLong($name, $this->readLong());
+			return new \Phpcraft\NbtLong($name, $this->readLong(true));
 
 			case 5:
 			return new \Phpcraft\NbtFloat($name, $this->readFloat());
@@ -622,7 +639,7 @@ class Connection
 			return new \Phpcraft\NbtDouble($name, $this->readDouble());
 
 			case 7:
-			$children_i = $this->readInt();
+			$children_i = $this->readInt(true);
 			$children = [];
 			for($i = 0; $i < $children_i; $i++)
 			{
@@ -635,7 +652,7 @@ class Connection
 
 			case 9:
 			$childType = $this->readByte();
-			$children_i = $this->readInt();
+			$children_i = $this->readInt(true);
 			$children = [];
 			for($i = 0; $i < $children_i; $i++)
 			{
@@ -652,7 +669,7 @@ class Connection
 			return new \Phpcraft\NbtCompound($name, $children);
 
 			case 11:
-			$children_i = $this->readInt();
+			$children_i = $this->readInt(true);
 			$children = [];
 			for($i = 0; $i < $children_i; $i++)
 			{
@@ -661,7 +678,7 @@ class Connection
 			return new \Phpcraft\NbtIntArray($name, $children);
 
 			case 12:
-			$children_i = $this->readInt();
+			$children_i = $this->readInt(true);
 			$children = [];
 			for($i = 0; $i < $children_i; $i++)
 			{

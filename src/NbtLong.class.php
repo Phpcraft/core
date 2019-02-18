@@ -28,7 +28,7 @@ class NbtLong extends NbtTag
 		{
 			$this->_send($con, 4);
 		}
-		$con->writeLong($this->value);
+		$con->writeLong($this->value, true);
 	}
 
 	function copy()

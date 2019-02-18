@@ -28,7 +28,7 @@ class NbtInt extends NbtTag
 		{
 			$this->_send($con, 3);
 		}
-		$con->writeInt($this->value);
+		$con->writeInt($this->value, true);
 	}
 
 	function copy()

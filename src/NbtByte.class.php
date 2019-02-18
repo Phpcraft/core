@@ -28,7 +28,7 @@ class NbtByte extends NbtTag
 		{
 			$this->_send($con, 1);
 		}
-		$con->writeByte($this->value);
+		$con->writeByte($this->value, true);
 	}
 
 	function copy()

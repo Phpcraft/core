@@ -4,14 +4,14 @@ class NbtByteArray extends NbtTag
 {
 	/**
 	 * The bytes in the array.
-	 * @var integer[] $children
+	 * @var array $children
 	 */
 	public $children;
 
 	/**
 	 * The constructor.
 	 * @param string $name The name of this tag.
-	 * @param integer[] $children The bytes in the array.
+	 * @param array $children The bytes in the array.
 	 */
 	function __construct($name, $children = [])
 	{
@@ -28,7 +28,7 @@ class NbtByteArray extends NbtTag
 		{
 			$this->_send($con, 7);
 		}
-		$con->writeInt(count($this->children));
+		$con->writeInt(count($this->children), true);
 		foreach($this->children as $child)
 		{
 			$con->writeByte($child);

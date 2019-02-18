@@ -4,7 +4,7 @@ final class NBTTest extends \PHPUnit\Framework\TestCase
 {
 	function testReadAndWriteListCompoundAndInt()
 	{
-		$bin = "\x09\x00\x04List\x0A\x00\x00\x00\x01\x03\x00\x03Int\x00\x00\x00\x02\x00";
+		$bin = "\x09\x00\x04List\x0A\x00\x00\x00\x01\x03\x00\x03Int\xFF\xFF\xFF\xFF\x00";
 		$con = new \Phpcraft\Connection(-1);
 		$con->read_buffer = $bin;
 		$list = $con->readNBT();
@@ -19,18 +19,21 @@ final class NBTTest extends \PHPUnit\Framework\TestCase
 		$int = $compound->children[0];
 		$this->assertTrue($int instanceof \Phpcraft\NbtInt);
 		$this->assertEquals("Int", $int->name);
-		$this->assertEquals(2, $int->value);
+		$this->assertEquals(-1, $int->value);
 		$list->send($con);
 		$this->assertEquals($bin, $con->write_buffer);
 	}
 
 	function testNbtBigTest()
 	{
+		$bin = file_get_contents(__DIR__."/bigtest.nbt");
 		$con = new \Phpcraft\Connection(-1);
-		$con->read_buffer = file_get_contents(__DIR__."/bigtest.nbt");
+		$con->read_buffer = $bin;
 		$tag = $con->readNBT();
 		$this->assertTrue($tag instanceof \Phpcraft\NbtCompound);
 		$this->assertEquals("Level", $tag->name);
 		$this->assertEquals("", $con->write_buffer);
+		$tag->send($con);
+		$this->assertEquals($bin, $con->write_buffer);
 	}
 }

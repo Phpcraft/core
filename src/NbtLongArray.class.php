@@ -4,14 +4,14 @@ class NbtLongArray extends NbtTag
 {
 	/**
 	 * The longs in the array.
-	 * @var integer[] $children
+	 * @var array $children
 	 */
 	public $children;
 
 	/**
 	 * The constructor.
 	 * @param string $name The name of this tag.
-	 * @param integer[] $children The longs in the array.
+	 * @param array $children The longs in the array.
 	 */
 	function __construct($name, $children = [])
 	{
@@ -28,7 +28,7 @@ class NbtLongArray extends NbtTag
 		{
 			$this->_send($con, 12);
 		}
-		$con->writeInt(count($this->children));
+		$con->writeInt(count($this->children), true);
 		foreach($this->children as $child)
 		{
 			$con->writeLong($child);

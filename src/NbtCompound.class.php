@@ -4,14 +4,14 @@ class NbtCompound extends NbtTag
 {
 	/**
 	 * The child tags of the compound.
-	 * @var NbtTag[] $children
+	 * @var array $children
 	 */
 	public $children;
 
 	/**
 	 * The constructor.
 	 * @param string $name The name of this tag.
-	 * @param NbtTag[] $children The child tags of the compound.
+	 * @param array $children The child tags of the compound.
 	 */
 	function __construct($name, $children = [])
 	{

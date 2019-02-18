@@ -28,7 +28,7 @@ class NbtDouble extends NbtTag
 		{
 			$this->_send($con, 6);
 		}
-		$con->writeDouble($this->value);
+		$con->writeDouble($this->value, true);
 	}
 
 	function copy()

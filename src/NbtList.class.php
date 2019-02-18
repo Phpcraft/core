@@ -10,7 +10,7 @@ class NbtList extends NbtTag
 	public $childType;
 	/**
 	 * child tags of the list.
-	 * @var NbtTag[] $children
+	 * @var array $children
 	 */
 	public $children;
 
@@ -18,7 +18,7 @@ class NbtList extends NbtTag
 	 * The constructor.
 	 * @param string $name The name of this tag.
 	 * @param integer $childType The NBT Tag Type of children.
-	 * @param NbtTag[] $children The child tags of the list.
+	 * @param array $children The child tags of the list.
 	 */
 	function __construct($name, $childType, $children = [])
 	{
@@ -37,7 +37,7 @@ class NbtList extends NbtTag
 			$this->_send($con, 9);
 		}
 		$con->writeByte($this->childType);
-		$con->writeInt(count($this->children));
+		$con->writeInt(count($this->children), true);
 		foreach($this->children as $child)
 		{
 			$child->send($con, true);

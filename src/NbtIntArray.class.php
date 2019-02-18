@@ -4,14 +4,14 @@ class NbtIntArray extends NbtTag
 {
 	/**
 	 * The integers in the array.
-	 * @var integer[] $children
+	 * @var array $children
 	 */
 	public $children;
 
 	/**
 	 * The constructor.
 	 * @param string $name The name of this tag.
-	 * @param integer[] $children The integers in the array.
+	 * @param array $children The integers in the array.
 	 */
 	function __construct($name, $children = [])
 	{
@@ -28,7 +28,7 @@ class NbtIntArray extends NbtTag
 		{
 			$this->_send($con, 11);
 		}
-		$con->writeInt(count($this->children));
+		$con->writeInt(count($this->children), true);
 		foreach($this->children as $child)
 		{
 			$con->writeInt($child);
