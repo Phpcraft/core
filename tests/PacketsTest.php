@@ -58,7 +58,7 @@ final class PacketsTest extends \PHPUnit\Framework\TestCase
 		$packet = new \Phpcraft\SetSlotPacket();
 		$packet->window = 1;
 		$packet->slotId = 2;
-		$packet->slot = new \Phpcraft\Slot(\Phpcraft\Item::get("filled_map"), 3);
+		$packet->slot = new \Phpcraft\Slot(\Phpcraft\Item::get("stone"), 3);
 		$packet->send($con);
 		$con->read_buffer = $con->write_buffer;
 		$this->assertEquals("set_slot", \Phpcraft\Packet::clientboundPacketIdToName($con->readVarInt(), $con->protocol_version));
@@ -73,7 +73,7 @@ final class PacketsTest extends \PHPUnit\Framework\TestCase
 		$this->assertEquals(1, $packet->window);
 		$this->assertEquals(2, $packet->slotId);
 		$this->assertFalse(\Phpcraft\Slot::isEmpty($packet->slot));
-		$this->assertEquals("filled_map", $packet->slot->item->name);
+		$this->assertEquals("stone", $packet->slot->item->name);
 		$this->assertEquals(3, $packet->slot->count);
 	}
 }
