@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['gamemode_2eclass_2ephp',['Gamemode.class.php',['../Gamemode_8class_8php.html',1,'']]]
+  ['fancyuserinterface_2eclass_2ephp',['FancyUserInterface.class.php',['../FancyUserInterface_8class_8php.html',1,'']]]
 ];

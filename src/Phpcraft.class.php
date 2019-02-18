@@ -817,4 +817,14 @@ abstract class Phpcraft
 		}
 		return [];
 	}
+
+	/**
+	 * Calculates the "distance" between two colors.
+	 * @param array $rgb1
+	 * @param array $rgb2
+	 */
+	static function colorDiff($rgb1, $rgb2)
+	{
+		return abs($rgb1[0] - $rgb2[0]) + abs($rgb1[1] - $rgb2[1]) + abs($rgb1[2] - $rgb2[2]);
+	}
 }

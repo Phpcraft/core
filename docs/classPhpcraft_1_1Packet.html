@@ -76,10 +76,12 @@ Inheritance diagram for Phpcraft\Packet:</div>
 <div class="dyncontent">
 <div class="center"><img src="classPhpcraft_1_1Packet__inherit__graph.png" border="0" usemap="#Phpcraft_0CPacket_inherit__map" alt="Inheritance graph"/></div>
 <map name="Phpcraft_0CPacket_inherit__map" id="Phpcraft_0CPacket_inherit__map">
-<area shape="rect" id="node2" href="classPhpcraft_1_1JoinGamePacket.html" title="Phpcraft\\JoinGamePacket" alt="" coords="5,80,188,107"/>
-<area shape="rect" id="node3" href="classPhpcraft_1_1KeepAlivePacket.html" title="Phpcraft\\KeepAlivePacket" alt="" coords="212,80,395,107"/>
-<area shape="rect" id="node4" href="classPhpcraft_1_1KeepAliveRequestPacket.html" title="Phpcraft\\KeepAliveRequest\lPacket" alt="" coords="97,155,288,196"/>
-<area shape="rect" id="node5" href="classPhpcraft_1_1KeepAliveResponsePacket.html" title="Phpcraft\\KeepAliveResponse\lPacket" alt="" coords="312,155,513,196"/>
+<area shape="rect" id="node2" href="classPhpcraft_1_1JoinGamePacket.html" title="Phpcraft\\JoinGamePacket" alt="" coords="175,5,357,32"/>
+<area shape="rect" id="node3" href="classPhpcraft_1_1KeepAlivePacket.html" title="Phpcraft\\KeepAlivePacket" alt="" coords="175,56,357,83"/>
+<area shape="rect" id="node6" href="classPhpcraft_1_1MapDataPacket.html" title="Phpcraft\\MapDataPacket" alt="" coords="177,107,355,133"/>
+<area shape="rect" id="node7" href="classPhpcraft_1_1SetSlotPacket.html" title="Phpcraft\\SetSlotPacket" alt="" coords="182,157,350,184"/>
+<area shape="rect" id="node4" href="classPhpcraft_1_1KeepAliveRequestPacket.html" title="Phpcraft\\KeepAliveRequest\lPacket" alt="" coords="411,17,601,58"/>
+<area shape="rect" id="node5" href="classPhpcraft_1_1KeepAliveResponsePacket.html" title="Phpcraft\\KeepAliveResponse\lPacket" alt="" coords="405,82,607,123"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -333,7 +335,7 @@ Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Sends the packet over the given <a class="el" href="classPhpcraft_1_1Connection.html">Connection</a>. There is different behaviour if the <a class="el" href="classPhpcraft_1_1Connection.html">Connection</a> object was initialized without a stream. See <a class="el" href="classPhpcraft_1_1Connection.html#aa3bc95b2e2c06d78fed179399869f990">Connection::send()</a> for details. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Sends the packet over the given <a class="el" href="classPhpcraft_1_1Connection.html">Connection</a> or simply writes it into the write buffer if the connection was initialised without a stream. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramtype"><a class="el" href="classPhpcraft_1_1Connection.html">Connection</a></td><td class="paramname">$con</td><td></td></tr>
   </table>

@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['spectator',['SPECTATOR',['../classPhpcraft_1_1Gamemode.html#a8bb19b6b078c7e40bcfd9969ae8db29c',1,'Phpcraft::Gamemode']]],
-  ['survival',['SURVIVAL',['../classPhpcraft_1_1Gamemode.html#a1587fe71d358cc548a2360b2e055dd46',1,'Phpcraft::Gamemode']]]
+  ['peaceful',['PEACEFUL',['../classPhpcraft_1_1Difficulty.html#af5f74454c88c05d25332845560f2551b',1,'Phpcraft::Difficulty']]]
 ];

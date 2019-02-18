@@ -5,6 +5,7 @@ var searchData=
   ['instancefromname',['instanceFromName',['../classPhpcraft_1_1Packet.html#ad433d5a46d128f98c1af8751de33303a',1,'Phpcraft::Packet']]],
   ['inttovarint',['intToVarInt',['../classPhpcraft_1_1Phpcraft.html#a98f9997cbdfcf0c06c1292db9293d5a2',1,'Phpcraft::Phpcraft']]],
   ['iscancelled',['isCancelled',['../classPhpcraft_1_1Event.html#a399efe953f2d66aab2bda72306dc463e',1,'Phpcraft::Event']]],
+  ['isempty',['isEmpty',['../classPhpcraft_1_1Slot.html#ab90ef5995ffeccc0be5a58fbb31337c3',1,'Phpcraft::Slot']]],
   ['isminecraftversionsupported',['isMinecraftVersionSupported',['../classPhpcraft_1_1Phpcraft.html#a2f270d509abc4722b1ec784d49822df5',1,'Phpcraft::Phpcraft']]],
   ['isonline',['isOnline',['../classPhpcraft_1_1Account.html#a6f7df18e660e7643779a467352f3da56',1,'Phpcraft::Account']]],
   ['isopen',['isOpen',['../classPhpcraft_1_1Connection.html#a97d64586a07790901e0e9dc83a9cfd66',1,'Phpcraft\Connection\isOpen()'],['../classPhpcraft_1_1Server.html#a75d9cf1effa434c6ec3f967eb97c6254',1,'Phpcraft\Server\isOpen()']]],

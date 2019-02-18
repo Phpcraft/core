@@ -219,6 +219,43 @@ class Connection
 	}
 
 	/**
+	 * Adds a slot to the write buffer.
+	 * @param Slot $slot
+	 * @return Connection $this
+	 */
+	function writeSlot(\Phpcraft\Slot $slot)
+	{
+		if(\Phpcraft\Slot::isEmpty($slot))
+		{
+			if($this->protocol_version >= 393)
+			{
+				$this->writeBoolean(false);
+			}
+			else
+			{
+				$this->writeShort(-1);
+			}
+		}
+		else
+		{
+			if($this->protocol_version >= 393)
+			{
+				$this->writeBoolean(true);
+				$this->writeVarInt($slot->item->id);
+				$this->writeByte($slot->count);
+			}
+			else
+			{
+				$this->writeShort($slot->item->legacy_id);
+				$this->writeByte($slot->count);
+				$this->writeShort($slot->item->legacy_metadata);
+			}
+			$slot->getNBT()->send($this);
+		}
+		return $this;
+	}
+
+	/**
 	 * Clears the write buffer and starts a new packet.
 	 * @param string $name The name of the new packet. For a list of packet names, check the source code of Packet.
 	 * @return Connection $this
@@ -689,6 +726,51 @@ class Connection
 			default:
 			throw new \Phpcraft\Exception("Unsupported NBT Tag: {$type}");
 		}
+	}
+
+	/**
+	 * Reads a Slot.
+	 * @return Slot
+	 */
+	function readSlot()
+	{
+		$slot = new \Phpcraft\Slot();
+		if($this->protocol_version >= 393)
+		{
+			if($this->readBoolean())
+			{
+				$id = $this->readVarInt();
+				foreach(\Phpcraft\Item::all() as $item)
+				{
+					if($item->id == $id)
+					{
+						$slot->item = $item;
+						break;
+					}
+				}
+				$slot->count = $this->readByte();
+				$slot->nbt = $this->readNBT();
+			}
+		}
+		else
+		{
+			$id = $this->readShort();
+			if($id >= 0)
+			{
+				$slot->count = $this->readByte();
+				$metadata = $this->readShort();
+				foreach(\Phpcraft\Item::all() as $item)
+				{
+					if($item->legacy_id == $id && $item->legacy_metadata == $metadata)
+					{
+						$slot->item = $item;
+						break;
+					}
+				}
+				$slot->nbt = $this->readNBT();
+			}
+		}
+		return $slot;
 	}
 
 	/**

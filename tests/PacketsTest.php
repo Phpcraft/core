@@ -2,24 +2,6 @@
 require_once __DIR__."/../vendor/autoload.php";
 final class PacketsTest extends \PHPUnit\Framework\TestCase
 {
-	function testKeepAlivePackets()
-	{
-		$con = new \Phpcraft\Connection(339);
-		$con->writeLong(1337); // Keep Alive ID
-		$con->read_buffer = $con->write_buffer;
-		$packet = \Phpcraft\KeepAliveRequestPacket::read($con);
-		$this->assertEquals("", $con->read_buffer);
-		$this->assertEquals(1337, $packet->keepAliveId);
-		$packet = $packet->getResponse();
-		$this->assertEquals(1337, $packet->keepAliveId);
-		$con = new \Phpcraft\Connection(338);
-		$packet->send($con);
-		$con->read_buffer = $con->write_buffer;
-		$this->assertEquals("keep_alive_response", \Phpcraft\Packet::serverboundPacketIdToName($con->readVarInt(), $con->protocol_version));
-		$this->assertEquals(1337, $con->readVarInt()); // Keep Alive ID
-		$this->assertEquals("", $con->read_buffer);
-	}
-
 	function testJoinGamePacket()
 	{
 		$con = new \Phpcraft\Connection(108);
@@ -50,5 +32,55 @@ final class PacketsTest extends \PHPUnit\Framework\TestCase
 		$this->assertEquals("", $con->readString()); // Level Type
 		$this->assertEquals(false, $con->readBoolean()); // Reduced Debug Info
 		$this->assertEquals("", $con->read_buffer);
+	}
+
+	function testKeepAlivePackets()
+	{
+		$con = new \Phpcraft\Connection(339);
+		$con->writeLong(1337); // Keep Alive ID
+		$con->read_buffer = $con->write_buffer;
+		$packet = \Phpcraft\KeepAliveRequestPacket::read($con);
+		$this->assertEquals("", $con->read_buffer);
+		$this->assertEquals(1337, $packet->keepAliveId);
+		$packet = $packet->getResponse();
+		$this->assertEquals(1337, $packet->keepAliveId);
+		$con = new \Phpcraft\Connection(338);
+		$packet->send($con);
+		$con->read_buffer = $con->write_buffer;
+		$this->assertEquals("keep_alive_response", \Phpcraft\Packet::serverboundPacketIdToName($con->readVarInt(), $con->protocol_version));
+		$this->assertEquals(1337, $con->readVarInt()); // Keep Alive ID
+		$this->assertEquals("", $con->read_buffer);
+	}
+
+	// TODO:
+	/*
+	function testMapDataPacket()
+	{
+	}
+	*/
+
+	function testSetSlotPacket()
+	{
+		$con = new \Phpcraft\Connection(47);
+		$packet = new \Phpcraft\SetSlotPacket();
+		$packet->window = 1;
+		$packet->slotId = 2;
+		$packet->slot = new \Phpcraft\Slot(\Phpcraft\Item::get("filled_map"), 3);
+		$packet->send($con);
+		$con->read_buffer = $con->write_buffer;
+		$this->assertEquals("set_slot", \Phpcraft\Packet::clientboundPacketIdToName($con->readVarInt(), $con->protocol_version));
+		$packet = \Phpcraft\SetSlotPacket::read($con);
+		$this->assertEquals("", $con->read_buffer);
+		$con = new \Phpcraft\Connection(404);
+		$packet->send($con);
+		$con->read_buffer = $con->write_buffer;
+		$this->assertEquals("set_slot", \Phpcraft\Packet::clientboundPacketIdToName($con->readVarInt(), $con->protocol_version));
+		$packet = \Phpcraft\SetSlotPacket::read($con);
+		$this->assertEquals("", $con->read_buffer);
+		$this->assertEquals(1, $packet->window);
+		$this->assertEquals(2, $packet->slotId);
+		$this->assertFalse(\Phpcraft\Slot::isEmpty($packet->slot));
+		$this->assertEquals("filled_map", $packet->slot->item->name);
+		$this->assertEquals(3, $packet->slot->count);
 	}
 }

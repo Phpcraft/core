@@ -272,11 +272,20 @@ abstract class Packet
 	{
 		switch($name)
 		{
+			case "join_game":
+			return new \Phpcraft\JoinGamePacket();
+
 			case "keep_alive_request":
-			return new \Phpcraft\KeepAliveRequest();
+			return new \Phpcraft\KeepAliveRequestPacket();
 
 			case "keep_alive_response":
-			return new \Phpcraft\KeepAliveResponse();
+			return new \Phpcraft\KeepAliveResponsePacket();
+
+			case "map_data":
+			return new \Phpcraft\MapDataPacket();
+
+			case "set_slot";
+			return new \Phpcraft\SetSlotPacket();
 		}
 	}
 
@@ -288,8 +297,7 @@ abstract class Packet
 	abstract static function read(\Phpcraft\Connection $con);
 
 	/**
-	 * Sends the packet over the given Connection.
-	 * There is different behaviour if the Connection object was initialized without a stream. See Connection::send() for details.
+	 * Sends the packet over the given Connection or simply writes it into the write buffer if the connection was initialised without a stream.
 	 * @param Connection $con
 	 */
 	abstract function send(\Phpcraft\Connection $con);

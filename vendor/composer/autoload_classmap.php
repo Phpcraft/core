@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Phpcraft\\Account' => $baseDir . '/src/Account.class.php',
+    'Phpcraft\\BlockMaterial' => $baseDir . '/src/BlockMaterial.class.php',
     'Phpcraft\\ClientConnection' => $baseDir . '/src/ClientConnection.class.php',
     'Phpcraft\\Connection' => $baseDir . '/src/Connection.class.php',
     'Phpcraft\\Difficulty' => $baseDir . '/src/Difficulty.class.php',
@@ -15,10 +16,13 @@ return array(
     'Phpcraft\\Exception' => $baseDir . '/src/Exception.class.php',
     'Phpcraft\\FancyUserInterface' => $baseDir . '/src/FancyUserInterface.class.php',
     'Phpcraft\\Gamemode' => $baseDir . '/src/Gamemode.class.php',
+    'Phpcraft\\Item' => $baseDir . '/src/Item.class.php',
     'Phpcraft\\JoinGamePacket' => $baseDir . '/src/JoinGamePacket.class.php',
     'Phpcraft\\KeepAlivePacket' => $baseDir . '/src/KeepAlivePacket.class.php',
     'Phpcraft\\KeepAliveRequestPacket' => $baseDir . '/src/KeepAliveRequestPacket.class.php',
     'Phpcraft\\KeepAliveResponsePacket' => $baseDir . '/src/KeepAliveResponsePacket.class.php',
+    'Phpcraft\\MapDataPacket' => $baseDir . '/src/MapDataPacket.class.php',
+    'Phpcraft\\Material' => $baseDir . '/src/Material.class.php',
     'Phpcraft\\NbtByte' => $baseDir . '/src/NbtByte.class.php',
     'Phpcraft\\NbtByteArray' => $baseDir . '/src/NbtByteArray.class.php',
     'Phpcraft\\NbtCompound' => $baseDir . '/src/NbtCompound.class.php',
@@ -39,5 +43,7 @@ return array(
     'Phpcraft\\PluginManager' => $baseDir . '/src/PluginManager.class.php',
     'Phpcraft\\Server' => $baseDir . '/src/Server.class.php',
     'Phpcraft\\ServerConnection' => $baseDir . '/src/ServerConnection.class.php',
+    'Phpcraft\\SetSlotPacket' => $baseDir . '/src/SetSlotPacket.class.php',
+    'Phpcraft\\Slot' => $baseDir . '/src/Slot.class.php',
     'Phpcraft\\UserInterface' => $baseDir . '/src/UserInterface.class.php',
 );

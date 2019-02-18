@@ -8,6 +8,7 @@ class ComposerStaticInitb01ebcf9648a6fde88428c8cb797b804
 {
     public static $classMap = array (
         'Phpcraft\\Account' => __DIR__ . '/../..' . '/src/Account.class.php',
+        'Phpcraft\\BlockMaterial' => __DIR__ . '/../..' . '/src/BlockMaterial.class.php',
         'Phpcraft\\ClientConnection' => __DIR__ . '/../..' . '/src/ClientConnection.class.php',
         'Phpcraft\\Connection' => __DIR__ . '/../..' . '/src/Connection.class.php',
         'Phpcraft\\Difficulty' => __DIR__ . '/../..' . '/src/Difficulty.class.php',
@@ -16,10 +17,13 @@ class ComposerStaticInitb01ebcf9648a6fde88428c8cb797b804
         'Phpcraft\\Exception' => __DIR__ . '/../..' . '/src/Exception.class.php',
         'Phpcraft\\FancyUserInterface' => __DIR__ . '/../..' . '/src/FancyUserInterface.class.php',
         'Phpcraft\\Gamemode' => __DIR__ . '/../..' . '/src/Gamemode.class.php',
+        'Phpcraft\\Item' => __DIR__ . '/../..' . '/src/Item.class.php',
         'Phpcraft\\JoinGamePacket' => __DIR__ . '/../..' . '/src/JoinGamePacket.class.php',
         'Phpcraft\\KeepAlivePacket' => __DIR__ . '/../..' . '/src/KeepAlivePacket.class.php',
         'Phpcraft\\KeepAliveRequestPacket' => __DIR__ . '/../..' . '/src/KeepAliveRequestPacket.class.php',
         'Phpcraft\\KeepAliveResponsePacket' => __DIR__ . '/../..' . '/src/KeepAliveResponsePacket.class.php',
+        'Phpcraft\\MapDataPacket' => __DIR__ . '/../..' . '/src/MapDataPacket.class.php',
+        'Phpcraft\\Material' => __DIR__ . '/../..' . '/src/Material.class.php',
         'Phpcraft\\NbtByte' => __DIR__ . '/../..' . '/src/NbtByte.class.php',
         'Phpcraft\\NbtByteArray' => __DIR__ . '/../..' . '/src/NbtByteArray.class.php',
         'Phpcraft\\NbtCompound' => __DIR__ . '/../..' . '/src/NbtCompound.class.php',
@@ -40,6 +44,8 @@ class ComposerStaticInitb01ebcf9648a6fde88428c8cb797b804
         'Phpcraft\\PluginManager' => __DIR__ . '/../..' . '/src/PluginManager.class.php',
         'Phpcraft\\Server' => __DIR__ . '/../..' . '/src/Server.class.php',
         'Phpcraft\\ServerConnection' => __DIR__ . '/../..' . '/src/ServerConnection.class.php',
+        'Phpcraft\\SetSlotPacket' => __DIR__ . '/../..' . '/src/SetSlotPacket.class.php',
+        'Phpcraft\\Slot' => __DIR__ . '/../..' . '/src/Slot.class.php',
         'Phpcraft\\UserInterface' => __DIR__ . '/../..' . '/src/UserInterface.class.php',
     );
 

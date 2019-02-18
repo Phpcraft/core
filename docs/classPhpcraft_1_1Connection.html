@@ -110,6 +110,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a2264e967503660c823b01714c00427f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a62c8bdc28feaa69fa9247e2a366872e3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#a62c8bdc28feaa69fa9247e2a366872e3">writePosition</a> ($x, $y, $z)</td></tr>
 <tr class="separator:a62c8bdc28feaa69fa9247e2a366872e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa46096c7748d40c1e773076987a0bc70"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#aa46096c7748d40c1e773076987a0bc70">writeSlot</a> (\<a class="el" href="classPhpcraft_1_1Slot.html">Phpcraft\Slot</a> $slot)</td></tr>
+<tr class="separator:aa46096c7748d40c1e773076987a0bc70"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3fb102f9ad9099ec2e4b318e0a845cab"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#a3fb102f9ad9099ec2e4b318e0a845cab">startPacket</a> ($name)</td></tr>
 <tr class="separator:a3fb102f9ad9099ec2e4b318e0a845cab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa3bc95b2e2c06d78fed179399869f990"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#aa3bc95b2e2c06d78fed179399869f990">send</a> ($raw=false)</td></tr>
@@ -144,6 +146,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ad726e1db6e2a95ee0f306244c4fcaf79"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a73798855086b0476d52753132ab3c1d4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#a73798855086b0476d52753132ab3c1d4">readNBT</a> ($type=0)</td></tr>
 <tr class="separator:a73798855086b0476d52753132ab3c1d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1541767e54b7ba8bb195976ab93c2f0c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#a1541767e54b7ba8bb195976ab93c2f0c">readSlot</a> ()</td></tr>
+<tr class="separator:a1541767e54b7ba8bb195976ab93c2f0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad78f9121f2de40d9d21c52ce8f9ffbb6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#ad78f9121f2de40d9d21c52ce8f9ffbb6">ignoreBytes</a> ($bytes)</td></tr>
 <tr class="separator:ad78f9121f2de40d9d21c52ce8f9ffbb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -588,6 +592,24 @@ echo hex2bin($con-&gt;write_buffer)."\n";</pre> </div><h2 class="groupheader">Co
 
 </div>
 </div>
+<a id="a1541767e54b7ba8bb195976ab93c2f0c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1541767e54b7ba8bb195976ab93c2f0c">&#9670;&nbsp;</a></span>readSlot()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Phpcraft\Connection::readSlot </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Reads a <a class="el" href="classPhpcraft_1_1Slot.html">Slot</a>. </p><dl class="section return"><dt>Returns</dt><dd><a class="el" href="classPhpcraft_1_1Slot.html">Slot</a> </dd></dl>
+
+</div>
+</div>
 <a id="a338afe376e5305275e7c08a19a469e5b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a338afe376e5305275e7c08a19a469e5b">&#9670;&nbsp;</a></span>readString()</h2>
 
@@ -997,6 +1019,31 @@ echo hex2bin($con-&gt;write_buffer)."\n";</pre> </div><h2 class="groupheader">Co
   <table class="params">
     <tr><td class="paramtype">integer</td><td class="paramname">$value</td><td></td></tr>
     <tr><td class="paramtype">boolean</td><td class="paramname">$signed</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classPhpcraft_1_1Connection.html">Connection</a> $this </dd></dl>
+
+</div>
+</div>
+<a id="aa46096c7748d40c1e773076987a0bc70"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa46096c7748d40c1e773076987a0bc70">&#9670;&nbsp;</a></span>writeSlot()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Phpcraft\Connection::writeSlot </td>
+          <td>(</td>
+          <td class="paramtype">\<a class="el" href="classPhpcraft_1_1Slot.html">Phpcraft\Slot</a>&#160;</td>
+          <td class="paramname"><em>$slot</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Adds a slot to the write buffer. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype"><a class="el" href="classPhpcraft_1_1Slot.html">Slot</a></td><td class="paramname">$slot</td><td></td></tr>
   </table>
   </dd>
 </dl>

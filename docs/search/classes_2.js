@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['difficulty',['Difficulty',['../classPhpcraft_1_1Difficulty.html',1,'Phpcraft']]],
-  ['dimension',['Dimension',['../classPhpcraft_1_1Dimension.html',1,'Phpcraft']]]
+  ['clientconnection',['ClientConnection',['../classPhpcraft_1_1ClientConnection.html',1,'Phpcraft']]],
+  ['connection',['Connection',['../classPhpcraft_1_1Connection.html',1,'Phpcraft']]]
 ];
