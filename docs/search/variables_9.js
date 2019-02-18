@@ -1,11 +1,16 @@
 var searchData=
 [
-  ['player',['player',['../classPhpcraft_1_1Packet.html#afb49ca6bb4c722bd9e872a15f37fc7c2',1,'Phpcraft::Packet']]],
-  ['player_5fblock_5fplacement',['player_block_placement',['../classPhpcraft_1_1Packet.html#a1fbef263ed8609c0d0c775e7b15226fd',1,'Phpcraft::Packet']]],
-  ['player_5flist_5fheader_5fand_5ffooter',['player_list_header_and_footer',['../classPhpcraft_1_1Packet.html#a92e757d03b6a65d92080eece92b7383d',1,'Phpcraft::Packet']]],
-  ['player_5flist_5fitem',['player_list_item',['../classPhpcraft_1_1Packet.html#a1c42e89ceaab95b5733a86492aab52db',1,'Phpcraft::Packet']]],
-  ['player_5flook',['player_look',['../classPhpcraft_1_1Packet.html#a44634d0c4f264c7f2e010f4f92fb32e6',1,'Phpcraft::Packet']]],
-  ['player_5fposition',['player_position',['../classPhpcraft_1_1Packet.html#a1c255a6005b60d977d74adf63ef7ec46',1,'Phpcraft::Packet']]],
-  ['player_5fposition_5fand_5flook',['player_position_and_look',['../classPhpcraft_1_1Packet.html#ab95f04300a6c62a1525b67165cf2e97a',1,'Phpcraft::Packet']]],
-  ['plugin_5fmessage',['plugin_message',['../classPhpcraft_1_1Packet.html#aa25be83a01c22188c46f98c22b0d15ab',1,'Phpcraft::Packet']]]
+  ['type_5fbyte',['TYPE_BYTE',['../classPhpcraft_1_1NbtTag.html#affe293682e6bb82692d2bf5c0f7ea8fe',1,'Phpcraft::NbtTag']]],
+  ['type_5fbyte_5farray',['TYPE_BYTE_ARRAY',['../classPhpcraft_1_1NbtTag.html#aadcc650c89e5ca5bd65a0a59a183fa41',1,'Phpcraft::NbtTag']]],
+  ['type_5fcompound',['TYPE_COMPOUND',['../classPhpcraft_1_1NbtTag.html#aeef2688dd21c078c470804afc4c10dc2',1,'Phpcraft::NbtTag']]],
+  ['type_5fdouble',['TYPE_DOUBLE',['../classPhpcraft_1_1NbtTag.html#a05a0a4c90320f5bba50a59cbf718654d',1,'Phpcraft::NbtTag']]],
+  ['type_5fend',['TYPE_END',['../classPhpcraft_1_1NbtTag.html#a18002cd2c564cebb5207aa4cfc8cae84',1,'Phpcraft::NbtTag']]],
+  ['type_5ffloat',['TYPE_FLOAT',['../classPhpcraft_1_1NbtTag.html#ae5972b0f9f82b5ee7bc53418a90d553b',1,'Phpcraft::NbtTag']]],
+  ['type_5fint',['TYPE_INT',['../classPhpcraft_1_1NbtTag.html#a7c06c4534e55622233f2d49c4f237c89',1,'Phpcraft::NbtTag']]],
+  ['type_5fint_5farray',['TYPE_INT_ARRAY',['../classPhpcraft_1_1NbtTag.html#a2a66123529b63a785b5838f5f3d7518d',1,'Phpcraft::NbtTag']]],
+  ['type_5flist',['TYPE_LIST',['../classPhpcraft_1_1NbtTag.html#a0f37534af64485c1d2a8e409bb2a832d',1,'Phpcraft::NbtTag']]],
+  ['type_5flong',['TYPE_LONG',['../classPhpcraft_1_1NbtTag.html#a277f506993c88674b203a2161937b267',1,'Phpcraft::NbtTag']]],
+  ['type_5flong_5farray',['TYPE_LONG_ARRAY',['../classPhpcraft_1_1NbtTag.html#a5ad3fe1b8b0f8eeed3355d7f9481d564',1,'Phpcraft::NbtTag']]],
+  ['type_5fshort',['TYPE_SHORT',['../classPhpcraft_1_1NbtTag.html#a34ef35f6ef9f0bdf7c66fbbefc45536f',1,'Phpcraft::NbtTag']]],
+  ['type_5fstring',['TYPE_STRING',['../classPhpcraft_1_1NbtTag.html#a461a0ebafad76f78f3e6808a8ac48a2d',1,'Phpcraft::NbtTag']]]
 ];

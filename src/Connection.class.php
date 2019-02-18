@@ -586,7 +586,96 @@ class Connection
 	}
 
 	/**
-	 * Ignores the given amount of bytes.
+	 * Reads an NbtTag.
+	 * @param boolean $inList Ignore this parameter.
+	 * @return NbtTag
+	 */
+	function readNBT($type = 0)
+	{
+		$inList = $type > 0;
+		if(!$inList)
+		{
+			$type = $this->readByte();
+		}
+		$name = ($type == 0 || $inList) ? "" : $this->readRaw($this->readShort());
+		switch($type)
+		{
+			case 0:
+			return new \Phpcraft\NbtEnd();
+
+			case 1:
+			return new \Phpcraft\NbtByte($name, $this->readByte());
+
+			case 2:
+			return new \Phpcraft\NbtShort($name, $this->readShort());
+
+			case 3:
+			return new \Phpcraft\NbtInt($name, $this->readInt());
+
+			case 4:
+			return new \Phpcraft\NbtLong($name, $this->readLong());
+
+			case 5:
+			return new \Phpcraft\NbtFloat($name, $this->readFloat());
+
+			case 6:
+			return new \Phpcraft\NbtDouble($name, $this->readDouble());
+
+			case 7:
+			$children_i = $this->readInt();
+			$children = [];
+			for($i = 0; $i < $children_i; $i++)
+			{
+				array_push($children, $this->readByte());
+			}
+			return new \Phpcraft\NbtByteArray($name, $children);
+
+			case 8:
+			return new \Phpcraft\NbtString($name, $this->readRaw($this->readShort()));
+
+			case 9:
+			$childType = $this->readByte();
+			$children_i = $this->readInt();
+			$children = [];
+			for($i = 0; $i < $children_i; $i++)
+			{
+				array_push($children, $this->readNBT($childType));
+			}
+			return new \Phpcraft\NbtList($name, $childType, $children);
+
+			case 10:
+			$children = [];
+			while(!(($tag = $this->readNBT()) instanceof \Phpcraft\NbtEnd))
+			{
+				array_push($children, $tag);
+			}
+			return new \Phpcraft\NbtCompound($name, $children);
+
+			case 11:
+			$children_i = $this->readInt();
+			$children = [];
+			for($i = 0; $i < $children_i; $i++)
+			{
+				array_push($children, $this->readInt());
+			}
+			return new \Phpcraft\NbtIntArray($name, $children);
+
+			case 12:
+			$children_i = $this->readInt();
+			$children = [];
+			for($i = 0; $i < $children_i; $i++)
+			{
+				array_push($children, $this->readLong());
+			}
+			return new \Phpcraft\NbtLongArray($name, $children);
+
+			default:
+			throw new \Phpcraft\Exception("Unsupported NBT Tag: {$type}");
+		}
+	}
+
+	/**
+	 * Skips over the given amount of bytes in the read buffer.
 	 * @param integer $bytes
 	 * @return Connection $this
 	 */

@@ -1,5 +1,7 @@
 var searchData=
 [
+  ['_24children',['$children',['../classPhpcraft_1_1NbtByteArray.html#a8759eb1bec77028e6f0b48e52ad30c5c',1,'Phpcraft\NbtByteArray\$children()'],['../classPhpcraft_1_1NbtCompound.html#ab34ec444b0c151524997141ff658f2a0',1,'Phpcraft\NbtCompound\$children()'],['../classPhpcraft_1_1NbtIntArray.html#a0fa5a2a60ab2af62588925d69d637f27',1,'Phpcraft\NbtIntArray\$children()'],['../classPhpcraft_1_1NbtList.html#aa27f2d2f1f9b7da2f18385b52a97366a',1,'Phpcraft\NbtList\$children()'],['../classPhpcraft_1_1NbtLongArray.html#ab421f6251eaaa047b6cf19884c89cf6e',1,'Phpcraft\NbtLongArray\$children()']]],
+  ['_24childtype',['$childType',['../classPhpcraft_1_1NbtList.html#af2cde716bcee6e3eaeec702a5cb29d1b',1,'Phpcraft::NbtList']]],
   ['_24clients',['$clients',['../classPhpcraft_1_1Server.html#ae5ccc8ddd363734e7ff6fd8fe9c7bd5e',1,'Phpcraft::Server']]],
   ['_24compression_5fthreshold',['$compression_threshold',['../classPhpcraft_1_1Connection.html#aaeb27e92dcac0caa63c5594cc93fc63e',1,'Phpcraft::Connection']]],
   ['_24data',['$data',['../classPhpcraft_1_1Event.html#ae51b8fac8555a4cf8314034926576190',1,'Phpcraft::Event']]],
@@ -18,7 +20,7 @@ var searchData=
   ['_24keepaliveid',['$keepAliveId',['../classPhpcraft_1_1KeepAlivePacket.html#a240a8c4744dc39690e852d38e68a569a',1,'Phpcraft::KeepAlivePacket']]],
   ['_24list_5fping_5ffunction',['$list_ping_function',['../classPhpcraft_1_1Server.html#a8d600041c4ed3dacefff2d5df6d2aeaa',1,'Phpcraft::Server']]],
   ['_24loaded_5fplugins',['$loaded_plugins',['../classPhpcraft_1_1PluginManager.html#a229377a05bf3b893acebc64467e53eeb',1,'Phpcraft::PluginManager']]],
-  ['_24name',['$name',['../classPhpcraft_1_1Event.html#a6ba99c261a50acab106e901a9cda7b1e',1,'Phpcraft\Event\$name()'],['../classPhpcraft_1_1Packet.html#a8ef20582b51249287673ded85c049a5a',1,'Phpcraft\Packet\$name()']]],
+  ['_24name',['$name',['../classPhpcraft_1_1Event.html#a6ba99c261a50acab106e901a9cda7b1e',1,'Phpcraft\Event\$name()'],['../classPhpcraft_1_1NbtTag.html#aca798efc1e29da1ccce17300fba95d96',1,'Phpcraft\NbtTag\$name()'],['../classPhpcraft_1_1Packet.html#a8ef20582b51249287673ded85c049a5a',1,'Phpcraft\Packet\$name()']]],
   ['_24next_5fheartbeat',['$next_heartbeat',['../classPhpcraft_1_1ClientConnection.html#ab81ef85b6185e1211f075611d6844b59',1,'Phpcraft::ClientConnection']]],
   ['_24packet_5ffunction',['$packet_function',['../classPhpcraft_1_1Server.html#a8ee363615c373c001b0fbb92aa288406',1,'Phpcraft::Server']]],
   ['_24platform',['$platform',['../classPhpcraft_1_1PluginManager.html#a7d5aa2abac8c500481140ba132263bc5',1,'Phpcraft::PluginManager']]],
@@ -31,5 +33,6 @@ var searchData=
   ['_24tabcomplete_5ffunction',['$tabcomplete_function',['../classPhpcraft_1_1FancyUserInterface.html#a4666084d1bb181c272b295f199caf268',1,'Phpcraft::FancyUserInterface']]],
   ['_24username',['$username',['../classPhpcraft_1_1ClientConnection.html#a40ca8bff0bcce3ed004e46bf4341d880',1,'Phpcraft::ClientConnection']]],
   ['_24uuid',['$uuid',['../classPhpcraft_1_1ClientConnection.html#a76c1342a26529ce5d51b0eb5358c958b',1,'Phpcraft::ClientConnection']]],
+  ['_24value',['$value',['../classPhpcraft_1_1NbtByte.html#a44d8c94c9546d6023c43d5f9704f6b49',1,'Phpcraft\NbtByte\$value()'],['../classPhpcraft_1_1NbtDouble.html#a427548513d4f6210373eb3859388bb4e',1,'Phpcraft\NbtDouble\$value()'],['../classPhpcraft_1_1NbtFloat.html#abc6bd0d65fc9d75b40a0870076a7893b',1,'Phpcraft\NbtFloat\$value()'],['../classPhpcraft_1_1NbtInt.html#a745d5469522e49258fea09c234f720db',1,'Phpcraft\NbtInt\$value()'],['../classPhpcraft_1_1NbtLong.html#a675f32453358df7171b9cf6a082d9d11',1,'Phpcraft\NbtLong\$value()'],['../classPhpcraft_1_1NbtShort.html#af302bc3eb7206c7dc50bf0767a2fcb3c',1,'Phpcraft\NbtShort\$value()'],['../classPhpcraft_1_1NbtString.html#a412effda85fe5d13ccb6cb2e281aac37',1,'Phpcraft\NbtString\$value()']]],
   ['_24write_5fbuffer',['$write_buffer',['../classPhpcraft_1_1Connection.html#a3084eed19e1ce7d3f53d50cc26aaf767',1,'Phpcraft::Connection']]]
 ];

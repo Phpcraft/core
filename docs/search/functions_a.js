@@ -7,6 +7,7 @@ var searchData=
   ['readfloat',['readFloat',['../classPhpcraft_1_1Connection.html#a425a6f10548a0bd9ba47c1f180ec6c02',1,'Phpcraft::Connection']]],
   ['readint',['readInt',['../classPhpcraft_1_1Connection.html#a18e370be004dc9d2a4354769cb2e03ef',1,'Phpcraft::Connection']]],
   ['readlong',['readLong',['../classPhpcraft_1_1Connection.html#af4dd5b8b960ed50cf7494f99e24bdbb2',1,'Phpcraft::Connection']]],
+  ['readnbt',['readNBT',['../classPhpcraft_1_1Connection.html#a73798855086b0476d52753132ab3c1d4',1,'Phpcraft::Connection']]],
   ['readpacket',['readPacket',['../classPhpcraft_1_1Connection.html#aa55747edacdfdc984ae4fb7af0322901',1,'Phpcraft::Connection']]],
   ['readposition',['readPosition',['../classPhpcraft_1_1Connection.html#ab1afcb6dd5f093420bbe7adb632e9087',1,'Phpcraft::Connection']]],
   ['readraw',['readRaw',['../classPhpcraft_1_1Connection.html#ac075a35f87e5e47a0647f3ef08c56f81',1,'Phpcraft::Connection']]],

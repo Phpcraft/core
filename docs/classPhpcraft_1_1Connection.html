@@ -142,6 +142,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:acaad829071825b6aa4e961f7a99e2d3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad726e1db6e2a95ee0f306244c4fcaf79"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#ad726e1db6e2a95ee0f306244c4fcaf79">readUUIDBytes</a> ()</td></tr>
 <tr class="separator:ad726e1db6e2a95ee0f306244c4fcaf79"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a73798855086b0476d52753132ab3c1d4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#a73798855086b0476d52753132ab3c1d4">readNBT</a> ($type=0)</td></tr>
+<tr class="separator:a73798855086b0476d52753132ab3c1d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad78f9121f2de40d9d21c52ce8f9ffbb6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#ad78f9121f2de40d9d21c52ce8f9ffbb6">ignoreBytes</a> ($bytes)</td></tr>
 <tr class="separator:ad78f9121f2de40d9d21c52ce8f9ffbb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -234,7 +236,7 @@ echo hex2bin($con-&gt;write_buffer)."\n";</pre> </div><h2 class="groupheader">Co
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Ignores the given amount of bytes. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Skips over the given amount of bytes in the read buffer. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramtype">integer</td><td class="paramname">$bytes</td><td></td></tr>
   </table>
@@ -412,6 +414,31 @@ echo hex2bin($con-&gt;write_buffer)."\n";</pre> </div><h2 class="groupheader">Co
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>integer </dd></dl>
+
+</div>
+</div>
+<a id="a73798855086b0476d52753132ab3c1d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a73798855086b0476d52753132ab3c1d4">&#9670;&nbsp;</a></span>readNBT()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Phpcraft\Connection::readNBT </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$type</em> = <code>0</code></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Reads an <a class="el" href="classPhpcraft_1_1NbtTag.html">NbtTag</a>. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">boolean</td><td class="paramname">$inList</td><td>Ignore this parameter. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classPhpcraft_1_1NbtTag.html">NbtTag</a> </dd></dl>
 
 </div>
 </div>

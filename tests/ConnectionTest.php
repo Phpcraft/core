@@ -57,7 +57,7 @@ final class ConnectionTest extends \PHPUnit\Framework\TestCase
 		$this->assertEquals(255, $con->readVarInt());
 	}
 
-	function testReadAndWriteStrings()
+	function testReadAndWriteString()
 	{
 		$con = new \Phpcraft\Connection();
 		$con->writeString("Ä");

@@ -1,11 +1,11 @@
 var indexSectionsWithContent =
 {
   0: "$_acdefghijklnoprstuvw",
-  1: "acdefgjkpsu",
+  1: "acdefgjknpsu",
   2: "p",
-  3: "acdefgjkpsu",
+  3: "acdefgjknpsu",
   4: "_acdfghilorstvw",
-  5: "$acehnops"
+  5: "$acehnopst"
 };
 
 var indexSectionNames =
