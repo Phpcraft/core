@@ -287,7 +287,7 @@ abstract class Phpcraft
 	}
 
 	/**
-	 * Returns an array of supported Minecraft versions with its protocol version as value.
+	 * Returns an array of supported Minecraft versions with its protocol version as value. Newest first.
 	 * @return array
 	 */
 	static function getVersions()
