@@ -8,7 +8,7 @@ Windows might work for some features, but it's not supported due to [a bug](http
 
 For basic usage, all you need is PHP-CLI and mbstring:
 
-	sudo apt-get -y install php php-cli php-mbstring
+    sudo apt-get -y install php php-cli php-mbstring
 
 64-bit PHP at version 7.0.15 or above is recommended to avoid issues with some networking features.
 
@@ -19,7 +19,15 @@ If you want to join or host an online mode server, you'll also need GMP, OpenSSl
 
 ## Using the Phpcraft client, server, or listping utility
 
-Clone this repository, and then you can run the `client.php`, `server.php`, and `listping.php`. You can also provide arguments to the client and server; get a list of possible arguments using `php <file> help`. The client has a couple of built-in commands — type `.help` in it for more information.
+    # Cloning the repository:
+    git clone git@github.com:timmyRS/Phpcraft
+    cd Phpcraft
+    # Showing information about available commands and arguments:
+    php client.php help
+    php server.php help
+    php listping.php
+
+The client also has a couple of built-in commands — type `.help` in it for more information. Enjoy!
 
 ## Using Phpcraft as a library
 
