@@ -20,31 +20,28 @@ PluginManager::registerPlugin("WorldImmitator", function($plugin)
 	$WorldImmitator_version = $con->readPacket();
 	fclose($fh);
 	echo "[WorldImmitator] Loaded packets from ".\Phpcraft\Phpcraft::getMinecraftVersionsFromProtocolVersion($WorldImmitator_version)[0]." (protocol version ".$WorldImmitator_version.").\n";
-	$plugin->on("join", function($event)
-	{
-		if($event->isCancelled())
-		{
-			return;
-		}
-		global $WorldImmitator_version;
-		if($event->data["client"]->protocol_version != $WorldImmitator_version)
-		{
-			$event->data["client"]->disconnect("[WorldImmitator] I have packets for ".\Phpcraft\Phpcraft::getMinecraftVersionRangeFromProtocolVersion($WorldImmitator_version)." (protocol version ".$WorldImmitator_version.") and we don't wanna find out what happens if I send them to you.");
-			$event->cancel();
-		}
-	});
 	$plugin->on("joined", function($event)
 	{
 		global $WorldImmitator_version;
-		$fh = fopen("world.bin", "r");
-		$con = new \Phpcraft\Connection($WorldImmitator_version, $fh);
-		$con->readPacket();
-		while($id = $con->readPacket(0))
+		if($event->data["client"]->protocol_version != $WorldImmitator_version)
 		{
-			$event->data["client"]->write_buffer = \Phpcraft\Phpcraft::intToVarInt($id).$con->read_buffer;
+			$event->data["client"]->startPacket("chat_message");
+			$event->data["client"]->writeString(json_encode(["text" => "[WorldImmitator] I have packets for ".\Phpcraft\Phpcraft::getMinecraftVersionRangeFromProtocolVersion($WorldImmitator_version)." (protocol version ".$WorldImmitator_version.") and we don't wanna find out what happens if I send them to you."]));
+			$event->data["client"]->writeByte(0);
 			$event->data["client"]->send();
-			time_nanosleep(0, 2000000); // 2 ms
 		}
-		fclose($fh);
+		else
+		{
+			$fh = fopen("world.bin", "r");
+			$con = new \Phpcraft\Connection($WorldImmitator_version, $fh);
+			$con->readPacket();
+			while($id = $con->readPacket(0))
+			{
+				$event->data["client"]->write_buffer = \Phpcraft\Phpcraft::intToVarInt($id).$con->read_buffer;
+				$event->data["client"]->send();
+				time_nanosleep(0, 2000000); // 2 ms
+			}
+			fclose($fh);
+		}
 	});
 });

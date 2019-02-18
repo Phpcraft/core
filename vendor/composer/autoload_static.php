@@ -23,6 +23,7 @@ class ComposerStaticInitb01ebcf9648a6fde88428c8cb797b804
         'Phpcraft\\KeepAliveRequestPacket' => __DIR__ . '/../..' . '/src/KeepAliveRequestPacket.class.php',
         'Phpcraft\\KeepAliveResponsePacket' => __DIR__ . '/../..' . '/src/KeepAliveResponsePacket.class.php',
         'Phpcraft\\MapDataPacket' => __DIR__ . '/../..' . '/src/MapDataPacket.class.php',
+        'Phpcraft\\MapMarker' => __DIR__ . '/../..' . '/src/MapMarker.class.php',
         'Phpcraft\\Material' => __DIR__ . '/../..' . '/src/Material.class.php',
         'Phpcraft\\NbtByte' => __DIR__ . '/../..' . '/src/NbtByte.class.php',
         'Phpcraft\\NbtByteArray' => __DIR__ . '/../..' . '/src/NbtByteArray.class.php',

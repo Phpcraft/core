@@ -20,6 +20,24 @@ class NbtCompound extends NbtTag
 	}
 
 	/**
+	 * Gets a child of the compound by name.
+	 * Only the first child with a matching name will be returned.
+	 * Null if not found.
+	 * @return NbtTag
+	 */
+	function getChild($name)
+	{
+		foreach($this->children as $child)
+		{
+			if($child->name == $name)
+			{
+				return $child;
+			}
+		}
+		return null;
+	}
+
+	/**
 	 * @copydoc NbtTag::send
 	 */
 	function send(\Phpcraft\Connection $con, $inList = false)

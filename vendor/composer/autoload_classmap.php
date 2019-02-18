@@ -22,6 +22,7 @@ return array(
     'Phpcraft\\KeepAliveRequestPacket' => $baseDir . '/src/KeepAliveRequestPacket.class.php',
     'Phpcraft\\KeepAliveResponsePacket' => $baseDir . '/src/KeepAliveResponsePacket.class.php',
     'Phpcraft\\MapDataPacket' => $baseDir . '/src/MapDataPacket.class.php',
+    'Phpcraft\\MapMarker' => $baseDir . '/src/MapMarker.class.php',
     'Phpcraft\\Material' => $baseDir . '/src/Material.class.php',
     'Phpcraft\\NbtByte' => $baseDir . '/src/NbtByte.class.php',
     'Phpcraft\\NbtByteArray' => $baseDir . '/src/NbtByteArray.class.php',

@@ -52,13 +52,6 @@ final class PacketsTest extends \PHPUnit\Framework\TestCase
 		$this->assertEquals("", $con->read_buffer);
 	}
 
-	// TODO:
-	/*
-	function testMapDataPacket()
-	{
-	}
-	*/
-
 	function testSetSlotPacket()
 	{
 		$con = new \Phpcraft\Connection(47);

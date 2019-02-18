@@ -125,6 +125,16 @@ class Connection
 	}
 
 	/**
+	 * Adds a chat object to the read buffer.
+	 * @param array $value
+	 * @return Connection $this
+	 */
+	function writeChat($value)
+	{
+		$this->writeString(json_encode($value));
+	}
+
+	/**
 	 * Adds the byte string to the write buffer.
 	 * @param string $value
 	 * @return Connection $this
@@ -248,7 +258,15 @@ class Connection
 			{
 				$this->writeShort($slot->item->legacy_id);
 				$this->writeByte($slot->count);
-				$this->writeShort($slot->item->legacy_metadata);
+				switch($slot->item->name)
+				{
+					case "filled_map":
+					$this->writeShort($slot->nbt->getChild("map")->value);
+					break;
+
+					default:
+					$this->writeShort($slot->item->legacy_metadata);
+				}
 			}
 			$slot->getNBT()->send($this);
 		}
@@ -481,6 +499,16 @@ class Connection
 		$str = substr($this->read_buffer, 0, $length);
 		$this->read_buffer = substr($this->read_buffer, $length);
 		return $str;
+	}
+
+	/**
+	 * Reads a chat object from the read buffer.
+	 * @throws Exception When there are not enough bytes to read the string.
+	 * @return array
+	 */
+	function readChat()
+	{
+		return json_decode($this->readString(), true);
 	}
 
 	/**
@@ -759,6 +787,38 @@ class Connection
 			{
 				$slot->count = $this->readByte();
 				$metadata = $this->readShort();
+				if($metadata > 0)
+				{
+					switch($id)
+					{
+						case 358:
+						if(!($slot->nbt instanceof \Phpcraft\NbtCompound))
+						{
+							$slot->nbt = new \Phpcraft\NbtCompound("tag", []);
+						}
+						$addMap = true;
+						$children_ = [];
+						foreach($slot->nbt->children as $child)
+						{
+							if($child->name == "map")
+							{
+								if(@$child->value !== $metadata)
+								{
+									continue;
+								}
+								$addMap = false;
+							}
+							array_push($children_, $child);
+						}
+						if($addMap)
+						{
+							array_push($children_, new \Phpcraft\NbtInt("map", $metadata));
+						}
+						$slot->nbt->children = $children_;
+						$metadata = 0;
+						break;
+					}
+				}
 				foreach(\Phpcraft\Item::all() as $item)
 				{
 					if($item->legacy_id == $id && $item->legacy_metadata == $metadata)
