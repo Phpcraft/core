@@ -117,8 +117,8 @@ Static Public Member Functions</h2></td></tr>
 <tr class="separator:a7f1cc0e9c3b7a3b86189c3c662ab88e7 inherit pub_static_methods_classPhpcraft_1_1Packet"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaca26f88750d14ec3dea737c1b996ab0 inherit pub_static_methods_classPhpcraft_1_1Packet"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Packet.html#aaca26f88750d14ec3dea737c1b996ab0">serverboundPacketIdToName</a> ($id, $protocol_version)</td></tr>
 <tr class="separator:aaca26f88750d14ec3dea737c1b996ab0 inherit pub_static_methods_classPhpcraft_1_1Packet"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad433d5a46d128f98c1af8751de33303a inherit pub_static_methods_classPhpcraft_1_1Packet"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Packet.html#ad433d5a46d128f98c1af8751de33303a">instanceFromName</a> ($name)</td></tr>
-<tr class="separator:ad433d5a46d128f98c1af8751de33303a inherit pub_static_methods_classPhpcraft_1_1Packet"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7c6c2813e8511ebaf5826ee72d4691fb inherit pub_static_methods_classPhpcraft_1_1Packet"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Packet.html#a7c6c2813e8511ebaf5826ee72d4691fb">init</a> ($name, $con)</td></tr>
+<tr class="separator:a7c6c2813e8511ebaf5826ee72d4691fb inherit pub_static_methods_classPhpcraft_1_1Packet"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7f95e599c9b5d109aef3faecde116bc0 inherit pub_static_methods_classPhpcraft_1_1Packet"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Packet.html#a7f95e599c9b5d109aef3faecde116bc0">read</a> (\<a class="el" href="classPhpcraft_1_1Connection.html">Phpcraft\Connection</a> $con)</td></tr>
 <tr class="separator:a7f95e599c9b5d109aef3faecde116bc0 inherit pub_static_methods_classPhpcraft_1_1Packet"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -187,12 +187,13 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 
 <p></p>
-<p>Initializes the packet via the <a class="el" href="classPhpcraft_1_1Connection.html">Connection</a>. Note that you should already have used <a class="el" href="classPhpcraft_1_1Connection.html#aa55747edacdfdc984ae4fb7af0322901">Connection::readPacket()</a> and determined that the packet you are initializing has actually been sent. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Initialises the packet class by reading its payload from the given <a class="el" href="classPhpcraft_1_1Connection.html">Connection</a>. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramtype"><a class="el" href="classPhpcraft_1_1Connection.html">Connection</a></td><td class="paramname">$con</td><td></td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classPhpcraft_1_1Packet.html">Packet</a> </dd></dl>
 
 </div>
 </div>

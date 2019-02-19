@@ -266,40 +266,43 @@ abstract class Packet
 	}
 
 	/**
-	 * Instanciates an object for the given packet name.
-	 * @return Packet Null if a class is not available.
+	 * Initialises the packet class with the given name by reading its payload from the given Connection.
+	 * Returns null if the packet does not have a class implementation yet.
+	 * @return Packet
 	 */
-	static function instanceFromName($name)
+	static function init($name, $con)
 	{
 		switch($name)
 		{
 			case "join_game":
-			return new \Phpcraft\JoinGamePacket();
+			return \Phpcraft\JoinGamePacket()::read($this);
 
 			case "keep_alive_request":
-			return new \Phpcraft\KeepAliveRequestPacket();
+			return \Phpcraft\KeepAliveRequestPacket()::read($this);
 
 			case "keep_alive_response":
-			return new \Phpcraft\KeepAliveResponsePacket();
+			return \Phpcraft\KeepAliveResponsePacket()::read($this);
 
 			case "map_data":
-			return new \Phpcraft\MapDataPacket();
+			return \Phpcraft\MapDataPacket()::read($this);
 
-			case "set_slot";
-			return new \Phpcraft\SetSlotPacket();
+			case "set_slot":
+			return \Phpcraft\SetSlotPacket()::read($this);
 		}
+		return null;
 	}
 
 	/**
-	 * Initializes the packet via the Connection.
-	 * Note that you should already have used Connection::readPacket() and determined that the packet you are initializing has actually been sent.
+	 * Initialises the packet class by reading its payload from the given Connection.
 	 * @param Connection $con
+	 * @return Packet
 	 */
 	abstract static function read(\Phpcraft\Connection $con);
 
 	/**
 	 * Sends the packet over the given Connection or simply writes it into the write buffer if the connection was initialised without a stream.
 	 * @param Connection $con
+	 * @return void
 	 */
 	abstract function send(\Phpcraft\Connection $con);
 }
