@@ -598,10 +598,8 @@ class Connection
 		{
 			throw new \Phpcraft\Exception("Not enough bytes to read long");
 		}
-		$int1 = unpack("Nint", substr($this->read_buffer, 0, 4))["int"];
-		$int2 = unpack("Nint", substr($this->read_buffer, 4, 4))["int"];
+		$long = gmp_import(substr($this->read_buffer, 0, 8));
 		$this->read_buffer = substr($this->read_buffer, 8);
-		$long = gmp_add($int2, gmp_mul($int1, "4294967296"));
 		if($signed && gmp_cmp($long, gmp_pow(2, 63)) >= 0)
 		{
 			$long = gmp_sub($long, gmp_pow(2, 64));

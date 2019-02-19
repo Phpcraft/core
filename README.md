@@ -6,15 +6,13 @@ A PHP library for all things Minecraft. Includes a pre-made client, server, and 
 
 Windows might work for some features, but it's not supported due to [a bug](https://bugs.php.net/bug.php?id=34972) and a general lack of features. Instead, use [the Windows Subsystem for Linux](https://aka.ms/wslinstall).
 
-For basic usage, all you need is PHP-CLI and mbstring:
+Phpcraft has different dependencies for different use cases, but in general, you'll need PHP-CLI, mbstring, and GMP:
 
-    sudo apt-get -y install php php-cli php-mbstring
+    sudo apt-get -y install php php-cli php-mbstring php-gmp
 
-64-bit PHP at version 7.0.15 or above is recommended to avoid issues with some networking features.
+If you want to join or host an online mode server, you'll also need OpenSSl and mcrypt:
 
-If you want to join or host an online mode server, you'll also need GMP, OpenSSl, and mcrypt:
-
-    sudo apt-get -y install php-gmp openssl php-dev php-xml gcc make autoconf libc-dev pkg-config libmcrypt-dev php-pear
+    sudo apt-get -y install openssl php-dev php-xml gcc make autoconf libc-dev pkg-config libmcrypt-dev php-pear
     sudo pecl install mcrypt-1.0.1
 
 ## Using the Phpcraft client, server, or listping utility
