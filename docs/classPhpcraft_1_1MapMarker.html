@@ -191,7 +191,7 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>The constructor. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype">integer</td><td class="paramname">$type</td><td></td></tr>
+    <tr><td class="paramtype">integer</td><td class="paramname">$type</td><td>The type of the marker. &gt;= 9 will be replaced with 7 for clients below 1.13. </td></tr>
     <tr><td class="paramtype">integer</td><td class="paramname">$x</td><td>The x coordinate of the marker on the map from -127 to 128. </td></tr>
     <tr><td class="paramtype">integer</td><td class="paramname">$z</td><td>The z coordinate of the marker on the map from -127 to 128. </td></tr>
     <tr><td class="paramtype">integer</td><td class="paramname">$rotation</td><td>The rotation of the marker divided by 22.5°, so it has a value between 0 and 15. </td></tr>
@@ -244,6 +244,7 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>The type of the marker. &gt;= 9 will be replaced with 7 for clients below 1.13. </p>
 
 </div>
 </div>

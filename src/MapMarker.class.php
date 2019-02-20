@@ -47,6 +47,7 @@ class MapMarker
 	const TYPE_TREASURE_MARKER = 26;
 
 	/**
+	 * The type of the marker. >= 9 will be replaced with 7 for clients below 1.13.
 	 * @var integer $type
 	 */
 	public $type;
@@ -73,7 +74,7 @@ class MapMarker
 
 	/**
 	 * The constructor.
-	 * @param integer $type
+	 * @param integer $type The type of the marker. >= 9 will be replaced with 7 for clients below 1.13.
 	 * @param integer $x The x coordinate of the marker on the map from -127 to 128.
 	 * @param integer $z The z coordinate of the marker on the map from -127 to 128.
 	 * @param integer $rotation The rotation of the marker divided by 22.5°, so it has a value between 0 and 15.
