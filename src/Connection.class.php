@@ -258,7 +258,7 @@ class Connection
 			{
 				$this->writeShort($slot->item->legacy_id);
 				$this->writeByte($slot->count);
-				if($con->protocol_version < 346)
+				if($this->protocol_version < 346)
 				{
 					switch($slot->item->name)
 					{
@@ -787,7 +787,7 @@ class Connection
 			if($id >= 0)
 			{
 				$slot->count = $this->readByte();
-				if($con->protocol_version >= 346)
+				if($this->protocol_version >= 346)
 				{
 					foreach(\Phpcraft\Item::all() as $item)
 					{
