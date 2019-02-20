@@ -237,7 +237,7 @@ class Connection
 	{
 		if(\Phpcraft\Slot::isEmpty($slot))
 		{
-			if($this->protocol_version >= 393)
+			if($this->protocol_version >= 402)
 			{
 				$this->writeBoolean(false);
 			}
@@ -248,7 +248,7 @@ class Connection
 		}
 		else
 		{
-			if($this->protocol_version >= 393)
+			if($this->protocol_version >= 402)
 			{
 				$this->writeBoolean(true);
 				$this->writeVarInt($slot->item->id);
@@ -258,14 +258,17 @@ class Connection
 			{
 				$this->writeShort($slot->item->legacy_id);
 				$this->writeByte($slot->count);
-				switch($slot->item->name)
+				if($con->protocol_version < 346)
 				{
-					case "filled_map":
-					$this->writeShort($slot->nbt->getChild("map")->value);
-					break;
+					switch($slot->item->name)
+					{
+						case "filled_map":
+						$this->writeShort($slot->nbt->getChild("map")->value);
+						break;
 
-					default:
-					$this->writeShort($slot->item->legacy_metadata);
+						default:
+						$this->writeShort($slot->item->legacy_metadata);
+					}
 				}
 			}
 			$slot->getNBT()->send($this);
@@ -761,7 +764,7 @@ class Connection
 	function readSlot()
 	{
 		$slot = new \Phpcraft\Slot();
-		if($this->protocol_version >= 393)
+		if($this->protocol_version >= 402)
 		{
 			if($this->readBoolean())
 			{
@@ -784,45 +787,59 @@ class Connection
 			if($id >= 0)
 			{
 				$slot->count = $this->readByte();
-				$metadata = $this->readShort();
-				if($metadata > 0)
+				if($con->protocol_version >= 346)
 				{
-					switch($id)
+					foreach(\Phpcraft\Item::all() as $item)
 					{
-						case 358:
-						if(!($slot->nbt instanceof \Phpcraft\NbtCompound))
+						if($item->id == $id)
 						{
-							$slot->nbt = new \Phpcraft\NbtCompound("tag", []);
+							$slot->item = $item;
+							break;
 						}
-						$addMap = true;
-						$children_ = [];
-						foreach($slot->nbt->children as $child)
-						{
-							if($child->name == "map")
-							{
-								if(@$child->value !== $metadata)
-								{
-									continue;
-								}
-								$addMap = false;
-							}
-							array_push($children_, $child);
-						}
-						if($addMap)
-						{
-							array_push($children_, new \Phpcraft\NbtInt("map", $metadata));
-						}
-						$slot->nbt->children = $children_;
-						$metadata = 0;
-						break;
 					}
 				}
-				foreach(\Phpcraft\Item::all() as $item)
+				else
 				{
-					if($item->legacy_id == $id && $item->legacy_metadata == $metadata)
+					$metadata = $this->readShort();
+					if($metadata > 0)
 					{
-						$slot->item = $item;
-						break;
+						switch($id)
+						{
+							case 358:
+							if(!($slot->nbt instanceof \Phpcraft\NbtCompound))
+							{
+								$slot->nbt = new \Phpcraft\NbtCompound("tag", []);
+							}
+							$addMap = true;
+							$children_ = [];
+							foreach($slot->nbt->children as $child)
+							{
+								if($child->name == "map")
+								{
+									if(@$child->value !== $metadata)
+									{
+										continue;
+									}
+									$addMap = false;
+								}
+								array_push($children_, $child);
+							}
+							if($addMap)
+							{
+								array_push($children_, new \Phpcraft\NbtInt("map", $metadata));
+							}
+							$slot->nbt->children = $children_;
+							$metadata = 0;
+							break;
+						}
+					}
+					foreach(\Phpcraft\Item::all() as $item)
+					{
+						if($item->legacy_id == $id && $item->legacy_metadata == $metadata)
+						{
+							$slot->item = $item;
+							break;
+						}
 					}
 				}
 				$slot->nbt = $this->readNBT();
