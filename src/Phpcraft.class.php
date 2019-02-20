@@ -2,38 +2,33 @@
 namespace Phpcraft;
 abstract class Phpcraft
 {
-	private static $minecraft_folder = null;
-
 	/**
 	 * Returns the path of the .minecraft folder without a folder seperator at the end.
 	 * @return string
 	 */
 	static function getMinecraftFolder()
 	{
-		if(Phpcraft::$minecraft_folder === null)
+		if(stristr(PHP_OS, "LINUX"))
 		{
-			if(stristr(PHP_OS, "LINUX"))
-			{
-				Phpcraft::$minecraft_folder = getenv("HOME")."/.minecraft";
-			}
-			else if(stristr(PHP_OS, "DAR"))
-			{
-				Phpcraft::$minecraft_folder = getenv("HOME")."/Library/Application Support/minecraft";
-			}
-			else if(stristr(PHP_OS, "WIN"))
-			{
-				Phpcraft::$minecraft_folder = getenv("APPDATA")."\\.minecraft";
-			}
-			else
-			{
-				Phpcraft::$minecraft_folder = __DIR__."/.minecraft";
-			}
-			if(!file_exists(Phpcraft::$minecraft_folder) || !is_dir(Phpcraft::$minecraft_folder))
-			{
-				mkdir(Phpcraft::$minecraft_folder);
-			}
+			$minecraft_folder = getenv("HOME")."/.minecraft";
 		}
-		return Phpcraft::$minecraft_folder;
+		else if(stristr(PHP_OS, "DAR"))
+		{
+			$minecraft_folder = getenv("HOME")."/Library/Application Support/minecraft";
+		}
+		else if(stristr(PHP_OS, "WIN"))
+		{
+			$minecraft_folder = getenv("APPDATA")."\\.minecraft";
+		}
+		else
+		{
+			$minecraft_folder = __DIR__."/.minecraft";
+		}
+		if(!file_exists($minecraft_folder) || !is_dir($minecraft_folder))
+		{
+			mkdir($minecraft_folder);
+		}
+		return $minecraft_folder;
 	}
 
 	/**
