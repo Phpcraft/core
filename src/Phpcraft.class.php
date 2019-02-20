@@ -282,7 +282,7 @@ abstract class Phpcraft
 	}
 
 	/**
-	 * Returns an array of supported Minecraft versions with its protocol version as value. Newest first.
+	 * Returns an array of supported Minecraft versions with its protocol version as value; newest first.
 	 * @return array
 	 */
 	static function getVersions()
@@ -292,6 +292,12 @@ abstract class Phpcraft
 			"1.13.2-pre2" => 403,
 			"1.13.2-pre1" => 402,
 			"1.13.1" => 401,
+			"1.13.1-pre2" => 400,
+			"1.13.1-pre1" => 399,
+			"18w33a" => 398,
+			"18w32a" => 397,
+			"18w31a" => 395,
+			"18w30a" => 394,
 			"1.13" => 393,
 			"1.12.2" => 340,
 			"1.12.2-pre2" => 339,
@@ -303,6 +309,12 @@ abstract class Phpcraft
 			"1.11.2" => 316,
 			"1.11.1" => 316,
 			"1.11" => 315,
+			"1.11-pre1" => 314,
+			"16w44a" => 313,
+			"16w43a" => 313,
+			"16w42a" => 312,
+			"16w41a" => 311,
+			"16w40a" => 310,
 			"1.10.2" => 210,
 			"1.10.1" => 210,
 			"1.10" => 210,
@@ -311,6 +323,12 @@ abstract class Phpcraft
 			"1.9.2" => 109,
 			"1.9.1" => 108,
 			"1.9" => 107,
+			"1.9-pre4" => 106,
+			"1.9-pre3" => 105,
+			"1.9-pre2" => 104,
+			"1.9-pre1" => 103,
+			"16w07b" => 102,
+			"16w07a" => 101,
 			"1.8.9" => 47,
 			"1.8.8" => 47,
 			"1.8.7" => 47,
@@ -325,7 +343,7 @@ abstract class Phpcraft
 	}
 
 	/**
-	 * Returns a list of supported Protocol versions.
+	 * Returns a list of supported Protocol versions; newest first.
 	 * @return string[]
 	 */
 	static function getSupportedProtocolVersions()
@@ -334,7 +352,7 @@ abstract class Phpcraft
 	}
 
 	/**
-	 * Returns a list of supported Minecraft versions.
+	 * Returns a list of supported Minecraft versions; newest first.
 	 * @return string[]
 	 */
 	static function getSupportedMinecraftVersions()
@@ -358,7 +376,7 @@ abstract class Phpcraft
 	}
 
 	/**
-	 * Returns an array of Minecraft versions corresponding to the given protocol version, newest first.
+	 * Returns an array of Minecraft versions corresponding to the given protocol version; newest first.
 	 * @param integer $protocol_version e.g., 340 for ["1.12.2"]
 	 * @return array
 	 */
@@ -406,7 +424,7 @@ abstract class Phpcraft
 	}
 
 	/**
-	 * Returns the Minecraft version corresponding to the given protocol version.
+	 * Returns the Minecraft version corresponding to the given protocol version; newest first.
 	 * @param string $minecraft_version e.g., 1.12.2 for 340
 	 * @return integer The protocol version or null if the Minecraft version is not supported.
 	 */
