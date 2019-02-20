@@ -216,14 +216,15 @@ else
 function autoloadPlugins()
 {
 	global $ui, $minecraft_version, $protocol_version;
-	$ui->add("Autoloading plugins... ")->render();
+	echo "Autoloading plugins...\n";
 	\Phpcraft\PluginManager::$loaded_plugins = [];
 	\Phpcraft\PluginManager::autoloadPlugins();
 	\Phpcraft\PluginManager::fire(new \Phpcraft\Event("load", [
 		"server_minecraft_version" => $minecraft_version,
 		"server_protocol_version" => $protocol_version
 	]));
-	$ui->append("Loaded ".count(\Phpcraft\PluginManager::$loaded_plugins)." plugin(s).")->render();
+	echo "Loaded ".count(\Phpcraft\PluginManager::$loaded_plugins)." plugin(s).\n";
+	$ui->render();
 }
 autoloadPlugins();
 function handleConsoleMessage($msg)
