@@ -382,7 +382,7 @@ abstract class Phpcraft
 	 */
 	static function getMinecraftVersionRangeFromProtocolVersion($protocol_version)
 	{
-		$minecraft_versions = \Phpcraft\Phpcraft::getMinecraftVersionsFromProtocolVersion($protocol_version);
+		$minecraft_versions = Phpcraft::getMinecraftVersionsFromProtocolVersion($protocol_version);
 		$count = count($minecraft_versions);
 		if($count == 0)
 		{
