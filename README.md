@@ -6,7 +6,7 @@ A PHP library all about Minecraft: Java Edition.
 
 Windows might work for some features, but it's not supported due to [a bug](https://bugs.php.net/bug.php?id=34972) and a general lack of features. Instead, use [the Windows Subsystem for Linux](https://aka.ms/wslinstall).
 
-Phpcraft has different dependencies for different use cases, but in general, you'll need PHP-CLI, mbstring, and GMP:
+Phpcraft has different dependencies for different use cases, but in general, you'll need PHP, mbstring, and GMP:
 
     sudo apt-get -y install php php-cli php-mbstring php-gmp
 
