@@ -80,12 +80,10 @@ Static Public Member Functions</h2></td></tr>
 <tr class="separator:a4e54addd39ce8665ec5e1ee73b00be13"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a35880bb6cc76458428e59abf6bfde78d"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Phpcraft.html#a35880bb6cc76458428e59abf6bfde78d">saveProfiles</a> ($profiles)</td></tr>
 <tr class="separator:a35880bb6cc76458428e59abf6bfde78d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0bce8b7fd625ea3e6b358ce10b739039"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Phpcraft.html#a0bce8b7fd625ea3e6b358ce10b739039">getAssetIndex</a> ()</td></tr>
-<tr class="separator:a0bce8b7fd625ea3e6b358ce10b739039"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a93183ec27d40d9d33f5ebf6715bd906c"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Phpcraft.html#a93183ec27d40d9d33f5ebf6715bd906c">doesAssetExist</a> ($name)</td></tr>
-<tr class="separator:a93183ec27d40d9d33f5ebf6715bd906c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad06da15d94df597cc545dac90320d78d"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Phpcraft.html#ad06da15d94df597cc545dac90320d78d">downloadAsset</a> ($name)</td></tr>
-<tr class="separator:ad06da15d94df597cc545dac90320d78d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aecb985bfa2ddbc754ddfd1b44229852a"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Phpcraft.html#aecb985bfa2ddbc754ddfd1b44229852a">maintainCache</a> ()</td></tr>
+<tr class="separator:aecb985bfa2ddbc754ddfd1b44229852a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaa7c8591f0b47d859ec23860d16fa3f3"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Phpcraft.html#aaa7c8591f0b47d859ec23860d16fa3f3">getCachableResource</a> ($url, $cachingDuration=86400)</td></tr>
+<tr class="separator:aaa7c8591f0b47d859ec23860d16fa3f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ace43d10099c374346810cf2b06fbd74e"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Phpcraft.html#ace43d10099c374346810cf2b06fbd74e">validateName</a> ($name)</td></tr>
 <tr class="separator:ace43d10099c374346810cf2b06fbd74e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9bbff93ce90e3b25b5369b9e65a2b289"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Phpcraft.html#a9bbff93ce90e3b25b5369b9e65a2b289">generateUUIDv4</a> ($withHypens=false)</td></tr>
@@ -124,6 +122,8 @@ Static Public Member Functions</h2></td></tr>
 <tr class="separator:a5648f15ca17f8f1e2b0e74692e355072"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a98064b1e51cdbcf992aec397326e4eeb"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Phpcraft.html#a98064b1e51cdbcf992aec397326e4eeb">colorDiff</a> ($rgb1, $rgb2)</td></tr>
 <tr class="separator:a98064b1e51cdbcf992aec397326e4eeb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b4dec90b15847b2e528add8aed59141"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Phpcraft.html#a9b4dec90b15847b2e528add8aed59141">recursivelyDelete</a> ($path)</td></tr>
+<tr class="separator:a9b4dec90b15847b2e528add8aed59141"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
 <a id="a70010b9f99b38e184a07fe3d5d74ff6e"></a>
@@ -257,66 +257,7 @@ Static Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-
-</div>
-</div>
-<a id="a93183ec27d40d9d33f5ebf6715bd906c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a93183ec27d40d9d33f5ebf6715bd906c">&#9670;&nbsp;</a></span>doesAssetExist()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static Phpcraft\Phpcraft::doesAssetExist </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>$name</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>Checks the asset index for the existence of an asset. </p><dl class="section return"><dt>Returns</dt><dd>boolean </dd></dl>
-
-</div>
-</div>
-<a id="ad06da15d94df597cc545dac90320d78d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad06da15d94df597cc545dac90320d78d">&#9670;&nbsp;</a></span>downloadAsset()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static Phpcraft\Phpcraft::downloadAsset </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>$name</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>Downloads an asset by name and returns the path to the downloaded file on success or null on failure. </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramtype">string</td><td class="paramname">$name</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>string </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>integer </dd></dl>
 
 </div>
 </div>
@@ -353,8 +294,8 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a0bce8b7fd625ea3e6b358ce10b739039"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0bce8b7fd625ea3e6b358ce10b739039">&#9670;&nbsp;</a></span>getAssetIndex()</h2>
+<a id="aaa7c8591f0b47d859ec23860d16fa3f3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaa7c8591f0b47d859ec23860d16fa3f3">&#9670;&nbsp;</a></span>getCachableResource()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -363,10 +304,21 @@ Static Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static Phpcraft\Phpcraft::getAssetIndex </td>
+          <td class="memname">static Phpcraft\Phpcraft::getCachableResource </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$url</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$cachingDuration</em> = <code>86400</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -375,7 +327,14 @@ Static Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Returns the JSON-decoded content of the assets index of the latest version. </p><dl class="section return"><dt>Returns</dt><dd>array </dd></dl>
+<p>Returns the contents of a resource with caching. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">$url</td><td>The URL of the resource. </td></tr>
+    <tr><td class="paramname">$cachingDuration</td><td>How long the resource should be kept in the cache, in seconds. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>string </dd></dl>
 
 </div>
 </div>
@@ -856,6 +815,65 @@ Phpcraft::saveProfiles() </dd></dl>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>boolean </dd></dl>
+
+</div>
+</div>
+<a id="aecb985bfa2ddbc754ddfd1b44229852a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aecb985bfa2ddbc754ddfd1b44229852a">&#9670;&nbsp;</a></span>maintainCache()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static Phpcraft\Phpcraft::maintainCache </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Deletes cache entries which have expired. </p><dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
+
+</div>
+</div>
+<a id="a9b4dec90b15847b2e528add8aed59141"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b4dec90b15847b2e528add8aed59141">&#9670;&nbsp;</a></span>recursivelyDelete()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static Phpcraft\Phpcraft::recursivelyDelete </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$path</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Recursively deletes a folder. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$path</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
 
 </div>
 </div>

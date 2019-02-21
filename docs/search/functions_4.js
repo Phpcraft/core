@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['finishlogin',['finishLogin',['../classPhpcraft_1_1ClientConnection.html#abe935c772ca80d07bd082d3c312c255a',1,'Phpcraft::ClientConnection']]],
-  ['fire',['fire',['../classPhpcraft_1_1Plugin.html#ad067f420df8014ceac78a6605a02607b',1,'Phpcraft\Plugin\fire()'],['../classPhpcraft_1_1PluginManager.html#ace173bacd0fc579367802dc0d05f5203',1,'Phpcraft\PluginManager\fire()']]]
+  ['disconnect',['disconnect',['../classPhpcraft_1_1ClientConnection.html#a410c3fa10c71478d496aeff58db135f1',1,'Phpcraft::ClientConnection']]],
+  ['doesassetexist',['doesAssetExist',['../classPhpcraft_1_1AssetsManager.html#a31cea63f2a330aa30f2909ac6c38d03d',1,'Phpcraft::AssetsManager']]],
+  ['downloadallassets',['downloadAllAssets',['../classPhpcraft_1_1AssetsManager.html#a0acdd8f596c09d2bdffa6d6e0add69a9',1,'Phpcraft::AssetsManager']]],
+  ['downloadasset',['downloadAsset',['../classPhpcraft_1_1AssetsManager.html#a5501f16b09d66aef1258e01b2772bac3',1,'Phpcraft::AssetsManager']]]
 ];

@@ -1,3 +1,9 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classPhpcraft_1_1Phpcraft.html" title="Phpcraft\\Phpcraft" alt="" coords="5,5,137,32"/>
+<area shape="rect" id="node1" href="$classPhpcraft_1_1Packet.html" title="Phpcraft\\Packet" alt="" coords="5,81,127,108"/>
+<area shape="rect" id="node2" href="$classPhpcraft_1_1JoinGamePacket.html" title="Phpcraft\\JoinGamePacket" alt="" coords="175,5,357,32"/>
+<area shape="rect" id="node3" href="$classPhpcraft_1_1KeepAlivePacket.html" title="Phpcraft\\KeepAlivePacket" alt="" coords="175,56,357,83"/>
+<area shape="rect" id="node6" href="$classPhpcraft_1_1MapDataPacket.html" title="Phpcraft\\MapDataPacket" alt="" coords="177,107,355,133"/>
+<area shape="rect" id="node7" href="$classPhpcraft_1_1SetSlotPacket.html" title="Phpcraft\\SetSlotPacket" alt="" coords="182,157,350,184"/>
+<area shape="rect" id="node4" href="$classPhpcraft_1_1KeepAliveRequestPacket.html" title="Phpcraft\\KeepAliveRequest\lPacket" alt="" coords="411,17,601,58"/>
+<area shape="rect" id="node5" href="$classPhpcraft_1_1KeepAliveResponsePacket.html" title="Phpcraft\\KeepAliveResponse\lPacket" alt="" coords="405,82,607,123"/>
 </map>
