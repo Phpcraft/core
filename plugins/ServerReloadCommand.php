@@ -1,5 +1,5 @@
 <?php
-// The server currently doesn't have commands, so this plugin will at least provide a ".reload" command.
+// This plugin provides the ".reload" console command.
 
 use \Phpcraft\PluginManager;
 if(!in_array(PluginManager::$platform, ["phpcraft:server"]))

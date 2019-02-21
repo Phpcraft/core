@@ -91,53 +91,13 @@ $server->join_function = function($con)
 {
 	global $ui, $server;
 	if(\Phpcraft\PluginManager::fire(new \Phpcraft\Event("join", [
+		"server" => $server,
 		"client" => $con
 	])))
 	{
 		$con->close();
 		return;
 	}
-	$packet = new \Phpcraft\JoinGamePacket();
-	$packet->entityId = 1337;
-	$packet->gamemode = \Phpcraft\Gamemode::CREATIVE;
-	$packet->dimension = \Phpcraft\Dimension::OVERWORLD;
-	$packet->difficulty = \Phpcraft\Difficulty::PEACEFUL;
-	$packet->send($con);
-	$con->startPacket("plugin_message");
-	$con->writeString($con->protocol_version > 340 ? "minecraft:brand" : "MC|Brand");
-	$con->writeString("\\Phpcraft\\Server");
-	$con->send();
-	$con->startPacket("spawn_position");
-	$con->writePosition(0, 100, 0);
-	$con->send();
-	$con->startPacket("teleport");
-	$con->writeDouble(0);
-	$con->writeDouble(100);
-	$con->writeDouble(0);
-	$con->writeFloat(0);
-	$con->writeFloat(0);
-	$con->writeByte(0);
-	if($con->protocol_version > 47)
-	{
-		$con->writeVarInt(0); // Teleport ID
-	}
-	$con->send();
-	$con->startPacket("time_update");
-	$con->writeLong(0); // World Age
-	$con->writeLong(-6000); // Time of Day
-	$con->send();
-	$con->startPacket("player_list_header_and_footer");
-	$con->writeString('{"text":"Phpcraft Server"}');
-	$con->writeString('{"text":"github.com/timmyrs/Phpcraft"}');
-	$con->send();
-	$con->startPacket("chat_message");
-	$con->writeString('{"text":"Welcome to this Phpcraft server."}');
-	$con->writeByte(1);
-	$con->send();
-	$con->startPacket("chat_message");
-	$con->writeString('{"text":"You can chat with other players here. That\'s it."}');
-	$con->writeByte(1);
-	$con->send();
 	$msg = [
 		"color" => "yellow",
 		"translate" => "multiplayer.player.joined",
@@ -163,14 +123,12 @@ $server->join_function = function($con)
 			catch(Exception $ignored){}
 		}
 	}
-	\Phpcraft\PluginManager::fire(new \Phpcraft\Event("joined", [
-		"client" => $con
-	]));
 };
 $server->packet_function = function($con, $packet_name, $packet_id)
 {
 	global $options, $ui, $server;
 	if(\Phpcraft\PluginManager::fire(new \Phpcraft\Event("packet", [
+		"server" => $server,
 		"packet_name" => $packet_name,
 		"client" => $con
 	])))
@@ -254,6 +212,7 @@ $server->disconnect_function = function($con)
 		}
 	}
 };
+$next_tick = microtime(true) + 0.05;
 do
 {
 	$start = microtime(true);
@@ -262,6 +221,7 @@ do
 	while($msg = $ui->render(true))
 	{
 		if(\Phpcraft\PluginManager::fire(new \Phpcraft\Event("console_message", [
+			"server" => $server,
 			"message" => $msg
 		])))
 		{
@@ -295,7 +255,16 @@ do
 			}
 		}
 	}
-	$elapsed = (microtime(true) - $start);
+	$time = microtime(true);
+	while($next_tick <= $time) // executed for every 50 ms
+	{
+		\Phpcraft\PluginManager::fire(new \Phpcraft\Event("tick", [
+			"server" => $server
+		]));
+		$time = microtime(true);
+		$next_tick = ($time + 0.05 - ($time - $next_tick));
+	}
+	$elapsed = ($time - $start);
 	if(($remaining = (0.020 - $elapsed)) > 0) // Make sure we've waited at least 20 ms before going again because otherwise we'd be polling too much
 	{
 		time_nanosleep(0, $remaining * 1000000000); // usleep seems to bring the CPU to 100

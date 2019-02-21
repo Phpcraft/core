@@ -1,6 +1,5 @@
 <?php
-// Crash Clients by timmyRS
-// Crashes clients when they send "crash me" in the chat.
+// Crashes clients when they say "crash me"
 
 use \Phpcraft\PluginManager;
 if(!in_array(PluginManager::$platform, ["phpcraft:server"]))

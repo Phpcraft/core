@@ -234,8 +234,10 @@ function handleConsoleMessage($msg)
 	{
 		return;
 	}
+	global $con;
 	if(\Phpcraft\PluginManager::fire(new \Phpcraft\Event("console_message", [
-		"message" => $msg
+		"message" => $msg,
+		"connection" => $con
 	])))
 	{
 		return;
@@ -333,9 +335,8 @@ function handleConsoleMessage($msg)
 			break;
 
 			case "hit":
-			global $con, $protocol_version;
 			$con->startPacket("animation");
-			if($protocol_version > 47)
+			if($con->protocol_version > 47)
 			{
 				$con->writeVarInt(0);
 			}
@@ -344,8 +345,8 @@ function handleConsoleMessage($msg)
 			break;
 
 			case "use":
-			global $con, $protocol_version, $x, $y, $z;
-			if($protocol_version > 47)
+			global $x, $y, $z;
+			if($con->protocol_version > 47)
 			{
 				$con->startPacket("use_item");
 				$con->writeVarInt(0);
@@ -442,7 +443,6 @@ function handleConsoleMessage($msg)
 			break;
 
 			case "slot":
-			global $con;
 			$slot = 0;
 			if(isset($args[1]))
 			{
@@ -470,7 +470,7 @@ function handleConsoleMessage($msg)
 
 			case "quit":
 			case "disconnect":
-			global $con, $options;
+			global $options;
 			$options["noreconnect"] = true;
 			$con->close();
 			break;
@@ -872,7 +872,7 @@ do
 		$time = microtime(true);
 		if($next_tick)
 		{
-			while($next_tick <= $time) // executed 20 times for every second
+			while($next_tick <= $time) // executed for every 50 ms
 			{
 				if($followEntity !== false)
 				{

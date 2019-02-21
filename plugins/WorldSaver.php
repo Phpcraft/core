@@ -1,6 +1,5 @@
 <?php
-// WorldSaver by timmyRS
-// Stores world-related packets received by the client so that the Phpcraft server can reproduce them using the WorldImmitator plugin.
+// Stores world-related packets received by the client so that the server can reproduce them using the WorldImmitator plugin.
 
 use \Phpcraft\PluginManager;
 if(!in_array(PluginManager::$platform, ["phpcraft:client"]))

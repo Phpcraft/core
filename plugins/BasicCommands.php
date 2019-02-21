@@ -1,6 +1,5 @@
 <?php
-// Basic Commands
-// Because the Phpcraft server doesn't have commands. :(
+// This plugin provides clients of the server with /gamemode and /metadata.
 
 use \Phpcraft\PluginManager;
 if(!in_array(PluginManager::$platform, ["phpcraft:server"]))

@@ -1,4 +1,6 @@
 <?php
+// Loads a 128x128 image from map.png and displays it to clients as a map.
+
 use \Phpcraft\PluginManager;
 if(!in_array(PluginManager::$platform, ["phpcraft:server"]))
 {
@@ -11,8 +13,12 @@ if(!extension_loaded("gd"))
 }
 PluginManager::registerPlugin("Map", function($plugin)
 {
-	$plugin->on("joined", function($event)
+	$plugin->on("join", function($event)
 	{
+		if($event->isCancelled())
+		{
+			return;
+		}
 		$con = $event->data["client"];
 		$packet = new \Phpcraft\SetSlotPacket();
 		$packet->window = 0;
@@ -50,5 +56,5 @@ PluginManager::registerPlugin("Map", function($plugin)
 			}
 		}
 		$packet->send($con);
-	});
+	}, \Phpcraft\Event::PRIORITY_LOWEST);
 });

@@ -1,6 +1,5 @@
 <?php
-// WorldImmitator by timmyRS
-// Provides clients connecting to the Phpcraft server with the packets captured by the WorldSaver client plugin.
+// Provides clients connecting to the server with the packets captured by the WorldSaver plugin.
 
 use \Phpcraft\PluginManager;
 if(!in_array(PluginManager::$platform, ["phpcraft:server"]))
@@ -20,8 +19,12 @@ PluginManager::registerPlugin("WorldImmitator", function($plugin)
 	$WorldImmitator_version = $con->readPacket();
 	fclose($fh);
 	echo "[WorldImmitator] Loaded packets from ".\Phpcraft\Phpcraft::getMinecraftVersionsFromProtocolVersion($WorldImmitator_version)[0]." (protocol version ".$WorldImmitator_version.").\n";
-	$plugin->on("joined", function($event)
+	$plugin->on("join", function($event)
 	{
+		if($event->isCancelled())
+		{
+			return;
+		}
 		global $WorldImmitator_version;
 		if($event->data["client"]->protocol_version != $WorldImmitator_version)
 		{
@@ -43,5 +46,5 @@ PluginManager::registerPlugin("WorldImmitator", function($plugin)
 			}
 			fclose($fh);
 		}
-	});
+	}, \Phpcraft\Event::PRIORITY_LOWEST);
 });

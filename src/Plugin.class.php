@@ -4,7 +4,7 @@ class Plugin
 {
 	private $name;
 	/**
-	 * An array mapping of event names and their handler functions.
+	 * An array mapping of event names to an object with a function and priority.
 	 * @var array $event_handlers
 	 */
 	public $event_handlers = [];
@@ -30,12 +30,18 @@ class Plugin
 	/**
 	 * Defines a function to be called to handle the given event.
 	 * Only one function can be defined per event per plugin, so subsequent calls with the same event name will overwrite the previously defined function.
-	 * @param string $event_name The name of the event to be handled. Use an asterisk (*) to catch all events, and a period (.) to catch all events that are not yet caught.
+	 * @param string $event_name The name of the event to be handled. Use an asterisk (*) to catch all events, and a period (.) to catch all uncaught events.
 	 * @param function $function
+	 * @param integer $priority The priority of the event handler. The higher the priority, the earlier it will be executed. Use a high value if you plan to cancel the event.
+	 * @return Plugin $this
 	 */
-	function on($event_name, $function)
+	function on($event_name, $function, $priority = \Phpcraft\Event::PRIORITY_NORMAL)
 	{
-		$this->event_handlers[$event_name] = $function;
+		$this->event_handlers[$event_name] = [
+			"priority" => $priority,
+			"function" => $function
+		];
+		return $this;
 	}
 
 	/**
@@ -47,15 +53,15 @@ class Plugin
 	{
 		if(isset($this->event_handlers[$event->name]))
 		{
-			($this->event_handlers[$event->name])($event);
+			($this->event_handlers[$event->name]["function"])($event);
 		}
 		else if(isset($this->event_handlers["."]))
 		{
-			($this->event_handlers["."])($event);
+			($this->event_handlers["."]["function"])($event);
 		}
 		if(isset($this->event_handlers["*"]))
 		{
-			($this->event_handlers["*"])($event);
+			($this->event_handlers["*"]["function"])($event);
 		}
 		return $event->isCancelled();
 	}

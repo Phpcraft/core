@@ -77,8 +77,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a7c5b76821f92262ac0cba70da2227566"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adbcfc93c9948a483973a68d9c45adafe"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Plugin.html#adbcfc93c9948a483973a68d9c45adafe">getName</a> ()</td></tr>
 <tr class="separator:adbcfc93c9948a483973a68d9c45adafe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a56240a6a00e343e5344e5b4439a2c70b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Plugin.html#a56240a6a00e343e5344e5b4439a2c70b">on</a> ($event_name, $function)</td></tr>
-<tr class="separator:a56240a6a00e343e5344e5b4439a2c70b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a20398acae8e3f7e3c2b153997252a78b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Plugin.html#a20398acae8e3f7e3c2b153997252a78b">on</a> ($event_name, $function, $priority=\<a class="el" href="classPhpcraft_1_1Event.html#ae4bd963cd8841890b4f2ff14904cb01f">Phpcraft\Event::PRIORITY_NORMAL</a>)</td></tr>
+<tr class="separator:a20398acae8e3f7e3c2b153997252a78b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad067f420df8014ceac78a6605a02607b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Plugin.html#ad067f420df8014ceac78a6605a02607b">fire</a> ($event)</td></tr>
 <tr class="separator:ad067f420df8014ceac78a6605a02607b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -156,8 +156,8 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a56240a6a00e343e5344e5b4439a2c70b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a56240a6a00e343e5344e5b4439a2c70b">&#9670;&nbsp;</a></span>on()</h2>
+<a id="a20398acae8e3f7e3c2b153997252a78b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a20398acae8e3f7e3c2b153997252a78b">&#9670;&nbsp;</a></span>on()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -172,7 +172,13 @@ Public Attributes</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>$function</em>&#160;</td>
+          <td class="paramname"><em>$function</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$priority</em> = <code>\<a class="el" href="classPhpcraft_1_1Event.html#ae4bd963cd8841890b4f2ff14904cb01f">Phpcraft\Event::PRIORITY_NORMAL</a></code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -183,11 +189,13 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Defines a function to be called to handle the given event. Only one function can be defined per event per plugin, so subsequent calls with the same event name will overwrite the previously defined function. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype">string</td><td class="paramname">$event_name</td><td>The name of the event to be handled. Use an asterisk (*) to catch all events, and a period (.) to catch all events that are not yet caught. </td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$event_name</td><td>The name of the event to be handled. Use an asterisk (*) to catch all events, and a period (.) to catch all uncaught events. </td></tr>
     <tr><td class="paramtype">function</td><td class="paramname">$function</td><td></td></tr>
+    <tr><td class="paramtype">integer</td><td class="paramname">$priority</td><td>The priority of the event handler. The higher the priority, the earlier it will be executed. Use a high value if you plan to cancel the event. </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classPhpcraft_1_1Plugin.html">Plugin</a> $this </dd></dl>
 
 </div>
 </div>
@@ -203,7 +211,7 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>An array mapping of event names and their handler functions. </p>
+<p>An array mapping of event names to an object with a function and priority. </p>
 
 </div>
 </div>
