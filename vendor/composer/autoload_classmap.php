@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Phpcraft\\Account' => $baseDir . '/src/Account.class.php',
+    'Phpcraft\\AssetsManager' => $baseDir . '/src/AssetsManager.class.php',
     'Phpcraft\\BlockMaterial' => $baseDir . '/src/BlockMaterial.class.php',
     'Phpcraft\\ClientConnection' => $baseDir . '/src/ClientConnection.class.php',
     'Phpcraft\\Connection' => $baseDir . '/src/Connection.class.php',

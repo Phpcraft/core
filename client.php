@@ -4,7 +4,7 @@ if(empty($argv))
 	die("This is for PHP-CLI. Connect to your server via SSH and use `php client.php`.\n");
 }
 require "vendor/autoload.php";
-echo "PHP Minecraft Client\nhttps://github.com/timmyrs/Phpcraft\n";
+echo "Phpcraft PHP Minecraft Client\n\n";
 
 $options = [];
 for($i = 1; $i < count($argv); $i++)
@@ -68,6 +68,7 @@ for($i = 1; $i < count($argv); $i++)
 	}
 }
 
+$am = new \Phpcraft\AssetsManager(\Phpcraft\Phpcraft::getSupportedMinecraftVersions()[0]);
 if(empty($options["lang"]))
 {
 	$options["lang"] = "en_GB";
@@ -83,14 +84,14 @@ else
 	else
 	{
 		$options["lang"] = strtolower($arr[0])."_".strtoupper($arr[1]);		
-		if(!\Phpcraft\Phpcraft::doesAssetExist("minecraft/lang/".strtolower($options["lang"]).".json"))
+		if(!$am->doesAssetExist("minecraft/lang/".strtolower($options["lang"]).".json"))
 		{
 			echo "Couldn't find translations for ".$options["lang"].", using en_GB.\n";
 			$options["lang"] = "en_GB";
 		}
 	}
 }
-$translations = json_decode(file_get_contents(\Phpcraft\Phpcraft::downloadAsset("minecraft/lang/".strtolower($options["lang"]).".json")), true);
+$translations = json_decode(file_get_contents($am->downloadAsset("minecraft/lang/".strtolower($options["lang"]).".json")), true);
 
 $stdin = fopen("php://stdin", "r");
 stream_set_blocking($stdin, true);

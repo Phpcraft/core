@@ -4,7 +4,7 @@ if(empty($argv))
 	die("This is for PHP-CLI. Connect to your server via SSH and use `php server.php`.\n");
 }
 require "vendor/autoload.php";
-echo "PHP Minecraft Server\nhttps://github.com/timmyrs/Phpcraft\n";
+echo "Phpcraft PHP Minecraft Server\n\n";
 
 $options = ["offline" => false, "port" => 25565, "nocolor" => false, "plain" => false];
 for($i = 1; $i < count($argv); $i++)

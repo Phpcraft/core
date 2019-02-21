@@ -8,6 +8,7 @@ class ComposerStaticInitb01ebcf9648a6fde88428c8cb797b804
 {
     public static $classMap = array (
         'Phpcraft\\Account' => __DIR__ . '/../..' . '/src/Account.class.php',
+        'Phpcraft\\AssetsManager' => __DIR__ . '/../..' . '/src/AssetsManager.class.php',
         'Phpcraft\\BlockMaterial' => __DIR__ . '/../..' . '/src/BlockMaterial.class.php',
         'Phpcraft\\ClientConnection' => __DIR__ . '/../..' . '/src/ClientConnection.class.php',
         'Phpcraft\\Connection' => __DIR__ . '/../..' . '/src/Connection.class.php',

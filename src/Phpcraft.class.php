@@ -83,69 +83,56 @@ abstract class Phpcraft
 	}
 
 	/**
-	 * Returns the JSON-decoded content of the assets index of the latest version.
-	 * @return array
+	 * Deletes cache entries which have expired.
+	 * @return void
 	 */
-	static function getAssetIndex()
+	static function maintainCache()
 	{
-		$assets_dir = Phpcraft::getMinecraftFolder()."/assets";
-		if(!file_exists($assets_dir) || !is_dir($assets_dir))
+		if(file_exists(__DIR__."/.cache"))
 		{
-			mkdir($assets_dir);
+			$cache = json_decode(file_get_contents(__DIR__."/.cache"), true);
+			$time = time();
+			foreach($cache as $url => $entry)
+			{
+				if($entry["expiry"] < $time)
+				{
+					unset($cache[$url]);
+				}
+			}
+			if(empty($cache))
+			{
+				unlink(__DIR__."/.cache");
+			}
+			else
+			{
+				file_put_contents(__DIR__."/.cache", json_encode($cache));
+			}
 		}
-		$assets_index_dir = $assets_dir."/indexes";
-		if(!file_exists($assets_index_dir) || !is_dir($assets_index_dir))
-		{
-			mkdir($assets_index_dir);
-		}
-		$index_file = $assets_index_dir."/1.13.1.json";
-		if(!file_exists($index_file))
-		{
-			$index = file_get_contents("https://launchermeta.mojang.com/v1/packages/f776dabd6239938411e2f123837f4005b74e49f8/1.13.1.json");
-			file_put_contents($index_file, $index);
-		}
-		else
-		{
-			$index = file_get_contents($index_file);
-		}
-		return json_decode($index, true);
 	}
 
 	/**
-	 * Checks the asset index for the existence of an asset.
-	 * @return boolean
-	 */
-	static function doesAssetExist($name)
-	{
-		return isset(Phpcraft::getAssetIndex()["objects"][$name]);
-	}
-
-	/**
-	 * Downloads an asset by name and returns the path to the downloaded file on success or null on failure.
-	 * @param string $name
+	 * Returns the contents of a resource with caching.
+	 * @param $url The URL of the resource.
+	 * @param $cachingDuration How long the resource should be kept in the cache, in seconds.
 	 * @return string
 	 */
-	static function downloadAsset($name)
+	static function getCachableResource($url, $cachingDuration = 86400)
 	{
-		$index = Phpcraft::getAssetIndex();
-		$objects_dir = Phpcraft::getMinecraftFolder()."/assets/objects";
-		if(!file_exists($objects_dir) || !is_dir($objects_dir))
+		Phpcraft::maintainCache();
+		$cache = [];
+		if(file_exists(__DIR__."/.cache"))
 		{
-			mkdir($objects_dir);
+			$cache = json_decode(file_get_contents(__DIR__."/.cache"), true);
 		}
-		if($asset = $index["objects"][$name])
+		if(empty($cache[$url]))
 		{
-			$hash = $index["objects"][$name]["hash"];
-			$dir = $objects_dir."/".substr($hash, 0, 2);
-			if(!file_exists($dir) || !is_dir($dir))
-			{
-				mkdir($dir);
-			}
-			$file = $dir."/".$hash;
-			file_put_contents($file, file_get_contents("http://resources.download.minecraft.net/".substr($hash, 0, 2)."/".$hash));
-			return $file;
+			$cache[$url] = [
+				"contents" => file_get_contents($url),
+				"expiry" => time() + $cachingDuration
+			];
+			file_put_contents(__DIR__."/.cache", json_encode($cache));
 		}
-		return null;
+		return $cache[$url]["contents"];
 	}
 
 	/**
@@ -835,9 +822,42 @@ abstract class Phpcraft
 	 * Calculates the "distance" between two colors.
 	 * @param array $rgb1
 	 * @param array $rgb2
+	 * @return integer
 	 */
 	static function colorDiff($rgb1, $rgb2)
 	{
 		return abs($rgb1[0] - $rgb2[0]) + abs($rgb1[1] - $rgb2[1]) + abs($rgb1[2] - $rgb2[2]);
+	}
+
+	/**
+	 * Recursively deletes a folder.
+	 * @param string $path
+	 * @return void
+	 */
+	static function recursivelyDelete($path)
+	{
+		if(substr($path, -1) == "/")
+		{
+			$path = substr($path, 0, -1);
+		}
+		if(!file_exists($path))
+		{
+			return;
+		}
+		if(is_dir($path))
+		{
+			foreach(scandir($path) as $file)
+			{
+				if(!in_array($file, [".", ".."]))
+				{
+					Phpcraft::recursivelyDelete($path."/".$file);
+				}
+			}
+			rmdir($path);
+		}
+		else
+		{
+			unlink($path);
+		}
 	}
 }

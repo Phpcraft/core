@@ -1,6 +1,6 @@
 # Phpcraft [![Build Status](https://travis-ci.org/timmyrs/Phpcraft.svg?branch=master)](https://travis-ci.org/timmyrs/Phpcraft)
 
-A PHP library for all things Minecraft. Includes a pre-made client, server, and listping utility.
+A PHP library all about Minecraft: Java Edition.
 
 ## Dependencies
 
@@ -30,3 +30,12 @@ The client also has a couple of built-in commands — type `.help` in it for mor
 ## Using Phpcraft as a library
 
 Thanks to [Composer](https://getcomposer.org/), using Phpcraft as a library is really easy. Just head into your project folder, run `composer require timmyrs/phpcraft:dev-master`, and that's it; you can now `require "vendor/autoload.php";` to use [the many available APIs](https://timmyrs.github.io/Phpcraft/namespacePhpcraft.html).
+
+## More CLI utilities — albeit boring ones
+
+- cache.php is a little interface to manage Phpcraft's resource cache.
+- packets.php prints all packets from a binary dump file, e.g. recorded by WorldSaver. The first packet's data has to be the applicable protocol version.
+
+---
+
+Phpcraft is not partnered or associated with Microsoft or Mojang.
