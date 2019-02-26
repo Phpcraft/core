@@ -35,7 +35,7 @@ The client also has a couple of built-in commands — type `.help` in it for mor
 
 ## Who uses Phpcraft?
 
-Who would be a crazy enough to use a PHP Minecraft library? It's author of course!
+Who would be a crazy enough to use a PHP Minecraft library? Its author of course!
 
 - [mcverify](https://github.com/timmyrs/mcverify): A simple REST API for linking your users' Minecraft: Java Edition accounts.
 
