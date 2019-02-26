@@ -21,32 +21,33 @@ If you want to join or host an online mode server, you'll also need OpenSSl and 
 
     sudo apt-get -y install openssl php-mcrypt
 
-## Using the Phpcraft client, server, or listping utility
+## Using the Phpcraft CLI utilities
 
-    # Cloning the repository:
+First, clone the repository:
+
     git clone git@github.com:timmyRS/Phpcraft
     cd Phpcraft
-    # Showing information about available commands and arguments:
-    php client.php help
-    php server.php help
-    php listping.php
 
-The client also has a couple of built-in commands — type `.help` in it for more information. Enjoy!
+and then you can run:
+
+- `php client.php help` — A chat client with plugin support and built-in commands; type `.help` for more information.
+- `php server.php help` — A chat server with plugin support.
+- `php proxy.php` — A proxy allowing you to play as another account.
+- `php listping.php` — A listping utility.
+- `php cache.php` — An interface to manage Phpcraft's resource cache.
+- `php packets.php` — A tool to print packets from a binary file, e.g. recorded by WorldSaver.
+
+Enjoy!
+
+## Using Phpcraft as a library
+
+Thanks to [Composer](https://getcomposer.org/), using Phpcraft as a library is really easy. Just head into your project folder, run `composer require timmyrs/phpcraft:dev-master`, and that's it; you can now `require "vendor/autoload.php";` to use [the many available APIs](https://timmyrs.github.io/Phpcraft/namespacePhpcraft.html).
 
 ## Who uses Phpcraft?
 
 Who would be a crazy enough to use a PHP Minecraft library? Its author of course!
 
 - [mcverify](https://github.com/timmyrs/mcverify): A simple REST API for linking your users' Minecraft: Java Edition accounts.
-
-## Using Phpcraft as a library
-
-Thanks to [Composer](https://getcomposer.org/), using Phpcraft as a library is really easy. Just head into your project folder, run `composer require timmyrs/phpcraft:dev-master`, and that's it; you can now `require "vendor/autoload.php";` to use [the many available APIs](https://timmyrs.github.io/Phpcraft/namespacePhpcraft.html).
-
-## More CLI utilities — albeit boring ones
-
-- cache.php is a little interface to manage Phpcraft's resource cache.
-- packets.php prints all packets from a binary dump file, e.g. recorded by WorldSaver. The first packet's data has to be the applicable protocol version.
 
 ---
 

@@ -301,6 +301,7 @@ class Connection
 			{
 				throw new \Phpcraft\Exception("Can't send to connection that's not open.");
 			}
+			stream_set_blocking($this->stream, true);
 			if($raw)
 			{
 				fwrite($this->stream, $this->write_buffer);
@@ -327,6 +328,7 @@ class Connection
 					fwrite($this->stream, Phpcraft::intToVarInt($length).$this->write_buffer);
 				}
 			}
+			stream_set_blocking($this->stream, false);
 			$this->write_buffer = "";
 		}
 		return $this;

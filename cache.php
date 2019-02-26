@@ -1,6 +1,9 @@
 <?php
-require "vendor/autoload.php";
 echo "Phpcraft Cache Utility\n\n";
+if(empty($argv))
+{
+	die("This is for PHP-CLI. Connect to your server via SSH and use `php cache.php`.\n");
+}
 if(!file_exists("src/.cache"))
 {
 	die("Nothing's cached.\n");
@@ -51,6 +54,7 @@ switch(@$argv[1])
 	break;
 
 	case "maintain":
+	require "vendor/autoload.php";
 	echo "Cache entries — before: ".count(json_decode(file_get_contents("src/.cache"), true))."\n";
 	\Phpcraft\Phpcraft::maintainCache();
 	if(file_exists("src/.cache"))

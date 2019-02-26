@@ -128,7 +128,7 @@ class ServerConnection extends Connection
 			}
 			else if($id == 0x00) // Disconnect
 			{
-				return Phpcraft::chatToText(json_decode($this->readString()));
+				return Phpcraft::chatToText(json_decode($this->readString(), true));
 			}
 			else
 			{

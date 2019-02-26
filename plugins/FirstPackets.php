@@ -36,7 +36,7 @@ PluginManager::registerPlugin("FirstPackets", function($plugin)
 		$con->writeFloat(0);
 		$con->writeByte(0);
 		if($con->protocol_version > 47)
-			{
+		{
 			$con->writeVarInt(0); // Teleport ID
 		}
 		$con->send();

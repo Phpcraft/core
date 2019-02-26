@@ -1,14 +1,14 @@
 <?php
+echo "Phpcraft PHP Minecraft Server List Pinger\n\n";
 if(empty($argv))
 {
 	die("This is for PHP-CLI. Connect to your server via SSH and use `php listping.php`.\n");
 }
-require "vendor/autoload.php";
-echo "PHP Minecraft Server List Pinger\nhttps://github.com/timmyrs/Phpcraft\n";
 if(empty($argv[1]))
 {
-	die("Syntax: ".$argv[0]." <ip[:port]> [method]\n");
+	die("Syntax: listping.php <ip[:port]> [method]\n");
 }
+require "vendor/autoload.php";
 echo "Resolving...";
 $server = \Phpcraft\Phpcraft::resolve($argv[1]);
 $serverarr = explode(":", $server);

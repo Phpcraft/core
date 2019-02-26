@@ -1,10 +1,10 @@
 <?php
+echo "Phpcraft PHP Minecraft Server\n\n";
 if(empty($argv))
 {
 	die("This is for PHP-CLI. Connect to your server via SSH and use `php server.php`.\n");
 }
 require "vendor/autoload.php";
-echo "Phpcraft PHP Minecraft Server\n\n";
 
 $options = ["offline" => false, "port" => 25565, "nocolor" => false, "plain" => false];
 for($i = 1; $i < count($argv); $i++)
@@ -264,8 +264,7 @@ do
 		$time = microtime(true);
 		$next_tick = ($time + 0.05 - ($time - $next_tick));
 	}
-	$elapsed = ($time - $start);
-	if(($remaining = (0.020 - $elapsed)) > 0) // Make sure we've waited at least 20 ms before going again because otherwise we'd be polling too much
+	if(($remaining = (0.020 - ($time - $start))) > 0) // Make sure we've waited at least 20 ms before going again because otherwise we'd be polling too much
 	{
 		time_nanosleep(0, $remaining * 1000000000); // usleep seems to bring the CPU to 100
 	}
