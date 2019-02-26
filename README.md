@@ -25,7 +25,7 @@ If you want to join or host an online mode server, you'll also need OpenSSl and 
 
 First, clone the repository:
 
-    git clone git@github.com:timmyRS/Phpcraft
+    git clone https://github.com/timmyrs/Phpcraft
     cd Phpcraft
 
 and then you can run:
