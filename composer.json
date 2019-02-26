@@ -8,5 +8,8 @@
 	"autoload": {
 		"classmap": ["src/"]
 	},
-	"optimize-autoloader": true
+	"optimize-autoloader": true,
+	"require": {
+		"php": "^7.0"
+	}
 }

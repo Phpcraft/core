@@ -10,10 +10,16 @@ Phpcraft has different dependencies for different use cases, but in general, you
 
     sudo apt-get -y install php php-cli php-mbstring php-gmp
 
-If you want to join or host an online mode server, you'll also need OpenSSl and mcrypt:
+If you want to join or host an online mode server, you'll also need OpenSSl and mcrypt. The installation of mcrypt is different depending on your PHP version, so check `php -version`, and then run the appropriate commands:
+
+**PHP 7.2 and above:**
 
     sudo apt-get -y install openssl php-dev php-xml gcc make autoconf libc-dev pkg-config libmcrypt-dev php-pear
     sudo pecl install mcrypt-1.0.1
+
+**PHP 7.1 and below:**
+
+    sudo apt-get -y install openssl php-mcrypt
 
 ## Using the Phpcraft client, server, or listping utility
 
