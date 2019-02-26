@@ -33,6 +33,12 @@ If you want to join or host an online mode server, you'll also need OpenSSl and 
 
 The client also has a couple of built-in commands — type `.help` in it for more information. Enjoy!
 
+## Who uses Phpcraft?
+
+Who would be a crazy enough to use a PHP Minecraft library? It's author of course!
+
+- [mcverify](https://github.com/timmyrs/mcverify): A simple REST API for linking your users' Minecraft: Java Edition accounts.
+
 ## Using Phpcraft as a library
 
 Thanks to [Composer](https://getcomposer.org/), using Phpcraft as a library is really easy. Just head into your project folder, run `composer require timmyrs/phpcraft:dev-master`, and that's it; you can now `require "vendor/autoload.php";` to use [the many available APIs](https://timmyrs.github.io/Phpcraft/namespacePhpcraft.html).
