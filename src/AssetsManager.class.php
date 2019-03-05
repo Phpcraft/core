@@ -2,15 +2,51 @@
 namespace Phpcraft;
 class AssetsManager
 {
-	public $version;
+	public $index_url;
 
 	/**
 	 * The constructor.
-	 * @param string $version The Minecraft version you'd like to access the assets of.
+	 * @param string $index_url The URL to the asset index.
 	 */
-	function __construct($version)
+	function __construct($index_url)
 	{
-		$this->version = strtolower($version);
+		$this->index_url = $index_url;
+	}
+
+	/**
+	 * Returns an AssetsManager using the given Minecraft version's asset index.
+	 * @param string $version The Minecraft version you'd like to access the assets of.
+	 * @return AssetsManager
+	 */
+	static function fromMinecraftVersion($version)
+	{
+		$versions_folder = \Phpcraft\Phpcraft::getMinecraftFolder()."/versions";
+		if(!file_exists($versions_folder) || !is_dir($versions_folder))
+		{
+			mkdir($versions_folder);
+		}
+		$version_folder = $versions_folder."/".$version;
+		if(!file_exists($version_folder) || !is_dir($version_folder))
+		{
+			mkdir($version_folder);
+		}
+		$version_manifest = $version_folder."/".$version.".json";
+		if(!file_exists($version_manifest) || !is_file($version_manifest))
+		{
+			foreach(json_decode(Phpcraft::getCachableResource("https://launchermeta.mojang.com/mc/game/version_manifest.json"), true)["versions"] as $version)
+			{
+				if($version["id"] == $version)
+				{
+					file_put_contents($version_manifest, file_get_contents($version["url"]));
+					break;
+				}
+			}
+			if(!file_exists($version_manifest) || !is_file($version_manifest))
+			{
+				throw new \Phpcraft\Exception("Failed to get version manifest for ".$version);
+			}
+		}
+		return new AssetsManager(json_decode(file_get_contents($version_manifest), true)["assetIndex"]["url"]);
 	}
 
 	/**
@@ -19,32 +55,6 @@ class AssetsManager
 	 */
 	function getAssetIndex()
 	{
-		$versions_folder = \Phpcraft\Phpcraft::getMinecraftFolder()."/versions";
-		if(!file_exists($versions_folder) || !is_dir($versions_folder))
-		{
-			mkdir($versions_folder);
-		}
-		$version_folder = $versions_folder."/".$this->version;
-		if(!file_exists($version_folder) || !is_dir($version_folder))
-		{
-			mkdir($version_folder);
-		}
-		$version_manifest = $version_folder."/".$this->version.".json";
-		if(!file_exists($version_manifest) || !is_file($version_manifest))
-		{
-			foreach(json_decode(Phpcraft::getCachableResource("https://launchermeta.mojang.com/mc/game/version_manifest.json"), true)["versions"] as $version)
-			{
-				if($version["id"] == $this->version)
-				{
-					file_put_contents($version_manifest, file_get_contents($version["url"]));
-					break;
-				}
-			}
-			if(!file_exists($version_manifest) || !is_file($version_manifest))
-			{
-				throw new \Phpcraft\Exception("Failed to get version manifest for ".$this->version);
-			}
-		}
 		$assets_dir = \Phpcraft\Phpcraft::getMinecraftFolder()."/assets";
 		if(!file_exists($assets_dir) || !is_dir($assets_dir))
 		{
@@ -55,11 +65,12 @@ class AssetsManager
 		{
 			mkdir($asset_index_dir);
 		}
-		$json = json_decode(file_get_contents($version_manifest), true);
-		$asset_index = $asset_index_dir."/".$json["assets"];
+		$arr = explode("/", $this->index_url);
+		array_reverse($arr);
+		$asset_index = $asset_index_dir."/".substr($arr[0], 0, -5);
 		if(!file_exists($asset_index) || !is_file($asset_index))
 		{
-			file_put_contents($asset_index, file_get_contents($json["assetIndex"]["url"]));
+			file_put_contents($asset_index, file_get_contents($this->index_url));
 		}
 		return json_decode(file_get_contents($asset_index), true);
 	}

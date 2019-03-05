@@ -68,7 +68,7 @@ for($i = 1; $i < count($argv); $i++)
 	}
 }
 
-$am = new \Phpcraft\AssetsManager(\Phpcraft\Phpcraft::getSupportedMinecraftVersions()[0]);
+$am = \Phpcraft\AssetsManager::fromMinecraftVersion(\Phpcraft\Phpcraft::getSupportedMinecraftVersions()[0]);
 if(empty($options["lang"]))
 {
 	$options["lang"] = "en_GB";
