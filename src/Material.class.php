@@ -44,7 +44,12 @@ abstract class Material
 	abstract static function all();
 
 	/**
-	 * Returns the material of this type matching the given name.
+	 * Returns the material of this type matching the given name or id.
 	 */
-	abstract static function get($name);
+	abstract static function get($arg);
+
+	/**
+	 * Returns the material of this type matching the given legacy id and metadata.
+	 */
+	abstract static function getLegacy($legacy_id, $legacy_metadata);
 }

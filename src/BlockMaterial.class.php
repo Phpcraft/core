@@ -8,23 +8,58 @@ class BlockMaterial extends Material
 	static function all()
 	{
 		return [
-			new BlockMaterial("stone",1,1,0,["stone"])
+			new BlockMaterial("air",0,0,0),
+			new BlockMaterial("stone",1,1,0,["stone"]),
+			new BlockMaterial("grass_block",9,2,0,"grass_block"),
+			new BlockMaterial("dirt",10,3,0,"dirt"),
 		];
 	}
 
 	/**
 	 * @copydoc Material::get
 	 */
-	static function get($name)
+	static function get($arg)
 	{
-		$name = strtolower($name);
-		if(substr($name, 0, 10) == "minecraft:")
+		if(gettype($arg) == "string")
 		{
-			$name = substr($name, 10);
+			$arg = strtolower($arg);
+			if(substr($arg, 0, 10) == "minecraft:")
+			{
+				$arg = substr($arg, 10);
+			}
+			foreach(BlockMaterial::all() as $material)
+			{
+				if($material->name == $arg)
+				{
+					return $material;
+				}
+			}
 		}
+		else if(gettype($arg) == "integer")
+		{
+			foreach(BlockMaterial::all() as $material)
+			{
+				if($material->id == $id)
+				{
+					return $material;
+				}
+			}
+		}
+		else
+		{
+			throw new \Phpcraft\Exception("BlockMaterial::get's argument needs to be either string or integer.");
+		}
+		return null;
+	}
+
+	/**
+	 * @copydoc Material::getLegacy
+	 */
+	static function getLegacy($legacy_id, $legacy_metadata = 0)
+	{
 		foreach(BlockMaterial::all() as $material)
 		{
-			if($material->name == $name)
+			if($material->legacy_id == $legacy_id && $material->legacy_metadata == $legacy_metadata)
 			{
 				return $material;
 			}

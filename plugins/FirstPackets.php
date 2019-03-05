@@ -21,6 +21,33 @@ PluginManager::registerPlugin("FirstPackets", function($plugin)
 		$packet->dimension = \Phpcraft\Dimension::OVERWORLD;
 		$packet->difficulty = \Phpcraft\Difficulty::PEACEFUL;
 		$packet->send($con);
+		if($con->protocol_version > 340) // 1.13+
+		{
+			for($x = -16; $x <= 16; $x++)
+			{
+				for($y = -16; $y <= 16; $y++)
+				{
+					$con->startPacket("chunk_data");
+					$con->writeInt($x, true); // Chunk X
+					$con->writeInt($y, true); // Chunk Y
+					$con->writeBoolean(true); // Is New Chunk
+					$con->writeVarInt(0b00000001); // Sections Bit Mask
+					// Data Size + Data:
+					$data = new \Phpcraft\Connection();
+					$data->writeByte(8); // Bits per Block
+					$data->writeVarInt(1); // Palette Size
+					$data->writeVarInt(\Phpcraft\BlockMaterial::get("grass_block")->id);
+					$data->write_buffer .= str_repeat("\x00", 4096); // Blocks
+					$data->write_buffer .= str_repeat("\x00", 2048); // Block Light
+					$data->write_buffer .= str_repeat("\xFF", 2048); // Sky Light
+					$data->write_buffer .= str_repeat("\x00\x00\x00\x7F", 256); // Biomes
+					$con->writeVarInt(strlen($data->write_buffer));
+					$con->write_buffer .= $data->write_buffer;
+					$con->writeVarInt(0); // Number of block entities
+					$con->send();
+				}
+			}
+		}
 		$con->startPacket("plugin_message");
 		$con->writeString($con->protocol_version > 340 ? "minecraft:brand" : "MC|Brand");
 		$con->writeString("\\Phpcraft\\Server");
@@ -56,5 +83,5 @@ PluginManager::registerPlugin("FirstPackets", function($plugin)
 		$con->writeString('{"text":"You can chat with other players here. That\'s it."}');
 		$con->writeByte(1);
 		$con->send();
-	}, \Phpcraft\Event::PRIORITY_LOWEST);
+	}, \Phpcraft\Event::PRIORITY_NORMAL);
 });

@@ -835,14 +835,7 @@ class Connection
 							break;
 						}
 					}
-					foreach(\Phpcraft\Item::all() as $item)
-					{
-						if($item->legacy_id == $id && $item->legacy_metadata == $metadata)
-						{
-							$slot->item = $item;
-							break;
-						}
-					}
+					$slot->item = \Phpcraft\Item::getLegacy($id, $metadata);
 				}
 				$slot->nbt = $this->readNBT();
 			}
