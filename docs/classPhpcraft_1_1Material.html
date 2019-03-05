@@ -90,8 +90,10 @@ Public Member Functions</h2></td></tr>
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a1c9eede5e53c188f714093360c3f0547"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Material.html#a1c9eede5e53c188f714093360c3f0547">all</a> ()</td></tr>
 <tr class="separator:a1c9eede5e53c188f714093360c3f0547"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aee559289024dda5550c08d53df1da1bd"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Material.html#aee559289024dda5550c08d53df1da1bd">get</a> ($name)</td></tr>
-<tr class="separator:aee559289024dda5550c08d53df1da1bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2472217d87db3f1d41e699651c5492d6"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Material.html#a2472217d87db3f1d41e699651c5492d6">get</a> ($arg)</td></tr>
+<tr class="separator:a2472217d87db3f1d41e699651c5492d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8bb92a88f67b61f37c15bc708727630d"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Material.html#a8bb92a88f67b61f37c15bc708727630d">getLegacy</a> ($legacy_id, $legacy_metadata)</td></tr>
+<tr class="separator:a8bb92a88f67b61f37c15bc708727630d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -181,8 +183,8 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="aee559289024dda5550c08d53df1da1bd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aee559289024dda5550c08d53df1da1bd">&#9670;&nbsp;</a></span>get()</h2>
+<a id="a2472217d87db3f1d41e699651c5492d6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2472217d87db3f1d41e699651c5492d6">&#9670;&nbsp;</a></span>get()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -194,7 +196,7 @@ Public Attributes</h2></td></tr>
           <td class="memname">static Phpcraft\Material::get </td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>$name</em></td><td>)</td>
+          <td class="paramname"><em>$arg</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -204,7 +206,44 @@ Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Returns the material of this type matching the given name. </p>
+<p>Returns the material of this type matching the given name or id. </p>
+
+</div>
+</div>
+<a id="a8bb92a88f67b61f37c15bc708727630d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8bb92a88f67b61f37c15bc708727630d">&#9670;&nbsp;</a></span>getLegacy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static Phpcraft\Material::getLegacy </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$legacy_id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$legacy_metadata</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">abstract</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Returns the material of this type matching the given legacy id and metadata. </p>
 
 </div>
 </div>

@@ -1,7 +1,7 @@
 var searchData=
 [
   ['generateuuidv4',['generateUUIDv4',['../classPhpcraft_1_1Phpcraft.html#a9bbff93ce90e3b25b5369b9e65a2b289',1,'Phpcraft::Phpcraft']]],
-  ['get',['get',['../classPhpcraft_1_1BlockMaterial.html#aa6f539a73c9f36fbb02a000b97af5952',1,'Phpcraft\BlockMaterial\get()'],['../classPhpcraft_1_1Item.html#a1e11b96b61ad35af8857f464c5a6bd23',1,'Phpcraft\Item\get()'],['../classPhpcraft_1_1Material.html#aee559289024dda5550c08d53df1da1bd',1,'Phpcraft\Material\get()']]],
+  ['get',['get',['../classPhpcraft_1_1BlockMaterial.html#a415fc5ceb69622ae90df7219286e9fcb',1,'Phpcraft\BlockMaterial\get()'],['../classPhpcraft_1_1Item.html#aac3eaaeabbc7e80f36aa827ef0f25920',1,'Phpcraft\Item\get()'],['../classPhpcraft_1_1Material.html#a2472217d87db3f1d41e699651c5492d6',1,'Phpcraft\Material\get()']]],
   ['getaccesstoken',['getAccessToken',['../classPhpcraft_1_1Account.html#ab3bf0e2cf8a19dd0a5ea7e7fe0e1c326',1,'Phpcraft::Account']]],
   ['getassetindex',['getAssetIndex',['../classPhpcraft_1_1AssetsManager.html#a870a5711a5403082daea74fb17a62cd9',1,'Phpcraft::AssetsManager']]],
   ['getblock',['getBlock',['../classPhpcraft_1_1Item.html#af7cccdb6dee7e09cd46d14011dac74b8',1,'Phpcraft::Item']]],
@@ -11,6 +11,7 @@ var searchData=
   ['getdrops',['getDrops',['../classPhpcraft_1_1BlockMaterial.html#a0caaf85f0a6c16ff9e6eb93e4fe109de',1,'Phpcraft::BlockMaterial']]],
   ['gethost',['getHost',['../classPhpcraft_1_1ClientConnection.html#a0bc689bdd17c4aa9eba4721423645a74',1,'Phpcraft::ClientConnection']]],
   ['getid',['getId',['../classPhpcraft_1_1Packet.html#a6eb892f2664a88de697456968821942a',1,'Phpcraft::Packet']]],
+  ['getlegacy',['getLegacy',['../classPhpcraft_1_1BlockMaterial.html#af8bd44b100aee2d281cb5cf801addb5e',1,'Phpcraft\BlockMaterial\getLegacy()'],['../classPhpcraft_1_1Item.html#ae4194d4ff4d19783f6f69fbd5228d1b5',1,'Phpcraft\Item\getLegacy()'],['../classPhpcraft_1_1Material.html#a8bb92a88f67b61f37c15bc708727630d',1,'Phpcraft\Material\getLegacy()']]],
   ['getminecraftfolder',['getMinecraftFolder',['../classPhpcraft_1_1Phpcraft.html#abecdf68100423f0f529df5aef75390e9',1,'Phpcraft::Phpcraft']]],
   ['getminecraftversionrangefromprotocolversion',['getMinecraftVersionRangeFromProtocolVersion',['../classPhpcraft_1_1Phpcraft.html#a887bc2828529be22f69f8a465b5aacfc',1,'Phpcraft::Phpcraft']]],
   ['getminecraftversionsfromprotocolversion',['getMinecraftVersionsFromProtocolVersion',['../classPhpcraft_1_1Phpcraft.html#a701328ddbc1faf994874bbab0a2fdcca',1,'Phpcraft::Phpcraft']]],
