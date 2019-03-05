@@ -65,9 +65,7 @@ class AssetsManager
 		{
 			mkdir($asset_index_dir);
 		}
-		$arr = explode("/", $this->index_url);
-		array_reverse($arr);
-		$asset_index = $asset_index_dir."/".substr($arr[0], 0, -5);
+		$asset_index = $asset_index_dir."/".array_reverse(explode("/", $this->index_url))[0];
 		if(!file_exists($asset_index) || !is_file($asset_index))
 		{
 			file_put_contents($asset_index, file_get_contents($this->index_url));
