@@ -114,6 +114,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a62c8bdc28feaa69fa9247e2a366872e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa46096c7748d40c1e773076987a0bc70"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#aa46096c7748d40c1e773076987a0bc70">writeSlot</a> (\<a class="el" href="classPhpcraft_1_1Slot.html">Phpcraft\Slot</a> $slot)</td></tr>
 <tr class="separator:aa46096c7748d40c1e773076987a0bc70"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00042688b31eb49b705fb1c421f9f68f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#a00042688b31eb49b705fb1c421f9f68f">writeUuid</a> (\<a class="el" href="classPhpcraft_1_1Uuid.html">Phpcraft\Uuid</a> $uuid)</td></tr>
+<tr class="separator:a00042688b31eb49b705fb1c421f9f68f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3fb102f9ad9099ec2e4b318e0a845cab"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#a3fb102f9ad9099ec2e4b318e0a845cab">startPacket</a> ($name)</td></tr>
 <tr class="separator:a3fb102f9ad9099ec2e4b318e0a845cab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa3bc95b2e2c06d78fed179399869f990"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#aa3bc95b2e2c06d78fed179399869f990">send</a> ($raw=false)</td></tr>
@@ -146,8 +148,10 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a425a6f10548a0bd9ba47c1f180ec6c02"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acaad829071825b6aa4e961f7a99e2d3d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#acaad829071825b6aa4e961f7a99e2d3d">readDouble</a> ()</td></tr>
 <tr class="separator:acaad829071825b6aa4e961f7a99e2d3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad726e1db6e2a95ee0f306244c4fcaf79"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#ad726e1db6e2a95ee0f306244c4fcaf79">readUUIDBytes</a> ()</td></tr>
-<tr class="separator:ad726e1db6e2a95ee0f306244c4fcaf79"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a929f110ea9fff65bc377ee08038e9882"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#a929f110ea9fff65bc377ee08038e9882">readUuid</a> ()</td></tr>
+<tr class="separator:a929f110ea9fff65bc377ee08038e9882"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a13fd977fee3cdefc73ff6d74a53b511e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#a13fd977fee3cdefc73ff6d74a53b511e">readUuidBytes</a> ()</td></tr>
+<tr class="separator:a13fd977fee3cdefc73ff6d74a53b511e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a73798855086b0476d52753132ab3c1d4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#a73798855086b0476d52753132ab3c1d4">readNBT</a> ($type=0)</td></tr>
 <tr class="separator:a73798855086b0476d52753132ab3c1d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1541767e54b7ba8bb195976ab93c2f0c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#a1541767e54b7ba8bb195976ab93c2f0c">readSlot</a> ()</td></tr>
@@ -365,7 +369,13 @@ echo hex2bin($con-&gt;write_buffer)."\n";</pre> </div><h2 class="groupheader">Co
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Reads a double from the read buffer. </p><dl class="section return"><dt>Returns</dt><dd>float </dd></dl>
+<p>Reads a double from the read buffer. </p><dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="classPhpcraft_1_1Exception.html">Exception</a></td><td>When there are not enough bytes to read a double. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>float </dd></dl>
 
 </div>
 </div>
@@ -383,7 +393,13 @@ echo hex2bin($con-&gt;write_buffer)."\n";</pre> </div><h2 class="groupheader">Co
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Reads a float from the read buffer. </p><dl class="section return"><dt>Returns</dt><dd>float </dd></dl>
+<p>Reads a float from the read buffer. </p><dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="classPhpcraft_1_1Exception.html">Exception</a></td><td>When there are not enough bytes to read a float. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>float </dd></dl>
 
 </div>
 </div>
@@ -523,7 +539,13 @@ echo hex2bin($con-&gt;write_buffer)."\n";</pre> </div><h2 class="groupheader">Co
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Reads a position from the read buffer. </p><dl class="section return"><dt>Returns</dt><dd>array An array containing x, y, and z of the position. </dd></dl>
+<p>Reads a position from the read buffer. </p><dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="classPhpcraft_1_1Exception.html">Exception</a></td><td>When there are not enough bytes to read a position. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>array An array containing x, y, and z of the position. </dd></dl>
 
 </div>
 </div>
@@ -661,7 +683,7 @@ echo hex2bin($con-&gt;write_buffer)."\n";</pre> </div><h2 class="groupheader">Co
 </dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname"><a class="el" href="classPhpcraft_1_1Exception.html">Exception</a></td><td>When there are not enough bytes to read a string or the string exceeds <code>$maxLength</code>. </td></tr>
+    <tr><td class="paramname"><a class="el" href="classPhpcraft_1_1Exception.html">Exception</a></td><td>When there are not enough bytes to read a string or the string exceeds $maxLength. </td></tr>
   </table>
   </dd>
 </dl>
@@ -669,21 +691,52 @@ echo hex2bin($con-&gt;write_buffer)."\n";</pre> </div><h2 class="groupheader">Co
 
 </div>
 </div>
-<a id="ad726e1db6e2a95ee0f306244c4fcaf79"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad726e1db6e2a95ee0f306244c4fcaf79">&#9670;&nbsp;</a></span>readUUIDBytes()</h2>
+<a id="a929f110ea9fff65bc377ee08038e9882"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a929f110ea9fff65bc377ee08038e9882">&#9670;&nbsp;</a></span>readUuid()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">Phpcraft\Connection::readUUIDBytes </td>
+          <td class="memname">Phpcraft\Connection::readUuid </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Reads a binary string consisting of 16 bytes. </p><dl class="section return"><dt>Returns</dt><dd>string </dd></dl>
+<p>Reads a <a class="el" href="classPhpcraft_1_1Uuid.html">Uuid</a>. </p><dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="classPhpcraft_1_1Exception.html">Exception</a></td><td>When there are not enough bytes to read a UUID. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classPhpcraft_1_1Uuid.html">Uuid</a> </dd></dl>
+
+</div>
+</div>
+<a id="a13fd977fee3cdefc73ff6d74a53b511e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a13fd977fee3cdefc73ff6d74a53b511e">&#9670;&nbsp;</a></span>readUuidBytes()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Phpcraft\Connection::readUuidBytes </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Reads a binary string consisting of 16 bytes. </p><dl class="section see"><dt>See also</dt><dd><a class="el" href="classPhpcraft_1_1Connection.html#a929f110ea9fff65bc377ee08038e9882">Connection::readUuid()</a> </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="classPhpcraft_1_1Exception.html">Exception</a></td><td>When there are not enough bytes to read a UUID. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>string </dd></dl>
 
 </div>
 </div>
@@ -1126,6 +1179,25 @@ echo hex2bin($con-&gt;write_buffer)."\n";</pre> </div><h2 class="groupheader">Co
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="classPhpcraft_1_1Connection.html">Connection</a> $this </dd></dl>
+
+</div>
+</div>
+<a id="a00042688b31eb49b705fb1c421f9f68f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a00042688b31eb49b705fb1c421f9f68f">&#9670;&nbsp;</a></span>writeUuid()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Phpcraft\Connection::writeUuid </td>
+          <td>(</td>
+          <td class="paramtype">\<a class="el" href="classPhpcraft_1_1Uuid.html">Phpcraft\Uuid</a>&#160;</td>
+          <td class="paramname"><em>$uuid</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Adds a <a class="el" href="classPhpcraft_1_1Uuid.html">Uuid</a> to the write buffer. </p><dl class="section return"><dt>Returns</dt><dd><a class="el" href="classPhpcraft_1_1Connection.html">Connection</a> $this </dd></dl>
 
 </div>
 </div>

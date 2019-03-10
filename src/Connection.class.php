@@ -277,6 +277,16 @@ class Connection
 	}
 
 	/**
+	 * Adds a Uuid to the write buffer.
+	 * @return Connection $this
+	 */
+	function writeUuid(\Phpcraft\Uuid $uuid)
+	{
+		$this->writeRaw($uuid->binary);
+		return $this;
+	}
+
+	/**
 	 * Clears the write buffer and starts a new packet.
 	 * @param string $name The name of the new packet. For a list of packet names, check the source code of Packet.
 	 * @return Connection $this
@@ -463,7 +473,7 @@ class Connection
 		{
 			if(strlen($this->read_buffer) == 0)
 			{
-				throw new \Phpcraft\Exception("Not enough bytes to read VarInt");
+				throw new \Phpcraft\Exception("There are not enough bytes to read a VarInt.");
 			}
 			$byte = $this->readByte();
 			$value |= (($byte & 0b01111111) << (7 * $read++));
@@ -483,7 +493,7 @@ class Connection
 	/**
 	 * Reads a string from the read buffer.
 	 * @param integer $maxLength
-	 * @throws Exception When there are not enough bytes to read a string or the string exceeds `$maxLength`.
+	 * @throws Exception When there are not enough bytes to read a string or the string exceeds $maxLength.
 	 * @return string
 	 */
 	function readString($maxLength = 32767)
@@ -495,11 +505,11 @@ class Connection
 		}
 		if($length > (($maxLength * 4) + 3))
 		{
-			throw new \Phpcraft\Exception("String length {$length} exceeds maximum of ".(($maxLength * 4) + 3));
+			throw new \Phpcraft\Exception("The string on the wire apparently has {$length} bytes which exceeds ".(($maxLength * 4) + 3).".");
 		}
 		if($length > strlen($this->read_buffer))
 		{
-			throw new \Phpcraft\Exception("Not enough bytes to read string with length {$length}");
+			throw new \Phpcraft\Exception("String on the wire is apparently {$length} bytes long, but that exceeds the bytes in the read buffer.");
 		}
 		$str = substr($this->read_buffer, 0, $length);
 		$this->read_buffer = substr($this->read_buffer, $length);
@@ -526,7 +536,7 @@ class Connection
 	{
 		if(strlen($this->read_buffer) < 1)
 		{
-			throw new \Phpcraft\Exception("Not enough bytes to read byte");
+			throw new \Phpcraft\Exception("There are not enough bytes to read a byte.");
 		}
 		$byte = unpack(($signed ? "c" : "C")."byte", substr($this->read_buffer, 0, 1))["byte"];
 		$this->read_buffer = substr($this->read_buffer, 1);
@@ -542,7 +552,7 @@ class Connection
 	{
 		if(strlen($this->read_buffer) < 1)
 		{
-			throw new \Phpcraft\Exception("Not enough bytes to read boolean");
+			throw new \Phpcraft\Exception("There are not enough bytes to read a boolean.");
 		}
 		$byte = unpack("cbyte", substr($this->read_buffer, 0, 1))["byte"];
 		$this->read_buffer = substr($this->read_buffer, 1);
@@ -559,7 +569,7 @@ class Connection
 	{
 		if(strlen($this->read_buffer) < 2)
 		{
-			throw new \Phpcraft\Exception("Not enough bytes to read short");
+			throw new \Phpcraft\Exception("There are not enough bytes to read a short.");
 		}
 		$short = unpack("nshort", substr($this->read_buffer, 0, 2))["short"];
 		$this->read_buffer = substr($this->read_buffer, 2);
@@ -580,7 +590,7 @@ class Connection
 	{
 		if(strlen($this->read_buffer) < 4)
 		{
-			throw new \Phpcraft\Exception("Not enough bytes to read int");
+			throw new \Phpcraft\Exception("There are not enough bytes to read a int.");
 		}
 		$int = unpack("Nint", substr($this->read_buffer, 0, 4))["int"];
 		$this->read_buffer = substr($this->read_buffer, 4);
@@ -601,7 +611,7 @@ class Connection
 	{
 		if(strlen($this->read_buffer) < 8)
 		{
-			throw new \Phpcraft\Exception("Not enough bytes to read long");
+			throw new \Phpcraft\Exception("There are not enough bytes to read a long.");
 		}
 		$long = gmp_import(substr($this->read_buffer, 0, 8));
 		$this->read_buffer = substr($this->read_buffer, 8);
@@ -614,6 +624,7 @@ class Connection
 
 	/**
 	 * Reads a position from the read buffer.
+	 * @throws Exception When there are not enough bytes to read a position.
 	 * @return array An array containing x, y, and z of the position.
 	 */
 	function readPosition()
@@ -627,13 +638,14 @@ class Connection
 
 	/**
 	 * Reads a float from the read buffer.
+	 * @throws Exception When there are not enough bytes to read a float.
 	 * @return float
 	 */
 	function readFloat()
 	{
 		if(strlen($this->read_buffer) < 4)
 		{
-			throw new \Phpcraft\Exception("Not enough bytes to read float");
+			throw new \Phpcraft\Exception("There are not enough bytes to read a float.");
 		}
 		$float = unpack("Gfloat", substr($this->read_buffer, 0, 4))["float"];
 		$this->read_buffer = substr($this->read_buffer, 4);
@@ -642,13 +654,14 @@ class Connection
 
 	/**
 	 * Reads a double from the read buffer.
+	 * @throws Exception When there are not enough bytes to read a double.
 	 * @return float
 	 */
 	function readDouble()
 	{
 		if(strlen($this->read_buffer) < 8)
 		{
-			throw new \Phpcraft\Exception("Not enough bytes to read double");
+			throw new \Phpcraft\Exception("There are not enough bytes to read a double.");
 		}
 		$double = unpack("Edouble", substr($this->read_buffer, 0, 8))["double"];
 		$this->read_buffer = substr($this->read_buffer, 8);
@@ -656,14 +669,26 @@ class Connection
 	}
 
 	/**
+	 * Reads a Uuid.
+	 * @throws Exception When there are not enough bytes to read a UUID.
+	 * @return Uuid
+	 */
+	function readUuid()
+	{
+		return new \Phpcraft\Uuid($this->readUuidBytes());
+	}
+
+	/**
 	 * Reads a binary string consisting of 16 bytes.
+	 * @see Connection::readUuid()
+	 * @throws Exception When there are not enough bytes to read a UUID.
 	 * @return string
 	 */
-	function readUUIDBytes()
+	function readUuidBytes()
 	{
 		if(strlen($this->read_buffer) < 16)
 		{
-			throw new \Phpcraft\Exception("Not enough bytes to read UUID");
+			throw new \Phpcraft\Exception("There are not enough bytes to read a UUID.");
 		}
 		$uuid = substr($this->read_buffer, 0, 16);
 		$this->read_buffer = substr($this->read_buffer, 16);

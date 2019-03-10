@@ -12,5 +12,6 @@ var searchData=
   ['writeshort',['writeShort',['../classPhpcraft_1_1Connection.html#aa7d972e18796695b1661ed8bc28b5746',1,'Phpcraft::Connection']]],
   ['writeslot',['writeSlot',['../classPhpcraft_1_1Connection.html#aa46096c7748d40c1e773076987a0bc70',1,'Phpcraft::Connection']]],
   ['writestring',['writeString',['../classPhpcraft_1_1Connection.html#a21d251b6a131768d44d416d8f0329cb9',1,'Phpcraft::Connection']]],
+  ['writeuuid',['writeUuid',['../classPhpcraft_1_1Connection.html#a00042688b31eb49b705fb1c421f9f68f',1,'Phpcraft::Connection']]],
   ['writevarint',['writeVarInt',['../classPhpcraft_1_1Connection.html#a6d8f5b65887ec4d3dc1809563231911f',1,'Phpcraft::Connection']]]
 ];

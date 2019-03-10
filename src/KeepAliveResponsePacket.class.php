@@ -19,4 +19,9 @@ class KeepAliveResponsePacket extends KeepAlivePacket
 	{
 		return (new KeepAliveResponsePacket())->_read($con);
 	}
+
+	function toString()
+	{
+		return "{Keep Alive Response: ID ".$this->keepAliveId."}";
+	}
 }

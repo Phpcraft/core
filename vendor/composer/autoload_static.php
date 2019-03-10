@@ -49,6 +49,7 @@ class ComposerStaticInitb01ebcf9648a6fde88428c8cb797b804
         'Phpcraft\\SetSlotPacket' => __DIR__ . '/../..' . '/src/SetSlotPacket.class.php',
         'Phpcraft\\Slot' => __DIR__ . '/../..' . '/src/Slot.class.php',
         'Phpcraft\\UserInterface' => __DIR__ . '/../..' . '/src/UserInterface.class.php',
+        'Phpcraft\\Uuid' => __DIR__ . '/../..' . '/src/Uuid.class.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

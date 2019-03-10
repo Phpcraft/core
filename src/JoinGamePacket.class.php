@@ -62,4 +62,9 @@ class JoinGamePacket extends Packet
 		$con->writeBoolean(false); // Reduced Debug Info
 		$con->send();
 	}
+
+	function toString()
+	{
+		return "{Join Game: Gamemode ".$this->gamemode.", ".($hardcore ? "Not " : "")."Hardcore Mode, Dimension ".$this->dimension.", Difficulty ".$this->difficulty."}";
+	}
 }

@@ -28,4 +28,9 @@ class KeepAliveRequestPacket extends KeepAlivePacket
 	{
 		return new KeepAliveResponsePacket($this->keepAliveId);
 	}
+
+	function toString()
+	{
+		return "{Keep Alive Request: ID ".$this->keepAliveId."}";
+	}
 }

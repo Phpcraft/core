@@ -5,6 +5,7 @@
 WorldSaver
 
 # Server Plugins:
+BossBar
 BasicCommands
 CrashClients
 FirstPackets

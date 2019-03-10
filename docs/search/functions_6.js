@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['generateuuidv4',['generateUUIDv4',['../classPhpcraft_1_1Phpcraft.html#a9bbff93ce90e3b25b5369b9e65a2b289',1,'Phpcraft::Phpcraft']]],
   ['get',['get',['../classPhpcraft_1_1BlockMaterial.html#a415fc5ceb69622ae90df7219286e9fcb',1,'Phpcraft\BlockMaterial\get()'],['../classPhpcraft_1_1Item.html#aac3eaaeabbc7e80f36aa827ef0f25920',1,'Phpcraft\Item\get()'],['../classPhpcraft_1_1Material.html#a2472217d87db3f1d41e699651c5492d6',1,'Phpcraft\Material\get()']]],
   ['getaccesstoken',['getAccessToken',['../classPhpcraft_1_1Account.html#ab3bf0e2cf8a19dd0a5ea7e7fe0e1c326',1,'Phpcraft::Account']]],
   ['getassetindex',['getAssetIndex',['../classPhpcraft_1_1AssetsManager.html#a870a5711a5403082daea74fb17a62cd9',1,'Phpcraft::AssetsManager']]],
@@ -25,7 +24,6 @@ var searchData=
   ['getserverstatus',['getServerStatus',['../classPhpcraft_1_1Phpcraft.html#a5648f15ca17f8f1e2b0e74692e355072',1,'Phpcraft::Phpcraft']]],
   ['getsupportedminecraftversions',['getSupportedMinecraftVersions',['../classPhpcraft_1_1Phpcraft.html#a11b3d5a16f7be797637b6c267f3e01d5',1,'Phpcraft::Phpcraft']]],
   ['getsupportedprotocolversions',['getSupportedProtocolVersions',['../classPhpcraft_1_1Phpcraft.html#a01e87779de37f97112c11fe2571bbf82',1,'Phpcraft::Phpcraft']]],
-  ['getusername',['getUsername',['../classPhpcraft_1_1Account.html#a922c847a57ad381d7cd690650039319d',1,'Phpcraft\Account\getUsername()'],['../classPhpcraft_1_1ServerConnection.html#a9107608f3f52c93e245cae76258dfed1',1,'Phpcraft\ServerConnection\getUsername()']]],
-  ['getuuid',['getUUID',['../classPhpcraft_1_1ServerConnection.html#af5607b90f326697d656d63ffcb0ff8e1',1,'Phpcraft::ServerConnection']]],
+  ['getusername',['getUsername',['../classPhpcraft_1_1Account.html#a922c847a57ad381d7cd690650039319d',1,'Phpcraft::Account']]],
   ['getversions',['getVersions',['../classPhpcraft_1_1Phpcraft.html#a67e256355a21ebc8924425790f1c2357',1,'Phpcraft::Phpcraft']]]
 ];

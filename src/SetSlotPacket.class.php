@@ -47,4 +47,9 @@ class SetSlotPacket extends Packet
 		$con->writeSlot($this->slot);
 		$con->send();
 	}
+
+	function toString()
+	{
+		return "{Set Slot: Window ID {$this->window}, Slot ID {$this->slotId}, ".\Phpcraft\Slot::toString($this->slot)."}";
+	}
 }

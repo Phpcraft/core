@@ -226,4 +226,21 @@ class MapDataPacket extends Packet
 		}
 		$con->send();
 	}
+
+	function toString()
+	{
+		$str = "{Map Data: Map ID ".$this->mapId.", Scale ".$this->scale.", {$this->width}x{$this->height} Pixels, From {$this->x}:{$this->y}, Markers:";
+		if($this->markers)
+		{
+			foreach($this->markers as $marker)
+			{
+				$str .= " ".$marker->toString();
+			}
+		}
+		else
+		{
+			$str .= " None";
+		}
+		return $str."}";
+	}
 }

@@ -46,11 +46,6 @@ class Slot
 		$this->nbt = $nbt;
 	}
 
-	static function isEmpty($slot)
-	{
-		return $slot == null || $slot->item == null || $slot->count < 1 || $slot->count > 64;
-	}
-
 	function getNBT()
 	{
 		return $this->nbt == null ? new \Phpcraft\NbtEnd() : $this->nbt;
@@ -59,5 +54,24 @@ class Slot
 	function hasNBT()
 	{
 		return $this->nbt != null && !($this->nbt instanceof \Phpcraft\NbtEnd);
+	}
+
+	static function isEmpty($slot)
+	{
+		return $slot == null || $slot->item == null || $slot->count < 1 || $slot->count > 64;
+	}
+
+	static function toString($slot)
+	{
+		if(Slot::isEmpty($slot))
+		{
+			return "{Slot: Empty}";
+		}
+		$str .= "{Slot: {$slot->count}x {$slot->item->name}";
+		if($slot->hasNBT())
+		{
+			$str .= ", NBT ".$slot->nbt->toString();
+		}
+		return $str."}";
 	}
 }

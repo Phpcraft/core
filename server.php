@@ -107,7 +107,7 @@ $server->join_function = function($con)
 			]
 		]
 	];
-	$ui->add(\Phpcraft\Phpcraft::chatToText($msg, true));
+	$ui->add(\Phpcraft\Phpcraft::chatToText($msg, 1));
 	$msg = json_encode($msg);
 	foreach($server->clients as $c)
 	{

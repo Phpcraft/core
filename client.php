@@ -373,9 +373,9 @@ function handleConsoleMessage($msg)
 				3 => "Spectator"
 			];
 			global $players;
-			foreach($players as $player)
+			foreach($players as $uuid => $player)
 			{
-				$ui->add($player["name"].str_repeat(" ", 17 - strlen($player["name"])).str_repeat(" ", 5 - strlen($player["ping"])).$player["ping"]." ms  ".$gamemodes[$player["gamemode"]]." Mode");
+				$ui->add($uuid."  ".$player["name"].str_repeat(" ", 17 - strlen($player["name"])).str_repeat(" ", 5 - strlen($player["ping"])).$player["ping"]." ms  ".$gamemodes[$player["gamemode"]]." Mode");
 			}
 			break;
 
@@ -568,7 +568,7 @@ do
 				$amount = $con->readVarInt();
 				for($i = 0; $i < $amount; $i++)
 				{
-					$uuid = $con->readUUIDBytes();
+					$uuid = $con->readUuid()->toString();
 					if($action == 0)
 					{
 						$username = $con->readString();
@@ -618,7 +618,7 @@ do
 					if($protocol_version > 47)
 					{
 						$entities[$eid] = [
-							"uuid" => $con->readUUIDBytes(),
+							"uuid" => $con->readUuid()->toString(),
 							"x" => $con->readDouble(),
 							"y" => $con->readDouble(),
 							"z" => $con->readDouble(),
@@ -629,7 +629,7 @@ do
 					else
 					{
 						$entities[$eid] = [
-							"uuid" => $con->readUUIDBytes(),
+							"uuid" => $con->readUuid()->toString(),
 							"x" => $con->readInt() / 32,
 							"y" => $con->readInt() / 32,
 							"z" => $con->readInt() / 32,

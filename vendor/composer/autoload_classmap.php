@@ -48,4 +48,5 @@ return array(
     'Phpcraft\\SetSlotPacket' => $baseDir . '/src/SetSlotPacket.class.php',
     'Phpcraft\\Slot' => $baseDir . '/src/Slot.class.php',
     'Phpcraft\\UserInterface' => $baseDir . '/src/UserInterface.class.php',
+    'Phpcraft\\Uuid' => $baseDir . '/src/Uuid.class.php',
 );

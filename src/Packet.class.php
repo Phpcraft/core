@@ -305,4 +305,6 @@ abstract class Packet
 	 * @return void
 	 */
 	abstract function send(\Phpcraft\Connection $con);
+
+	abstract function toString();
 }

@@ -62,7 +62,7 @@ abstract class Phpcraft
 		}
 		if(empty($profiles["clientToken"]))
 		{
-			$profiles["clientToken"] = Phpcraft::generateUUIDv4();
+			$profiles["clientToken"] = \Phpcraft\Uuid::v4()->toString();
 		}
 		if(!isset($profiles["selectedUser"]))
 		{
@@ -169,30 +169,6 @@ abstract class Phpcraft
 	}
 
 	/**
-	 * Generates a random UUID (UUIDv4).
-	 * @param boolean $withHypens
-	 * @return string
-	 */
-	static function generateUUIDv4($withHypens = false)
-	{
-		return sprintf($withHypens ? "%04x%04x-%04x-%04x-%04x-%04x%04x%04x" : "%04x%04x%04x%04x%04x%04x%04x%04x", mt_rand(0, 0xffff), mt_rand(0, 0xffff), mt_rand(0, 0xffff), (mt_rand(0, 0x0fff) | 0x4000), (mt_rand(0, 0x3fff) | 0x8000), mt_rand(0, 0xffff), mt_rand(0, 0xffff), mt_rand(0, 0xffff));
-	}
-
-	/**
-	 * Adds hypens to a UUID.
-	 * @param string $uuid
-	 * @return string
-	 */
-	static function addHypensToUUID($uuid)
-	{
-		if(strlen($uuid) != 32)
-		{
-			return $uuid;
-		}
-		return substr($uuid, 0, 8)."-".substr($uuid, 8, 4)."-".substr($uuid, 12, 4)."-".substr($uuid, 16, 4)."-".substr($uuid, 20);
-	}
-
-	/**
 	 * Sends an HTTP POST request with a JSON payload.
 	 * The response will always contain a "status" value which will be the HTTP response code, e.g. 200.
 	 * @param string $url
@@ -269,6 +245,21 @@ abstract class Phpcraft
 		}
 		while($value != 0);
 		return $bytes;
+	}
+
+	static function binaryStringToHex($str)
+	{
+		$hex_str = "";
+		foreach(str_split($str) as $char)
+		{
+			$char = dechex(ord($char));
+			if(strlen($char) != 2)
+			{
+				$char = "0".$char;
+			}
+			$hex_str .= $char." ";
+		}
+		return rtrim($hex_str);
 	}
 
 	/**
@@ -587,10 +578,7 @@ abstract class Phpcraft
 		}
 		if($format > 0)
 		{
-			if($format == 2)
-			{
-				$text = "§r";
-			}
+			$text = ($format === 2 ? "§r" : "");
 			$ansi_modifiers = [];
 			if($format == 1)
 			{
@@ -635,10 +623,6 @@ abstract class Phpcraft
 					}
 				}
 			}
-			if($format == 1)
-			{
-				$text = "\x1B[".join(";", $ansi_modifiers)."m";
-			}
 			if(!isset($chat["color"]))
 			{
 				if(isset($parent["color"]))
@@ -672,6 +656,7 @@ abstract class Phpcraft
 					{
 						array_push($ansi_modifiers, $colors[$chat["color"]]);
 					}
+					$text .= "\x1B[".join(";", $ansi_modifiers)."m";
 				}
 				else if(($i = array_search($chat["color"], array_keys($colors))) !== false)
 				{
@@ -753,7 +738,7 @@ abstract class Phpcraft
 	 *
 	 * Note that a server might not present all of these values, so always check with `isset` first.
 	 *
-	 * Also, the `description` is a chat object, so you can pass it to Phpcraft::chatToANSIText().
+	 * Also, the `description` is a chat object, so you can pass it to Phpcraft::chatToText().
 	 * @param string $server_name
 	 * @param integer $server_port
 	 * @param float $timeout The amount of seconds to wait for a response with each method.

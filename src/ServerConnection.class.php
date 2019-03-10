@@ -3,8 +3,8 @@ namespace Phpcraft;
 /** A client-to-server connection. */
 class ServerConnection extends Connection
 {
-	private $username;
-	private $uuid;
+	public $username;
+	public $uuid;
 
 	/**
 	 * The constructor.
@@ -36,25 +36,6 @@ class ServerConnection extends Connection
 	}
 
 	/**
-	 * Returns our name on the server.
-	 * The return value will be equal to the return value of Account::getUsername() of the account passed to ServerConnection::login().
-	 * @return string
-	 */
-	function getUsername()
-	{
-		return $this->username;
-	}
-
-	/**
-	 * Returns our UUID on the server with hypens.
-	 * @return string
-	 */
-	function getUUID()
-	{
-		return $this->uuid;
-	}
-
-	/**
 	 * Logs in to the server using the given account.
 	 * This has to be called even when joining an offline mode server.
 	 * @param Account $account
@@ -82,13 +63,8 @@ class ServerConnection extends Connection
 			}
 			else if($id == 0x02) // Login Success
 			{
-				$this->uuid = $this->readString(36);
-				$name = $this->readString(16);
-				if($account->getUsername() != $name)
-				{
-					return "Server did not accept our username and would rather call us '{$name}'.";
-				}
-				$this->username = $name;
+				$this->uuid = \Phpcraft\Uuid::fromString($this->readString(36));
+				$this->username = $this->readString(16);
 				$this->state = 3;
 				return "";
 			}

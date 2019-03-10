@@ -66,7 +66,7 @@ class Server
 				{
 					array_push($players, [
 						"name" => $client->username,
-						"id" => $client->uuid
+						"id" => $client->uuid->toString(true)
 					]);
 				}
 			}
@@ -189,7 +189,7 @@ class Server
 									}
 									else
 									{
-										$con->finishLogin(\Phpcraft\Phpcraft::generateUUIDv4(true), $con->username);
+										$con->finishLogin(\Phpcraft\Uuid::v4(), $con->username);
 										if($this->join_function)
 										{
 											($this->join_function)($con);
@@ -205,9 +205,9 @@ class Server
 							}
 							else if($packet_id == 0x01 && isset($con->username)) // Encryption Response
 							{
-								if($json = $con->handleEncryptionResponse($con->username, $this->private_key))
+								if($json = $con->handleEncryptionResponse($this->private_key))
 								{
-									$con->finishLogin(\Phpcraft\Phpcraft::addHypensToUUID($json["id"]), $con->username);
+									$con->finishLogin(\Phpcraft\Uuid::fromString($json["id"]), $con->username);
 									if($this->join_function)
 									{
 										($this->join_function)($con);

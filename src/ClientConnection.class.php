@@ -23,8 +23,8 @@ class ClientConnection extends Connection
 	 */
 	public $username;
 	/**
-	 * The client's UUID with hypens.
-	 * @var string $uuid
+	 * The Uuid of the client.
+	 * @var Uuid $uuid
 	 */
 	public $uuid;
 	/**
@@ -134,6 +134,7 @@ class ClientConnection extends Connection
 
 	/**
 	 * Reads an encryption response packet and authenticates with Mojang.
+	 * This requires that you've set ClientConnection::$username after the client sent Login Start.
 	 * If there is an error, the client is disconnected and false is returned, and on success an array looking like this is returned:
 	 * <pre>[
 	 *   "id" => "11111111222233334444555555555555",
@@ -147,11 +148,10 @@ class ClientConnection extends Connection
 	 *   ]
 	 * ]</pre>
 	 * After this, you should call ClientConnection::finishLogin().
-	 * @param string $name The name the client presented in the Login Start packet.
 	 * @param string $private_key Your OpenSSL private key resource.
 	 * @return mixed
 	 */
-	function handleEncryptionResponse($name, $private_key)
+	function handleEncryptionResponse($private_key)
 	{
 		openssl_private_decrypt($this->readString(), $shared_secret, $private_key, OPENSSL_PKCS1_PADDING);
 		openssl_private_decrypt($this->readString(), $verify_token, $private_key, OPENSSL_PKCS1_PADDING);
@@ -163,8 +163,8 @@ class ClientConnection extends Connection
 		$opts = ["mode" => "cfb", "iv" => $shared_secret, "key" => $shared_secret];
 		stream_filter_append($this->stream, "mcrypt.rijndael-128", STREAM_FILTER_WRITE, $opts);
 		stream_filter_append($this->stream, "mdecrypt.rijndael-128", STREAM_FILTER_READ, $opts);
-		$json = @json_decode(@file_get_contents("https://sessionserver.mojang.com/session/minecraft/hasJoined?username={$name}&serverId=".Phpcraft::sha1($shared_secret.base64_decode(trim(substr(openssl_pkey_get_details($private_key)["key"], 26, -24))))), true);
-		if(!$json || empty($json["id"]) || empty($json["name"]) || $json["name"] != $name)
+		$json = @json_decode(@file_get_contents("https://sessionserver.mojang.com/session/minecraft/hasJoined?username={$this->username}&serverId=".Phpcraft::sha1($shared_secret.base64_decode(trim(substr(openssl_pkey_get_details($private_key)["key"], 26, -24))))), true);
+		if(!$json || empty($json["id"]) || @$json["name"] !== $this->username)
 		{
 			$this->writeVarInt(0x00);
 			$this->writeString('{"text":"Failed to authenticate against session server."}');
@@ -177,14 +177,14 @@ class ClientConnection extends Connection
 
 	/**
 	 * Sets the compression threshold and finishes the login.
-	 * @param string $uuid The client's UUID as a string with hypens.
+	 * @param string $uuid The Uuid of the client.
 	 * @param string $name The name the client presented in the Login Start packet.
 	 * @param integer $compression_threshold Use -1 to disable compression.
 	 * @return ClientConnection $this
 	 * @see Phpcraft::generateUUIDv4()
 	 * @see Phpcraft::addHypensToUUID()
 	 */
-	function finishLogin($uuid, $name, $compression_threshold = 256)
+	function finishLogin(\Phpcraft\Uuid $uuid, $name, $compression_threshold = 256)
 	{
 		if($this->state == 2)
 		{
@@ -196,7 +196,7 @@ class ClientConnection extends Connection
 			}
 			$this->compression_threshold = $compression_threshold;
 			$this->writeVarInt(0x02);
-			$this->writeString($this->uuid = $uuid);
+			$this->writeString(($this->uuid = $uuid)->toString(true));
 			$this->writeString($name);
 			$this->send();
 			$this->state = 3;
@@ -210,14 +210,13 @@ class ClientConnection extends Connection
 	 */
 	function disconnect($reason = [])
 	{
-		try
+		if($reason && $this->state > 1)
 		{
-			if($reason && $this->state > 1)
+			try
 			{
 				if($this->state == 2) // Login
 				{
-					$this->write_buffer = "";
-					$this->writeVarInt(0x00);
+					$this->write_buffer = \Phpcraft\Phpcraft::intToVarInt(0x00);
 				}
 				else // Play
 				{
@@ -226,8 +225,8 @@ class ClientConnection extends Connection
 				$this->writeString(json_encode($reason));
 				$this->send();
 			}
+			catch(Exception $ignored){}
 		}
-		catch(Exception $ignored){}
 		$this->close();
 	}
 }

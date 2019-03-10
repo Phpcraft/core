@@ -88,4 +88,9 @@ class MapMarker
 		$this->rotation = $rotation;
 		$this->name = $name;
 	}
+
+	function toString()
+	{
+		return "{Map Marker".($name ? " \"".\Phpcraft\Phpcraft::chatToText($name)."\"" : "")." at {$this->x}:{$this->$y}, Type {$this->type}, ".($rotation * 22.5)."° Rotation}";
+	}
 }
