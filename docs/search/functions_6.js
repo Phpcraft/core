@@ -16,6 +16,7 @@ var searchData=
   ['getminecraftversionsfromprotocolversion',['getMinecraftVersionsFromProtocolVersion',['../classPhpcraft_1_1Phpcraft.html#a701328ddbc1faf994874bbab0a2fdcca',1,'Phpcraft::Phpcraft']]],
   ['getname',['getName',['../classPhpcraft_1_1Account.html#ab05c6e61d9e020024c1440089b5e2c23',1,'Phpcraft\Account\getName()'],['../classPhpcraft_1_1Plugin.html#adbcfc93c9948a483973a68d9c45adafe',1,'Phpcraft\Plugin\getName()']]],
   ['getnbt',['getNBT',['../classPhpcraft_1_1Slot.html#a18674a07610681a139c5e1802e474e99',1,'Phpcraft::Slot']]],
+  ['getpayload',['getPayload',['../classPhpcraft_1_1Packet.html#aaf18af1863e12d3eb36e892218ae4e92',1,'Phpcraft::Packet']]],
   ['getprofileid',['getProfileId',['../classPhpcraft_1_1Account.html#a33637a2a9aac5646d38b1ce7017096e5',1,'Phpcraft::Account']]],
   ['getprofiles',['getProfiles',['../classPhpcraft_1_1Phpcraft.html#a4e54addd39ce8665ec5e1ee73b00be13',1,'Phpcraft::Phpcraft']]],
   ['getprofilesfile',['getProfilesFile',['../classPhpcraft_1_1Phpcraft.html#a738a4fbf79ff882e42fc90007ad4b83b',1,'Phpcraft::Phpcraft']]],

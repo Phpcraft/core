@@ -93,8 +93,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a063e28a9c7896afae775a3b5e9f848ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac800ab311d2b9e1f069ab1a9dd578345"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ServerConnection.html#ac800ab311d2b9e1f069ab1a9dd578345">sendHandshake</a> ($server_name, $server_port, $next_state)</td></tr>
 <tr class="separator:ac800ab311d2b9e1f069ab1a9dd578345"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a59d09d20e21bce3368b8b6af00853e90"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ServerConnection.html#a59d09d20e21bce3368b8b6af00853e90">login</a> ($account, $translations=null)</td></tr>
-<tr class="separator:a59d09d20e21bce3368b8b6af00853e90"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aae2c53135845b8ee56b2cd8073104f6f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ServerConnection.html#aae2c53135845b8ee56b2cd8073104f6f">login</a> (\<a class="el" href="classPhpcraft_1_1Account.html">Phpcraft\Account</a> $account, $translations=null)</td></tr>
+<tr class="separator:aae2c53135845b8ee56b2cd8073104f6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classPhpcraft_1_1Connection"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classPhpcraft_1_1Connection')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classPhpcraft_1_1Connection.html">Phpcraft\Connection</a></td></tr>
 <tr class="memitem:a6b873d0ddfe04ce6e9a86d3060e8785d inherit pub_methods_classPhpcraft_1_1Connection"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#a6b873d0ddfe04ce6e9a86d3060e8785d">__construct</a> ($protocol_version=-1, $stream=null)</td></tr>
 <tr class="separator:a6b873d0ddfe04ce6e9a86d3060e8785d inherit pub_methods_classPhpcraft_1_1Connection"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -232,8 +232,8 @@ Public Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a59d09d20e21bce3368b8b6af00853e90"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a59d09d20e21bce3368b8b6af00853e90">&#9670;&nbsp;</a></span>login()</h2>
+<a id="aae2c53135845b8ee56b2cd8073104f6f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aae2c53135845b8ee56b2cd8073104f6f">&#9670;&nbsp;</a></span>login()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -241,7 +241,7 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="memname">Phpcraft\ServerConnection::login </td>
           <td>(</td>
-          <td class="paramtype">&#160;</td>
+          <td class="paramtype">\<a class="el" href="classPhpcraft_1_1Account.html">Phpcraft\Account</a>&#160;</td>
           <td class="paramname"><em>$account</em>, </td>
         </tr>
         <tr>
@@ -299,7 +299,7 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Sends a handshake to the server. If $next_state is 2, you should call <a class="el" href="classPhpcraft_1_1ServerConnection.html#a59d09d20e21bce3368b8b6af00853e90">ServerConnection::login()</a> after this, even when joining an offline mode server. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Sends a handshake to the server. If $next_state is 2, you should call <a class="el" href="classPhpcraft_1_1ServerConnection.html#aae2c53135845b8ee56b2cd8073104f6f">ServerConnection::login()</a> after this, even when joining an offline mode server. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramtype">string</td><td class="paramname">$server_name</td><td></td></tr>
     <tr><td class="paramtype">integer</td><td class="paramname">$server_port</td><td></td></tr>

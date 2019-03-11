@@ -38,6 +38,7 @@ class ServerConnection extends Connection
 	/**
 	 * Logs in to the server using the given account.
 	 * This has to be called even when joining an offline mode server.
+	 * @param Account $account
 	 * @param array $translations The translations array so translated messages look proper.
 	 * @return string Error message. Empty on success.
 	 */

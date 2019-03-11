@@ -65,7 +65,6 @@ $(function() {
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
-<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="classPhpcraft_1_1Packet-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Phpcraft\Packet Class Reference</div>  </div>
@@ -76,21 +75,18 @@ Inheritance diagram for Phpcraft\Packet:</div>
 <div class="dyncontent">
 <div class="center"><img src="classPhpcraft_1_1Packet__inherit__graph.png" border="0" usemap="#Phpcraft_0CPacket_inherit__map" alt="Inheritance graph"/></div>
 <map name="Phpcraft_0CPacket_inherit__map" id="Phpcraft_0CPacket_inherit__map">
-<area shape="rect" id="node2" href="classPhpcraft_1_1JoinGamePacket.html" title="Phpcraft\\JoinGamePacket" alt="" coords="175,5,357,32"/>
-<area shape="rect" id="node3" href="classPhpcraft_1_1KeepAlivePacket.html" title="Phpcraft\\KeepAlivePacket" alt="" coords="175,56,357,83"/>
-<area shape="rect" id="node6" href="classPhpcraft_1_1MapDataPacket.html" title="Phpcraft\\MapDataPacket" alt="" coords="177,107,355,133"/>
-<area shape="rect" id="node7" href="classPhpcraft_1_1SetSlotPacket.html" title="Phpcraft\\SetSlotPacket" alt="" coords="182,157,350,184"/>
-<area shape="rect" id="node4" href="classPhpcraft_1_1KeepAliveRequestPacket.html" title="Phpcraft\\KeepAliveRequest\lPacket" alt="" coords="411,17,601,58"/>
-<area shape="rect" id="node5" href="classPhpcraft_1_1KeepAliveResponsePacket.html" title="Phpcraft\\KeepAliveResponse\lPacket" alt="" coords="405,82,607,123"/>
+<area shape="rect" id="node2" href="classPhpcraft_1_1JoinGamePacket.html" title="Phpcraft\\JoinGamePacket" alt="" coords="184,5,367,32"/>
+<area shape="rect" id="node3" href="classPhpcraft_1_1KeepAliveRequestPacket.html" title="Phpcraft\\KeepAliveRequest\lPacket" alt="" coords="180,57,371,98"/>
+<area shape="rect" id="node4" href="classPhpcraft_1_1KeepAliveResponsePacket.html" title="Phpcraft\\KeepAliveResponse\lPacket" alt="" coords="175,122,376,163"/>
+<area shape="rect" id="node5" href="classPhpcraft_1_1MapDataPacket.html" title="Phpcraft\\MapDataPacket" alt="" coords="186,188,365,215"/>
+<area shape="rect" id="node6" href="classPhpcraft_1_1SetSlotPacket.html" title="Phpcraft\\SetSlotPacket" alt="" coords="191,239,359,265"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a3afc5cba8d4c4071cdd7d46d48f78aff"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Packet.html#a3afc5cba8d4c4071cdd7d46d48f78aff">__construct</a> ($name)</td></tr>
-<tr class="separator:a3afc5cba8d4c4071cdd7d46d48f78aff"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa740a1b9192f9703e6c961cad433136c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Packet.html#aa740a1b9192f9703e6c961cad433136c">idFor</a> ($protocol_version)</td></tr>
-<tr class="separator:aa740a1b9192f9703e6c961cad433136c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaf18af1863e12d3eb36e892218ae4e92"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Packet.html#aaf18af1863e12d3eb36e892218ae4e92">getPayload</a> ($protocol_version=-1)</td></tr>
+<tr class="separator:aaf18af1863e12d3eb36e892218ae4e92"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af0ab65c9bed29249defb9d2c48d6f1dc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Packet.html#af0ab65c9bed29249defb9d2c48d6f1dc">send</a> (\<a class="el" href="classPhpcraft_1_1Connection.html">Phpcraft\Connection</a> $con)</td></tr>
 <tr class="separator:af0ab65c9bed29249defb9d2c48d6f1dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abb6f17fc067b4c29d3f7312c26c10ff9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Packet.html#abb6f17fc067b4c29d3f7312c26c10ff9">toString</a> ()</td></tr>
@@ -104,44 +100,14 @@ Static Public Member Functions</h2></td></tr>
 <tr class="separator:a7f1cc0e9c3b7a3b86189c3c662ab88e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaca26f88750d14ec3dea737c1b996ab0"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Packet.html#aaca26f88750d14ec3dea737c1b996ab0">serverboundPacketIdToName</a> ($id, $protocol_version)</td></tr>
 <tr class="separator:aaca26f88750d14ec3dea737c1b996ab0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7c6c2813e8511ebaf5826ee72d4691fb"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Packet.html#a7c6c2813e8511ebaf5826ee72d4691fb">init</a> ($name, $con)</td></tr>
-<tr class="separator:a7c6c2813e8511ebaf5826ee72d4691fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7f95e599c9b5d109aef3faecde116bc0"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Packet.html#a7f95e599c9b5d109aef3faecde116bc0">read</a> (\<a class="el" href="classPhpcraft_1_1Connection.html">Phpcraft\Connection</a> $con)</td></tr>
 <tr class="separator:a7f95e599c9b5d109aef3faecde116bc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:a8ef20582b51249287673ded85c049a5a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Packet.html#a8ef20582b51249287673ded85c049a5a">$name</a></td></tr>
-<tr class="separator:a8ef20582b51249287673ded85c049a5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a47ecf9ccc519dda4e92d31cd6c44fcca"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Packet.html#a47ecf9ccc519dda4e92d31cd6c44fcca">init</a> ($name, \<a class="el" href="classPhpcraft_1_1Connection.html">Phpcraft\Connection</a> $con)</td></tr>
+<tr class="separator:a47ecf9ccc519dda4e92d31cd6c44fcca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A <a class="el" href="classPhpcraft_1_1Packet.html">Packet</a>. Look at the source code of this class for a list of packet names. </p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a3afc5cba8d4c4071cdd7d46d48f78aff"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3afc5cba8d4c4071cdd7d46d48f78aff">&#9670;&nbsp;</a></span>__construct()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">Phpcraft\Packet::__construct </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>$name</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>The constructor. </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramtype">string</td><td class="paramname">$name</td><td>The name of the packet. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a7f1cc0e9c3b7a3b86189c3c662ab88e7"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7f1cc0e9c3b7a3b86189c3c662ab88e7">&#9670;&nbsp;</a></span>clientboundPacketIdToName()</h2>
 
@@ -230,33 +196,33 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="aa740a1b9192f9703e6c961cad433136c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa740a1b9192f9703e6c961cad433136c">&#9670;&nbsp;</a></span>idFor()</h2>
+<a id="aaf18af1863e12d3eb36e892218ae4e92"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaf18af1863e12d3eb36e892218ae4e92">&#9670;&nbsp;</a></span>getPayload()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">Phpcraft\Packet::idFor </td>
+          <td class="memname">Phpcraft\Packet::getPayload </td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>$protocol_version</em></td><td>)</td>
+          <td class="paramname"><em>$protocol_version</em> = <code>-1</code></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Returns the id of this packet for the given protocol version. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Returns a binary string containing the payload of the packet. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype">integer</td><td class="paramname">$protocol_version</td><td></td></tr>
+    <tr><td class="paramtype">integer</td><td class="paramname">$protocol_version</td><td>The protocol version you'd like to get the payload for. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>integer -1 if not applicable for protocol version or null if the packet is unknown. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>string </dd></dl>
 
 </div>
 </div>
-<a id="a7c6c2813e8511ebaf5826ee72d4691fb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7c6c2813e8511ebaf5826ee72d4691fb">&#9670;&nbsp;</a></span>init()</h2>
+<a id="a47ecf9ccc519dda4e92d31cd6c44fcca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a47ecf9ccc519dda4e92d31cd6c44fcca">&#9670;&nbsp;</a></span>init()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -273,7 +239,7 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">&#160;</td>
+          <td class="paramtype">\<a class="el" href="classPhpcraft_1_1Connection.html">Phpcraft\Connection</a>&#160;</td>
           <td class="paramname"><em>$con</em>&#160;</td>
         </tr>
         <tr>
@@ -348,7 +314,7 @@ Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Sends the packet over the given <a class="el" href="classPhpcraft_1_1Connection.html">Connection</a> or simply writes it into the write buffer if the connection was initialised without a stream. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Adds the packet's ID and payload to the <a class="el" href="classPhpcraft_1_1Connection.html">Connection</a>'s write buffer and, if the connection has a stream, sends it over the wire. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramtype"><a class="el" href="classPhpcraft_1_1Connection.html">Connection</a></td><td class="paramname">$con</td><td></td></tr>
   </table>
@@ -424,22 +390,6 @@ Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="a8ef20582b51249287673ded85c049a5a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8ef20582b51249287673ded85c049a5a">&#9670;&nbsp;</a></span>$name</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">string Phpcraft\Packet::$name</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>The name of the packet. </p>
 
 </div>
 </div>
