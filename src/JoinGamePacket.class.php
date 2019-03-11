@@ -9,11 +9,6 @@ class JoinGamePacket extends Packet
 	public $dimension = 0;
 	public $difficulty = 0;
 
-	function __construct()
-	{
-		parent::__construct("join_game");
-	}
-
 	/**
 	 * @copydoc Packet::read
 	 */

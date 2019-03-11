@@ -77,11 +77,6 @@ class MapDataPacket extends Packet
 	 */
 	public $contents = [];
 
-	function __construct()
-	{
-		parent::__construct("map_data");
-	}
-
 	/**
 	 * @copydoc Packet::read
 	 */
@@ -156,7 +151,7 @@ class MapDataPacket extends Packet
 	 */
 	function send(\Phpcraft\Connection $con)
 	{
-		$con->startPacket($this->name);
+		$con->startPacket("map_data");
 		$con->writeVarInt($this->mapId);
 		$con->writeByte($this->scale);
 		if($con->protocol_version > 47)

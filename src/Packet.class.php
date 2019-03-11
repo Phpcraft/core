@@ -128,21 +128,6 @@ abstract class Packet
 	}
 
 	/**
-	 * The name of the packet.
-	 * @var string $name
-	 */
-	public $name;
-
-	/**
-	 * The constructor.
-	 * @param string $name The name of the packet.
-	 */
-	function __construct($name)
-	{
-		$this->name = $name;
-	}
-
-	/**
 	 * Returns the id of the packet name for the given protocol version.
 	 * @param string $name The name of the packet.
 	 * @param integer $protocol_version
@@ -177,16 +162,6 @@ abstract class Packet
 			return isset($clientbound_packet_ids[$name][5]) ? $clientbound_packet_ids[$name][5] : (isset($serverbound_packet_ids[$name][5]) ? $serverbound_packet_ids[$name][5] : null);
 		}
 		return isset($clientbound_packet_ids[$name][6]) ? $clientbound_packet_ids[$name][6] : (isset($serverbound_packet_ids[$name][6]) ? $serverbound_packet_ids[$name][6] : null);
-	}
-
-	/**
-	 * Returns the id of this packet for the given protocol version.
-	 * @param integer $protocol_version
-	 * @return integer -1 if not applicable for protocol version or null if the packet is unknown.
-	 */
-	function idFor($protocol_version)
-	{
-		return Packet::getId($this->name, $protocol_version);
 	}
 
 	private static function extractPacketNameFromList($list, $id, $protocol_version)
@@ -266,11 +241,41 @@ abstract class Packet
 	}
 
 	/**
+	 * Returns a binary string containing the payload of the packet.
+	 * @param integer $protocol_version The protocol version you'd like to get the payload for.
+	 * @return string
+	 */
+	function getPayload($protocol_version = -1)
+	{
+		$con = new \Phpcraft\Connection($protocol_version);
+		$this->send($con);
+		$con->read_buffer = $con->write_buffer;
+		$con->readVarInt();
+		return $con->read_buffer;
+	}
+
+	/**
+	 * Initialises the packet class by reading its payload from the given Connection.
+	 * @param Connection $con
+	 * @return Packet
+	 */
+	abstract static function read(\Phpcraft\Connection $con);
+
+	/**
+	 * Adds the packet's ID and payload to the Connection's write buffer and, if the connection has a stream, sends it over the wire.
+	 * @param Connection $con
+	 * @return void
+	 */
+	abstract function send(\Phpcraft\Connection $con);
+
+	abstract function toString();
+
+	/**
 	 * Initialises the packet class with the given name by reading its payload from the given Connection.
 	 * Returns null if the packet does not have a class implementation yet.
 	 * @return Packet
 	 */
-	static function init($name, $con)
+	static function init($name, \Phpcraft\Connection $con)
 	{
 		switch($name)
 		{
@@ -291,20 +296,4 @@ abstract class Packet
 		}
 		return null;
 	}
-
-	/**
-	 * Initialises the packet class by reading its payload from the given Connection.
-	 * @param Connection $con
-	 * @return Packet
-	 */
-	abstract static function read(\Phpcraft\Connection $con);
-
-	/**
-	 * Sends the packet over the given Connection or simply writes it into the write buffer if the connection was initialised without a stream.
-	 * @param Connection $con
-	 * @return void
-	 */
-	abstract function send(\Phpcraft\Connection $con);
-
-	abstract function toString();
 }

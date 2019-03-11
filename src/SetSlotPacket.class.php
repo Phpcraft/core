@@ -19,11 +19,6 @@ class SetSlotPacket extends Packet
 	 */
 	public $slot = null;
 
-	function __construct()
-	{
-		parent::__construct("set_slot");
-	}
-
 	/**
 	 * @copydoc Packet::read
 	 */
@@ -41,7 +36,7 @@ class SetSlotPacket extends Packet
 	 */
 	function send(\Phpcraft\Connection $con)
 	{
-		$con->startPacket($this->name);
+		$con->startPacket("set_slot");
 		$con->writeByte($this->window);
 		$con->writeShort($this->slotId);
 		$con->writeSlot($this->slot);
