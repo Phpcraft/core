@@ -41,7 +41,10 @@ Enjoy!
 
 ## Using Phpcraft as a library
 
-Thanks to [Composer](https://getcomposer.org/), using Phpcraft as a library is really easy. Just head into your project folder, run `composer require timmyrs/phpcraft:dev-master`, and that's it; you can now `require "vendor/autoload.php";` to use [the many available APIs](https://timmyrs.github.io/Phpcraft/namespacePhpcraft.html).
+Thanks to [Composer](https://getcomposer.org/), using Phpcraft as a library is really easy. Just head into your project folder, run `composer require timmyrs/phpcraft:dev-master`, and that's it; you can now `require "vendor/autoload.php";` to use Phpcraft's many APIs:
+
+- [Documentation](https://timmyrs.github.io/Phpcraft/namespacePhpcraft.html)
+- [Wiki](https://github.com/timmyrs/Phpcraft/wiki)
 
 ## Who uses Phpcraft?
 
