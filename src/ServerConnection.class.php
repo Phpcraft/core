@@ -38,11 +38,10 @@ class ServerConnection extends Connection
 	/**
 	 * Logs in to the server using the given account.
 	 * This has to be called even when joining an offline mode server.
-	 * @param Account $account
 	 * @param array $translations The translations array so translated messages look proper.
 	 * @return string Error message. Empty on success.
 	 */
-	function login($account, $translations = null)
+	function login(\Phpcraft\Account $account, $translations = null)
 	{
 		$this->writeVarInt(0x00);
 		$this->writeString($account->getUsername());
@@ -88,7 +87,7 @@ class ServerConnection extends Connection
 					"serverId" => Phpcraft::sha1($server_id.$shared_secret.$public_key)
 				]) === false)
 				{
-					return "The session server is down for maintenance.";
+					return "The session servers are down for maintenance.";
 				}
 				$public_key = openssl_pkey_get_public("-----BEGIN PUBLIC KEY-----\n".base64_encode($public_key)."\n-----END PUBLIC KEY-----");
 				$this->writeVarInt(0x01); // Encryption Response
@@ -104,7 +103,7 @@ class ServerConnection extends Connection
 			}
 			else if($id == 0x00) // Disconnect
 			{
-				return Phpcraft::chatToText(json_decode($this->readString(), true));
+				return Phpcraft::chatToText(json_decode($this->readString(), true), 0, $translations);
 			}
 			else
 			{

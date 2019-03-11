@@ -70,10 +70,11 @@ class Server
 					]);
 				}
 			}
+			$versions = \Phpcraft\Phpcraft::getSupportedMinecraftVersions();
 			return [
 				"version" => [
-					"name" => "\\Phpcraft\\Server",
-					"protocol" => (\Phpcraft\Phpcraft::isProtocolVersionSupported($con->protocol_version) ? $con->protocol_version : 69)
+					"name" => "Phpcraft ".$versions[count($versions) - 1]." - ".$versions[0],
+					"protocol" => (\Phpcraft\Phpcraft::isProtocolVersionSupported($con->protocol_version) ? $con->protocol_version : \Phpcraft\Phpcraft::getSupportedProtocolVersions()[0])
 				],
 				"players" => [
 					"online" => count($players),
