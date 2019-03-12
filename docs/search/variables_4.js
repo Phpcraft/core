@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['hard',['HARD',['../classPhpcraft_1_1Difficulty.html#afba97249338f15d42cbf9129c5890a82',1,'Phpcraft::Difficulty']]]
+  ['easy',['EASY',['../classPhpcraft_1_1Difficulty.html#ad05e4afed8cca0688f424911bfe232a2',1,'Phpcraft::Difficulty']]],
+  ['end',['END',['../classPhpcraft_1_1Dimension.html#aecd2efbf53a998e35fe4b7807ac4c5fc',1,'Phpcraft::Dimension']]]
 ];

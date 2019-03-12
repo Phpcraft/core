@@ -29,5 +29,6 @@ var searchData=
   ['nbttag',['NbtTag',['../classPhpcraft_1_1NbtTag.html',1,'Phpcraft']]],
   ['nbttag_2eclass_2ephp',['NbtTag.class.php',['../NbtTag_8class_8php.html',1,'']]],
   ['nether',['NETHER',['../classPhpcraft_1_1Dimension.html#a4f3845ea5735421ce6daa642fb1818b4',1,'Phpcraft::Dimension']]],
+  ['next',['next',['../classPhpcraft_1_1Counter.html#aed5594a217d12070396062b6e3914edb',1,'Phpcraft::Counter']]],
   ['normal',['NORMAL',['../classPhpcraft_1_1Difficulty.html#aa4f109edbbc996c0f4406f05f4b59bfb',1,'Phpcraft::Difficulty']]]
 ];

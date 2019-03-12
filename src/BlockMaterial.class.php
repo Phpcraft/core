@@ -16,58 +16,6 @@ class BlockMaterial extends Material
 	}
 
 	/**
-	 * @copydoc Material::get
-	 */
-	static function get($arg)
-	{
-		if(gettype($arg) == "string")
-		{
-			$arg = strtolower($arg);
-			if(substr($arg, 0, 10) == "minecraft:")
-			{
-				$arg = substr($arg, 10);
-			}
-			foreach(BlockMaterial::all() as $material)
-			{
-				if($material->name == $arg)
-				{
-					return $material;
-				}
-			}
-		}
-		else if(gettype($arg) == "integer")
-		{
-			foreach(BlockMaterial::all() as $material)
-			{
-				if($material->id == $id)
-				{
-					return $material;
-				}
-			}
-		}
-		else
-		{
-			throw new \Phpcraft\Exception("BlockMaterial::get's argument needs to be either string or integer.");
-		}
-		return null;
-	}
-
-	/**
-	 * @copydoc Material::getLegacy
-	 */
-	static function getLegacy($legacy_id, $legacy_metadata = 0)
-	{
-		foreach(BlockMaterial::all() as $material)
-		{
-			if($material->legacy_id == $legacy_id && $material->legacy_metadata == $legacy_metadata)
-			{
-				return $material;
-			}
-		}
-		return null;
-	}
-
-	/**
 	 * The names of the item materials dropped when this block is destroyed.
 	 * @var array $drops
 	 */

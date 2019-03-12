@@ -34,7 +34,7 @@ PluginManager::registerPlugin("BasicCommands", function($plugin)
 		else if(substr($event->data["message"], 0, 10) == "/metadata ")
 		{
 			$con->startPacket("entity_metadata");
-			$con->writeVarInt(1337);
+			$con->writeVarInt($con->eid);
 			$con->writeByte(0);
 			$con->writeVarInt(0);
 			$con->writeByte(hexdec(substr($event->data["message"], 10, 2)));

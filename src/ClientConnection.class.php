@@ -37,6 +37,16 @@ class ClientConnection extends Connection
 	 * @var integer $disconnect_after
 	 */
 	public $disconnect_after = 0;
+	/**
+	 * This variable is for servers to keep track of the client's position.
+	 * @var Position $pos
+	 */
+	public $pos;
+	/**
+	 * This variable is for servers to keep track of the chunks this client has received by storing their coordinates as a string (e.g. "-1:1").
+	 * @var array $chunks
+	 */
+	public $chunks;
 
 	/**
 	 * The constructor.
@@ -177,14 +187,15 @@ class ClientConnection extends Connection
 
 	/**
 	 * Sets the compression threshold and finishes the login.
-	 * @param string $uuid The Uuid of the client.
+	 * @param Uuid $uuid The Uuid of the client.
 	 * @param string $name The name the client presented in the Login Start packet.
+	 * @param Counter $eidCounter The server's Counter to assign an entity ID to the client.
 	 * @param integer $compression_threshold Use -1 to disable compression.
 	 * @return ClientConnection $this
 	 * @see Phpcraft::generateUUIDv4()
 	 * @see Phpcraft::addHypensToUUID()
 	 */
-	function finishLogin(\Phpcraft\Uuid $uuid, $name, $compression_threshold = 256)
+	function finishLogin(\Phpcraft\Uuid $uuid, $name, \Phpcraft\Counter $eidCounter, $compression_threshold = 256)
 	{
 		if($this->state == 2)
 		{
@@ -199,6 +210,8 @@ class ClientConnection extends Connection
 			$this->writeString(($this->uuid = $uuid)->toString(true));
 			$this->writeString($name);
 			$this->send();
+			$this->chunks = [];
+			$this->eid = $eidCounter->next();
 			$this->state = 3;
 		}
 		return $this;

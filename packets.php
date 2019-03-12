@@ -27,38 +27,67 @@ else
 {
 	echo "Detected unsupported protocol version {$pv}.\n";
 }
-function convertPacket($id)
+function processBatch()
 {
-	global $argv, $pv;
-	if($argv[1] == "client")
+	global $id_count, $last_id, $last_name, $total_size;
+	if($id_count == 1)
 	{
-		$packet_name = \Phpcraft\Packet::clientboundPacketIdToName($id, $pv);
+		echo "1x ".convertPacket($last_id, $last_name)." with {$total_size} B of data\n";
 	}
 	else
 	{
-		$packet_name = \Phpcraft\Packet::serverboundPacketIdToName($id, $pv);
+		echo $id_count."x ".convertPacket($last_id, $last_name)." with {$total_size} B (avg. ".round($total_size / $id_count)." B) of data\n";
 	}
-	if($packet_name)
+}
+function convertPacket($id, $name)
+{
+	global $argv, $pv;
+	if($name)
 	{
-		return $packet_name." (0x".dechex($id)." | {$id})";
+		return $name." (0x".dechex($id)." | {$id})";
 	}
 	else
 	{
 		return "0x".dechex($id)." ({$id})";
 	}
 }
-$con = new \Phpcraft\Connection($pv, $fh);
+$con->protocol_version = $pv;
 $last_id = null;
-$id_count;
+$last_name = "";
+$id_count = 0;
 $total_size = 0;
 while($id = $con->readPacket())
 {
 	$size = strlen($con->read_buffer);
 	if($size == 0)
 	{
-		die(convertPacket($last_id)." has no data.\n");
+		die(convertPacket($id, $name)." has no data.\n");
 	}
-	if($last_id === $id)
+	if(strpos($con->read_buffer, "Twitter") === false)
+	{
+		continue;
+	}
+	if($argv[1] == "client")
+	{
+		$name = \Phpcraft\Packet::clientboundPacketIdToName($id, $pv);
+	}
+	else
+	{
+		$name = \Phpcraft\Packet::serverboundPacketIdToName($id, $pv);
+	}
+	$packet = \Phpcraft\Packet::init($name, $con);
+	if($packet)
+	{
+		if($last_id)
+		{
+			processBatch();
+			$last_id = false;
+			$id_count = 0;
+			$total_size = 0;
+		}
+		echo $packet->toString()."\n";
+	}
+	else if($last_id === $id)
 	{
 		$id_count++;
 		$total_size += $size;
@@ -67,30 +96,17 @@ while($id = $con->readPacket())
 	{
 		if($last_id)
 		{
-			if($id_count == 1)
-			{
-				echo $id_count."x ".convertPacket($last_id)." with {$total_size} B of data\n";
-			}
-			else
-			{
-				echo $id_count."x ".convertPacket($last_id)." with {$total_size} B (avg. ".round($total_size / $id_count)." B) of data\n";
-			}
+			processBatch();
 		}
 		$last_id = $id;
+		$last_name = $name;
 		$id_count = 1;
 		$total_size = $size;
 	}
 }
 if($last_id)
 {
-	if($id_count == 1)
-	{
-		echo $id_count."x ".convertPacket($last_id)." with {$total_size} B of data\n";
-	}
-	else
-	{
-		echo $id_count."x ".convertPacket($last_id)." with {$total_size} B (avg. ".round($total_size / $id_count)." B) of data\n";
-	}
+	processBatch();
 }
 if(strlen(stream_get_contents($fh)) > 0)
 {

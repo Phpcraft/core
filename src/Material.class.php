@@ -1,55 +1,38 @@
 <?php
 namespace Phpcraft;
-abstract class Material
+abstract class Material extends Flattenable
 {
 	/**
-	 * The name of this material.
-	 * @var string $name
-	 */
-	public $name;
-	/**
-	 * Post-flattening ID
-	 * @var integer $id
-	 */
-	public $id;
-	/**
-	 * Pre-flattening ID
-	 * @var integer $legacy_id
-	 */
-	public $legacy_id;
-	/**
-	 * Pre-flattening Metadata
+	 * The pre-flattening metadata value accompanying the ID.
 	 * @var integer $legacy_metadata
 	 */
 	public $legacy_metadata;
 
 	/**
-	 * The constructor.
-	 * @param string $name The name of this material.
-	 * @param integer $id Post-flattening ID
-	 * @param integer $legacy_id Pre-flattening ID
-	 * @param integer $legacy_metadata Pre-flattening Metadata
+	 * @copydoc Flattenable::__construct
+	 * @param integer $legacy_metadata The pre-flattening metadata value accompanying the ID.
 	 */
 	function __construct($name, $id, $legacy_id, $legacy_metadata)
 	{
-		$this->name = $name;
-		$this->id = $id;
-		$this->legacy_id = $legacy_id;
+		parent::__construct($name, $id, $legacy_id);
 		$this->legacy_metadata = $legacy_metadata;
 	}
 
 	/**
-	 * Returns all materials of this type.
+	 * Returns a match for the given legacy ID and accompanying metadata value, or null.
+	 * @param integer $legacy_id
+	 * @param integer $legacy_metadata
+	 * @return Material
 	 */
-	abstract static function all();
-
-	/**
-	 * Returns the material of this type matching the given name or id.
-	 */
-	abstract static function get($arg);
-
-	/**
-	 * Returns the material of this type matching the given legacy id and metadata.
-	 */
-	abstract static function getLegacy($legacy_id, $legacy_metadata);
+	static function getLegacy($legacy_id, $legacy_metadata = 0)
+	{
+		foreach(static::all() as $material)
+		{
+			if($material->legacy_id == $legacy_id && $material->legacy_metadata == $legacy_metadata)
+			{
+				return $material;
+			}
+		}
+		return null;
+	}
 }

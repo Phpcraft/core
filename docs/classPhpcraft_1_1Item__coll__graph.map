@@ -1,3 +1,4 @@
 <map id="Phpcraft\Item" name="Phpcraft\Item">
-<area shape="rect" id="node2" href="$classPhpcraft_1_1Material.html" title="Phpcraft\\Material" alt="" coords="5,5,136,32"/>
+<area shape="rect" id="node2" href="$classPhpcraft_1_1Material.html" title="Phpcraft\\Material" alt="" coords="15,80,146,107"/>
+<area shape="rect" id="node3" href="$classPhpcraft_1_1Flattenable.html" title="Phpcraft\\Flattenable" alt="" coords="5,5,156,32"/>
 </map>

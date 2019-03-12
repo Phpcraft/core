@@ -6,34 +6,30 @@ if(!in_array(PluginManager::$platform, ["phpcraft:server"]))
 }
 PluginManager::registerPlugin("BossBar", function($plugin)
 {
+	global $bossbar_uuid, $bossbar_i;
+	$bossbar_uuid = \Phpcraft\Uuid::v5("BossBar.php");
+	$bossbar_i = 0;
 	$plugin->on("join", function($event)
 	{
 		if($event->isCancelled())
 		{
 			return;
 		}
-		$con = $event->data["client"];
-		$a = 0;
-		$b = 0;
-		foreach(explode(" ", "Never gonna give you up. Never gonna let you down. Never gonna run around and desert you. Never gonna make you cry. Never gonna say goodbye. Never gonna tell a lie and hurt you.") as $word)
-		{
-			$con->startPacket("boss_bar");
-			$con->writeUuid(\Phpcraft\Uuid::v4());
-			$con->writeVarInt(0);
-			$con->writeChat(["text" => $word]);
-			$con->writeFloat(100);
-			$con->writeVarInt($a++);
-			if($a > 6)
-			{
-				$a = 0;
-			}
-			$con->writeVarInt($b++);
-			if($b > 4)
-			{
-				$b = 0;
-			}
-			$con->writeByte(0);
-			$con->send();
-		}
+		global $bossbar_uuid;
+		$packet = new \Phpcraft\AddBossBarPacket($bossbar_uuid);
+		$packet->send($event->data["client"]);
 	}, \Phpcraft\Event::PRIORITY_LOWEST);
+	$plugin->on("tick", function($event)
+	{
+		global $bossbar_uuid, $bossbar_i;
+		foreach($event->data["server"]->clients as $con)
+		{
+			(new \Phpcraft\UpdateBossBarHealthPacket($bossbar_uuid, ($bossbar_i - 91) / 91))->send($con);
+			(new \Phpcraft\UpdateBossBarTitlePacket($bossbar_uuid, @str_repeat("|", $bossbar_i).@str_repeat(".", (273 - $bossbar_i))))->send($con);
+		}
+		if(++$bossbar_i == 273)
+		{
+			$bossbar_i = 0;
+		}
+	});
 });

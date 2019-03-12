@@ -3,7 +3,7 @@ namespace Phpcraft;
 /** The first packet sent to the client after they've logged in. */
 class JoinGamePacket extends Packet
 {
-	public $entityId;
+	public $eid;
 	public $gamemode = 0;
 	public $hardcore = false;
 	public $dimension = 0;
@@ -15,7 +15,7 @@ class JoinGamePacket extends Packet
 	static function read(\Phpcraft\Connection $con)
 	{
 		$packet = new JoinGamePacket();
-		$packet->entityId = $con->readInt();
+		$packet->eid = $con->readInt();
 		$packet->gamemode = $con->readByte(true);
 		if($packet->gamemode > 0x8)
 		{
@@ -36,7 +36,7 @@ class JoinGamePacket extends Packet
 	function send(\Phpcraft\Connection $con)
 	{
 		$con->startPacket("join_game");
-		$con->writeInt($this->entityId);
+		$con->writeInt($this->eid);
 		$gamemode = $this->gamemode;
 		if($this->hardcore)
 		{
@@ -60,6 +60,6 @@ class JoinGamePacket extends Packet
 
 	function toString()
 	{
-		return "{Join Game: Gamemode ".$this->gamemode.", ".($hardcore ? "Not " : "")."Hardcore Mode, Dimension ".$this->dimension.", Difficulty ".$this->difficulty."}";
+		return "{JoinGamePacket: Entity ID ".$this->eid.", Gamemode ".$this->gamemode.", ".($hardcore ? "Not " : "")."Hardcore Mode, Dimension ".$this->dimension.", Difficulty ".$this->difficulty."}";
 	}
 }

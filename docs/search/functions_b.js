@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['on',['on',['../classPhpcraft_1_1Plugin.html#a20398acae8e3f7e3c2b153997252a78b',1,'Phpcraft::Plugin']]]
+  ['next',['next',['../classPhpcraft_1_1Counter.html#aed5594a217d12070396062b6e3914edb',1,'Phpcraft::Counter']]]
 ];

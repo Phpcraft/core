@@ -1,3 +1,4 @@
 <map id="Phpcraft\BlockMaterial" name="Phpcraft\BlockMaterial">
-<area shape="rect" id="node2" href="$classPhpcraft_1_1Material.html" title="Phpcraft\\Material" alt="" coords="22,5,153,32"/>
+<area shape="rect" id="node2" href="$classPhpcraft_1_1Material.html" title="Phpcraft\\Material" alt="" coords="22,80,153,107"/>
+<area shape="rect" id="node3" href="$classPhpcraft_1_1Flattenable.html" title="Phpcraft\\Flattenable" alt="" coords="12,5,163,32"/>
 </map>

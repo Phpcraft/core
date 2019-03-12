@@ -279,20 +279,26 @@ abstract class Packet
 	{
 		switch($name)
 		{
+			case "boss_bar":
+			return \Phpcraft\BossBarPacket::read($con);
+
 			case "join_game":
-			return \Phpcraft\JoinGamePacket()::read($this);
+			return \Phpcraft\JoinGamePacket::read($con);
 
 			case "keep_alive_request":
-			return \Phpcraft\KeepAliveRequestPacket()::read($this);
+			return \Phpcraft\KeepAliveRequestPacket::read($con);
 
 			case "keep_alive_response":
-			return \Phpcraft\KeepAliveResponsePacket()::read($this);
+			return \Phpcraft\KeepAliveResponsePacket::read($con);
 
 			case "map_data":
-			return \Phpcraft\MapDataPacket()::read($this);
+			return \Phpcraft\MapDataPacket::read($con);
 
 			case "set_slot":
-			return \Phpcraft\SetSlotPacket()::read($this);
+			return \Phpcraft\SetSlotPacket::read($con);
+
+			case "spawn_mob":
+			return \Phpcraft\SpawnMobPacket::read($con);
 		}
 		return null;
 	}

@@ -93,6 +93,10 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:af1166a2ab5cf528c8d38e8f57f06efdb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a28e67912eb7de38d904c4f4388f5f9f6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1NbtCompound.html#a28e67912eb7de38d904c4f4388f5f9f6">getChild</a> ($name)</td></tr>
 <tr class="separator:a28e67912eb7de38d904c4f4388f5f9f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d3b33af9213b37692a8c8b7063459fa"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1NbtCompound.html#a8d3b33af9213b37692a8c8b7063459fa">getChildIndex</a> ($name)</td></tr>
+<tr class="separator:a8d3b33af9213b37692a8c8b7063459fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a162f574ca9a446d3cac3044e6ad201d4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1NbtCompound.html#a162f574ca9a446d3cac3044e6ad201d4">addChild</a> (\<a class="el" href="classPhpcraft_1_1NbtTag.html">Phpcraft\NbtTag</a> $tag)</td></tr>
+<tr class="separator:a162f574ca9a446d3cac3044e6ad201d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a98642e21cf768f95c40caf9c1f0770d3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1NbtCompound.html#a98642e21cf768f95c40caf9c1f0770d3">send</a> (\<a class="el" href="classPhpcraft_1_1Connection.html">Phpcraft\Connection</a> $con, $inList=false)</td></tr>
 <tr class="separator:a98642e21cf768f95c40caf9c1f0770d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a47623f196ff621a97705c1300cb66b2e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1NbtCompound.html#a47623f196ff621a97705c1300cb66b2e">copy</a> ()</td></tr>
@@ -184,6 +188,25 @@ Additional Inherited Members</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a162f574ca9a446d3cac3044e6ad201d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a162f574ca9a446d3cac3044e6ad201d4">&#9670;&nbsp;</a></span>addChild()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Phpcraft\NbtCompound::addChild </td>
+          <td>(</td>
+          <td class="paramtype">\<a class="el" href="classPhpcraft_1_1NbtTag.html">Phpcraft\NbtTag</a>&#160;</td>
+          <td class="paramname"><em>$tag</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Adds a child to the compound or replaces an existing one by the same name. </p><dl class="section return"><dt>Returns</dt><dd><a class="el" href="classPhpcraft_1_1NbtCompound.html">NbtCompound</a> $this </dd></dl>
+
+</div>
+</div>
 <a id="a47623f196ff621a97705c1300cb66b2e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a47623f196ff621a97705c1300cb66b2e">&#9670;&nbsp;</a></span>copy()</h2>
 
@@ -216,7 +239,26 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Gets a child of the compound by name. Only the first child with a matching name will be returned. Null if not found. </p><dl class="section return"><dt>Returns</dt><dd><a class="el" href="classPhpcraft_1_1NbtTag.html">NbtTag</a> </dd></dl>
+<p>Gets a child of the compound by its name or null if not found. </p><dl class="section return"><dt>Returns</dt><dd><a class="el" href="classPhpcraft_1_1NbtTag.html">NbtTag</a> </dd></dl>
+
+</div>
+</div>
+<a id="a8d3b33af9213b37692a8c8b7063459fa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8d3b33af9213b37692a8c8b7063459fa">&#9670;&nbsp;</a></span>getChildIndex()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Phpcraft\NbtCompound::getChildIndex </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$name</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Gets the index of a child of the compound by its name or -1 if not found. </p><dl class="section return"><dt>Returns</dt><dd>integer </dd></dl>
 
 </div>
 </div>

@@ -20,9 +20,7 @@ class NbtCompound extends NbtTag
 	}
 
 	/**
-	 * Gets a child of the compound by name.
-	 * Only the first child with a matching name will be returned.
-	 * Null if not found.
+	 * Gets a child of the compound by its name or null if not found.
 	 * @return NbtTag
 	 */
 	function getChild($name)
@@ -35,6 +33,44 @@ class NbtCompound extends NbtTag
 			}
 		}
 		return null;
+	}
+
+	/**
+	 * Gets the index of a child of the compound by its name or -1 if not found.
+	 * @return integer
+	 */
+	function getChildIndex($name)
+	{
+		foreach($this->children as $i => $child)
+		{
+			if($child->name == $name)
+			{
+				return $i;
+			}
+		}
+		return -1;
+	}
+
+	/**
+	 * Adds a child to the compound or replaces an existing one by the same name.
+	 * @return NbtCompound $this
+	 */
+	function addChild(\Phpcraft\NbtTag $tag)
+	{
+		if($tag instanceof \Phpcraft\NbtEnd)
+		{
+			throw new \Phpcraft\Exception("\\Phpcraft\\NbtEnd is not a valid child");
+		}
+		$i = $this->getChildIndex($tag->name);
+		if($i > -1)
+		{
+			$this->children[$i] = $tag;
+		}
+		else
+		{
+			array_push($this->children, $tag);
+		}
+		return $this;
 	}
 
 	/**

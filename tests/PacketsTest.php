@@ -15,7 +15,7 @@ final class PacketsTest extends \PHPUnit\Framework\TestCase
 		$con->read_buffer = $con->write_buffer;
 		$packet = \Phpcraft\JoinGamePacket::read($con);
 		$this->assertEquals("", $con->read_buffer);
-		$this->assertEquals(1337, $packet->entityId);
+		$this->assertEquals(1337, $packet->eid);
 		$this->assertEquals(3, $packet->gamemode);
 		$this->assertTrue($packet->hardcore);
 		$this->assertEquals(-1, $packet->dimension);

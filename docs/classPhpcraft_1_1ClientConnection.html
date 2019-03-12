@@ -99,8 +99,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a46c17ecc49a8c218ed013f26ba947549"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab8e7b8f299956acff9deabdcaf3aa3f0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#ab8e7b8f299956acff9deabdcaf3aa3f0">handleEncryptionResponse</a> ($private_key)</td></tr>
 <tr class="separator:ab8e7b8f299956acff9deabdcaf3aa3f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab8a04a335e01df169bb45b476307617a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#ab8a04a335e01df169bb45b476307617a">finishLogin</a> (\<a class="el" href="classPhpcraft_1_1Uuid.html">Phpcraft\Uuid</a> $uuid, $name, $compression_threshold=256)</td></tr>
-<tr class="separator:ab8a04a335e01df169bb45b476307617a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6563118083e3f72142634dd904e6a00f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#a6563118083e3f72142634dd904e6a00f">finishLogin</a> (\<a class="el" href="classPhpcraft_1_1Uuid.html">Phpcraft\Uuid</a> $uuid, $name, \<a class="el" href="classPhpcraft_1_1Counter.html">Phpcraft\Counter</a> $eidCounter, $compression_threshold=256)</td></tr>
+<tr class="separator:a6563118083e3f72142634dd904e6a00f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a410c3fa10c71478d496aeff58db135f1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#a410c3fa10c71478d496aeff58db135f1">disconnect</a> ($reason=[])</td></tr>
 <tr class="separator:a410c3fa10c71478d496aeff58db135f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classPhpcraft_1_1Connection"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classPhpcraft_1_1Connection')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classPhpcraft_1_1Connection.html">Phpcraft\Connection</a></td></tr>
@@ -132,8 +132,12 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a82ed1c92bec8da24ca4722f79fd912db inherit pub_methods_classPhpcraft_1_1Connection"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2264e967503660c823b01714c00427f6 inherit pub_methods_classPhpcraft_1_1Connection"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#a2264e967503660c823b01714c00427f6">writeDouble</a> ($value)</td></tr>
 <tr class="separator:a2264e967503660c823b01714c00427f6 inherit pub_methods_classPhpcraft_1_1Connection"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a62c8bdc28feaa69fa9247e2a366872e3 inherit pub_methods_classPhpcraft_1_1Connection"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#a62c8bdc28feaa69fa9247e2a366872e3">writePosition</a> ($x, $y, $z)</td></tr>
-<tr class="separator:a62c8bdc28feaa69fa9247e2a366872e3 inherit pub_methods_classPhpcraft_1_1Connection"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb75f53794e798db11a12ef1e5c4bf96 inherit pub_methods_classPhpcraft_1_1Connection"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#adb75f53794e798db11a12ef1e5c4bf96">writePosition</a> (\<a class="el" href="classPhpcraft_1_1Position.html">Phpcraft\Position</a> $pos)</td></tr>
+<tr class="separator:adb75f53794e798db11a12ef1e5c4bf96 inherit pub_methods_classPhpcraft_1_1Connection"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aafb27a4cd94e32f8514e06269d100963 inherit pub_methods_classPhpcraft_1_1Connection"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#aafb27a4cd94e32f8514e06269d100963">writePrecisePosition</a> (\<a class="el" href="classPhpcraft_1_1Position.html">Phpcraft\Position</a> $pos)</td></tr>
+<tr class="separator:aafb27a4cd94e32f8514e06269d100963 inherit pub_methods_classPhpcraft_1_1Connection"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab7170f70da543f95b43d448235e6969c inherit pub_methods_classPhpcraft_1_1Connection"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#ab7170f70da543f95b43d448235e6969c">writeFixedPointPosition</a> (\<a class="el" href="classPhpcraft_1_1Position.html">Phpcraft\Position</a> $pos)</td></tr>
+<tr class="separator:ab7170f70da543f95b43d448235e6969c inherit pub_methods_classPhpcraft_1_1Connection"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa46096c7748d40c1e773076987a0bc70 inherit pub_methods_classPhpcraft_1_1Connection"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#aa46096c7748d40c1e773076987a0bc70">writeSlot</a> (\<a class="el" href="classPhpcraft_1_1Slot.html">Phpcraft\Slot</a> $slot)</td></tr>
 <tr class="separator:aa46096c7748d40c1e773076987a0bc70 inherit pub_methods_classPhpcraft_1_1Connection"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a00042688b31eb49b705fb1c421f9f68f inherit pub_methods_classPhpcraft_1_1Connection"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#a00042688b31eb49b705fb1c421f9f68f">writeUuid</a> (\<a class="el" href="classPhpcraft_1_1Uuid.html">Phpcraft\Uuid</a> $uuid)</td></tr>
@@ -166,6 +170,10 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a69f8d5b44dab2514c19211ac7312c344 inherit pub_methods_classPhpcraft_1_1Connection"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab1afcb6dd5f093420bbe7adb632e9087 inherit pub_methods_classPhpcraft_1_1Connection"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#ab1afcb6dd5f093420bbe7adb632e9087">readPosition</a> ()</td></tr>
 <tr class="separator:ab1afcb6dd5f093420bbe7adb632e9087 inherit pub_methods_classPhpcraft_1_1Connection"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a626be8b58eb672bbb14b171d59a0b1 inherit pub_methods_classPhpcraft_1_1Connection"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#a2a626be8b58eb672bbb14b171d59a0b1">readPrecisePosition</a> ()</td></tr>
+<tr class="separator:a2a626be8b58eb672bbb14b171d59a0b1 inherit pub_methods_classPhpcraft_1_1Connection"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0e1309dab15736e9fc4693b111eb5601 inherit pub_methods_classPhpcraft_1_1Connection"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#a0e1309dab15736e9fc4693b111eb5601">readFixedPointPosition</a> ()</td></tr>
+<tr class="separator:a0e1309dab15736e9fc4693b111eb5601 inherit pub_methods_classPhpcraft_1_1Connection"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a425a6f10548a0bd9ba47c1f180ec6c02 inherit pub_methods_classPhpcraft_1_1Connection"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#a425a6f10548a0bd9ba47c1f180ec6c02">readFloat</a> ()</td></tr>
 <tr class="separator:a425a6f10548a0bd9ba47c1f180ec6c02 inherit pub_methods_classPhpcraft_1_1Connection"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acaad829071825b6aa4e961f7a99e2d3d inherit pub_methods_classPhpcraft_1_1Connection"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#acaad829071825b6aa4e961f7a99e2d3d">readDouble</a> ()</td></tr>
@@ -195,6 +203,10 @@ Public Attributes</h2></td></tr>
 <tr class="separator:ab81ef85b6185e1211f075611d6844b59"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3122283000e4c184351298949769300d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#a3122283000e4c184351298949769300d">$disconnect_after</a> = 0</td></tr>
 <tr class="separator:a3122283000e4c184351298949769300d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a85139019bb38231405f57b353e76c4fb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#a85139019bb38231405f57b353e76c4fb">$pos</a></td></tr>
+<tr class="separator:a85139019bb38231405f57b353e76c4fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb7300801f9bf088fa43f2be7029ca5a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#abb7300801f9bf088fa43f2be7029ca5a">$chunks</a></td></tr>
+<tr class="separator:abb7300801f9bf088fa43f2be7029ca5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_attribs_classPhpcraft_1_1Connection"><td colspan="2" onclick="javascript:toggleInherit('pub_attribs_classPhpcraft_1_1Connection')"><img src="closed.png" alt="-"/>&#160;Public Attributes inherited from <a class="el" href="classPhpcraft_1_1Connection.html">Phpcraft\Connection</a></td></tr>
 <tr class="memitem:a3bf8d5443811f5ebecde6e15ae6e2c78 inherit pub_attribs_classPhpcraft_1_1Connection"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#a3bf8d5443811f5ebecde6e15ae6e2c78">$protocol_version</a></td></tr>
 <tr class="separator:a3bf8d5443811f5ebecde6e15ae6e2c78 inherit pub_attribs_classPhpcraft_1_1Connection"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -261,8 +273,8 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="ab8a04a335e01df169bb45b476307617a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab8a04a335e01df169bb45b476307617a">&#9670;&nbsp;</a></span>finishLogin()</h2>
+<a id="a6563118083e3f72142634dd904e6a00f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6563118083e3f72142634dd904e6a00f">&#9670;&nbsp;</a></span>finishLogin()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -282,6 +294,12 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">\<a class="el" href="classPhpcraft_1_1Counter.html">Phpcraft\Counter</a>&#160;</td>
+          <td class="paramname"><em>$eidCounter</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype">&#160;</td>
           <td class="paramname"><em>$compression_threshold</em> = <code>256</code>&#160;</td>
         </tr>
@@ -294,8 +312,9 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Sets the compression threshold and finishes the login. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype">string</td><td class="paramname">$uuid</td><td>The <a class="el" href="classPhpcraft_1_1Uuid.html">Uuid</a> of the client. </td></tr>
+    <tr><td class="paramtype"><a class="el" href="classPhpcraft_1_1Uuid.html">Uuid</a></td><td class="paramname">$uuid</td><td>The <a class="el" href="classPhpcraft_1_1Uuid.html">Uuid</a> of the client. </td></tr>
     <tr><td class="paramtype">string</td><td class="paramname">$name</td><td>The name the client presented in the Login Start packet. </td></tr>
+    <tr><td class="paramtype"><a class="el" href="classPhpcraft_1_1Counter.html">Counter</a></td><td class="paramname">$eidCounter</td><td>The server's <a class="el" href="classPhpcraft_1_1Counter.html">Counter</a> to assign an entity ID to the client. </td></tr>
     <tr><td class="paramtype">integer</td><td class="paramname">$compression_threshold</td><td>Use -1 to disable compression. </td></tr>
   </table>
   </dd>
@@ -350,7 +369,7 @@ Phpcraft::addHypensToUUID() </dd></dl>
       "signature" =&gt; "&amp;lt;base64 string; signed data using Yggdrasil's private key&amp;gt;"
     ]
   ]
-]</pre><p> After this, you should call <a class="el" href="classPhpcraft_1_1ClientConnection.html#ab8a04a335e01df169bb45b476307617a">ClientConnection::finishLogin()</a>. </p><dl class="params"><dt>Parameters</dt><dd>
+]</pre><p> After this, you should call <a class="el" href="classPhpcraft_1_1ClientConnection.html#a6563118083e3f72142634dd904e6a00f">ClientConnection::finishLogin()</a>. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramtype">string</td><td class="paramname">$private_key</td><td>Your OpenSSL private key resource. </td></tr>
   </table>
@@ -404,6 +423,21 @@ Phpcraft::addHypensToUUID() </dd></dl>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
+<a id="abb7300801f9bf088fa43f2be7029ca5a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abb7300801f9bf088fa43f2be7029ca5a">&#9670;&nbsp;</a></span>$chunks</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">array Phpcraft\ClientConnection::$chunks</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>This variable is for servers to keep track of the chunks this client has received by storing their coordinates as a string (e.g. "-1:1"). </p>
+
+</div>
+</div>
 <a id="a3122283000e4c184351298949769300d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3122283000e4c184351298949769300d">&#9670;&nbsp;</a></span>$disconnect_after</h2>
 
@@ -465,6 +499,21 @@ Phpcraft::addHypensToUUID() </dd></dl>
       </table>
 </div><div class="memdoc">
 <p>This variable is for servers to keep track of when to send the next keep alive packet to clients. </p>
+
+</div>
+</div>
+<a id="a85139019bb38231405f57b353e76c4fb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a85139019bb38231405f57b353e76c4fb">&#9670;&nbsp;</a></span>$pos</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classPhpcraft_1_1Position.html">Position</a> Phpcraft\ClientConnection::$pos</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>This variable is for servers to keep track of the client's position. </p>
 
 </div>
 </div>

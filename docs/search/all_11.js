@@ -9,6 +9,8 @@ var searchData=
   ['plugin_2eclass_2ephp',['Plugin.class.php',['../Plugin_8class_8php.html',1,'']]],
   ['pluginmanager',['PluginManager',['../classPhpcraft_1_1PluginManager.html',1,'Phpcraft']]],
   ['pluginmanager_2eclass_2ephp',['PluginManager.class.php',['../PluginManager_8class_8php.html',1,'']]],
+  ['position',['Position',['../classPhpcraft_1_1Position.html',1,'Phpcraft']]],
+  ['position_2eclass_2ephp',['Position.class.php',['../Position_8class_8php.html',1,'']]],
   ['priority_5fhigh',['PRIORITY_HIGH',['../classPhpcraft_1_1Event.html#a27603abd715e98f317653a4437d38e16',1,'Phpcraft::Event']]],
   ['priority_5fhighest',['PRIORITY_HIGHEST',['../classPhpcraft_1_1Event.html#ad5f28993f31084b0d1e7f6412dfd73e4',1,'Phpcraft::Event']]],
   ['priority_5flow',['PRIORITY_LOW',['../classPhpcraft_1_1Event.html#a234b62bc9d2b622d283aaa273ecb187c',1,'Phpcraft::Event']]],

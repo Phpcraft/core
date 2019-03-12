@@ -23,17 +23,12 @@ PluginManager::registerPlugin("Map", function($plugin)
 		$packet = new \Phpcraft\SetSlotPacket();
 		$packet->window = 0;
 		$packet->slotId = \Phpcraft\Slot::ID_HOTBAR_1;
-		$name = "§4§lMÄP";
-		if($con->protocol_version > 47)
-		{
-			$name = json_encode(\Phpcraft\Phpcraft::textToChat($name));
-		}
 		$packet->slot = new \Phpcraft\Slot(
 			\Phpcraft\Item::get("filled_map"),
 			1,
 			new \Phpcraft\NbtCompound("tag", [
 				new \Phpcraft\NbtCompound("display", [
-					new \Phpcraft\NbtString("Name", $name)
+					new \Phpcraft\NbtString("Name", json_encode(\Phpcraft\Phpcraft::textToChat("§4§lMÄP")))
 				]),
 				new \Phpcraft\NbtInt("map", 1337),
 			])

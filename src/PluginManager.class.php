@@ -83,7 +83,7 @@ class PluginManager
 		}
 		usort($handlers, function($a, $b)
 		{
-			return $a["priority"] - $b["priority"];
+			return $b["priority"] - $a["priority"];
 		});
 		foreach($handlers as $handler)
 		{

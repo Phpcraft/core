@@ -18,6 +18,11 @@ class Server
 	 */
 	public $clients = [];
 	/**
+	 * The counter used to assign entity IDs.
+	 * @var Counter $eidCounter
+	 */
+	public $eidCounter;
+	/**
 	 * The function called when a client has entered state 3 (playing) with the ClientConnection as argument.
 	 * @see Server::handle()
 	 * @var function $join_function
@@ -57,6 +62,7 @@ class Server
 			$this->stream = $stream;
 		}
 		$this->private_key = $private_key;
+		$this->eidCounter = new \Phpcraft\Counter();
 		$this->list_ping_function = function($con)
 		{
 			$players = [];
@@ -190,7 +196,7 @@ class Server
 									}
 									else
 									{
-										$con->finishLogin(\Phpcraft\Uuid::v4(), $con->username);
+										$con->finishLogin(\Phpcraft\Uuid::v5("OfflinePlayer:".$con->username), $con->username, $this->eidCounter);
 										if($this->join_function)
 										{
 											($this->join_function)($con);
@@ -208,7 +214,7 @@ class Server
 							{
 								if($json = $con->handleEncryptionResponse($this->private_key))
 								{
-									$con->finishLogin(\Phpcraft\Uuid::fromString($json["id"]), $con->username);
+									$con->finishLogin(\Phpcraft\Uuid::fromString($json["id"]), $con->username, $this->eidCounter);
 									if($this->join_function)
 									{
 										($this->join_function)($con);

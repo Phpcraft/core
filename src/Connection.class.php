@@ -216,16 +216,34 @@ class Connection
 	}
 
 	/**
-	 * Adds a position to the write buffer.
-	 * @param integer $x
-	 * @param integer $y
-	 * @param integer $z
+	 * Adds a position encoded as one long to the write buffer.
 	 * @return Connection $this
 	 */
-	function writePosition($x, $y, $z)
+	function writePosition(\Phpcraft\Position $pos)
 	{
-		$this->writeLong((($x & 0x3FFFFFF) << 38) | (($y & 0xFFF) << 26) | ($z & 0x3FFFFFF));
-		return $this;
+		return $this->writeLong((($pos->x & 0x3FFFFFF) << 38) | (($pos->y & 0xFFF) << 26) | ($pos->z & 0x3FFFFFF));
+	}
+
+	/**
+	 * Adds a position encoded as three double to the write buffer.
+	 * @return Connection $this
+	 */
+	function writePrecisePosition(\Phpcraft\Position $pos)
+	{
+		$this->writeDouble($pos->x);
+		$this->writeDouble($pos->y);
+		return $this->writeDouble($pos->z);
+	}
+
+	/**
+	 * Adds a position encoded as three ints to the write buffer.
+	 * @return Connection $this
+	 */
+	function writeFixedPointPosition(\Phpcraft\Position $pos)
+	{
+		$this->writeInt($pos->x * 32);
+		$this->writeInt($pos->y * 32);
+		return $this->writeInt($pos->z * 32);
 	}
 
 	/**
@@ -271,7 +289,21 @@ class Connection
 					}
 				}
 			}
-			$slot->getNBT()->send($this);
+			$nbt = $slot->getNBT();
+			if($this->protocol_version < 402 && $nbt instanceof \Phpcraft\NbtCompound)
+			{
+				$display = $nbt->getChild("display");
+				if($display && $display instanceof \Phpcraft\NbtCompound)
+				{
+					$name = $display->getChild("Name");
+					if($name && $name instanceof \Phpcraft\NbtString)
+					{
+						$name->value = \Phpcraft\Phpcraft::chatToText(json_decode($name->value, true), 2);
+						$nbt->addChild($display->addChild($name));
+					}
+				}
+			}
+			$nbt->send($this);
 		}
 		return $this;
 	}
@@ -326,16 +358,16 @@ class Connection
 						$compressed = gzcompress($this->write_buffer, 1);
 						$compressed_length = strlen($compressed);
 						$length_varint = Phpcraft::intToVarInt($length);
-						fwrite($this->stream, Phpcraft::intToVarInt($compressed_length + strlen($length_varint)).$length_varint.$compressed);
+						fwrite($this->stream, Phpcraft::intToVarInt($compressed_length + strlen($length_varint)).$length_varint.$compressed) or $this->close();
 					}
 					else
 					{
-						fwrite($this->stream, Phpcraft::intToVarInt($length + 1)."\x00".$this->write_buffer);
+						fwrite($this->stream, Phpcraft::intToVarInt($length + 1)."\x00".$this->write_buffer) or $this->close();
 					}
 				}
 				else
 				{
-					fwrite($this->stream, Phpcraft::intToVarInt($length).$this->write_buffer);
+					fwrite($this->stream, Phpcraft::intToVarInt($length).$this->write_buffer) or $this->close();
 				}
 			}
 			stream_set_blocking($this->stream, false);
@@ -623,17 +655,37 @@ class Connection
 	}
 
 	/**
-	 * Reads a position from the read buffer.
+	 * Reads a position encoded as one long from the read buffer.
 	 * @throws Exception When there are not enough bytes to read a position.
-	 * @return array An array containing x, y, and z of the position.
+	 * @return Position
 	 */
 	function readPosition()
 	{
-		$val = readLong(false);
+		$val = $this->readLong();
 		$x = $val >> 38;
 		$y = ($val >> 26) & 0xFFF;
 		$z = $val << 38 >> 38;
-		return [$x, $y, $z];
+		return new \Phpcraft\Position($x, $y, $z);
+	}
+
+	/**
+	 * Reads a position encoded as three doubles from the read buffer.
+	 * @throws Exception When there are not enough bytes to read a position.
+	 * @return Position
+	 */
+	function readPrecisePosition()
+	{
+		return new \Phpcraft\Position($this->readDouble(), $this->readDouble(), $this->readDouble());
+	}
+
+	/**
+	 * Reads a position encoded as three ints from the read buffer.
+	 * @throws Exception When there are not enough bytes to read a position.
+	 * @return Position
+	 */
+	function readFixedPointPosition()
+	{
+		return new \Phpcraft\Position($this->readInt() / 32, $this->readInt() / 32, $this->readInt() / 32);
 	}
 
 	/**
@@ -793,9 +845,31 @@ class Connection
 		$slot = new \Phpcraft\Slot();
 		if($this->protocol_version >= 402)
 		{
-			if($this->readBoolean())
+			if(!$this->readBoolean())
 			{
-				$id = $this->readVarInt();
+				return $slot;
+			}
+			$id = $this->readVarInt();
+			foreach(\Phpcraft\Item::all() as $item)
+			{
+				if($item->id == $id)
+				{
+					$slot->item = $item;
+					break;
+				}
+			}
+			$slot->count = $this->readByte();
+		}
+		else
+		{
+			$id = $this->readShort();
+			if($id <= 0)
+			{
+				return $slot;
+			}
+			$slot->count = $this->readByte();
+			if($this->protocol_version >= 346)
+			{
 				foreach(\Phpcraft\Item::all() as $item)
 				{
 					if($item->id == $id)
@@ -804,65 +878,57 @@ class Connection
 						break;
 					}
 				}
-				$slot->count = $this->readByte();
-				$slot->nbt = $this->readNBT();
+			}
+			else
+			{
+				$metadata = $this->readShort();
+				if($metadata > 0)
+				{
+					switch($id)
+					{
+						case 358:
+						if(!($slot->nbt instanceof \Phpcraft\NbtCompound))
+						{
+							$slot->nbt = new \Phpcraft\NbtCompound("tag", []);
+						}
+						$addMap = true;
+						$children_ = [];
+						foreach($slot->nbt->children as $child)
+						{
+							if($child->name == "map")
+							{
+								if(@$child->value !== $metadata)
+								{
+									continue;
+								}
+								$addMap = false;
+							}
+							array_push($children_, $child);
+						}
+						if($addMap)
+						{
+							array_push($children_, new \Phpcraft\NbtInt("map", $metadata));
+						}
+						$slot->nbt->children = $children_;
+						$metadata = 0;
+						break;
+					}
+				}
+				$slot->item = \Phpcraft\Item::getLegacy($id, $metadata);
 			}
 		}
-		else
+		$slot->nbt = $this->readNBT();
+		if($this->protocol_version < 402 && $slot->nbt instanceof \Phpcraft\NbtCompound)
 		{
-			$id = $this->readShort();
-			if($id >= 0)
+			$display = $slot->nbt->getChild("display");
+			if($display && $display instanceof \Phpcraft\NbtCompound)
 			{
-				$slot->count = $this->readByte();
-				if($this->protocol_version >= 346)
+				$name = $display->getChild("Name");
+				if($name && $name instanceof \Phpcraft\NbtString)
 				{
-					foreach(\Phpcraft\Item::all() as $item)
-					{
-						if($item->id == $id)
-						{
-							$slot->item = $item;
-							break;
-						}
-					}
+					$name->value = json_encode(\Phpcraft\Phpcraft::textToChat($name->value));
+					$slot->nbt->addChild($display->addChild($name));
 				}
-				else
-				{
-					$metadata = $this->readShort();
-					if($metadata > 0)
-					{
-						switch($id)
-						{
-							case 358:
-							if(!($slot->nbt instanceof \Phpcraft\NbtCompound))
-							{
-								$slot->nbt = new \Phpcraft\NbtCompound("tag", []);
-							}
-							$addMap = true;
-							$children_ = [];
-							foreach($slot->nbt->children as $child)
-							{
-								if($child->name == "map")
-								{
-									if(@$child->value !== $metadata)
-									{
-										continue;
-									}
-									$addMap = false;
-								}
-								array_push($children_, $child);
-							}
-							if($addMap)
-							{
-								array_push($children_, new \Phpcraft\NbtInt("map", $metadata));
-							}
-							$slot->nbt->children = $children_;
-							$metadata = 0;
-							break;
-						}
-					}
-					$slot->item = \Phpcraft\Item::getLegacy($id, $metadata);
-				}
-				$slot->nbt = $this->readNBT();
 			}
 		}
 		return $slot;

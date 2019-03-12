@@ -46,16 +46,78 @@ class Slot
 		$this->nbt = $nbt;
 	}
 
+	/**
+	 * Returns the display name of the item in this slot as a chat object or null if not set.
+	 * @return array
+	 */
+	function getDisplayName()
+	{
+		$nbt = $this->getNBT();
+		if($nbt instanceof \Phpcraft\NbtCompound)
+		{
+			$display = $nbt->getChild("display");
+			if($display && $display instanceof \Phpcraft\NbtCompound)
+			{
+				$name = $display->getChild("Name");
+				if($name && $name instanceof \Phpcraft\NbtString)
+				{
+					return json_decode($name->value, true);
+				}
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * Sets the display name of the item in this slot.
+	 * @param string $name The new display name; chat object, or null to clear.
+	 * @return Slot $this
+	 */
+	function setDisplayName($name)
+	{
+		$name = json_encode($name);
+		$nbt = $this->getNBT();
+		if(!($nbt instanceof \Phpcraft\NbtCompound))
+		{
+			$nbt = new \Phpcraft\NbtCompound("tag");
+		}
+		$display = $nbt->getChild("display");
+		if(!$display || !($display instanceof \Phpcraft\NbtCompound))
+		{
+			array_push($nbt->children, $display = new \Phpcraft\NbtCompound("display"));
+		}
+		$display_name = $display->getChild("Name");
+		if($display_name && $display_name instanceof \Phpcraft\NbtString)
+		{
+			$display_name->value = $name;
+		}
+		else
+		{
+			$display_name = new \Phpcraft\NbtString("Name", $name);
+		}
+		$this->nbt = $nbt->addChild($display->addChild($display_name));
+		return $this;
+	}
+
+	/**
+	 * @return NbtTag
+	 */
 	function getNBT()
 	{
 		return $this->nbt == null ? new \Phpcraft\NbtEnd() : $this->nbt;
 	}
 
+	/**
+	 * @return boolean
+	 */
 	function hasNBT()
 	{
 		return $this->nbt != null && !($this->nbt instanceof \Phpcraft\NbtEnd);
 	}
 
+	/**
+	 * @return boolean
+	 */
 	static function isEmpty($slot)
 	{
 		return $slot == null || $slot->item == null || $slot->count < 1 || $slot->count > 64;

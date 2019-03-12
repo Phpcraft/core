@@ -95,4 +95,13 @@ class Uuid
 		}
 		return $str;
 	}
+
+	/**
+	 * Returns an integer which will always be the same given the same Uuid, but collisions are far more likely.
+	 * @return integer
+	 */
+	function toInt()
+	{
+		return gmp_intval(gmp_import(substr($this->binary, 0, 2).substr($this->binary, -2)));
+	}
 }

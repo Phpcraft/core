@@ -5,7 +5,7 @@ final class NBTTest extends \PHPUnit\Framework\TestCase
 	function testReadAndWriteListCompoundAndInt()
 	{
 		$bin = "\x09\x00\x04List\x0A\x00\x00\x00\x01\x03\x00\x03Int\xFF\xFF\xFF\xFF\x00";
-		$con = new \Phpcraft\Connection(-1);
+		$con = new \Phpcraft\Connection();
 		$con->read_buffer = $bin;
 		$list = $con->readNBT();
 		$this->assertEquals("", $con->read_buffer);

@@ -73,7 +73,7 @@ $server->join_function = function($con)
 	$client_con = $con;
 	echo $con->username." has joined.\n";
 	$packet = new \Phpcraft\JoinGamePacket();
-	$packet->entityId = -1;
+	$packet->eid = $con->eid;
 	$packet->gamemode = \Phpcraft\Gamemode::SURVIVAL;
 	$packet->dimension = \Phpcraft\Dimension::OVERWORLD;
 	$packet->difficulty = \Phpcraft\Difficulty::PEACEFUL;
@@ -317,7 +317,7 @@ do
 				{
 					$client_con->startPacket($packet_name);
 					$eid = $server_con->readVarInt();
-					$client_con->writeVarInt($eid == $server_eid ? -1 : $eid);
+					$client_con->writeVarInt($eid == $server_eid ? $con->eid : $eid);
 					$client_con->write_buffer .= $server_con->read_buffer;
 					$client_con->send();
 				}
@@ -338,7 +338,7 @@ do
 				else if($packet_name == "join_game")
 				{
 					$packet = \Phpcraft\JoinGamePacket::read($server_con);
-					$server_eid = $packet->entityId;
+					$server_eid = $packet->eid;
 					$client_con->startPacket("change_game_state");
 					$client_con->writeByte(3);
 					$client_con->writeFloat($packet->gamemode);

@@ -1,0 +1,7 @@
+<map id="Phpcraft\BossBarPacket" name="Phpcraft\BossBarPacket">
+<area shape="rect" id="node3" href="$classPhpcraft_1_1AddBossBarPacket.html" title="Phpcraft\\AddBossBarPacket" alt="" coords="411,5,609,32"/>
+<area shape="rect" id="node4" href="$classPhpcraft_1_1RemoveBossBarPacket.html" title="Phpcraft\\RemoveBossBarPacket" alt="" coords="397,56,623,83"/>
+<area shape="rect" id="node5" href="$classPhpcraft_1_1UpdateBossBarHealthPacket.html" title="Phpcraft\\UpdateBossBarHealth\lPacket" alt="" coords="399,107,621,149"/>
+<area shape="rect" id="node6" href="$classPhpcraft_1_1UpdateBossBarTitlePacket.html" title="Phpcraft\\UpdateBossBarTitle\lPacket" alt="" coords="407,173,613,214"/>
+<area shape="rect" id="node2" href="$classPhpcraft_1_1Packet.html" title="Phpcraft\\Packet" alt="" coords="5,85,127,112"/>
+</map>

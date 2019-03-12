@@ -179,6 +179,10 @@ $server->packet_function = function($con, $packet_name, $packet_id)
 			}
 		}
 	}
+	else if($packet_name == "player_position" || $packet_name == "player_position_and_look")
+	{
+		$con->pos = $con->readPrecisePosition();
+	}
 };
 $server->disconnect_function = function($con)
 {
@@ -256,12 +260,17 @@ do
 		}
 	}
 	$time = microtime(true);
+	$ticks = 0;
 	while($next_tick <= $time) // executed for every 50 ms
 	{
 		\Phpcraft\PluginManager::fire(new \Phpcraft\Event("tick", [
 			"server" => $server
 		]));
 		$time = microtime(true);
+		if(++$ticks == 4)
+		{
+			break;
+		}
 		$next_tick = ($time + 0.05 - ($time - $next_tick));
 	}
 	if(($remaining = (0.020 - ($time - $start))) > 0) // Make sure we've waited at least 20 ms before going again because otherwise we'd be polling too much

@@ -76,6 +76,10 @@ $(function() {
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a237702a893e49f5513c8097afbde7926"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Slot.html#a237702a893e49f5513c8097afbde7926">__construct</a> (\<a class="el" href="classPhpcraft_1_1Item.html">Phpcraft\Item</a> $item=null, $count=1, \<a class="el" href="classPhpcraft_1_1NbtTag.html">Phpcraft\NbtTag</a> $nbt=null)</td></tr>
 <tr class="separator:a237702a893e49f5513c8097afbde7926"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1c809a50269c8c74cc8ac44d8a95bc56"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Slot.html#a1c809a50269c8c74cc8ac44d8a95bc56">getDisplayName</a> ()</td></tr>
+<tr class="separator:a1c809a50269c8c74cc8ac44d8a95bc56"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaf7817d2495761702c50d5dc576bdb99"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Slot.html#aaf7817d2495761702c50d5dc576bdb99">setDisplayName</a> ($name)</td></tr>
+<tr class="separator:aaf7817d2495761702c50d5dc576bdb99"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a18674a07610681a139c5e1802e474e99"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Slot.html#a18674a07610681a139c5e1802e474e99">getNBT</a> ()</td></tr>
 <tr class="separator:a18674a07610681a139c5e1802e474e99"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acc9a6853269f721a82a0bbe53616526e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Slot.html#acc9a6853269f721a82a0bbe53616526e">hasNBT</a> ()</td></tr>
@@ -169,6 +173,24 @@ Public Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a1c809a50269c8c74cc8ac44d8a95bc56"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1c809a50269c8c74cc8ac44d8a95bc56">&#9670;&nbsp;</a></span>getDisplayName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Phpcraft\Slot::getDisplayName </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Returns the display name of the item in this slot as a chat object or null if not set. </p><dl class="section return"><dt>Returns</dt><dd>array </dd></dl>
+
+</div>
+</div>
 <a id="a18674a07610681a139c5e1802e474e99"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a18674a07610681a139c5e1802e474e99">&#9670;&nbsp;</a></span>getNBT()</h2>
 
@@ -183,6 +205,7 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classPhpcraft_1_1NbtTag.html">NbtTag</a> </dd></dl>
 
 </div>
 </div>
@@ -200,6 +223,7 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>boolean </dd></dl>
 
 </div>
 </div>
@@ -226,6 +250,32 @@ Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>boolean </dd></dl>
+
+</div>
+</div>
+<a id="aaf7817d2495761702c50d5dc576bdb99"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaf7817d2495761702c50d5dc576bdb99">&#9670;&nbsp;</a></span>setDisplayName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Phpcraft\Slot::setDisplayName </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$name</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Sets the display name of the item in this slot. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$name</td><td>The new display name; chat object, or null to clear. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classPhpcraft_1_1Slot.html">Slot</a> $this </dd></dl>
 
 </div>
 </div>
