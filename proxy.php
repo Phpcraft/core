@@ -63,6 +63,11 @@ $server->list_ping_function = function($con)
 };
 $server->join_function = function($con)
 {
+	if(!Phpcraft::isProtocolVersionSupported($con->protocol_version))
+	{
+		$con->disconnect(["text" => "You're using an incompatible version."]);
+		return;
+	}
 	global $account, $client_con;
 	if($client_con)
 	{

@@ -98,13 +98,11 @@ class ClientConnection extends Connection
 						}
 						else if($this->state == 2)
 						{
-							if(Phpcraft::isProtocolVersionSupported($this->protocol_version))
-							{
-								return 1;
-							}
-							$this->writeVarInt(0x00);
-							$this->writeString('{"text":"You\'re using an incompatible version."}');
-							$this->send();
+							return 1;
+						}
+						else
+						{
+							$this->disconnect(["text" => "Invalid state: ".$this->state]);
 						}
 					}
 				}
@@ -231,7 +229,7 @@ class ClientConnection extends Connection
 				{
 					$this->startPacket("disconnect");
 				}
-				$this->writeString(json_encode($reason));
+				$this->writeChat($reason);
 				$this->send();
 			}
 			catch(Exception $ignored){}

@@ -89,6 +89,11 @@ $ui->tabcomplete_function = function($word)
 };
 $server->join_function = function($con)
 {
+	if(!Phpcraft::isProtocolVersionSupported($con->protocol_version))
+	{
+		$con->disconnect(["text" => "You're using an incompatible version."]);
+		return;
+	}
 	global $ui, $server;
 	if(\Phpcraft\PluginManager::fire(new \Phpcraft\Event("join", [
 		"server" => $server,
