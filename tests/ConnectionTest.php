@@ -67,4 +67,12 @@ final class ConnectionTest extends \PHPUnit\Framework\TestCase
 		$con->read_buffer = $con->write_buffer;
 		$this->assertEquals("Ä", $con->readString());
 	}
+
+	function testReadAndWriteChatObject()
+	{
+		$con = new \Phpcraft\Connection();
+		$con->writeChat("Hi");
+		$con->read_buffer = $con->write_buffer;
+		$this->assertEquals(["text" => "Hi"], $con->readChat());
+	}
 }

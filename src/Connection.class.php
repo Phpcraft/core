@@ -126,11 +126,19 @@ class Connection
 
 	/**
 	 * Adds a chat object to the read buffer.
-	 * @param array $value
+	 * @param array|string $value Strings will be converted to chat objects.
 	 * @return Connection $this
 	 */
 	function writeChat($value)
 	{
+		if(gettype($value) == "string")
+		{
+			$value = \Phpcraft\Phpcraft::textToChat($value);
+		}
+		else if(gettype($value) != "array")
+		{
+			throw new \Phpcraft\Exception("Invalid argument type: ".gettype($value));
+		}
 		$this->writeString(json_encode($value));
 	}
 
