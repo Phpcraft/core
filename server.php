@@ -267,7 +267,7 @@ do
 			"server" => $server
 		]));
 		$time = microtime(true);
-		if(++$ticks == 4)
+		if(++$ticks == 10)
 		{
 			break;
 		}

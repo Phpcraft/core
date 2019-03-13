@@ -133,7 +133,7 @@ class ClientConnection extends Connection
 	{
 		if($this->state == 2)
 		{
-			$this->writeVarInt(0x01);
+			$this->write_buffer = \Phpcraft\Phpcraft::intToVarInt(0x01);
 			$this->writeString(""); // Server ID
 			$this->writeString(base64_decode(trim(substr(openssl_pkey_get_details($private_key)["key"], 26, -24)))); // Public Key
 			$this->writeString("1337"); // Verify Token
@@ -173,13 +173,10 @@ class ClientConnection extends Connection
 		$opts = ["mode" => "cfb", "iv" => $shared_secret, "key" => $shared_secret];
 		stream_filter_append($this->stream, "mcrypt.rijndael-128", STREAM_FILTER_WRITE, $opts);
 		stream_filter_append($this->stream, "mdecrypt.rijndael-128", STREAM_FILTER_READ, $opts);
-		$json = @json_decode(@file_get_contents("https://sessionserver.mojang.com/session/minecraft/hasJoined?username={$this->username}&serverId=".Phpcraft::sha1($shared_secret.base64_decode(trim(substr(openssl_pkey_get_details($private_key)["key"], 26, -24))))), true);
+		$json = json_decode(file_get_contents("https://sessionserver.mojang.com/session/minecraft/hasJoined?username=".$this->username."&serverId=".Phpcraft::sha1($shared_secret.base64_decode(trim(substr(openssl_pkey_get_details($private_key)["key"], 26, -24))))), true);
 		if(!$json || empty($json["id"]) || @$json["name"] !== $this->username)
 		{
-			$this->writeVarInt(0x00);
-			$this->writeString('{"text":"Failed to authenticate against session server."}');
-			$this->send();
-			$this->close();
+			$this->disconnect(["text" => "Failed to authenticate against session server."]);
 			return false;
 		}
 		return $json;
@@ -188,27 +185,26 @@ class ClientConnection extends Connection
 	/**
 	 * Sets the compression threshold and finishes the login.
 	 * @param Uuid $uuid The Uuid of the client.
-	 * @param string $name The name the client presented in the Login Start packet.
 	 * @param Counter $eidCounter The server's Counter to assign an entity ID to the client.
 	 * @param integer $compression_threshold Use -1 to disable compression.
 	 * @return ClientConnection $this
 	 * @see Phpcraft::generateUUIDv4()
 	 * @see Phpcraft::addHypensToUUID()
 	 */
-	function finishLogin(\Phpcraft\Uuid $uuid, $name, \Phpcraft\Counter $eidCounter, $compression_threshold = 256)
+	function finishLogin(\Phpcraft\Uuid $uuid, \Phpcraft\Counter $eidCounter, $compression_threshold = 256)
 	{
 		if($this->state == 2)
 		{
 			if($compression_threshold > -1 || $this->protocol_version < 48)
 			{
-				$this->writeVarInt(0x03);
+				$this->write_buffer = \Phpcraft\Phpcraft::intToVarInt(0x03);
 				$this->writeVarInt($compression_threshold);
 				$this->send();
 			}
 			$this->compression_threshold = $compression_threshold;
-			$this->writeVarInt(0x02);
+			$this->write_buffer = \Phpcraft\Phpcraft::intToVarInt(0x02);
 			$this->writeString(($this->uuid = $uuid)->toString(true));
-			$this->writeString($name);
+			$this->writeString($this->username);
 			$this->send();
 			$this->chunks = [];
 			$this->eid = $eidCounter->next();

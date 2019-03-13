@@ -85,9 +85,16 @@ class PluginManager
 		{
 			return $b["priority"] - $a["priority"];
 		});
-		foreach($handlers as $handler)
+		try
 		{
-			$handler["function"]($event);
+			foreach($handlers as $handler)
+			{
+				$handler["function"]($event);
+			}
+		}
+		catch(Exception $e)
+		{
+			echo "Unhandled exception in plugin: ".get_class($e).": ".$e->getMessage()."\n".$e->getTraceAsString()."\n";
 		}
 		return $event->isCancelled();
 	}

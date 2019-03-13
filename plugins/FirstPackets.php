@@ -48,9 +48,8 @@ PluginManager::registerPlugin("FirstPackets", function($plugin)
 	$plugin->on("tick", function($event)
 	{
 		$chunks_limit = 2; // chunks/tick limit
-		//for($render_distance = 4; $render_distance <= 8; $render_distance++)
+		for($render_distance = 4; $render_distance <= 8; $render_distance += 2)
 		{
-			$render_distance = 4;
 			foreach($event->data["server"]->clients as $con)
 			{
 				if($con->state != 3)

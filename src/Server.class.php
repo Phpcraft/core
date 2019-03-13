@@ -196,7 +196,7 @@ class Server
 									}
 									else
 									{
-										$con->finishLogin(\Phpcraft\Uuid::v5("OfflinePlayer:".$con->username), $con->username, $this->eidCounter);
+										$con->finishLogin(\Phpcraft\Uuid::v5("OfflinePlayer:".$con->username), $this->eidCounter);
 										if($this->join_function)
 										{
 											($this->join_function)($con);
@@ -214,7 +214,7 @@ class Server
 							{
 								if($json = $con->handleEncryptionResponse($this->private_key))
 								{
-									$con->finishLogin(\Phpcraft\Uuid::fromString($json["id"]), $con->username, $this->eidCounter);
+									$con->finishLogin(\Phpcraft\Uuid::fromString($json["id"]), $this->eidCounter);
 									if($this->join_function)
 									{
 										($this->join_function)($con);
