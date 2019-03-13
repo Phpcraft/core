@@ -1,7 +1,0 @@
-<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classPhpcraft_1_1Flattenable.html" title="Phpcraft\\Flattenable" alt="" coords="5,31,156,57"/>
-<area shape="rect" id="node2" href="$classPhpcraft_1_1EntityType.html" title="Phpcraft\\EntityType" alt="" coords="204,5,347,32"/>
-<area shape="rect" id="node3" href="$classPhpcraft_1_1Material.html" title="Phpcraft\\Material" alt="" coords="210,56,341,83"/>
-<area shape="rect" id="node4" href="$classPhpcraft_1_1BlockMaterial.html" title="Phpcraft\\BlockMaterial" alt="" coords="395,31,559,57"/>
-<area shape="rect" id="node5" href="$classPhpcraft_1_1Item.html" title="Phpcraft\\Item" alt="" coords="423,81,531,108"/>
-</map>
