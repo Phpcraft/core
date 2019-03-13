@@ -85,7 +85,8 @@ class AddBossBarPacket extends BossBarPacket
 		{
 			$packet = new \Phpcraft\SpawnMobPacket(
 				$this->uuid->toInt() * -1,
-				\Phpcraft\EntityType::get("ender_dragon")
+				\Phpcraft\EntityType::get("ender_dragon"),
+				$this->uuid
 			);
 			if($con instanceof \Phpcraft\ClientConnection)
 			{

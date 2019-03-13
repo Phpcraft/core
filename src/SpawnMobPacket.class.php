@@ -8,6 +8,11 @@ class SpawnMobPacket extends Packet
 	 */
 	public $eid;
 	/**
+	 * The Uuid of the entity.
+	 * @var Uuid $uuid
+	 */
+	public $uuid;
+	/**
 	 * The type of mob.
 	 * @var EntityType $type
 	 */
@@ -24,7 +29,13 @@ class SpawnMobPacket extends Packet
 	public $metadata;
 	// TODO: Yaw, Pitch, Head Pitch & Velocity
 
-	function __construct($eid = 0, $type = null)
+	/**
+	 * The constructor.
+	 * @param integer $eid The entity ID of the mob.
+	 * @param EntityType $type The type of mob.
+	 * @param Uuid $uuid The Uuid of the entity.
+	 */
+	function __construct($eid = 0, $type = null, $uuid = null)
 	{
 		$this->eid = $eid;
 		if($type)
@@ -36,6 +47,14 @@ class SpawnMobPacket extends Packet
 		{
 			$this->metadata = new \Phpcraft\EntityBase();
 		}
+		if($uuid)
+		{
+			$this->uuid = $uuid;
+		}
+		else
+		{
+			$this->uuid = \Phpcraft\Uuid::v4();
+		}
 	}
 
 	/**
@@ -43,11 +62,29 @@ class SpawnMobPacket extends Packet
 	 */
 	static function read(\Phpcraft\Connection $con)
 	{
-		$packet = new \Phpcraft\SpawnMobPacket(
-			$con->readVarInt(),
-			$con->protocol_version >= 353 ? EntityType::get($con->readByte()) : EntityType::getLegacy($con->readByte())
-		);
-		$packet->pos = $con->readFixedPointPosition();
+		$eid = $con->readVarInt();
+		if($con->protocol_version >= 49)
+		{
+			$uuid = $con->readUuid();
+		}
+		else
+		{
+			$uuid = null;
+		}
+		if($con->protocol_version >= 353)
+		{
+			$type = EntityType::get($con->readVarInt());
+		}
+		else if($con->protocol_version >= 301)
+		{
+			$type = EntityType::getLegacy($con->readVarInt());
+		}
+		else
+		{
+			$type = EntityType::getLegacy($con->readByte());
+		}
+		$packet = new \Phpcraft\SpawnMobPacket($eid, $type, $uuid);
+		$packet->pos = $con->protocol_version >= 100 ? $con->readPrecisePosition() : $con->readFixedPointPosition();
 		$con->ignoreBytes(9); // Yaw, Pitch, Head Pitch & Velocity
 		$packet->metadata->read($con);
 		return $packet;
@@ -60,15 +97,30 @@ class SpawnMobPacket extends Packet
 	{
 		$con->startPacket("spawn_mob");
 		$con->writeVarInt($this->eid);
+		if($con->protocol_version >= 49)
+		{
+			$con->writeUuid($this->uuid);
+		}
 		if($con->protocol_version >= 353)
 		{
-			$con->writeByte($this->type->id);
+			$con->writeVarInt($this->type->id);
+		}
+		else if($con->protocol_version >= 301)
+		{
+			$con->writeVarInt($this->type->legacy_id);
 		}
 		else
 		{
 			$con->writeByte($this->type->legacy_id);
 		}
-		$con->writeFixedPointPosition($this->pos);
+		if($con->protocol_version >= 100)
+		{
+			$con->writePrecisePosition($this->pos);
+		}
+		else
+		{
+			$con->writeFixedPointPosition($this->pos);
+		}
 		$con->writeByte(0); // Yaw
 		$con->writeByte(0); // Pitch
 		$con->writeByte(0); // Head Pitch
