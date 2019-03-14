@@ -482,7 +482,7 @@ function handleConsoleMessage($msg)
 	if($send)
 	{
 		global $con;
-		$con->startPacket("send_chat_message");
+		$con->startPacket("serverbound_chat_message");
 		$con->writeString($msg);
 		$con->send();
 	}
@@ -554,7 +554,7 @@ do
 			{
 				continue;
 			}
-			if($packet_name == "chat_message")
+			if($packet_name == "clientbound_chat_message")
 			{
 				$message = $con->readString();
 				if($con->readByte() != 2) // TODO: Above Hotbar

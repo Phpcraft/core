@@ -21,7 +21,7 @@ PluginManager::registerPlugin("FirstPackets", function($plugin)
 		$packet->dimension = \Phpcraft\Dimension::OVERWORLD;
 		$packet->difficulty = \Phpcraft\Difficulty::PEACEFUL;
 		$packet->send($con);
-		$con->startPacket("plugin_message");
+		$con->startPacket("clientbound_plugin_message");
 		$con->writeString($con->protocol_version > 340 ? "minecraft:brand" : "MC|Brand");
 		$con->writeString("\\Phpcraft\\Server");
 		$con->send();
@@ -36,12 +36,8 @@ PluginManager::registerPlugin("FirstPackets", function($plugin)
 		$con->writeString('{"text":"Phpcraft Server"}');
 		$con->writeString('{"text":"github.com/timmyrs/Phpcraft"}');
 		$con->send();
-		$con->startPacket("chat_message");
+		$con->startPacket("clientbound_chat_message");
 		$con->writeString('{"text":"Welcome to this Phpcraft server."}');
-		$con->writeByte(1);
-		$con->send();
-		$con->startPacket("chat_message");
-		$con->writeString('{"text":"You can chat with other players here. That\'s it."}');
 		$con->writeByte(1);
 		$con->send();
 	}, \Phpcraft\Event::PRIORITY_NORMAL);

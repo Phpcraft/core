@@ -328,12 +328,20 @@ class Connection
 
 	/**
 	 * Clears the write buffer and starts a new packet.
-	 * @param string $name The name of the new packet. For a list of packet names, check the source code of Packet.
+	 * @param string|integer $packet The name or ID of the new packet. For a list of packet names, check the source code of Packet.
 	 * @return Connection $this
 	 */
-	function startPacket($name)
+	function startPacket($packet)
 	{
-		$this->write_buffer = Phpcraft::intToVarInt(Packet::getId($name, $this->protocol_version));
+		if(gettype($packet) == "string")
+		{
+			$packet = Packet::getId($packet, $this->protocol_version);
+		}
+		else if(gettype($packet) != "integer")
+		{
+			throw new \Phpcraft\Exception("Packet has to be either string or integer.");
+		}
+		$this->write_buffer = Phpcraft::intToVarInt($packet);
 		return $this;
 	}
 

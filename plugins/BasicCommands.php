@@ -17,7 +17,7 @@ PluginManager::registerPlugin("BasicCommands", function($plugin)
 		$con = $event->data["client"];
 		if(substr($event->data["message"], 0, 11) == "/abilities ")
 		{
-			$con->startPacket("set_player_abilities");
+			$con->startPacket("clientbound_player_abilities");
 			$con->writeByte(hexdec(substr($event->data["message"], 11, 1)));
 			$con->writeFloat(0.4000000059604645);
 			$con->writeFloat(0.699999988079071);
@@ -43,7 +43,7 @@ PluginManager::registerPlugin("BasicCommands", function($plugin)
 		}
 		else
 		{
-			$con->startPacket("chat_message");
+			$con->startPacket("clientbound_chat_message");
 			$con->writeString(json_encode(["text" => "That's not any command I know. Try /abilities <0-F>, /gamemode <0-3>, or /metadata <00-FF>."]));
 			$con->writeByte(0);
 			$con->send();

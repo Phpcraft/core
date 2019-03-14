@@ -89,7 +89,7 @@ $ui->tabcomplete_function = function($word)
 };
 $server->join_function = function($con)
 {
-	if(!Phpcraft::isProtocolVersionSupported($con->protocol_version))
+	if(!\Phpcraft\Phpcraft::isProtocolVersionSupported($con->protocol_version))
 	{
 		$con->disconnect(["text" => "You're using an incompatible version."]);
 		return;
@@ -120,7 +120,7 @@ $server->join_function = function($con)
 		{
 			try
 			{
-				$c->startPacket("chat_message");
+				$c->startPacket("clientbound_chat_message");
 				$c->writeString($msg);
 				$c->writeByte(1);
 				$c->send();
@@ -140,7 +140,7 @@ $server->packet_function = function($con, $packet_name, $packet_id)
 	{
 		return;
 	}
-	if($packet_name == "send_chat_message")
+	if($packet_name == "serverbound_chat_message")
 	{
 		$msg = $con->readString();
 		if(\Phpcraft\PluginManager::fire(new \Phpcraft\Event("chat_message", [
@@ -175,7 +175,7 @@ $server->packet_function = function($con, $packet_name, $packet_id)
 			{
 				try
 				{
-					$c->startPacket("chat_message");
+					$c->startPacket("clientbound_chat_message");
 					$c->writeString($msg);
 					$c->writeByte(1);
 					$c->send();
@@ -211,7 +211,7 @@ $server->disconnect_function = function($con)
 			{
 				try
 				{
-					$c->startPacket("chat_message");
+					$c->startPacket("clientbound_chat_message");
 					$c->writeString($msg);
 					$c->writeByte(1);
 					$c->send();
@@ -255,7 +255,7 @@ do
 			{
 				try
 				{
-					$c->startPacket("chat_message");
+					$c->startPacket("clientbound_chat_message");
 					$c->writeString($msg);
 					$c->writeByte(1);
 					$c->send();

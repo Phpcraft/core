@@ -28,7 +28,7 @@ PluginManager::registerPlugin("WorldImmitator", function($plugin)
 		global $WorldImmitator_version;
 		if($event->data["client"]->protocol_version != $WorldImmitator_version)
 		{
-			$event->data["client"]->startPacket("chat_message");
+			$event->data["client"]->startPacket("clientbound_chat_message");
 			$event->data["client"]->writeString(json_encode(["text" => "[WorldImmitator] I have packets for ".\Phpcraft\Phpcraft::getMinecraftVersionRangeFromProtocolVersion($WorldImmitator_version)." (protocol version ".$WorldImmitator_version.") and we don't wanna find out what happens if I send them to you."]));
 			$event->data["client"]->writeByte(0);
 			$event->data["client"]->send();
