@@ -557,7 +557,7 @@ do
 			if($packet_name == "clientbound_chat_message")
 			{
 				$message = $con->readString();
-				if($con->readByte() != 2) // TODO: Above Hotbar
+				if($con->readByte() != 2)
 				{
 					$ui->add(\Phpcraft\Phpcraft::chatToText(json_decode($message, true), 1, $translations));
 				}

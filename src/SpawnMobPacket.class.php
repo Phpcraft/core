@@ -27,7 +27,6 @@ class SpawnMobPacket extends Packet
 	 * @var EntityMetadata $metadata
 	 */
 	public $metadata;
-	// TODO: Yaw, Pitch, Head Pitch & Velocity
 
 	/**
 	 * The constructor.
