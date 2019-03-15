@@ -5,7 +5,7 @@ class NbtEnd extends NbtTag
 	/**
 	 * @copydoc NbtTag::send
 	 */
-	function send(\Phpcraft\Connection $con, $inList = false)
+	function send(Connection $con, $inList = false)
 	{
 		$con->writeByte(0);
 	}

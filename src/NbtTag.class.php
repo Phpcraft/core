@@ -31,7 +31,7 @@ abstract class NbtTag
 	 * @param Connection $con
 	 * @param boolean $inList Ignore this parameter.
 	 */
-	abstract function send(\Phpcraft\Connection $con, $inList = false);
+	abstract function send(Connection $con, $inList = false);
 
 	protected function _send($con, $type)
 	{

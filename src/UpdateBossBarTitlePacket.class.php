@@ -21,7 +21,7 @@ class UpdateBossBarTitlePacket extends BossBarPacket
 	/**
 	 * @copydoc Packet::send
 	 */
-	function send(\Phpcraft\Connection $con)
+	function send(Connection $con)
 	{
 		if($con->protocol_version > 49)
 		{
@@ -34,7 +34,7 @@ class UpdateBossBarTitlePacket extends BossBarPacket
 		{
 			$con->startPacket("entity_metadata");
 			$con->writeVarInt($this->uuid->toInt() * -1);
-			$metadata = new \Phpcraft\EntityLiving();
+			$metadata = new EntityLiving();
 			$metadata->custom_name = $this->title;
 			$metadata->write($con);
 		}
@@ -43,6 +43,6 @@ class UpdateBossBarTitlePacket extends BossBarPacket
 
 	function toString()
 	{
-		return "{UpdateBossBarTitlePacket: Boss Bar ".$this->uuid->toString().", \"".\Phpcraft\Phpcraft::chatToText($this->title)."\"}";
+		return "{UpdateBossBarTitlePacket: Boss Bar ".$this->uuid->toString().", \"".Phpcraft::chatToText($this->title)."\"}";
 	}
 }

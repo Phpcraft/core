@@ -247,7 +247,7 @@ abstract class Packet
 	 */
 	function getPayload($protocol_version = -1)
 	{
-		$con = new \Phpcraft\Connection($protocol_version);
+		$con = new Connection($protocol_version);
 		$this->send($con);
 		$con->read_buffer = $con->write_buffer;
 		$con->readVarInt();
@@ -259,14 +259,14 @@ abstract class Packet
 	 * @param Connection $con
 	 * @return Packet
 	 */
-	abstract static function read(\Phpcraft\Connection $con);
+	abstract static function read(Connection $con);
 
 	/**
 	 * Adds the packet's ID and payload to the Connection's write buffer and, if the connection has a stream, sends it over the wire.
 	 * @param Connection $con
 	 * @return void
 	 */
-	abstract function send(\Phpcraft\Connection $con);
+	abstract function send(Connection $con);
 
 	abstract function toString();
 
@@ -275,30 +275,30 @@ abstract class Packet
 	 * Returns null if the packet does not have a class implementation yet.
 	 * @return Packet
 	 */
-	static function init($name, \Phpcraft\Connection $con)
+	static function init($name, Connection $con)
 	{
 		switch($name)
 		{
 			case "boss_bar":
-			return \Phpcraft\BossBarPacket::read($con);
+			return BossBarPacket::read($con);
 
 			case "join_game":
-			return \Phpcraft\JoinGamePacket::read($con);
+			return JoinGamePacket::read($con);
 
 			case "keep_alive_request":
-			return \Phpcraft\KeepAliveRequestPacket::read($con);
+			return KeepAliveRequestPacket::read($con);
 
 			case "keep_alive_response":
-			return \Phpcraft\KeepAliveResponsePacket::read($con);
+			return KeepAliveResponsePacket::read($con);
 
 			case "map_data":
-			return \Phpcraft\MapDataPacket::read($con);
+			return MapDataPacket::read($con);
 
 			case "set_slot":
-			return \Phpcraft\SetSlotPacket::read($con);
+			return SetSlotPacket::read($con);
 
 			case "spawn_mob":
-			return \Phpcraft\SpawnMobPacket::read($con);
+			return SpawnMobPacket::read($con);
 		}
 		return null;
 	}

@@ -12,7 +12,7 @@ class JoinGamePacket extends Packet
 	/**
 	 * @copydoc Packet::read
 	 */
-	static function read(\Phpcraft\Connection $con)
+	static function read(Connection $con)
 	{
 		$packet = new JoinGamePacket();
 		$packet->eid = $con->readInt();
@@ -33,7 +33,7 @@ class JoinGamePacket extends Packet
 	/**
 	 * @copydoc Packet::send
 	 */
-	function send(\Phpcraft\Connection $con)
+	function send(Connection $con)
 	{
 		$con->startPacket("join_game");
 		$con->writeInt($this->eid);

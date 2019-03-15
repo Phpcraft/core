@@ -20,7 +20,7 @@ class AssetsManager
 	 */
 	static function fromMinecraftVersion($version)
 	{
-		$versions_folder = \Phpcraft\Phpcraft::getMinecraftFolder()."/versions";
+		$versions_folder = Phpcraft::getMinecraftFolder()."/versions";
 		if(!file_exists($versions_folder) || !is_dir($versions_folder))
 		{
 			mkdir($versions_folder);
@@ -43,7 +43,7 @@ class AssetsManager
 			}
 			if(!file_exists($version_manifest) || !is_file($version_manifest))
 			{
-				throw new \Phpcraft\Exception("Failed to get version manifest for ".$version);
+				throw new Exception("Failed to get version manifest for ".$version);
 			}
 		}
 		return new AssetsManager(json_decode(file_get_contents($version_manifest), true)["assetIndex"]["url"]);
@@ -55,7 +55,7 @@ class AssetsManager
 	 */
 	function getAssetIndex()
 	{
-		$assets_dir = \Phpcraft\Phpcraft::getMinecraftFolder()."/assets";
+		$assets_dir = Phpcraft::getMinecraftFolder()."/assets";
 		if(!file_exists($assets_dir) || !is_dir($assets_dir))
 		{
 			mkdir($assets_dir);
@@ -91,7 +91,7 @@ class AssetsManager
 	function downloadAsset($name)
 	{
 		$asset_index = $this->getAssetIndex();
-		$objects_dir = \Phpcraft\Phpcraft::getMinecraftFolder()."/assets/objects";
+		$objects_dir = Phpcraft::getMinecraftFolder()."/assets/objects";
 		if(!file_exists($objects_dir) || !is_dir($objects_dir))
 		{
 			mkdir($objects_dir);
@@ -132,8 +132,8 @@ class AssetsManager
 	function buildLegacyAssetsFolder()
 	{
 		$asset_index = $this->getAssetIndex();
-		$virtual_dir = \Phpcraft\Phpcraft::getMinecraftFolder()."/assets/virtual";
-		\Phpcraft\Phpcraft::recursivelyDelete($virtual_dir);
+		$virtual_dir = Phpcraft::getMinecraftFolder()."/assets/virtual";
+		Phpcraft::recursivelyDelete($virtual_dir);
 		mkdir($virtual_dir);
 		$legacy_dir = $virtual_dir."/legacy";
 		mkdir($legacy_dir);

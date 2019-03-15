@@ -133,11 +133,11 @@ class Connection
 	{
 		if(gettype($value) == "string")
 		{
-			$value = \Phpcraft\Phpcraft::textToChat($value);
+			$value = Phpcraft::textToChat($value);
 		}
 		else if(gettype($value) != "array")
 		{
-			throw new \Phpcraft\Exception("Invalid argument type: ".gettype($value));
+			throw new Exception("Invalid argument type: ".gettype($value));
 		}
 		$this->writeString(json_encode($value));
 	}
@@ -227,7 +227,7 @@ class Connection
 	 * Adds a position encoded as one long to the write buffer.
 	 * @return Connection $this
 	 */
-	function writePosition(\Phpcraft\Position $pos)
+	function writePosition(Position $pos)
 	{
 		return $this->writeLong((($pos->x & 0x3FFFFFF) << 38) | (($pos->y & 0xFFF) << 26) | ($pos->z & 0x3FFFFFF));
 	}
@@ -236,7 +236,7 @@ class Connection
 	 * Adds a position encoded as three double to the write buffer.
 	 * @return Connection $this
 	 */
-	function writePrecisePosition(\Phpcraft\Position $pos)
+	function writePrecisePosition(Position $pos)
 	{
 		$this->writeDouble($pos->x);
 		$this->writeDouble($pos->y);
@@ -247,7 +247,7 @@ class Connection
 	 * Adds a position encoded as three ints to the write buffer.
 	 * @return Connection $this
 	 */
-	function writeFixedPointPosition(\Phpcraft\Position $pos)
+	function writeFixedPointPosition(Position $pos)
 	{
 		$this->writeInt($pos->x * 32);
 		$this->writeInt($pos->y * 32);
@@ -259,9 +259,9 @@ class Connection
 	 * @param Slot $slot
 	 * @return Connection $this
 	 */
-	function writeSlot(\Phpcraft\Slot $slot)
+	function writeSlot(Slot $slot)
 	{
-		if(\Phpcraft\Slot::isEmpty($slot))
+		if(Slot::isEmpty($slot))
 		{
 			if($this->protocol_version >= 402)
 			{
@@ -304,15 +304,15 @@ class Connection
 				}
 			}
 			$nbt = $slot->getNBT();
-			if($this->protocol_version < 402 && $nbt instanceof \Phpcraft\NbtCompound)
+			if($this->protocol_version < 402 && $nbt instanceof NbtCompound)
 			{
 				$display = $nbt->getChild("display");
-				if($display && $display instanceof \Phpcraft\NbtCompound)
+				if($display && $display instanceof NbtCompound)
 				{
 					$name = $display->getChild("Name");
-					if($name && $name instanceof \Phpcraft\NbtString)
+					if($name && $name instanceof NbtString)
 					{
-						$name->value = \Phpcraft\Phpcraft::chatToText(json_decode($name->value, true), 2);
+						$name->value = Phpcraft::chatToText(json_decode($name->value, true), 2);
 						$nbt->addChild($display->addChild($name));
 					}
 				}
@@ -326,7 +326,7 @@ class Connection
 	 * Adds a Uuid to the write buffer.
 	 * @return Connection $this
 	 */
-	function writeUuid(\Phpcraft\Uuid $uuid)
+	function writeUuid(Uuid $uuid)
 	{
 		$this->writeRaw($uuid->binary);
 		return $this;
@@ -345,7 +345,7 @@ class Connection
 		}
 		else if(gettype($packet) != "integer")
 		{
-			throw new \Phpcraft\Exception("Packet has to be either string or integer.");
+			throw new Exception("Packet has to be either string or integer.");
 		}
 		$this->write_buffer = Phpcraft::intToVarInt($packet);
 		return $this;
@@ -363,7 +363,7 @@ class Connection
 		{
 			if(@feof($this->stream) !== false)
 			{
-				throw new \Phpcraft\Exception("Can't send to connection that's not open.");
+				throw new Exception("Can't send to connection that's not open.");
 			}
 			stream_set_blocking($this->stream, true);
 			if($raw)
@@ -468,7 +468,7 @@ class Connection
 			$length |= (($byte & 0x7F) << ($read++ * 7));
 			if($read > 5)
 			{
-				throw new \Phpcraft\Exception("VarInt is too big");
+				throw new Exception("VarInt is too big");
 			}
 			if(($byte & 0x80) != 128)
 			{
@@ -527,13 +527,13 @@ class Connection
 		{
 			if(strlen($this->read_buffer) == 0)
 			{
-				throw new \Phpcraft\Exception("There are not enough bytes to read a VarInt.");
+				throw new Exception("There are not enough bytes to read a VarInt.");
 			}
 			$byte = $this->readByte();
 			$value |= (($byte & 0b01111111) << (7 * $read++));
 			if($read > 5)
 			{
-				throw new \Phpcraft\Exception("VarInt is too big");
+				throw new Exception("VarInt is too big");
 			}
 		}
 		while(($byte & 0b10000000) != 0);
@@ -559,11 +559,11 @@ class Connection
 		}
 		if($length > (($maxLength * 4) + 3))
 		{
-			throw new \Phpcraft\Exception("The string on the wire apparently has {$length} bytes which exceeds ".(($maxLength * 4) + 3).".");
+			throw new Exception("The string on the wire apparently has {$length} bytes which exceeds ".(($maxLength * 4) + 3).".");
 		}
 		if($length > strlen($this->read_buffer))
 		{
-			throw new \Phpcraft\Exception("String on the wire is apparently {$length} bytes long, but that exceeds the bytes in the read buffer.");
+			throw new Exception("String on the wire is apparently {$length} bytes long, but that exceeds the bytes in the read buffer.");
 		}
 		$str = substr($this->read_buffer, 0, $length);
 		$this->read_buffer = substr($this->read_buffer, $length);
@@ -590,7 +590,7 @@ class Connection
 	{
 		if(strlen($this->read_buffer) < 1)
 		{
-			throw new \Phpcraft\Exception("There are not enough bytes to read a byte.");
+			throw new Exception("There are not enough bytes to read a byte.");
 		}
 		$byte = unpack(($signed ? "c" : "C")."byte", substr($this->read_buffer, 0, 1))["byte"];
 		$this->read_buffer = substr($this->read_buffer, 1);
@@ -606,7 +606,7 @@ class Connection
 	{
 		if(strlen($this->read_buffer) < 1)
 		{
-			throw new \Phpcraft\Exception("There are not enough bytes to read a boolean.");
+			throw new Exception("There are not enough bytes to read a boolean.");
 		}
 		$byte = unpack("cbyte", substr($this->read_buffer, 0, 1))["byte"];
 		$this->read_buffer = substr($this->read_buffer, 1);
@@ -623,7 +623,7 @@ class Connection
 	{
 		if(strlen($this->read_buffer) < 2)
 		{
-			throw new \Phpcraft\Exception("There are not enough bytes to read a short.");
+			throw new Exception("There are not enough bytes to read a short.");
 		}
 		$short = unpack("nshort", substr($this->read_buffer, 0, 2))["short"];
 		$this->read_buffer = substr($this->read_buffer, 2);
@@ -644,7 +644,7 @@ class Connection
 	{
 		if(strlen($this->read_buffer) < 4)
 		{
-			throw new \Phpcraft\Exception("There are not enough bytes to read a int.");
+			throw new Exception("There are not enough bytes to read a int.");
 		}
 		$int = unpack("Nint", substr($this->read_buffer, 0, 4))["int"];
 		$this->read_buffer = substr($this->read_buffer, 4);
@@ -665,7 +665,7 @@ class Connection
 	{
 		if(strlen($this->read_buffer) < 8)
 		{
-			throw new \Phpcraft\Exception("There are not enough bytes to read a long.");
+			throw new Exception("There are not enough bytes to read a long.");
 		}
 		$long = gmp_import(substr($this->read_buffer, 0, 8));
 		$this->read_buffer = substr($this->read_buffer, 8);
@@ -687,7 +687,7 @@ class Connection
 		$x = $val >> 38;
 		$y = ($val >> 26) & 0xFFF;
 		$z = $val << 38 >> 38;
-		return new \Phpcraft\Position($x, $y, $z);
+		return new Position($x, $y, $z);
 	}
 
 	/**
@@ -697,7 +697,7 @@ class Connection
 	 */
 	function readPrecisePosition()
 	{
-		return new \Phpcraft\Position($this->readDouble(), $this->readDouble(), $this->readDouble());
+		return new Position($this->readDouble(), $this->readDouble(), $this->readDouble());
 	}
 
 	/**
@@ -707,7 +707,7 @@ class Connection
 	 */
 	function readFixedPointPosition()
 	{
-		return new \Phpcraft\Position($this->readInt() / 32, $this->readInt() / 32, $this->readInt() / 32);
+		return new Position($this->readInt() / 32, $this->readInt() / 32, $this->readInt() / 32);
 	}
 
 	/**
@@ -719,7 +719,7 @@ class Connection
 	{
 		if(strlen($this->read_buffer) < 4)
 		{
-			throw new \Phpcraft\Exception("There are not enough bytes to read a float.");
+			throw new Exception("There are not enough bytes to read a float.");
 		}
 		$float = unpack("Gfloat", substr($this->read_buffer, 0, 4))["float"];
 		$this->read_buffer = substr($this->read_buffer, 4);
@@ -735,7 +735,7 @@ class Connection
 	{
 		if(strlen($this->read_buffer) < 8)
 		{
-			throw new \Phpcraft\Exception("There are not enough bytes to read a double.");
+			throw new Exception("There are not enough bytes to read a double.");
 		}
 		$double = unpack("Edouble", substr($this->read_buffer, 0, 8))["double"];
 		$this->read_buffer = substr($this->read_buffer, 8);
@@ -749,7 +749,7 @@ class Connection
 	 */
 	function readUuid()
 	{
-		return new \Phpcraft\Uuid($this->readUuidBytes());
+		return new Uuid($this->readUuidBytes());
 	}
 
 	/**
@@ -762,7 +762,7 @@ class Connection
 	{
 		if(strlen($this->read_buffer) < 16)
 		{
-			throw new \Phpcraft\Exception("There are not enough bytes to read a UUID.");
+			throw new Exception("There are not enough bytes to read a UUID.");
 		}
 		$uuid = substr($this->read_buffer, 0, 16);
 		$this->read_buffer = substr($this->read_buffer, 16);
@@ -785,25 +785,25 @@ class Connection
 		switch($type)
 		{
 			case 0:
-			return new \Phpcraft\NbtEnd();
+			return new NbtEnd();
 
 			case 1:
-			return new \Phpcraft\NbtByte($name, $this->readByte(true));
+			return new NbtByte($name, $this->readByte(true));
 
 			case 2:
-			return new \Phpcraft\NbtShort($name, $this->readShort(true));
+			return new NbtShort($name, $this->readShort(true));
 
 			case 3:
-			return new \Phpcraft\NbtInt($name, $this->readInt(true));
+			return new NbtInt($name, $this->readInt(true));
 
 			case 4:
-			return new \Phpcraft\NbtLong($name, $this->readLong(true));
+			return new NbtLong($name, $this->readLong(true));
 
 			case 5:
-			return new \Phpcraft\NbtFloat($name, $this->readFloat());
+			return new NbtFloat($name, $this->readFloat());
 
 			case 6:
-			return new \Phpcraft\NbtDouble($name, $this->readDouble());
+			return new NbtDouble($name, $this->readDouble());
 
 			case 7:
 			$children_i = $this->readInt(true);
@@ -812,10 +812,10 @@ class Connection
 			{
 				array_push($children, $this->readByte());
 			}
-			return new \Phpcraft\NbtByteArray($name, $children);
+			return new NbtByteArray($name, $children);
 
 			case 8:
-			return new \Phpcraft\NbtString($name, $this->readRaw($this->readShort()));
+			return new NbtString($name, $this->readRaw($this->readShort()));
 
 			case 9:
 			$childType = $this->readByte();
@@ -825,15 +825,15 @@ class Connection
 			{
 				array_push($children, $this->readNBT($childType));
 			}
-			return new \Phpcraft\NbtList($name, $childType, $children);
+			return new NbtList($name, $childType, $children);
 
 			case 10:
 			$children = [];
-			while(!(($tag = $this->readNBT()) instanceof \Phpcraft\NbtEnd))
+			while(!(($tag = $this->readNBT()) instanceof NbtEnd))
 			{
 				array_push($children, $tag);
 			}
-			return new \Phpcraft\NbtCompound($name, $children);
+			return new NbtCompound($name, $children);
 
 			case 11:
 			$children_i = $this->readInt(true);
@@ -842,7 +842,7 @@ class Connection
 			{
 				array_push($children, $this->readInt());
 			}
-			return new \Phpcraft\NbtIntArray($name, $children);
+			return new NbtIntArray($name, $children);
 
 			case 12:
 			$children_i = $this->readInt(true);
@@ -851,10 +851,10 @@ class Connection
 			{
 				array_push($children, $this->readLong());
 			}
-			return new \Phpcraft\NbtLongArray($name, $children);
+			return new NbtLongArray($name, $children);
 
 			default:
-			throw new \Phpcraft\Exception("Unsupported NBT Tag: {$type}");
+			throw new Exception("Unsupported NBT Tag: {$type}");
 		}
 	}
 
@@ -864,14 +864,14 @@ class Connection
 	 */
 	function readSlot()
 	{
-		$slot = new \Phpcraft\Slot();
+		$slot = new Slot();
 		if($this->protocol_version >= 402)
 		{
 			if(!$this->readBoolean())
 			{
 				return $slot;
 			}
-			$slot->item = \Phpcraft\Item::getById($this->readVarInt(), $this->protocol_version);
+			$slot->item = Item::getById($this->readVarInt(), $this->protocol_version);
 			$slot->count = $this->readByte();
 		}
 		else
@@ -884,7 +884,7 @@ class Connection
 			$slot->count = $this->readByte();
 			if($this->protocol_version >= 346)
 			{
-				$slot->item = \Phpcraft\Item::getById($id, $this->protocol_version);
+				$slot->item = Item::getById($id, $this->protocol_version);
 			}
 			else
 			{
@@ -894,9 +894,9 @@ class Connection
 					switch($id)
 					{
 						case 358:
-						if(!($slot->nbt instanceof \Phpcraft\NbtCompound))
+						if(!($slot->nbt instanceof NbtCompound))
 						{
-							$slot->nbt = new \Phpcraft\NbtCompound("tag", []);
+							$slot->nbt = new NbtCompound("tag", []);
 						}
 						$addMap = true;
 						$children_ = [];
@@ -914,34 +914,34 @@ class Connection
 						}
 						if($addMap)
 						{
-							array_push($children_, new \Phpcraft\NbtInt("map", $metadata));
+							array_push($children_, new NbtInt("map", $metadata));
 						}
 						$slot->nbt->children = $children_;
 						$metadata = 0;
 						break;
 					}
-					$slot->item = \Phpcraft\Item::getById($id << 4 | $metadata, $this->protocol_version);
+					$slot->item = Item::getById($id << 4 | $metadata, $this->protocol_version);
 					if(!$slot->item)
 					{
-						$slot->item = \Phpcraft\Item::getById($id << 4, $this->protocol_version);
+						$slot->item = Item::getById($id << 4, $this->protocol_version);
 					}
 				}
 				else
 				{
-					$slot->item = \Phpcraft\Item::getById($id << 4, $this->protocol_version);
+					$slot->item = Item::getById($id << 4, $this->protocol_version);
 				}
 			}
 		}
 		$slot->nbt = $this->readNBT();
-		if($this->protocol_version < 402 && $slot->nbt instanceof \Phpcraft\NbtCompound)
+		if($this->protocol_version < 402 && $slot->nbt instanceof NbtCompound)
 		{
 			$display = $slot->nbt->getChild("display");
-			if($display && $display instanceof \Phpcraft\NbtCompound)
+			if($display && $display instanceof NbtCompound)
 			{
 				$name = $display->getChild("Name");
-				if($name && $name instanceof \Phpcraft\NbtString)
+				if($name && $name instanceof NbtString)
 				{
-					$name->value = json_encode(\Phpcraft\Phpcraft::textToChat($name->value));
+					$name->value = json_encode(Phpcraft::textToChat($name->value));
 					$slot->nbt->addChild($display->addChild($name));
 				}
 			}
@@ -958,7 +958,7 @@ class Connection
 	{
 		if(strlen($this->read_buffer) < $bytes)
 		{
-			throw new \Phpcraft\Exception("There are less than {$bytes} bytes");
+			throw new Exception("There are less than {$bytes} bytes");
 		}
 		$this->read_buffer = substr($this->read_buffer, $bytes);
 		return $this;

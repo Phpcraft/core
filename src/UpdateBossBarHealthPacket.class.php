@@ -22,7 +22,7 @@ class UpdateBossBarHealthPacket extends BossBarPacket
 	/**
 	 * @copydoc Packet::send
 	 */
-	function send(\Phpcraft\Connection $con)
+	function send(Connection $con)
 	{
 		if($con->protocol_version > 49)
 		{
@@ -35,7 +35,7 @@ class UpdateBossBarHealthPacket extends BossBarPacket
 		{
 			$con->startPacket("entity_metadata");
 			$con->writeVarInt($this->uuid->toInt() * -1);
-			$metadata = new \Phpcraft\EntityLiving();
+			$metadata = new EntityLiving();
 			$metadata->health = ($this->health * 200);
 			if($metadata->health < 3)
 			{

@@ -24,7 +24,7 @@ class MapDataPacket extends Packet
 		$best_diff;
 		foreach(($new_colors ? MapDataPacket::colors_1_12() : MapDataPacket::colors_1_8_1()) as $id => $rgb2)
 		{
-			$diff = \Phpcraft\Phpcraft::colorDiff($rgb, $rgb2);
+			$diff = Phpcraft::colorDiff($rgb, $rgb2);
 			if($best_color == 0 || $diff < $best_diff)
 			{
 				$best_color = $id;
@@ -80,7 +80,7 @@ class MapDataPacket extends Packet
 	/**
 	 * @copydoc Packet::read
 	 */
-	static function read(\Phpcraft\Connection $con)
+	static function read(Connection $con)
 	{
 		$packet = new MapDataPacket();
 		$packet->mapId = $con->readVarInt();
@@ -92,7 +92,7 @@ class MapDataPacket extends Packet
 		$markers_i = $con->readVarInt();
 		for($i = 0; $i < $markers_i; $i++)
 		{
-			$marker = new \Phpcraft\MapMarker();
+			$marker = new MapMarker();
 			if($con->protocol_version >= 373)
 			{
 				$marker->type = $con->readVarInt();
@@ -149,7 +149,7 @@ class MapDataPacket extends Packet
 	/**
 	 * @copydoc Packet::send
 	 */
-	function send(\Phpcraft\Connection $con)
+	function send(Connection $con)
 	{
 		$con->startPacket("map_data");
 		$con->writeVarInt($this->mapId);

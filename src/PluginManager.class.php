@@ -48,7 +48,7 @@ class PluginManager
 	{
 		if(PluginManager::$loadee_name && PluginManager::$loadee_name == $name)
 		{
-			$plugin = new \Phpcraft\Plugin($name);
+			$plugin = new Plugin($name);
 			($callback)($plugin);
 			array_push(PluginManager::$loaded_plugins, $plugin);
 		}

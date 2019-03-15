@@ -17,7 +17,7 @@ class KeepAliveResponsePacket extends Packet
 	/**
 	 * @copydoc Packet::read
 	 */
-	static function read(\Phpcraft\Connection $con)
+	static function read(Connection $con)
 	{
 		return new KeepAliveResponsePacket($con->protocol_version >= 339 ? $con->readLong() : $con->readVarInt());
 	}
@@ -25,7 +25,7 @@ class KeepAliveResponsePacket extends Packet
 	/**
 	 * @copydoc Packet::send
 	 */
-	function send(\Phpcraft\Connection $con)
+	function send(Connection $con)
 	{
 		$con->startPacket("keep_alive_response");
 		if($con->protocol_version >= 339)

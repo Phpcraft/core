@@ -54,11 +54,11 @@ class NbtCompound extends NbtTag
 	 * Adds a child to the compound or replaces an existing one by the same name.
 	 * @return NbtCompound $this
 	 */
-	function addChild(\Phpcraft\NbtTag $tag)
+	function addChild(NbtTag $tag)
 	{
-		if($tag instanceof \Phpcraft\NbtEnd)
+		if($tag instanceof NbtEnd)
 		{
-			throw new \Phpcraft\Exception("\\Phpcraft\\NbtEnd is not a valid child");
+			throw new Exception("\\NbtEnd is not a valid child");
 		}
 		$i = $this->getChildIndex($tag->name);
 		if($i > -1)
@@ -75,7 +75,7 @@ class NbtCompound extends NbtTag
 	/**
 	 * @copydoc NbtTag::send
 	 */
-	function send(\Phpcraft\Connection $con, $inList = false)
+	function send(Connection $con, $inList = false)
 	{
 		if(!$inList)
 		{

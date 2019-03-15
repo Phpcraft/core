@@ -40,7 +40,7 @@ class EntityBase extends EntityMetadata
 	 */
 	public $silent = null;
 
-	protected function read_(\Phpcraft\Connection $con, $index)
+	protected function read_(Connection $con, $index)
 	{
 		switch($index)
 		{
@@ -128,7 +128,7 @@ class EntityBase extends EntityMetadata
 				}
 				else
 				{
-					$this->custom_name = \Phpcraft\Phpcraft::textToChat($name);
+					$this->custom_name = Phpcraft::textToChat($name);
 				}
 			}
 			return true;
@@ -142,7 +142,7 @@ class EntityBase extends EntityMetadata
 	/**
 	 * @copydoc EntityMetadata::write
 	 */
-	function write(\Phpcraft\Connection $con)
+	function write(Connection $con)
 	{
 		if($this->burning !== null || $this->crouching !== null || $this->sprinting !== null || $this->invisible !== null)
 		{
@@ -191,7 +191,7 @@ class EntityBase extends EntityMetadata
 			{
 				if($this->custom_name)
 				{
-					self::writeString($con, 2, \Phpcraft\Phpcraft::chatToText($this->custom_name, 2));
+					self::writeString($con, 2, Phpcraft::chatToText($this->custom_name, 2));
 				}
 				else
 				{
@@ -210,7 +210,7 @@ class EntityBase extends EntityMetadata
 		$attr = [];
 		if($this->custom_name !== null)
 		{
-			array_push($attr, "\"".\Phpcraft\Phpcraft::chatToText($this->custom_name)."\"");
+			array_push($attr, "\"".Phpcraft::chatToText($this->custom_name)."\"");
 		}
 		if($this->burning !== null)
 		{

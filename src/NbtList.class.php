@@ -30,7 +30,7 @@ class NbtList extends NbtTag
 	/**
 	 * @copydoc NbtTag::send
 	 */
-	function send(\Phpcraft\Connection $con, $inList = false)
+	function send(Connection $con, $inList = false)
 	{
 		if(!$inList)
 		{

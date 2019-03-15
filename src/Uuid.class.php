@@ -19,7 +19,7 @@ class Uuid
 	{
 		if(strlen($binary) != 16)
 		{
-			throw new \Phpcraft\Exception("Invalid UUID binary string: {$binary}");
+			throw new Exception("Invalid UUID binary string: {$binary}");
 		}
 		$this->binary = $binary;
 	}
@@ -34,7 +34,7 @@ class Uuid
 		$str = str_replace(["-", "{", "}"], "", $str);
 		if(strlen($str) != 32)
 		{
-			throw new \Phpcraft\Exception("Invalid UUID: $str");
+			throw new Exception("Invalid UUID: $str");
 		}
 		return Uuid::fromString_($str);
 	}

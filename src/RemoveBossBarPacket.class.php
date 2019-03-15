@@ -5,7 +5,7 @@ class RemoveBossBarPacket extends BossBarPacket
 	/**
 	 * @copydoc Packet::send
 	 */
-	function send(\Phpcraft\Connection $con)
+	function send(Connection $con)
 	{
 		if($con->protocol_version > 49)
 		{

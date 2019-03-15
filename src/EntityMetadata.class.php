@@ -11,7 +11,7 @@ abstract class EntityMetadata
 	 * @param Connection $con
 	 * @return EntityMetadata $this
 	 */
-	function read(\Phpcraft\Connection $con)
+	function read(Connection $con)
 	{
 		do
 		{
@@ -33,7 +33,7 @@ abstract class EntityMetadata
 						break;
 
 						default:
-						throw new \Phpcraft\Exception("Unimplemented type: {$type}");
+						throw new Exception("Unimplemented type: {$type}");
 					}
 				}
 			}
@@ -78,7 +78,7 @@ abstract class EntityMetadata
 						break;
 
 						default:
-						throw new \Phpcraft\Exception("Unimplemented legacy type: {$type}");
+						throw new Exception("Unimplemented legacy type: {$type}");
 					}
 				}
 			}
@@ -87,14 +87,14 @@ abstract class EntityMetadata
 		return $this;
 	}
 
-	abstract protected function read_(\Phpcraft\Connection $con, $index);
+	abstract protected function read_(Connection $con, $index);
 
 	/**
 	 * Writes this non-null metadata values to the Connection's write buffer.
 	 * @param Connection $con
 	 * @return void
 	 */
-	abstract function write(\Phpcraft\Connection $con);
+	abstract function write(Connection $con);
 
 	abstract function getStringAttributes();
 
@@ -108,7 +108,7 @@ abstract class EntityMetadata
 		return "{".substr(get_called_class(), 9)."}";
 	}
 
-	static function writeByte(\Phpcraft\Connection $con, $index, $value)
+	static function writeByte(Connection $con, $index, $value)
 	{
 		$con->writeByte($index);
 		if($con->protocol_version >= 57)
@@ -118,7 +118,7 @@ abstract class EntityMetadata
 		$con->writeByte($value);
 	}
 
-	static function writeFloat(\Phpcraft\Connection $con, $index, $value)
+	static function writeFloat(Connection $con, $index, $value)
 	{
 		if($con->protocol_version >= 57)
 		{
@@ -132,7 +132,7 @@ abstract class EntityMetadata
 		$con->writeFloat($value);
 	}
 
-	static function writeString(\Phpcraft\Connection $con, $index, $value)
+	static function writeString(Connection $con, $index, $value)
 	{
 		if($con->protocol_version >= 57)
 		{
@@ -146,11 +146,11 @@ abstract class EntityMetadata
 		$con->writeString($value);
 	}
 
-	static function writeOptChat(\Phpcraft\Connection $con, $index, $value)
+	static function writeOptChat(Connection $con, $index, $value)
 	{
 		if($con->protocol_version < 57)
 		{
-			throw new \Phpcraft\Exception("OptChat is not available at this protocol version.");
+			throw new Exception("OptChat is not available at this protocol version.");
 		}
 		$con->writeByte($index);
 		$con->writeByte(5);
@@ -165,7 +165,7 @@ abstract class EntityMetadata
 		}
 	}
 
-	static function writeBoolean(\Phpcraft\Connection $con, $index, $value)
+	static function writeBoolean(Connection $con, $index, $value)
 	{
 		$con->writeByte($index);
 		if($con->protocol_version >= 57)
@@ -175,7 +175,7 @@ abstract class EntityMetadata
 		$con->writeBoolean($value);
 	}
 
-	static function finish(\Phpcraft\Connection $con)
+	static function finish(Connection $con)
 	{
 		if($con->protocol_version >= 57)
 		{

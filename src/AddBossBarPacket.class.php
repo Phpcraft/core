@@ -44,7 +44,7 @@ class AddBossBarPacket extends BossBarPacket
 	/**
 	 * @copydoc Packet::send
 	 */
-	function send(\Phpcraft\Connection $con)
+	function send(Connection $con)
 	{
 		if($con->protocol_version > 49)
 		{
@@ -83,18 +83,18 @@ class AddBossBarPacket extends BossBarPacket
 		}
 		else
 		{
-			$packet = new \Phpcraft\SpawnMobPacket(
+			$packet = new SpawnMobPacket(
 				$this->uuid->toInt() * -1,
-				\Phpcraft\EntityType::get("ender_dragon"),
+				EntityType::get("ender_dragon"),
 				$this->uuid
 			);
-			if($con instanceof \Phpcraft\ClientConnection)
+			if($con instanceof ClientConnection)
 			{
-				$packet->pos = new \Phpcraft\Position($con->pos->x, -10, $con->pos->z);
+				$packet->pos = new Position($con->pos->x, -10, $con->pos->z);
 			}
 			else
 			{
-				$packet->pos = new \Phpcraft\Position(0, -10, 0);
+				$packet->pos = new Position(0, -10, 0);
 			}
 			$packet->metadata->custom_name = $this->title;
 			$packet->metadata->silent = true;
@@ -109,7 +109,7 @@ class AddBossBarPacket extends BossBarPacket
 
 	function toString()
 	{
-		$str = "{AddBossBarPacket: Boss Bar ".$this->uuid->toString().", \"".\Phpcraft\Phpcraft::chatToText($this->title)."\", ".($this->health * 100)."% Health, Color ID {$this->color}, Division ID {$this->division}";
+		$str = "{AddBossBarPacket: Boss Bar ".$this->uuid->toString().", \"".Phpcraft::chatToText($this->title)."\", ".($this->health * 100)."% Health, Color ID {$this->color}, Division ID {$this->division}";
 		if($this->darken_sky)
 		{
 			$str .= ", Darkens Sky";

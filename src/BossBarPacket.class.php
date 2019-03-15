@@ -33,13 +33,13 @@ abstract class BossBarPacket extends Packet
 	/**
 	 * @copydoc Packet::read
 	 */
-	static function read(\Phpcraft\Connection $con)
+	static function read(Connection $con)
 	{
 		$uuid = $con->readUuid();
 		switch($con->readVarInt())
 		{
 			case 0:
-			$packet = new \Phpcraft\AddBossBarPacket($uuid);
+			$packet = new AddBossBarPacket($uuid);
 			$packet->title = $con->readChat();
 			$packet->health = $con->readFloat();
 			$packet->color = $con->readVarInt();
@@ -66,13 +66,13 @@ abstract class BossBarPacket extends Packet
 			return $packet;
 
 			case 1:
-			return new \Phpcraft\RemoveBossBarPacket($uuid);
+			return new RemoveBossBarPacket($uuid);
 
 			case 2:
-			return new \Phpcraft\UpdateBossBarHealthPacket($uuid, $con->readFloat());
+			return new UpdateBossBarHealthPacket($uuid, $con->readFloat());
 
 			case 3:
-			return new \Phpcraft\UpdateBossBarTitlePacket($uuid, $con->readChat());
+			return new UpdateBossBarTitlePacket($uuid, $con->readChat());
 		}
 	}
 }

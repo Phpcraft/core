@@ -35,7 +35,7 @@ class Plugin
 	 * @param integer $priority The priority of the event handler. The higher the priority, the earlier it will be executed. Use a high value if you plan to cancel the event.
 	 * @return Plugin $this
 	 */
-	function on($event_name, $function, $priority = \Phpcraft\Event::PRIORITY_NORMAL)
+	function on($event_name, $function, $priority = Event::PRIORITY_NORMAL)
 	{
 		$this->event_handlers[$event_name] = [
 			"priority" => $priority,

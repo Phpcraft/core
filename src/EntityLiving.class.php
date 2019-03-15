@@ -7,7 +7,7 @@ class EntityLiving extends EntityBase
 	 */
 	public $health = null;
 
-	protected function read_(\Phpcraft\Connection $con, $index)
+	protected function read_(Connection $con, $index)
 	{
 		switch($index)
 		{
@@ -32,7 +32,7 @@ class EntityLiving extends EntityBase
 	/**
 	 * @copydoc EntityMetadata::write
 	 */
-	function write(\Phpcraft\Connection $con)
+	function write(Connection $con)
 	{
 		parent::write($con);
 		if($this->health !== null)

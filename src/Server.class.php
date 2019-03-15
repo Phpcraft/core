@@ -62,7 +62,7 @@ class Server
 			$this->stream = $stream;
 		}
 		$this->private_key = $private_key;
-		$this->eidCounter = new \Phpcraft\Counter();
+		$this->eidCounter = new Counter();
 		$this->list_ping_function = function($con)
 		{
 			$players = [];
@@ -76,11 +76,11 @@ class Server
 					]);
 				}
 			}
-			$versions = \Phpcraft\Phpcraft::getSupportedMinecraftVersions();
+			$versions = Phpcraft::getSupportedMinecraftVersions();
 			return [
 				"version" => [
 					"name" => "Phpcraft ".$versions[count($versions) - 1]." - ".$versions[0],
-					"protocol" => (\Phpcraft\Phpcraft::isProtocolVersionSupported($con->protocol_version) ? $con->protocol_version : \Phpcraft\Phpcraft::getSupportedProtocolVersions()[0])
+					"protocol" => (Phpcraft::isProtocolVersionSupported($con->protocol_version) ? $con->protocol_version : Phpcraft::getSupportedProtocolVersions()[0])
 				],
 				"players" => [
 					"online" => count($players),
@@ -88,7 +88,7 @@ class Server
 					"sample" => $players
 				],
 				"description" => [
-					"text" => "A \\Phpcraft\\Server"
+					"text" => "A \\Server"
 				]
 			];
 		};
@@ -113,7 +113,7 @@ class Server
 		{
 			try
 			{
-				$con = new \Phpcraft\ClientConnection($stream);
+				$con = new ClientConnection($stream);
 				switch($con->handleInitialPacket())
 				{
 					case 1:
@@ -138,7 +138,7 @@ class Server
 					{
 						$json["players"]["max"] = 0;
 					}
-					$data = "§1\x00127\x00".@$json["version"]["name"]."\x00".\Phpcraft\Phpcraft::chatToText(@$json["description"], 2)."\x00".$json["players"]["online"]."\x00".$json["players"]["max"];
+					$data = "§1\x00127\x00".@$json["version"]["name"]."\x00".Phpcraft::chatToText(@$json["description"], 2)."\x00".$json["players"]["online"]."\x00".$json["players"]["max"];
 					$con->writeByte(0xFF);
 					$con->writeShort(strlen($data) - 1);
 					$con->writeRaw(mb_convert_encoding($data, "utf-16be"));
@@ -172,7 +172,7 @@ class Server
 					{
 						if($con->state == 3) // Playing
 						{
-							$packet_name = \Phpcraft\Packet::serverboundPacketIdToName($packet_id, $con->protocol_version);
+							$packet_name = Packet::serverboundPacketIdToName($packet_id, $con->protocol_version);
 							if($packet_name == "keep_alive_response")
 							{
 								$con->next_heartbeat = microtime(true) + 15;
@@ -188,7 +188,7 @@ class Server
 							if($packet_id == 0x00) // Login Start
 							{
 								$con->username = $con->readString();
-								if(\Phpcraft\Phpcraft::validateName($con->username))
+								if(Phpcraft::validateName($con->username))
 								{
 									if($this->private_key)
 									{
@@ -196,7 +196,7 @@ class Server
 									}
 									else
 									{
-										$con->finishLogin(\Phpcraft\Uuid::v5("OfflinePlayer:".$con->username), $this->eidCounter);
+										$con->finishLogin(Uuid::v5("OfflinePlayer:".$con->username), $this->eidCounter);
 										if($this->join_function)
 										{
 											($this->join_function)($con);
@@ -214,7 +214,7 @@ class Server
 							{
 								if($json = $con->handleEncryptionResponse($this->private_key))
 								{
-									$con->finishLogin(\Phpcraft\Uuid::fromString($json["id"]), $this->eidCounter);
+									$con->finishLogin(Uuid::fromString($json["id"]), $this->eidCounter);
 									if($this->join_function)
 									{
 										($this->join_function)($con);
@@ -261,7 +261,7 @@ class Server
 				}
 				else if($con->next_heartbeat != 0 && $con->next_heartbeat <= microtime(true))
 				{
-					(new \Phpcraft\KeepAliveRequestPacket(time()))->send($con);
+					(new KeepAliveRequestPacket(time()))->send($con);
 					$con->next_heartbeat = 0;
 					$con->disconnect_after = microtime(true) + 30;
 				}

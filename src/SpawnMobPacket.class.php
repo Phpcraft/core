@@ -44,7 +44,7 @@ class SpawnMobPacket extends Packet
 		}
 		else
 		{
-			$this->metadata = new \Phpcraft\EntityBase();
+			$this->metadata = new EntityBase();
 		}
 		if($uuid)
 		{
@@ -52,14 +52,14 @@ class SpawnMobPacket extends Packet
 		}
 		else
 		{
-			$this->uuid = \Phpcraft\Uuid::v4();
+			$this->uuid = Uuid::v4();
 		}
 	}
 
 	/**
 	 * @copydoc Packet::read
 	 */
-	static function read(\Phpcraft\Connection $con)
+	static function read(Connection $con)
 	{
 		$eid = $con->readVarInt();
 		if($con->protocol_version >= 49)
@@ -78,7 +78,7 @@ class SpawnMobPacket extends Packet
 		{
 			$type = EntityType::get($con->readByte(), $con->protocol_version);
 		}
-		$packet = new \Phpcraft\SpawnMobPacket($eid, $type, $uuid);
+		$packet = new SpawnMobPacket($eid, $type, $uuid);
 		$packet->pos = $con->protocol_version >= 100 ? $con->readPrecisePosition() : $con->readFixedPointPosition();
 		$con->ignoreBytes(9); // Yaw, Pitch, Head Pitch & Velocity
 		$packet->metadata->read($con);
@@ -88,7 +88,7 @@ class SpawnMobPacket extends Packet
 	/**
 	 * @copydoc Packet::send
 	 */
-	function send(\Phpcraft\Connection $con)
+	function send(Connection $con)
 	{
 		$con->startPacket("spawn_mob");
 		$con->writeVarInt($this->eid);

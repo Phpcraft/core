@@ -39,7 +39,7 @@ class Slot
 	 * @param integer $count How many times the item is in this slot.
 	 * @param NbtTag $nbt The NBT data of the item in this slot.
 	 */
-	function __construct(\Phpcraft\Item $item = null, $count = 1, \Phpcraft\NbtTag $nbt = null)
+	function __construct(Item $item = null, $count = 1, NbtTag $nbt = null)
 	{
 		$this->item = $item;
 		$this->count = $count;
@@ -53,13 +53,13 @@ class Slot
 	function getDisplayName()
 	{
 		$nbt = $this->getNBT();
-		if($nbt instanceof \Phpcraft\NbtCompound)
+		if($nbt instanceof NbtCompound)
 		{
 			$display = $nbt->getChild("display");
-			if($display && $display instanceof \Phpcraft\NbtCompound)
+			if($display && $display instanceof NbtCompound)
 			{
 				$name = $display->getChild("Name");
-				if($name && $name instanceof \Phpcraft\NbtString)
+				if($name && $name instanceof NbtString)
 				{
 					return json_decode($name->value, true);
 				}
@@ -76,23 +76,23 @@ class Slot
 	{
 		$name = json_encode($name);
 		$nbt = $this->getNBT();
-		if(!($nbt instanceof \Phpcraft\NbtCompound))
+		if(!($nbt instanceof NbtCompound))
 		{
-			$nbt = new \Phpcraft\NbtCompound("tag");
+			$nbt = new NbtCompound("tag");
 		}
 		$display = $nbt->getChild("display");
-		if(!$display || !($display instanceof \Phpcraft\NbtCompound))
+		if(!$display || !($display instanceof NbtCompound))
 		{
-			array_push($nbt->children, $display = new \Phpcraft\NbtCompound("display"));
+			array_push($nbt->children, $display = new NbtCompound("display"));
 		}
 		$display_name = $display->getChild("Name");
-		if($display_name && $display_name instanceof \Phpcraft\NbtString)
+		if($display_name && $display_name instanceof NbtString)
 		{
 			$display_name->value = $name;
 		}
 		else
 		{
-			$display_name = new \Phpcraft\NbtString("Name", $name);
+			$display_name = new NbtString("Name", $name);
 		}
 		$this->nbt = $nbt->addChild($display->addChild($display_name));
 		return $this;
@@ -103,7 +103,7 @@ class Slot
 	 */
 	function getNBT()
 	{
-		return $this->nbt == null ? new \Phpcraft\NbtEnd() : $this->nbt;
+		return $this->nbt == null ? new NbtEnd() : $this->nbt;
 	}
 
 	/**
@@ -111,7 +111,7 @@ class Slot
 	 */
 	function hasNBT()
 	{
-		return $this->nbt != null && !($this->nbt instanceof \Phpcraft\NbtEnd);
+		return $this->nbt != null && !($this->nbt instanceof NbtEnd);
 	}
 
 	/**

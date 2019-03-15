@@ -60,6 +60,6 @@ class Item extends Identifier
 	 */
 	function getBlock()
 	{
-		return $this->block == null ? null : \Phpcraft\BlockMaterial::get($this->block);
+		return $this->block == null ? null : BlockMaterial::get($this->block);
 	}
 }
