@@ -99,7 +99,7 @@ abstract class Phpcraft
 	{
 		if(!isset(self::$json_cache[$url]))
 		{
-			return json_decode(self::getCachableResource($url, $caching_duration), true);
+			self::$json_cache[$url] = json_decode(self::getCachableResource($url, $caching_duration), true);
 		}
 		return self::$json_cache[$url];
 	}

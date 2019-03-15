@@ -113,7 +113,7 @@ class EntityType extends Identifier
 	{
 		if($protocol_version >= 353)
 		{
-			foreach(Phpcraft::getCachableJson("https://raw.githubusercontent.com/PrismarineJS/minecraft-data/master/data/pc/1.13/entities.json") as $entity)
+			foreach(Phpcraft::getCachableJson("https://raw.githubusercontent.com/timmyrs/minecraft-data/master/data/pc/1.13/entities.json") as $entity)
 			{
 				if($entity["name"] == $this->name)
 				{
