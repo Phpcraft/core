@@ -3,7 +3,7 @@ namespace Phpcraft;
 class BlockMaterial extends Identifier
 {
 	/**
-	 * The names of the item materials dropped when this block is destroyed.
+	 * The name of each Item dropped when this block is destroyed.
 	 * @var array $drops
 	 */
 	public $drops;
@@ -23,7 +23,7 @@ class BlockMaterial extends Identifier
 
 	/**
 	 * @copydoc Identifier::__construct
-	 * @param array $drops The names of the item materials dropped when this block is destroyed.
+	 * @param array $drops The name of each Item dropped when this block is destroyed.
 	 */
 	function __construct($name, $legacy_id, $since_protocol_version = 0, $drops = [])
 	{
@@ -53,7 +53,7 @@ class BlockMaterial extends Identifier
 	}
 
 	/**
-	 * Returns the item materials that are supposed to be dropped when this block is destroyed.
+	 * Returns each Item that are supposed to be dropped when this block is destroyed.
 	 * @return array
 	 */
 	function getDrops()

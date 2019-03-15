@@ -3,7 +3,7 @@ namespace Phpcraft;
 class Item extends Identifier
 {
 	/**
-	 * @copydoc Material::all
+	 * @copydoc Identifier::all
 	 */
 	static function all()
 	{
@@ -17,14 +17,14 @@ class Item extends Identifier
 	}
 
 	/**
-	 * The name of the related block material.
+	 * The name of the related BlockMaterial.
 	 * @var string $block;
 	 */
 	public $block;
 
 	/**
-	 * @copydoc Material::__construct
-	 * @param string $block The name of the related block material.
+	 * @copydoc Identifier::__construct
+	 * @param string $block The name of the related BlockMaterial.
 	 */
 	function __construct($name, $legacy_id, $since_protocol_version = 0, $block = null)
 	{
