@@ -62,7 +62,7 @@ abstract class Phpcraft
 		}
 		if(empty($profiles["clientToken"]))
 		{
-			$profiles["clientToken"] = \Phpcraft\Uuid::v4()->toString();
+			$profiles["clientToken"] = Uuid::v4()->toString();
 		}
 		if(!isset($profiles["selectedUser"]))
 		{
@@ -85,9 +85,57 @@ abstract class Phpcraft
 		file_put_contents(Phpcraft::getProfilesFile(), json_encode($profiles, JSON_PRETTY_PRINT));
 	}
 
+	private static $json_cache = [];
+
 	/**
-	 * Deletes cache entries which have expired.
+	 * Returns the contents of a JSON file as associative array with additional memory and disk caching levels.
+	 * @param $url The URL of the resource.
+	 * @param $caching_duration How long the resource should be kept in the cache, in seconds. (Default: 31 days)
+	 * @return array
+	 * @see getCachableResource
+	 * @see maintainCache
+	 */
+	static function getCachableJson($url, $caching_duration = 2678400)
+	{
+		if(!isset(self::$json_cache[$url]))
+		{
+			return json_decode(self::getCachableResource($url, $caching_duration), true);
+		}
+		return self::$json_cache[$url];
+	}
+
+	/**
+	 * Returns the contents of a resource with an additional disk caching level.
+	 * @param $url The URL of the resource.
+	 * @param $caching_duration How long the resource should be kept in the cache, in seconds. (Default: 1 day)
+	 * @return string
+	 * @see getCachableJson
+	 * @see maintainCache
+	 */
+	static function getCachableResource($url, $caching_duration = 86400)
+	{
+		self::maintainCache();
+		$cache = [];
+		if(file_exists(__DIR__."/.cache"))
+		{
+			$cache = json_decode(file_get_contents(__DIR__."/.cache"), true);
+		}
+		if(empty($cache[$url]))
+		{
+			$cache[$url] = [
+				"contents" => file_get_contents($url),
+				"expiry" => time() + $caching_duration
+			];
+			file_put_contents(__DIR__."/.cache", json_encode($cache));
+		}
+		return $cache[$url]["contents"];
+	}
+
+	/**
+	 * Deletes expired cache entries.
 	 * @return void
+	 * @see getCachableJson
+	 * @see getCachableResource
 	 */
 	static function maintainCache()
 	{
@@ -100,6 +148,10 @@ abstract class Phpcraft
 				if($entry["expiry"] < $time)
 				{
 					unset($cache[$url]);
+					if(isset(self::$json_cache[$url]))
+					{
+						unset(self::$json_cache[$url]);
+					}
 				}
 			}
 			if(empty($cache))
@@ -111,31 +163,6 @@ abstract class Phpcraft
 				file_put_contents(__DIR__."/.cache", json_encode($cache));
 			}
 		}
-	}
-
-	/**
-	 * Returns the contents of a resource with caching.
-	 * @param $url The URL of the resource.
-	 * @param $cachingDuration How long the resource should be kept in the cache, in seconds.
-	 * @return string
-	 */
-	static function getCachableResource($url, $cachingDuration = 86400)
-	{
-		Phpcraft::maintainCache();
-		$cache = [];
-		if(file_exists(__DIR__."/.cache"))
-		{
-			$cache = json_decode(file_get_contents(__DIR__."/.cache"), true);
-		}
-		if(empty($cache[$url]))
-		{
-			$cache[$url] = [
-				"contents" => file_get_contents($url),
-				"expiry" => time() + $cachingDuration
-			];
-			file_put_contents(__DIR__."/.cache", json_encode($cache));
-		}
-		return $cache[$url]["contents"];
 	}
 
 	/**
@@ -264,11 +291,12 @@ abstract class Phpcraft
 
 	/**
 	 * Returns an array of supported Minecraft versions with its protocol version as value; newest first.
+	 * @param boolean $with_snapshots
 	 * @return array
 	 */
-	static function getVersions()
+	static function getVersions($with_snapshots = true)
 	{
-		return [
+		$versions = [
 			"1.13.2" => 404,
 			"1.13.2-pre2" => 403,
 			"1.13.2-pre1" => 402,
@@ -321,6 +349,17 @@ abstract class Phpcraft
 			"1.8.1" => 47,
 			"1.8" => 47
 		];
+		if(!$with_snapshots)
+		{
+			foreach($versions as $id => $pv)
+			{
+				if(substr($id, 1, 1) != ".")
+				{
+					unset($versions[$id]);
+				}
+			}
+		}
+		return $versions;
 	}
 
 	/**
@@ -338,12 +377,7 @@ abstract class Phpcraft
 	 */
 	static function getSupportedMinecraftVersions()
 	{
-		$minecraft_versions = [];
-		foreach(Phpcraft::getVersions() as $k => $v)
-		{
-			array_push($minecraft_versions, $k);
-		}
-		return $minecraft_versions;
+		return array_keys(Phpcraft::getVersions());
 	}
 
 	/**

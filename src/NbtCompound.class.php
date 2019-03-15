@@ -32,7 +32,6 @@ class NbtCompound extends NbtTag
 				return $child;
 			}
 		}
-		return null;
 	}
 
 	/**

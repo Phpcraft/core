@@ -70,17 +70,13 @@ class SpawnMobPacket extends Packet
 		{
 			$uuid = null;
 		}
-		if($con->protocol_version >= 353)
+		if($con->protocol_version >= 301)
 		{
-			$type = EntityType::get($con->readVarInt());
-		}
-		else if($con->protocol_version >= 301)
-		{
-			$type = EntityType::getLegacy($con->readVarInt());
+			$type = EntityType::get($con->readVarInt(), $con->protocol_version);
 		}
 		else
 		{
-			$type = EntityType::getLegacy($con->readByte());
+			$type = EntityType::get($con->readByte(), $con->protocol_version);
 		}
 		$packet = new \Phpcraft\SpawnMobPacket($eid, $type, $uuid);
 		$packet->pos = $con->protocol_version >= 100 ? $con->readPrecisePosition() : $con->readFixedPointPosition();
@@ -100,17 +96,13 @@ class SpawnMobPacket extends Packet
 		{
 			$con->writeUuid($this->uuid);
 		}
-		if($con->protocol_version >= 353)
+		if($con->protocol_version >= 301)
 		{
-			$con->writeVarInt($this->type->id);
-		}
-		else if($con->protocol_version >= 301)
-		{
-			$con->writeVarInt($this->type->legacy_id);
+			$con->writeVarInt($this->type->getId($con->protocol_version));
 		}
 		else
 		{
-			$con->writeByte($this->type->legacy_id);
+			$con->writeByte($this->type->getId($con->protocol_version));
 		}
 		if($con->protocol_version >= 100)
 		{

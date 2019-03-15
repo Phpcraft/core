@@ -44,6 +44,7 @@ final class GeneralTest extends \PHPUnit\Framework\TestCase
 		$this->assertTrue(strpos($con->write_buffer, "§eTest") !== false);
 		$con->read_buffer = $con->write_buffer;
 		$this->assertEquals($name, $con->readSlot()->getDisplayName());
+		$this->assertEquals("", $con->read_buffer);
 	}
 
 	function testEntityMetadata()

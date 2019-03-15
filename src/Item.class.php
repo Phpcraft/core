@@ -1,6 +1,6 @@
 <?php
 namespace Phpcraft;
-class Item extends Material
+class Item extends Identifier
 {
 	/**
 	 * @copydoc Material::all
@@ -8,11 +8,11 @@ class Item extends Material
 	static function all()
 	{
 		return [
-			new Item("air",0,0,0),
-			new Item("stone",1,1,0,"stone"),
-			new Item("grass_block",8,2,0,"grass_block"),
-			new Item("dirt",9,3,0,"dirt"),
-			new Item("filled_map",613,358,0),
+			new Item("air", 0),
+			new Item("stone", 1 << 4, 0, "stone"),
+			new Item("grass_block", 2 << 4, 0, "grass_block"),
+			new Item("dirt", 3 << 4, 0, "dirt"),
+			new Item("filled_map", 358 << 4)
 		];
 	}
 
@@ -26,10 +26,32 @@ class Item extends Material
 	 * @copydoc Material::__construct
 	 * @param string $block The name of the related block material.
 	 */
-	function __construct($name, $id, $legacy_id, $legacy_metadata, $block = null)
+	function __construct($name, $legacy_id, $since_protocol_version = 0, $block = null)
 	{
-		parent::__construct($name, $id, $legacy_id, $legacy_metadata);
+		parent::__construct($name, $legacy_id, $since_protocol_version);
 		$this->block = $block;
+	}
+
+	/**
+	 * @copydoc Identifier::getId
+	 */
+	function getId($protocol_version)
+	{
+		if($protocol_version >= 346)
+		{
+			switch($this->name)
+			{
+				case "air": return 0;
+				case "stone": return 1;
+				case "grass_block": return 8;
+				case "dirt": return 9;
+				case "filled_map": return 613;
+			}
+		}
+		else if($protocol_version >= $this->since_protocol_version)
+		{
+			return $this->legacy_id;
+		}
 	}
 
 	/**

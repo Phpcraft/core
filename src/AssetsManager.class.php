@@ -111,7 +111,6 @@ class AssetsManager
 			}
 			return $file;
 		}
-		return null;
 	}
 
 	/**

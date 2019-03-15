@@ -82,10 +82,8 @@ PluginManager::registerPlugin("FirstPackets", function($plugin)
 						{
 							$data->writeByte(8); // Bits per Block
 							$data->writeVarInt(2); // Palette Size
-							$material = \Phpcraft\BlockMaterial::get("grass_block");
-							$data->writeVarInt($con->protocol_version >= 346 ? $material->id : (($material->legacy_id << 4) | ($material->legacy_metadata & 0xF)));
-							$material = \Phpcraft\BlockMaterial::get("stone");
-							$data->writeVarInt($con->protocol_version >= 346 ? $material->id : (($material->legacy_id << 4) | ($material->legacy_metadata & 0xF)));
+							$data->writeVarInt(\Phpcraft\BlockMaterial::get("grass_block")->getId($con->protocol_version));
+							$data->writeVarInt(\Phpcraft\BlockMaterial::get("stone")->getId($con->protocol_version));
 							$data->writeVarInt(512); // (4096 / (64 / Bits per Block))
 							$data->write_buffer .= str_repeat("\x00\x01", 2048); // Blocks
 							$data->write_buffer .= str_repeat("\x00", 2048); // Block Light

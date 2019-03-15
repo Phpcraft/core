@@ -277,15 +277,16 @@ class Connection
 			if($this->protocol_version >= 402)
 			{
 				$this->writeBoolean(true);
-				$this->writeVarInt($slot->item->id);
+				$this->writeVarInt($slot->item->getId($this->protocol_version));
 				$this->writeByte($slot->count);
 			}
 			else
 			{
-				$this->writeShort($slot->item->legacy_id);
-				$this->writeByte($slot->count);
+				$id = $slot->item->getId($this->protocol_version);
 				if($this->protocol_version < 346)
 				{
+					$this->writeShort($id >> 4);
+					$this->writeByte($slot->count);
 					switch($slot->item->name)
 					{
 						case "filled_map":
@@ -293,8 +294,13 @@ class Connection
 						break;
 
 						default:
-						$this->writeShort($slot->item->legacy_metadata);
+						$this->writeShort($id & 0xF);
 					}
+				}
+				else
+				{
+					$this->writeShort($id);
+					$this->writeByte($slot->count);
 				}
 			}
 			$nbt = $slot->getNBT();
@@ -865,15 +871,7 @@ class Connection
 			{
 				return $slot;
 			}
-			$id = $this->readVarInt();
-			foreach(\Phpcraft\Item::all() as $item)
-			{
-				if($item->id == $id)
-				{
-					$slot->item = $item;
-					break;
-				}
-			}
+			$slot->item = \Phpcraft\Item::getById($this->readVarInt(), $this->protocol_version);
 			$slot->count = $this->readByte();
 		}
 		else
@@ -886,14 +884,7 @@ class Connection
 			$slot->count = $this->readByte();
 			if($this->protocol_version >= 346)
 			{
-				foreach(\Phpcraft\Item::all() as $item)
-				{
-					if($item->id == $id)
-					{
-						$slot->item = $item;
-						break;
-					}
-				}
+				$slot->item = \Phpcraft\Item::getById($id, $this->protocol_version);
 			}
 			else
 			{
@@ -929,8 +920,16 @@ class Connection
 						$metadata = 0;
 						break;
 					}
+					$slot->item = \Phpcraft\Item::getById($id << 4 | $metadata, $this->protocol_version);
+					if(!$slot->item)
+					{
+						$slot->item = \Phpcraft\Item::getById($id << 4, $this->protocol_version);
+					}
 				}
-				$slot->item = \Phpcraft\Item::getLegacy($id, $metadata);
+				else
+				{
+					$slot->item = \Phpcraft\Item::getById($id << 4, $this->protocol_version);
+				}
 			}
 		}
 		$slot->nbt = $this->readNBT();

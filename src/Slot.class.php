@@ -65,7 +65,6 @@ class Slot
 				}
 			}
 		}
-		return null;
 	}
 
 	/**
