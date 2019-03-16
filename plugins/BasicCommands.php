@@ -17,7 +17,7 @@ PluginManager::registerPlugin("BasicCommands", function($plugin)
 		$con = $event->data["client"];
 		if(substr($event->data["message"], 0, 11) == "/abilities ")
 		{
-			$con->startPacket("clientbound_player_abilities");
+			$con->startPacket("clientbound_abilities");
 			$con->writeByte(hexdec(substr($event->data["message"], 11, 1)));
 			$con->writeFloat(0.4000000059604645);
 			$con->writeFloat(0.699999988079071);

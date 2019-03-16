@@ -213,6 +213,9 @@ else
 		exit;
 	}
 }
+$ui->add("Preparing cache... ")->render();
+\Phpcraft\Phpcraft::populateCache();
+$ui->append("Done.")->render();
 \Phpcraft\PluginManager::$platform = "phpcraft:client";
 function autoloadPlugins()
 {
@@ -543,7 +546,7 @@ do
 		$start = microtime(true);
 		while(($packet_id = $con->readPacket(0)) !== false)
 		{
-			if(!($packet_name = \Phpcraft\Packet::clientboundPacketIdToName($packet_id, $protocol_version)))
+			if(!($packet_name = @\Phpcraft\ClientboundPacket::fromId($packet_id, $protocol_version)->name))
 			{
 				continue;
 			}

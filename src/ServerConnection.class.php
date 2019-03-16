@@ -113,4 +113,21 @@ class ServerConnection extends Connection
 		}
 		while(true);
 	}
+
+	/**
+	 * @copydoc Connection::startPacket
+	 */
+	function startPacket($packet)
+	{
+		if(gettype($packet) == "string")
+		{
+			$packetId = ServerboundPacket::get($packet);
+			if(!$packetId)
+			{
+				throw new Exception("Unknown packet name: ".$packet);
+			}
+			$packet = $packetId->getId($this->protocol_version);
+		}
+		return parent::startPacket($packet);
+	}
 }

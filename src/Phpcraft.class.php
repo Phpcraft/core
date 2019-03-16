@@ -166,6 +166,16 @@ abstract class Phpcraft
 	}
 
 	/**
+	 * Initiates the download of various resources which might be needed during runtime but are not yet cached. Currently, this includes PacketId and EntityType.
+	 * @return void
+	 */
+	static function populateCache()
+	{
+		PacketId::all();
+		EntityType::all()[0]->getId(353);
+	}
+
+	/**
 	 * Validates an in-game name.
 	 * @param string $name
 	 * @return boolean True if the name is valid.

@@ -28,7 +28,7 @@ PluginManager::registerPlugin("FirstPackets", function($plugin)
 		$con->startPacket("spawn_position");
 		$con->writePosition($con->pos = new \Phpcraft\Position(0, 16, 0));
 		$con->send();
-		$con->startPacket("time_update");
+		$con->startPacket("update_time");
 		$con->writeLong(0); // World Age
 		$con->writeLong(-6000); // Time of Day
 		$con->send();

@@ -88,7 +88,7 @@ class Server
 					"sample" => $players
 				],
 				"description" => [
-					"text" => "A \\Server"
+					"text" => "A \\Phpcraft\\Server"
 				]
 			];
 		};
@@ -172,7 +172,7 @@ class Server
 					{
 						if($con->state == 3) // Playing
 						{
-							$packet_name = Packet::serverboundPacketIdToName($packet_id, $con->protocol_version);
+							$packet_name = @ServerboundPacket::getById($packet_id, $con->protocol_version)->name;
 							if($packet_name == "keep_alive_response")
 							{
 								$con->next_heartbeat = microtime(true) + 15;

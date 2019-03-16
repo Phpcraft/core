@@ -32,6 +32,22 @@ abstract class EntityMetadata
 						$con->ignoreBytes(1);
 						break;
 
+						case 1:
+						$con->readVarInt();
+						break;
+
+						case 2:
+						$con->ignoreBytes(4);
+						break;
+
+						case 7:
+						$con->ignoreBytes(1);
+						break;
+
+						case 8:
+						$con->ignoreBytes(12);
+						break;
+
 						default:
 						throw new Exception("Unimplemented type: {$type}");
 					}

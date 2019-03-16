@@ -3,10 +3,11 @@ namespace Phpcraft;
 /**
  * A wrapper to read and write from streams.
  * The Connection object can also be utilized without a stream:
- * <pre>$con = new Connection($protocol_version);
- * $packet = new ChatMessagePacket(["text" => "Hello, world!"]);
+ * <pre>$con = new \\Phpcraft\\Connection($protocol_version);
+ * $packet = new \\Phpcraft\\SpawnMobPacket();
+ * // $packet->...
  * $packet->send($con);
- * echo hex2bin($con->write_buffer)."\n";</pre>
+ * echo \\Phpcraft\\Phpcraft::binaryStringToHex($con->write_buffer)."\n";</pre>
  */
 class Connection
 {
@@ -334,14 +335,19 @@ class Connection
 
 	/**
 	 * Clears the write buffer and starts a new packet.
-	 * @param string|integer $packet The name or ID of the new packet. For a list of packet names, check the source code of Packet.
+	 * @param string|integer $packet The name or ID of the new packet.
 	 * @return Connection $this
 	 */
 	function startPacket($packet)
 	{
 		if(gettype($packet) == "string")
 		{
-			$packet = Packet::getId($packet, $this->protocol_version);
+			$packetId = PacketId::get($packet);
+			if(!$packetId)
+			{
+				throw new Exception("Unknown packet name: ".$packet);
+			}
+			$packet = $packetId->getId($this->protocol_version);
 		}
 		else if(gettype($packet) != "integer")
 		{

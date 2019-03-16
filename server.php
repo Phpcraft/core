@@ -66,7 +66,9 @@ $ui->add("Binding to port ".$options["port"]."... ")->render();
 $stream = stream_socket_server("tcp://0.0.0.0:".$options["port"], $errno, $errstr) or die(" {$errstr}\n");
 $server = new \Phpcraft\Server($stream, $private_key);
 $ui->input_prefix = "[Server] ";
-$ui->append("Success!")->render();
+$ui->append("Success!")->add("Preparing cache... ")->render();
+\Phpcraft\Phpcraft::populateCache();
+$ui->append("Done.")->render();
 echo "Autoloading plugins...\n";
 \Phpcraft\PluginManager::$platform = "phpcraft:server";
 \Phpcraft\PluginManager::autoloadPlugins();
@@ -184,7 +186,7 @@ $server->packet_function = function($con, $packet_name, $packet_id)
 			}
 		}
 	}
-	else if($packet_name == "player_position" || $packet_name == "player_position_and_look")
+	else if($packet_name == "position" || $packet_name == "position_and_look")
 	{
 		$con->pos = $con->readPrecisePosition();
 	}

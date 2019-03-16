@@ -2,6 +2,8 @@
 namespace Phpcraft;
 class Item extends Identifier
 {
+	private $legacy_id;
+
 	/**
 	 * @copydoc Identifier::all
 	 */
@@ -23,12 +25,17 @@ class Item extends Identifier
 	public $block;
 
 	/**
-	 * @copydoc Identifier::__construct
+	 * The constructor.
+	 * @param string $name The name without minecraft: prefix.
+	 * @param integer $legacy_id The pre-flattening ID of this item.
+	 * @param integer $since_protocol_version The protocol version at which this item was introduced.
 	 * @param string $block The name of the related BlockMaterial.
 	 */
 	function __construct($name, $legacy_id, $since_protocol_version = 0, $block = null)
 	{
-		parent::__construct($name, $legacy_id, $since_protocol_version);
+		$this->name = $name;
+		$this->legacy_id = $legacy_id;
+		$this->since_protocol_version = $since_protocol_version;
 		$this->block = $block;
 	}
 

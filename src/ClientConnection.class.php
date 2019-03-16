@@ -236,4 +236,21 @@ class ClientConnection extends Connection
 		}
 		$this->close();
 	}
+
+	/**
+	 * @copydoc Connection::startPacket
+	 */
+	function startPacket($packet)
+	{
+		if(gettype($packet) == "string")
+		{
+			$packetId = ClientboundPacket::get($packet);
+			if(!$packetId)
+			{
+				throw new Exception("Unknown packet name: ".$packet);
+			}
+			$packet = $packetId->getId($this->protocol_version);
+		}
+		return parent::startPacket($packet);
+	}
 }

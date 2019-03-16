@@ -3,7 +3,7 @@ namespace Phpcraft;
 abstract class Identifier
 {
 	/**
-	 * The name without minecraft: prefix.
+	 * The name of this Identifier.
 	 * @var string $name
 	 */
 	public $name;
@@ -12,24 +12,6 @@ abstract class Identifier
 	 * @var integer $since_protocol_version
 	 */
 	public $since_protocol_version;
-	/**
-	 * The pre-flattening ID.
-	 * @var integer $legacy_id
-	 */
-	protected $legacy_id;
-
-	/**
-	 * The constructor.
-	 * @param string $name The name without minecraft: prefix.
-	 * @param integer $legacy_id The pre-flattening ID.
-	 * @param integer $since_protocol_version The protocol version at which this Identifier was introduced.
-	 */
-	protected function __construct($name, $legacy_id, $since_protocol_version = 0)
-	{
-		$this->name = $name;
-		$this->legacy_id = $legacy_id;
-		$this->since_protocol_version = $since_protocol_version;
-	}
 
 	/**
 	 * Returns everything of this type.
@@ -45,7 +27,7 @@ abstract class Identifier
 	abstract function getId($protocol_version);
 
 	/**
-	 * Returns an Identifier by its name without minecraft: prefix or null if not found.
+	 * Returns an Identifier by its name or null if not found.
 	 * @param string $name
 	 * @return Identifier
 	 */

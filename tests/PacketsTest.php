@@ -23,7 +23,7 @@ final class PacketsTest extends \PHPUnit\Framework\TestCase
 		$con = new \Phpcraft\Connection(107);
 		$packet->send($con);
 		$con->read_buffer = $con->write_buffer;
-		$this->assertEquals("join_game", \Phpcraft\Packet::clientboundPacketIdToName($con->readVarInt(), $con->protocol_version));
+		$this->assertEquals("join_game", \Phpcraft\ClientboundPacket::getById($con->readVarInt(), $con->protocol_version)->name);
 		$this->assertEquals(1337, $con->readInt()); // Entity ID
 		$this->assertEquals(3 + 0x8, $con->readByte()); // Gamemode (Spectator + Hardcore)
 		$this->assertEquals(-1, $con->readByte(true)); // Dimension
@@ -47,7 +47,7 @@ final class PacketsTest extends \PHPUnit\Framework\TestCase
 		$con = new \Phpcraft\Connection(338);
 		$packet->send($con);
 		$con->read_buffer = $con->write_buffer;
-		$this->assertEquals("keep_alive_response", \Phpcraft\Packet::serverboundPacketIdToName($con->readVarInt(), $con->protocol_version));
+		$this->assertEquals("keep_alive_response", \Phpcraft\ServerboundPacket::getById($con->readVarInt(), $con->protocol_version)->name);
 		$this->assertEquals(1337, $con->readVarInt()); // Keep Alive ID
 		$this->assertEquals("", $con->read_buffer);
 	}

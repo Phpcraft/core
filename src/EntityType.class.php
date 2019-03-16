@@ -2,6 +2,8 @@
 namespace Phpcraft;
 class EntityType extends Identifier
 {
+	private $legacy_id;
+
 	/**
 	 * @copydoc Identifier::all
 	 */
@@ -104,6 +106,13 @@ class EntityType extends Identifier
 			new EntityType("fishing_bobber", 93),
 			new EntityType("trident", 94, 358)
 		];
+	}
+
+	private function __construct($name, $legacy_id, $since_protocol_version = 0)
+	{
+		$this->name = $name;
+		$this->legacy_id = $legacy_id;
+		$this->since_protocol_version = $since_protocol_version;
 	}
 
 	/**

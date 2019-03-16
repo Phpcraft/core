@@ -59,24 +59,19 @@ $total_size = 0;
 while($id = $con->readPacket())
 {
 	$size = strlen($con->read_buffer);
+	if($argv[1] == "client")
+	{
+		$name = @\Phpcraft\ClientboundPacket::getById($id, $pv)->name;
+	}
+	else
+	{
+		$name = @\Phpcraft\ServerboundPacket::getById($id, $pv)->name;
+	}
 	if($size == 0)
 	{
 		die(convertPacket($id, $name)." has no data.\n");
 	}
-	if(strpos($con->read_buffer, "Twitter") === false)
-	{
-		continue;
-	}
-	if($argv[1] == "client")
-	{
-		$name = \Phpcraft\Packet::clientboundPacketIdToName($id, $pv);
-	}
-	else
-	{
-		$name = \Phpcraft\Packet::serverboundPacketIdToName($id, $pv);
-	}
-	$packet = \Phpcraft\Packet::init($name, $con);
-	if($packet)
+	if($packet = \Phpcraft\Packet::init($name, $con))
 	{
 		if($last_id)
 		{

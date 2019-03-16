@@ -2,6 +2,7 @@
 namespace Phpcraft;
 class BlockMaterial extends Identifier
 {
+	private $legacy_id;
 	/**
 	 * The name of each Item dropped when this block is destroyed.
 	 * @var array $drops
@@ -22,12 +23,17 @@ class BlockMaterial extends Identifier
 	}
 
 	/**
-	 * @copydoc Identifier::__construct
+	 * The constructor.
+	 * @param string $name The name without minecraft: prefix.
+	 * @param integer $legacy_id The pre-flattening ID of this block material.
+	 * @param integer $since_protocol_version The protocol version at which this block was introduced.
 	 * @param array $drops The name of each Item dropped when this block is destroyed.
 	 */
 	function __construct($name, $legacy_id, $since_protocol_version = 0, $drops = [])
 	{
-		parent::__construct($name, $legacy_id, $since_protocol_version);
+		$this->name = $name;
+		$this->legacy_id = $legacy_id;
+		$this->since_protocol_version = $since_protocol_version;
 		$this->drops = $drops;
 	}
 

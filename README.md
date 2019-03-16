@@ -6,9 +6,9 @@ A PHP library all about Minecraft: Java Edition.
 
 Windows might work for some features, but it's not supported due to [a bug](https://bugs.php.net/bug.php?id=34972) and a general lack of features. Instead, use [the Windows Subsystem for Linux](https://aka.ms/wslinstall).
 
-Phpcraft has different dependencies for different use cases, but in general, you'll need PHP, mbstring, and GMP:
+Phpcraft has different dependencies for different use cases, but in general, you'll need PHP, mbstring, GMP, and [Composer](https://getcomposer.org/):
 
-    sudo apt-get -y install php php-cli php-mbstring php-gmp
+    sudo apt-get -y install php php-cli php-mbstring php-gmp composer
 
 If you want to join or host an online mode server, you'll also need OpenSSl and mcrypt. The installation of mcrypt is different depending on your PHP version, so check `php -version`, and then run the appropriate commands:
 
@@ -23,10 +23,11 @@ If you want to join or host an online mode server, you'll also need OpenSSl and 
 
 ## Using the Phpcraft CLI utilities
 
-First, clone the repository:
+First, clone the repository and generate the autoload script:
 
     git clone https://github.com/timmyrs/Phpcraft
     cd Phpcraft
+	composer install
 
 and then you can run:
 
@@ -38,11 +39,9 @@ and then you can run:
 - `php packets.php` — A tool to print packets from a binary file, e.g. recorded by WorldSaver.
 - `php uuid.php` — A tool to convert UUIDs.
 
-Enjoy!
-
 ## Using Phpcraft as a library
 
-Thanks to [Composer](https://getcomposer.org/), using Phpcraft as a library is really easy. Just head into your project folder, run `composer require timmyrs/phpcraft:dev-master`, and that's it; you can now `require "vendor/autoload.php";` to use Phpcraft's many APIs.
+Thanks to Composer, using Phpcraft as a library is really easy. Just head into your project folder, run `composer require timmyrs/phpcraft:dev-master`, and that's it; you can now `require "vendor/autoload.php";` to use Phpcraft's many APIs.
 
 In addition to the CLI utilities above and the "Who uses Phpcraft?" section below serving up great example code, there's also a [documentation](https://phpcraft.de/docs/namespacePhpcraft.html) and [wiki](https://github.com/timmyrs/Phpcraft/wiki).
 
