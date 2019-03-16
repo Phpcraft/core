@@ -73,6 +73,15 @@ class Uuid
 	}
 
 	/**
+	 * Returns true if the skin of a player with this Uuid would be slim ("Alex" style).
+	 * @return boolean
+	 */
+	function isSlim()
+	{
+		return ((ord(substr($this->binary, 3, 1)) & 0xF) ^ (ord(substr($this->binary, 7, 1)) & 0xF) ^ (ord(substr($this->binary, 11, 1)) & 0xF) ^ (ord(substr($this->binary, 15, 1)) & 0xF)) == 1;
+	}
+
+	/**
 	 * Returns the string representation of the Uuid.
 	 * @param boolean $withHypens
 	 * @return string
