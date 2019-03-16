@@ -36,6 +36,7 @@ and then you can run:
 - `php listping.php` — A listping utility.
 - `php cache.php` — An interface to manage Phpcraft's resource cache.
 - `php packets.php` — A tool to print packets from a binary file, e.g. recorded by WorldSaver.
+- `php uuid.php` — A tool to convert UUIDs.
 
 Enjoy!
 
