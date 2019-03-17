@@ -6,6 +6,44 @@ namespace Phpcraft;
  */
 abstract class EntityMetadata
 {
+	private static function ignoreType($con, $type)
+	{
+		switch($type)
+		{
+			case "i8":
+			case "bool":
+			$con->ignoreBytes(1);
+			break;
+
+			case "f32":
+			$con->ignoreBytes(4);
+			break;
+
+			case "position":
+			$con->ignoreBytes(8);
+			break;
+
+			case "varint":
+			$con->readVarInt();
+			break;
+
+			case "string":
+			$con->ignoreBytes($con->readVarInt());
+			break;
+
+			case "slot":
+			$con->readSlot(false);
+			break;
+
+			case "nbt":
+			$con->readNBT();
+			break;
+
+			default:
+			throw new Exception("Unimplemented type: {$type}");
+		}
+	}
+
 	/**
 	 * Reads metadata values from the Connection.
 	 * @param Connection $con
@@ -13,6 +51,14 @@ abstract class EntityMetadata
 	 */
 	function read(Connection $con)
 	{
+		if($con->protocol_version >= 57)
+		{
+			$versions = [
+				383 => "1.13",
+				328 => "1.12",
+				57 => "1.11"
+			];
+		}
 		do
 		{
 			if($con->protocol_version >= 57)
@@ -26,30 +72,39 @@ abstract class EntityMetadata
 				if(!$this->read_($con, $index))
 				{
 					trigger_error("Unimplemented index: {$index}");
-					switch($type)
+					foreach($versions as $pv => $v)
 					{
-						case 0:
-						$con->ignoreBytes(1);
-						break;
+						if($con->protocol_version >= $pv)
+						{
+							$type = Phpcraft::getCachableJson("https://raw.githubusercontent.com/timmyrs/minecraft-data/master/data/pc/{$v}/protocol.json")["types"]["entityMetadataItem"][1]["fields"][$type];
+							if(gettype($type) == "array")
+							{
+								switch($type[0])
+								{
+									case "option":
+									if($con->readBoolean())
+									{
+										self::ignoreType($con, $type[1]);
+									}
+									break 2;
 
-						case 1:
-						$con->readVarInt();
-						break;
+									case "container":
+									foreach($type[1] as $contained)
+									{
+										self::ignoreType($con, $contained["type"]);
+									}
+									break 2;
 
-						case 2:
-						$con->ignoreBytes(4);
-						break;
-
-						case 7:
-						$con->ignoreBytes(1);
-						break;
-
-						case 8:
-						$con->ignoreBytes(12);
-						break;
-
-						default:
-						throw new Exception("Unimplemented type: {$type}");
+									default:
+									throw new Exception("Unimplemented type: ".$type[0]);
+								}
+							}
+							else
+							{
+								self::ignoreType($con, $type);
+							}
+							break;
+						}
 					}
 				}
 			}
@@ -64,7 +119,7 @@ abstract class EntityMetadata
 				$type >>= 5;
 				if(!$this->read_($con, $index))
 				{
-					trigger_error("Unimplemented legacy index: {$index}");
+					trigger_error("Unimplemented index: {$index}");
 					switch($type)
 					{
 						case 0:
@@ -94,7 +149,7 @@ abstract class EntityMetadata
 						break;
 
 						default:
-						throw new Exception("Unimplemented legacy type: {$type}");
+						throw new Exception("Invalid type: {$type}");
 					}
 				}
 			}

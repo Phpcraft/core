@@ -5,7 +5,7 @@ abstract class PacketId extends Identifier
 	private static function versions()
 	{
 		return [
-			393 => "1.13",
+			383 => "1.13",
 			336 => "1.12.1",
 			328 => "1.12",
 			314 => "1.11",
@@ -20,8 +20,7 @@ abstract class PacketId extends Identifier
 		$packets = [];
 		foreach(array_reverse(self::versions(), true) as $pv => $v)
 		{
-			$json = Phpcraft::getCachableJson("https://raw.githubusercontent.com/timmyrs/minecraft-data/master/data/pc/{$v}/protocol.json");
-			foreach($json["play"][$key]["types"]["packet"][1][0]["type"][1]["mappings"] as $name)
+			foreach(Phpcraft::getCachableJson("https://raw.githubusercontent.com/timmyrs/minecraft-data/master/data/pc/{$v}/protocol.json")["play"][$key]["types"]["packet"][1][0]["type"][1]["mappings"] as $name)
 			{
 				if(isset($name_map[$name]))
 				{
@@ -56,8 +55,7 @@ abstract class PacketId extends Identifier
 		{
 			if($protocol_version >= $pv)
 			{
-				$json = Phpcraft::getCachableJson("https://raw.githubusercontent.com/timmyrs/minecraft-data/master/data/pc/{$v}/protocol.json");
-				foreach($json["play"][$key]["types"]["packet"][1][0]["type"][1]["mappings"] as $id => $name)
+				foreach(Phpcraft::getCachableJson("https://raw.githubusercontent.com/timmyrs/minecraft-data/master/data/pc/{$v}/protocol.json")["play"][$key]["types"]["packet"][1][0]["type"][1]["mappings"] as $id => $name)
 				{
 					if((isset($name_map[$name]) ? $name_map[$name] : $name) == $this->name)
 					{

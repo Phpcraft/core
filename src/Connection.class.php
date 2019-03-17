@@ -866,9 +866,10 @@ class Connection
 
 	/**
 	 * Reads a Slot.
+	 * @param boolean $additional_processing Whether additional processing should occur to properly receive pre-1.13 data. You should only set this to false if you want a lazy read, and don't even care about the slot.
 	 * @return Slot
 	 */
-	function readSlot()
+	function readSlot($additional_processing = true)
 	{
 		$slot = new Slot();
 		if($this->protocol_version >= 402)
@@ -895,7 +896,7 @@ class Connection
 			else
 			{
 				$metadata = $this->readShort();
-				if($metadata > 0)
+				if($additional_processing && $metadata > 0)
 				{
 					switch($id)
 					{
@@ -939,7 +940,7 @@ class Connection
 			}
 		}
 		$slot->nbt = $this->readNBT();
-		if($this->protocol_version < 402 && $slot->nbt instanceof NbtCompound)
+		if($additional_processing && $this->protocol_version < 402 && $slot->nbt instanceof NbtCompound)
 		{
 			$display = $slot->nbt->getChild("display");
 			if($display && $display instanceof NbtCompound)
