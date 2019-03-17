@@ -4,6 +4,11 @@ php:
   - '7.1'
   - '7.2'
   - '7.3'
+cache:
+  directories:
+    - vendor
 script:
+  - mv vendor/.cache src/.cache
   - composer install
   - phpunit tests/ --testdox
+  - mv src/.cache vendor/.cache
