@@ -8,8 +8,8 @@ class SpawnMobPacket extends Packet
 	 */
 	public $eid;
 	/**
-	 * The Uuid of the entity.
-	 * @var Uuid $uuid
+	 * The UUID of the entity.
+	 * @var UUID $uuid
 	 */
 	public $uuid;
 	/**
@@ -32,7 +32,7 @@ class SpawnMobPacket extends Packet
 	 * The constructor.
 	 * @param integer $eid The entity ID of the mob.
 	 * @param EntityType $type The type of mob.
-	 * @param Uuid $uuid The Uuid of the entity.
+	 * @param UUID $uuid The UUID of the entity.
 	 */
 	function __construct($eid = 0, $type = null, $uuid = null)
 	{
@@ -64,7 +64,7 @@ class SpawnMobPacket extends Packet
 		$eid = $con->readVarInt();
 		if($con->protocol_version >= 49)
 		{
-			$uuid = $con->readUuid();
+			$uuid = $con->readUUID();
 		}
 		else
 		{

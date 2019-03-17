@@ -14,7 +14,7 @@ PluginManager::registerPlugin("BossBar", function($plugin)
 		{
 			return;
 		}
-		$packet = new \Phpcraft\AddBossBarPacket(\Phpcraft\Uuid::v5("BossBar.php"));
+		$packet = new \Phpcraft\AddBossBarPacket(\Phpcraft\UUID::v5("BossBar.php"));
 		$packet->title = ["text" => "Hello, world!"];
 		$packet->send($event->data["client"]);
 	}, \Phpcraft\Event::PRIORITY_LOWEST);
@@ -27,8 +27,8 @@ PluginManager::registerPlugin("BossBar", function($plugin)
 			{
 				continue;
 			}
-			(new \Phpcraft\UpdateBossBarHealthPacket(\Phpcraft\Uuid::v5("BossBar.php"), ($bossbar_i - 91) / 91))->send($con);
-			(new \Phpcraft\UpdateBossBarTitlePacket(\Phpcraft\Uuid::v5("BossBar.php"), @str_repeat("|", $bossbar_i).@str_repeat(".", (273 - $bossbar_i))))->send($con);
+			(new \Phpcraft\UpdateBossBarHealthPacket(\Phpcraft\UUID::v5("BossBar.php"), ($bossbar_i - 91) / 91))->send($con);
+			(new \Phpcraft\UpdateBossBarTitlePacket(\Phpcraft\UUID::v5("BossBar.php"), @str_repeat("|", $bossbar_i).@str_repeat(".", (273 - $bossbar_i))))->send($con);
 		}
 		if(++$bossbar_i == 273)
 		{

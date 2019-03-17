@@ -1,7 +1,7 @@
 <?php
 namespace Phpcraft;
 /** A UUID helper class. */
-class Uuid
+class UUID
 {
 	/**
 	 * The binary string containing the UUID.
@@ -13,7 +13,7 @@ class Uuid
 	 * The constructor.
 	 * @param string $binary The binary string containing the UUID.
 	 * @throws Exception When the given string is not a valid UUID binary string.
-	 * @see Uuid::fromString
+	 * @see UUID::fromString
 	 */
 	function __construct($binary)
 	{
@@ -25,9 +25,9 @@ class Uuid
 	}
 
 	/**
-	 * Returns a Uuid for the given string.
+	 * Returns a UUID for the given string.
 	 * @throws Exception When the given string is not a valid UUID.
-	 * @return Uuid
+	 * @return UUID
 	 */
 	static function fromString($str)
 	{
@@ -36,7 +36,7 @@ class Uuid
 		{
 			throw new Exception("Invalid UUID: $str");
 		}
-		return Uuid::fromString_($str);
+		return UUID::fromString_($str);
 	}
 
 	private static function fromString_($str)
@@ -46,12 +46,12 @@ class Uuid
 		{
 			$binary .= chr(hexdec(substr($str, $i, 2)));
 		}
-		return new Uuid($binary);
+		return new UUID($binary);
 	}
 
 	/**
 	 * Generates a UUIDv4.
-	 * @return Uuid
+	 * @return UUID
 	 */
 	static function v4()
 	{
@@ -60,20 +60,20 @@ class Uuid
 
 	/**
 	 * Generates a UUIDv5.
-	 * @return Uuid
+	 * @return UUID
 	 */
-	static function v5($str, Uuid $namespace = null)
+	static function v5($str, UUID $namespace = null)
 	{
 		if(!$namespace)
 		{
-			$namespace = new Uuid(str_repeat(chr(0), 16));
+			$namespace = new UUID(str_repeat(chr(0), 16));
 		}
 		$hash = sha1($str.$namespace->binary);
 		return UUID::fromString_(sprintf("%08s%04s%04x%04x%12s", substr($hash, 0, 8), substr($hash, 8, 4), (hexdec(substr($hash, 12, 4)) & 0x0fff) | 0x5000, (hexdec(substr($hash, 16, 4)) & 0x3fff) | 0x8000, substr($hash, 20, 12)));
 	}
 
 	/**
-	 * Returns true if the skin of a player with this Uuid would be slim ("Alex" style).
+	 * Returns true if the skin of a player with this UUID would be slim ("Alex" style).
 	 * @return boolean
 	 */
 	function isSlim()
@@ -82,7 +82,7 @@ class Uuid
 	}
 
 	/**
-	 * Returns the string representation of the Uuid.
+	 * Returns the string representation of the UUID.
 	 * @param boolean $withHypens
 	 * @return string
 	 */
@@ -106,7 +106,7 @@ class Uuid
 	}
 
 	/**
-	 * Returns an integer which will always be the same given the same Uuid, but collisions are far more likely.
+	 * Returns an integer which will always be the same given the same UUID, but collisions are far more likely.
 	 * @return integer
 	 */
 	function toInt()

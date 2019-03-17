@@ -17,28 +17,28 @@ final class GeneralTest extends \PHPUnit\Framework\TestCase
 
 	function testUuid()
 	{
-		$uuid = \Phpcraft\Uuid::fromString("e0603b592edc45f7acc7b0cccd6656e1");
-		$this->assertEquals($uuid, \Phpcraft\Uuid::fromString("e0603b59-2edc-45f7-acc7-b0cccd6656e1"));
+		$uuid = \Phpcraft\UUID::fromString("e0603b592edc45f7acc7b0cccd6656e1");
+		$this->assertEquals($uuid, \Phpcraft\UUID::fromString("e0603b59-2edc-45f7-acc7-b0cccd6656e1"));
 		$this->assertEquals("e0603b592edc45f7acc7b0cccd6656e1", $uuid->toString());
 		$this->assertEquals("e0603b59-2edc-45f7-acc7-b0cccd6656e1", $uuid->toString(true));
 		$this->assertEquals("a36e854defad58cdbd0084259b83901d", $uuid->v5("Hello, world!")->toString());
 		$this->assertEquals(3764410081, $uuid->toInt());
-		$this->assertFalse(\Phpcraft\Uuid::fromString("fffffff0-ffff-fff0-ffff-fff0fffffff0")->isSlim());
-		$this->assertFalse(\Phpcraft\Uuid::fromString("fffffff0-ffff-fff0-ffff-fff1fffffff1")->isSlim());
-		$this->assertFalse(\Phpcraft\Uuid::fromString("fffffff0-ffff-fff1-ffff-fff0fffffff1")->isSlim());
-		$this->assertFalse(\Phpcraft\Uuid::fromString("fffffff0-ffff-fff1-ffff-fff1fffffff0")->isSlim());
-		$this->assertFalse(\Phpcraft\Uuid::fromString("fffffff1-ffff-fff0-ffff-fff0fffffff1")->isSlim());
-		$this->assertFalse(\Phpcraft\Uuid::fromString("fffffff1-ffff-fff0-ffff-fff1fffffff0")->isSlim());
-		$this->assertFalse(\Phpcraft\Uuid::fromString("fffffff1-ffff-fff1-ffff-fff0fffffff0")->isSlim());
-		$this->assertFalse(\Phpcraft\Uuid::fromString("fffffff1-ffff-fff1-ffff-fff1fffffff1")->isSlim());
-		$this->assertTrue(\Phpcraft\Uuid::fromString("fffffff0-ffff-fff0-ffff-fff0fffffff1")->isSlim());
-		$this->assertTrue(\Phpcraft\Uuid::fromString("fffffff0-ffff-fff0-ffff-fff1fffffff0")->isSlim());
-		$this->assertTrue(\Phpcraft\Uuid::fromString("fffffff0-ffff-fff1-ffff-fff0fffffff0")->isSlim());
-		$this->assertTrue(\Phpcraft\Uuid::fromString("fffffff0-ffff-fff1-ffff-fff1fffffff1")->isSlim());
-		$this->assertTrue(\Phpcraft\Uuid::fromString("fffffff1-ffff-fff0-ffff-fff0fffffff0")->isSlim());
-		$this->assertTrue(\Phpcraft\Uuid::fromString("fffffff1-ffff-fff0-ffff-fff1fffffff1")->isSlim());
-		$this->assertTrue(\Phpcraft\Uuid::fromString("fffffff1-ffff-fff1-ffff-fff0fffffff1")->isSlim());
-		$this->assertTrue(\Phpcraft\Uuid::fromString("fffffff1-ffff-fff1-ffff-fff1fffffff0")->isSlim());
+		$this->assertFalse(\Phpcraft\UUID::fromString("fffffff0-ffff-fff0-ffff-fff0fffffff0")->isSlim());
+		$this->assertFalse(\Phpcraft\UUID::fromString("fffffff0-ffff-fff0-ffff-fff1fffffff1")->isSlim());
+		$this->assertFalse(\Phpcraft\UUID::fromString("fffffff0-ffff-fff1-ffff-fff0fffffff1")->isSlim());
+		$this->assertFalse(\Phpcraft\UUID::fromString("fffffff0-ffff-fff1-ffff-fff1fffffff0")->isSlim());
+		$this->assertFalse(\Phpcraft\UUID::fromString("fffffff1-ffff-fff0-ffff-fff0fffffff1")->isSlim());
+		$this->assertFalse(\Phpcraft\UUID::fromString("fffffff1-ffff-fff0-ffff-fff1fffffff0")->isSlim());
+		$this->assertFalse(\Phpcraft\UUID::fromString("fffffff1-ffff-fff1-ffff-fff0fffffff0")->isSlim());
+		$this->assertFalse(\Phpcraft\UUID::fromString("fffffff1-ffff-fff1-ffff-fff1fffffff1")->isSlim());
+		$this->assertTrue(\Phpcraft\UUID::fromString("fffffff0-ffff-fff0-ffff-fff0fffffff1")->isSlim());
+		$this->assertTrue(\Phpcraft\UUID::fromString("fffffff0-ffff-fff0-ffff-fff1fffffff0")->isSlim());
+		$this->assertTrue(\Phpcraft\UUID::fromString("fffffff0-ffff-fff1-ffff-fff0fffffff0")->isSlim());
+		$this->assertTrue(\Phpcraft\UUID::fromString("fffffff0-ffff-fff1-ffff-fff1fffffff1")->isSlim());
+		$this->assertTrue(\Phpcraft\UUID::fromString("fffffff1-ffff-fff0-ffff-fff0fffffff0")->isSlim());
+		$this->assertTrue(\Phpcraft\UUID::fromString("fffffff1-ffff-fff0-ffff-fff1fffffff1")->isSlim());
+		$this->assertTrue(\Phpcraft\UUID::fromString("fffffff1-ffff-fff1-ffff-fff0fffffff1")->isSlim());
+		$this->assertTrue(\Phpcraft\UUID::fromString("fffffff1-ffff-fff1-ffff-fff1fffffff0")->isSlim());
 	}
 
 	function testCounter()

@@ -10,7 +10,7 @@ class RemoveBossBarPacket extends BossBarPacket
 		if($con->protocol_version > 49)
 		{
 			$con->startPacket("boss_bar");
-			$con->writeUuid($this->uuid);
+			$con->writeUUID($this->uuid);
 			$con->writeVarInt(1);
 		}
 		else

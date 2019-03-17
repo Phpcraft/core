@@ -16,14 +16,14 @@ abstract class BossBarPacket extends Packet
 	const DIVISION_20 = 4;
 
 	/**
-	 * The Uuid of the boss bar.
-	 * @var Uuid $uuid
+	 * The UUID of the boss bar.
+	 * @var UUID $uuid
 	 */
 	public $uuid;
 
 	/**
 	 * The constructor.
-	 * @param Uuid $uuid The Uuid of the boss bar.
+	 * @param UUID $uuid The UUID of the boss bar.
 	 */
 	function __construct($uuid = null)
 	{

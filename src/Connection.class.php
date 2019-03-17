@@ -324,12 +324,12 @@ class Connection
 	}
 
 	/**
-	 * Adds a Uuid to the write buffer.
+	 * Adds a UUID to the write buffer.
 	 * @return Connection $this
 	 */
-	function writeUuid(Uuid $uuid)
+	function writeUUID(UUID $uuid)
 	{
-		$this->writeRaw($uuid->binary);
+		$this->write_buffer .= $uuid->binary;
 		return $this;
 	}
 
@@ -749,28 +749,17 @@ class Connection
 	}
 
 	/**
-	 * Reads a Uuid.
+	 * Reads a UUID.
 	 * @throws Exception When there are not enough bytes to read a UUID.
-	 * @return Uuid
+	 * @return UUID
 	 */
-	function readUuid()
-	{
-		return new Uuid($this->readUuidBytes());
-	}
-
-	/**
-	 * Reads a binary string consisting of 16 bytes.
-	 * @see Connection::readUuid()
-	 * @throws Exception When there are not enough bytes to read a UUID.
-	 * @return string
-	 */
-	function readUuidBytes()
+	function readUUID()
 	{
 		if(strlen($this->read_buffer) < 16)
 		{
 			throw new Exception("There are not enough bytes to read a UUID.");
 		}
-		$uuid = substr($this->read_buffer, 0, 16);
+		$uuid = new UUID(substr($this->read_buffer, 0, 16));
 		$this->read_buffer = substr($this->read_buffer, 16);
 		return $uuid;
 	}
