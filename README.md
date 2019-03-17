@@ -1,6 +1,6 @@
 # Phpcraft [![Build Status](https://travis-ci.org/timmyrs/Phpcraft.svg?branch=master)](https://travis-ci.org/timmyrs/Phpcraft)
 
-A PHP library all about Minecraft: Java Edition.
+A PHP library for [all things](https://phpcraft.de/docs/namespacePhpcraft.html) Minecraft: Java Edition.
 
 ## Dependencies
 
