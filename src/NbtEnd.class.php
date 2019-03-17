@@ -3,11 +3,12 @@ namespace Phpcraft;
 class NbtEnd extends NbtTag
 {
 	/**
-	 * @copydoc NbtTag::send
+	 * @copydoc NbtTag::write
 	 */
-	function send(Connection $con, $inList = false)
+	function write(Connection $con, $inList = false)
 	{
 		$con->writeByte(0);
+		return $con;
 	}
 
 	function copy()

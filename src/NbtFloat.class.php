@@ -20,15 +20,16 @@ class NbtFloat extends NbtTag
 	}
 
 	/**
-	 * @copydoc NbtTag::send
+	 * @copydoc NbtTag::write
 	 */
-	function send(Connection $con, $inList = false)
+	function write(Connection $con, $inList = false)
 	{
 		if(!$inList)
 		{
-			$this->_send($con, 5);
+			$this->_write($con, 5);
 		}
 		$con->writeFloat($this->value);
+		return $con;
 	}
 
 	function copy()

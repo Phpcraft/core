@@ -29,11 +29,23 @@ abstract class NbtTag
 	/**
 	 * Adds the NBT tag to the write buffer of the connection.
 	 * @param Connection $con
-	 * @param boolean $inList Ignore this parameter.
+	 * @return Connection $con
+	 * @deprecated Use NbtTag::write, instead.
 	 */
-	abstract function send(Connection $con, $inList = false);
+	function send(Connection $con)
+	{
+		return $this->write($con);
+	}
 
-	protected function _send($con, $type)
+	/**
+	 * Adds the NBT tag to the write buffer of the connection.
+	 * @param Connection $con
+	 * @param boolean $inList Ignore this parameter.
+	 * @return Connection $con
+	 */
+	abstract function write(Connection $con, $inList = false);
+
+	protected function _write($con, $type)
 	{
 		$con->writeByte($type);
 		$con->writeShort(strlen($this->name));

@@ -20,15 +20,16 @@ class NbtDouble extends NbtTag
 	}
 
 	/**
-	 * @copydoc NbtTag::send
+	 * @copydoc NbtTag::write
 	 */
-	function send(Connection $con, $inList = false)
+	function write(Connection $con, $inList = false)
 	{
 		if(!$inList)
 		{
-			$this->_send($con, 6);
+			$this->_write($con, 6);
 		}
 		$con->writeDouble($this->value, true);
+		return $con;
 	}
 
 	function copy()

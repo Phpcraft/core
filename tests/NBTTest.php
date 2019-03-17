@@ -20,7 +20,7 @@ final class NBTTest extends \PHPUnit\Framework\TestCase
 		$this->assertTrue($int instanceof \Phpcraft\NbtInt);
 		$this->assertEquals("Int", $int->name);
 		$this->assertEquals(-1, $int->value);
-		$list->send($con);
+		$list->write($con);
 		$this->assertEquals($bin, $con->write_buffer);
 	}
 
@@ -33,7 +33,7 @@ final class NBTTest extends \PHPUnit\Framework\TestCase
 		$this->assertEquals("", $con->read_buffer);
 		$this->assertTrue($tag instanceof \Phpcraft\NbtCompound);
 		$this->assertEquals("Level", $tag->name);
-		$tag->send($con);
+		$tag->write($con);
 		$this->assertEquals($bin, $con->write_buffer);
 	}
 }

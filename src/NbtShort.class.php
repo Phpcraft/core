@@ -20,15 +20,16 @@ class NbtShort extends NbtTag
 	}
 
 	/**
-	 * @copydoc NbtTag::send
+	 * @copydoc NbtTag::write
 	 */
-	function send(Connection $con, $inList = false)
+	function write(Connection $con, $inList = false)
 	{
 		if(!$inList)
 		{
-			$this->_send($con, 2);
+			$this->_write($con, 2);
 		}
 		$con->writeShort($this->value);
+		return $con;
 	}
 
 	function copy()

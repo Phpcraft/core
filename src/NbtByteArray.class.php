@@ -20,19 +20,20 @@ class NbtByteArray extends NbtTag
 	}
 
 	/**
-	 * @copydoc NbtTag::send
+	 * @copydoc NbtTag::write
 	 */
-	function send(Connection $con, $inList = false)
+	function write(Connection $con, $inList = false)
 	{
 		if(!$inList)
 		{
-			$this->_send($con, 7);
+			$this->_write($con, 7);
 		}
 		$con->writeInt(count($this->children), true);
 		foreach($this->children as $child)
 		{
 			$con->writeByte($child);
 		}
+		return $con;
 	}
 
 	function copy()

@@ -405,10 +405,10 @@ class Connection
 	}
 
 	/**
-	 * Puts a raw bytes into the read buffer, which you probably don't want.
+	 * Puts raw bytes from the stream into the read buffer.
 	 * @see Connection::readPacket
-	 * @param float $timeout The amount of seconds to wait before read is aborted.
-	 * @param integer $bytes The exact amount of bytes you would like to receive.
+	 * @param float $timeout The amount of seconds to wait before the read is aborted.
+	 * @param integer $bytes The exact amount of bytes you would like to receive. 0 means read up to 8 KiB.
 	 * @return boolean True on success.
 	 */
 	function readRawPacket($timeout = 3.000, $bytes = 0)

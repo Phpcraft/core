@@ -73,19 +73,20 @@ class NbtCompound extends NbtTag
 	}
 
 	/**
-	 * @copydoc NbtTag::send
+	 * @copydoc NbtTag::write
 	 */
-	function send(Connection $con, $inList = false)
+	function write(Connection $con, $inList = false)
 	{
 		if(!$inList)
 		{
-			$this->_send($con, 10);
+			$this->_write($con, 10);
 		}
 		foreach($this->children as $child)
 		{
-			$child->send($con);
+			$child->write($con);
 		}
 		$con->writeByte(0);
+		return $con;
 	}
 
 	function copy()

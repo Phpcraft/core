@@ -20,15 +20,16 @@ class NbtInt extends NbtTag
 	}
 
 	/**
-	 * @copydoc NbtTag::send
+	 * @copydoc NbtTag::write
 	 */
-	function send(Connection $con, $inList = false)
+	function write(Connection $con, $inList = false)
 	{
 		if(!$inList)
 		{
-			$this->_send($con, 3);
+			$this->_write($con, 3);
 		}
 		$con->writeInt($this->value, true);
+		return $con;
 	}
 
 	function copy()

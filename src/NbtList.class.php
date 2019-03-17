@@ -28,20 +28,21 @@ class NbtList extends NbtTag
 	}
 
 	/**
-	 * @copydoc NbtTag::send
+	 * @copydoc NbtTag::write
 	 */
-	function send(Connection $con, $inList = false)
+	function write(Connection $con, $inList = false)
 	{
 		if(!$inList)
 		{
-			$this->_send($con, 9);
+			$this->_write($con, 9);
 		}
 		$con->writeByte($this->childType);
 		$con->writeInt(count($this->children), true);
 		foreach($this->children as $child)
 		{
-			$child->send($con, true);
+			$child->write($con, true);
 		}
+		return $con;
 	}
 
 	function copy()
