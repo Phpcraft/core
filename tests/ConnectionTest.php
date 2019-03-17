@@ -11,6 +11,7 @@ final class ConnectionTest extends \PHPUnit\Framework\TestCase
 		$con->read_buffer = $con->write_buffer;
 		$this->assertEquals(1, $con->readInt());
 		$this->assertEquals(-1, $con->readInt(true));
+		$this->assertEquals("", $con->read_buffer);
 	}
 
 	function testReadAndWriteFloats()
@@ -23,6 +24,7 @@ final class ConnectionTest extends \PHPUnit\Framework\TestCase
 		$this->assertEquals(1, $con->readFloat());
 		$this->assertEquals(-1, $con->readFloat());
 		$this->assertEquals(0.5, $con->readFloat());
+		$this->assertEquals("", $con->read_buffer);
 	}
 
 	function testReadAndWriteDoubles()
@@ -35,6 +37,7 @@ final class ConnectionTest extends \PHPUnit\Framework\TestCase
 		$this->assertEquals(1, $con->readDouble());
 		$this->assertEquals(-1, $con->readDouble());
 		$this->assertEquals(0.5, $con->readDouble());
+		$this->assertEquals("", $con->read_buffer);
 	}
 
 	function testWriteVarintAndReadBytes()
@@ -45,6 +48,7 @@ final class ConnectionTest extends \PHPUnit\Framework\TestCase
 		$con->read_buffer = $con->write_buffer;
 		$this->assertEquals(0b11111111, $con->readByte());
 		$this->assertEquals(0b00000001, $con->readByte());
+		$this->assertEquals("", $con->read_buffer);
 	}
 
 	function testWriteBytesAndReadVarint()
@@ -55,6 +59,7 @@ final class ConnectionTest extends \PHPUnit\Framework\TestCase
 		$this->assertEquals(2, strlen($con->write_buffer));
 		$con->read_buffer = $con->write_buffer;
 		$this->assertEquals(255, $con->readVarInt());
+		$this->assertEquals("", $con->read_buffer);
 	}
 
 	function testReadAndWriteString()
@@ -66,13 +71,18 @@ final class ConnectionTest extends \PHPUnit\Framework\TestCase
 		$this->assertEquals(2, $con->readVarInt());
 		$con->read_buffer = $con->write_buffer;
 		$this->assertEquals("Ä", $con->readString());
+		$this->assertEquals("", $con->read_buffer);
 	}
 
 	function testReadAndWriteChatObject()
 	{
+		$chat = ["text" => "Hey", "color" => "gold"];
 		$con = new \Phpcraft\Connection();
 		$con->writeChat("Hi");
+		$con->writeChat($chat);
 		$con->read_buffer = $con->write_buffer;
 		$this->assertEquals(["text" => "Hi"], $con->readChat());
+		$this->assertEquals($chat, $con->readChat());
+		$this->assertEquals("", $con->read_buffer);
 	}
 }

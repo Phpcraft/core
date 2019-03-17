@@ -74,6 +74,7 @@ final class GeneralTest extends \PHPUnit\Framework\TestCase
 		$this->assertTrue(strpos($con->write_buffer, "§eTest") !== false);
 		$con->read_buffer = $con->write_buffer;
 		$read_metadata = (new \Phpcraft\EntityBase())->read($con);
+		$this->assertEquals("", $con->read_buffer);
 		$this->assertTrue($read_metadata->burning);
 		$this->assertFalse($read_metadata->crouching);
 		$this->assertFalse($read_metadata->elytraing);

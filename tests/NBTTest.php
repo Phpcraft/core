@@ -30,9 +30,9 @@ final class NBTTest extends \PHPUnit\Framework\TestCase
 		$con = new \Phpcraft\Connection(-1);
 		$con->read_buffer = $bin;
 		$tag = $con->readNBT();
+		$this->assertEquals("", $con->read_buffer);
 		$this->assertTrue($tag instanceof \Phpcraft\NbtCompound);
 		$this->assertEquals("Level", $tag->name);
-		$this->assertEquals("", $con->write_buffer);
 		$tag->send($con);
 		$this->assertEquals($bin, $con->write_buffer);
 	}
