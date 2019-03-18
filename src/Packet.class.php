@@ -96,6 +96,9 @@ abstract class Packet
 			case "map_data":
 			return MapDataPacket::read($con);
 
+			case "set_experience":
+			return SetExperiencePacket::read($con);
+
 			case "set_slot":
 			return SetSlotPacket::read($con);
 

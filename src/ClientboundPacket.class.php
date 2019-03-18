@@ -22,6 +22,7 @@ class ClientboundPacket extends PacketId
 			"playerlist_header" => "player_list_header_and_footer",
 			"map" => "map_data",
 			"game_state_change" => "change_game_state",
+			"experience" => "set_experience",
 
 			"keep_alive" => "keep_alive_request",
 			"abilities" => "clientbound_abilities",
