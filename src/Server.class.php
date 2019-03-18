@@ -196,7 +196,7 @@ class Server
 									}
 									else
 									{
-										$con->finishLogin(Uuid::v5("OfflinePlayer:".$con->username), $this->eidCounter);
+										$con->finishLogin(UUID::v5("OfflinePlayer:".$con->username), $this->eidCounter);
 										if($this->join_function)
 										{
 											($this->join_function)($con);
@@ -214,7 +214,7 @@ class Server
 							{
 								if($json = $con->handleEncryptionResponse($this->private_key))
 								{
-									$con->finishLogin(Uuid::fromString($json["id"]), $this->eidCounter);
+									$con->finishLogin(UUID::fromString($json["id"]), $this->eidCounter);
 									if($this->join_function)
 									{
 										($this->join_function)($con);

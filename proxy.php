@@ -84,7 +84,7 @@ $server->join_function = function($con)
 	$packet->difficulty = \Phpcraft\Difficulty::PEACEFUL;
 	$packet->send($con);
 	$con->startPacket("spawn_position");
-	$con->writePosition(0, 100, 0);
+	$con->writePosition(new \Phpcraft\Position(0, 100, 0));
 	$con->send();
 	$con->startPacket("teleport");
 	$con->writeDouble(0);
@@ -98,7 +98,7 @@ $server->join_function = function($con)
 		$con->writeVarInt(0); // Teleport ID
 	}
 	$con->send();
-	$con->startPacket("chat_message");
+	$con->startPacket("clientbound_chat_message");
 	$con->writeString('{"text":"Welcome to the Phpcraft proxy, '.$con->username.'. This proxy is authenticated as '.$account->getUsername().'. Use .connect <ip> to connect to a Minecraft server."}');
 	$con->writeByte(1);
 	$con->send();
@@ -107,7 +107,7 @@ $server->packet_function = function($con, $packet_name, $packet_id)
 {
 	global $server_con;
 	//echo "> ".$packet_name." (".$packet_id.")\n";
-	if($packet_name == "send_chat_message")
+	if($packet_name == "serverbound_chat_message")
 	{
 		$msg = $con->readString();
 		if(substr($msg, 0, 1) == ".")
@@ -117,7 +117,7 @@ $server->packet_function = function($con, $packet_name, $packet_id)
 			{
 				case ".?":
 				case ".help":
-				$con->startPacket("chat_message");
+				$con->startPacket("clientbound_chat_message");
 				$con->writeString(json_encode(["text" =>
 					".abilities <0-F> -- set your abilities\n".
 					".connect <ip> -- connect to a server\n".
@@ -133,13 +133,13 @@ $server->packet_function = function($con, $packet_name, $packet_id)
 				case ".abilities":
 				if(count($arr) < 2)
 				{
-					$con->startPacket("chat_message");
+					$con->startPacket("clientbound_chat_message");
 					$con->writeString('{"text":"Syntax: .abilities <0-F>","color":"red"}');
 					$con->writeByte(1);
 					$con->send();
 					break;
 				}
-				$con->startPacket("set_player_abilities");
+				$con->startPacket("clientbound_abilities");
 				$con->writeByte(hexdec($arr[1]));
 				$con->writeFloat(0.4000000059604645);
 				$con->writeFloat(0.699999988079071);
@@ -149,7 +149,7 @@ $server->packet_function = function($con, $packet_name, $packet_id)
 				case ".connect":
 				if(count($arr) < 2)
 				{
-					$con->startPacket("chat_message");
+					$con->startPacket("clientbound_chat_message");
 					$con->writeString('{"text":"Syntax: .connect <ip>","color":"red"}');
 					$con->writeByte(1);
 					$con->send();
@@ -159,12 +159,12 @@ $server->packet_function = function($con, $packet_name, $packet_id)
 				{
 					$server_con->close();
 					$server_con = null;
-					$con->startPacket("chat_message");
+					$con->startPacket("clientbound_chat_message");
 					$con->writeString('{"text":"Disconnected."}');
 					$con->writeByte(1);
 					$con->send();
 				}
-				$con->startPacket("chat_message");
+				$con->startPacket("clientbound_chat_message");
 				$con->writeString('{"text":"Resolving name..."}');
 				$con->writeByte(1);
 				$con->send();
@@ -172,26 +172,26 @@ $server->packet_function = function($con, $packet_name, $packet_id)
 				$serverarr = explode(":", $server);
 				if(count($serverarr) != 2)
 				{
-					$con->startPacket("chat_message");
+					$con->startPacket("clientbound_chat_message");
 					$con->writeString('{"text":"Error: Got '.$server.'","color":"red"}');
 					$con->writeByte(1);
 					$con->send();
 					break;
 				}
-				$con->startPacket("chat_message");
+				$con->startPacket("clientbound_chat_message");
 				$con->writeString('{"text":"Connecting to '.$server.'..."}');
 				$con->writeByte(1);
 				$con->send();
 				$stream = fsockopen($serverarr[0], $serverarr[1], $errno, $errstr, 3);
 				if(!$stream)
 				{
-					$con->startPacket("chat_message");
+					$con->startPacket("clientbound_chat_message");
 					$con->writeString('{"text":"'.$errstr.'","color":"red"}');
 					$con->writeByte(1);
 					$con->send();
 					break;
 				}
-				$con->startPacket("chat_message");
+				$con->startPacket("clientbound_chat_message");
 				$con->writeString('{"text":"Logging in..."}');
 				$con->writeByte(1);
 				$con->send();
@@ -200,14 +200,14 @@ $server->packet_function = function($con, $packet_name, $packet_id)
 				global $account;
 				if($error = $server_con->login($account))
 				{
-					$con->startPacket("chat_message");
+					$con->startPacket("clientbound_chat_message");
 					$con->writeString('{"text":"'.$error.'","color":"red"}');
 					$con->writeByte(1);
 					$con->send();
 					$server_con = null;
 					break;
 				}
-				$con->startPacket("chat_message");
+				$con->startPacket("clientbound_chat_message");
 				$con->writeString('{"text":"Connected and logged in."}');
 				$con->writeByte(1);
 				$con->send();
@@ -219,7 +219,7 @@ $server->packet_function = function($con, $packet_name, $packet_id)
 					$server_con->close();
 					$server_con = null;
 				}
-				$con->startPacket("chat_message");
+				$con->startPacket("clientbound_chat_message");
 				$con->writeString('{"text":"Disconnected."}');
 				$con->writeByte(1);
 				$con->send();
@@ -228,7 +228,7 @@ $server->packet_function = function($con, $packet_name, $packet_id)
 				case ".gamemode":
 				if(count($arr) < 2)
 				{
-					$con->startPacket("chat_message");
+					$con->startPacket("clientbound_chat_message");
 					$con->writeString('{"text":"Syntax: .gamemode <0-3>","color":"red"}');
 					$con->writeByte(1);
 					$con->send();
@@ -243,7 +243,7 @@ $server->packet_function = function($con, $packet_name, $packet_id)
 				case ".metadata":
 				if(count($arr) < 2)
 				{
-					$con->startPacket("chat_message");
+					$con->startPacket("clientbound_chat_message");
 					$con->writeString('{"text":"Syntax: .metadata <0-FF>","color":"red"}');
 					$con->writeByte(1);
 					$con->send();
@@ -261,14 +261,14 @@ $server->packet_function = function($con, $packet_name, $packet_id)
 				case ".say":
 				if($server_con)
 				{
-					$server_con->startPacket("send_chat_message");
+					$server_con->startPacket("serverbound_chat_message");
 					$server_con->writeString(substr($msg, 4));
 					$server_con->send();
 				}
 				break;
 
 				default:
-				$con->startPacket("chat_message");
+				$con->startPacket("clientbound_chat_message");
 				$con->writeString('{"text":"Unknown command. Use .help for a list of commands."}');
 				$con->writeByte(1);
 				$con->send();
@@ -276,7 +276,7 @@ $server->packet_function = function($con, $packet_name, $packet_id)
 		}
 		else if($server_con)
 		{
-			$server_con->startPacket("send_chat_message");
+			$server_con->startPacket("serverbound_chat_message");
 			$server_con->writeString($msg);
 			$server_con->send();
 		}
@@ -322,7 +322,7 @@ do
 				{
 					$client_con->startPacket($packet_name);
 					$eid = $server_con->readVarInt();
-					$client_con->writeVarInt($eid == $server_eid ? $con->eid : $eid);
+					$client_con->writeVarInt($eid == $server_eid ? $client_con->eid : $eid);
 					$client_con->write_buffer .= $server_con->read_buffer;
 					$client_con->send();
 				}
@@ -332,7 +332,7 @@ do
 				}
 				else if($packet_name == "disconnect")
 				{
-					$client_con->startPacket("chat_message");
+					$client_con->startPacket("clientbound_chat_message");
 					$client_con->writeString($server_con->readString());
 					$client_con->writeByte(1);
 					$client_con->send();
