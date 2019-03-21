@@ -546,7 +546,7 @@ do
 		$start = microtime(true);
 		while(($packet_id = $con->readPacket(0)) !== false)
 		{
-			if(!($packet_name = @\Phpcraft\ClientboundPacket::fromId($packet_id, $protocol_version)->name))
+			if(!($packet_name = @\Phpcraft\ClientboundPacket::getById($packet_id, $protocol_version)->name))
 			{
 				continue;
 			}
@@ -823,7 +823,7 @@ do
 				{
 					$dimension = $con->readByte();
 				}
-				$con->startPacket("send_plugin_message");
+				$con->startPacket("serverbound_plugin_message");
 				$con->writeString($protocol_version > 340 ? "minecraft:brand" : "MC|Brand");
 				$con->writeString("Phpcraft");
 				$con->send();
@@ -978,7 +978,7 @@ do
 				{
 					if($rotchange)
 					{
-						$con->startPacket("player_position_and_look");
+						$con->startPacket("position_and_look");
 						$con->writeDouble($x);
 						$con->writeDouble($y);
 						$con->writeDouble($z);
@@ -991,7 +991,7 @@ do
 					}
 					else
 					{
-						$con->startPacket("player_position");
+						$con->startPacket("position");
 						$con->writeDouble($x);
 						$con->writeDouble($y);
 						$con->writeDouble($z);
@@ -1008,7 +1008,7 @@ do
 				}
 				else if($rotchange)
 				{
-					$con->startPacket("player_look");
+					$con->startPacket("look");
 					$con->writeFloat($yaw);
 					$con->writeFloat($pitch);
 					$con->writeBoolean($onGround);
@@ -1022,7 +1022,7 @@ do
 				}
 				else if($protocol_version <= 47 || ++$posticks == 20)
 				{
-					$con->startPacket("player");
+					$con->startPacket("no_movement");
 					$con->writeBoolean($onGround);
 					$con->send();
 				}

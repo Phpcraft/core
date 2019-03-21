@@ -11,6 +11,8 @@ class ServerboundPacket extends PacketId
 	{
 		return [
 			"position_look" => "position_and_look",
+			"flying" => "no_movement",
+			"settings" => "client_settings",
 
 			"keep_alive" => "keep_alive_response",
 			"abilities" => "serverbound_abilities",

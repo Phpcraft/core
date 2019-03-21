@@ -52,6 +52,7 @@ class ServerConnection extends Connection
 			$id = $this->readPacket();
 			if($id == 0x04) // Login Plugin Request
 			{
+				echo "Login Plugin Request: ".$con->readString()."\n";
 				$this->writeVarInt(0x02); // Login Plugin Response
 				$this->writeVarInt($this->readVarInt());
 				$this->writeBoolean(false);
