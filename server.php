@@ -169,7 +169,7 @@ $server->packet_function = function($con, $packet_name, $packet_id)
 				$msg
 			]
 		];
-		$ui->add(\Phpcraft\Phpcraft::chatToText($msg, true));
+		$ui->add(\Phpcraft\Phpcraft::chatToText($msg, 1));
 		$msg = json_encode($msg);
 		foreach($server->clients as $c)
 		{
@@ -205,7 +205,7 @@ $server->disconnect_function = function($con)
 				]
 			]
 		];
-		$ui->add(\Phpcraft\Phpcraft::chatToText($msg, true));
+		$ui->add(\Phpcraft\Phpcraft::chatToText($msg, 1));
 		$msg = json_encode($msg);
 		foreach($server->clients as $c)
 		{
@@ -249,7 +249,7 @@ do
 				]
 			]
 		];
-		$ui->add(\Phpcraft\Phpcraft::chatToText($msg, true));
+		$ui->add(\Phpcraft\Phpcraft::chatToText($msg, 1));
 		$msg = json_encode($msg);
 		foreach($server->clients as $c)
 		{
