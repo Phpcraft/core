@@ -142,7 +142,11 @@ $server->packet_function = function($con, $packet_name, $packet_id)
 	{
 		return;
 	}
-	if($packet_name == "serverbound_chat_message")
+	if($packet_name == "position" || $packet_name == "position_and_look")
+	{
+		$con->pos = $con->readPrecisePosition();
+	}
+	else if($packet_name == "serverbound_chat_message")
 	{
 		$msg = $con->readString(256);
 		if(\Phpcraft\PluginManager::fire(new \Phpcraft\Event("chat_message", [
@@ -185,10 +189,6 @@ $server->packet_function = function($con, $packet_name, $packet_id)
 				catch(Exception $ignored){}
 			}
 		}
-	}
-	else if($packet_name == "position" || $packet_name == "position_and_look")
-	{
-		$con->pos = $con->readPrecisePosition();
 	}
 };
 $server->disconnect_function = function($con)
@@ -274,13 +274,13 @@ do
 			"server" => $server
 		]));
 		$time = microtime(true);
-		if(++$ticks == 10)
+		if(++$ticks == 20)
 		{
 			break;
 		}
 		$next_tick = ($time + 0.05 - ($time - $next_tick));
 	}
-	if(($remaining = (0.020 - ($time - $start))) > 0) // Make sure we've waited at least 20 ms before going again because otherwise we'd be polling too much
+	if(($remaining = (0.050 - ($time - $start))) > 0) // Make sure we've waited at least 50 ms before going again because otherwise we'd be polling too much
 	{
 		time_nanosleep(0, $remaining * 1000000000); // usleep seems to bring the CPU to 100
 	}
