@@ -24,6 +24,6 @@ class Position
 
 	function toString()
 	{
-		return $this->x." ".$this->y." ".$this->z;
+		return "{Position ".$this->x." ".$this->y." ".$this->z."}";
 	}
 }

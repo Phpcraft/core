@@ -129,6 +129,6 @@ class SpawnMobPacket extends Packet
 		{
 			$str .= $this->type->name.", ";
 		}
-		return $str."Entity ID ".$this->eid.", Position ".$this->pos->toString().", ".$this->metadata->toString()."}";
+		return $str."Entity ID ".$this->eid.", ".$this->pos->toString().", ".$this->metadata->toString()."}";
 	}
 }
