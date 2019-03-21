@@ -3,37 +3,35 @@ namespace Phpcraft;
 /** A Mojang or Minecraft account. */
 class Account
 {
-	private $name;
-	private $username;
-	private $profileId = null;
-	private $accessToken = null;
+	/**
+	 * The email address of the Mojang account or the in-game name if legacy.
+	 * @var string $name
+	 */
+	public $name;
+	/**
+	 * The in-game name.
+	 * @var string $username
+	 */
+	public $username;
+	/**
+	 * The selected profile ID or null if offline.
+	 * @var string $profileId
+	 */
+	public $profileId = null;
+	/**
+	 * The access token for the account or null if offline.
+	 * @var string $accessToken
+	 */
+	public $accessToken = null;
 
 	/**
 	 * The constructor.
-	 * @param $name The Mojang account email address or Minecraft account name.
+	 * @param $name The Mojang account email address or the in-game name if legacy.
 	 */
 	function __construct($name)
 	{
 		$this->name = $name;
 		$this->username = $name;
-	}
-
-	/**
-	 * Returns the email address of the Mojang account or the in-game name.
-	 * @return string
-	 */
-	function getName()
-	{
-		return $this->name;
-	}
-
-	/**
-	 * Returns the in-game name.
-	 * @return string
-	 */
-	function getUsername()
-	{
-		return $this->username;
 	}
 
 	/**
@@ -43,24 +41,6 @@ class Account
 	function isOnline()
 	{
 		return $this->profileId != null && $this->accessToken != null;
-	}
-
-	/**
-	 * Returns the selected profile ID or null if offline.
-	 * @return string
-	 */
-	function getProfileId()
-	{
-		return $this->profileId;
-	}
-
-	/**
-	 * Returns the access token for the account or null if offline.
-	 * @return string
-	 */
-	function getAccessToken()
-	{
-		return $this->accessToken;
 	}
 
 	/**
@@ -172,5 +152,45 @@ class Account
 			return "";
 		}
 		return "Invalid credentials";
+	}
+
+	/**
+	 * Returns the email address of the Mojang account or the in-game name.
+	 * @return string
+	 * @deprecated
+	 */
+	function getName()
+	{
+		return $this->name;
+	}
+
+	/**
+	 * Returns the in-game name.
+	 * @return string
+	 * @deprecated
+	 */
+	function getUsername()
+	{
+		return $this->username;
+	}
+
+	/**
+	 * Returns the selected profile ID or null if offline.
+	 * @return string
+	 * @deprecated
+	 */
+	function getProfileId()
+	{
+		return $this->profileId;
+	}
+
+	/**
+	 * Returns the access token for the account or null if offline.
+	 * @return string
+	 * @deprecated
+	 */
+	function getAccessToken()
+	{
+		return $this->accessToken;
 	}
 }

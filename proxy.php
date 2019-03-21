@@ -4,39 +4,47 @@ if(empty($argv))
 {
 	die("This is for PHP-CLI. Connect to your server via SSH and use `php proxy.php`.\n");
 }
-if(empty($argv[1]))
+if(@$argv[1] == "help")
 {
-	die("Syntax: php proxy.php <account name>\n");
+	die("Syntax: php proxy.php [account name]\n");
 }
 require "vendor/autoload.php";
 
 $stdin = fopen("php://stdin", "r");
 stream_set_blocking($stdin, true);
 
-$account = new \Phpcraft\Account($argv[1]);
-if(!$account->loginUsingProfiles())
+if(empty($argv[1]))
 {
-	do
-	{
-		readline_callback_handler_install("What's your account password? (hidden) ", function($input){});
-		if(!($pass = trim(fgets($stdin))))
-		{
-			echo "No password provided.\n";
-		}
-		else if($error = $account->login($pass))
-		{
-			echo $error."\n";
-		}
-		else
-		{
-			echo "\n";
-			break;
-		}
-	}
-	while(true);
-	readline_callback_handler_remove();
+	$account = null;
+	echo "No account name was provided, which means you can only connect to BungeeCord-compatible servers.\n";
 }
-echo "Authenticated as ".$account->getUsername()."\n";
+else
+{
+	$account = new \Phpcraft\Account($argv[1]);
+	if(!$account->loginUsingProfiles())
+	{
+		do
+		{
+			readline_callback_handler_install("What's your account password? (hidden) ", function($input){});
+			if(!($pass = trim(fgets($stdin))))
+			{
+				echo "No password provided.\n";
+			}
+			else if($error = $account->login($pass))
+			{
+				echo $error."\n";
+			}
+			else
+			{
+				echo "\n";
+				break;
+			}
+		}
+		while(true);
+		readline_callback_handler_remove();
+	}
+	echo "Authenticated as ".$account->getUsername()."\n";
+}
 
 /*echo "Autoloading plugins...\n";
 \Phpcraft\PluginManager::$platform = "phpcraft:proxy";
@@ -99,7 +107,14 @@ $server->join_function = function($con)
 	}
 	$con->send();
 	$con->startPacket("clientbound_chat_message");
-	$con->writeString('{"text":"Welcome to the Phpcraft proxy, '.$con->username.'. This proxy is authenticated as '.$account->getUsername().'. Use .connect <ip> to connect to a Minecraft server."}');
+	if($account != null)
+	{
+		$con->writeString('{"text":"Welcome to this Phpcraft proxy, '.$con->username.'. This proxy is authenticated as '.$account->getUsername().'. Use .connect <ip> to connect to a Minecraft server."}');
+	}
+	else
+	{
+		$con->writeString('{"text":"Welcome to this Phpcraft proxy, '.$con->username.'. Use .connect <ip> <username> to connect to a BungeeCord-compatible server."}');
+	}
 	$con->writeByte(1);
 	$con->send();
 };
@@ -147,13 +162,36 @@ $server->packet_function = function($con, $packet_name, $packet_id)
 				break;
 
 				case ".connect":
+				$uuid = "";
 				if(count($arr) < 2)
 				{
 					$con->startPacket("clientbound_chat_message");
-					$con->writeString('{"text":"Syntax: .connect <ip>","color":"red"}');
+					$con->writeString('{"text":"Syntax: .connect <ip> [username]","color":"red"}');
 					$con->writeByte(1);
 					$con->send();
 					break;
+				}
+				else if(count($arr) > 2)
+				{
+					$con->startPacket("clientbound_chat_message");
+					$con->writeString('{"text":"Resolving username..."}');
+					$con->writeByte(1);
+					$con->send();
+					$json = json_decode(file_get_contents("https://apimon.de/mcuser/".$arr[2]), true);
+					if(!$json || !$json["id"])
+					{
+						$con->startPacket("clientbound_chat_message");
+						$con->writeString('{"text":"Error: Minecraft account not found.","color":"red"}');
+						$con->writeByte(1);
+						$con->send();
+						break;
+					}
+					$account = new \Phpcraft\Account($arr[2]);
+					$uuid = $json["id"];
+				}
+				else
+				{
+					global $account;
 				}
 				if($server_con)
 				{
@@ -165,7 +203,7 @@ $server->packet_function = function($con, $packet_name, $packet_id)
 					$con->send();
 				}
 				$con->startPacket("clientbound_chat_message");
-				$con->writeString('{"text":"Resolving name..."}');
+				$con->writeString('{"text":"Resolving hostname..."}');
 				$con->writeByte(1);
 				$con->send();
 				$server = \Phpcraft\Phpcraft::resolve($arr[1]);
@@ -196,8 +234,7 @@ $server->packet_function = function($con, $packet_name, $packet_id)
 				$con->writeByte(1);
 				$con->send();
 				$server_con = new \Phpcraft\ServerConnection($stream, $con->protocol_version);
-				$server_con->sendHandshake($serverarr[0], $serverarr[1], 2);
-				global $account;
+				$server_con->sendHandshake($serverarr[0].($uuid ? "\x001.1.1.1\x00".$uuid : ""), $serverarr[1], 2);
 				if($error = $server_con->login($account))
 				{
 					$con->startPacket("clientbound_chat_message");

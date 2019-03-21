@@ -23,7 +23,7 @@ if($info)
 {
 	if(isset($info["description"]))
 	{
-		echo \Phpcraft\Phpcraft::chatToText($info["description"], true)."\x1B[0m\n\n";
+		echo \Phpcraft\Phpcraft::chatToText($info["description"], 1)."\x1B[0m\n\n";
 	}
 	else
 	{

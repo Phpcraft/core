@@ -33,7 +33,7 @@ and then you can run:
 
 - `php client.php help` — A chat client with plugin support and built-in commands; type `.help` for more information.
 - `php server.php help` — A chat server with plugin support.
-- `php proxy.php` — A proxy allowing you to play as another account.
+- `php proxy.php help` — A proxy allowing you to play as another account.
 - `php listping.php` — A listping utility.
 - `php cache.php` — An interface to manage Phpcraft's resource cache.
 - `php packets.php` — A tool to print packets from a binary file, e.g. recorded by WorldSaver.
