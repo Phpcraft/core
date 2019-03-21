@@ -65,4 +65,11 @@ abstract class PacketId extends Identifier
 			}
 		}
 	}
+
+	/**
+	 * Initialises this packet's class by reading its payload from the given Connection.
+	 * Returns null if the packet does not have a class implementation yet.
+	 * @return Packet
+	 */
+	abstract function init(Connection $con);
 }

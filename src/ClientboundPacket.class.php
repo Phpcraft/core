@@ -56,4 +56,38 @@ class ClientboundPacket extends PacketId
 			return $this->_getId($protocol_version, "toClient", self::nameMap());
 		}
 	}
+
+	/**
+	 * @copydoc PacketId::init
+	 */
+	function init(Connection $con)
+	{
+		switch($this->name)
+		{
+			case "boss_bar":
+			return BossBarPacket::read($con);
+
+			case "join_game":
+			return JoinGamePacket::read($con);
+
+			case "keep_alive_request":
+			return KeepAliveRequestPacket::read($con);
+
+			case "map_data":
+			return MapDataPacket::read($con);
+
+			case "set_experience":
+			return SetExperiencePacket::read($con);
+
+			case "set_slot":
+			return SetSlotPacket::read($con);
+
+			case "spawn_mob":
+			return SpawnMobPacket::read($con);
+
+			case "clientbound_plugin_message":
+			return ClientboundPluginMessagePacket::read($con);
+		}
+		return null;
+	}
 }

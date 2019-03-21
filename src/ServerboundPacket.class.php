@@ -46,4 +46,20 @@ class ServerboundPacket extends PacketId
 			return $this->_getId($protocol_version, "toServer", self::nameMap());
 		}
 	}
+
+	/**
+	 * @copydoc PacketId::init
+	 */
+	function init(Connection $con)
+	{
+		switch($this->name)
+		{
+			case "keep_alive_response":
+			return KeepAliveResponsePacket::read($con);
+
+			case "serverbound_plugin_message":
+			return ServerboundPluginMessagePacket::read($con);
+		}
+		return null;
+	}
 }

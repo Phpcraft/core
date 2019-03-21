@@ -21,10 +21,10 @@ PluginManager::registerPlugin("FirstPackets", function($plugin)
 		$packet->dimension = \Phpcraft\Dimension::OVERWORLD;
 		$packet->difficulty = \Phpcraft\Difficulty::PEACEFUL;
 		$packet->send($con);
-		$con->startPacket("clientbound_plugin_message");
-		$con->writeString($con->protocol_version > 340 ? "minecraft:brand" : "MC|Brand");
-		$con->writeString("\\Phpcraft\\Server");
-		$con->send();
+		$packet = new \Phpcraft\ClientboundPluginMessagePacket();
+		$packet->channel = \Phpcraft\PluginMessagePacket::CHANNEL_BRAND;
+		$packet->data = "\x08Phpcraft";
+		$packet->send($con);
 		$con->startPacket("spawn_position");
 		$con->writePosition($con->pos = new \Phpcraft\Position(0, 16, 0));
 		$con->send();

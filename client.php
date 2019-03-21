@@ -823,10 +823,10 @@ do
 				{
 					$dimension = $con->readByte();
 				}
-				$con->startPacket("serverbound_plugin_message");
-				$con->writeString($protocol_version > 340 ? "minecraft:brand" : "MC|Brand");
-				$con->writeString("Phpcraft");
-				$con->send();
+				$packet = new \Phpcraft\ServerboundPluginMessagePacket();
+				$packet->channel = \Phpcraft\PluginMessagePacket::CHANNEL_BRAND;
+				$packet->data = "\x08Phpcraft";
+				$packet->send($con);
 				$con->startPacket("client_settings");
 				$con->writeString($options["lang"]);
 				$con->writeByte(16); // View Distance
