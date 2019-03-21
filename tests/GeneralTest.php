@@ -13,6 +13,8 @@ final class GeneralTest extends \PHPUnit\Framework\TestCase
 	{
 		$this->assertEquals("Test", \Phpcraft\Phpcraft::chatToText(["text" => "Test", "color" => "black"], 0));
 		$this->assertEquals("§r§0Test", \Phpcraft\Phpcraft::chatToText(["text" => "Test", "color" => "black"], 2));
+		$this->assertEquals("&r&0Test", \Phpcraft\Phpcraft::chatToText(["text" => "Test", "color" => "black"], 3));
+		$this->assertEquals('<span style="color:#000">Test</span>', \Phpcraft\Phpcraft::chatToText(["text" => "Test", "color" => "black"], 4));
 	}
 
 	function testUuid()

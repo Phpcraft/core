@@ -596,21 +596,28 @@ abstract class Phpcraft
 	/**
 	 * Converts a chat object into text.
 	 * @param array|string $chat The chat object as an array or string.
-	 * @param integer $format 0 = Dispose of color and formatting. 1 = Convert to ANSI escape codes (for colors in the console). 2 = Convert to paragraph (§) formatting.
+	 * @param integer $format The formatting to convert to: <ul><li>0: None (drop colors and formatting)</li><li>1: ANSI escape codes (for compatible consoles/shells)</li><li>2: Legacy paragraph (§) format</li><li>3: Even more legacy ampersand (&) format</li><li>4: HTML</li></ul>
 	 * @param array $translations The translations array so translated messages look proper.
 	 * @param array $parent Ignore this parameter.
 	 * @return string
 	 */
 	static function chatToText($chat, $format = 0, $translations = null, $parent = [])
 	{
-		if($translations == null)
+		if($parent === [])
 		{
-			$translations = [
-				"chat.type.text" => "<%s> %s",
-				"chat.type.announcement" => "[%s] %s",
-				"multiplayer.player.joined" => "%s joined the game",
-				"multiplayer.player.left" => "%s left the game"
-			];
+			if(gettype($format) != "integer" || $format < 0 || $format > 4)
+			{
+				throw new Exception("Format has to be an integer between 0 and 4.");
+			}
+			if($translations == null)
+			{
+				$translations = [
+					"chat.type.text" => "<%s> %s",
+					"chat.type.announcement" => "[%s] %s",
+					"multiplayer.player.joined" => "%s joined the game",
+					"multiplayer.player.left" => "%s left the game"
+				];
+			}
 		}
 		if(gettype($chat) == "string")
 		{
@@ -622,10 +629,10 @@ abstract class Phpcraft
 		}
 		if($format > 0)
 		{
-			$text = ($format === 2 ? "§r" : "");
-			$ansi_modifiers = [];
 			if($format == 1)
 			{
+				$text = "";
+				$ansi_modifiers = [];
 				$attributes = [
 					"reset" => "0",
 					"bold" => "1",
@@ -635,8 +642,27 @@ abstract class Phpcraft
 					"strikethrough" => "9"
 				];
 			}
+			else if($format == 4)
+			{
+				$text = "";
+				$closing_tags = "";
+				$attributes = [
+					"bold" => "b",
+					"italic" => "i",
+					"underlined" => 'span style="text-decoration:underline"',
+					"strikethrough" => "del"
+				];
+			}
 			else
 			{
+				if($parent === [])
+				{
+					$text = ($format == 2 ? "§" : "&")."r";
+				}
+				else
+				{
+					$text = "";
+				}
 				$attributes = [
 					"obfuscated" => "k",
 					"bold" => "l",
@@ -650,20 +676,30 @@ abstract class Phpcraft
 			{
 				if(!isset($chat[$n]))
 				{
-					if(isset($parent[$n]))
+					if(!isset($parent[$n]))
 					{
-						$chat[$n] = $parent[$n];
+						continue;
 					}
+					$chat[$n] = $parent[$n];
 				}
-				if(isset($chat[$n]) && $chat[$n])
+				if($chat[$n] && $chat[$n] !== "false")
 				{
 					if($format == 1)
 					{
 						array_push($ansi_modifiers, $v);
 					}
-					else
+					else if($format == 2)
 					{
 						$text .= "§".$v;
+					}
+					else if($format == 3)
+					{
+						$text .= "&".$v;
+					}
+					else
+					{
+						$text .= "<{$v}>";
+						$closing_tags .= "</".explode(" ", $v)[0].">";
 					}
 				}
 			}
@@ -676,35 +712,61 @@ abstract class Phpcraft
 			}
 			if(isset($chat["color"]))
 			{
-				$colors = [
-					"black" => "30",
-					"dark_blue" => "34",
-					"dark_green" => "32",
-					"dark_aqua" => "36",
-					"dark_red" => "31",
-					"dark_purple" => "35",
-					"gold" => "33",
-					"gray" => "37",
-					"dark_gray" => "90",
-					"blue" => "94",
-					"green" => "92",
-					"aqua" => "96",
-					"red" => "91",
-					"light_purple" => "95",
-					"yellow" => "93",
-					"white" => "97"
-				];
 				if($format == 1)
 				{
+					$colors = [
+						"black" => "30",
+						"dark_blue" => "34",
+						"dark_green" => "32",
+						"dark_aqua" => "36",
+						"dark_red" => "31",
+						"dark_purple" => "35",
+						"gold" => "33",
+						"gray" => "37",
+						"dark_gray" => "90",
+						"blue" => "94",
+						"green" => "92",
+						"aqua" => "96",
+						"red" => "91",
+						"light_purple" => "95",
+						"yellow" => "93",
+						"white" => "97"
+					];
 					if(isset($colors[$chat["color"]]))
 					{
 						array_push($ansi_modifiers, $colors[$chat["color"]]);
 					}
 					$text .= "\x1B[".join(";", $ansi_modifiers)."m";
 				}
-				else if(($i = array_search($chat["color"], array_keys($colors))) !== false)
+				else if($format == 4)
 				{
-					$text .= "§".dechex($i);
+					$colors = [
+						"black" => "000",
+						"dark_blue" => "0000aa",
+						"dark_green" => "00aa00",
+						"dark_aqua" => "00aaaa",
+						"dark_red" => "aa0000",
+						"dark_purple" => "aa00aa",
+						"gold" => "ffaa00",
+						"gray" => "aaa",
+						"dark_gray" => "555",
+						"blue" => "5555ff",
+						"green" => "55ff55",
+						"aqua" => "55ffff",
+						"red" => "ff5555",
+						"light_purple" => "ff55ff",
+						"yellow" => "ffff55",
+						"white" => "fff"
+					];
+					if(isset($colors[$chat["color"]]))
+					{
+						$text .= '<span style="color:#'.$colors[$chat["color"]].'">';
+						$closing_tags .= "</span>";
+					}
+				}
+				else if(($i = array_search($chat["color"], ["black","dark_blue","dark_green","dark_aqua","dark_red","dark_purple","gold","gray","dark_gray","blue","green","aqua","red","light_purple","yellow","white"])) !== false)
+				{
+					$text .= ($format == 2 ? "§" : "&").dechex($i);
 				}
 			}
 		}
@@ -739,10 +801,6 @@ abstract class Phpcraft
 		}
 		else if(isset($chat["text"]))
 		{
-			if(strpos($chat["text"], "§") !== false)
-			{
-				$chat = Phpcraft::textToChat($chat["text"]) + $chat;
-			}
 			$text .= $chat["text"];
 		}
 		if(isset($chat["extra"]))
@@ -751,6 +809,10 @@ abstract class Phpcraft
 			{
 				$text .= Phpcraft::chatToText($extra, $format, $translations, $chat);
 			}
+		}
+		if($format == 4)
+		{
+			$text .= $closing_tags;
 		}
 		return $text;
 	}
