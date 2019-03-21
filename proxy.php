@@ -109,7 +109,7 @@ $server->packet_function = function($con, $packet_name, $packet_id)
 	//echo "> ".$packet_name." (".$packet_id.")\n";
 	if($packet_name == "serverbound_chat_message")
 	{
-		$msg = $con->readString();
+		$msg = $con->readString(256);
 		if(substr($msg, 0, 1) == ".")
 		{
 			$arr = explode(" ", $msg);

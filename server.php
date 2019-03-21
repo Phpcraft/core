@@ -144,7 +144,7 @@ $server->packet_function = function($con, $packet_name, $packet_id)
 	}
 	if($packet_name == "serverbound_chat_message")
 	{
-		$msg = $con->readString();
+		$msg = $con->readString(256);
 		if(\Phpcraft\PluginManager::fire(new \Phpcraft\Event("chat_message", [
 			"message" => $msg,
 			"client" => $con
