@@ -23,6 +23,7 @@ class ServerConnection extends Connection
 	 * @param integer $server_port
 	 * @param integer $next_state Use 1 for status, or 2 for login to play.
 	 * @return ServerConnection $this
+	 * @throws Exception
 	 */
 	function sendHandshake($server_name, $server_port, $next_state)
 	{
@@ -41,18 +42,19 @@ class ServerConnection extends Connection
 	 * @param Account $account
 	 * @param array $translations The translations array so translated messages look proper.
 	 * @return string Error message. Empty on success.
+	 * @throws Exception
 	 */
 	function login(Account $account, $translations = null)
 	{
 		$this->writeVarInt(0x00);
-		$this->writeString($account->getUsername());
+		$this->writeString($account->username);
 		$this->send();
 		do
 		{
 			$id = $this->readPacket();
 			if($id == 0x04) // Login Plugin Request
 			{
-				echo "Login Plugin Request: ".$con->readString()."\n";
+				echo "Login Plugin Request: ".$this->readString()."\n";
 				$this->writeVarInt(0x02); // Login Plugin Response
 				$this->writeVarInt($this->readVarInt());
 				$this->writeBoolean(false);
@@ -84,8 +86,8 @@ class ServerConnection extends Connection
 					$shared_secret .= chr(rand(0, 255));
 				}
 				if(Phpcraft::httpPOST("https://sessionserver.mojang.com/session/minecraft/join", [
-					"accessToken" => $account->getAccessToken(),
-					"selectedProfile" => $account->getProfileId(),
+					"accessToken" => $account->accessToken,
+					"selectedProfile" => $account->profileId,
 					"serverId" => Phpcraft::sha1($server_id.$shared_secret.$public_key)
 				]) === false)
 				{

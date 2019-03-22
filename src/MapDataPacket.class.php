@@ -17,11 +17,11 @@ class MapDataPacket extends Packet
 	 * Gets the color ID closest to the given RGB value.
 	 * @param array $rgb
 	 * @param boolean $new_colors You can safely ignore this parameter.
+	 * @return integer
 	 */
 	static function getColorId($rgb, $new_colors = true)
 	{
-		$best_color = 0;
-		$best_diff;
+		$best_color = $best_diff = 0;
 		foreach(($new_colors ? MapDataPacket::colors_1_12() : MapDataPacket::colors_1_8_1()) as $id => $rgb2)
 		{
 			$diff = Phpcraft::colorDiff($rgb, $rgb2);
@@ -108,7 +108,7 @@ class MapDataPacket extends Packet
 			{
 				$type = $con->readByte();
 				$marker->type = $type >> 4;
-				$maker->rotation = $type & 0x0F;
+				$marker->rotation = $type & 0x0F;
 				$marker->x = $con->readByte();
 				$marker->z = $con->readByte();
 			}
@@ -224,7 +224,7 @@ class MapDataPacket extends Packet
 
 	function toString()
 	{
-		$str = "{Map Data: Map ID ".$this->mapId.", Scale ".$this->scale.", {$this->width}x{$this->height} Pixels, From {$this->x}:{$this->y}, Markers:";
+		$str = "{Map Data: Map ID ".$this->mapId.", Scale ".$this->scale.", {$this->width}x{$this->height} Pixels, From {$this->x}:{$this->z}, Markers:";
 		if($this->markers)
 		{
 			foreach($this->markers as $marker)

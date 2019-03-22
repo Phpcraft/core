@@ -64,6 +64,7 @@ abstract class PacketId extends Identifier
 				}
 			}
 		}
+		return null;
 	}
 
 	/**

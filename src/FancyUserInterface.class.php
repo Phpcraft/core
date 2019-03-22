@@ -13,7 +13,7 @@ class FancyUserInterface extends UserInterface
 	private $cursorpos = 1;
 	/**
 	 * The function called when the user presses the tabulator key with the currently selected word as parameter. The return should be an array of possible completions.
-	 * @var function $tabcomplete_function
+	 * @var callable $tabcomplete_function
 	 */
 	public $tabcomplete_function = null;
 	private $rendered_title = false;
@@ -345,6 +345,7 @@ class FancyUserInterface extends UserInterface
 			$this->_height = $height;
 		}
 		$this->ob_start();
+		return null;
 	}
 
 	/**

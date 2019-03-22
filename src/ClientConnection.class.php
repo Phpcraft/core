@@ -124,8 +124,9 @@ class ClientConnection extends Connection
 
 	/**
 	 * Sends an Encryption Request Packet.
-	 * @param string $private_key Your OpenSSL private key resource.
+	 * @param resource $private_key Your OpenSSL private key resource.
 	 * @return ClientConnection $this
+	 * @throws Exception
 	 */
 	function sendEncryptionRequest($private_key)
 	{
@@ -156,8 +157,9 @@ class ClientConnection extends Connection
 	 *   ]
 	 * ]</pre>
 	 * After this, you should call ClientConnection::finishLogin().
-	 * @param string $private_key Your OpenSSL private key resource.
+	 * @param resource $private_key Your OpenSSL private key resource.
 	 * @return mixed
+	 * @throws Exception
 	 */
 	function handleEncryptionResponse($private_key)
 	{
@@ -188,6 +190,7 @@ class ClientConnection extends Connection
 	 * @return ClientConnection $this
 	 * @see Phpcraft::generateUUIDv4()
 	 * @see Phpcraft::addHypensToUUID()
+	 * @throws Exception
 	 */
 	function finishLogin(UUID $uuid, Counter $eidCounter, $compression_threshold = 256)
 	{

@@ -25,6 +25,11 @@ PluginManager::registerPlugin("FirstPackets", function($plugin)
 		$packet->channel = \Phpcraft\PluginMessagePacket::CHANNEL_BRAND;
 		$packet->data = "\x08Phpcraft";
 		$packet->send($con);
+		global $WorldImitator_version;
+		if($WorldImitator_version)
+		{
+			return;
+		}
 		$con->startPacket("spawn_position");
 		$con->writePosition($con->pos = new \Phpcraft\Position(0, 16, 0));
 		$con->send();
@@ -43,6 +48,11 @@ PluginManager::registerPlugin("FirstPackets", function($plugin)
 	}, \Phpcraft\Event::PRIORITY_NORMAL);
 	$plugin->on("tick", function($event)
 	{
+		global $WorldImitator_version;
+		if($WorldImitator_version)
+		{
+			return;
+		}
 		$chunks_limit = 2; // chunks/tick limit
 		for($render_distance = 4; $render_distance <= 8; $render_distance += 2)
 		{

@@ -48,6 +48,7 @@ abstract class EntityMetadata
 	 * Reads metadata values from the Connection.
 	 * @param Connection $con
 	 * @return EntityMetadata $this
+	 * @throws Exception
 	 */
 	function read(Connection $con)
 	{

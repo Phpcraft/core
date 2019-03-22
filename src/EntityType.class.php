@@ -120,20 +120,24 @@ class EntityType extends Identifier
 	 */
 	function getId($protocol_version)
 	{
-		if($protocol_version >= 353)
+		if($protocol_version >= $this->since_protocol_version)
 		{
-			foreach(Phpcraft::getCachableJson("https://raw.githubusercontent.com/timmyrs/minecraft-data/master/data/pc/1.13/entities.json") as $entity)
+			if($protocol_version >= 353)
 			{
-				if($entity["name"] == $this->name)
+				foreach(Phpcraft::getCachableJson("https://raw.githubusercontent.com/timmyrs/minecraft-data/master/data/pc/1.13/entities.json") as $entity)
 				{
-					return $entity["id"];
+					if($entity["name"] == $this->name)
+					{
+						return $entity["id"];
+					}
 				}
 			}
+			else
+			{
+				return $this->legacy_id;
+			}
 		}
-		else if($protocol_version >= $this->since_protocol_version)
-		{
-			return $this->legacy_id;
-		}
+		return null;
 	}
 
 	/**

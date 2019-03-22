@@ -61,6 +61,7 @@ class UUID
 	/**
 	 * Generates a UUIDv5.
 	 * @return UUID
+	 * @throws Exception
 	 */
 	static function v5($str, UUID $namespace = null)
 	{

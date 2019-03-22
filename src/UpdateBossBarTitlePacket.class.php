@@ -14,7 +14,7 @@ class UpdateBossBarTitlePacket extends BossBarPacket
 	 */
 	function __construct($uuid = null, $title = ["text" => ""])
 	{
-		$this->uuid = $uuid;
+		parent::__construct($uuid);
 		$this->title = $title;
 	}
 

@@ -26,7 +26,7 @@ class Account
 
 	/**
 	 * The constructor.
-	 * @param $name The Mojang account email address or the in-game name if legacy.
+	 * @param string $name The Mojang account email address or the in-game name if legacy.
 	 */
 	function __construct($name)
 	{
@@ -152,45 +152,5 @@ class Account
 			return "";
 		}
 		return "Invalid credentials";
-	}
-
-	/**
-	 * Returns the email address of the Mojang account or the in-game name.
-	 * @return string
-	 * @deprecated
-	 */
-	function getName()
-	{
-		return $this->name;
-	}
-
-	/**
-	 * Returns the in-game name.
-	 * @return string
-	 * @deprecated
-	 */
-	function getUsername()
-	{
-		return $this->username;
-	}
-
-	/**
-	 * Returns the selected profile ID or null if offline.
-	 * @return string
-	 * @deprecated
-	 */
-	function getProfileId()
-	{
-		return $this->profileId;
-	}
-
-	/**
-	 * Returns the access token for the account or null if offline.
-	 * @return string
-	 * @deprecated
-	 */
-	function getAccessToken()
-	{
-		return $this->accessToken;
 	}
 }

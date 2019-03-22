@@ -29,17 +29,6 @@ abstract class NbtTag
 	/**
 	 * Adds the NBT tag to the write buffer of the connection.
 	 * @param Connection $con
-	 * @return Connection $con
-	 * @deprecated Use NbtTag::write, instead.
-	 */
-	function send(Connection $con)
-	{
-		return $this->write($con);
-	}
-
-	/**
-	 * Adds the NBT tag to the write buffer of the connection.
-	 * @param Connection $con
 	 * @param boolean $inList Ignore this parameter.
 	 * @return Connection $con
 	 */

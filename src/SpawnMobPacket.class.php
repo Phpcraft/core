@@ -72,11 +72,11 @@ class SpawnMobPacket extends Packet
 		}
 		if($con->protocol_version >= 301)
 		{
-			$type = EntityType::get($con->readVarInt(), $con->protocol_version);
+			$type = EntityType::getById($con->readVarInt(), $con->protocol_version);
 		}
 		else
 		{
-			$type = EntityType::get($con->readByte(), $con->protocol_version);
+			$type = EntityType::getById($con->readByte(), $con->protocol_version);
 		}
 		$packet = new SpawnMobPacket($eid, $type, $uuid);
 		$packet->pos = $con->protocol_version >= 100 ? $con->readPrecisePosition() : $con->readFixedPointPosition();

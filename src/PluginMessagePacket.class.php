@@ -36,14 +36,11 @@ abstract class PluginMessagePacket extends Packet
 		$this->data = $data;
 	}
 
-	/**
-	 * @copydoc Packet::read
-	 */
-	static function read(Connection $con)
+	protected static function _read(Connection $con, $packet)
 	{
 		if($con->protocol_version >= 385)
 		{
-			$this->channel = $con->readString();
+			$packet->channel = $con->readString();
 		}
 		else
 		{
@@ -51,16 +48,17 @@ abstract class PluginMessagePacket extends Packet
 			$channel = array_search($legacy_channel, self::channelMap());
 			if($channel)
 			{
-				$this->channel = $channel;
+				$packet->channel = $channel;
 			}
 			else
 			{
 				trigger_error("Unmapped legacy plugin message channel: ".$legacy_channel);
-				$this->channel = $legacy_channel;
+				$packet->channel = $legacy_channel;
 			}
 		}
-		$this->data = $con->read_buffer;
+		$packet->data = $con->read_buffer;
 		$con->read_buffer = "";
+		return $packet;
 	}
 
 	/**

@@ -357,7 +357,7 @@ function handleConsoleMessage($msg)
 			else
 			{
 				$con->startPacket("player_block_placement");
-				$con->writePosition($x, $y, $z);
+				$con->writePosition(new \Phpcraft\Position($x, $y, $z));
 				$con->writeByte(-1); // Face
 				$con->writeShort(-1); // Slot
 				$con->writeByte(-1); // Cursor X
@@ -517,7 +517,7 @@ do
 		$ui->add($error)->render();
 		exit;
 	}
-	$ui->input_prefix = "<{$account->getUsername()}> ";
+	$ui->input_prefix = "<{$account->username}> ";
 	$ui->append(" Success!")->render();
 	$ui->add("");
 	$reconnect = false;

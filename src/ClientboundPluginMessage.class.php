@@ -11,6 +11,14 @@ class ClientboundPluginMessagePacket extends PluginMessagePacket
 		parent::__construct("clientbound_plugin_message", $channel, $data);
 	}
 
+	/**
+	 * @copydoc Packet::read
+	 */
+	static function read(Connection $con)
+	{
+		return self::_read($con, new ClientboundPluginMessagePacket());
+	}
+
 	function toString()
 	{
 		return "{ClientboundPluginMessagePacket: \"".$this->channel."\": ".Phpcraft::binaryStringToHex($this->data)."}";

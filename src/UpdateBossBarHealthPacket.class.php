@@ -15,7 +15,7 @@ class UpdateBossBarHealthPacket extends BossBarPacket
 	 */
 	function __construct($uuid = null, $health = 1.0)
 	{
-		$this->uuid = $uuid;
+		parent::__construct($uuid);
 		$this->health = $health;
 	}
 

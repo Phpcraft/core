@@ -44,21 +44,25 @@ class Item extends Identifier
 	 */
 	function getId($protocol_version)
 	{
-		if($protocol_version >= 346)
+		if($protocol_version >= $this->since_protocol_version)
 		{
-			switch($this->name)
+			if($protocol_version >= 346)
 			{
-				case "air": return 0;
-				case "stone": return 1;
-				case "grass_block": return 8;
-				case "dirt": return 9;
-				case "filled_map": return 613;
+				switch($this->name)
+				{
+					case "air": return 0;
+					case "stone": return 1;
+					case "grass_block": return 8;
+					case "dirt": return 9;
+					case "filled_map": return 613;
+				}
+			}
+			else
+			{
+				return $this->legacy_id;
 			}
 		}
-		else if($protocol_version >= $this->since_protocol_version)
-		{
-			return $this->legacy_id;
-		}
+		return null;
 	}
 
 	/**

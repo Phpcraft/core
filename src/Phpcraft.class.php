@@ -89,8 +89,8 @@ abstract class Phpcraft
 
 	/**
 	 * Returns the contents of a JSON file as associative array with additional memory and disk caching levels.
-	 * @param $url The URL of the resource.
-	 * @param $caching_duration How long the resource should be kept in the cache, in seconds. (Default: 31 days)
+	 * @param string $url The URL of the resource.
+	 * @param integer $caching_duration How long the resource should be kept in the cache, in seconds. (Default: 31 days)
 	 * @return array
 	 * @see getCachableResource
 	 * @see maintainCache
@@ -106,8 +106,8 @@ abstract class Phpcraft
 
 	/**
 	 * Returns the contents of a resource with an additional disk caching level.
-	 * @param $url The URL of the resource.
-	 * @param $caching_duration How long the resource should be kept in the cache, in seconds. (Default: 1 day)
+	 * @param string $url The URL of the resource.
+	 * @param integer $caching_duration How long the resource should be kept in the cache, in seconds. (Default: 1 day)
 	 * @return string
 	 * @see getCachableJson
 	 * @see maintainCache
@@ -480,6 +480,7 @@ abstract class Phpcraft
 	 * @param boolean $allowAmp If true, '&' will be handled like '§'.
 	 * @param integer $i Ignore this parameter.
 	 * @param boolean $child Ignore this parameter.
+	 * @return array
 	 */
 	static function textToChat($str, $allowAmp = false, &$i = 0, $child = false)
 	{
@@ -776,7 +777,6 @@ abstract class Phpcraft
 		}
 		if(isset($chat["translate"]))
 		{
-			$raw;
 			if(isset($translations[$chat["translate"]]))
 			{
 				$raw = $translations[$chat["translate"]];
@@ -850,6 +850,7 @@ abstract class Phpcraft
 	 * @param float $timeout The amount of seconds to wait for a response with each method.
 	 * @param integer $method The method(s) used to get the status. 2 = legacy list ping, 1 = modern list ping, 0 = both.
 	 * @return array
+	 * @throws Exception
 	 */
 	static function getServerStatus($server_name, $server_port = 25565, $timeout = 3.000, $method = 0)
 	{

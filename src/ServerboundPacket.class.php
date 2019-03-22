@@ -41,10 +41,7 @@ class ServerboundPacket extends PacketId
 	 */
 	function getId($protocol_version)
 	{
-		if($protocol_version >= $this->since_protocol_version)
-		{
-			return $this->_getId($protocol_version, "toServer", self::nameMap());
-		}
+		return $protocol_version >= $this->since_protocol_version ? $this->_getId($protocol_version, "toServer", self::nameMap()) : null;
 	}
 
 	/**

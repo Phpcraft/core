@@ -45,6 +45,7 @@ abstract class Identifier
 				return $thing;
 			}
 		}
+		return null;
 	}
 
 	/**
@@ -62,5 +63,6 @@ abstract class Identifier
 				return $thing;
 			}
 		}
+		return null;
 	}
 }

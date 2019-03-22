@@ -25,19 +25,19 @@ class Server
 	/**
 	 * The function called when a client has entered state 3 (playing) with the ClientConnection as argument.
 	 * @see Server::handle()
-	 * @var function $join_function
+	 * @var callable $join_function
 	 */
 	public $join_function = null;
 	/**
 	 * The function called when the server receives a packet from a client in state 3 (playing) unless it's a keep alive response with the ClientConnection, packet name, and packet id as parameters.
 	 * @see Server::handle()
-	 * @var function $packet_function
+	 * @var callable $packet_function
 	 */
 	public $packet_function = null;
 	/**
 	 * The function called when a client's disconnected from the server with the ClientConnection as argument.
 	 * @see Server::handle()
-	 * @var function $disconnect_function
+	 * @var callable $disconnect_function
 	 */
 	public $disconnect_function = null;
 	/**
@@ -45,7 +45,7 @@ class Server
 	 * See Phpcraft::getServerStatus for an example of all the data a server may respond with (excluding "ping").
 	 * @see Server::accept()
 	 * @see Server::handle()
-	 * @var function $list_ping_function
+	 * @var callable $list_ping_function
 	 */
 	public $list_ping_function = null;
 

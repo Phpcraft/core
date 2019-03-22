@@ -38,6 +38,7 @@ class UserInterface
 				return trim(fgets($this->stdin));
 			}
 		}
+		return null;
 	}
 
 	/**

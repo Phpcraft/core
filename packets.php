@@ -41,7 +41,6 @@ function processBatch()
 }
 function convertPacket($id, $name)
 {
-	global $argv, $pv;
 	if($name)
 	{
 		return $name." (0x".dechex($id)." | {$id})";
@@ -61,17 +60,25 @@ while($id = $con->readPacket())
 	$size = strlen($con->read_buffer);
 	if($argv[1] == "client")
 	{
-		$name = @\Phpcraft\ClientboundPacket::getById($id, $pv)->name;
+		$packetId = \Phpcraft\ClientboundPacket::getById($id, $pv);
 	}
 	else
 	{
-		$name = @\Phpcraft\ServerboundPacket::getById($id, $pv)->name;
+		$packetId = \Phpcraft\ServerboundPacket::getById($id, $pv);
+	}
+	if($packetId)
+	{
+		$name = $packetId->name;
+	}
+	else
+	{
+		$name = null;
 	}
 	if($size == 0)
 	{
 		die(convertPacket($id, $name)." has no data.\n");
 	}
-	if($packet = \Phpcraft\Packet::init($name, $con))
+	if($packetId && ($packet = $packetId->init($con)))
 	{
 		if($last_id)
 		{

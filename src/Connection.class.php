@@ -129,6 +129,7 @@ class Connection
 	 * Adds a chat object to the read buffer.
 	 * @param array|string $value Strings will be converted to chat objects.
 	 * @return Connection $this
+	 * @throws Exception
 	 */
 	function writeChat($value)
 	{
@@ -141,6 +142,7 @@ class Connection
 			throw new Exception("Invalid argument type: ".gettype($value));
 		}
 		$this->writeString(json_encode($value));
+		return null;
 	}
 
 	/**
@@ -259,6 +261,7 @@ class Connection
 	 * Adds a slot to the write buffer.
 	 * @param Slot $slot
 	 * @return Connection $this
+	 * @throws Exception
 	 */
 	function writeSlot(Slot $slot)
 	{
@@ -318,7 +321,7 @@ class Connection
 					}
 				}
 			}
-			$nbt->send($this);
+			$nbt->write($this);
 		}
 		return $this;
 	}
@@ -337,6 +340,7 @@ class Connection
 	 * Clears the write buffer and starts a new packet.
 	 * @param string|integer $packet The name or ID of the new packet.
 	 * @return Connection $this
+	 * @throws Exception
 	 */
 	function startPacket($packet)
 	{
@@ -768,6 +772,7 @@ class Connection
 	 * Reads an NbtTag.
 	 * @param boolean $type Ignore this parameter.
 	 * @return NbtTag
+	 * @throws Exception
 	 */
 	function readNBT($type = 0)
 	{
@@ -857,6 +862,7 @@ class Connection
 	 * Reads a Slot.
 	 * @param boolean $additional_processing Whether additional processing should occur to properly receive pre-1.13 data. You should only set this to false if you want a lazy read, and don't even care about the slot.
 	 * @return Slot
+	 * @throws Exception
 	 */
 	function readSlot($additional_processing = true)
 	{
@@ -949,6 +955,7 @@ class Connection
 	 * Skips over the given amount of bytes in the read buffer.
 	 * @param integer $bytes
 	 * @return Connection $this
+	 * @throws Exception
 	 */
 	function ignoreBytes($bytes)
 	{

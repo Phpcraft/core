@@ -32,6 +32,7 @@ class NbtCompound extends NbtTag
 				return $child;
 			}
 		}
+		return null;
 	}
 
 	/**
@@ -53,6 +54,7 @@ class NbtCompound extends NbtTag
 	/**
 	 * Adds a child to the compound or replaces an existing one by the same name.
 	 * @return NbtCompound $this
+	 * @throws Exception
 	 */
 	function addChild(NbtTag $tag)
 	{
@@ -91,7 +93,7 @@ class NbtCompound extends NbtTag
 
 	function copy()
 	{
-		return new NbtCompound($this->children);
+		return new NbtCompound($this->name, $this->children);
 	}
 
 	function toString()

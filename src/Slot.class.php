@@ -19,7 +19,7 @@ class Slot
 
 	/**
 	 * The item in this slot.
-	 * @var ItemMaterial $item
+	 * @var Item $item
 	 */
 	public $item;
 	/**
@@ -65,12 +65,14 @@ class Slot
 				}
 			}
 		}
+		return null;
 	}
 
 	/**
 	 * Sets the display name of the item in this slot.
-	 * @param string $name The new display name; chat object, or null to clear.
+	 * @param array $name The new display name; chat object, or null to clear.
 	 * @return Slot $this
+	 * @throws Exception
 	 */
 	function setDisplayName($name)
 	{
@@ -128,7 +130,7 @@ class Slot
 		{
 			return "{Slot: Empty}";
 		}
-		$str .= "{Slot: {$slot->count}x {$slot->item->name}";
+		$str = "{Slot: {$slot->count}x {$slot->item->name}";
 		if($slot->hasNBT())
 		{
 			$str .= ", NBT ".$slot->nbt->toString();

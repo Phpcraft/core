@@ -40,8 +40,8 @@ class PluginManager
 
 	/**
 	 * The function called by plugins when they would like to be registered.
-	 * @param $name This has to be identical to the name of file exluding the extension.
-	 * @param $callback The callback function called with a Plugin as parameter.
+	 * @param string $name This has to be identical to the name of file exluding the extension.
+	 * @param callable $callback The callback function called with a Plugin as parameter.
 	 * @return void
 	 */
 	static function registerPlugin($name, $callback)

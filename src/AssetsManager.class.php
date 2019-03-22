@@ -17,6 +17,7 @@ class AssetsManager
 	 * Returns an AssetsManager using the given Minecraft version's asset index.
 	 * @param string $version The Minecraft version you'd like to access the assets of.
 	 * @return AssetsManager
+	 * @throws Exception
 	 */
 	static function fromMinecraftVersion($version)
 	{
@@ -111,6 +112,7 @@ class AssetsManager
 			}
 			return $file;
 		}
+		return null;
 	}
 
 	/**

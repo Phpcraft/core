@@ -43,7 +43,7 @@ else
 		while(true);
 		readline_callback_handler_remove();
 	}
-	echo "Authenticated as ".$account->getUsername()."\n";
+	echo "Authenticated as ".$account->username."\n";
 }
 
 /*echo "Autoloading plugins...\n";
@@ -109,7 +109,7 @@ $server->join_function = function($con)
 	$con->startPacket("clientbound_chat_message");
 	if($account != null)
 	{
-		$con->writeString('{"text":"Welcome to this Phpcraft proxy, '.$con->username.'. This proxy is authenticated as '.$account->getUsername().'. Use .connect <ip> to connect to a Minecraft server."}');
+		$con->writeString('{"text":"Welcome to this Phpcraft proxy, '.$con->username.'. This proxy is authenticated as '.$account->username.'. Use .connect <ip> to connect to a Minecraft server."}');
 	}
 	else
 	{
@@ -192,6 +192,14 @@ $server->packet_function = function($con, $packet_name, $packet_id)
 				else
 				{
 					global $account;
+					if(!$account)
+					{
+						$con->startPacket("clientbound_chat_message");
+						$con->writeString('{"text":"Syntax: .connect <ip> <username>","color":"red"}');
+						$con->writeByte(1);
+						$con->send();
+						break;
+					}
 				}
 				if($server_con)
 				{
@@ -353,7 +361,7 @@ do
 		{
 			while(($packet_id = $server_con->readPacket(0)) !== false)
 			{
-				$packet_name = \Phpcraft\Packet::clientboundPacketIdToName($packet_id, $server_con->protocol_version);
+				$packet_name = \Phpcraft\ClientboundPacket::getById($packet->id, $server_con->protocol_version)->name;
 				//echo "< ".$packet_name." (".$packet_id.")\n";
 				if($packet_name == "entity_animation" || $packet_name == "entity_metadata" || $packet_name == "entity_velocity")
 				{

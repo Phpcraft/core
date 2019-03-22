@@ -31,7 +31,7 @@ class Plugin
 	 * Defines a function to be called to handle the given event.
 	 * Only one function can be defined per event per plugin, so subsequent calls with the same event name will overwrite the previously defined function.
 	 * @param string $event_name The name of the event to be handled. Use an asterisk (*) to catch all events, and a period (.) to catch all uncaught events.
-	 * @param function $function
+	 * @param callable $function
 	 * @param integer $priority The priority of the event handler. The higher the priority, the earlier it will be executed. Use a high value if you plan to cancel the event.
 	 * @return Plugin $this
 	 */

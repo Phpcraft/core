@@ -80,7 +80,7 @@ class MapMarker
 	 * @param integer $rotation The rotation of the marker divided by 22.5°, so it has a value between 0 and 15.
 	 * @param array $name The display name of this marker; chat object. Only visible to 1.13+ clients.
 	 */
-	function __construct($type, $x, $z, $rotation, $name = [])
+	function __construct($type = 0, $x = 0, $z = 0, $rotation = 0, $name = [])
 	{
 		$this->type = $type;
 		$this->x = $x;
@@ -91,6 +91,6 @@ class MapMarker
 
 	function toString()
 	{
-		return "{Map Marker".($name ? " \"".Phpcraft::chatToText($name)."\"" : "")." at {$this->x}:{$this->$y}, Type {$this->type}, ".($rotation * 22.5)."° Rotation}";
+		return "{Map Marker".($this->name ? " \"".Phpcraft::chatToText($this->name)."\"" : "")." at {$this->x}:{$this->z}, Type {$this->type}, ".($this->rotation * 22.5)."° Rotation}";
 	}
 }

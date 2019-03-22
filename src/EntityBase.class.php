@@ -107,7 +107,6 @@ class EntityBase extends EntityMetadata
 			if($byte >= 0x01)
 			{
 				$this->burning = true;
-				$byte -= 0x01;
 			}
 			else
 			{

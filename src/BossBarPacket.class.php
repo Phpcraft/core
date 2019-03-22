@@ -36,7 +36,8 @@ abstract class BossBarPacket extends Packet
 	static function read(Connection $con)
 	{
 		$uuid = $con->readUuid();
-		switch($con->readVarInt())
+		$action = $con->readVarInt();
+		switch($action)
 		{
 			case 0:
 			$packet = new AddBossBarPacket($uuid);
@@ -73,6 +74,10 @@ abstract class BossBarPacket extends Packet
 
 			case 3:
 			return new UpdateBossBarTitlePacket($uuid, $con->readChat());
+
+			default:
+			trigger_error("Unimplemented boss bar action: ".$action);
 		}
+		return null;
 	}
 }
