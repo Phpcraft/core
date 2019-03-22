@@ -25,7 +25,9 @@ else
 	{
 		do
 		{
-			readline_callback_handler_install("What's your account password? (hidden) ", function($input){});
+			readline_callback_handler_install("What's your account password? (hidden) ", function($input)
+			{
+});
 			if(!($pass = trim(fgets($stdin))))
 			{
 				echo "No password provided.\n";

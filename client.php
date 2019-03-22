@@ -40,7 +40,9 @@ for($i = 1; $i < count($argv); $i++)
 		{
 			$options[$n] = false;
 		}
-		else die("Value for argument '{$n}' has to be either 'on' or 'off'.\n");
+		else{
+			die("Value for argument '{$n}' has to be either 'on' or 'off'.\n");
+		}
 		break;
 
 		case "name":
@@ -143,7 +145,9 @@ if($online && !$account->loginUsingProfiles())
 {
 	do
 	{
-		readline_callback_handler_install("What's your account password? (hidden) ", function(){});
+		readline_callback_handler_install("What's your account password? (hidden) ", function()
+		{
+});
 		if(!($pass = trim(fgets($stdin))))
 		{
 			echo "No password provided.\n";

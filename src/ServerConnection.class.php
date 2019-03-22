@@ -52,30 +52,42 @@ class ServerConnection extends Connection
 		do
 		{
 			$id = $this->readPacket();
-			if($id == 0x04) // Login Plugin Request
+			if($id == 0x04)
+			{
+				// Login Plugin Request
 			{
 				echo "Login Plugin Request: ".$this->readString()."\n";
+			}
 				$this->writeVarInt(0x02); // Login Plugin Response
 				$this->writeVarInt($this->readVarInt());
 				$this->writeBoolean(false);
 				$this->send();
 			}
-			else if($id == 0x03) // Set Compression
+			else if($id == 0x03)
+			{
+				// Set Compression
 			{
 				$this->compression_threshold = $this->readVarInt();
 			}
-			else if($id == 0x02) // Login Success
+			}
+			else if($id == 0x02)
+			{
+				// Login Success
 			{
 				$this->uuid = UUID::fromString($this->readString(36));
+			}
 				$this->username = $this->readString(16);
 				$this->state = 3;
 				return "";
 			}
-			else if($id == 0x01) // Encryption Request
+			else if($id == 0x01)
+			{
+				// Encryption Request
 			{
 				if(!$account->isOnline())
 				{
 					return "The server is in online mode.";
+			}
 				}
 				$server_id = $this->readString(20);
 				$public_key = $this->readString();
@@ -105,9 +117,12 @@ class ServerConnection extends Connection
 				stream_filter_append($this->stream, "mcrypt.rijndael-128", STREAM_FILTER_WRITE, $opts);
 				stream_filter_append($this->stream, "mdecrypt.rijndael-128", STREAM_FILTER_READ, $opts);
 			}
-			else if($id == 0x00) // Disconnect
+			else if($id == 0x00)
+			{
+				// Disconnect
 			{
 				return Phpcraft::chatToText(json_decode($this->readString(), true), 0, $translations);
+			}
 			}
 			else
 			{

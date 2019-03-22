@@ -37,7 +37,9 @@ class FancyUserInterface extends UserInterface
 		$this->optional_info = $optional_info;
 		echo "\x1B[2J";
 		readline_callback_handler_remove();
-		readline_callback_handler_install("", function(){});
+		readline_callback_handler_install("", function()
+		{
+});
 		$this->ob_start();
 	}
 
@@ -99,11 +101,15 @@ class FancyUserInterface extends UserInterface
 						return $line;
 					}
 				}
-				else if($char == "\x7F") // Backspace
+				else if($char == "\x7F")
+				{
+					// Backspace
 				{
 					if($this->cursorpos == 1 || $this->input_buffer == "")
 					{
-						echo "\x07"; // Bell/Alert
+						echo "\x07";
+				}
+				// Bell/Alert
 					}
 					else
 					{
@@ -112,11 +118,15 @@ class FancyUserInterface extends UserInterface
 						$this->next_render = 0;
 					}
 				}
-				else if($char == "\t") // Tabulator
+				else if($char == "\t")
+				{
+					// Tabulator
 				{
 					if($this->tabcomplete_function == NULL)
 					{
-						echo "\x07"; // Bell/Alert
+						echo "\x07";
+				}
+				// Bell/Alert
 					}
 					else
 					{
@@ -191,21 +201,30 @@ class FancyUserInterface extends UserInterface
 					{
 						$this->cursorpos = mb_strlen($this->input_buffer, "utf-8") + 1;
 					}
-					if(mb_substr($this->input_buffer, $this->cursorpos - 4, 3, "utf-8") == "^[A") // Arrow Up
+					if(mb_substr($this->input_buffer, $this->cursorpos - 4, 3, "utf-8") == "^[A")
+					{
+						// Arrow Up
 					{
 						$this->input_buffer = mb_substr($this->input_buffer, 0, $this->cursorpos - 4, "utf-8").mb_substr($this->input_buffer, $this->cursorpos - 1, NULL, "utf-8");
+					}
 						$this->cursorpos -= 3;
 						$this->screen_scroll++;
 					}
-					else if(mb_substr($this->input_buffer, $this->cursorpos - 4, 3, "utf-8") == "^[B") // Arrow Down
+					else if(mb_substr($this->input_buffer, $this->cursorpos - 4, 3, "utf-8") == "^[B")
+					{
+						// Arrow Down
 					{
 						$this->input_buffer = mb_substr($this->input_buffer, 0, $this->cursorpos - 4, "utf-8").mb_substr($this->input_buffer, $this->cursorpos - 1, NULL, "utf-8");
+					}
 						$this->cursorpos -= 3;
 						$this->screen_scroll--;
 					}
-					else if(mb_substr($this->input_buffer, $this->cursorpos - 4, 3, "utf-8") == "^[C") // Arrow Right
+					else if(mb_substr($this->input_buffer, $this->cursorpos - 4, 3, "utf-8") == "^[C")
+					{
+						// Arrow Right
 					{
 						$this->input_buffer = mb_substr($this->input_buffer, 0, $this->cursorpos - 4, "utf-8").mb_substr($this->input_buffer, $this->cursorpos - 1, NULL, "utf-8");
+					}
 						$this->cursorpos -= 3;
 						if($this->cursorpos == mb_strlen($this->input_buffer, "utf-8") + 1)
 						{
@@ -216,9 +235,12 @@ class FancyUserInterface extends UserInterface
 							$this->cursorpos++;
 						}
 					}
-					else if(mb_substr($this->input_buffer, $this->cursorpos - 4, 3, "utf-8") == "^[D") // Arrow Left
+					else if(mb_substr($this->input_buffer, $this->cursorpos - 4, 3, "utf-8") == "^[D")
+					{
+						// Arrow Left
 					{
 						$this->input_buffer = mb_substr($this->input_buffer, 0, $this->cursorpos - 4, "utf-8").mb_substr($this->input_buffer, $this->cursorpos - 1, NULL, "utf-8");
+					}
 						$this->cursorpos -= 3;
 						if($this->cursorpos == 1)
 						{
@@ -229,34 +251,49 @@ class FancyUserInterface extends UserInterface
 							$this->cursorpos--;
 						}
 					}
-					else if(mb_substr($this->input_buffer, $this->cursorpos - 5, 4, "utf-8") == "^[1~") // Pos1
+					else if(mb_substr($this->input_buffer, $this->cursorpos - 5, 4, "utf-8") == "^[1~")
+					{
+						// Pos1
 					{
 						$this->input_buffer = mb_substr($this->input_buffer, 0, $this->cursorpos - 5, "utf-8").mb_substr($this->input_buffer, $this->cursorpos - 1, NULL, "utf-8");
+					}
 						$this->cursorpos = 1;
 					}
-					else if(mb_substr($this->input_buffer, $this->cursorpos - 5, 4, "utf-8") == "^[3~") // Delete
+					else if(mb_substr($this->input_buffer, $this->cursorpos - 5, 4, "utf-8") == "^[3~")
+					{
+						// Delete
 					{
 						$this->input_buffer = mb_substr($this->input_buffer, 0, $this->cursorpos - 5, "utf-8").mb_substr($this->input_buffer, $this->cursorpos, NULL, "utf-8");
+					}
 						if($this->input_buffer == "" || $this->cursorpos == mb_strlen($this->input_buffer, "utf-8") + 1)
 						{
 							echo "\x07"; // Bell/Alert
 						}
 						$this->cursorpos -= 4;
 					}
-					else if(mb_substr($this->input_buffer, $this->cursorpos - 5, 4, "utf-8") == "^[4~") // End
+					else if(mb_substr($this->input_buffer, $this->cursorpos - 5, 4, "utf-8") == "^[4~")
+					{
+						// End
 					{
 						$this->input_buffer = mb_substr($this->input_buffer, 0, $this->cursorpos - 5, "utf-8").mb_substr($this->input_buffer, $this->cursorpos - 1, NULL, "utf-8");
+					}
 						$this->cursorpos = mb_strlen($this->input_buffer, "utf-8") + 1;
 					}
-					else if(mb_substr($this->input_buffer, $this->cursorpos - 5, 4, "utf-8") == "^[5~") // Screen Up
+					else if(mb_substr($this->input_buffer, $this->cursorpos - 5, 4, "utf-8") == "^[5~")
+					{
+						// Screen Up
 					{
 						$this->input_buffer = mb_substr($this->input_buffer, 0, $this->cursorpos - 5, "utf-8").mb_substr($this->input_buffer, $this->cursorpos - 1, NULL, "utf-8");
+					}
 						$this->cursorpos -= 4;
 						$this->screen_scroll++;
 					}
-					else if(mb_substr($this->input_buffer, $this->cursorpos - 5, 4, "utf-8") == "^[6~") // Screen Down
+					else if(mb_substr($this->input_buffer, $this->cursorpos - 5, 4, "utf-8") == "^[6~")
+					{
+						// Screen Down
 					{
 						$this->input_buffer = mb_substr($this->input_buffer, 0, $this->cursorpos - 5, "utf-8").mb_substr($this->input_buffer, $this->cursorpos - 1, NULL, "utf-8");
+					}
 						$this->cursorpos -= 4;
 						$this->screen_scroll--;
 					}

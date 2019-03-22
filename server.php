@@ -127,7 +127,9 @@ $server->join_function = function(\Phpcraft\ClientConnection $con)
 				$c->writeByte(1);
 				$c->send();
 			}
-			catch(Exception $ignored){}
+			catch(Exception $ignored)
+			{
+}
 		}
 	}
 };
@@ -186,7 +188,9 @@ $server->packet_function = function(\Phpcraft\ClientConnection $con, $packet_nam
 					$c->writeByte(1);
 					$c->send();
 				}
-				catch(Exception $ignored){}
+				catch(Exception $ignored)
+				{
+}
 			}
 		}
 	}
@@ -218,7 +222,9 @@ $server->disconnect_function = function(\Phpcraft\ClientConnection $con)
 					$c->writeByte(1);
 					$c->send();
 				}
-				catch(Exception $ignored){}
+				catch(Exception $ignored)
+				{
+}
 			}
 		}
 	}
@@ -262,7 +268,9 @@ do
 					$c->writeByte(1);
 					$c->send();
 				}
-				catch(Exception $ignored){}
+				catch(Exception $ignored)
+				{
+}
 			}
 		}
 	}

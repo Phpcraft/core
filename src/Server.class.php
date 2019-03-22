@@ -170,9 +170,12 @@ class Server
 				{
 					while(($packet_id = $con->readPacket(0)) !== false)
 					{
-						if($con->state == 3) // Playing
+						if($con->state == 3)
+						{
+							// Playing
 						{
 							$packet_name = @ServerboundPacket::getById($packet_id, $con->protocol_version)->name;
+						}
 							if($packet_name == "keep_alive_response")
 							{
 								$con->next_heartbeat = microtime(true) + 15;
@@ -183,11 +186,14 @@ class Server
 								($this->packet_function)($con, $packet_name, $packet_id);
 							}
 						}
-						else if($con->state == 2) // Login
+						else if($con->state == 2)
+						{
+							// Login
 						{
 							if($packet_id == 0x00) // Login Start
 							{
 								$con->username = $con->readString();
+						}
 								if(Phpcraft::validateName($con->username))
 								{
 									if($this->private_key)
@@ -210,11 +216,14 @@ class Server
 									break;
 								}
 							}
-							else if($packet_id == 0x01 && isset($con->username)) // Encryption Response
+							else if($packet_id == 0x01 && isset($con->username))
+							{
+								// Encryption Response
 							{
 								if($json = $con->handleEncryptionResponse($this->private_key))
 								{
 									$con->finishLogin(UUID::fromString($json["id"]), $this->eidCounter);
+							}
 									if($this->join_function)
 									{
 										($this->join_function)($con);

@@ -113,7 +113,9 @@ class ClientConnection extends Connection
 				}
 			}
 		}
-		catch(Exception $ignored){}
+		catch(Exception $ignored)
+		{
+}
 		$this->close();
 		return 0;
 	}
@@ -229,9 +231,12 @@ class ClientConnection extends Connection
 		{
 			try
 			{
-				if($this->state == 2) // Login
+				if($this->state == 2)
+				{
+					// Login
 				{
 					$this->write_buffer = Phpcraft::intToVarInt(0x00);
+				}
 				}
 				else // Play
 				{
@@ -240,7 +245,9 @@ class ClientConnection extends Connection
 				$this->writeChat($reason);
 				$this->send();
 			}
-			catch(Exception $ignored){}
+			catch(Exception $ignored)
+			{
+}
 		}
 		$this->close();
 	}

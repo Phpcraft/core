@@ -76,6 +76,6 @@ if(isset($info["players"]))
 			}
 		}
 	}
-	echo "There are ".(isset($info["players"]["online"])?$info["players"]["online"]:"???")."/".(isset($info["players"]["max"])?$info["players"]["max"]:"???")." players online".(($sample=="")?".\n":":\n".$sample);
+	echo "There are ".(isset($info["players"]["online"]) ? $info["players"]["online"] : "???")."/".(isset($info["players"]["max"]) ? $info["players"]["max"] : "???")." players online".(($sample == "") ? ".\n" : ":\n".$sample);
 }
 echo "The server answered the status request within ".round($info["ping"] * 1000)." ms.\n";
