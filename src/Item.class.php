@@ -2,22 +2,8 @@
 namespace Phpcraft;
 class Item extends Identifier
 {
+	private static $all_cache;
 	private $legacy_id;
-
-	/**
-	 * @copydoc Identifier::all
-	 */
-	static function all()
-	{
-		return [
-			new Item("air", 0),
-			new Item("stone", 1 << 4, 0, "stone"),
-			new Item("grass_block", 2 << 4, 0, "grass_block"),
-			new Item("dirt", 3 << 4, 0, "dirt"),
-			new Item("filled_map", 358 << 4)
-		];
-	}
-
 	/**
 	 * The name of the related BlockMaterial.
 	 * @var string $block;
@@ -25,13 +11,24 @@ class Item extends Identifier
 	public $block;
 
 	/**
-	 * The constructor.
-	 * @param string $name The name without minecraft: prefix.
-	 * @param integer $legacy_id The pre-flattening ID of this item.
-	 * @param integer $since_protocol_version The protocol version at which this item was introduced.
-	 * @param string $block The name of the related BlockMaterial.
+	 * @copydoc Identifier::all
 	 */
-	function __construct($name, $legacy_id, $since_protocol_version = 0, $block = null)
+	static function all()
+	{
+		if(self::$all_cache === null)
+		{
+			self::$all_cache = [
+				new Item("air", 0),
+				new Item("stone", 1 << 4, 0, "stone"),
+				new Item("grass_block", 2 << 4, 0, "grass_block"),
+				new Item("dirt", 3 << 4, 0, "dirt"),
+				new Item("filled_map", 358 << 4)
+			];
+		}
+		return self::$all_cache;
+	}
+
+	private function __construct($name, $legacy_id, $since_protocol_version = 0, $block = null)
 	{
 		$this->name = $name;
 		$this->legacy_id = $legacy_id;
@@ -46,20 +43,17 @@ class Item extends Identifier
 	{
 		if($protocol_version >= $this->since_protocol_version)
 		{
-			if($protocol_version >= 346)
-			{
-				switch($this->name)
-				{
-					case "air": return 0;
-					case "stone": return 1;
-					case "grass_block": return 8;
-					case "dirt": return 9;
-					case "filled_map": return 613;
-				}
-			}
-			else
+			if($protocol_version < 346)
 			{
 				return $this->legacy_id;
+			}
+			switch($this->name)
+			{
+				case "air": return 0;
+				case "stone": return 1;
+				case "grass_block": return 8;
+				case "dirt": return 9;
+				case "filled_map": return 613;
 			}
 		}
 		return null;

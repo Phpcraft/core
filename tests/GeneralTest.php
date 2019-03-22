@@ -83,4 +83,11 @@ final class GeneralTest extends \PHPUnit\Framework\TestCase
 		$this->assertEquals($metadata->custom_name, $read_metadata->custom_name);
 		$this->assertNull($read_metadata->silent);
 	}
+
+	function testBlockMaterial()
+	{
+		$this->assertNotNull($grass = \Phpcraft\BlockMaterial::get("grass_block"));
+		$this->assertEquals(2 << 4, $grass->getId(47));
+		$this->assertEquals(9, $grass->getId(404));
+	}
 }

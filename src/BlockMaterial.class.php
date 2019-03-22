@@ -2,6 +2,7 @@
 namespace Phpcraft;
 class BlockMaterial extends Identifier
 {
+	private static $all_cache;
 	private $legacy_id;
 	/**
 	 * The name of each Item dropped when this block is destroyed.
@@ -14,22 +15,19 @@ class BlockMaterial extends Identifier
 	 */
 	static function all()
 	{
-		return [
-			new BlockMaterial("air", 0),
-			new BlockMaterial("stone", 1 << 4, ["stone"]),
-			new BlockMaterial("grass_block", 2 << 4, ["grass_block"]),
-			new BlockMaterial("dirt", 3 << 4, ["dirt"])
-		];
+		if(self::$all_cache === null)
+		{
+			self::$all_cache = [
+				new BlockMaterial("air", 0),
+				new BlockMaterial("stone", 1 << 4, 0, ["stone"]),
+				new BlockMaterial("grass_block", 2 << 4, 0, ["grass_block"]),
+				new BlockMaterial("dirt", 3 << 4, 0, ["dirt"])
+			];
+		}
+		return self::$all_cache;
 	}
 
-	/**
-	 * The constructor.
-	 * @param string $name The name without minecraft: prefix.
-	 * @param integer $legacy_id The pre-flattening ID of this block material.
-	 * @param integer $since_protocol_version The protocol version at which this block was introduced.
-	 * @param array $drops The name of each Item dropped when this block is destroyed.
-	 */
-	function __construct($name, $legacy_id, $since_protocol_version = 0, $drops = [])
+	private function __construct($name, $legacy_id, $since_protocol_version = 0, $drops = [])
 	{
 		$this->name = $name;
 		$this->legacy_id = $legacy_id;
@@ -44,19 +42,16 @@ class BlockMaterial extends Identifier
 	{
 		if($protocol_version >= $this->since_protocol_version)
 		{
-			if($protocol_version >= 346)
-			{
-				switch($this->name)
-				{
-					case "air": return 0;
-					case "stone": return 1;
-					case "grass_block": return 9;
-					case "dirt": return 10;
-				}
-			}
-			else
+			if($protocol_version < 346)
 			{
 				return $this->legacy_id;
+			}
+			switch($this->name)
+			{
+				case "air": return 0;
+				case "stone": return 1;
+				case "grass_block": return 9;
+				case "dirt": return 10;
 			}
 		}
 		return null;

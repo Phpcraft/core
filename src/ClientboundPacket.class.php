@@ -36,7 +36,7 @@ class ClientboundPacket extends PacketId
 	 */
 	static function all()
 	{
-		if(!self::$all_cache)
+		if(self::$all_cache == null)
 		{
 			self::$all_cache = self::_all("toClient", self::nameMap(), function($name, $pv)
 			{

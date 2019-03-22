@@ -26,7 +26,7 @@ PluginManager::registerPlugin("FirstPackets", function($plugin)
 		$packet->data = "\x08Phpcraft";
 		$packet->send($con);
 		global $WorldImitator_version;
-		if($WorldImitator_version)
+		if($WorldImitator_version !== null)
 		{
 			return;
 		}
@@ -49,7 +49,7 @@ PluginManager::registerPlugin("FirstPackets", function($plugin)
 	$plugin->on("tick", function($event)
 	{
 		global $WorldImitator_version;
-		if($WorldImitator_version)
+		if($WorldImitator_version !== null)
 		{
 			return;
 		}

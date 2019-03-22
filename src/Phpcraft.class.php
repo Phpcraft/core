@@ -166,11 +166,14 @@ abstract class Phpcraft
 	}
 
 	/**
-	 * Downloads various resources which might be needed during runtime but are not yet in the disk cache, and populates the memory cache. Currently, this improves performance for PacketId, EntityType, and EntityMetadata::read.
+	 * Downloads various resources which might be needed during runtime but are not yet in the disk cache, and populates the memory cache.
+	 * This improves performance for BlockMaterial, Item, PacketId, EntityType, and EntityMetadata::read.
 	 * @return void
 	 */
 	static function populateCache()
 	{
+		BlockMaterial::all();
+		Item::all();
 		PacketId::all();
 		EntityType::all()[0]->getId(353);
 	}
