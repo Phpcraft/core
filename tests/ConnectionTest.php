@@ -6,11 +6,16 @@ final class ConnectionTest extends \PHPUnit\Framework\TestCase
 	{
 		$con = new \Phpcraft\Connection();
 		$con->writeInt(1);
-		$con->writeInt(-1, true);
-		$this->assertEquals("\x00\x00\x00\x01\xFF\xFF\xFF\xFF", $con->write_buffer);
+		$con->writeInt(-1);
+		$con->writeInt(3405691582);
+		$con->writeInt(3405691582, true);
+		$this->assertEquals("\x00\x00\x00\x01\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xCA\xFE\xBA\xBE\xCA\xFE\xBA\xBE", $con->write_buffer);
 		$con->read_buffer = $con->write_buffer;
 		$this->assertEquals(1, $con->readInt());
 		$this->assertEquals(-1, $con->readInt(true));
+		$this->assertEquals(-1, $con->readInt(true));
+		$this->assertEquals(3405691582, $con->readInt());
+		$this->assertEquals(-889275714, $con->readInt(true));
 		$this->assertEquals("", $con->read_buffer);
 	}
 

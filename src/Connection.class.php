@@ -650,7 +650,7 @@ class Connection
 	 * @throws Exception When there are not enough bytes to read an integer.
 	 * @return integer
 	 */
-	function readInt($signed = true)
+	function readInt($signed = false)
 	{
 		if(strlen($this->read_buffer) < 4)
 		{
@@ -717,7 +717,7 @@ class Connection
 	 */
 	function readFixedPointPosition()
 	{
-		return new Position($this->readInt() / 32, $this->readInt() / 32, $this->readInt() / 32);
+		return new Position($this->readInt(true) / 32, $this->readInt(true) / 32, $this->readInt(true) / 32);
 	}
 
 	/**
@@ -840,7 +840,7 @@ class Connection
 			$children = [];
 			for($i = 0; $i < $children_i; $i++)
 			{
-				array_push($children, $this->readInt());
+				array_push($children, $this->readInt(true));
 			}
 			return new NbtIntArray($name, $children);
 
