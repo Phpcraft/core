@@ -10,8 +10,14 @@ PluginManager::registerPlugin("WorldSaver", function($plugin)
 {
 	$plugin->on("load", function($event)
 	{
+		$fh = fopen("world.bin", "w");
+		if($fh === false)
+		{
+			echo "[WorldSaver] Failed to open world.bin.\n";
+			return;
+		}
 		global $WorldSaver_con;
-		$WorldSaver_con = new \Phpcraft\Connection($event->data["server_protocol_version"], fopen("world.bin", "w"));
+		$WorldSaver_con = new \Phpcraft\Connection($event->data["server_protocol_version"], $fh);
 		$WorldSaver_con->writeVarInt($event->data["server_protocol_version"]);
 		$WorldSaver_con->send();
 	});

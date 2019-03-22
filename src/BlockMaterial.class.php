@@ -13,7 +13,7 @@ class BlockMaterial extends Identifier
 	/**
 	 * @copydoc Identifier::all
 	 */
-	static function all()
+	public static function all()
 	{
 		if(self::$all_cache === null)
 		{
@@ -38,7 +38,7 @@ class BlockMaterial extends Identifier
 	/**
 	 * @copydoc Identifier::getId
 	 */
-	function getId($protocol_version)
+	public function getId($protocol_version)
 	{
 		if($protocol_version >= $this->since_protocol_version)
 		{
@@ -61,7 +61,7 @@ class BlockMaterial extends Identifier
 	 * Returns each Item that are supposed to be dropped when this block is destroyed.
 	 * @return array
 	 */
-	function getDrops()
+	public function getDrops()
 	{
 		$drops = [];
 		foreach($this->drops as $name)

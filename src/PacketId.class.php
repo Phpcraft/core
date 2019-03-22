@@ -38,7 +38,7 @@ abstract class PacketId extends Identifier
 	/**
 	 * @copydoc Identifier::all
 	 */
-	static function all()
+	public static function all()
 	{
 		return array_merge(ClientboundPacket::all(), ServerboundPacket::all());
 	}
@@ -72,5 +72,5 @@ abstract class PacketId extends Identifier
 	 * Returns null if the packet does not have a class implementation yet.
 	 * @return Packet
 	 */
-	abstract function init(Connection $con);
+	abstract public function init(Connection $con);
 }

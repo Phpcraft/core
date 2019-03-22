@@ -34,7 +34,7 @@ class SpawnMobPacket extends Packet
 	 * @param EntityType $type The type of mob.
 	 * @param UUID $uuid The UUID of the entity.
 	 */
-	function __construct($eid = 0, $type = null, $uuid = null)
+	public function __construct($eid = 0, $type = null, $uuid = null)
 	{
 		$this->eid = $eid;
 		if($type)
@@ -59,7 +59,7 @@ class SpawnMobPacket extends Packet
 	/**
 	 * @copydoc Packet::read
 	 */
-	static function read(Connection $con)
+	public static function read(Connection $con)
 	{
 		$eid = $con->readVarInt();
 		if($con->protocol_version >= 49)
@@ -88,7 +88,7 @@ class SpawnMobPacket extends Packet
 	/**
 	 * @copydoc Packet::send
 	 */
-	function send(Connection $con)
+	public function send(Connection $con)
 	{
 		$con->startPacket("spawn_mob");
 		$con->writeVarInt($this->eid);
@@ -122,7 +122,7 @@ class SpawnMobPacket extends Packet
 		$con->send();
 	}
 
-	function toString()
+	public function toString()
 	{
 		$str = "{SpawnMobPacket: ";
 		if($this->type)

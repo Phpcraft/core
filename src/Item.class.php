@@ -13,7 +13,7 @@ class Item extends Identifier
 	/**
 	 * @copydoc Identifier::all
 	 */
-	static function all()
+	public static function all()
 	{
 		if(self::$all_cache === null)
 		{
@@ -39,7 +39,7 @@ class Item extends Identifier
 	/**
 	 * @copydoc Identifier::getId
 	 */
-	function getId($protocol_version)
+	public function getId($protocol_version)
 	{
 		if($protocol_version >= $this->since_protocol_version)
 		{
@@ -63,7 +63,7 @@ class Item extends Identifier
 	 * Returns the related block material.
 	 * @return BlockMaterial
 	 */
-	function getBlock()
+	public function getBlock()
 	{
 		return $this->block == null ? null : BlockMaterial::get($this->block);
 	}

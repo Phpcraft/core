@@ -64,7 +64,7 @@ abstract class PluginMessagePacket extends Packet
 	/**
 	 * @copydoc Packet::send
 	 */
-	function send(Connection $con)
+	public function send(Connection $con)
 	{
 		$con->startPacket($this->packet_name);
 		if($con->protocol_version >= 385)

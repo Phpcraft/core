@@ -75,7 +75,7 @@ class Connection
 	{
 		if($this->stream != null)
 		{
-			@fclose($this->stream);
+			fclose($this->stream);
 			$this->stream = null;
 		}
 	}
@@ -252,9 +252,9 @@ class Connection
 	 */
 	function writeFixedPointPosition(Position $pos)
 	{
-		$this->writeInt($pos->x * 32);
-		$this->writeInt($pos->y * 32);
-		return $this->writeInt($pos->z * 32);
+		$this->writeInt(intval($pos->x * 32));
+		$this->writeInt(intval($pos->y * 32));
+		return $this->writeInt(intval($pos->z * 32));
 	}
 
 	/**
@@ -294,7 +294,7 @@ class Connection
 					switch($slot->item->name)
 					{
 						case "filled_map":
-						$this->writeShort($slot->nbt->getChild("map")->value);
+						$this->writeShort($slot->nbt->/** @scrutinizer ignore-call */getChild("map")->value);
 						break;
 
 						default:
@@ -683,7 +683,7 @@ class Connection
 		{
 			$long = gmp_sub($long, gmp_pow(2, 64));
 		}
-		return gmp_strval($long);
+		return gmp_intval($long);
 	}
 
 	/**

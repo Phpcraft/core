@@ -13,7 +13,7 @@ class Plugin
 	 * The constructor.
 	 * @param string $name The name of the plugin.
 	 */
-	function __construct($name)
+	public function __construct($name)
 	{
 		$this->name = $name;
 	}
@@ -22,7 +22,7 @@ class Plugin
 	 * Returns the name of the plugin.
 	 * @return string The name of the plugin.
 	 */
-	function getName()
+	public function getName()
 	{
 		return $this->name;
 	}
@@ -35,7 +35,7 @@ class Plugin
 	 * @param integer $priority The priority of the event handler. The higher the priority, the earlier it will be executed. Use a high value if you plan to cancel the event.
 	 * @return Plugin $this
 	 */
-	function on($event_name, $function, $priority = Event::PRIORITY_NORMAL)
+	public function on($event_name, $function, $priority = Event::PRIORITY_NORMAL)
 	{
 		$this->event_handlers[$event_name] = [
 			"priority" => $priority,
@@ -49,7 +49,7 @@ class Plugin
 	 * @param Event $event
 	 * @return boolean True if the event was cancelled.
 	 */
-	function fire($event)
+	public function fire($event)
 	{
 		if(isset($this->event_handlers[$event->name]))
 		{

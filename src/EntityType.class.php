@@ -8,7 +8,7 @@ class EntityType extends Identifier
 	/**
 	 * @copydoc Identifier::all
 	 */
-	static function all()
+	public static function all()
 	{
 		if(self::$all_cache === null)
 		{
@@ -123,7 +123,7 @@ class EntityType extends Identifier
 	/**
 	 * @copydoc Identifier::getId
 	 */
-	function getId($protocol_version)
+	public function getId($protocol_version)
 	{
 		if($protocol_version >= $this->since_protocol_version)
 		{
@@ -149,7 +149,7 @@ class EntityType extends Identifier
 	 * Returns the appropriate EntityMetadata class for this entity type.
 	 * @return EntityMetadata 
 	 */
-	function getMetadata()
+	public function getMetadata()
 	{
 		return new EntityLiving();
 	}

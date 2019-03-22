@@ -141,7 +141,7 @@ class EntityBase extends EntityMetadata
 	/**
 	 * @copydoc EntityMetadata::write
 	 */
-	function write(Connection $con)
+	public function write(Connection $con)
 	{
 		if($this->burning !== null || $this->crouching !== null || $this->sprinting !== null || $this->invisible !== null)
 		{
@@ -188,7 +188,7 @@ class EntityBase extends EntityMetadata
 			}
 			else
 			{
-				if($this->custom_name)
+				if(!empty($this->custom_name))
 				{
 					self::writeString($con, 2, Phpcraft::chatToText($this->custom_name, 2));
 				}
@@ -204,7 +204,7 @@ class EntityBase extends EntityMetadata
 		}
 	}
 
-	function getStringAttributes()
+	public function getStringAttributes()
 	{
 		$attr = [];
 		if($this->custom_name !== null)

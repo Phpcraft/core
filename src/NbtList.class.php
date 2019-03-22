@@ -20,7 +20,7 @@ class NbtList extends NbtTag
 	 * @param integer $childType The NBT Tag Type of children.
 	 * @param array $children The child tags of the list.
 	 */
-	function __construct($name, $childType, $children = [])
+	public function __construct($name, $childType, $children = [])
 	{
 		$this->name = $name;
 		$this->childType = $childType;
@@ -30,7 +30,7 @@ class NbtList extends NbtTag
 	/**
 	 * @copydoc NbtTag::write
 	 */
-	function write(Connection $con, $inList = false)
+	public function write(Connection $con, $inList = false)
 	{
 		if(!$inList)
 		{
@@ -45,12 +45,12 @@ class NbtList extends NbtTag
 		return $con;
 	}
 
-	function copy()
+	public function copy()
 	{
 		return new NbtList($this->name, $this->childType, $this->children);
 	}
 
-	function toString()
+	public function toString()
 	{
 		$str = "{List \"".$this->name."\":";
 		foreach($this->children as $child)

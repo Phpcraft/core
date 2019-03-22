@@ -12,7 +12,7 @@ abstract class Packet
 	 * @return string
 	 * @throws Exception
 	 */
-	function getPayload($protocol_version = -1)
+	public function getPayload($protocol_version = -1)
 	{
 		$con = new Connection($protocol_version);
 		$this->send($con);
@@ -27,7 +27,7 @@ abstract class Packet
 	 * @return Packet
 	 * @throws Exception
 	 */
-	abstract static function read(Connection $con);
+	abstract public static function read(Connection $con);
 
 	/**
 	 * Adds the packet's ID and payload to the Connection's write buffer and, if the connection has a stream, sends it over the wire.
@@ -35,7 +35,7 @@ abstract class Packet
 	 * @return void
 	 * @throws Exception
 	 */
-	abstract function send(Connection $con);
+	abstract public function send(Connection $con);
 
-	abstract function toString();
+	abstract public function toString();
 }

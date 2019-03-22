@@ -6,7 +6,7 @@ abstract class Phpcraft
 	 * Returns the path of the .minecraft folder without a folder seperator at the end.
 	 * @return string
 	 */
-	static function getMinecraftFolder()
+	public static function getMinecraftFolder()
 	{
 		if(getenv("HOME"))
 		{
@@ -38,7 +38,7 @@ abstract class Phpcraft
 	 * Returns the path of Minecraft's launcher_profiles.json.
 	 * @return string
 	 */
-	static function getProfilesFile()
+	public static function getProfilesFile()
 	{
 		return Phpcraft::getMinecraftFolder()."/launcher_profiles.json";
 	}
@@ -49,7 +49,7 @@ abstract class Phpcraft
 	 * @see Phpcraft::getProfilesFile()
 	 * @see Phpcraft::saveProfiles()
 	 */
-	static function getProfiles()
+	public static function getProfiles()
 	{
 		$profiles_file = Phpcraft::getProfilesFile();
 		if(file_exists($profiles_file) && is_file($profiles_file))
@@ -80,7 +80,7 @@ abstract class Phpcraft
 	 * @param array $profiles
 	 * @return void
 	 */
-	static function saveProfiles($profiles)
+	public static function saveProfiles($profiles)
 	{
 		file_put_contents(Phpcraft::getProfilesFile(), json_encode($profiles, JSON_PRETTY_PRINT));
 	}
@@ -95,7 +95,7 @@ abstract class Phpcraft
 	 * @see getCachableResource
 	 * @see maintainCache
 	 */
-	static function getCachableJson($url, $caching_duration = 2678400)
+	public static function getCachableJson($url, $caching_duration = 2678400)
 	{
 		if(!isset(self::$json_cache[$url]))
 		{
@@ -112,7 +112,7 @@ abstract class Phpcraft
 	 * @see getCachableJson
 	 * @see maintainCache
 	 */
-	static function getCachableResource($url, $caching_duration = 86400)
+	public static function getCachableResource($url, $caching_duration = 86400)
 	{
 		self::maintainCache();
 		$cache = [];
@@ -137,7 +137,7 @@ abstract class Phpcraft
 	 * @see getCachableJson
 	 * @see getCachableResource
 	 */
-	static function maintainCache()
+	public static function maintainCache()
 	{
 		if(file_exists(__DIR__."/.cache"))
 		{
@@ -170,7 +170,7 @@ abstract class Phpcraft
 	 * This improves performance for BlockMaterial, Item, PacketId, EntityType, and EntityMetadata::read.
 	 * @return void
 	 */
-	static function populateCache()
+	public static function populateCache()
 	{
 		BlockMaterial::all();
 		Item::all();
@@ -183,7 +183,7 @@ abstract class Phpcraft
 	 * @param string $name
 	 * @return boolean True if the name is valid.
 	 */
-	static function validateName($name)
+	public static function validateName($name)
 	{
 		if(strlen($name) < 3 || strlen($name) > 16)
 		{
@@ -215,7 +215,7 @@ abstract class Phpcraft
 	 * @param array $data
 	 * @return array
 	 */
-	static function httpPOST($url, $data)
+	public static function httpPOST($url, $data)
 	{
 		$res = @file_get_contents($url, false, stream_context_create([
 			"http" => [
@@ -241,7 +241,7 @@ abstract class Phpcraft
 	 * @param string $server The server address, e.g. localhost
 	 * @return string The resolved address, e.g. localhost:25565
 	 */
-	static function resolve($server)
+	public static function resolve($server)
 	{
 		$arr = explode(":", $server);
 		if(count($arr) > 1)
@@ -266,7 +266,7 @@ abstract class Phpcraft
 	 * @param integer $value
 	 * @return string
 	 */
-	static function intToVarInt($value)
+	public static function intToVarInt($value)
 	{
 		if($value < 0)
 		{
@@ -287,7 +287,7 @@ abstract class Phpcraft
 		return $bytes;
 	}
 
-	static function binaryStringToHex($str)
+	public static function binaryStringToHex($str)
 	{
 		$hex_str = "";
 		foreach(str_split($str) as $char)
@@ -307,7 +307,7 @@ abstract class Phpcraft
 	 * @param boolean $with_snapshots
 	 * @return array
 	 */
-	static function getVersions($with_snapshots = true)
+	public static function getVersions($with_snapshots = true)
 	{
 		$versions = [
 			"1.13.2" => 404,
@@ -379,7 +379,7 @@ abstract class Phpcraft
 	 * Returns a list of supported Protocol versions; newest first.
 	 * @return string[]
 	 */
-	static function getSupportedProtocolVersions()
+	public static function getSupportedProtocolVersions()
 	{
 		return array_values(Phpcraft::getVersions());
 	}
@@ -388,7 +388,7 @@ abstract class Phpcraft
 	 * Returns a list of supported Minecraft versions; newest first.
 	 * @return string[]
 	 */
-	static function getSupportedMinecraftVersions()
+	public static function getSupportedMinecraftVersions()
 	{
 		return array_keys(Phpcraft::getVersions());
 	}
@@ -398,7 +398,7 @@ abstract class Phpcraft
 	 * @param integer $protocol_version e.g., 340
 	 * @return boolean
 	 */
-	static function isProtocolVersionSupported($protocol_version)
+	public static function isProtocolVersionSupported($protocol_version)
 	{
 		return in_array($protocol_version, Phpcraft::getVersions());
 	}
@@ -408,7 +408,7 @@ abstract class Phpcraft
 	 * @param integer $protocol_version e.g., 340 for ["1.12.2"]
 	 * @return array
 	 */
-	static function getMinecraftVersionsFromProtocolVersion($protocol_version)
+	public static function getMinecraftVersionsFromProtocolVersion($protocol_version)
 	{
 		$minecraft_versions = [];
 		foreach(Phpcraft::getVersions() as $k => $v)
@@ -426,7 +426,7 @@ abstract class Phpcraft
 	 * @param integer $protocol_version e.g., 47 for 1.8 - 1.8.9
 	 * @return string The version range or an empty string if the given protocol version is not supported.
 	 */
-	static function getMinecraftVersionRangeFromProtocolVersion($protocol_version)
+	public static function getMinecraftVersionRangeFromProtocolVersion($protocol_version)
 	{
 		$minecraft_versions = Phpcraft::getMinecraftVersionsFromProtocolVersion($protocol_version);
 		$count = count($minecraft_versions);
@@ -446,7 +446,7 @@ abstract class Phpcraft
 	 * @param string $minecraft_version e.g., 1.12.2
 	 * @return boolean
 	 */
-	static function isMinecraftVersionSupported($minecraft_version)
+	public static function isMinecraftVersionSupported($minecraft_version)
 	{
 		return isset(Phpcraft::getVersions()[$minecraft_version]);
 	}
@@ -456,7 +456,7 @@ abstract class Phpcraft
 	 * @param string $minecraft_version e.g., 1.12.2 for 340
 	 * @return integer The protocol version or null if the Minecraft version is not supported.
 	 */
-	static function getProtocolVersionFromMinecraftVersion($minecraft_version)
+	public static function getProtocolVersionFromMinecraftVersion($minecraft_version)
 	{
 		return @Phpcraft::getVersions()[$minecraft_version];
 	}
@@ -467,7 +467,7 @@ abstract class Phpcraft
 	 * @param string $str
 	 * @return string
 	 */
-	static function sha1($str)
+	public static function sha1($str)
 	{
 		$gmp = gmp_import(sha1($str, true));
 		if(gmp_cmp($gmp, gmp_init("0x8000000000000000000000000000000000000000")) >= 0)
@@ -485,7 +485,7 @@ abstract class Phpcraft
 	 * @param boolean $child Ignore this parameter.
 	 * @return array
 	 */
-	static function textToChat($str, $allowAmp = false, &$i = 0, $child = false)
+	public static function textToChat($str, $allowAmp = false, &$i = 0, $child = false)
 	{
 		if(strpos($str, "§") === false && (!$allowAmp || strpos($str, "&") === false))
 		{
@@ -605,7 +605,7 @@ abstract class Phpcraft
 	 * @param array $parent Ignore this parameter.
 	 * @return string
 	 */
-	static function chatToText($chat, $format = 0, $translations = null, $parent = [])
+	public static function chatToText($chat, $format = 0, $translations = null, $parent = [])
 	{
 		if($parent === [])
 		{
@@ -770,7 +770,7 @@ abstract class Phpcraft
 				}
 				else if(($i = array_search($chat["color"], ["black","dark_blue","dark_green","dark_aqua","dark_red","dark_purple","gold","gray","dark_gray","blue","green","aqua","red","light_purple","yellow","white"])) !== false)
 				{
-					$text .= ($format == 2 ? "§" : "&").dechex($i);
+					$text .= ($format == 2 ? "§" : "&").dechex(/** @scrutinizer ignore-type */ $i);
 				}
 			}
 		}
@@ -855,7 +855,7 @@ abstract class Phpcraft
 	 * @return array
 	 * @throws Exception
 	 */
-	static function getServerStatus($server_name, $server_port = 25565, $timeout = 3.000, $method = 0)
+	public static function getServerStatus($server_name, $server_port = 25565, $timeout = 3.000, $method = 0)
 	{
 		if($method != 2)
 		{
@@ -922,7 +922,7 @@ abstract class Phpcraft
 	 * @param array $rgb2
 	 * @return integer
 	 */
-	static function colorDiff($rgb1, $rgb2)
+	public static function colorDiff($rgb1, $rgb2)
 	{
 		return abs($rgb1[0] - $rgb2[0]) + abs($rgb1[1] - $rgb2[1]) + abs($rgb1[2] - $rgb2[2]);
 	}
@@ -932,7 +932,7 @@ abstract class Phpcraft
 	 * @param string $path
 	 * @return void
 	 */
-	static function recursivelyDelete($path)
+	public static function recursivelyDelete($path)
 	{
 		if(substr($path, -1) == "/")
 		{

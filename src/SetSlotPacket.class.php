@@ -22,7 +22,7 @@ class SetSlotPacket extends Packet
 	/**
 	 * @copydoc Packet::read
 	 */
-	static function read(Connection $con)
+	public static function read(Connection $con)
 	{
 		$packet = new SetSlotPacket();
 		$packet->window = $con->readByte();
@@ -34,7 +34,7 @@ class SetSlotPacket extends Packet
 	/**
 	 * @copydoc Packet::send
 	 */
-	function send(Connection $con)
+	public function send(Connection $con)
 	{
 		$con->startPacket("set_slot");
 		$con->writeByte($this->window);
@@ -43,7 +43,7 @@ class SetSlotPacket extends Packet
 		$con->send();
 	}
 
-	function toString()
+	public function toString()
 	{
 		return "{Set Slot: Window ID {$this->window}, Slot ID {$this->slotId}, ".Slot::toString($this->slot)."}";
 	}

@@ -89,7 +89,7 @@ $ui->tabcomplete_function = function($word)
 	}
 	return $completions;
 };
-$server->join_function = function($con)
+$server->join_function = function(\Phpcraft\ClientConnection $con)
 {
 	if(!\Phpcraft\Phpcraft::isProtocolVersionSupported($con->protocol_version))
 	{
@@ -131,7 +131,7 @@ $server->join_function = function($con)
 		}
 	}
 };
-$server->packet_function = function($con, $packet_name, $packet_id)
+$server->packet_function = function(\Phpcraft\ClientConnection $con, $packet_name, /** @scrutinizer ignore-unused */ $packet_id)
 {
 	global $options, $ui, $server;
 	if(\Phpcraft\PluginManager::fire(new \Phpcraft\Event("packet", [
@@ -191,7 +191,7 @@ $server->packet_function = function($con, $packet_name, $packet_id)
 		}
 	}
 };
-$server->disconnect_function = function($con)
+$server->disconnect_function = function(\Phpcraft\ClientConnection $con)
 {
 	global $ui, $server;
 	if($con->state == 3)

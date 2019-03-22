@@ -10,7 +10,7 @@ if(@$argv[1] == "help")
 }
 require "vendor/autoload.php";
 
-$stdin = fopen("php://stdin", "r");
+$stdin = fopen("php://stdin", "r") or die("Failed to open php://stdin\n");
 stream_set_blocking($stdin, true);
 
 if(empty($argv[1]))
@@ -69,7 +69,7 @@ $server->list_ping_function = function($con)
 		]
 	];
 };
-$server->join_function = function($con)
+$server->join_function = function(\Phpcraft\ClientConnection $con)
 {
 	if(!\Phpcraft\Phpcraft::isProtocolVersionSupported($con->protocol_version))
 	{
@@ -77,7 +77,7 @@ $server->join_function = function($con)
 		return;
 	}
 	global $account, $client_con;
-	if($client_con)
+	if($client_con != null)
 	{
 		echo $con->username." tried to join.\n";
 		$con->disconnect(["text" => "Someone else is already using the proxy."]);
@@ -118,7 +118,7 @@ $server->join_function = function($con)
 	$con->writeByte(1);
 	$con->send();
 };
-$server->packet_function = function($con, $packet_name, $packet_id)
+$server->packet_function = function(\Phpcraft\ClientConnection $con, $packet_name, $packet_id)
 {
 	global $server_con;
 	//echo "> ".$packet_name." (".$packet_id.")\n";
@@ -228,7 +228,7 @@ $server->packet_function = function($con, $packet_name, $packet_id)
 				$con->writeString('{"text":"Connecting to '.$server.'..."}');
 				$con->writeByte(1);
 				$con->send();
-				$stream = fsockopen($serverarr[0], $serverarr[1], $errno, $errstr, 3);
+				$stream = fsockopen($serverarr[0], intval($serverarr[1]), $errno, $errstr, 3);
 				if(!$stream)
 				{
 					$con->startPacket("clientbound_chat_message");
@@ -242,7 +242,7 @@ $server->packet_function = function($con, $packet_name, $packet_id)
 				$con->writeByte(1);
 				$con->send();
 				$server_con = new \Phpcraft\ServerConnection($stream, $con->protocol_version);
-				$server_con->sendHandshake($serverarr[0].($uuid ? "\x001.1.1.1\x00".$uuid : ""), $serverarr[1], 2);
+				$server_con->sendHandshake($serverarr[0].($uuid ? "\x001.1.1.1\x00".$uuid : ""), intval($serverarr[1]), 2);
 				if($error = $server_con->login($account))
 				{
 					$con->startPacket("clientbound_chat_message");
@@ -332,7 +332,7 @@ $server->packet_function = function($con, $packet_name, $packet_id)
 		$server_con->send();
 	}
 };
-$server->disconnect_function = function($con)
+$server->disconnect_function = function(\Phpcraft\ClientConnection $con)
 {
 	global $client_con;
 	if($con == $client_con)
@@ -357,15 +357,15 @@ do
 	$server->handle();
 	try
 	{
-		if($server_con)
+		if($server_con != null && $client_con != null)
 		{
-			while(($packet_id = $server_con->readPacket(0)) !== false)
+			while(($packet_id = $server_con->/** @scrutinizer ignore-call */readPacket(0)) !== false)
 			{
 				$packet_name = \Phpcraft\ClientboundPacket::getById($packet->id, $server_con->protocol_version)->name;
 				//echo "< ".$packet_name." (".$packet_id.")\n";
 				if($packet_name == "entity_animation" || $packet_name == "entity_metadata" || $packet_name == "entity_velocity")
 				{
-					$client_con->startPacket($packet_name);
+					$client_con->/** @scrutinizer ignore-call */startPacket($packet_name);
 					$eid = $server_con->readVarInt();
 					$client_con->writeVarInt($eid == $server_eid ? $client_con->eid : $eid);
 					$client_con->write_buffer .= $server_con->read_buffer;

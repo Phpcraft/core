@@ -54,7 +54,7 @@ class Server
 	 * @param resource $stream A stream created by stream_socket_server.
 	 * @param resource $private_key A private key generated using openssl_pkey_new(["private_key_bits" => 1024, "private_key_type" => OPENSSL_KEYTYPE_RSA]) to use for online mode, or null to use offline mode.
 	 */
-	function __construct($stream = null, $private_key = null)
+	public function __construct($stream = null, $private_key = null)
 	{
 		if($stream)
 		{
@@ -98,7 +98,7 @@ class Server
 	 * Returns whether the server socket is open or not.
 	 * @return boolean
 	 */
-	function isOpen()
+	public function isOpen()
 	{
 		return $this->stream != null && @feof($this->stream) === false;
 	}
@@ -107,7 +107,7 @@ class Server
 	 * Accepts new clients and processes each client's first packet.
 	 * @return Server $this
 	 */
-	function accept()
+	public function accept()
 	{
 		while(($stream = @stream_socket_accept($this->stream, 0)) !== false)
 		{
@@ -160,7 +160,7 @@ class Server
 	 * This does not include implementing an entire server; that is what the packet_function is for.
 	 * @return Server $this
 	 */
-	function handle()
+	public function handle()
 	{
 		foreach($this->clients as $i => $con)
 		{
@@ -282,7 +282,7 @@ class Server
 	 * Closes all client connections and the server socket.
 	 * @param array $reason The reason for closing the server; chat object.
 	 */
-	function close($reason = [])
+	public function close($reason = [])
 	{
 		fclose($this->stream);
 		foreach($this->clients as $client)

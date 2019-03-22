@@ -12,7 +12,7 @@ class JoinGamePacket extends Packet
 	/**
 	 * @copydoc Packet::read
 	 */
-	static function read(Connection $con)
+	public static function read(Connection $con)
 	{
 		$packet = new JoinGamePacket();
 		$packet->eid = $con->readInt();
@@ -33,7 +33,7 @@ class JoinGamePacket extends Packet
 	/**
 	 * @copydoc Packet::send
 	 */
-	function send(Connection $con)
+	public function send(Connection $con)
 	{
 		$con->startPacket("join_game");
 		$con->writeInt($this->eid);
@@ -58,7 +58,7 @@ class JoinGamePacket extends Packet
 		$con->send();
 	}
 
-	function toString()
+	public function toString()
 	{
 		return "{JoinGamePacket: Entity ID ".$this->eid.", Gamemode ".$this->gamemode.", ".($hardcore ? "Not " : "")."Hardcore Mode, Dimension ".$this->dimension.", Difficulty ".$this->difficulty."}";
 	}

@@ -17,21 +17,21 @@ abstract class Identifier
 	 * Returns everything of this type.
 	 * @return array
 	 */
-	abstract static function all();
+	abstract public static function all();
 
 	/**
 	 * Returns the ID of this Identifier for the given protocol version or null if not applicable.
 	 * @param integer $protocol_version
 	 * @return integer
 	 */
-	abstract function getId($protocol_version);
+	abstract public function getId($protocol_version);
 
 	/**
 	 * Returns an Identifier by its name or null if not found.
 	 * @param string $name
 	 * @return Identifier
 	 */
-	static function get($name)
+	public static function get($name)
 	{
 		$name = strtolower($name);
 		if(substr($name, 0, 10) == "minecraft:")
@@ -52,9 +52,9 @@ abstract class Identifier
 	 * Returns an Identifier by its ID in the given protocol version or null if not found.
 	 * @param integer $id
 	 * @param integer $protocol_version
-	 * @return Identifier
+	 * @return static
 	 */
-	static function getById($id, $protocol_version)
+	public static function getById($id, $protocol_version)
 	{
 		foreach(static::all() as $thing)
 		{

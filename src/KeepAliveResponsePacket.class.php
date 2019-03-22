@@ -9,7 +9,7 @@ class KeepAliveResponsePacket extends Packet
 	 * The constructor.
 	 * @param integer $keepAliveId The identifier of the keep alive request packet this response is for.
 	 */
-	function __construct($keepAliveId)
+	public function __construct($keepAliveId)
 	{
 		$this->keepAliveId = $keepAliveId;
 	}
@@ -17,7 +17,7 @@ class KeepAliveResponsePacket extends Packet
 	/**
 	 * @copydoc Packet::read
 	 */
-	static function read(Connection $con)
+	public static function read(Connection $con)
 	{
 		return new KeepAliveResponsePacket($con->protocol_version >= 339 ? $con->readLong() : $con->readVarInt());
 	}
@@ -25,7 +25,7 @@ class KeepAliveResponsePacket extends Packet
 	/**
 	 * @copydoc Packet::send
 	 */
-	function send(Connection $con)
+	public function send(Connection $con)
 	{
 		$con->startPacket("keep_alive_response");
 		if($con->protocol_version >= 339)
@@ -39,7 +39,7 @@ class KeepAliveResponsePacket extends Packet
 		$con->send();
 	}
 
-	function toString()
+	public function toString()
 	{
 		return "{Keep Alive Response: ID ".$this->keepAliveId."}";
 	}

@@ -78,7 +78,7 @@ while($id = $con->readPacket())
 	{
 		die(convertPacket($id, $name)." has no data.\n");
 	}
-	if($packetId && ($packet = $packetId->init($con)))
+	if($packetId && ($packet = $packetId->/** @scrutinizer ignore-call */init($con)))
 	{
 		if($last_id)
 		{

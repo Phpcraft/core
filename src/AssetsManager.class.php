@@ -8,7 +8,7 @@ class AssetsManager
 	 * The constructor.
 	 * @param string $index_url The URL to the asset index.
 	 */
-	function __construct($index_url)
+	public function __construct($index_url)
 	{
 		$this->index_url = $index_url;
 	}
@@ -19,7 +19,7 @@ class AssetsManager
 	 * @return AssetsManager
 	 * @throws Exception
 	 */
-	static function fromMinecraftVersion($version)
+	public static function fromMinecraftVersion($version)
 	{
 		$versions_folder = Phpcraft::getMinecraftFolder()."/versions";
 		if(!file_exists($versions_folder) || !is_dir($versions_folder))
@@ -54,7 +54,7 @@ class AssetsManager
 	 * Returns the JSON-decoded content of the asset index of the version.
 	 * @return array
 	 */
-	function getAssetIndex()
+	public function getAssetIndex()
 	{
 		$assets_dir = Phpcraft::getMinecraftFolder()."/assets";
 		if(!file_exists($assets_dir) || !is_dir($assets_dir))
@@ -79,7 +79,7 @@ class AssetsManager
 	 * @param string $name
 	 * @return boolean
 	 */
-	function doesAssetExist($name)
+	public function doesAssetExist($name)
 	{
 		return isset($this->getAssetIndex()["objects"][$name]);
 	}
@@ -89,7 +89,7 @@ class AssetsManager
 	 * @param string $name
 	 * @return string
 	 */
-	function downloadAsset($name)
+	public function downloadAsset($name)
 	{
 		$asset_index = $this->getAssetIndex();
 		$objects_dir = Phpcraft::getMinecraftFolder()."/assets/objects";
@@ -97,7 +97,7 @@ class AssetsManager
 		{
 			mkdir($objects_dir);
 		}
-		if($asset = $asset_index["objects"][$name])
+		if($asset_index["objects"][$name])
 		{
 			$hash = $asset_index["objects"][$name]["hash"];
 			$dir = $objects_dir."/".substr($hash, 0, 2);
@@ -119,7 +119,7 @@ class AssetsManager
 	 * Downloads all assets.
 	 * @return void
 	 */
-	function downloadAllAssets()
+	public function downloadAllAssets()
 	{
 		foreach($this->getAssetIndex()["objects"] as $name => $object)
 		{
@@ -131,7 +131,7 @@ class AssetsManager
 	 * Builds the legacy assets folder for versions before 1.7.2.
 	 * @return void
 	 */
-	function buildLegacyAssetsFolder()
+	public function buildLegacyAssetsFolder()
 	{
 		$asset_index = $this->getAssetIndex();
 		$virtual_dir = Phpcraft::getMinecraftFolder()."/assets/virtual";

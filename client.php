@@ -93,7 +93,7 @@ else
 }
 $translations = json_decode(file_get_contents($am->downloadAsset("minecraft/lang/".strtolower($options["lang"]).".json")), true);
 
-$stdin = fopen("php://stdin", "r");
+$stdin = fopen("php://stdin", "r") or die("Failed to open php://stdin\n");
 stream_set_blocking($stdin, true);
 
 $online = false;
@@ -143,7 +143,7 @@ if($online && !$account->loginUsingProfiles())
 {
 	do
 	{
-		readline_callback_handler_install("What's your account password? (hidden) ", function($input){});
+		readline_callback_handler_install("What's your account password? (hidden) ", function(){});
 		if(!($pass = trim(fgets($stdin))))
 		{
 			echo "No password provided.\n";
@@ -189,7 +189,7 @@ if(count($serverarr) != 2)
 $ui->append("Resolved to {$server}")->render();
 if(empty($options["version"]))
 {
-	$info = \Phpcraft\Phpcraft::getServerStatus($serverarr[0], $serverarr[1], 3, 1);
+	$info = \Phpcraft\Phpcraft::getServerStatus($serverarr[0], intval($serverarr[1]), 3, 1);
 	if(empty($info) || empty($info["version"]) || empty($info["version"]["protocol"]))
 	{
 		$ui->add("Invalid status: ".json_encode($info))->render();
@@ -393,6 +393,7 @@ function handleConsoleMessage($msg)
 			case "follow":
 			if(isset($args[1]))
 			{
+				$username = null;
 				$uuids = [];
 				global $players;
 				foreach($players as $uuid => $player)
@@ -403,7 +404,7 @@ function handleConsoleMessage($msg)
 						$username = $player["name"];
 					}
 				}
-				if(count($uuids) == 0)
+				if($username == null)
 				{
 					$ui->add("Couldn't find ".$args[1]);
 				}
@@ -508,9 +509,9 @@ $ui->tabcomplete_function = function($word)
 do
 {
 	$ui->add("Connecting using {$minecraft_version}... ")->render();
-	$stream = fsockopen($serverarr[0], $serverarr[1], $errno, $errstr, 3) or die($errstr."\n");
+	$stream = fsockopen($serverarr[0], intval($serverarr[1]), $errno, $errstr, 3) or die($errstr."\n");
 	$con = new \Phpcraft\ServerConnection($stream, $protocol_version);
-	$con->sendHandshake($serverarr[0], $serverarr[1], 2);
+	$con->sendHandshake($serverarr[0], intval($serverarr[1]), 2);
 	$ui->append("Connection established.")->add("Logging in... ")->render();
 	if($error = $con->login($account, $translations))
 	{
@@ -1023,7 +1024,7 @@ do
 		}
 		if(($remaining = (0.050 - (microtime(true) - $start))) > 0)
 		{
-			time_nanosleep(0, $remaining * 1000000000);
+			time_nanosleep(0, /** @scrutinizer ignore-type */ $remaining * 1000000000);
 		}
 	}
 	while(!$reconnect && $con->isOpen());

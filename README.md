@@ -1,4 +1,4 @@
-# Phpcraft [![Build Status](https://travis-ci.org/timmyrs/Phpcraft.svg?branch=master)](https://travis-ci.org/timmyrs/Phpcraft)
+# Phpcraft [![Travis Build Status](https://travis-ci.org/timmyrs/Phpcraft.svg?branch=master)](https://travis-ci.org/timmyrs/Phpcraft) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/timmyrs/Phpcraft/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/timmyrs/Phpcraft/?branch=master)
 
 A PHP library for [all things](https://phpcraft.de/docs/namespacePhpcraft.html) Minecraft: Java Edition.
 

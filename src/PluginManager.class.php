@@ -18,7 +18,7 @@ class PluginManager
 	 * Reads the autoload.txt of the plugin folder and loads all plugins.
 	 * @param string $plugins_folder The path to the folder in which plugins are contained.
 	 */
-	static function autoloadPlugins($plugins_folder = "plugins")
+	public static function autoloadPlugins($plugins_folder = "plugins")
 	{
 		foreach(file($plugins_folder."/autoload.txt") as $line)
 		{
@@ -44,7 +44,7 @@ class PluginManager
 	 * @param callable $callback The callback function called with a Plugin as parameter.
 	 * @return void
 	 */
-	static function registerPlugin($name, $callback)
+	public static function registerPlugin($name, $callback)
 	{
 		if(PluginManager::$loadee_name && PluginManager::$loadee_name == $name)
 		{
@@ -63,7 +63,7 @@ class PluginManager
 	 * @param Event $event
 	 * @return boolean True if the event was cancelled.
 	 */
-	static function fire($event)
+	public static function fire($event)
 	{
 		$handlers = [];
 		foreach(PluginManager::$loaded_plugins as $plugin)

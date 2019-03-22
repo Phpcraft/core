@@ -25,7 +25,7 @@ class Event
 	 * @param string $name
 	 * @param array $data
 	 */
-	function __construct($name, $data = [])
+	public function __construct($name, $data = [])
 	{
 		$this->name = $name;
 		$this->data = $data;
@@ -35,7 +35,7 @@ class Event
 	 * Tells you if the event was cancelled.
 	 * @return boolean
 	 */
-	function isCancelled()
+	public function isCancelled()
 	{
 		return $this->cancelled;
 	}
@@ -43,7 +43,7 @@ class Event
 	/**
 	 * Cancels the event.
 	 */
-	function cancel()
+	public function cancel()
 	{
 		$this->cancelled = true;
 	}

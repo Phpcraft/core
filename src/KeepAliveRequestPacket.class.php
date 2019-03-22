@@ -9,7 +9,7 @@ class KeepAliveRequestPacket extends Packet
 	 * The constructor.
 	 * @param integer $keepAliveId The identifier of this keep alive packet. Defaults to current time.
 	 */
-	function __construct($keepAliveId = null)
+	public function __construct($keepAliveId = null)
 	{
 		$this->keepAliveId = ($keepAliveId ? $keepAliveId : time());
 	}
@@ -17,7 +17,7 @@ class KeepAliveRequestPacket extends Packet
 	/**
 	 * @copydoc Packet::read
 	 */
-	static function read(Connection $con)
+	public static function read(Connection $con)
 	{
 		return new KeepAliveRequestPacket($con->protocol_version >= 339 ? $con->readLong() : $con->readVarInt());
 	}
@@ -25,7 +25,7 @@ class KeepAliveRequestPacket extends Packet
 	/**
 	 * @copydoc Packet::send
 	 */
-	function send(Connection $con)
+	public function send(Connection $con)
 	{
 		$con->startPacket("keep_alive_request");
 		if($con->protocol_version >= 339)
@@ -43,12 +43,12 @@ class KeepAliveRequestPacket extends Packet
 	 * Generates the response packet which the client should send.
 	 * @return KeepAliveResponsePacket
 	 */
-	function getResponse()
+	public function getResponse()
 	{
 		return new KeepAliveResponsePacket($this->keepAliveId);
 	}
 
-	function toString()
+	public function toString()
 	{
 		return "{Keep Alive Request: ID ".$this->keepAliveId."}";
 	}

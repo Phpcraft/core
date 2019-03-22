@@ -5,7 +5,7 @@ class RemoveBossBarPacket extends BossBarPacket
 	/**
 	 * @copydoc Packet::send
 	 */
-	function send(Connection $con)
+	public function send(Connection $con)
 	{
 		if($con->protocol_version > 49)
 		{
@@ -22,7 +22,7 @@ class RemoveBossBarPacket extends BossBarPacket
 		$con->send();
 	}
 
-	function toString()
+	public function toString()
 	{
 		return "{RemoveBossBarPacket: Boss Bar ".$this->uuid->toString()."}";
 	}

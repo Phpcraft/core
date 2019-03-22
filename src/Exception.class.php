@@ -7,7 +7,7 @@ class Exception extends \Exception
 	 * The constructor.
 	 * @param string $message The error message.
 	 */
-	function __construct($message)
+	public function __construct($message)
 	{
 		parent::__construct($message);
 	}

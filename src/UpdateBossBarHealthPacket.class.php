@@ -13,7 +13,7 @@ class UpdateBossBarHealthPacket extends BossBarPacket
 	 * @copydoc BossBarPacket::__construct
 	 * @param float $health The percentage the boss bar is filled, aka. the health of the boss.
 	 */
-	function __construct($uuid = null, $health = 1.0)
+	public function __construct($uuid = null, $health = 1.0)
 	{
 		parent::__construct($uuid);
 		$this->health = $health;
@@ -22,7 +22,7 @@ class UpdateBossBarHealthPacket extends BossBarPacket
 	/**
 	 * @copydoc Packet::send
 	 */
-	function send(Connection $con)
+	public function send(Connection $con)
 	{
 		if($con->protocol_version > 49)
 		{
@@ -46,7 +46,7 @@ class UpdateBossBarHealthPacket extends BossBarPacket
 		$con->send();
 	}
 
-	function toString()
+	public function toString()
 	{
 		return "{UpdateBossBarHealthPacket: Boss Bar ".$this->uuid->toString().", ".($this->health * 100)."% Health}";
 	}

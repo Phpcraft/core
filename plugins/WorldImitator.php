@@ -11,14 +11,19 @@ if(!file_exists("world.bin"))
 	echo "[WorldImitator] Not loading because world.bin was not found.\n";
 	return;
 }
+global $WorldImitator_version;
+$fh = fopen("world.bin", "r");
+if($fh === false)
+{
+	echo "[WorldImitator] Failed to open world.bin.\n";
+	return;
+}
+$con = new \Phpcraft\Connection(-1, $fh);
+$WorldImitator_version = $con->readPacket();
+fclose($fh);
+echo "[WorldImitator] Loaded packets from ".\Phpcraft\Phpcraft::getMinecraftVersionsFromProtocolVersion($WorldImitator_version)[0]." (protocol version ".strval($WorldImitator_version).").\n";
 PluginManager::registerPlugin("WorldImitator", function($plugin)
 {
-	global $WorldImitator_version;
-	$fh = fopen("world.bin", "r");
-	$con = new \Phpcraft\Connection(-1, $fh);
-	$WorldImitator_version = $con->readPacket();
-	fclose($fh);
-	echo "[WorldImitator] Loaded packets from ".\Phpcraft\Phpcraft::getMinecraftVersionsFromProtocolVersion($WorldImitator_version)[0]." (protocol version ".$WorldImitator_version.").\n";
 	$plugin->on("join", function($event)
 	{
 		if($event->isCancelled())

@@ -17,7 +17,7 @@ class SetExperiencePacket extends Packet
 	 * @param float $percent How many percent the experience bar is filled from 0.00 to 1.00.
 	 * @param integer $level
 	 */
-	function __construct($percent = 0.00, $level = 0)
+	public function __construct($percent = 0.00, $level = 0)
 	{
 		$this->percent = $percent;
 		$this->level = $level;
@@ -26,18 +26,19 @@ class SetExperiencePacket extends Packet
 	/**
 	 * @copydoc Packet::read
 	 */
-	static function read(Connection $con)
+	public static function read(Connection $con)
 	{
 		$packet = new SetExperiencePacket();
 		$packet->percent = $con->readFloat();
 		$packet->level = $con->readVarInt();
 		$con->readVarInt(); // Total Experience
+		return $packet;
 	}
 
 	/**
 	 * @copydoc Packet::send
 	 */
-	function send(Connection $con)
+	public function send(Connection $con)
 	{
 		$con->startPacket("set_experience");
 		$con->writeFloat($this->percent);
@@ -60,7 +61,7 @@ class SetExperiencePacket extends Packet
 		$con->send();
 	}
 
-	function toString()
+	public function toString()
 	{
 		return "{SetExperiencePacket: Level ".$this->level.", ".($this->percent * 100)."% to next}";
 	}

@@ -24,7 +24,7 @@ class ServerboundPacket extends PacketId
 	/**
 	 * @copydoc Identifier::all
 	 */
-	static function all()
+	public static function all()
 	{
 		if(self::$all_cache == null)
 		{
@@ -39,7 +39,7 @@ class ServerboundPacket extends PacketId
 	/**
 	 * @copydoc Identifier::getId
 	 */
-	function getId($protocol_version)
+	public function getId($protocol_version)
 	{
 		return $protocol_version >= $this->since_protocol_version ? $this->_getId($protocol_version, "toServer", self::nameMap()) : null;
 	}
@@ -47,7 +47,7 @@ class ServerboundPacket extends PacketId
 	/**
 	 * @copydoc PacketId::init
 	 */
-	function init(Connection $con)
+	public function init(Connection $con)
 	{
 		switch($this->name)
 		{

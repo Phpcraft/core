@@ -4,7 +4,7 @@ class Counter
 {
 	protected $i = -1;
 
-	function next()
+	public function next()
 	{
 		return ++$this->i;
 	}

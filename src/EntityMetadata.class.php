@@ -50,7 +50,7 @@ abstract class EntityMetadata
 	 * @return EntityMetadata $this
 	 * @throws Exception
 	 */
-	function read(Connection $con)
+	public function read(Connection $con)
 	{
 		if($con->protocol_version >= 57)
 		{
@@ -166,11 +166,11 @@ abstract class EntityMetadata
 	 * @param Connection $con
 	 * @return void
 	 */
-	abstract function write(Connection $con);
+	abstract public function write(Connection $con);
 
-	abstract function getStringAttributes();
+	abstract public function getStringAttributes();
 
-	function toString()
+	public function toString()
 	{
 		$attr = $this->getStringAttributes();
 		if(count($attr) > 0)
@@ -180,7 +180,7 @@ abstract class EntityMetadata
 		return "{".substr(get_called_class(), 9)."}";
 	}
 
-	static function writeByte(Connection $con, $index, $value)
+	public static function writeByte(Connection $con, $index, $value)
 	{
 		$con->writeByte($index);
 		if($con->protocol_version >= 57)
@@ -190,7 +190,7 @@ abstract class EntityMetadata
 		$con->writeByte($value);
 	}
 
-	static function writeFloat(Connection $con, $index, $value)
+	public static function writeFloat(Connection $con, $index, $value)
 	{
 		if($con->protocol_version >= 57)
 		{
@@ -204,7 +204,7 @@ abstract class EntityMetadata
 		$con->writeFloat($value);
 	}
 
-	static function writeString(Connection $con, $index, $value)
+	public static function writeString(Connection $con, $index, $value)
 	{
 		if($con->protocol_version >= 57)
 		{
@@ -218,7 +218,7 @@ abstract class EntityMetadata
 		$con->writeString($value);
 	}
 
-	static function writeOptChat(Connection $con, $index, $value)
+	public static function writeOptChat(Connection $con, $index, $value)
 	{
 		if($con->protocol_version < 57)
 		{
@@ -237,7 +237,7 @@ abstract class EntityMetadata
 		}
 	}
 
-	static function writeBoolean(Connection $con, $index, $value)
+	public static function writeBoolean(Connection $con, $index, $value)
 	{
 		$con->writeByte($index);
 		if($con->protocol_version >= 57)
@@ -247,7 +247,7 @@ abstract class EntityMetadata
 		$con->writeBoolean($value);
 	}
 
-	static function finish(Connection $con)
+	public static function finish(Connection $con)
 	{
 		if($con->protocol_version >= 57)
 		{

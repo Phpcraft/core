@@ -19,7 +19,7 @@ class MapDataPacket extends Packet
 	 * @param boolean $new_colors You can safely ignore this parameter.
 	 * @return integer
 	 */
-	static function getColorId($rgb, $new_colors = true)
+	public static function getColorId($rgb, $new_colors = true)
 	{
 		$best_color = $best_diff = 0;
 		foreach(($new_colors ? MapDataPacket::colors_1_12() : MapDataPacket::colors_1_8_1()) as $id => $rgb2)
@@ -80,7 +80,7 @@ class MapDataPacket extends Packet
 	/**
 	 * @copydoc Packet::read
 	 */
-	static function read(Connection $con)
+	public static function read(Connection $con)
 	{
 		$packet = new MapDataPacket();
 		$packet->mapId = $con->readVarInt();
@@ -144,12 +144,13 @@ class MapDataPacket extends Packet
 				}
 			}
 		}
+		return $packet;
 	}
 
 	/**
 	 * @copydoc Packet::send
 	 */
-	function send(Connection $con)
+	public function send(Connection $con)
 	{
 		$con->startPacket("map_data");
 		$con->writeVarInt($this->mapId);
@@ -192,7 +193,11 @@ class MapDataPacket extends Packet
 				$con->writeByte($marker->z);
 			}
 		}
-		if($this->contents)
+		if(empty($this->contents))
+		{
+			$con->writeVarInt(0);
+		}
+		else
 		{
 			$con->writeByte($this->width);
 			$con->writeByte($this->height);
@@ -215,26 +220,19 @@ class MapDataPacket extends Packet
 				}
 			}
 		}
-		else
-		{
-			$con->writeVarInt(0);
-		}
 		$con->send();
 	}
 
-	function toString()
+	public function toString()
 	{
 		$str = "{Map Data: Map ID ".$this->mapId.", Scale ".$this->scale.", {$this->width}x{$this->height} Pixels, From {$this->x}:{$this->z}, Markers:";
-		if($this->markers)
+		if(empty($this->markers))
 		{
-			foreach($this->markers as $marker)
-			{
-				$str .= " ".$marker->toString();
-			}
+			return $str." None}";
 		}
-		else
+		foreach($this->markers as $marker)
 		{
-			$str .= " None";
+			$str .= " ".$marker->toString();
 		}
 		return $str."}";
 	}

@@ -38,6 +38,11 @@ class ClientConnection extends Connection
 	 */
 	public $disconnect_after = 0;
 	/**
+	 * This variable is for servers to keep track of the client's entity ID.
+	 * @var integer $eid
+	 */
+	public $eid;
+	/**
 	 * This variable is for servers to keep track of the client's position.
 	 * @var Position $pos
 	 */

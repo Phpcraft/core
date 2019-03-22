@@ -8,7 +8,7 @@ class UserInterface
 	 * The constructor.
 	 * Note that from this point forward, STDIN is in the hands of the UI until it is destructed.
 	 */
-	function __construct()
+	public function __construct()
 	{
 		$this->stdin = fopen("php://stdin", "r");
 		stream_set_blocking($this->stdin, false);
@@ -17,7 +17,7 @@ class UserInterface
 	/**
 	 * The destructor.
 	 */
-	function __destruct()
+	public function __destruct()
 	{
 		fclose($this->stdin);
 	}
@@ -27,15 +27,15 @@ class UserInterface
 	 * @param boolean $accept_input Set to true if you are looking for a return value.
 	 * @return string If $accept_input is true and the user has submitted a line, the return will be that line. Otherwise, it will be null.
 	 */
-	function render($accept_input = false)
+	public function render($accept_input = false)
 	{
 		if($accept_input)
 		{
 			$read = [$this->stdin];
 			$null = null;
-			if(stream_select($read, $null, $null, 0))
+			if(stream_select($read, /** @scrutinizer ignore-type */ $null, /** @scrutinizer ignore-type */ $null, 0))
 			{
-				return trim(fgets($this->stdin));
+				return trim(fgets(/** @scrutinizer ignore-type */ $this->stdin));
 			}
 		}
 		return null;
@@ -45,7 +45,7 @@ class UserInterface
 	 * Prints a message.
 	 * @return $this
 	 */
-	function add($message)
+	public function add($message)
 	{
 		echo "\x1B[m{$message}\n\x1B[m";
 		return $this;
@@ -55,7 +55,7 @@ class UserInterface
 	 * Prints a message.
 	 * @return $this
 	 */
-	function append($message)
+	public function append($message)
 	{
 		return $this->add($message);
 	}

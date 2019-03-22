@@ -39,7 +39,7 @@ class Slot
 	 * @param integer $count How many times the item is in this slot.
 	 * @param NbtTag $nbt The NBT data of the item in this slot.
 	 */
-	function __construct(Item $item = null, $count = 1, NbtTag $nbt = null)
+	public function __construct(Item $item = null, $count = 1, NbtTag $nbt = null)
 	{
 		$this->item = $item;
 		$this->count = $count;
@@ -50,7 +50,7 @@ class Slot
 	 * Returns the display name of the item in this slot as a chat object or null if not set.
 	 * @return array
 	 */
-	function getDisplayName()
+	public function getDisplayName()
 	{
 		$nbt = $this->getNBT();
 		if($nbt instanceof NbtCompound)
@@ -74,7 +74,7 @@ class Slot
 	 * @return Slot $this
 	 * @throws Exception
 	 */
-	function setDisplayName($name)
+	public function setDisplayName($name)
 	{
 		$name = json_encode($name);
 		$nbt = $this->getNBT();
@@ -103,7 +103,7 @@ class Slot
 	/**
 	 * @return NbtTag
 	 */
-	function getNBT()
+	public function getNBT()
 	{
 		return $this->nbt == null ? new NbtEnd() : $this->nbt;
 	}
@@ -111,7 +111,7 @@ class Slot
 	/**
 	 * @return boolean
 	 */
-	function hasNBT()
+	public function hasNBT()
 	{
 		return $this->nbt != null && !($this->nbt instanceof NbtEnd);
 	}
@@ -119,12 +119,12 @@ class Slot
 	/**
 	 * @return boolean
 	 */
-	static function isEmpty($slot)
+	public static function isEmpty($slot)
 	{
 		return $slot == null || $slot->item == null || $slot->count < 1 || $slot->count > 64;
 	}
 
-	static function toString($slot)
+	public static function toString($slot)
 	{
 		if(Slot::isEmpty($slot))
 		{

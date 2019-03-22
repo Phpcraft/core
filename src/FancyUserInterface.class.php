@@ -30,7 +30,7 @@ class FancyUserInterface extends UserInterface
 	 * @param string $title The title displayed at the top left.
 	 * @param string $optional_info Displayed at the top right, if possible.
 	 */
-	function __construct($title, $optional_info = "")
+	public function __construct($title, $optional_info = "")
 	{
 		parent::__construct();
 		$this->title = $title;
@@ -44,7 +44,7 @@ class FancyUserInterface extends UserInterface
 	/**
 	 * @copydoc UserInterface::__destruct()
 	 */
-	function __destruct()
+	public function __destruct()
 	{
 		parent::__destruct();
 		readline_callback_handler_remove();
@@ -70,14 +70,14 @@ class FancyUserInterface extends UserInterface
 	/**
 	 * @copydoc UserInterface::render
 	 */
-	function render($accept_input = false)
+	public function render($accept_input = false)
 	{
 		ob_end_flush();
 		$read = [$this->stdin];
 		$null = null;
-		if(stream_select($read, $null, $null, 0))
+		if(stream_select($read, /** @scrutinizer ignore-type */ $null, /** @scrutinizer ignore-type */ $null, 0))
 		{
-			while(($char = fgetc($this->stdin)) !== FALSE)
+			while(($char = fgetc(/** @scrutinizer ignore-type */ $this->stdin)) !== FALSE)
 			{
 				if($char == "\n")
 				{
@@ -278,11 +278,11 @@ class FancyUserInterface extends UserInterface
 				$len = mb_strlen($this->title, "utf-8");
 				if($width > ($len + mb_strlen($this->optional_info, "utf-8")))
 				{
-					echo str_repeat(" ", $width - ($len + mb_strlen($this->optional_info, "utf-8"))).$this->optional_info;
+					echo str_repeat(" ", intval($width - ($len + mb_strlen($this->optional_info, "utf-8")))).$this->optional_info;
 				}
 				else if($width > $len)
 				{
-					echo str_repeat(" ", $width - $len);
+					echo str_repeat(" ", intval($width - $len));
 				}
 				$this->rendered_title = true;
 			}
@@ -312,7 +312,7 @@ class FancyUserInterface extends UserInterface
 				$line_len = ($len == 0 ? 0 : ($len - (floor(($len - 1) / $width) * $width)));
 				if($line_len < $width)
 				{
-					echo str_repeat(" ", $width - $line_len);
+					echo str_repeat(" ", intval($width - $line_len));
 				}
 			}
 			echo "\x1B[".($height - $input_height).";1H\x1B[97;40m".$this->input_prefix.$this->input_buffer;
@@ -333,7 +333,7 @@ class FancyUserInterface extends UserInterface
 			$line_len = mb_strlen($this->input_prefix.$this->input_buffer, "utf-8") - ($input_height * $width);
 			if($line_len < $width)
 			{
-				echo str_repeat(" ", $width - $line_len);
+				echo str_repeat(" ", intval($width - $line_len));
 			}
 			echo "\x1B[{$cursor_height};{$cursor_width}H";
 			if(count($this->chat_log) > $this->chat_log_cap)
@@ -352,7 +352,7 @@ class FancyUserInterface extends UserInterface
 	 * Adds a message to the chat log.
 	 * @return $this
 	 */
-	function add($message)
+	public function add($message)
 	{
 		array_push($this->chat_log, $message);
 		return $this;
@@ -362,7 +362,7 @@ class FancyUserInterface extends UserInterface
 	 * Appends to the last message in the chat log.
 	 * @return $this
 	 */
-	function append($appendix)
+	public function append($appendix)
 	{
 		$this->chat_log[count($this->chat_log) - 1] .= $appendix;
 		return $this;

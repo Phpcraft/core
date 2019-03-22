@@ -13,7 +13,7 @@ class NbtCompound extends NbtTag
 	 * @param string $name The name of this tag.
 	 * @param array $children The child tags of the compound.
 	 */
-	function __construct($name, $children = [])
+	public function __construct($name, $children = [])
 	{
 		$this->name = $name;
 		$this->children = $children;
@@ -23,7 +23,7 @@ class NbtCompound extends NbtTag
 	 * Gets a child of the compound by its name or null if not found.
 	 * @return NbtTag
 	 */
-	function getChild($name)
+	public function getChild($name)
 	{
 		foreach($this->children as $child)
 		{
@@ -39,7 +39,7 @@ class NbtCompound extends NbtTag
 	 * Gets the index of a child of the compound by its name or -1 if not found.
 	 * @return integer
 	 */
-	function getChildIndex($name)
+	public function getChildIndex($name)
 	{
 		foreach($this->children as $i => $child)
 		{
@@ -56,7 +56,7 @@ class NbtCompound extends NbtTag
 	 * @return NbtCompound $this
 	 * @throws Exception
 	 */
-	function addChild(NbtTag $tag)
+	public function addChild(NbtTag $tag)
 	{
 		if($tag instanceof NbtEnd)
 		{
@@ -77,7 +77,7 @@ class NbtCompound extends NbtTag
 	/**
 	 * @copydoc NbtTag::write
 	 */
-	function write(Connection $con, $inList = false)
+	public function write(Connection $con, $inList = false)
 	{
 		if(!$inList)
 		{
@@ -91,12 +91,12 @@ class NbtCompound extends NbtTag
 		return $con;
 	}
 
-	function copy()
+	public function copy()
 	{
 		return new NbtCompound($this->name, $this->children);
 	}
 
-	function toString()
+	public function toString()
 	{
 		$str = "{Compound \"".$this->name."\":";
 		foreach($this->children as $child)

@@ -32,7 +32,7 @@ class EntityLiving extends EntityBase
 	/**
 	 * @copydoc EntityMetadata::write
 	 */
-	function write(Connection $con)
+	public function write(Connection $con)
 	{
 		parent::write($con);
 		if($this->health !== null)
@@ -45,7 +45,7 @@ class EntityLiving extends EntityBase
 		}
 	}
 
-	function getStringAttributes()
+	public function getStringAttributes()
 	{
 		$attr = parent::getStringAttributes();
 		if($this->health !== null)

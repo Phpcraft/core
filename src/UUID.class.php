@@ -15,7 +15,7 @@ class UUID
 	 * @throws Exception When the given string is not a valid UUID binary string.
 	 * @see UUID::fromString
 	 */
-	function __construct($binary)
+	public function __construct($binary)
 	{
 		if(strlen($binary) != 16)
 		{
@@ -29,7 +29,7 @@ class UUID
 	 * @throws Exception When the given string is not a valid UUID.
 	 * @return UUID
 	 */
-	static function fromString($str)
+	public static function fromString($str)
 	{
 		$str = str_replace(["-", "{", "}"], "", $str);
 		if(strlen($str) != 32)
@@ -44,7 +44,7 @@ class UUID
 		$binary = "";
 		for($i = 0; $i < 32; $i += 2)
 		{
-			$binary .= chr(hexdec(substr($str, $i, 2)));
+			$binary .= chr(/** @scrutinizer ignore-type */ hexdec(substr($str, $i, 2)));
 		}
 		return new UUID($binary);
 	}
@@ -53,7 +53,7 @@ class UUID
 	 * Generates a UUIDv4.
 	 * @return UUID
 	 */
-	static function v4()
+	public static function v4()
 	{
 		return UUID::fromString_(sprintf("%04x%04x%04x%04x%04x%04x%04x%04x", mt_rand(0, 0xffff), mt_rand(0, 0xffff), mt_rand(0, 0xffff), (mt_rand(0, 0x0fff) | 0x4000), (mt_rand(0, 0x3fff) | 0x8000), mt_rand(0, 0xffff), mt_rand(0, 0xffff), mt_rand(0, 0xffff)));
 	}
@@ -63,7 +63,7 @@ class UUID
 	 * @return UUID
 	 * @throws Exception
 	 */
-	static function v5($str, UUID $namespace = null)
+	public static function v5($str, UUID $namespace = null)
 	{
 		if(!$namespace)
 		{
@@ -77,7 +77,7 @@ class UUID
 	 * Returns true if the skin of a player with this UUID would be slim ("Alex" style).
 	 * @return boolean
 	 */
-	function isSlim()
+	public function isSlim()
 	{
 		return ((ord(substr($this->binary, 3, 1)) & 0xF) ^ (ord(substr($this->binary, 7, 1)) & 0xF) ^ (ord(substr($this->binary, 11, 1)) & 0xF) ^ (ord(substr($this->binary, 15, 1)) & 0xF)) == 1;
 	}
@@ -87,7 +87,7 @@ class UUID
 	 * @param boolean $withHypens
 	 * @return string
 	 */
-	function toString($withHypens = false)
+	public function toString($withHypens = false)
 	{
 		$str = "";
 		for($i = 0; $i < 16; $i++)
@@ -110,7 +110,7 @@ class UUID
 	 * Returns an integer which will always be the same given the same UUID, but collisions are far more likely.
 	 * @return integer
 	 */
-	function toInt()
+	public function toInt()
 	{
 		return gmp_intval(gmp_import(substr($this->binary, 0, 2).substr($this->binary, -2)));
 	}

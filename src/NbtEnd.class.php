@@ -5,18 +5,18 @@ class NbtEnd extends NbtTag
 	/**
 	 * @copydoc NbtTag::write
 	 */
-	function write(Connection $con, $inList = false)
+	public function write(Connection $con, $inList = false)
 	{
 		$con->writeByte(0);
 		return $con;
 	}
 
-	function copy()
+	public function copy()
 	{
 		return new NbtEnd();
 	}
 
-	function toString()
+	public function toString()
 	{
 		return "{End}";
 	}
