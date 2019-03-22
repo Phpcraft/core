@@ -12,14 +12,12 @@ class RemoveBossBarPacket extends BossBarPacket
 			$con->startPacket("boss_bar");
 			$con->writeUUID($this->uuid);
 			$con->writeVarInt(1);
+			$con->send();
 		}
 		else
 		{
-			$con->startPacket("destroy_entities");
-			$con->writeVarInt(1);
-			$con->writeVarInt($this->uuid->toInt() * -1);
+			(new DestroyEntitiesPacket([$this->uuid->toInt() * -1]))->send($con);
 		}
-		$con->send();
 	}
 
 	public function toString()

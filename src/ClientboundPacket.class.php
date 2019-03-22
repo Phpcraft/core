@@ -64,6 +64,9 @@ class ClientboundPacket extends PacketId
 			case "boss_bar":
 			return BossBarPacket::read($con);
 
+			case "destroy_entities":
+			return DestroyEntitiesPacket::read($con);
+
 			case "join_game":
 			return JoinGamePacket::read($con);
 
