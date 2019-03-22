@@ -511,14 +511,14 @@ do
 	$stream = fsockopen($serverarr[0], $serverarr[1], $errno, $errstr, 3) or die($errstr."\n");
 	$con = new \Phpcraft\ServerConnection($stream, $protocol_version);
 	$con->sendHandshake($serverarr[0], $serverarr[1], 2);
-	$ui->append("Connection established.")->add("Logging in...")->render();
+	$ui->append("Connection established.")->add("Logging in... ")->render();
 	if($error = $con->login($account, $translations))
 	{
 		$ui->add($error)->render();
 		exit;
 	}
 	$ui->input_prefix = "<{$account->username}> ";
-	$ui->append(" Success!")->render();
+	$ui->append("Success!")->render();
 	$ui->add("");
 	$reconnect = false;
 	$players = [];
@@ -565,7 +565,7 @@ do
 					$ui->add(\Phpcraft\Phpcraft::chatToText(json_decode($message, true), 1, $translations));
 				}
 			}
-			else if($packet_name == "player_list_item")
+			else if($packet_name == "player_info")
 			{
 				$action = $con->readVarInt();
 				$amount = $con->readVarInt();
@@ -872,167 +872,158 @@ do
 		{
 			handleConsoleMessage($message);
 		}
-		$time = microtime(true);
-		if($next_tick)
+		if($followEntity !== false)
 		{
-			while($next_tick <= $time) // executed for every 50 ms
+			$motion_x = ($entities[$followEntity]["x"] - $x);
+			$motion_y = ($entities[$followEntity]["y"] - $y);
+			$motion_z = ($entities[$followEntity]["z"] - $z);
+			$yaw = $entities[$followEntity]["yaw"] / 256 * 360;
+			$pitch = $entities[$followEntity]["pitch"] / 256 * 360;
+		}
+		$motion_speed = 0.35; // max. blocks per tick
+		if($motion_x > 0)
+		{
+			if($motion_x < $motion_speed)
 			{
-				if($followEntity !== false)
-				{
-					$motion_x = ($entities[$followEntity]["x"] - $x);
-					$motion_y = ($entities[$followEntity]["y"] - $y);
-					$motion_z = ($entities[$followEntity]["z"] - $z);
-					$yaw = $entities[$followEntity]["yaw"] / 256 * 360;
-					$pitch = $entities[$followEntity]["pitch"] / 256 * 360;
-				}
-				$motion_speed = 0.35; // max. blocks per tick
-				if($motion_x > 0)
-				{
-					if($motion_x < $motion_speed)
-					{
-						$x += $motion_x;
-						$motion_x = 0;
-					}
-					else
-					{
-						$x += $motion_speed;
-						$motion_x -= $motion_speed;
-					}
-				}
-				else if($motion_x < 0)
-				{
-					if($motion_x > -$motion_speed)
-					{
-						$x += $motion_x;
-						$motion_x = 0;
-					}
-					else
-					{
-						$x -= $motion_speed;
-						$motion_x += $motion_speed;
-					}
-				}
-				if($motion_y > 0)
-				{
-					$onGround = false;
-					if($motion_y < $motion_speed)
-					{
-						$y += $motion_y;
-						$motion_y = 0;
-					}
-					else
-					{
-						$y += $motion_speed;
-						$motion_y -= $motion_speed;
-					}
-					$onGround = false;
-				}
-				else if($motion_y < 0)
-				{
-					$onGround = false;
-					if($motion_y > -$motion_speed)
-					{
-						$y += $motion_y;
-						$motion_y = 0;
-					}
-					else
-					{
-						$y -= $motion_speed;
-						$motion_y += $motion_speed;
-					}
-					$onGround = false;
-				}
-				else
-				{
-					$onGround = fmod($y, 1) == 0;
-				}
-				if($motion_z > 0)
-				{
-					if($motion_z < $motion_speed)
-					{
-						$z += $motion_z;
-						$motion_z = 0;
-					}
-					else
-					{
-						$z += $motion_speed;
-						$motion_z -= $motion_speed;
-					}
-				}
-				else if($motion_z < 0)
-				{
-					if($motion_z > -$motion_speed)
-					{
-						$z += $motion_z;
-						$motion_z = 0;
-					}
-					else
-					{
-						$z -= $motion_speed;
-						$motion_z += $motion_speed;
-					}
-				}
-				$poschange = ($x != $_x || $y != $_y || $z != $_z);
-				$rotchange = ($yaw != $_yaw || $pitch != $_pitch);
-				if($poschange)
-				{
-					if($rotchange)
-					{
-						$con->startPacket("position_and_look");
-						$con->writeDouble($x);
-						$con->writeDouble($y);
-						$con->writeDouble($z);
-						$con->writeFloat($yaw);
-						$con->writeFloat($pitch);
-						$con->writeBoolean($onGround);
-						$con->send();
-						$_yaw = $yaw;
-						$_pitch = $pitch;
-					}
-					else
-					{
-						$con->startPacket("position");
-						$con->writeDouble($x);
-						$con->writeDouble($y);
-						$con->writeDouble($z);
-						$con->writeBoolean($onGround);
-						$con->send();
-					}
-					$_x = $x;
-					$_y = $y;
-					$_z = $z;
-					if($posticks > 0)
-					{
-						$posticks = 0;
-					}
-				}
-				else if($rotchange)
-				{
-					$con->startPacket("look");
-					$con->writeFloat($yaw);
-					$con->writeFloat($pitch);
-					$con->writeBoolean($onGround);
-					$con->send();
-					$_yaw = $yaw;
-					$_pitch = $pitch;
-					if($posticks > 0)
-					{
-						$posticks = 0;
-					}
-				}
-				else if($protocol_version <= 47 || ++$posticks == 20)
-				{
-					$con->startPacket("no_movement");
-					$con->writeBoolean($onGround);
-					$con->send();
-				}
-				$time = microtime(true);
-				$next_tick = ($time + 0.05 - ($time - $next_tick));
+				$x += $motion_x;
+				$motion_x = 0;
+			}
+			else
+			{
+				$x += $motion_speed;
+				$motion_x -= $motion_speed;
 			}
 		}
-		if(($remaining = (0.050 - ($time - $start))) > 0) // Make sure we've waited at least 50 ms before going again because otherwise we'd be polling too much
+		else if($motion_x < 0)
 		{
-			time_nanosleep(0, $remaining * 1000000000); // usleep seems to bring the CPU to 100
+			if($motion_x > -$motion_speed)
+			{
+				$x += $motion_x;
+				$motion_x = 0;
+			}
+			else
+			{
+				$x -= $motion_speed;
+				$motion_x += $motion_speed;
+			}
+		}
+		if($motion_y > 0)
+		{
+			$onGround = false;
+			if($motion_y < $motion_speed)
+			{
+				$y += $motion_y;
+				$motion_y = 0;
+			}
+			else
+			{
+				$y += $motion_speed;
+				$motion_y -= $motion_speed;
+			}
+			$onGround = false;
+		}
+		else if($motion_y < 0)
+		{
+			$onGround = false;
+			if($motion_y > -$motion_speed)
+			{
+				$y += $motion_y;
+				$motion_y = 0;
+			}
+			else
+			{
+				$y -= $motion_speed;
+				$motion_y += $motion_speed;
+			}
+			$onGround = false;
+		}
+		else
+		{
+			$onGround = fmod($y, 1) == 0;
+		}
+		if($motion_z > 0)
+		{
+			if($motion_z < $motion_speed)
+			{
+				$z += $motion_z;
+				$motion_z = 0;
+			}
+			else
+			{
+				$z += $motion_speed;
+				$motion_z -= $motion_speed;
+			}
+		}
+		else if($motion_z < 0)
+		{
+			if($motion_z > -$motion_speed)
+			{
+				$z += $motion_z;
+				$motion_z = 0;
+			}
+			else
+			{
+				$z -= $motion_speed;
+				$motion_z += $motion_speed;
+			}
+		}
+		$poschange = ($x != $_x || $y != $_y || $z != $_z);
+		$rotchange = ($yaw != $_yaw || $pitch != $_pitch);
+		if($poschange)
+		{
+			if($rotchange)
+			{
+				$con->startPacket("position_and_look");
+				$con->writeDouble($x);
+				$con->writeDouble($y);
+				$con->writeDouble($z);
+				$con->writeFloat($yaw);
+				$con->writeFloat($pitch);
+				$con->writeBoolean($onGround);
+				$con->send();
+				$_yaw = $yaw;
+				$_pitch = $pitch;
+			}
+			else
+			{
+				$con->startPacket("position");
+				$con->writeDouble($x);
+				$con->writeDouble($y);
+				$con->writeDouble($z);
+				$con->writeBoolean($onGround);
+				$con->send();
+			}
+			$_x = $x;
+			$_y = $y;
+			$_z = $z;
+			if($posticks > 0)
+			{
+				$posticks = 0;
+			}
+		}
+		else if($rotchange)
+		{
+			$con->startPacket("look");
+			$con->writeFloat($yaw);
+			$con->writeFloat($pitch);
+			$con->writeBoolean($onGround);
+			$con->send();
+			$_yaw = $yaw;
+			$_pitch = $pitch;
+			if($posticks > 0)
+			{
+				$posticks = 0;
+			}
+		}
+		else if($protocol_version <= 47 || ++$posticks == 20)
+		{
+			$con->startPacket("no_movement");
+			$con->writeBoolean($onGround);
+			$con->send();
+		}
+		if(($remaining = (0.050 - (microtime(true) - $start))) > 0)
+		{
+			time_nanosleep(0, $remaining * 1000000000);
 		}
 	}
 	while(!$reconnect && $con->isOpen());
