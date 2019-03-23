@@ -32,10 +32,10 @@ class UserInterface
 		if($accept_input)
 		{
 			$read = [$this->stdin];
-			$null = null;
-			if(stream_select($read, /** @scrutinizer ignore-type */ $null, /** @scrutinizer ignore-type */ $null, 0))
+			$null = [];
+			if(stream_select($read, $null, $null, 0))
 			{
-				return trim(fgets(/** @scrutinizer ignore-type */ $this->stdin));
+				return trim(fgets($this->stdin));
 			}
 		}
 		return null;

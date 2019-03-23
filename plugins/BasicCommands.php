@@ -1,14 +1,16 @@
 <?php
 // This plugin provides clients of the server with /abilities, /gamemode, and /metadata.
 
-use \Phpcraft\PluginManager;
+use Phpcraft\
+{Event, Plugin, PluginManager};
+
 if(!in_array(PluginManager::$platform, ["phpcraft:server"]))
 {
 	return;
 }
-PluginManager::registerPlugin("BasicCommands", function($plugin)
+PluginManager::registerPlugin("BasicCommands", function(Plugin $plugin)
 {
-	$plugin->on("chat_message", function($event)
+	$plugin->on("chat_message", function(Event $event)
 	{
 		if($event->isCancelled() || substr($event->data["message"], 0, 1) != "/")
 		{

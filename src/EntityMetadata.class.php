@@ -59,10 +59,7 @@ abstract class EntityMetadata
 				328 => "1.12",
 				57 => "1.11"
 			];
-		}
-		do
-		{
-			if($con->protocol_version >= 57)
+			do
 			{
 				$index = $con->readByte();
 				if($index == 0xFF)
@@ -109,7 +106,11 @@ abstract class EntityMetadata
 					}
 				}
 			}
-			else
+			while(true);
+		}
+		else
+		{
+			do
 			{
 				$type = $con->readByte();
 				if($type == 0x7F)
@@ -154,8 +155,8 @@ abstract class EntityMetadata
 					}
 				}
 			}
+			while(true);
 		}
-		while(true);
 		return $this;
 	}
 

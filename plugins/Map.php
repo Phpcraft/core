@@ -1,7 +1,9 @@
 <?php
 // Loads a 128x128 image from map.png and displays it to clients as a map.
 
-use \Phpcraft\PluginManager;
+use Phpcraft\
+{Event, Plugin, PluginManager};
+
 if(!in_array(PluginManager::$platform, ["phpcraft:server"]))
 {
 	return;
@@ -11,9 +13,9 @@ if(!extension_loaded("gd"))
 	echo "[Map] Not loading because php-gd is not loaded.\n";
 	return;
 }
-PluginManager::registerPlugin("Map", function($plugin)
+PluginManager::registerPlugin("Map", function(Plugin $plugin)
 {
-	$plugin->on("join", function($event)
+	$plugin->on("join", function(Event $event)
 	{
 		if($event->isCancelled())
 		{

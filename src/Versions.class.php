@@ -84,7 +84,7 @@ abstract class Versions
 
 	/**
 	 * Returns a list of supported protocol versions; newest first.
-	 * @return array
+	 * @return integer[]
 	 */
 	public static function protocol()
 	{
@@ -113,7 +113,7 @@ abstract class Versions
 
 	/**
 	 * Returns an array of all supported Minecraft versions; newest first.
-	 * @return array
+	 * @return string[]
 	 */
 	public static function minecraft()
 	{
@@ -133,7 +133,7 @@ abstract class Versions
 	/**
 	 * Returns an array of Minecraft versions corresponding to the given protocol version; newest first.
 	 * @param integer $protocol_version
-	 * @return array
+	 * @return string[]
 	 */
 	public static function protocolToMinecraft($protocol_version)
 	{

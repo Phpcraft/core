@@ -35,7 +35,7 @@ if(isset($info["version"]))
 {
 	if(isset($info["version"]["protocol"]))
 	{
-		if($minecraft_versions = \Phpcraft\Phpcraft::getMinecraftVersionsFromProtocolVersion($info["version"]["protocol"]))
+		if($minecraft_versions = \Phpcraft\Versions::protocolToMinecraft($info["version"]["protocol"]))
 		{
 			if(isset($info["version"]["name"]))
 			{

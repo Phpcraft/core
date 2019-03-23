@@ -59,7 +59,7 @@ class BlockMaterial extends Identifier
 
 	/**
 	 * Returns each Item that are supposed to be dropped when this block is destroyed.
-	 * @return array
+	 * @return Item[]
 	 */
 	public function getDrops()
 	{

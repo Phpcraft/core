@@ -44,7 +44,7 @@ class UUID
 		$binary = "";
 		for($i = 0; $i < 32; $i += 2)
 		{
-			$binary .= chr(/** @scrutinizer ignore-type */ hexdec(substr($str, $i, 2)));
+			$binary .= chr(intval(hexdec(substr($str, $i, 2))));
 		}
 		return new UUID($binary);
 	}

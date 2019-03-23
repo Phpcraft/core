@@ -1,7 +1,7 @@
 <?php
 // Stores world-related packets received by the client so that the server can reproduce them using the WorldImitator plugin.
+use Phpcraft\PluginManager;
 
-use \Phpcraft\PluginManager;
 if(!in_array(PluginManager::$platform, ["phpcraft:client"]))
 {
 	return;

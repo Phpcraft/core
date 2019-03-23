@@ -127,7 +127,7 @@ class Connection
 
 	/**
 	 * Adds a chat object to the read buffer.
-	 * @param array|string $value Strings will be converted to chat objects.
+	 * @param array|string $value The chat object or a strings that will be converted into a chat object.
 	 * @return Connection $this
 	 * @throws Exception
 	 */
@@ -294,7 +294,11 @@ class Connection
 					switch($slot->item->name)
 					{
 						case "filled_map":
-						$this->writeShort($slot->nbt->/** @scrutinizer ignore-call */getChild("map")->value);
+						if(!($slot->nbt instanceof NbtCompound))
+						{
+							throw new Exception("filled_map is missing ID.");
+						}
+						$this->writeShort($slot->nbt->getChild("map")->value);
 						break;
 
 						default:

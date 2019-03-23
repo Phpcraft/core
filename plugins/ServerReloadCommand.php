@@ -1,7 +1,7 @@
 <?php
 // This plugin provides the ".reload" console command.
+use Phpcraft\PluginManager;
 
-use \Phpcraft\PluginManager;
 if(!in_array(PluginManager::$platform, ["phpcraft:server"]))
 {
 	return;

@@ -15,7 +15,7 @@ abstract class Identifier
 
 	/**
 	 * Returns everything of this type.
-	 * @return array
+	 * @return Identifier[]
 	 */
 	abstract public static function all();
 
@@ -52,7 +52,7 @@ abstract class Identifier
 	 * Returns an Identifier by its ID in the given protocol version or null if not found.
 	 * @param integer $id
 	 * @param integer $protocol_version
-	 * @return static
+	 * @return Identifier
 	 */
 	public static function getById($id, $protocol_version)
 	{

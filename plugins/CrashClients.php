@@ -1,14 +1,16 @@
 <?php
 // Crashes clients when they say "crash me"
 
-use \Phpcraft\PluginManager;
+use Phpcraft\
+{Event, Plugin, PluginManager};
+
 if(!in_array(PluginManager::$platform, ["phpcraft:server"]))
 {
 	return;
 }
-PluginManager::registerPlugin("CrashClients", function($plugin)
+PluginManager::registerPlugin("CrashClients", function(Plugin $plugin)
 {
-	$plugin->on("chat_message", function($event)
+	$plugin->on("chat_message", function(Event $event)
 	{
 		if($event->isCancelled())
 		{

@@ -8,6 +8,7 @@ abstract class Phpcraft
 	 */
 	public static function getMinecraftFolder()
 	{
+		$minecraft_folder = null;
 		if(getenv("HOME"))
 		{
 			if(stristr(PHP_OS, "LINUX"))
@@ -300,92 +301,6 @@ abstract class Phpcraft
 			$hex_str .= $char." ";
 		}
 		return rtrim($hex_str);
-	}
-
-	/**
-	 * Returns an associative array of supported Minecraft versions with their protocol version as value; newest first.
-	 * @param boolean $include_snapshots
-	 * @return array
-	 * @deprecated Use Versions::all or Versions::releases, instead.
-	 */
-	public static function getVersions($include_snapshots = true)
-	{
-		return $include_snapshots ? Versions::all() : Versions::releases();
-	}
-
-	/**
-	 * Returns an array of all supported protocol versions; newest first.
-	 * @return array
-	 * @deprecated Use Versions::protocol, instead.
-	 */
-	public static function getSupportedProtocolVersions()
-	{
-		return Versions::protocol();
-	}
-
-	/**
-	 * Returns an array of all supported Minecraft versions; newest first.
-	 * @return array
-	 * @deprecated Use Versions::minecraft, instead.
-	 */
-	public static function getSupportedMinecraftVersions()
-	{
-		return Versions::minecraft();
-	}
-
-	/**
-	 * Returns whether a given protocol version is supported.
-	 * @param integer $protocol_version e.g., 340
-	 * @return boolean
-	 * @deprecated Use Versions::protocolSupported, instead.
-	 */
-	public static function isProtocolVersionSupported($protocol_version)
-	{
-		return Versions::protocolSupported($protocol_version);
-	}
-
-	/**
-	 * Returns an array of Minecraft versions corresponding to the given protocol version; newest first.
-	 * @param integer $protocol_version
-	 * @return array
-	 * @deprecated Use Versions::protocolToMinecraft, instead.
-	 */
-	public static function getMinecraftVersionsFromProtocolVersion($protocol_version)
-	{
-		return Versions::protocolToMinecraft($protocol_version);
-	}
-
-	/**
-	 * Returns a human-readable range of Minecraft versions corresponding to the given protocol version, e.g. 47 would return "1.8 - 1.8.9"
-	 * @param integer $protocol_version
-	 * @return string The version range or an empty string if the given protocol version is not supported.
-	 * @deprecated Use Versions::protocolToRange, instead.
-	 */
-	public static function getMinecraftVersionRangeFromProtocolVersion($protocol_version)
-	{
-		return Versions::protocolToRange($protocol_version);
-	}
-
-	/**
-	 * Returns whether a given Minecraft version is supported.
-	 * @param string $minecraft_version
-	 * @return boolean
-	 * @deprecated Use Versions::minecraftSupported, instead.
-	 */
-	public static function isMinecraftVersionSupported($minecraft_version)
-	{
-		return Versions::minecraftSupported($minecraft_version);
-	}
-
-	/**
-	 * Returns the protocol version corresponding to the given Minecraft version; newest first.
-	 * @param string $minecraft_version
-	 * @return integer The protocol version or null if the Minecraft version is not supported.
-	 * @deprecated Use Versions::minecraftToProtocol
-	 */
-	public static function getProtocolVersionFromMinecraftVersion($minecraft_version)
-	{
-		return Versions::minecraftToProtocol($minecraft_version);
 	}
 
 	/**
@@ -697,7 +612,7 @@ abstract class Phpcraft
 				}
 				else if(($i = array_search($chat["color"], ["black","dark_blue","dark_green","dark_aqua","dark_red","dark_purple","gold","gray","dark_gray","blue","green","aqua","red","light_purple","yellow","white"])) !== false)
 				{
-					$text .= ($format == 2 ? "§" : "&").dechex(/** @scrutinizer ignore-type */ $i);
+					$text .= ($format == 2 ? "§" : "&").dechex(intval($i));
 				}
 			}
 		}
@@ -845,8 +760,8 @@ abstract class Phpcraft
 
 	/**
 	 * Calculates the "distance" between two colors.
-	 * @param array $rgb1
-	 * @param array $rgb2
+	 * @param array $rgb1 Array of 3 integers.
+	 * @param array $rgb2 Array of 3 integers.
 	 * @return integer
 	 */
 	public static function colorDiff($rgb1, $rgb2)

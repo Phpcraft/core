@@ -76,11 +76,11 @@ class Server
 					]);
 				}
 			}
-			$versions = Phpcraft::getSupportedMinecraftVersions();
+			$versions = Versions::minecraft();
 			return [
 				"version" => [
 					"name" => "Phpcraft ".$versions[count($versions) - 1]." - ".$versions[0],
-					"protocol" => (Phpcraft::isProtocolVersionSupported($con->protocol_version) ? $con->protocol_version : Phpcraft::getSupportedProtocolVersions()[0])
+					"protocol" => (Versions::protocolSupported($con->protocol_version) ? $con->protocol_version : Versions::protocol()[0])
 				],
 				"players" => [
 					"online" => count($players),
@@ -111,6 +111,7 @@ class Server
 	{
 		while(($stream = @stream_socket_accept($this->stream, 0)) !== false)
 		{
+			$con = null;
 			try
 			{
 				$con = new ClientConnection($stream);
@@ -148,7 +149,10 @@ class Server
 			}
 			catch(Exception $ignored)
 			{
-				$con->close();
+				if($con != null)
+				{
+					$con->close();
+				}
 			}
 		}
 		return $this;

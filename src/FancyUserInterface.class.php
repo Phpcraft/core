@@ -74,10 +74,10 @@ class FancyUserInterface extends UserInterface
 	{
 		ob_end_flush();
 		$read = [$this->stdin];
-		$null = null;
-		if(stream_select($read, /** @scrutinizer ignore-type */ $null, /** @scrutinizer ignore-type */ $null, 0))
+		$null = [];
+		if(stream_select($read, $null, $null, 0))
 		{
-			while(($char = fgetc(/** @scrutinizer ignore-type */ $this->stdin)) !== FALSE)
+			while(($char = fgetc($this->stdin)) !== FALSE)
 			{
 				if($char == "\n")
 				{

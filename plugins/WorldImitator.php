@@ -1,7 +1,8 @@
 <?php
 // Provides clients connecting to the server with the packets captured by the WorldSaver plugin.
+use Phpcraft\
+{Connection, Event, Phpcraft, PluginManager, Versions};
 
-use \Phpcraft\PluginManager;
 if(!in_array(PluginManager::$platform, ["phpcraft:server"]))
 {
 	return;
@@ -18,13 +19,13 @@ if($fh === false)
 	echo "[WorldImitator] Failed to open world.bin.\n";
 	return;
 }
-$con = new \Phpcraft\Connection(-1, $fh);
+$con = new Connection(-1, $fh);
 $WorldImitator_version = $con->readPacket();
 fclose($fh);
-echo "[WorldImitator] Loaded packets from ".\Phpcraft\Phpcraft::getMinecraftVersionsFromProtocolVersion($WorldImitator_version)[0]." (protocol version ".strval($WorldImitator_version).").\n";
+echo "[WorldImitator] Loaded packets from ".Versions::protocolToRange($WorldImitator_version)[0]." (protocol version ".strval($WorldImitator_version).").\n";
 PluginManager::registerPlugin("WorldImitator", function($plugin)
 {
-	$plugin->on("join", function($event)
+	$plugin->on("join", function(Event $event)
 	{
 		if($event->isCancelled())
 		{
@@ -33,10 +34,7 @@ PluginManager::registerPlugin("WorldImitator", function($plugin)
 		global $WorldImitator_version;
 		if($event->data["client"]->protocol_version != $WorldImitator_version)
 		{
-			$event->data["client"]->startPacket("clientbound_chat_message");
-			$event->data["client"]->writeString(json_encode(["text" => "[WorldImitator] I have packets for ".\Phpcraft\Phpcraft::getMinecraftVersionRangeFromProtocolVersion($WorldImitator_version)." (protocol version ".$WorldImitator_version.") and we don't wanna find out what happens if I send them to you."]));
-			$event->data["client"]->writeByte(0);
-			$event->data["client"]->send();
+			$event->data["client"]->disconnect("Please join using ".Versions::protocolToRange($WorldImitator_version)." (protocol version ".$WorldImitator_version.")");
 		}
 		else
 		{
@@ -45,7 +43,7 @@ PluginManager::registerPlugin("WorldImitator", function($plugin)
 			$con->readPacket();
 			while($id = $con->readPacket(0))
 			{
-				$event->data["client"]->write_buffer = \Phpcraft\Phpcraft::intToVarInt($id).$con->read_buffer;
+				$event->data["client"]->write_buffer = Phpcraft::intToVarInt($id).$con->read_buffer;
 				$event->data["client"]->send();
 			}
 			fclose($fh);

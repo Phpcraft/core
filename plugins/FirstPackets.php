@@ -1,14 +1,16 @@
 <?php
 // Provides clients with some essential first packets.
 
-use \Phpcraft\PluginManager;
+use Phpcraft\
+{Event, Plugin, PluginManager};
+
 if(!in_array(PluginManager::$platform, ["phpcraft:server"]))
 {
 	return;
 }
-PluginManager::registerPlugin("FirstPackets", function($plugin)
+PluginManager::registerPlugin("FirstPackets", function(Plugin $plugin)
 {
-	$plugin->on("join", function($event)
+	$plugin->on("join", function(Event $event)
 	{
 		if($event->isCancelled())
 		{

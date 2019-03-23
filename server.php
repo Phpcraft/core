@@ -91,7 +91,7 @@ $ui->tabcomplete_function = function($word)
 };
 $server->join_function = function(\Phpcraft\ClientConnection $con)
 {
-	if(!\Phpcraft\Phpcraft::isProtocolVersionSupported($con->protocol_version))
+	if(!\Phpcraft\Versions::protocolSupported($con->protocol_version))
 	{
 		$con->disconnect(["text" => "You're using an incompatible version."]);
 		return;
@@ -131,7 +131,7 @@ $server->join_function = function(\Phpcraft\ClientConnection $con)
 		}
 	}
 };
-$server->packet_function = function(\Phpcraft\ClientConnection $con, $packet_name, /** @scrutinizer ignore-unused */ $packet_id)
+$server->packet_function = function(\Phpcraft\ClientConnection $con, $packet_name)
 {
 	global $options, $ui, $server;
 	if(\Phpcraft\PluginManager::fire(new \Phpcraft\Event("packet", [

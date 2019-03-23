@@ -46,7 +46,7 @@ class MapDataPacket extends Packet
 	 */
 	public $scale = 0;
 	/**
-	 * A MapMarker array of markers on the map.
+	 * A MapMarkers array of markers on the map.
 	 * @var array $markers
 	 */
 	public $markers = [];

@@ -1,14 +1,18 @@
 <?php
-use \Phpcraft\PluginManager;
+// This plugin adds an annoying boss bar. Enjoy!
+
+use Phpcraft\
+{Event, Plugin, PluginManager};
+
 if(!in_array(PluginManager::$platform, ["phpcraft:server"]))
 {
 	return;
 }
-PluginManager::registerPlugin("BossBar", function($plugin)
+PluginManager::registerPlugin("BossBar", function(Plugin $plugin)
 {
 	global $bossbar_i;
 	$bossbar_i = 0;
-	$plugin->on("join", function($event)
+	$plugin->on("join", function(Event $event)
 	{
 		if($event->isCancelled())
 		{

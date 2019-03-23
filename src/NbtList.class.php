@@ -3,13 +3,13 @@ namespace Phpcraft;
 class NbtList extends NbtTag
 {
 	/**
-	 * The NBT Tag Type of children.
+	 * The NBT tag type ID of children.
 	 * @var integer $childType
 	 * @see NbtTag
 	 */
 	public $childType;
 	/**
-	 * child tags of the list.
+	 * The child tags of the list.
 	 * @var array $children
 	 */
 	public $children;

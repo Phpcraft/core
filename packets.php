@@ -19,9 +19,9 @@ if(!($pv = $con->readPacket()) || strlen($con->read_buffer) > 0)
 {
 	die("Failed to read protocol version.\nWrite 0x05 0xff 0xff 0xff 0xff 0x0f to the beginning of the file so protocol version -1 is detected.\n");
 }
-if($mcversions = \Phpcraft\Phpcraft::getMinecraftVersionRangeFromProtocolVersion($pv))
+if($range = \Phpcraft\Versions::protocolToRange($pv))
 {
-	echo "Detected Minecraft {$mcversions} (protocol version {$pv}).\n";
+	echo "Detected Minecraft $range (protocol version $pv).\n";
 }
 else
 {
@@ -78,7 +78,7 @@ while($id = $con->readPacket())
 	{
 		die(convertPacket($id, $name)." has no data.\n");
 	}
-	if($packetId && ($packet = $packetId->/** @scrutinizer ignore-call */init($con)))
+	if($packetId instanceof \Phpcraft\PacketId && ($packet = $packetId->init($con)))
 	{
 		if($last_id)
 		{

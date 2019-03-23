@@ -6,6 +6,9 @@ if(empty($argv))
 }
 require "vendor/autoload.php";
 
+use Phpcraft\
+{AssetsManager, Phpcraft, Versions};
+
 $options = [];
 for($i = 1; $i < count($argv); $i++)
 {
@@ -68,7 +71,7 @@ for($i = 1; $i < count($argv); $i++)
 	}
 }
 
-$am = \Phpcraft\AssetsManager::fromMinecraftVersion(\Phpcraft\Phpcraft::getSupportedMinecraftVersions()[0]);
+$am = AssetsManager::fromMinecraftVersion(\Phpcraft\Versions::all()[0]);
 if(empty($options["lang"]))
 {
 	$options["lang"] = "en_GB";
@@ -131,7 +134,7 @@ while($name == "")
 			$name = "PhpcraftUser";
 			break;
 		}
-		if(!\Phpcraft\Phpcraft::validateName($name))
+		if(!Phpcraft::validateName($name))
 		{
 			echo "Invalid name.\n";
 			$name = "";
@@ -179,7 +182,7 @@ if(!$server)
 fclose($stdin);
 $ui = (isset($options["plain"]) ? new \Phpcraft\UserInterface() : new \Phpcraft\FancyUserInterface("PHP Minecraft Client", "github.com/timmyrs/Phpcraft"));
 $ui->add("Resolving... ")->render();
-$server = \Phpcraft\Phpcraft::resolve($server);
+$server = Phpcraft::resolve($server);
 $serverarr = explode(":", $server);
 if(count($serverarr) != 2)
 {
@@ -189,14 +192,14 @@ if(count($serverarr) != 2)
 $ui->append("Resolved to {$server}")->render();
 if(empty($options["version"]))
 {
-	$info = \Phpcraft\Phpcraft::getServerStatus($serverarr[0], intval($serverarr[1]), 3, 1);
+	$info = Phpcraft::getServerStatus($serverarr[0], intval($serverarr[1]), 3, 1);
 	if(empty($info) || empty($info["version"]) || empty($info["version"]["protocol"]))
 	{
 		$ui->add("Invalid status: ".json_encode($info))->render();
 		exit;
 	}
 	$protocol_version = $info["version"]["protocol"];
-	if(!($minecraft_versions = \Phpcraft\Phpcraft::getMinecraftVersionsFromProtocolVersion($protocol_version)))
+	if(!($minecraft_versions = Versions::protocolToMinecraft($protocol_version)))
 	{
 		$ui->add("This server uses an unknown protocol version: {$protocol_version}")->render();
 		exit;
@@ -206,7 +209,7 @@ if(empty($options["version"]))
 else
 {
 	$minecraft_version = $options["version"];
-	$protocol_version = \Phpcraft\Phpcraft::getProtocolVersionFromMinecraftVersion($minecraft_version);
+	$protocol_version = Versions::minecraftToProtocol($minecraft_version);
 	if($protocol_version === NULL)
 	{
 		$ui->add("Unknown Minecraft version: {$minecraft_version}")->render();
@@ -214,7 +217,7 @@ else
 	}
 }
 $ui->add("Preparing cache... ")->render();
-\Phpcraft\Phpcraft::populateCache();
+Phpcraft::populateCache();
 $ui->append("Done.")->render();
 \Phpcraft\PluginManager::$platform = "phpcraft:client";
 function autoloadPlugins()
@@ -563,7 +566,7 @@ do
 				$message = $con->readString();
 				if($con->readByte() != 2)
 				{
-					$ui->add(\Phpcraft\Phpcraft::chatToText(json_decode($message, true), 1, $translations));
+					$ui->add(Phpcraft::chatToText(json_decode($message, true), 1, $translations));
 				}
 			}
 			else if($packet_name == "player_info")
@@ -864,7 +867,7 @@ do
 			}
 			else if($packet_name == "disconnect")
 			{
-				$ui->add("Server closed connection: ".\Phpcraft\Phpcraft::chatToText($con->readString(), 1))->render();
+				$ui->add("Server closed connection: ".Phpcraft::chatToText($con->readString(), 1))->render();
 				$reconnect = !isset($options["noreconnect"]);
 				$next_tick = microtime(true) + 10;
 			}
@@ -1024,7 +1027,7 @@ do
 		}
 		if(($remaining = (0.050 - (microtime(true) - $start))) > 0)
 		{
-			time_nanosleep(0, /** @scrutinizer ignore-type */ $remaining * 1000000000);
+			time_nanosleep(0, intval($remaining * 1000000000));
 		}
 	}
 	while(!$reconnect && $con->isOpen());

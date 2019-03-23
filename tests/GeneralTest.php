@@ -1,6 +1,9 @@
 <?php
 require_once __DIR__."/../vendor/autoload.php";
-use \Phpcraft\{Phpcraft, UUID, Versions};
+
+use Phpcraft\
+{Phpcraft, UUID, Versions};
+
 final class GeneralTest extends \PHPUnit\Framework\TestCase
 {
 	function testTextToChat()

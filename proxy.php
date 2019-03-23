@@ -62,7 +62,7 @@ $server->list_ping_function = function($con)
 	return [
 		"version" => [
 			"name" => "\\Phpcraft\\Server",
-			"protocol" => (\Phpcraft\Phpcraft::isProtocolVersionSupported($con->protocol_version) ? $con->protocol_version : 69)
+			"protocol" => (\Phpcraft\Versions::protocolSupported($con->protocol_version) ? $con->protocol_version : 69)
 		],
 		"description" => [
 			"text" => "A Phpcraft Proxy"
@@ -71,7 +71,7 @@ $server->list_ping_function = function($con)
 };
 $server->join_function = function(\Phpcraft\ClientConnection $con)
 {
-	if(!\Phpcraft\Phpcraft::isProtocolVersionSupported($con->protocol_version))
+	if(!\Phpcraft\Versions::protocolSupported($con->protocol_version))
 	{
 		$con->disconnect(["text" => "You're using an incompatible version."]);
 		return;
@@ -201,7 +201,7 @@ $server->packet_function = function(\Phpcraft\ClientConnection $con, $packet_nam
 						break;
 					}
 				}
-				if($server_con)
+				if($server_con instanceof \Phpcraft\ServerConnection)
 				{
 					$server_con->close();
 					$server_con = null;
@@ -259,7 +259,7 @@ $server->packet_function = function(\Phpcraft\ClientConnection $con, $packet_nam
 				break;
 
 				case ".disconnect":
-				if($server_con)
+				if($server_con instanceof \Phpcraft\ServerConnection)
 				{
 					$server_con->close();
 					$server_con = null;
@@ -304,7 +304,7 @@ $server->packet_function = function(\Phpcraft\ClientConnection $con, $packet_nam
 				break;
 
 				case ".say":
-				if($server_con)
+				if($server_con instanceof \Phpcraft\ServerConnection)
 				{
 					$server_con->startPacket("serverbound_chat_message");
 					$server_con->writeString(substr($msg, 4));
@@ -319,14 +319,14 @@ $server->packet_function = function(\Phpcraft\ClientConnection $con, $packet_nam
 				$con->send();
 			}
 		}
-		else if($server_con)
+		else if($server_con instanceof \Phpcraft\ServerConnection)
 		{
 			$server_con->startPacket("serverbound_chat_message");
 			$server_con->writeString($msg);
 			$server_con->send();
 		}
 	}
-	else if($server_con)
+	else if($server_con instanceof \Phpcraft\ServerConnection)
 	{
 		$server_con->write_buffer = \Phpcraft\Phpcraft::intToVarInt($packet_id).$con->read_buffer;
 		$server_con->send();
@@ -335,11 +335,11 @@ $server->packet_function = function(\Phpcraft\ClientConnection $con, $packet_nam
 $server->disconnect_function = function(\Phpcraft\ClientConnection $con)
 {
 	global $client_con;
-	if($con == $client_con)
+	if($con === $client_con)
 	{
 		global $server_con;
-		echo $client_con->username." has left.\n";
-		if($server_con)
+		echo $con->username." has left.\n";
+		if($server_con instanceof \Phpcraft\ServerConnection)
 		{
 			$server_con->close();
 			$server_con = null;
@@ -357,15 +357,15 @@ do
 	$server->handle();
 	try
 	{
-		if($server_con != null && $client_con != null)
+		if($server_con instanceof \Phpcraft\ServerConnection && $client_con instanceof \Phpcraft\ClientConnection)
 		{
-			while(($packet_id = $server_con->/** @scrutinizer ignore-call */readPacket(0)) !== false)
+			while(($packet_id = $server_con->readPacket(0)) !== false)
 			{
-				$packet_name = \Phpcraft\ClientboundPacket::getById($packet->id, $server_con->protocol_version)->name;
+				$packet_name = \Phpcraft\ClientboundPacket::getById($packet_id, $server_con->protocol_version)->name;
 				//echo "< ".$packet_name." (".$packet_id.")\n";
 				if($packet_name == "entity_animation" || $packet_name == "entity_metadata" || $packet_name == "entity_velocity")
 				{
-					$client_con->/** @scrutinizer ignore-call */startPacket($packet_name);
+					$client_con->startPacket($packet_name);
 					$eid = $server_con->readVarInt();
 					$client_con->writeVarInt($eid == $server_eid ? $client_con->eid : $eid);
 					$client_con->write_buffer .= $server_con->read_buffer;
