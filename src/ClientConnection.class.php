@@ -193,8 +193,6 @@ class ClientConnection extends Connection
 	 * @param Counter $eidCounter The server's Counter to assign an entity ID to the client.
 	 * @param integer $compression_threshold Use -1 to disable compression.
 	 * @return ClientConnection $this
-	 * @see Phpcraft::generateUUIDv4()
-	 * @see Phpcraft::addHypensToUUID()
 	 * @throws Exception
 	 */
 	function finishLogin(UUID $uuid, Counter $eidCounter, $compression_threshold = 256)
