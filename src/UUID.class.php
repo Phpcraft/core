@@ -84,15 +84,15 @@ class UUID
 
 	/**
 	 * Returns the string representation of the UUID.
-	 * @param boolean $withHypens
+	 * @param boolean $withDashes
 	 * @return string
 	 */
-	public function toString($withHypens = false)
+	public function toString($withDashes = false)
 	{
 		$str = "";
 		for($i = 0; $i < 16; $i++)
 		{
-			if($withHypens && in_array($i, [4, 6, 8, 10]))
+			if($withDashes && in_array($i, [4, 6, 8, 10]))
 			{
 				$str .= "-";
 			}
