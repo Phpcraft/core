@@ -51,6 +51,8 @@ Who would be a crazy enough to use a PHP Minecraft library? Its author of course
 
 - [mcverify](https://github.com/timmyrs/mcverify): A simple REST API for linking your users' Minecraft: Java Edition accounts.
 
+Also, I'd like to give a big, warm "thank you" to [Jetbrains](https://www.jetbrains.com/?from=Phpcraft) for providing me with an open-source license for PhpStorm, a lovely PHP IDE.
+
 ---
 
 Phpcraft is not partnered or associated with Microsoft or Mojang.
