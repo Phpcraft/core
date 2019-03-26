@@ -6,7 +6,8 @@ class EntityType extends Identifier
 	private $legacy_id;
 
 	/**
-	 * @copydoc Identifier::all
+	 * Returns every EntityType.
+	 * @return EntityType[]
 	 */
 	public static function all()
 	{
@@ -121,7 +122,9 @@ class EntityType extends Identifier
 	}
 
 	/**
-	 * @copydoc Identifier::getId
+	 * Returns the ID of this Identifier for the given protocol version or null if not applicable.
+	 * @param integer $protocol_version
+	 * @return integer
 	 */
 	public function getId($protocol_version)
 	{

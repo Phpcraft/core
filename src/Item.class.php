@@ -11,7 +11,9 @@ class Item extends Identifier
 	public $block;
 
 	/**
-	 * @copydoc Identifier::all
+	 * Returns every Item.
+	 * @todo Actually return *every* Item.
+	 * @return Item[]
 	 */
 	public static function all()
 	{
@@ -37,7 +39,9 @@ class Item extends Identifier
 	}
 
 	/**
-	 * @copydoc Identifier::getId
+	 * Returns the ID of this Identifier for the given protocol version or null if not applicable.
+	 * @param integer $protocol_version
+	 * @return integer
 	 */
 	public function getId($protocol_version)
 	{

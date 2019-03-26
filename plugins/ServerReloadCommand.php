@@ -1,14 +1,15 @@
 <?php
 // This plugin provides the ".reload" console command.
-use Phpcraft\PluginManager;
+use Phpcraft\
+{Event, Plugin, PluginManager};
 
 if(!in_array(PluginManager::$platform, ["phpcraft:server"]))
 {
 	return;
 }
-PluginManager::registerPlugin("ServerReloadCommand", function($plugin)
+PluginManager::registerPlugin("ServerReloadCommand", function(Plugin $plugin)
 {
-	$plugin->on("console_message", function($event)
+	$plugin->on("console_message", function(Event $event)
 	{
 		if($event->isCancelled())
 		{

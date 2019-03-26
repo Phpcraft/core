@@ -40,6 +40,12 @@ class EntityBase extends EntityMetadata
 	 */
 	public $silent = null;
 
+	/**
+	 * @param Connection $con
+	 * @param $index
+	 * @return bool
+	 * @throws Exception
+	 */
 	protected function read_(Connection $con, $index)
 	{
 		switch($index)
@@ -139,7 +145,10 @@ class EntityBase extends EntityMetadata
 	}
 
 	/**
-	 * @copydoc EntityMetadata::write
+	 * Writes this non-null metadata values to the Connection's write buffer.
+	 * @param Connection $con
+	 * @return void
+	 * @throws Exception
 	 */
 	public function write(Connection $con)
 	{

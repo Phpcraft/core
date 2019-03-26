@@ -6,7 +6,6 @@ class KeepAliveResponsePacket extends Packet
 	public $keepAliveId;
 
 	/**
-	 * The constructor.
 	 * @param integer $keepAliveId The identifier of the keep alive request packet this response is for.
 	 */
 	public function __construct($keepAliveId)
@@ -15,7 +14,10 @@ class KeepAliveResponsePacket extends Packet
 	}
 
 	/**
-	 * @copydoc Packet::read
+	 * Initialises the packet class by reading its payload from the given Connection.
+	 * @param Connection $con
+	 * @return KeepAliveResponsePacket
+	 * @throws Exception
 	 */
 	public static function read(Connection $con)
 	{
@@ -23,7 +25,10 @@ class KeepAliveResponsePacket extends Packet
 	}
 
 	/**
-	 * @copydoc Packet::send
+	 * Adds the packet's ID and payload to the Connection's write buffer and, if the connection has a stream, sends it over the wire.
+	 * @param Connection $con
+	 * @return void
+	 * @throws Exception
 	 */
 	public function send(Connection $con)
 	{

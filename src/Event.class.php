@@ -21,7 +21,6 @@ class Event
 	private $cancelled = false;
 
 	/**
-	 * The constructor.
 	 * @param string $name
 	 * @param array $data
 	 */

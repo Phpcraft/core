@@ -6,7 +6,12 @@ namespace Phpcraft;
  */
 abstract class EntityMetadata
 {
-	private static function ignoreType($con, $type)
+	/**
+	 * @param Connection $con
+	 * @param string $type
+	 * @throws Exception
+	 */
+	private static function ignoreType(Connection $con, $type)
 	{
 		switch($type)
 		{
@@ -219,6 +224,12 @@ abstract class EntityMetadata
 		$con->writeString($value);
 	}
 
+	/**
+	 * @param Connection $con
+	 * @param integer $index
+	 * @param array|string $value
+	 * @throws Exception
+	 */
 	public static function writeOptChat(Connection $con, $index, $value)
 	{
 		if($con->protocol_version < 57)

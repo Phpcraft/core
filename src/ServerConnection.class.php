@@ -7,7 +7,6 @@ class ServerConnection extends Connection
 	public $uuid;
 
 	/**
-	 * The constructor.
 	 * @param resource $stream A stream created by fsockopen.
 	 * @param integer $protocol_version 404 = 1.13.2
 	 */
@@ -69,7 +68,7 @@ class ServerConnection extends Connection
 				$this->uuid = UUID::fromString($this->readString(36));
 				$this->username = $this->readString(16);
 				$this->state = 3;
-				return "";
+				break;
 			}
 			else if($id == 0x01) // Encryption Request
 			{
@@ -115,10 +114,14 @@ class ServerConnection extends Connection
 			}
 		}
 		while(true);
+		return "";
 	}
 
 	/**
-	 * @copydoc Connection::startPacket
+	 * Clears the write buffer and starts a new packet.
+	 * @param string|integer $packet The name or ID of the new packet.
+	 * @return Connection $this
+	 * @throws Exception
 	 */
 	public function startPacket($packet)
 	{

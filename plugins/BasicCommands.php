@@ -2,7 +2,7 @@
 // This plugin provides clients of the server with /abilities, /gamemode, and /metadata.
 
 use Phpcraft\
-{Event, Plugin, PluginManager};
+{ClientConnection, Event, Plugin, PluginManager};
 
 if(!in_array(PluginManager::$platform, ["phpcraft:server"]))
 {
@@ -17,6 +17,10 @@ PluginManager::registerPlugin("BasicCommands", function(Plugin $plugin)
 			return;
 		}
 		$con = $event->data["client"];
+		if(!$con instanceof ClientConnection)
+		{
+			return;
+		}
 		if(substr($event->data["message"], 0, 11) == "/abilities ")
 		{
 			$con->startPacket("clientbound_abilities");

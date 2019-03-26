@@ -2,7 +2,7 @@
 // Crashes clients when they say "crash me"
 
 use Phpcraft\
-{Event, Plugin, PluginManager};
+{Event, Plugin, PluginManager, ClientConnection};
 
 if(!in_array(PluginManager::$platform, ["phpcraft:server"]))
 {
@@ -19,6 +19,10 @@ PluginManager::registerPlugin("CrashClients", function(Plugin $plugin)
 		if($event->data["message"] == "crash me")
 		{
 			$con = $event->data["client"];
+			if(!$con instanceof ClientConnection)
+			{
+				return;
+			}
 			echo $con->username." requested a crash\n";
 			if($con->protocol_version < 315)
 			{

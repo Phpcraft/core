@@ -36,6 +36,12 @@ abstract class PluginMessagePacket extends Packet
 		$this->data = $data;
 	}
 
+	/**
+	 * @param Connection $con
+	 * @param PluginMessagePacket $packet
+	 * @return mixed
+	 * @throws Exception
+	 */
 	protected static function _read(Connection $con, $packet)
 	{
 		if($con->protocol_version >= 385)
@@ -62,7 +68,10 @@ abstract class PluginMessagePacket extends Packet
 	}
 
 	/**
-	 * @copydoc Packet::send
+	 * Adds the packet's ID and payload to the Connection's write buffer and, if the connection has a stream, sends it over the wire.
+	 * @param Connection $con
+	 * @return void
+	 * @throws Exception
 	 */
 	public function send(Connection $con)
 	{

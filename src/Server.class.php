@@ -50,7 +50,6 @@ class Server
 	public $list_ping_function = null;
 
 	/**
-	 * The constructor.
 	 * @param resource $stream A stream created by stream_socket_server.
 	 * @param resource $private_key A private key generated using openssl_pkey_new(["private_key_bits" => 1024, "private_key_type" => OPENSSL_KEYTYPE_RSA]) to use for online mode, or null to use offline mode.
 	 */
@@ -250,6 +249,16 @@ class Server
 							}
 						}
 					}
+					if($con->disconnect_after != 0 && $con->disconnect_after <= microtime(true))
+					{
+						$con->close();
+					}
+					else if($con->next_heartbeat != 0 && $con->next_heartbeat <= microtime(true))
+					{
+						(new KeepAliveRequestPacket(time()))->send($con);
+						$con->next_heartbeat = 0;
+						$con->disconnect_after = microtime(true) + 30;
+					}
 				}
 				catch(Exception $e)
 				{
@@ -258,16 +267,6 @@ class Server
 						echo "Disconnected ".$con->username.": ".get_class($e).": ".$e->getMessage()."\n".$e->getTraceAsString()."\n";
 					}
 					$con->disconnect(get_class($e).": ".$e->getMessage()."\n".$e->getTraceAsString());
-				}
-				if($con->disconnect_after != 0 && $con->disconnect_after <= microtime(true))
-				{
-					$con->close();
-				}
-				else if($con->next_heartbeat != 0 && $con->next_heartbeat <= microtime(true))
-				{
-					(new KeepAliveRequestPacket(time()))->send($con);
-					$con->next_heartbeat = 0;
-					$con->disconnect_after = microtime(true) + 30;
 				}
 			}
 			if(!$con->isOpen())

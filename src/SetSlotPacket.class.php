@@ -20,7 +20,10 @@ class SetSlotPacket extends Packet
 	public $slot = null;
 
 	/**
-	 * @copydoc Packet::read
+	 * Initialises the packet class by reading its payload from the given Connection.
+	 * @param Connection $con
+	 * @return SetSlotPacket
+	 * @throws Exception
 	 */
 	public static function read(Connection $con)
 	{
@@ -32,7 +35,10 @@ class SetSlotPacket extends Packet
 	}
 
 	/**
-	 * @copydoc Packet::send
+	 * Adds the packet's ID and payload to the Connection's write buffer and, if the connection has a stream, sends it over the wire.
+	 * @param Connection $con
+	 * @return void
+	 * @throws Exception
 	 */
 	public function send(Connection $con)
 	{

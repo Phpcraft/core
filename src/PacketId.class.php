@@ -36,7 +36,8 @@ abstract class PacketId extends Identifier
 	}
 
 	/**
-	 * @copydoc Identifier::all
+	 * Returns every ClientboundPacket and ServerboundPacket.
+	 * @return PacketId[]
 	 */
 	public static function all()
 	{
@@ -70,6 +71,7 @@ abstract class PacketId extends Identifier
 	/**
 	 * Initialises this packet's class by reading its payload from the given Connection.
 	 * Returns null if the packet does not have a class implementation yet.
+	 * @param Connection $con
 	 * @return Packet
 	 */
 	abstract public function init(Connection $con);

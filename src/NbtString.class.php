@@ -9,7 +9,6 @@ class NbtString extends NbtTag
 	public $value;
 
 	/**
-	 * The constructor.
 	 * @param string $name The name of this tag.
 	 * @param string $value The value of this tag.
 	 */
@@ -20,7 +19,10 @@ class NbtString extends NbtTag
 	}
 
 	/**
-	 * @copydoc NbtTag::write
+	 * Adds the NBT tag to the write buffer of the connection.
+	 * @param Connection $con
+	 * @param boolean $inList Ignore this parameter.
+	 * @return Connection $con
 	 */
 	public function write(Connection $con, $inList = false)
 	{

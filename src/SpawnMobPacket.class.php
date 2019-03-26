@@ -29,7 +29,6 @@ class SpawnMobPacket extends Packet
 	public $metadata;
 
 	/**
-	 * The constructor.
 	 * @param integer $eid The entity ID of the mob.
 	 * @param EntityType $type The type of mob.
 	 * @param UUID $uuid The UUID of the entity.
@@ -57,7 +56,10 @@ class SpawnMobPacket extends Packet
 	}
 
 	/**
-	 * @copydoc Packet::read
+	 * Initialises the packet class by reading its payload from the given Connection.
+	 * @param Connection $con
+	 * @return SpawnMobPacket
+	 * @throws Exception
 	 */
 	public static function read(Connection $con)
 	{
@@ -86,7 +88,10 @@ class SpawnMobPacket extends Packet
 	}
 
 	/**
-	 * @copydoc Packet::send
+	 * Adds the packet's ID and payload to the Connection's write buffer and, if the connection has a stream, sends it over the wire.
+	 * @param Connection $con
+	 * @return void
+	 * @throws Exception
 	 */
 	public function send(Connection $con)
 	{

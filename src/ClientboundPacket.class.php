@@ -32,7 +32,8 @@ class ClientboundPacket extends PacketId
 	}
 
 	/**
-	 * @copydoc Identifier::all
+	 * Returns every ClientboundPacket.
+	 * @return ClientboundPacket[]
 	 */
 	public static function all()
 	{
@@ -47,7 +48,9 @@ class ClientboundPacket extends PacketId
 	}
 
 	/**
-	 * @copydoc Identifier::getId
+	 * Returns the ID of this Identifier for the given protocol version or null if not applicable.
+	 * @param integer $protocol_version
+	 * @return integer
 	 */
 	public function getId($protocol_version)
 	{
@@ -55,7 +58,11 @@ class ClientboundPacket extends PacketId
 	}
 
 	/**
-	 * @copydoc PacketId::init
+	 * Initialises this packet's class by reading its payload from the given Connection.
+	 * Returns null if the packet does not have a class implementation yet.
+	 * @param Connection $con
+	 * @return Packet
+	 * @throws Exception
 	 */
 	public function init(Connection $con)
 	{

@@ -117,6 +117,7 @@ class Slot
 	}
 
 	/**
+	 * @param Slot|null $slot
 	 * @return boolean
 	 */
 	public static function isEmpty($slot)

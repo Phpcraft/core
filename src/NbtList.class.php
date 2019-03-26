@@ -15,7 +15,6 @@ class NbtList extends NbtTag
 	public $children;
 
 	/**
-	 * The constructor.
 	 * @param string $name The name of this tag.
 	 * @param integer $childType The NBT Tag Type of children.
 	 * @param array $children The child tags of the list.
@@ -28,7 +27,10 @@ class NbtList extends NbtTag
 	}
 
 	/**
-	 * @copydoc NbtTag::write
+	 * Adds the NBT tag to the write buffer of the connection.
+	 * @param Connection $con
+	 * @param boolean $inList Ignore this parameter.
+	 * @return Connection $con
 	 */
 	public function write(Connection $con, $inList = false)
 	{

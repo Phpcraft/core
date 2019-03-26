@@ -9,7 +9,7 @@ class UpdateBossBarTitlePacket extends BossBarPacket
 	public $title = ["text" => ""];
 
 	/**
-	 * @copydoc BossBarPacket::__construct
+	 * @param UUID $uuid The UUID of the boss bar.
 	 * @param array $title The "title" of the boss bar; chat object.
 	 */
 	public function __construct($uuid = null, $title = ["text" => ""])
@@ -19,7 +19,10 @@ class UpdateBossBarTitlePacket extends BossBarPacket
 	}
 
 	/**
-	 * @copydoc Packet::send
+	 * Adds the packet's ID and payload to the Connection's write buffer and, if the connection has a stream, sends it over the wire.
+	 * @param Connection $con
+	 * @return void
+	 * @throws Exception
 	 */
 	public function send(Connection $con)
 	{

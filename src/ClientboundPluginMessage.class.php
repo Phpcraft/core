@@ -12,7 +12,10 @@ class ClientboundPluginMessagePacket extends PluginMessagePacket
 	}
 
 	/**
-	 * @copydoc Packet::read
+	 * Initialises the packet class by reading its payload from the given Connection.
+	 * @param Connection $con
+	 * @return ClientboundPluginMessagePacket
+	 * @throws Exception
 	 */
 	public static function read(Connection $con)
 	{

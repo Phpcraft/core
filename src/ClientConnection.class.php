@@ -54,7 +54,6 @@ class ClientConnection extends Connection
 	public $chunks;
 
 	/**
-	 * The constructor.
 	 * After this, you should call ClientConnection::handleInitialPacket().
 	 * @param resource $stream
 	 */
@@ -244,7 +243,10 @@ class ClientConnection extends Connection
 	}
 
 	/**
-	 * @copydoc Connection::startPacket
+	 * Clears the write buffer and starts a new packet.
+	 * @param string|integer $packet The name or ID of the new packet.
+	 * @return Connection $this
+	 * @throws Exception
 	 */
 	function startPacket($packet)
 	{

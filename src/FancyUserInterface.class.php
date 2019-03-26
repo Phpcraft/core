@@ -25,7 +25,6 @@ class FancyUserInterface extends UserInterface
 	private $_height = 0;
 
 	/**
-	 * The constructor.
 	 * Note that from this point forward, STDIN and STDOUT are in the hands of the UI until it is destructed.
 	 * @param string $title The title displayed at the top left.
 	 * @param string $optional_info Displayed at the top right, if possible.
@@ -41,9 +40,6 @@ class FancyUserInterface extends UserInterface
 		$this->ob_start();
 	}
 
-	/**
-	 * @copydoc UserInterface::__destruct()
-	 */
 	public function __destruct()
 	{
 		parent::__destruct();
@@ -68,7 +64,9 @@ class FancyUserInterface extends UserInterface
 	}
 
 	/**
-	 * @copydoc UserInterface::render
+	 * Renders the UI.
+	 * @param boolean $accept_input Set to true if you are looking for a return value.
+	 * @return string If $accept_input is true and the user has submitted a line, the return will be that line. Otherwise, it will be null.
 	 */
 	public function render($accept_input = false)
 	{
@@ -350,6 +348,7 @@ class FancyUserInterface extends UserInterface
 
 	/**
 	 * Adds a message to the chat log.
+	 * @param string $message
 	 * @return $this
 	 */
 	public function add($message)
@@ -360,6 +359,7 @@ class FancyUserInterface extends UserInterface
 
 	/**
 	 * Appends to the last message in the chat log.
+	 * @param string $appendix
 	 * @return $this
 	 */
 	public function append($appendix)

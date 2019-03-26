@@ -10,7 +10,6 @@ class UUID
 	public $binary;
 
 	/**
-	 * The constructor.
 	 * @param string $binary The binary string containing the UUID.
 	 * @throws Exception When the given string is not a valid UUID binary string.
 	 * @see UUID::fromString
@@ -26,8 +25,9 @@ class UUID
 
 	/**
 	 * Returns a UUID for the given string.
-	 * @throws Exception When the given string is not a valid UUID.
+	 * @param string $str
 	 * @return UUID
+	 * @throws Exception When the given string is not a valid UUID.
 	 */
 	public static function fromString($str)
 	{
@@ -46,7 +46,14 @@ class UUID
 		{
 			$binary .= chr(intval(hexdec(substr($str, $i, 2))));
 		}
-		return new UUID($binary);
+		try
+		{
+			return new UUID($binary);
+		}
+		catch(Exception $e)
+		{
+		}
+		return null;
 	}
 
 	/**
@@ -60,6 +67,8 @@ class UUID
 
 	/**
 	 * Generates a UUIDv5.
+	 * @param string $str
+	 * @param UUID|null $namespace
 	 * @return UUID
 	 * @throws Exception
 	 */

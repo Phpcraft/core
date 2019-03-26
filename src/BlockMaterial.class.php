@@ -11,7 +11,9 @@ class BlockMaterial extends Identifier
 	public $drops;
 
 	/**
-	 * @copydoc Identifier::all
+	 * Returns every BlockMaterial.
+	 * @todo Actually return *every* BlockMaterial.
+	 * @return BlockMaterial[]
 	 */
 	public static function all()
 	{
@@ -36,7 +38,9 @@ class BlockMaterial extends Identifier
 	}
 
 	/**
-	 * @copydoc Identifier::getId
+	 * Returns the ID of this Identifier for the given protocol version or null if not applicable.
+	 * @param integer $protocol_version
+	 * @return integer
 	 */
 	public function getId($protocol_version)
 	{

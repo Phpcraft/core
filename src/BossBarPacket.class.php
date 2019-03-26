@@ -22,7 +22,6 @@ abstract class BossBarPacket extends Packet
 	public $uuid;
 
 	/**
-	 * The constructor.
 	 * @param UUID $uuid The UUID of the boss bar.
 	 */
 	public function __construct($uuid = null)
@@ -31,7 +30,10 @@ abstract class BossBarPacket extends Packet
 	}
 
 	/**
-	 * @copydoc Packet::read
+	 * Initialises the packet class by reading its payload from the given Connection.
+	 * @param Connection $con
+	 * @return BossBarPacket
+	 * @throws Exception
 	 */
 	public static function read(Connection $con)
 	{

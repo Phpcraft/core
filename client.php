@@ -1,4 +1,5 @@
 <?php
+/** @noinspection PhpUnhandledExceptionInspection */
 echo "Phpcraft PHP Minecraft Client\n\n";
 if(empty($argv))
 {

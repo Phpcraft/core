@@ -1,4 +1,5 @@
 <?php
+/** @noinspection PhpUnhandledExceptionInspection */
 if(empty($argv))
 {
 	die("This is for PHP-CLI. Connect to your server via SSH and use `php packets.php`.\n");

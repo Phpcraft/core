@@ -44,7 +44,6 @@ class Connection
 	public $read_buffer = "";
 
 	/**
-	 * The constructor.
 	 * @param integer $protocol_version
 	 * @param resource $stream
 	 */
@@ -228,6 +227,7 @@ class Connection
 
 	/**
 	 * Adds a position encoded as one long to the write buffer.
+	 * @param Position $pos
 	 * @return Connection $this
 	 */
 	function writePosition(Position $pos)
@@ -237,6 +237,7 @@ class Connection
 
 	/**
 	 * Adds a position encoded as three double to the write buffer.
+	 * @param Position $pos
 	 * @return Connection $this
 	 */
 	function writePrecisePosition(Position $pos)
@@ -248,6 +249,7 @@ class Connection
 
 	/**
 	 * Adds a position encoded as three ints to the write buffer.
+	 * @param Position $pos
 	 * @return Connection $this
 	 */
 	function writeFixedPointPosition(Position $pos)
@@ -332,6 +334,7 @@ class Connection
 
 	/**
 	 * Adds a UUID to the write buffer.
+	 * @param UUID $uuid
 	 * @return Connection $this
 	 */
 	function writeUUID(UUID $uuid)
@@ -774,7 +777,7 @@ class Connection
 
 	/**
 	 * Reads an NbtTag.
-	 * @param boolean $type Ignore this parameter.
+	 * @param int $type Ignore this parameter.
 	 * @return NbtTag
 	 * @throws Exception
 	 */
@@ -939,16 +942,19 @@ class Connection
 			}
 		}
 		$slot->nbt = $this->readNBT();
-		if($additional_processing && $this->protocol_version < 402 && $slot->nbt instanceof NbtCompound)
+		if($additional_processing && $this->protocol_version < 402)
 		{
-			$display = $slot->nbt->getChild("display");
-			if($display && $display instanceof NbtCompound)
+			if($slot->nbt instanceof NbtCompound)
 			{
-				$name = $display->getChild("Name");
-				if($name && $name instanceof NbtString)
+				$display = $slot->nbt->getChild("display");
+				if($display && $display instanceof NbtCompound)
 				{
-					$name->value = json_encode(Phpcraft::textToChat($name->value));
-					$slot->nbt->addChild($display->addChild($name));
+					$name = $display->getChild("Name");
+					if($name && $name instanceof NbtString)
+					{
+						$name->value = json_encode(Phpcraft::textToChat($name->value));
+						$slot->nbt->addChild($display->addChild($name));
+					}
 				}
 			}
 		}

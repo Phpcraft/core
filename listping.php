@@ -1,4 +1,5 @@
 <?php
+/** @noinspection PhpUnhandledExceptionInspection */
 echo "Phpcraft PHP Minecraft Server List Pinger\n\n";
 if(empty($argv))
 {

@@ -4,7 +4,6 @@ namespace Phpcraft;
 class Exception extends \Exception
 {
 	/**
-	 * The constructor.
 	 * @param string $message The error message.
 	 */
 	public function __construct($message)

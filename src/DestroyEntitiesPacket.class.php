@@ -9,7 +9,6 @@ class DestroyEntitiesPacket extends Packet
 	public $eids = [];
 
 	/**
-	 * The constructor.
 	 * @param $eids integer[] An array of the IDs of the entities to be destroyed.
 	 */
 	public function __construct($eids = [])
@@ -18,7 +17,10 @@ class DestroyEntitiesPacket extends Packet
 	}
 
 	/**
-	 * @copydoc Packet::read
+	 * Initialises the packet class by reading its payload from the given Connection.
+	 * @param Connection $con
+	 * @return DestroyEntitiesPacket
+	 * @throws Exception
 	 */
 	public static function read(Connection $con)
 	{
@@ -31,7 +33,10 @@ class DestroyEntitiesPacket extends Packet
 	}
 
 	/**
-	 * @copydoc Packet::send
+	 * Adds the packet's ID and payload to the Connection's write buffer and, if the connection has a stream, sends it over the wire.
+	 * @param Connection $con
+	 * @return void
+	 * @throws Exception
 	 */
 	public function send(Connection $con)
 	{

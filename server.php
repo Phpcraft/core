@@ -1,4 +1,8 @@
 <?php
+
+use Phpcraft\
+{ClientConnection, Event, Phpcraft};
+
 echo "Phpcraft PHP Minecraft Server\n\n";
 if(empty($argv))
 {
@@ -67,7 +71,7 @@ $stream = stream_socket_server("tcp://0.0.0.0:".$options["port"], $errno, $errst
 $server = new \Phpcraft\Server($stream, $private_key);
 $ui->input_prefix = "[Server] ";
 $ui->append("Success!")->add("Preparing cache... ")->render();
-\Phpcraft\Phpcraft::populateCache();
+Phpcraft::populateCache();
 $ui->append("Done.")->render();
 echo "Autoloading plugins...\n";
 \Phpcraft\PluginManager::$platform = "phpcraft:server";
@@ -97,7 +101,7 @@ $server->join_function = function(\Phpcraft\ClientConnection $con)
 		return;
 	}
 	global $ui, $server;
-	if(\Phpcraft\PluginManager::fire(new \Phpcraft\Event("join", [
+	if(\Phpcraft\PluginManager::fire(new Event("join", [
 		"server" => $server,
 		"client" => $con
 	])))
@@ -114,11 +118,11 @@ $server->join_function = function(\Phpcraft\ClientConnection $con)
 			]
 		]
 	];
-	$ui->add(\Phpcraft\Phpcraft::chatToText($msg, 1));
+	$ui->add(Phpcraft::chatToText($msg, 1));
 	$msg = json_encode($msg);
 	foreach($server->clients as $c)
 	{
-		if($c->state == 3)
+		if($c instanceof ClientConnection && $c->state == 3)
 		{
 			try
 			{
@@ -131,10 +135,10 @@ $server->join_function = function(\Phpcraft\ClientConnection $con)
 		}
 	}
 };
-$server->packet_function = function(\Phpcraft\ClientConnection $con, $packet_name)
+$server->packet_function = function(ClientConnection $con, $packet_name)
 {
 	global $options, $ui, $server;
-	if(\Phpcraft\PluginManager::fire(new \Phpcraft\Event("packet", [
+	if(\Phpcraft\PluginManager::fire(new Event("packet", [
 		"server" => $server,
 		"packet_name" => $packet_name,
 		"client" => $con
@@ -149,7 +153,7 @@ $server->packet_function = function(\Phpcraft\ClientConnection $con, $packet_nam
 	else if($packet_name == "serverbound_chat_message")
 	{
 		$msg = $con->readString(256);
-		if(\Phpcraft\PluginManager::fire(new \Phpcraft\Event("chat_message", [
+		if(\Phpcraft\PluginManager::fire(new Event("chat_message", [
 			"message" => $msg,
 			"client" => $con
 		])))
@@ -162,7 +166,7 @@ $server->packet_function = function(\Phpcraft\ClientConnection $con, $packet_nam
 		}
 		else
 		{
-			$msg = \Phpcraft\Phpcraft::textToChat($msg, true);
+			$msg = Phpcraft::textToChat($msg, true);
 		}
 		$msg = [
 			"translate" => "chat.type.text",
@@ -173,11 +177,11 @@ $server->packet_function = function(\Phpcraft\ClientConnection $con, $packet_nam
 				$msg
 			]
 		];
-		$ui->add(\Phpcraft\Phpcraft::chatToText($msg, 1));
+		$ui->add(Phpcraft::chatToText($msg, 1));
 		$msg = json_encode($msg);
 		foreach($server->clients as $c)
 		{
-			if($c->state == 3)
+			if($c instanceof ClientConnection && $c->state == 3)
 			{
 				try
 				{
@@ -191,7 +195,7 @@ $server->packet_function = function(\Phpcraft\ClientConnection $con, $packet_nam
 		}
 	}
 };
-$server->disconnect_function = function(\Phpcraft\ClientConnection $con)
+$server->disconnect_function = function(ClientConnection $con)
 {
 	global $ui, $server;
 	if($con->state == 3)
@@ -205,11 +209,11 @@ $server->disconnect_function = function(\Phpcraft\ClientConnection $con)
 				]
 			]
 		];
-		$ui->add(\Phpcraft\Phpcraft::chatToText($msg, 1));
+		$ui->add(Phpcraft::chatToText($msg, 1));
 		$msg = json_encode($msg);
 		foreach($server->clients as $c)
 		{
-			if($c->state == 3)
+			if($c instanceof ClientConnection && $c->state == 3)
 			{
 				try
 				{
@@ -231,7 +235,7 @@ do
 	$server->handle();
 	while($msg = $ui->render(true))
 	{
-		if(\Phpcraft\PluginManager::fire(new \Phpcraft\Event("console_message", [
+		if(\Phpcraft\PluginManager::fire(new Event("console_message", [
 			"server" => $server,
 			"message" => $msg
 		])))
@@ -249,11 +253,11 @@ do
 				]
 			]
 		];
-		$ui->add(\Phpcraft\Phpcraft::chatToText($msg, 1));
+		$ui->add(Phpcraft::chatToText($msg, 1));
 		$msg = json_encode($msg);
 		foreach($server->clients as $c)
 		{
-			if($c->state == 3)
+			if($c instanceof ClientConnection && $c->state == 3)
 			{
 				try
 				{
@@ -266,7 +270,7 @@ do
 			}
 		}
 	}
-	\Phpcraft\PluginManager::fire(new \Phpcraft\Event("tick", ["server" => $server]));
+	\Phpcraft\PluginManager::fire(new Event("tick", ["server" => $server]));
 	if(($remaining = (0.050 - (microtime(true) - $start))) > 0)
 	{
 		time_nanosleep(0, $remaining * 1000000000);

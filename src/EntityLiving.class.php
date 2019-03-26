@@ -7,6 +7,12 @@ class EntityLiving extends EntityBase
 	 */
 	public $health = null;
 
+	/**
+	 * @param Connection $con
+	 * @param $index
+	 * @return bool
+	 * @throws Exception
+	 */
 	protected function read_(Connection $con, $index)
 	{
 		switch($index)
@@ -30,7 +36,10 @@ class EntityLiving extends EntityBase
 	}
 
 	/**
-	 * @copydoc EntityMetadata::write
+	 * Writes this non-null metadata values to the Connection's write buffer.
+	 * @param Connection $con
+	 * @return void
+	 * @throws Exception
 	 */
 	public function write(Connection $con)
 	{

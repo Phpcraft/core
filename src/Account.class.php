@@ -25,7 +25,6 @@ class Account
 	public $accessToken = null;
 
 	/**
-	 * The constructor.
 	 * @param string $name The Mojang account email address or the in-game name if legacy.
 	 */
 	public function __construct($name)

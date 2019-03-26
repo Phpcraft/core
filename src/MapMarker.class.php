@@ -73,7 +73,6 @@ class MapMarker
 	public $name;
 
 	/**
-	 * The constructor.
 	 * @param integer $type The type of the marker. >= 9 will be replaced with 7 for clients below 1.13.
 	 * @param integer $x The x coordinate of the marker on the map from -127 to 128.
 	 * @param integer $z The z coordinate of the marker on the map from -127 to 128.

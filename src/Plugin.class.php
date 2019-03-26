@@ -10,7 +10,6 @@ class Plugin
 	public $event_handlers = [];
 
 	/**
-	 * The constructor.
 	 * @param string $name The name of the plugin.
 	 */
 	public function __construct($name)

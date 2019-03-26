@@ -5,7 +5,6 @@ class UserInterface
 	protected $stdin;
 
 	/**
-	 * The constructor.
 	 * Note that from this point forward, STDIN is in the hands of the UI until it is destructed.
 	 */
 	public function __construct()
@@ -14,9 +13,6 @@ class UserInterface
 		stream_set_blocking($this->stdin, false);
 	}
 
-	/**
-	 * The destructor.
-	 */
 	public function __destruct()
 	{
 		fclose($this->stdin);
@@ -43,6 +39,7 @@ class UserInterface
 
 	/**
 	 * Prints a message.
+	 * @param string $message
 	 * @return $this
 	 */
 	public function add($message)
@@ -53,6 +50,7 @@ class UserInterface
 
 	/**
 	 * Prints a message.
+	 * @param string $message
 	 * @return $this
 	 */
 	public function append($message)

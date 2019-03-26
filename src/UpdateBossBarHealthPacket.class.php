@@ -10,7 +10,7 @@ class UpdateBossBarHealthPacket extends BossBarPacket
 	public $health = 1.0;
 
 	/**
-	 * @copydoc BossBarPacket::__construct
+	 * @param UUID $uuid The UUID of the boss bar.
 	 * @param float $health The percentage the boss bar is filled, aka. the health of the boss.
 	 */
 	public function __construct($uuid = null, $health = 1.0)
@@ -20,7 +20,10 @@ class UpdateBossBarHealthPacket extends BossBarPacket
 	}
 
 	/**
-	 * @copydoc Packet::send
+	 * Adds the packet's ID and payload to the Connection's write buffer and, if the connection has a stream, sends it over the wire.
+	 * @param Connection $con
+	 * @return void
+	 * @throws Exception
 	 */
 	public function send(Connection $con)
 	{

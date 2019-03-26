@@ -34,7 +34,7 @@ abstract class NbtTag
 	 */
 	abstract public function write(Connection $con, $inList = false);
 
-	protected function _write($con, $type)
+	protected function _write(Connection $con, $type)
 	{
 		$con->writeByte($type);
 		$con->writeShort(strlen($this->name));

@@ -5,7 +5,6 @@ class AssetsManager
 	public $index_url;
 
 	/**
-	 * The constructor.
 	 * @param string $index_url The URL to the asset index.
 	 */
 	public function __construct($index_url)

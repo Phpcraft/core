@@ -13,7 +13,6 @@ class SetExperiencePacket extends Packet
 	public $level;
 
 	/**
-	 * The constructor.
 	 * @param float $percent How many percent the experience bar is filled from 0.00 to 1.00.
 	 * @param integer $level
 	 */
@@ -24,7 +23,10 @@ class SetExperiencePacket extends Packet
 	}
 
 	/**
-	 * @copydoc Packet::read
+	 * Initialises the packet class by reading its payload from the given Connection.
+	 * @param Connection $con
+	 * @return SetExperiencePacket
+	 * @throws Exception
 	 */
 	public static function read(Connection $con)
 	{
@@ -36,7 +38,10 @@ class SetExperiencePacket extends Packet
 	}
 
 	/**
-	 * @copydoc Packet::send
+	 * Adds the packet's ID and payload to the Connection's write buffer and, if the connection has a stream, sends it over the wire.
+	 * @param Connection $con
+	 * @return void
+	 * @throws Exception
 	 */
 	public function send(Connection $con)
 	{

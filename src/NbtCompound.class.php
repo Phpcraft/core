@@ -9,7 +9,6 @@ class NbtCompound extends NbtTag
 	public $children;
 
 	/**
-	 * The constructor.
 	 * @param string $name The name of this tag.
 	 * @param array $children The child tags of the compound.
 	 */
@@ -21,6 +20,7 @@ class NbtCompound extends NbtTag
 
 	/**
 	 * Gets a child of the compound by its name or null if not found.
+	 * @param string $name
 	 * @return NbtTag
 	 */
 	public function getChild($name)
@@ -37,6 +37,7 @@ class NbtCompound extends NbtTag
 
 	/**
 	 * Gets the index of a child of the compound by its name or -1 if not found.
+	 * @param string $name
 	 * @return integer
 	 */
 	public function getChildIndex($name)
@@ -53,6 +54,7 @@ class NbtCompound extends NbtTag
 
 	/**
 	 * Adds a child to the compound or replaces an existing one by the same name.
+	 * @param NbtTag $tag
 	 * @return NbtCompound $this
 	 * @throws Exception
 	 */
@@ -75,7 +77,10 @@ class NbtCompound extends NbtTag
 	}
 
 	/**
-	 * @copydoc NbtTag::write
+	 * Adds the NBT tag to the write buffer of the connection.
+	 * @param Connection $con
+	 * @param boolean $inList Ignore this parameter.
+	 * @return Connection $con
 	 */
 	public function write(Connection $con, $inList = false)
 	{

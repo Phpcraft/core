@@ -453,7 +453,8 @@ abstract class Phpcraft
 		{
 			if(gettype($format) != "integer" || $format < 0 || $format > 4)
 			{
-				throw new Exception("Format has to be an integer between 0 and 4.");
+				trigger_error("Format has to be an integer between 0 and 4. Defaulting to 0.");
+				$format = 0;
 			}
 			if($translations == null)
 			{
@@ -473,12 +474,13 @@ abstract class Phpcraft
 			}
 			$chat = Phpcraft::textToChat($chat);
 		}
+		$text = "";
+		$closing_tags = "";
 		if($format > 0)
 		{
+			$ansi_modifiers = [];
 			if($format == 1)
 			{
-				$text = "";
-				$ansi_modifiers = [];
 				$attributes = [
 					"reset" => "0",
 					"bold" => "1",
@@ -490,8 +492,6 @@ abstract class Phpcraft
 			}
 			else if($format == 4)
 			{
-				$text = "";
-				$closing_tags = "";
 				$attributes = [
 					"bold" => "b",
 					"italic" => "i",
@@ -504,10 +504,6 @@ abstract class Phpcraft
 				if($parent === [])
 				{
 					$text = ($format == 2 ? "§" : "&")."r";
-				}
-				else
-				{
-					$text = "";
 				}
 				$attributes = [
 					"obfuscated" => "k",
@@ -615,10 +611,6 @@ abstract class Phpcraft
 					$text .= ($format == 2 ? "§" : "&").dechex(intval($i));
 				}
 			}
-		}
-		else
-		{
-			$text = "";
 		}
 		if(isset($chat["translate"]))
 		{
