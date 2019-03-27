@@ -2,7 +2,7 @@
 // This plugin adds an annoying boss bar. Enjoy!
 
 use Phpcraft\
-{Event, Plugin, PluginManager};
+{ClientConnection, Event, Plugin, PluginManager};
 
 if(!in_array(PluginManager::$platform, ["phpcraft:server"]))
 {
@@ -27,7 +27,7 @@ PluginManager::registerPlugin("BossBar", function(Plugin $plugin)
 		global $bossbar_i;
 		foreach($event->data["server"]->clients as $con)
 		{
-			if($con->state != 3)
+			if(!$con instanceof ClientConnection || $con->state != 3)
 			{
 				continue;
 			}

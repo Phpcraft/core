@@ -65,7 +65,7 @@ PluginManager::registerPlugin("FirstPackets", function(Plugin $plugin)
 		{
 			foreach($event->data["server"]->clients as $con)
 			{
-				if(!$con instanceof ClientConnection && $con->state != 3)
+				if(!$con instanceof ClientConnection || $con->state != 3)
 				{
 					continue;
 				}
