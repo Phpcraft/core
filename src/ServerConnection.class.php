@@ -51,6 +51,10 @@ class ServerConnection extends Connection
 		do
 		{
 			$id = $this->readPacket();
+			if($id === false)
+			{
+				return "Read timed out.";
+			}
 			if($id == 0x04) // Login Plugin Request
 			{
 				echo "Login Plugin Request: ".$this->readString()."\n";

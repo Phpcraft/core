@@ -72,7 +72,7 @@ for($i = 1; $i < count($argv); $i++)
 	}
 }
 
-$am = AssetsManager::fromMinecraftVersion(\Phpcraft\Versions::all()[0]);
+$am = AssetsManager::fromMinecraftVersion(Versions::minecraft()[0]);
 if(empty($options["lang"]))
 {
 	$options["lang"] = "en_GB";

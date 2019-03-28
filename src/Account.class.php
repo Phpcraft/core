@@ -39,7 +39,7 @@ class Account
 	 */
 	public function isOnline()
 	{
-		return $this->profileId != null && $this->accessToken != null;
+		return $this->profileId !== null && $this->accessToken !== null;
 	}
 
 	/**
