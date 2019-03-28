@@ -2,34 +2,22 @@
 
 A PHP library for [all things](https://phpcraft.de/docs/namespacePhpcraft.html) Minecraft: Java Edition.
 
-## Dependencies
-
-Windows might work for some features, but it's not supported due to [a bug](https://bugs.php.net/bug.php?id=34972) and a general lack of features. Instead, use [the Windows Subsystem for Linux](https://aka.ms/wslinstall).
-
-Phpcraft has different dependencies for different use cases, but in general, you'll need PHP, mbstring, GMP, and [Composer](https://getcomposer.org/):
-
-    sudo apt-get -y install php php-cli php-mbstring php-gmp composer
-
-If you want to join or host an online mode server, you'll also need OpenSSl and mcrypt. The installation of mcrypt is different depending on your PHP version, so check `php -version`, and then run the appropriate commands:
-
-**PHP 7.2 and above:**
-
-    sudo apt-get -y install openssl php-dev php-xml gcc make autoconf libc-dev pkg-config libmcrypt-dev php-pear
-    sudo pecl install mcrypt-1.0.1
-
-**PHP 7.1 and below:**
-
-    sudo apt-get -y install openssl php-mcrypt
-
 ## Using the Phpcraft CLI utilities
 
-First, clone the repository and generate the autoload script:
+First, we'll clone the repository and generate the autoload script:
 
+    apt-get -y install php-cli composer git
     git clone https://github.com/timmyrs/Phpcraft
     cd Phpcraft
-    composer install
+    composer install --no-dev
 
-and then you can run:
+Next, we'll run a self check:
+
+	php selfcheck.php
+
+If any dependencies are missing, run the given command(s), and then run the self check again.
+
+Finally, you can use the Phpcraft CLI utilities:
 
 - `php client.php help` — A chat client with plugin support and built-in commands; type `.help` for more information.
 - `php server.php help` — A chat server with plugin support.
@@ -41,9 +29,20 @@ and then you can run:
 
 ## Using Phpcraft as a library
 
-Thanks to Composer, using Phpcraft as a library is really easy. Just head into your project folder, run `composer require timmyrs/phpcraft:dev-master`, and that's it; you can now `require "vendor/autoload.php";` to use Phpcraft's many APIs.
+Thanks to [Composer](https://getcomposer.org/), using Phpcraft as a library is really easy. Just head into your project folder, and run:
 
-In addition to the CLI utilities above and the "Who uses Phpcraft?" section below serving up great example code, there's also a [documentation](https://phpcraft.de/docs/namespacePhpcraft.html) and [wiki](https://github.com/timmyrs/Phpcraft/wiki).
+	apt-get -y install composer
+	composer require timmyrs/phpcraft:dev-master
+
+Next, we'll run a self check:
+
+	php vendor/timmyrs/phpcraft/selfcheck.php
+
+If any dependencies are missing, run the given command(s), and then run the self check again.
+
+Finally, you can `require "vendor/autoload.php";` to use Phpcraft's many APIs.
+
+In addition to the CLI utilities above and the "Who uses Phpcraft?" section below serving up great example code, there's also a [documentation](https://phpcraft.de/docs/namespacePhpcraft.html) and [wiki](https://github.com/timmyrs/Phpcraft/wiki) for you to read.
 
 ## Who uses Phpcraft?
 
@@ -51,7 +50,7 @@ Who would be a crazy enough to use a PHP Minecraft library? Its author of course
 
 - [mcverify](https://github.com/timmyrs/mcverify): A simple REST API for linking your users' Minecraft: Java Edition accounts.
 
-Also, I'd like to give a big, warm "thank you" to [Jetbrains](https://www.jetbrains.com/?from=Phpcraft) for providing me with an open-source license for PhpStorm, a lovely PHP IDE.
+Also, I'd like to thank [Jetbrains](https://www.jetbrains.com/?from=Phpcraft) for providing me with an open-source license for [PhpStorm](https://www.jetbrains.com/phpstorm/?from=Phpcraft), a lovely PHP IDE.
 
 ---
 

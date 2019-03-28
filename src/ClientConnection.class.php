@@ -3,6 +3,8 @@ namespace Phpcraft;
 /** A server-to-client connection. */
 class ClientConnection extends Connection
 {
+	private $ch;
+	private $mh;
 	/**
 	 * The hostname the client had connected to.
 	 * @see ClientConnection::getHost
@@ -146,24 +148,27 @@ class ClientConnection extends Connection
 	}
 
 	/**
-	 * Reads an encryption response packet and authenticates with Mojang.
-	 * This requires that you've set ClientConnection::$username after the client sent Login Start.
-	 * If there is an error, the client is disconnected and false is returned, and on success an array looking like this is returned:
+	 * Reads an encryption response packet and starts asynchronous authentication with Mojang.
+	 * This requires ClientConnection::$username to be set.
+	 * In case of an error, the client is disconnected and false is returned.
+	 * If Mojang's response was not yet received, 1 is returned.
+	 * If Mojang's response was recieved, and the authentication was successful, an array such as this is returned:
 	 * <pre>[
 	 *   "id" => "11111111222233334444555555555555",
 	 *   "name" => "Notch",
 	 *   "properties" => [
 	 *     [
 	 *       "name" => "textures",
-	 *       "value" => "&lt;base64 string&gt;",
-	 *       "signature" => "&lt;base64 string; signed data using Yggdrasil's private key&gt;"
+	 *       "value" => "<base64 string>",
+	 *       "signature" => "<base64 string; signed data using Yggdrasil's private key>"
 	 *     ]
 	 *   ]
 	 * ]</pre>
-	 * After this, you should call ClientConnection::finishLogin().
+	 * Using the `id` from this array, you should call ClientConnection::finishLogin.
 	 * @param resource $private_key Your OpenSSL private key resource.
-	 * @return mixed
+	 * @return boolean
 	 * @throws Exception
+	 * @see ClientConnection::handleAuthentication
 	 */
 	function handleEncryptionResponse($private_key)
 	{
@@ -177,11 +182,61 @@ class ClientConnection extends Connection
 		$opts = ["mode" => "cfb", "iv" => $shared_secret, "key" => $shared_secret];
 		stream_filter_append($this->stream, "mcrypt.rijndael-128", STREAM_FILTER_WRITE, $opts);
 		stream_filter_append($this->stream, "mdecrypt.rijndael-128", STREAM_FILTER_READ, $opts);
-		$json = json_decode(file_get_contents("https://sessionserver.mojang.com/session/minecraft/hasJoined?username=".$this->username."&serverId=".Phpcraft::sha1($shared_secret.base64_decode(trim(substr(openssl_pkey_get_details($private_key)["key"], 26, -24))))), true);
+		$this->ch = curl_init("https://sessionserver.mojang.com/session/minecraft/hasJoined?username=".$this->username."&serverId=".Phpcraft::sha1($shared_secret.base64_decode(trim(substr(openssl_pkey_get_details($private_key)["key"], 26, -24)))));
+		curl_setopt_array($this->ch, [
+			CURLOPT_HEADER => 0,
+			CURLOPT_RETURNTRANSFER => true
+		]);
+		$this->mh = curl_multi_init();
+		curl_multi_add_handle($this->mh, $this->ch);
+		return true;
+	}
+
+	/**
+	 * Returns true if an asynchronous authentication with Mojang is still pending.
+	 * @return boolean
+	 * @see ClientConnection::handleAuthentication
+	 */
+	function isAuthenticationPending()
+	{
+		return $this->mh !== null;
+	}
+
+	/**
+	 * Checks if the asynchronous authentication with Mojang has finished.
+	 * In case of an error, the client is disconnected and 0 is returned.
+	 * If Mojang's response was not yet received, 1 is returned.
+	 * If Mojang's response was received and the authentication was successful, an array such as this is returned:
+	 * <pre>[
+	 *   "id" => "11111111222233334444555555555555",
+	 *   "name" => "Notch",
+	 *   "properties" => [
+	 *     [
+	 *       "name" => "textures",
+	 *       "value" => "<base64 string>",
+	 *       "signature" => "<base64 string; signed data using Yggdrasil's private key>"
+	 *     ]
+	 *   ]
+	 * ]</pre>
+	 * @return integer|array
+	 * @see ClientConnection::isAuthenticationPending
+	 */
+	function handleAuthentication()
+	{
+		$active = 0;
+		curl_multi_exec($this->mh, $active);
+		if($active > 0)
+		{
+			return 1;
+		}
+		$json = json_decode(curl_multi_getcontent($this->ch), true);
+		curl_multi_remove_handle($this->mh, $this->ch);
+		curl_multi_close($this->mh);
+		curl_close($this->ch);
 		if(!$json || empty($json["id"]) || @$json["name"] !== $this->username)
 		{
 			$this->disconnect(["text" => "Failed to authenticate against session server."]);
-			return false;
+			return 0;
 		}
 		return $json;
 	}

@@ -215,15 +215,7 @@ class Server
 							}
 							else if($packet_id == 0x01 && isset($con->username)) // Encryption Response
 							{
-								if($json = $con->handleEncryptionResponse($this->private_key))
-								{
-									$con->finishLogin(UUID::fromString($json["id"]), $this->eidCounter);
-									if($this->join_function)
-									{
-										($this->join_function)($con);
-									}
-									$con->next_heartbeat = microtime(true) + 15;
-								}
+								$con->handleEncryptionResponse($this->private_key);
 							}
 							else
 							{
@@ -252,12 +244,26 @@ class Server
 					if($con->disconnect_after != 0 && $con->disconnect_after <= microtime(true))
 					{
 						$con->close();
+						continue;
 					}
-					else if($con->next_heartbeat != 0 && $con->next_heartbeat <= microtime(true))
+					if($con->next_heartbeat != 0 && $con->next_heartbeat <= microtime(true))
 					{
 						(new KeepAliveRequestPacket(time()))->send($con);
 						$con->next_heartbeat = 0;
 						$con->disconnect_after = microtime(true) + 30;
+					}
+					if($con->state == 2 && $con->isAuthenticationPending())
+					{
+						$res = $con->handleAuthentication();
+						if(gettype($res) == "array")
+						{
+							$con->finishLogin(new UUID($res["id"]), $this->eidCounter);
+							if($this->join_function)
+							{
+								($this->join_function)($con);
+							}
+							$con->next_heartbeat = microtime(true) + 15;
+						}
 					}
 				}
 				catch(Exception $e)
