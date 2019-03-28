@@ -563,20 +563,25 @@ class Connection
 
 	/**
 	 * Reads a string from the read buffer.
-	 * @param integer $maxLength
+	 * @param integer $maxLength The maxmium amount of bytes this string may use.
+	 * @param integer $minLength The minimum amount of bytes this string must use.
 	 * @throws Exception When there are not enough bytes to read a string or the string exceeds $maxLength.
 	 * @return string
 	 */
-	function readString($maxLength = 32767)
+	function readString($maxLength = 32767, $minLength = -1)
 	{
 		$length = $this->readVarInt();
 		if($length == 0)
 		{
 			return "";
 		}
-		if($length > (($maxLength * 4) + 3))
+		if($length > $maxLength)
 		{
-			throw new Exception("The string on the wire apparently has {$length} bytes which exceeds ".(($maxLength * 4) + 3).".");
+			throw new Exception("The string on the wire apparently has {$length} bytes which exceeds {$maxLength}.");
+		}
+		if($length < $minLength)
+		{
+			throw new Exception("This string on the wire apparently has {$length} bytes but at least {$minLength} are required.");
 		}
 		if($length > strlen($this->read_buffer))
 		{
