@@ -59,7 +59,7 @@ class ClientConnection extends Connection
 	 * After this, you should call ClientConnection::handleInitialPacket().
 	 * @param resource $stream
 	 */
-	function __construct($stream)
+	public function __construct($stream)
 	{
 		parent::__construct(-1, $stream);
 	}
@@ -70,7 +70,7 @@ class ClientConnection extends Connection
 	 * Errors will cause the connection to be closed.
 	 * @return integer Status: 0 = An error occured and the connection has been closed. 1 = Handshake was successfully read; use Connection::$state to see if the client wants to get the status (1) or login to play (2). 2 = A legacy list ping packet has been received.
 	 */
-	function handleInitialPacket()
+	public function handleInitialPacket()
 	{
 		try
 		{
@@ -123,7 +123,7 @@ class ClientConnection extends Connection
 	 * Returns the host the client had connected to, e.g. localhost:25565.
 	 * @return string
 	 */
-	function getHost()
+	public function getHost()
 	{
 		return $this->hostname.":".$this->hostport;
 	}
@@ -134,7 +134,7 @@ class ClientConnection extends Connection
 	 * @return ClientConnection $this
 	 * @throws Exception
 	 */
-	function sendEncryptionRequest($private_key)
+	public function sendEncryptionRequest($private_key)
 	{
 		if($this->state == 2)
 		{
@@ -155,7 +155,7 @@ class ClientConnection extends Connection
 	 * @return boolean
 	 * @throws Exception
 	 */
-	function handleEncryptionResponse($private_key)
+	public function handleEncryptionResponse($private_key)
 	{
 		openssl_private_decrypt($this->readString(), $shared_secret, $private_key, OPENSSL_PKCS1_PADDING);
 		openssl_private_decrypt($this->readString(), $verify_token, $private_key, OPENSSL_PKCS1_PADDING);
@@ -182,7 +182,7 @@ class ClientConnection extends Connection
 	 * @return boolean
 	 * @see ClientConnection::handleAuthentication
 	 */
-	function isAuthenticationPending()
+	public function isAuthenticationPending()
 	{
 		return $this->mh !== null;
 	}
@@ -206,7 +206,7 @@ class ClientConnection extends Connection
 	 * @return integer|array
 	 * @see ClientConnection::isAuthenticationPending
 	 */
-	function handleAuthentication()
+	public function handleAuthentication()
 	{
 		$active = 0;
 		curl_multi_exec($this->mh, $active);
@@ -234,7 +234,7 @@ class ClientConnection extends Connection
 	 * @return ClientConnection $this
 	 * @throws Exception
 	 */
-	function finishLogin(UUID $uuid, Counter $eidCounter, $compression_threshold = 256)
+	public function finishLogin(UUID $uuid, Counter $eidCounter, $compression_threshold = 256)
 	{
 		if($this->state == 2)
 		{
@@ -260,7 +260,7 @@ class ClientConnection extends Connection
 	 * Disconnects the client with a reason.
 	 * @param array $reason The reason of the disconnect; chat object.
 	 */
-	function disconnect($reason = [])
+	public function disconnect($reason = [])
 	{
 		if($reason && $this->state > 1)
 		{
@@ -288,7 +288,7 @@ class ClientConnection extends Connection
 	 * @return Connection $this
 	 * @throws Exception
 	 */
-	function startPacket($packet)
+	public function startPacket($packet)
 	{
 		if(gettype($packet) == "string")
 		{

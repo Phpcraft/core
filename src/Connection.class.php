@@ -47,7 +47,7 @@ class Connection
 	 * @param integer $protocol_version
 	 * @param resource $stream
 	 */
-	function __construct($protocol_version = -1, $stream = null)
+	public function __construct($protocol_version = -1, $stream = null)
 	{
 		$this->protocol_version = $protocol_version;
 		if($stream)
@@ -61,7 +61,7 @@ class Connection
 	 * Returns whether the stream is (still) open.
 	 * @return boolean
 	 */
-	function isOpen()
+	public function isOpen()
 	{
 		return $this->stream != null && @feof($this->stream) === false;
 	}
@@ -70,7 +70,7 @@ class Connection
 	 * Closes the stream.
 	 * @return void
 	 */
-	function close()
+	public function close()
 	{
 		if($this->stream != null)
 		{
@@ -85,7 +85,7 @@ class Connection
 	 * @param boolean $signed
 	 * @return Connection $this
 	 */
-	function writeByte($value, $signed = false)
+	public function writeByte($value, $signed = false)
 	{
 		$this->write_buffer .= pack(($signed ? "c" : "C"), $value);
 		return $this;
@@ -96,7 +96,7 @@ class Connection
 	 * @param boolean $value
 	 * @return Connection this
 	 */
-	function writeBoolean($value)
+	public function writeBoolean($value)
 	{
 		$this->write_buffer .= pack("C", ($value ? 1 : 0));
 		return $this;
@@ -107,7 +107,7 @@ class Connection
 	 * @param integer $value
 	 * @return Connection $this
 	 */
-	function writeVarInt($value)
+	public function writeVarInt($value)
 	{
 		$this->write_buffer .= Phpcraft::intToVarInt($value);
 		return $this;
@@ -118,7 +118,7 @@ class Connection
 	 * @param string $value
 	 * @return Connection $this
 	 */
-	function writeString($value)
+	public function writeString($value)
 	{
 		$this->write_buffer .= Phpcraft::intToVarInt(strlen($value)).$value;
 		return $this;
@@ -130,7 +130,7 @@ class Connection
 	 * @return Connection $this
 	 * @throws Exception
 	 */
-	function writeChat($value)
+	public function writeChat($value)
 	{
 		if(gettype($value) == "string")
 		{
@@ -149,7 +149,7 @@ class Connection
 	 * @param string $value
 	 * @return Connection $this
 	 */
-	function writeRaw($value)
+	public function writeRaw($value)
 	{
 		$this->write_buffer .= $value;
 		return $this;
@@ -161,7 +161,7 @@ class Connection
 	 * @param boolean $signed
 	 * @return Connection $this
 	 */
-	function writeShort($value, $signed = false)
+	public function writeShort($value, $signed = false)
 	{
 		if($signed && $value > 0x7FFF)
 		{
@@ -177,7 +177,7 @@ class Connection
 	 * @param boolean $signed
 	 * @return Connection $this
 	 */
-	function writeInt($value, $signed = false)
+	public function writeInt($value, $signed = false)
 	{
 		if($signed && $value > 0x7FFFFFFF)
 		{
@@ -193,7 +193,7 @@ class Connection
 	 * @param boolean $signed
 	 * @return Connection $this
 	 */
-	function writeLong($value, $signed = false)
+	public function writeLong($value, $signed = false)
 	{
 		if($signed && $value > 0x7FFFFFFFFFFFFFFF)
 		{
@@ -208,7 +208,7 @@ class Connection
 	 * @param float $value
 	 * @return Connection $this
 	 */
-	function writeFloat($value)
+	public function writeFloat($value)
 	{
 		$this->write_buffer .= pack("G", $value);
 		return $this;
@@ -219,7 +219,7 @@ class Connection
 	 * @param float $value
 	 * @return Connection $this
 	 */
-	function writeDouble($value)
+	public function writeDouble($value)
 	{
 		$this->write_buffer .= pack("E", $value);
 		return $this;
@@ -230,7 +230,7 @@ class Connection
 	 * @param Position $pos
 	 * @return Connection $this
 	 */
-	function writePosition(Position $pos)
+	public function writePosition(Position $pos)
 	{
 		return $this->writeLong((($pos->x & 0x3FFFFFF) << 38) | (($pos->y & 0xFFF) << 26) | ($pos->z & 0x3FFFFFF));
 	}
@@ -240,7 +240,7 @@ class Connection
 	 * @param Position $pos
 	 * @return Connection $this
 	 */
-	function writePrecisePosition(Position $pos)
+	public function writePrecisePosition(Position $pos)
 	{
 		$this->writeDouble($pos->x);
 		$this->writeDouble($pos->y);
@@ -252,7 +252,7 @@ class Connection
 	 * @param Position $pos
 	 * @return Connection $this
 	 */
-	function writeFixedPointPosition(Position $pos)
+	public function writeFixedPointPosition(Position $pos)
 	{
 		$this->writeInt(intval($pos->x * 32));
 		$this->writeInt(intval($pos->y * 32));
@@ -265,7 +265,7 @@ class Connection
 	 * @return Connection $this
 	 * @throws Exception
 	 */
-	function writeSlot(Slot $slot)
+	public function writeSlot(Slot $slot)
 	{
 		if(Slot::isEmpty($slot))
 		{
@@ -337,7 +337,7 @@ class Connection
 	 * @param UUID $uuid
 	 * @return Connection $this
 	 */
-	function writeUUID(UUID $uuid)
+	public function writeUUID(UUID $uuid)
 	{
 		$this->write_buffer .= $uuid->binary;
 		return $this;
@@ -349,7 +349,7 @@ class Connection
 	 * @return Connection $this
 	 * @throws Exception
 	 */
-	function startPacket($packet)
+	public function startPacket($packet)
 	{
 		if(gettype($packet) == "string")
 		{
@@ -374,7 +374,7 @@ class Connection
 	 * @throws Exception If the connection is not open.
 	 * @return Connection $this
 	 */
-	function send($raw = false)
+	public function send($raw = false)
 	{
 		if($this->stream != null)
 		{
@@ -422,7 +422,7 @@ class Connection
 	 * @param integer $bytes The exact amount of bytes you would like to receive. 0 means read up to 8 KiB.
 	 * @return boolean True on success.
 	 */
-	function readRawPacket($timeout = 3.000, $bytes = 0)
+	public function readRawPacket($timeout = 3.000, $bytes = 0)
 	{
 		$start = microtime(true);
 		if($bytes == 0)
@@ -465,7 +465,7 @@ class Connection
 	 * @see Packet::clientboundPacketIdToName()
 	 * @see Packet::serverboundPacketIdToName()
 	 */
-	function readPacket($timeout = 3.000)
+	public function readPacket($timeout = 3.000)
 	{
 		$start = microtime(true);
 		$length = 0;
@@ -524,7 +524,7 @@ class Connection
 	 * @param integer $bytes
 	 * @return string
 	 */
-	function readRaw($bytes)
+	public function readRaw($bytes)
 	{
 		$str = substr($this->read_buffer, 0, $bytes);
 		$this->read_buffer = substr($this->read_buffer, $bytes);
@@ -536,7 +536,7 @@ class Connection
 	 * @throws Exception When there are not enough bytes to read a VarInt or the VarInt is too big.
 	 * @return integer
 	 */
-	function readVarInt()
+	public function readVarInt()
 	{
 		$value = 0;
 		$read = 0;
@@ -568,7 +568,7 @@ class Connection
 	 * @throws Exception When there are not enough bytes to read a string or the string exceeds $maxLength.
 	 * @return string
 	 */
-	function readString($maxLength = 32767, $minLength = -1)
+	public function readString($maxLength = 32767, $minLength = -1)
 	{
 		$length = $this->readVarInt();
 		if($length == 0)
@@ -597,7 +597,7 @@ class Connection
 	 * @throws Exception When there are not enough bytes to read the string.
 	 * @return array
 	 */
-	function readChat()
+	public function readChat()
 	{
 		return json_decode($this->readString(), true);
 	}
@@ -608,7 +608,7 @@ class Connection
 	 * @throws Exception When there are not enough bytes to read a byte.
 	 * @return integer
 	 */
-	function readByte($signed = false)
+	public function readByte($signed = false)
 	{
 		if(strlen($this->read_buffer) < 1)
 		{
@@ -624,7 +624,7 @@ class Connection
 	 * @throws Exception When there are not enough bytes to read a boolean.
 	 * @return boolean
 	 */
-	function readBoolean()
+	public function readBoolean()
 	{
 		if(strlen($this->read_buffer) < 1)
 		{
@@ -641,7 +641,7 @@ class Connection
 	 * @throws Exception When there are not enough bytes to read a short.
 	 * @return integer
 	 */
-	function readShort($signed = true)
+	public function readShort($signed = true)
 	{
 		if(strlen($this->read_buffer) < 2)
 		{
@@ -662,7 +662,7 @@ class Connection
 	 * @throws Exception When there are not enough bytes to read an integer.
 	 * @return integer
 	 */
-	function readInt($signed = false)
+	public function readInt($signed = false)
 	{
 		if(strlen($this->read_buffer) < 4)
 		{
@@ -683,7 +683,7 @@ class Connection
 	 * @throws Exception When there are not enough bytes to read a long.
 	 * @return integer
 	 */
-	function readLong($signed = false)
+	public function readLong($signed = false)
 	{
 		if(strlen($this->read_buffer) < 8)
 		{
@@ -703,7 +703,7 @@ class Connection
 	 * @throws Exception When there are not enough bytes to read a position.
 	 * @return Position
 	 */
-	function readPosition()
+	public function readPosition()
 	{
 		$val = $this->readLong();
 		$x = $val >> 38;
@@ -717,7 +717,7 @@ class Connection
 	 * @throws Exception When there are not enough bytes to read a position.
 	 * @return Position
 	 */
-	function readPrecisePosition()
+	public function readPrecisePosition()
 	{
 		return new Position($this->readDouble(), $this->readDouble(), $this->readDouble());
 	}
@@ -727,7 +727,7 @@ class Connection
 	 * @throws Exception When there are not enough bytes to read a position.
 	 * @return Position
 	 */
-	function readFixedPointPosition()
+	public function readFixedPointPosition()
 	{
 		return new Position($this->readInt(true) / 32, $this->readInt(true) / 32, $this->readInt(true) / 32);
 	}
@@ -737,7 +737,7 @@ class Connection
 	 * @throws Exception When there are not enough bytes to read a float.
 	 * @return float
 	 */
-	function readFloat()
+	public function readFloat()
 	{
 		if(strlen($this->read_buffer) < 4)
 		{
@@ -753,7 +753,7 @@ class Connection
 	 * @throws Exception When there are not enough bytes to read a double.
 	 * @return float
 	 */
-	function readDouble()
+	public function readDouble()
 	{
 		if(strlen($this->read_buffer) < 8)
 		{
@@ -769,7 +769,7 @@ class Connection
 	 * @throws Exception When there are not enough bytes to read a UUID.
 	 * @return UUID
 	 */
-	function readUUID()
+	public function readUUID()
 	{
 		if(strlen($this->read_buffer) < 16)
 		{
@@ -786,7 +786,7 @@ class Connection
 	 * @return NbtTag
 	 * @throws Exception
 	 */
-	function readNBT($type = 0)
+	public function readNBT($type = 0)
 	{
 		$inList = $type > 0;
 		if(!$inList)
@@ -876,7 +876,7 @@ class Connection
 	 * @return Slot
 	 * @throws Exception
 	 */
-	function readSlot($additional_processing = true)
+	public function readSlot($additional_processing = true)
 	{
 		$slot = new Slot();
 		if($this->protocol_version >= 402)
@@ -972,7 +972,7 @@ class Connection
 	 * @return Connection $this
 	 * @throws Exception
 	 */
-	function ignoreBytes($bytes)
+	public function ignoreBytes($bytes)
 	{
 		if(strlen($this->read_buffer) < $bytes)
 		{
