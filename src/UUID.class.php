@@ -26,22 +26,16 @@ class UUID
 			{
 				throw new Exception("Invalid UUID: ".$uuid);
 			}
-			$this->binary = UUID::stringToBinary($uuid);
+			$this->binary = "";
+			for($i = 0; $i < 32; $i += 2)
+			{
+				$this->binary .= chr(intval(hexdec(substr($uuid, $i, 2))));
+			}
 		}
 		else
 		{
 			throw new Exception("Invalid UUID: ".$uuid);
 		}
-	}
-
-	private static function stringToBinary($str)
-	{
-		$binary = "";
-		for($i = 0; $i < 32; $i += 2)
-		{
-			$binary .= chr(intval(hexdec(substr($str, $i, 2))));
-		}
-		return $binary;
 	}
 
 	/**
