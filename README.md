@@ -13,7 +13,7 @@ First, we'll clone the repository and generate the autoload script:
 
 Next, we'll run a self check:
 
-	php selfcheck.php
+    php selfcheck.php
 
 If any dependencies are missing, run the given command(s), and then run the self check again.
 
@@ -31,12 +31,12 @@ Finally, you can use the Phpcraft CLI utilities:
 
 Thanks to [Composer](https://getcomposer.org/), using Phpcraft as a library is really easy. Just head into your project folder, and run:
 
-	apt-get -y install composer
-	composer require timmyrs/phpcraft:dev-master
+    apt-get -y install composer
+    composer require timmyrs/phpcraft:dev-master
 
 Next, we'll run a self check:
 
-	php vendor/timmyrs/phpcraft/selfcheck.php
+    php vendor/timmyrs/phpcraft/selfcheck.php
 
 If any dependencies are missing, run the given command(s), and then run the self check again.
 
