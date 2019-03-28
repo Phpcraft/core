@@ -34,18 +34,6 @@ class UUID
 		}
 	}
 
-	/**
-	 * Returns a UUID for the given string.
-	 * @param string $str
-	 * @return UUID
-	 * @throws Exception When the given string is not a valid UUID.
-	 * @deprecated Use the constructor, instead.
-	 */
-	public static function fromString($str)
-	{
-		return new UUID($str);
-	}
-
 	private static function stringToBinary($str)
 	{
 		$binary = "";

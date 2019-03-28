@@ -69,7 +69,7 @@ class ServerConnection extends Connection
 			}
 			else if($id == 0x02) // Login Success
 			{
-				$this->uuid = UUID::fromString($this->readString(36));
+				$this->uuid = new UUID($this->readString(36));
 				$this->username = $this->readString(16);
 				$this->state = 3;
 				break;
