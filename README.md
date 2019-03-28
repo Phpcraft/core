@@ -6,7 +6,7 @@ A PHP library for [all things](https://phpcraft.de/docs/namespacePhpcraft.html) 
 
 First, we'll clone the repository and generate the autoload script:
 
-    apt-get -y install php-cli composer git
+    sudo apt-get -y install php-cli composer git
     git clone https://github.com/timmyrs/Phpcraft
     cd Phpcraft
     composer install
@@ -31,7 +31,7 @@ Finally, you can use the Phpcraft CLI utilities:
 
 Thanks to [Composer](https://getcomposer.org/), using Phpcraft as a library is really easy. Just head into your project folder, and run:
 
-    apt-get -y install composer
+    sudo apt-get -y install composer
     composer require timmyrs/phpcraft:dev-master
 
 Next, we'll run a self check:
