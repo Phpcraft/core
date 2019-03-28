@@ -5,6 +5,7 @@ if(empty($argv))
 	die("This is for PHP-CLI. Connect to your server via SSH and use `php packets.php`.\n");
 }
 require "vendor/autoload.php";
+use Phpcraft\{ClientboundPacket, Connection, PacketId, ServerboundPacket, Versions};
 echo "PHP Minecraft Packet Dump Reader\nhttps://github.com/timmyrs/Phpcraft\n";
 if(empty($argv[1]) || empty($argv[2]))
 {
@@ -15,12 +16,12 @@ if(!in_array($argv[1], ["client", "server"]))
 	die("Invalid recipient '".$argv[1]."', expected 'client' or 'server'.\n");
 }
 $fh = fopen($argv[2], "r");
-$con = new \Phpcraft\Connection(-1, $fh);
+$con = new Connection(-1, $fh);
 if(!($pv = $con->readPacket()) || strlen($con->read_buffer) > 0)
 {
 	die("Failed to read protocol version.\nWrite 0x05 0xff 0xff 0xff 0xff 0x0f to the beginning of the file so protocol version -1 is detected.\n");
 }
-if($range = \Phpcraft\Versions::protocolToRange($pv))
+if($range = Versions::protocolToRange($pv))
 {
 	echo "Detected Minecraft $range (protocol version $pv).\n";
 }
@@ -61,11 +62,11 @@ while($id = $con->readPacket())
 	$size = strlen($con->read_buffer);
 	if($argv[1] == "client")
 	{
-		$packetId = \Phpcraft\ClientboundPacket::getById($id, $pv);
+		$packetId = ClientboundPacket::getById($id, $pv);
 	}
 	else
 	{
-		$packetId = \Phpcraft\ServerboundPacket::getById($id, $pv);
+		$packetId = ServerboundPacket::getById($id, $pv);
 	}
 	if($packetId)
 	{
@@ -79,7 +80,7 @@ while($id = $con->readPacket())
 	{
 		die(convertPacket($id, $name)." has no data.\n");
 	}
-	if($packetId instanceof \Phpcraft\PacketId && ($packet = $packetId->init($con)))
+	if($packetId instanceof PacketId && ($packet = $packetId->init($con)))
 	{
 		if($last_id)
 		{
