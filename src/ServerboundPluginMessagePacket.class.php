@@ -19,7 +19,7 @@ class ServerboundPluginMessagePacket extends PluginMessagePacket
 	 */
 	public static function read(Connection $con)
 	{
-		return self::_read($con, new ClientboundPluginMessagePacket());
+		return (new ServerboundPluginMessagePacket())->_read($con);
 	}
 
 	public function toString()

@@ -39,10 +39,10 @@ abstract class PluginMessagePacket extends Packet
 	/**
 	 * @param Connection $con
 	 * @param PluginMessagePacket $packet
-	 * @return mixed
+	 * @return void
 	 * @throws Exception
 	 */
-	protected static function _read(Connection $con, $packet)
+	protected function _read(Connection $con)
 	{
 		if($con->protocol_version >= 385)
 		{
@@ -64,7 +64,6 @@ abstract class PluginMessagePacket extends Packet
 		}
 		$packet->data = $con->read_buffer;
 		$con->read_buffer = "";
-		return $packet;
 	}
 
 	/**
