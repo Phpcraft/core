@@ -38,6 +38,17 @@ else
 $apt = [];
 $pecl = [];
 
+if(extension_loaded("mbstring"))
+{
+	echo "./";
+}
+else
+{
+	echo "X";
+	array_push($apt, "mbstring");
+}
+echo " Multi-byte string library mbstring\n\n";
+
 if(extension_loaded("gmp"))
 {
 	echo "./";
