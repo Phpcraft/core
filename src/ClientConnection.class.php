@@ -150,25 +150,10 @@ class ClientConnection extends Connection
 	/**
 	 * Reads an encryption response packet and starts asynchronous authentication with Mojang.
 	 * This requires ClientConnection::$username to be set.
-	 * In case of an error, the client is disconnected and false is returned.
-	 * If Mojang's response was not yet received, 1 is returned.
-	 * If Mojang's response was recieved, and the authentication was successful, an array such as this is returned:
-	 * <pre>[
-	 *   "id" => "11111111222233334444555555555555",
-	 *   "name" => "Notch",
-	 *   "properties" => [
-	 *     [
-	 *       "name" => "textures",
-	 *       "value" => "<base64 string>",
-	 *       "signature" => "<base64 string; signed data using Yggdrasil's private key>"
-	 *     ]
-	 *   ]
-	 * ]</pre>
-	 * Using the `id` from this array, you should call ClientConnection::finishLogin.
+	 * In case of an error, the client is disconnected and false is returned. Otherwise, true is returned, and ClientConnection::handleAuthentication should be regularly called to finish the authentication.
 	 * @param resource $private_key Your OpenSSL private key resource.
 	 * @return boolean
 	 * @throws Exception
-	 * @see ClientConnection::handleAuthentication
 	 */
 	function handleEncryptionResponse($private_key)
 	{

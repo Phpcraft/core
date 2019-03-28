@@ -38,7 +38,6 @@ abstract class PluginMessagePacket extends Packet
 
 	/**
 	 * @param Connection $con
-	 * @param PluginMessagePacket $packet
 	 * @return void
 	 * @throws Exception
 	 */
