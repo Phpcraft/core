@@ -2,6 +2,8 @@
 
 A PHP library for [all things](https://phpcraft.de/docs/namespacePhpcraft.html) Minecraft: Java Edition.
 
+Note: Windows might work for some features, but it's not supported due to [a bug](https://bugs.php.net/bug.php?id=34972) and a general lack of features. Instead, use [the Windows Subsystem for Linux](https://aka.ms/wslinstall).
+
 ## Using the Phpcraft CLI utilities
 
 First, we'll clone the repository and generate the autoload script:
