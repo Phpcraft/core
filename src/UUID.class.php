@@ -10,17 +10,28 @@ class UUID
 	public $binary;
 
 	/**
-	 * @param string $binary The binary string containing the UUID.
-	 * @throws Exception When the given string is not a valid UUID binary string.
-	 * @see UUID::fromString
+	 * @param string $uuid A UUID string or binary string.
+	 * @throws Exception When the given string is not a valid UUID.
 	 */
-	public function __construct($binary)
+	public function __construct($uuid)
 	{
-		if(strlen($binary) != 16)
+		if(strlen($uuid) == 16)
 		{
-			throw new Exception("Invalid UUID binary string: {$binary}");
+			$this->binary = $uuid;
 		}
-		$this->binary = $binary;
+		else if(strlen($uuid) >= 32)
+		{
+			$uuid = str_replace(["-", "{", "}"], "", $uuid);
+			if(strlen($uuid) != 32)
+			{
+				throw new Exception("Invalid UUID: ".$uuid);
+			}
+			$this->binary = UUID::stringToBinary($uuid);
+		}
+		else
+		{
+			throw new Exception("Invalid UUID: ".$uuid);
+		}
 	}
 
 	/**
@@ -28,32 +39,21 @@ class UUID
 	 * @param string $str
 	 * @return UUID
 	 * @throws Exception When the given string is not a valid UUID.
+	 * @deprecated Use the constructor, instead.
 	 */
 	public static function fromString($str)
 	{
-		$str = str_replace(["-", "{", "}"], "", $str);
-		if(strlen($str) != 32)
-		{
-			throw new Exception("Invalid UUID: $str");
-		}
-		return UUID::fromString_($str);
+		return new UUID($str);
 	}
 
-	private static function fromString_($str)
+	private static function stringToBinary($str)
 	{
 		$binary = "";
 		for($i = 0; $i < 32; $i += 2)
 		{
 			$binary .= chr(intval(hexdec(substr($str, $i, 2))));
 		}
-		try
-		{
-			return new UUID($binary);
-		}
-		catch(Exception $e)
-		{
-		}
-		return null;
+		return $binary;
 	}
 
 	/**
@@ -62,7 +62,7 @@ class UUID
 	 */
 	public static function v4()
 	{
-		return UUID::fromString_(sprintf("%04x%04x%04x%04x%04x%04x%04x%04x", mt_rand(0, 0xffff), mt_rand(0, 0xffff), mt_rand(0, 0xffff), (mt_rand(0, 0x0fff) | 0x4000), (mt_rand(0, 0x3fff) | 0x8000), mt_rand(0, 0xffff), mt_rand(0, 0xffff), mt_rand(0, 0xffff)));
+		return new UUID(sprintf("%04x%04x%04x%04x%04x%04x%04x%04x", mt_rand(0, 0xffff), mt_rand(0, 0xffff), mt_rand(0, 0xffff), (mt_rand(0, 0x0fff) | 0x4000), (mt_rand(0, 0x3fff) | 0x8000), mt_rand(0, 0xffff), mt_rand(0, 0xffff), mt_rand(0, 0xffff)));
 	}
 
 	/**
@@ -79,7 +79,7 @@ class UUID
 			$namespace = new UUID(str_repeat(chr(0), 16));
 		}
 		$hash = sha1($str.$namespace->binary);
-		return UUID::fromString_(sprintf("%08s%04s%04x%04x%12s", substr($hash, 0, 8), substr($hash, 8, 4), (hexdec(substr($hash, 12, 4)) & 0x0fff) | 0x5000, (hexdec(substr($hash, 16, 4)) & 0x3fff) | 0x8000, substr($hash, 20, 12)));
+		return new UUID(sprintf("%08s%04s%04x%04x%12s", substr($hash, 0, 8), substr($hash, 8, 4), (hexdec(substr($hash, 12, 4)) & 0x0fff) | 0x5000, (hexdec(substr($hash, 16, 4)) & 0x3fff) | 0x8000, substr($hash, 20, 12)));
 	}
 
 	/**
