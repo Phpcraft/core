@@ -45,10 +45,10 @@ if(extension_loaded("gmp"))
 else
 {
 	echo "✗";
-	array_push($apt, "gmp");
+	array_push($apt, "php-gmp");
 }
 echo " Full functionality of Connection and NbtTag\n  ";
-if(in_array("gmp", $apt))
+if(in_array("php-gmp", $apt))
 {
 	echo "✗";
 }
