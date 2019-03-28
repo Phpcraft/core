@@ -22,7 +22,7 @@ if($fh === false)
 $con = new Connection(-1, $fh);
 $WorldImitator_version = $con->readPacket();
 fclose($fh);
-echo "[WorldImitator] Loaded packets from ".Versions::protocolToRange($WorldImitator_version)[0]." (protocol version ".strval($WorldImitator_version).").\n";
+echo "[WorldImitator] Loaded packets from ".Versions::protocolToRange($WorldImitator_version)." (protocol version ".strval($WorldImitator_version).").\n";
 PluginManager::registerPlugin("WorldImitator", function(Plugin $plugin)
 {
 	$plugin->on("join", function(Event $event)

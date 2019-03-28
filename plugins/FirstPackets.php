@@ -22,12 +22,6 @@ PluginManager::registerPlugin("FirstPackets", function(Plugin $plugin)
 		{
 			return;
 		}
-		$packet = new JoinGamePacket();
-		$packet->eid = $con->eid;
-		$packet->gamemode = Gamemode::CREATIVE;
-		$packet->dimension = Dimension::OVERWORLD;
-		$packet->difficulty = Difficulty::PEACEFUL;
-		$packet->send($con);
 		$packet = new ClientboundPluginMessagePacket();
 		$packet->channel = PluginMessagePacket::CHANNEL_BRAND;
 		$packet->data = "\x08Phpcraft";
@@ -37,6 +31,12 @@ PluginManager::registerPlugin("FirstPackets", function(Plugin $plugin)
 		{
 			return;
 		}
+		$packet = new JoinGamePacket();
+		$packet->eid = $con->eid;
+		$packet->gamemode = Gamemode::CREATIVE;
+		$packet->dimension = Dimension::OVERWORLD;
+		$packet->difficulty = Difficulty::PEACEFUL;
+		$packet->send($con);
 		$con->startPacket("spawn_position");
 		$con->writePosition($con->pos = new Position(0, 16, 0));
 		$con->send();
