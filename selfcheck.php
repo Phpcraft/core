@@ -23,16 +23,16 @@ if(file_exists(__DIR__."/src/.cache"))
 	}
 	if($after == $before)
 	{
-		echo "🛈 {$after} cache entries\n\n";
+		echo "(i) {$after} cache entries\n\n";
 	}
 	else
 	{
-		echo "🛈 Removed ".($after - $before)." outdated cache entries; {$after} remain\n\n";
+		echo "(i) Removed ".($after - $before)." outdated cache entries; {$after} remain\n\n";
 	}
 }
 else
 {
-	echo "🛈 0 cache entries\n\n";
+	echo "(i) 0 cache entries\n\n";
 }
 
 $apt = [];
@@ -40,31 +40,31 @@ $pecl = [];
 
 if(extension_loaded("gmp"))
 {
-	echo "✓";
+	echo "./";
 }
 else
 {
-	echo "✗";
+	echo "X";
 	array_push($apt, "php-gmp");
 }
 echo " Full functionality of Connection and NbtTag\n  ";
 if(in_array("php-gmp", $apt))
 {
-	echo "✗";
+	echo "X";
 }
 else
 {
-	echo "✓";
+	echo "./";
 }
 echo " GMP\n\n";
 
 if(extension_loaded("openssl") && extension_loaded("curl") && extension_loaded("mcrypt"))
 {
-	echo "✓";
+	echo "./";
 }
 else
 {
-	echo "✗";
+	echo "X";
 	if(!extension_loaded("openssl"))
 	{
 		array_push($apt, "openssl");
@@ -89,29 +89,29 @@ else
 echo " \"Online mode\" functionality\n  ";
 if(in_array("openssl", $apt))
 {
-	echo "✗";
+	echo "X";
 }
 else
 {
-	echo "✓";
+	echo "./";
 }
 echo " OpenSSL\n  ";
 if(in_array("php-curl", $apt))
 {
-	echo "✗";
+	echo "X";
 }
 else
 {
-	echo "✓";
+	echo "./";
 }
 echo " cURL\n  ";
 if(extension_loaded("mcrypt"))
 {
-	echo "✓";
+	echo "./";
 }
 else
 {
-	echo "✗";
+	echo "X";
 }
 echo " mcrypt\n\n";
 
