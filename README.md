@@ -9,7 +9,7 @@ First, we'll clone the repository and generate the autoload script:
     apt-get -y install php-cli composer git
     git clone https://github.com/timmyrs/Phpcraft
     cd Phpcraft
-    composer install --no-dev
+    composer install
 
 Next, we'll run a self check:
 

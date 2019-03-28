@@ -11,12 +11,5 @@
 	"require": {
 		"php": "^7.0",
 		"ext-json": "^1.4"
-	},
-	"require-dev": {
-		"ext-curl": "^7.0",
-		"ext-gmp": "^7.0",
-		"ext-mbstring": "^7.0",
-		"ext-mcrypt": "^7.0",
-		"ext-openssl": "^7.0"
 	}
 }
