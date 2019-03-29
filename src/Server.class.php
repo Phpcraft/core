@@ -63,7 +63,7 @@ class Server
 		}
 		$this->private_key = $private_key;
 		$this->eidCounter = new Counter();
-		$this->list_ping_function = function($con)
+		$this->list_ping_function = function(ClientConnection $con)
 		{
 			$players = [];
 			foreach($this->clients as $client)
@@ -307,7 +307,7 @@ class Server
 
 	/**
 	 * Closes all client connections and the server socket.
-	 * @param array $reason The reason for closing the server; chat object.
+	 * @param array|string $reason The reason for closing the server; chat object.
 	 */
 	public function close($reason = [])
 	{

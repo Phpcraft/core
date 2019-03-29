@@ -9,11 +9,11 @@ class EntityLiving extends EntityBase
 
 	/**
 	 * @param Connection $con
-	 * @param $index
-	 * @return bool
+	 * @param integer $index
+	 * @return boolean
 	 * @throws Exception
 	 */
-	protected function read_(Connection $con, $index)
+	protected function read_(Connection $con, int $index)
 	{
 		switch($index)
 		{
@@ -38,7 +38,6 @@ class EntityLiving extends EntityBase
 	/**
 	 * Writes this non-null metadata values to the Connection's write buffer.
 	 * @param Connection $con
-	 * @return void
 	 * @throws Exception
 	 */
 	public function write(Connection $con)

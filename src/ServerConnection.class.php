@@ -10,7 +10,7 @@ class ServerConnection extends Connection
 	 * @param resource $stream A stream created by fsockopen.
 	 * @param integer $protocol_version 404 = 1.13.2
 	 */
-	public function __construct($stream, $protocol_version = 404)
+	public function __construct(int $stream, int $protocol_version = 404)
 	{
 		parent::__construct($protocol_version, $stream);
 	}
@@ -24,7 +24,7 @@ class ServerConnection extends Connection
 	 * @return ServerConnection $this
 	 * @throws Exception
 	 */
-	public function sendHandshake($server_name, $server_port, $next_state)
+	public function sendHandshake(string $server_name, int $server_port, int $next_state)
 	{
 		$this->writeVarInt(0x00);
 		$this->writeVarInt($this->protocol_version);
@@ -43,7 +43,7 @@ class ServerConnection extends Connection
 	 * @return string Error message. Empty on success.
 	 * @throws Exception
 	 */
-	public function login(Account $account, $translations = null)
+	public function login(Account $account, array $translations = null)
 	{
 		$this->writeVarInt(0x00);
 		$this->writeString($account->username);

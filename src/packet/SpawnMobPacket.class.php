@@ -33,7 +33,7 @@ class SpawnMobPacket extends Packet
 	 * @param EntityType $type The type of mob.
 	 * @param UUID $uuid The UUID of the entity.
 	 */
-	public function __construct($eid = 0, $type = null, $uuid = null)
+	public function __construct(int $eid = 0, EntityType $type = null, UUID $uuid = null)
 	{
 		$this->eid = $eid;
 		if($type)
@@ -90,7 +90,6 @@ class SpawnMobPacket extends Packet
 	/**
 	 * Adds the packet's ID and payload to the Connection's write buffer and, if the connection has a stream, sends it over the wire.
 	 * @param Connection $con
-	 * @return void
 	 * @throws Exception
 	 */
 	public function send(Connection $con)

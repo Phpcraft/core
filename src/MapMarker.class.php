@@ -79,7 +79,7 @@ class MapMarker
 	 * @param integer $rotation The rotation of the marker divided by 22.5°, so it has a value between 0 and 15.
 	 * @param array $name The display name of this marker; chat object. Only visible to 1.13+ clients.
 	 */
-	public function __construct($type = 0, $x = 0, $z = 0, $rotation = 0, $name = [])
+	public function __construct(int $type = MapMarker::TYPE_WHITE_ARROW, int $x = 0, int $z = 0, int $rotation = 0, array $name = [])
 	{
 		$this->type = $type;
 		$this->x = $x;

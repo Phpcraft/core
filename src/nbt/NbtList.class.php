@@ -17,9 +17,9 @@ class NbtList extends NbtTag
 	/**
 	 * @param string $name The name of this tag.
 	 * @param integer $childType The NBT Tag Type of children.
-	 * @param array $children The child tags of the list.
+	 * @param $children NbtTag[] The child tags of the list.
 	 */
-	public function __construct($name, $childType, $children = [])
+	public function __construct(string $name, int $childType, array $children = [])
 	{
 		$this->name = $name;
 		$this->childType = $childType;
@@ -32,7 +32,7 @@ class NbtList extends NbtTag
 	 * @param boolean $inList Ignore this parameter.
 	 * @return Connection $con
 	 */
-	public function write(Connection $con, $inList = false)
+	public function write(Connection $con, bool $inList = false)
 	{
 		if(!$inList)
 		{

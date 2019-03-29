@@ -13,7 +13,7 @@ class UUID
 	 * @param string $uuid A UUID string or binary string.
 	 * @throws Exception When the given string is not a valid UUID.
 	 */
-	public function __construct($uuid)
+	public function __construct(string $uuid)
 	{
 		if(strlen($uuid) == 16)
 		{
@@ -78,7 +78,7 @@ class UUID
 	 * @param boolean $withDashes
 	 * @return string
 	 */
-	public function toString($withDashes = false)
+	public function toString(bool $withDashes = false)
 	{
 		$str = "";
 		for($i = 0; $i < 16; $i++)

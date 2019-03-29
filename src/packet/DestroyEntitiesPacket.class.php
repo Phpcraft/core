@@ -11,7 +11,7 @@ class DestroyEntitiesPacket extends Packet
 	/**
 	 * @param $eids integer[] An array of the IDs of the entities to be destroyed.
 	 */
-	public function __construct($eids = [])
+	public function __construct(array $eids = [])
 	{
 		$this->eids = $eids;
 	}
@@ -35,7 +35,6 @@ class DestroyEntitiesPacket extends Packet
 	/**
 	 * Adds the packet's ID and payload to the Connection's write buffer and, if the connection has a stream, sends it over the wire.
 	 * @param Connection $con
-	 * @return void
 	 * @throws Exception
 	 */
 	public function send(Connection $con)

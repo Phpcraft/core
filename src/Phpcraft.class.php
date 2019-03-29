@@ -79,9 +79,8 @@ abstract class Phpcraft
 	/**
 	 * Saves the profiles array into Minecraft's launcher_profiles.json.
 	 * @param array $profiles
-	 * @return void
 	 */
-	public static function saveProfiles($profiles)
+	public static function saveProfiles(array $profiles)
 	{
 		file_put_contents(Phpcraft::getProfilesFile(), json_encode($profiles, JSON_PRETTY_PRINT));
 	}
@@ -96,7 +95,7 @@ abstract class Phpcraft
 	 * @see getCachableResource
 	 * @see maintainCache
 	 */
-	public static function getCachableJson($url, $caching_duration = 2678400)
+	public static function getCachableJson(string $url, int $caching_duration = 2678400)
 	{
 		if(!isset(self::$json_cache[$url]))
 		{
@@ -113,7 +112,7 @@ abstract class Phpcraft
 	 * @see getCachableJson
 	 * @see maintainCache
 	 */
-	public static function getCachableResource($url, $caching_duration = 86400)
+	public static function getCachableResource(string $url, int $caching_duration = 86400)
 	{
 		self::maintainCache();
 		$cache = [];
@@ -134,7 +133,6 @@ abstract class Phpcraft
 
 	/**
 	 * Deletes expired cache entries.
-	 * @return void
 	 * @see getCachableJson
 	 * @see getCachableResource
 	 */
@@ -169,7 +167,6 @@ abstract class Phpcraft
 	/**
 	 * Downloads various resources which might be needed during runtime but are not yet in the disk cache, and populates the memory cache.
 	 * This improves performance for BlockMaterial, Item, PacketId, EntityType, and EntityMetadata::read.
-	 * @return void
 	 */
 	public static function populateCache()
 	{
@@ -184,7 +181,7 @@ abstract class Phpcraft
 	 * @param string $name
 	 * @return boolean True if the name is valid.
 	 */
-	public static function validateName($name)
+	public static function validateName(string $name)
 	{
 		if(strlen($name) < 3 || strlen($name) > 16)
 		{
@@ -216,7 +213,7 @@ abstract class Phpcraft
 	 * @param array $data
 	 * @return array
 	 */
-	public static function httpPOST($url, $data)
+	public static function httpPOST(string $url, array $data)
 	{
 		$res = @file_get_contents($url, false, stream_context_create([
 			"http" => [
@@ -242,7 +239,7 @@ abstract class Phpcraft
 	 * @param string $server The server address, e.g. localhost
 	 * @return string The resolved address, e.g. localhost:25565
 	 */
-	public static function resolve($server)
+	public static function resolve(string $server)
 	{
 		$arr = explode(":", $server);
 		if(count($arr) > 1)
@@ -252,7 +249,7 @@ abstract class Phpcraft
 		return Phpcraft::resolveName($server, true);
 	}
 
-	private static function resolveName($server, $withPort = true)
+	private static function resolveName(string $server, bool $withPort = true)
 	{
 		if(ip2long($server) === false && $res = @dns_get_record("_minecraft._tcp.{$server}", DNS_SRV))
 		{
@@ -267,7 +264,7 @@ abstract class Phpcraft
 	 * @param integer $value
 	 * @return string
 	 */
-	public static function intToVarInt($value)
+	public static function intToVarInt(int $value)
 	{
 		if($value < 0)
 		{
@@ -288,7 +285,7 @@ abstract class Phpcraft
 		return $bytes;
 	}
 
-	public static function binaryStringToHex($str)
+	public static function binaryStringToHex(string $str)
 	{
 		$hex_str = "";
 		foreach(str_split($str) as $char)
@@ -309,7 +306,7 @@ abstract class Phpcraft
 	 * @param string $str
 	 * @return string
 	 */
-	public static function sha1($str)
+	public static function sha1(string $str)
 	{
 		$gmp = gmp_import(sha1($str, true));
 		if(gmp_cmp($gmp, gmp_init("0x8000000000000000000000000000000000000000")) >= 0)
@@ -327,7 +324,7 @@ abstract class Phpcraft
 	 * @param boolean $child Ignore this parameter.
 	 * @return array
 	 */
-	public static function textToChat($str, $allowAmp = false, &$i = 0, $child = false)
+	public static function textToChat(string $str, bool $allowAmp = false, int &$i = 0, bool $child = false)
 	{
 		if(strpos($str, "§") === false && (!$allowAmp || strpos($str, "&") === false))
 		{
@@ -447,7 +444,7 @@ abstract class Phpcraft
 	 * @param array $parent Ignore this parameter.
 	 * @return string
 	 */
-	public static function chatToText($chat, int $format = 0, $translations = null, $parent = [])
+	public static function chatToText($chat, int $format = 0, array $translations = null, array $parent = [])
 	{
 		if($parent === [])
 		{
@@ -689,7 +686,7 @@ abstract class Phpcraft
 	 * @return array
 	 * @throws Exception
 	 */
-	public static function getServerStatus($server_name, $server_port = 25565, $timeout = 3.000, $method = 0)
+	public static function getServerStatus(string $server_name, int $server_port = 25565, float $timeout = 3.000, int $method = 0)
 	{
 		if($method != 2)
 		{
@@ -751,12 +748,12 @@ abstract class Phpcraft
 	}
 
 	/**
-	 * Calculates the "distance" between two colors.
-	 * @param array $rgb1 Array of 3 integers.
-	 * @param array $rgb2 Array of 3 integers.
+	 * Calculates the "distance" between two RGB arrays (each 3 integers).
+	 * @param $rgb1 integer[]
+	 * @param $rgb2 integer[]
 	 * @return integer
 	 */
-	public static function colorDiff($rgb1, $rgb2)
+	public static function colorDiff(array $rgb1, array $rgb2)
 	{
 		return abs($rgb1[0] - $rgb2[0]) + abs($rgb1[1] - $rgb2[1]) + abs($rgb1[2] - $rgb2[2]);
 	}
@@ -764,9 +761,8 @@ abstract class Phpcraft
 	/**
 	 * Recursively deletes a folder.
 	 * @param string $path
-	 * @return void
 	 */
-	public static function recursivelyDelete($path)
+	public static function recursivelyDelete(string $path)
 	{
 		if(substr($path, -1) == "/")
 		{

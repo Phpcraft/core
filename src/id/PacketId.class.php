@@ -15,7 +15,7 @@ abstract class PacketId extends Identifier
 		];
 	}
 
-	protected static function _all($key, $name_map, $func)
+	protected static function _all(string $key, array $name_map, callable $func)
 	{
 		$packets = [];
 		foreach(array_reverse(self::versions(), true) as $pv => $v)
@@ -28,7 +28,7 @@ abstract class PacketId extends Identifier
 				}
 				if(!isset($packets[$name]))
 				{
-					$packets[$name] = ($func)($name, $pv);
+					$packets[$name] = $func($name, $pv);
 				}
 			}
 		}
@@ -44,13 +44,13 @@ abstract class PacketId extends Identifier
 		return array_merge(ClientboundPacket::all(), ServerboundPacket::all());
 	}
 
-	protected function __construct($name, $since_protocol_version)
+	protected function __construct(string $name, int $since_protocol_version)
 	{
 		$this->name = $name;
 		$this->since_protocol_version = $since_protocol_version;
 	}
 
-	protected function _getId($protocol_version, $key, $name_map)
+	protected function _getId(int $protocol_version, string $key, array $name_map)
 	{
 		foreach(self::versions() as $pv => $v)
 		{

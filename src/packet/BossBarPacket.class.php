@@ -24,7 +24,7 @@ abstract class BossBarPacket extends Packet
 	/**
 	 * @param UUID $uuid The UUID of the boss bar.
 	 */
-	public function __construct($uuid = null)
+	public function __construct(UUID $uuid = null)
 	{
 		$this->uuid = $uuid;
 	}

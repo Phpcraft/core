@@ -11,7 +11,7 @@ abstract class EntityMetadata
 	 * @param string $type
 	 * @throws Exception
 	 */
-	private static function ignoreType(Connection $con, $type)
+	private static function ignoreType(Connection $con, string $type)
 	{
 		switch($type)
 		{
@@ -165,12 +165,11 @@ abstract class EntityMetadata
 		return $this;
 	}
 
-	abstract protected function read_(Connection $con, $index);
+	abstract protected function read_(Connection $con, int $index);
 
 	/**
 	 * Writes this non-null metadata values to the Connection's write buffer.
 	 * @param Connection $con
-	 * @return void
 	 */
 	abstract public function write(Connection $con);
 
@@ -186,7 +185,7 @@ abstract class EntityMetadata
 		return "{".substr(get_called_class(), 9)."}";
 	}
 
-	public static function writeByte(Connection $con, $index, $value)
+	public static function writeByte(Connection $con, int $index, int $value)
 	{
 		$con->writeByte($index);
 		if($con->protocol_version >= 57)
@@ -196,7 +195,7 @@ abstract class EntityMetadata
 		$con->writeByte($value);
 	}
 
-	public static function writeFloat(Connection $con, $index, $value)
+	public static function writeFloat(Connection $con, int $index, float $value)
 	{
 		if($con->protocol_version >= 57)
 		{
@@ -210,7 +209,7 @@ abstract class EntityMetadata
 		$con->writeFloat($value);
 	}
 
-	public static function writeString(Connection $con, $index, $value)
+	public static function writeString(Connection $con, int $index, string $value)
 	{
 		if($con->protocol_version >= 57)
 		{
@@ -230,7 +229,7 @@ abstract class EntityMetadata
 	 * @param array|string $value
 	 * @throws Exception
 	 */
-	public static function writeOptChat(Connection $con, $index, $value)
+	public static function writeOptChat(Connection $con, int $index, $value)
 	{
 		if($con->protocol_version < 57)
 		{
@@ -249,7 +248,7 @@ abstract class EntityMetadata
 		}
 	}
 
-	public static function writeBoolean(Connection $con, $index, $value)
+	public static function writeBoolean(Connection $con, int $index, bool $value)
 	{
 		$con->writeByte($index);
 		if($con->protocol_version >= 57)

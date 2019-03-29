@@ -8,7 +8,7 @@ class KeepAliveRequestPacket extends Packet
 	/**
 	 * @param integer $keepAliveId The identifier of this keep alive packet. Defaults to current time.
 	 */
-	public function __construct($keepAliveId = null)
+	public function __construct(int $keepAliveId = null)
 	{
 		$this->keepAliveId = ($keepAliveId ? $keepAliveId : time());
 	}
@@ -27,7 +27,6 @@ class KeepAliveRequestPacket extends Packet
 	/**
 	 * Adds the packet's ID and payload to the Connection's write buffer and, if the connection has a stream, sends it over the wire.
 	 * @param Connection $con
-	 * @return void
 	 * @throws Exception
 	 */
 	public function send(Connection $con)

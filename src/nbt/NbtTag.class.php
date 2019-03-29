@@ -32,9 +32,9 @@ abstract class NbtTag
 	 * @param boolean $inList Ignore this parameter.
 	 * @return Connection $con
 	 */
-	abstract public function write(Connection $con, $inList = false);
+	abstract public function write(Connection $con, bool $inList = false);
 
-	protected function _write(Connection $con, $type)
+	protected function _write(Connection $con, int $type)
 	{
 		$con->writeByte($type);
 		$con->writeShort(strlen($this->name));

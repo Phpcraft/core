@@ -39,7 +39,7 @@ class ClientboundPacket extends PacketId
 	{
 		if(self::$all_cache == null)
 		{
-			self::$all_cache = self::_all("toClient", self::nameMap(), function($name, $pv)
+			self::$all_cache = self::_all("toClient", self::nameMap(), function(string $name, int $pv)
 			{
 				return new ClientboundPacket($name, $pv);
 			});
@@ -52,7 +52,7 @@ class ClientboundPacket extends PacketId
 	 * @param integer $protocol_version
 	 * @return integer
 	 */
-	public function getId($protocol_version)
+	public function getId(int $protocol_version)
 	{
 		return $protocol_version >= $this->since_protocol_version ? $this->_getId($protocol_version, "toClient", self::nameMap()) : null;
 	}

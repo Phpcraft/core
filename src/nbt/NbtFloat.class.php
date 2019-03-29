@@ -12,7 +12,7 @@ class NbtFloat extends NbtTag
 	 * @param string $name The name of this tag.
 	 * @param float $value The value of this tag.
 	 */
-	public function __construct($name, $value)
+	public function __construct(string $name, float $value = 0)
 	{
 		$this->name = $name;
 		$this->value = $value;
@@ -24,7 +24,7 @@ class NbtFloat extends NbtTag
 	 * @param boolean $inList Ignore this parameter.
 	 * @return Connection $con
 	 */
-	public function write(Connection $con, $inList = false)
+	public function write(Connection $con, bool $inList = false)
 	{
 		if(!$inList)
 		{

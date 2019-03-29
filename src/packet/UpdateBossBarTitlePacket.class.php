@@ -10,9 +10,9 @@ class UpdateBossBarTitlePacket extends BossBarPacket
 
 	/**
 	 * @param UUID $uuid The UUID of the boss bar.
-	 * @param array $title The "title" of the boss bar; chat object.
+	 * @param array|string $title The "title" of the boss bar; chat object.
 	 */
-	public function __construct($uuid = null, $title = ["text" => ""])
+	public function __construct(UUID $uuid = null, $title = ["text" => ""])
 	{
 		parent::__construct($uuid);
 		$this->title = $title;
@@ -21,7 +21,6 @@ class UpdateBossBarTitlePacket extends BossBarPacket
 	/**
 	 * Adds the packet's ID and payload to the Connection's write buffer and, if the connection has a stream, sends it over the wire.
 	 * @param Connection $con
-	 * @return void
 	 * @throws Exception
 	 */
 	public function send(Connection $con)

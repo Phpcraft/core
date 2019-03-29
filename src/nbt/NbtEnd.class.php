@@ -8,7 +8,7 @@ class NbtEnd extends NbtTag
 	 * @param boolean $inList Ignore this parameter.
 	 * @return Connection $con
 	 */
-	public function write(Connection $con, $inList = false)
+	public function write(Connection $con, bool $inList = false)
 	{
 		$con->writeByte(0);
 		return $con;

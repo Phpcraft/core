@@ -10,9 +10,9 @@ class NbtCompound extends NbtTag
 
 	/**
 	 * @param string $name The name of this tag.
-	 * @param array $children The child tags of the compound.
+	 * @param $children NbtTag[] The child tags of the compound.
 	 */
-	public function __construct($name, $children = [])
+	public function __construct(string $name, array $children = [])
 	{
 		$this->name = $name;
 		$this->children = $children;
@@ -23,7 +23,7 @@ class NbtCompound extends NbtTag
 	 * @param string $name
 	 * @return NbtTag
 	 */
-	public function getChild($name)
+	public function getChild(string $name)
 	{
 		foreach($this->children as $child)
 		{
@@ -40,7 +40,7 @@ class NbtCompound extends NbtTag
 	 * @param string $name
 	 * @return integer
 	 */
-	public function getChildIndex($name)
+	public function getChildIndex(string $name)
 	{
 		foreach($this->children as $i => $child)
 		{
@@ -82,7 +82,7 @@ class NbtCompound extends NbtTag
 	 * @param boolean $inList Ignore this parameter.
 	 * @return Connection $con
 	 */
-	public function write(Connection $con, $inList = false)
+	public function write(Connection $con, bool $inList = false)
 	{
 		if(!$inList)
 		{

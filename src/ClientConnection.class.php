@@ -234,7 +234,7 @@ class ClientConnection extends Connection
 	 * @return ClientConnection $this
 	 * @throws Exception
 	 */
-	public function finishLogin(UUID $uuid, Counter $eidCounter, $compression_threshold = 256)
+	public function finishLogin(UUID $uuid, Counter $eidCounter, int $compression_threshold = 256)
 	{
 		if($this->state == 2)
 		{
@@ -258,7 +258,7 @@ class ClientConnection extends Connection
 
 	/**
 	 * Disconnects the client with a reason.
-	 * @param array $reason The reason of the disconnect; chat object.
+	 * @param array|string $reason The reason of the disconnect; chat object.
 	 */
 	public function disconnect($reason = [])
 	{

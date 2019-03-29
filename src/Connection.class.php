@@ -47,7 +47,7 @@ class Connection
 	 * @param integer $protocol_version
 	 * @param resource $stream
 	 */
-	public function __construct($protocol_version = -1, $stream = null)
+	public function __construct(int $protocol_version = -1, $stream = null)
 	{
 		$this->protocol_version = $protocol_version;
 		if($stream)
@@ -68,7 +68,6 @@ class Connection
 
 	/**
 	 * Closes the stream.
-	 * @return void
 	 */
 	public function close()
 	{
@@ -85,7 +84,7 @@ class Connection
 	 * @param boolean $signed
 	 * @return Connection $this
 	 */
-	public function writeByte($value, $signed = false)
+	public function writeByte(int $value, bool $signed = false)
 	{
 		$this->write_buffer .= pack(($signed ? "c" : "C"), $value);
 		return $this;
@@ -96,7 +95,7 @@ class Connection
 	 * @param boolean $value
 	 * @return Connection this
 	 */
-	public function writeBoolean($value)
+	public function writeBoolean(bool $value)
 	{
 		$this->write_buffer .= pack("C", ($value ? 1 : 0));
 		return $this;
@@ -107,7 +106,7 @@ class Connection
 	 * @param integer $value
 	 * @return Connection $this
 	 */
-	public function writeVarInt($value)
+	public function writeVarInt(int $value)
 	{
 		$this->write_buffer .= Phpcraft::intToVarInt($value);
 		return $this;
@@ -118,7 +117,7 @@ class Connection
 	 * @param string $value
 	 * @return Connection $this
 	 */
-	public function writeString($value)
+	public function writeString(string $value)
 	{
 		$this->write_buffer .= Phpcraft::intToVarInt(strlen($value)).$value;
 		return $this;
@@ -149,7 +148,7 @@ class Connection
 	 * @param string $value
 	 * @return Connection $this
 	 */
-	public function writeRaw($value)
+	public function writeRaw(string $value)
 	{
 		$this->write_buffer .= $value;
 		return $this;
@@ -161,7 +160,7 @@ class Connection
 	 * @param boolean $signed
 	 * @return Connection $this
 	 */
-	public function writeShort($value, $signed = false)
+	public function writeShort(int $value, bool $signed = false)
 	{
 		if($signed && $value > 0x7FFF)
 		{
@@ -177,7 +176,7 @@ class Connection
 	 * @param boolean $signed
 	 * @return Connection $this
 	 */
-	public function writeInt($value, $signed = false)
+	public function writeInt(int $value, bool $signed = false)
 	{
 		if($signed && $value > 0x7FFFFFFF)
 		{
@@ -193,7 +192,7 @@ class Connection
 	 * @param boolean $signed
 	 * @return Connection $this
 	 */
-	public function writeLong($value, $signed = false)
+	public function writeLong(int $value, bool $signed = false)
 	{
 		if($signed && $value > 0x7FFFFFFFFFFFFFFF)
 		{
@@ -208,7 +207,7 @@ class Connection
 	 * @param float $value
 	 * @return Connection $this
 	 */
-	public function writeFloat($value)
+	public function writeFloat(float $value)
 	{
 		$this->write_buffer .= pack("G", $value);
 		return $this;
@@ -216,10 +215,10 @@ class Connection
 
 	/**
 	 * Adds a double to the write buffer.
-	 * @param float $value
+	 * @param double $value
 	 * @return Connection $this
 	 */
-	public function writeDouble($value)
+	public function writeDouble(float $value)
 	{
 		$this->write_buffer .= pack("E", $value);
 		return $this;
@@ -374,7 +373,7 @@ class Connection
 	 * @throws Exception If the connection is not open.
 	 * @return Connection $this
 	 */
-	public function send($raw = false)
+	public function send(bool $raw = false)
 	{
 		if($this->stream != null)
 		{
@@ -422,7 +421,7 @@ class Connection
 	 * @param integer $bytes The exact amount of bytes you would like to receive. 0 means read up to 8 KiB.
 	 * @return boolean True on success.
 	 */
-	public function readRawPacket($timeout = 3.000, $bytes = 0)
+	public function readRawPacket(float $timeout = 3.000, int $bytes = 0)
 	{
 		$start = microtime(true);
 		if($bytes == 0)
@@ -465,7 +464,7 @@ class Connection
 	 * @see Packet::clientboundPacketIdToName()
 	 * @see Packet::serverboundPacketIdToName()
 	 */
-	public function readPacket($timeout = 3.000)
+	public function readPacket(float $timeout = 3.000)
 	{
 		$start = microtime(true);
 		$length = 0;
@@ -524,7 +523,7 @@ class Connection
 	 * @param integer $bytes
 	 * @return string
 	 */
-	public function readRaw($bytes)
+	public function readRaw(int $bytes)
 	{
 		$str = substr($this->read_buffer, 0, $bytes);
 		$this->read_buffer = substr($this->read_buffer, $bytes);
@@ -568,7 +567,7 @@ class Connection
 	 * @throws Exception When there are not enough bytes to read a string or the string exceeds $maxLength.
 	 * @return string
 	 */
-	public function readString($maxLength = 32767, $minLength = -1)
+	public function readString(int $maxLength = 32767, int $minLength = -1)
 	{
 		$length = $this->readVarInt();
 		if($length == 0)
@@ -608,7 +607,7 @@ class Connection
 	 * @throws Exception When there are not enough bytes to read a byte.
 	 * @return integer
 	 */
-	public function readByte($signed = false)
+	public function readByte(bool $signed = false)
 	{
 		if(strlen($this->read_buffer) < 1)
 		{
@@ -641,7 +640,7 @@ class Connection
 	 * @throws Exception When there are not enough bytes to read a short.
 	 * @return integer
 	 */
-	public function readShort($signed = true)
+	public function readShort(bool $signed = true)
 	{
 		if(strlen($this->read_buffer) < 2)
 		{
@@ -662,7 +661,7 @@ class Connection
 	 * @throws Exception When there are not enough bytes to read an integer.
 	 * @return integer
 	 */
-	public function readInt($signed = false)
+	public function readInt(bool $signed = false)
 	{
 		if(strlen($this->read_buffer) < 4)
 		{
@@ -683,7 +682,7 @@ class Connection
 	 * @throws Exception When there are not enough bytes to read a long.
 	 * @return integer
 	 */
-	public function readLong($signed = false)
+	public function readLong(bool $signed = false)
 	{
 		if(strlen($this->read_buffer) < 8)
 		{
@@ -786,7 +785,7 @@ class Connection
 	 * @return NbtTag
 	 * @throws Exception
 	 */
-	public function readNBT($type = 0)
+	public function readNBT(int $type = 0)
 	{
 		$inList = $type > 0;
 		if(!$inList)
@@ -876,7 +875,7 @@ class Connection
 	 * @return Slot
 	 * @throws Exception
 	 */
-	public function readSlot($additional_processing = true)
+	public function readSlot(bool $additional_processing = true)
 	{
 		$slot = new Slot();
 		if($this->protocol_version >= 402)
@@ -972,7 +971,7 @@ class Connection
 	 * @return Connection $this
 	 * @throws Exception
 	 */
-	public function ignoreBytes($bytes)
+	public function ignoreBytes(int $bytes)
 	{
 		if(strlen($this->read_buffer) < $bytes)
 		{

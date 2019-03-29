@@ -16,7 +16,7 @@ class SetExperiencePacket extends Packet
 	 * @param float $percent How many percent the experience bar is filled from 0.00 to 1.00.
 	 * @param integer $level
 	 */
-	public function __construct($percent = 0.00, $level = 0)
+	public function __construct(float $percent = 0.00, int $level = 0)
 	{
 		$this->percent = $percent;
 		$this->level = $level;
@@ -40,7 +40,6 @@ class SetExperiencePacket extends Packet
 	/**
 	 * Adds the packet's ID and payload to the Connection's write buffer and, if the connection has a stream, sends it over the wire.
 	 * @param Connection $con
-	 * @return void
 	 * @throws Exception
 	 */
 	public function send(Connection $con)

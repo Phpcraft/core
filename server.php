@@ -74,7 +74,7 @@ echo "Loading plugins...\n";
 PluginManager::loadPlugins();
 echo "Loaded ".count(PluginManager::$loaded_plugins)." plugin(s).\n";
 $ui->render();
-$ui->tabcomplete_function = function($word)
+$ui->tabcomplete_function = function(string $word)
 {
 	global $server;
 	$word = strtolower($word);

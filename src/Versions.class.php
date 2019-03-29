@@ -96,7 +96,7 @@ abstract class Versions
 	 * @param integer $protocol_version e.g., 340
 	 * @return boolean
 	 */
-	public static function protocolSupported($protocol_version)
+	public static function protocolSupported(int $protocol_version)
 	{
 		return in_array($protocol_version, Versions::all());
 	}
@@ -106,7 +106,7 @@ abstract class Versions
 	 * @param string $minecraft_version
 	 * @return integer The protocol version or null if the Minecraft version is not supported.
 	 */
-	public static function minecraftToProtocol($minecraft_version)
+	public static function minecraftToProtocol(string $minecraft_version)
 	{
 		return @Versions::all()[$minecraft_version];
 	}
@@ -125,7 +125,7 @@ abstract class Versions
 	 * @param string $minecraft_version
 	 * @return boolean
 	 */
-	public static function minecraftSupported($minecraft_version)
+	public static function minecraftSupported(string $minecraft_version)
 	{
 		return isset(Versions::all()[$minecraft_version]);
 	}
@@ -135,7 +135,7 @@ abstract class Versions
 	 * @param integer $protocol_version
 	 * @return string[]
 	 */
-	public static function protocolToMinecraft($protocol_version)
+	public static function protocolToMinecraft(int $protocol_version)
 	{
 		$minecraft_versions = [];
 		foreach(Versions::all() as $k => $v)
@@ -153,7 +153,7 @@ abstract class Versions
 	 * @param integer $protocol_version
 	 * @return string The version range or an empty string if the given protocol version is not supported.
 	 */
-	public static function protocolToRange($protocol_version)
+	public static function protocolToRange(int $protocol_version)
 	{
 		$minecraft_versions = Versions::protocolToMinecraft($protocol_version);
 		$count = count($minecraft_versions);

@@ -29,7 +29,7 @@ class FancyUserInterface extends UserInterface
 	 * @param string $title The title displayed at the top left.
 	 * @param string $optional_info Displayed at the top right, if possible.
 	 */
-	public function __construct($title, $optional_info = "")
+	public function __construct(string $title, string $optional_info = "")
 	{
 		parent::__construct();
 		$this->title = $title;
@@ -50,7 +50,7 @@ class FancyUserInterface extends UserInterface
 
 	private function ob_start()
 	{
-		ob_start(function($buffer)
+		ob_start(function(string $buffer)
 		{
 			foreach(explode("\n", $buffer) as $line)
 			{
@@ -68,7 +68,7 @@ class FancyUserInterface extends UserInterface
 	 * @param boolean $accept_input Set to true if you are looking for a return value.
 	 * @return string If $accept_input is true and the user has submitted a line, the return will be that line. Otherwise, it will be null.
 	 */
-	public function render($accept_input = false)
+	public function render(bool $accept_input = false)
 	{
 		ob_end_flush();
 		$read = [$this->stdin];
@@ -351,7 +351,7 @@ class FancyUserInterface extends UserInterface
 	 * @param string $message
 	 * @return $this
 	 */
-	public function add($message)
+	public function add(string $message)
 	{
 		array_push($this->chat_log, $message);
 		return $this;
@@ -362,7 +362,7 @@ class FancyUserInterface extends UserInterface
 	 * @param string $appendix
 	 * @return $this
 	 */
-	public function append($appendix)
+	public function append(string $appendix)
 	{
 		$this->chat_log[count($this->chat_log) - 1] .= $appendix;
 		return $this;

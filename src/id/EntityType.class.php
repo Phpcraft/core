@@ -114,7 +114,7 @@ class EntityType extends Identifier
 		return self::$all_cache;
 	}
 
-	private function __construct($name, $legacy_id, $since_protocol_version = 0)
+	private function __construct(string $name, int $legacy_id, int $since_protocol_version = 0)
 	{
 		$this->name = $name;
 		$this->legacy_id = $legacy_id;
@@ -126,7 +126,7 @@ class EntityType extends Identifier
 	 * @param integer $protocol_version
 	 * @return integer
 	 */
-	public function getId($protocol_version)
+	public function getId(int $protocol_version)
 	{
 		if($protocol_version >= $this->since_protocol_version)
 		{

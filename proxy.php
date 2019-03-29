@@ -9,6 +9,8 @@ if(@$argv[1] == "help")
 	die("Syntax: php proxy.php [account name]\n");
 }
 require "vendor/autoload.php";
+use Phpcraft\
+{Account, ClientboundPacket, ClientConnection, Difficulty, Dimension, Gamemode, JoinGamePacket, KeepAliveRequestPacket, Phpcraft, Position, Server, ServerConnection, Versions};
 
 $stdin = fopen("php://stdin", "r") or die("Failed to open php://stdin\n");
 stream_set_blocking($stdin, true);
@@ -20,7 +22,7 @@ if(empty($argv[1]))
 }
 else
 {
-	$account = new \Phpcraft\Account($argv[1]);
+	$account = new Account($argv[1]);
 	if(!$account->loginUsingProfiles())
 	{
 		do
@@ -53,25 +55,25 @@ echo "Loaded ".count(\Phpcraft\PluginManager::$loaded_plugins)." plugin(s).\n";*
 
 $socket = stream_socket_server("tcp://0.0.0.0:25565", $errno, $errstr) or die($errstr."\n");
 $private_key = openssl_pkey_new(["private_key_bits" => 1024, "private_key_type" => OPENSSL_KEYTYPE_RSA]);
-$server = new \Phpcraft\Server($socket, $private_key);
+$server = new Server($socket, $private_key);
 $client_con = null;
 $server_con = null;
 $server_eid = -1;
-$server->list_ping_function = function($con)
+$server->list_ping_function = function(ClientConnection $con)
 {
 	return [
 		"version" => [
 			"name" => "\\Phpcraft\\Server",
-			"protocol" => (\Phpcraft\Versions::protocolSupported($con->protocol_version) ? $con->protocol_version : 69)
+			"protocol" => (Versions::protocolSupported($con->protocol_version) ? $con->protocol_version : 69)
 		],
 		"description" => [
 			"text" => "A Phpcraft Proxy"
 		]
 	];
 };
-$server->join_function = function(\Phpcraft\ClientConnection $con)
+$server->join_function = function(ClientConnection $con)
 {
-	if(!\Phpcraft\Versions::protocolSupported($con->protocol_version))
+	if(!Versions::protocolSupported($con->protocol_version))
 	{
 		$con->disconnect(["text" => "You're using an incompatible version."]);
 		return;
@@ -85,14 +87,14 @@ $server->join_function = function(\Phpcraft\ClientConnection $con)
 	}
 	$client_con = $con;
 	echo $con->username." has joined.\n";
-	$packet = new \Phpcraft\JoinGamePacket();
+	$packet = new JoinGamePacket();
 	$packet->eid = $con->eid;
-	$packet->gamemode = \Phpcraft\Gamemode::SURVIVAL;
-	$packet->dimension = \Phpcraft\Dimension::OVERWORLD;
-	$packet->difficulty = \Phpcraft\Difficulty::PEACEFUL;
+	$packet->gamemode = Gamemode::SURVIVAL;
+	$packet->dimension = Dimension::OVERWORLD;
+	$packet->difficulty = Difficulty::PEACEFUL;
 	$packet->send($con);
 	$con->startPacket("spawn_position");
-	$con->writePosition(new \Phpcraft\Position(0, 100, 0));
+	$con->writePosition(new Position(0, 100, 0));
 	$con->send();
 	$con->startPacket("teleport");
 	$con->writeDouble(0);
@@ -118,7 +120,7 @@ $server->join_function = function(\Phpcraft\ClientConnection $con)
 	$con->writeByte(1);
 	$con->send();
 };
-$server->packet_function = function(\Phpcraft\ClientConnection $con, $packet_name, $packet_id)
+$server->packet_function = function(ClientConnection $con, $packet_name, $packet_id)
 {
 	global $server_con;
 	//echo "> ".$packet_name." (".$packet_id.")\n";
@@ -186,7 +188,7 @@ $server->packet_function = function(\Phpcraft\ClientConnection $con, $packet_nam
 						$con->send();
 						break;
 					}
-					$account = new \Phpcraft\Account($arr[2]);
+					$account = new Account($arr[2]);
 					$uuid = $json["id"];
 				}
 				else
@@ -201,7 +203,7 @@ $server->packet_function = function(\Phpcraft\ClientConnection $con, $packet_nam
 						break;
 					}
 				}
-				if($server_con instanceof \Phpcraft\ServerConnection)
+				if($server_con instanceof ServerConnection)
 				{
 					$server_con->close();
 					$server_con = null;
@@ -214,7 +216,7 @@ $server->packet_function = function(\Phpcraft\ClientConnection $con, $packet_nam
 				$con->writeString('{"text":"Resolving hostname..."}');
 				$con->writeByte(1);
 				$con->send();
-				$server = \Phpcraft\Phpcraft::resolve($arr[1]);
+				$server = Phpcraft::resolve($arr[1]);
 				$serverarr = explode(":", $server);
 				if(count($serverarr) != 2)
 				{
@@ -241,7 +243,7 @@ $server->packet_function = function(\Phpcraft\ClientConnection $con, $packet_nam
 				$con->writeString('{"text":"Logging in..."}');
 				$con->writeByte(1);
 				$con->send();
-				$server_con = new \Phpcraft\ServerConnection($stream, $con->protocol_version);
+				$server_con = new ServerConnection($stream, $con->protocol_version);
 				$server_con->sendHandshake($serverarr[0].($uuid ? "\x001.1.1.1\x00".$uuid : ""), intval($serverarr[1]), 2);
 				if($error = $server_con->login($account))
 				{
@@ -259,7 +261,7 @@ $server->packet_function = function(\Phpcraft\ClientConnection $con, $packet_nam
 				break;
 
 				case ".disconnect":
-				if($server_con instanceof \Phpcraft\ServerConnection)
+				if($server_con instanceof ServerConnection)
 				{
 					$server_con->close();
 					$server_con = null;
@@ -304,7 +306,7 @@ $server->packet_function = function(\Phpcraft\ClientConnection $con, $packet_nam
 				break;
 
 				case ".say":
-				if($server_con instanceof \Phpcraft\ServerConnection)
+				if($server_con instanceof ServerConnection)
 				{
 					$server_con->startPacket("serverbound_chat_message");
 					$server_con->writeString(substr($msg, 4));
@@ -319,27 +321,27 @@ $server->packet_function = function(\Phpcraft\ClientConnection $con, $packet_nam
 				$con->send();
 			}
 		}
-		else if($server_con instanceof \Phpcraft\ServerConnection)
+		else if($server_con instanceof ServerConnection)
 		{
 			$server_con->startPacket("serverbound_chat_message");
 			$server_con->writeString($msg);
 			$server_con->send();
 		}
 	}
-	else if($server_con instanceof \Phpcraft\ServerConnection)
+	else if($server_con instanceof ServerConnection)
 	{
-		$server_con->write_buffer = \Phpcraft\Phpcraft::intToVarInt($packet_id).$con->read_buffer;
+		$server_con->write_buffer = Phpcraft::intToVarInt($packet_id).$con->read_buffer;
 		$server_con->send();
 	}
 };
-$server->disconnect_function = function(\Phpcraft\ClientConnection $con)
+$server->disconnect_function = function(ClientConnection $con)
 {
 	global $client_con;
 	if($con === $client_con)
 	{
 		global $server_con;
 		echo $con->username." has left.\n";
-		if($server_con instanceof \Phpcraft\ServerConnection)
+		if($server_con instanceof ServerConnection)
 		{
 			$server_con->close();
 			$server_con = null;
@@ -357,11 +359,11 @@ do
 	$server->handle();
 	try
 	{
-		if($server_con instanceof \Phpcraft\ServerConnection && $client_con instanceof \Phpcraft\ClientConnection)
+		if($server_con instanceof ServerConnection && $client_con instanceof ClientConnection)
 		{
 			while(($packet_id = $server_con->readPacket(0)) !== false)
 			{
-				$packet_name = \Phpcraft\ClientboundPacket::getById($packet_id, $server_con->protocol_version)->name;
+				$packet_name = ClientboundPacket::getById($packet_id, $server_con->protocol_version)->name;
 				//echo "< ".$packet_name." (".$packet_id.")\n";
 				if($packet_name == "entity_animation" || $packet_name == "entity_metadata" || $packet_name == "entity_velocity")
 				{
@@ -373,7 +375,7 @@ do
 				}
 				else if($packet_name == "keep_alive_request")
 				{
-					\Phpcraft\KeepAliveRequestPacket::read($server_con)->getResponse()->send($server_con);
+					KeepAliveRequestPacket::read($server_con)->getResponse()->send($server_con);
 				}
 				else if($packet_name == "disconnect")
 				{
@@ -387,7 +389,7 @@ do
 				}
 				else if($packet_name == "join_game")
 				{
-					$packet = \Phpcraft\JoinGamePacket::read($server_con);
+					$packet = JoinGamePacket::read($server_con);
 					$server_eid = $packet->eid;
 					$client_con->startPacket("change_game_state");
 					$client_con->writeByte(3);
@@ -396,7 +398,7 @@ do
 				}
 				else
 				{
-					$client_con->write_buffer = \Phpcraft\Phpcraft::intToVarInt($packet_id).$server_con->read_buffer;
+					$client_con->write_buffer = Phpcraft::intToVarInt($packet_id).$server_con->read_buffer;
 					$client_con->send();
 				}
 			}

@@ -41,7 +41,7 @@ function processBatch()
 		echo $id_count."x ".convertPacket($last_id, $last_name)." with {$total_size} B (avg. ".round($total_size / $id_count)." B) of data\n";
 	}
 }
-function convertPacket($id, $name)
+function convertPacket(int $id, string $name)
 {
 	if($name)
 	{

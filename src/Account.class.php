@@ -25,9 +25,9 @@ class Account
 	public $accessToken = null;
 
 	/**
-	 * @param string $name The Mojang account email address or the in-game name if legacy.
+	 * @param string $name The Mojang account email address or the in-game name if legacy or offline.
 	 */
-	public function __construct($name)
+	public function __construct(string $name)
 	{
 		$this->name = $name;
 		$this->username = $name;
@@ -116,7 +116,7 @@ class Account
 	 * @param string $password
 	 * @return string Error message. Empty on success.
 	 */
-	public function login($password)
+	public function login(string $password)
 	{
 		$profiles = Phpcraft::getProfiles();
 		if($res = Phpcraft::httpPOST("https://authserver.mojang.com/authenticate", [

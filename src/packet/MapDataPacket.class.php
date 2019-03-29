@@ -14,12 +14,12 @@ class MapDataPacket extends Packet
 	}
 
 	/**
-	 * Gets the color ID closest to the given RGB value.
-	 * @param array $rgb
-	 * @param boolean $new_colors You can safely ignore this parameter.
+	 * Gets the color ID closest to the given RGB array (3 integers).
+	 * @param $rgb integer[]
+	 * @param boolean $new_colors Ignore this parameter.
 	 * @return integer
 	 */
-	public static function getColorId($rgb, $new_colors = true)
+	public static function getColorId(array $rgb, bool $new_colors = true)
 	{
 		$best_color = $best_diff = 0;
 		foreach(($new_colors ? MapDataPacket::colors_1_12() : MapDataPacket::colors_1_8_1()) as $id => $rgb2)
@@ -153,7 +153,6 @@ class MapDataPacket extends Packet
 	/**
 	 * Adds the packet's ID and payload to the Connection's write buffer and, if the connection has a stream, sends it over the wire.
 	 * @param Connection $con
-	 * @return void
 	 * @throws Exception
 	 */
 	public function send(Connection $con)

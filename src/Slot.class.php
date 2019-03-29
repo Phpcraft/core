@@ -39,7 +39,7 @@ class Slot
 	 * @param integer $count How many times the item is in this slot.
 	 * @param NbtTag $nbt The NBT data of the item in this slot.
 	 */
-	public function __construct(Item $item = null, $count = 1, NbtTag $nbt = null)
+	public function __construct(Item $item = null, int $count = 1, NbtTag $nbt = null)
 	{
 		$this->item = $item;
 		$this->count = $count;
@@ -74,7 +74,7 @@ class Slot
 	 * @return Slot $this
 	 * @throws Exception
 	 */
-	public function setDisplayName($name)
+	public function setDisplayName(array $name)
 	{
 		$name = json_encode($name);
 		$nbt = $this->getNBT();

@@ -232,7 +232,7 @@ function loadPlugins()
 	$ui->render();
 }
 loadPlugins();
-function handleConsoleMessage($msg)
+function handleConsoleMessage(string $msg)
 {
 	if($msg == "")
 	{
@@ -489,7 +489,7 @@ function handleConsoleMessage($msg)
 		$con->send();
 	}
 }
-$ui->tabcomplete_function = function($word)
+$ui->tabcomplete_function = function(string $word)
 {
 	global $players;
 	$word = strtolower($word);

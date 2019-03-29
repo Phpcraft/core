@@ -30,7 +30,7 @@ class Item extends Identifier
 		return self::$all_cache;
 	}
 
-	private function __construct($name, $legacy_id, $since_protocol_version = 0, $block = null)
+	private function __construct(string $name, int $legacy_id, int $since_protocol_version = 0, string $block = null)
 	{
 		$this->name = $name;
 		$this->legacy_id = $legacy_id;
@@ -43,7 +43,7 @@ class Item extends Identifier
 	 * @param integer $protocol_version
 	 * @return integer
 	 */
-	public function getId($protocol_version)
+	public function getId(int $protocol_version)
 	{
 		if($protocol_version >= $this->since_protocol_version)
 		{

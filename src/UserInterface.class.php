@@ -23,7 +23,7 @@ class UserInterface
 	 * @param boolean $accept_input Set to true if you are looking for a return value.
 	 * @return string If $accept_input is true and the user has submitted a line, the return will be that line. Otherwise, it will be null.
 	 */
-	public function render($accept_input = false)
+	public function render(bool $accept_input = false)
 	{
 		if($accept_input)
 		{
@@ -42,7 +42,7 @@ class UserInterface
 	 * @param string $message
 	 * @return $this
 	 */
-	public function add($message)
+	public function add(string $message)
 	{
 		echo "\x1B[m{$message}\n\x1B[m";
 		return $this;
@@ -53,7 +53,7 @@ class UserInterface
 	 * @param string $message
 	 * @return $this
 	 */
-	public function append($message)
+	public function append(string $message)
 	{
 		return $this->add($message);
 	}

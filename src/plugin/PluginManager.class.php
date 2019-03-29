@@ -13,7 +13,7 @@ abstract class PluginManager
 	 * Loads all plugins in a folder.
 	 * @param string $plugins_folder The path to the folder in which plugins are contained.
 	 */
-	public static function loadPlugins($plugins_folder = "plugins")
+	public static function loadPlugins(string $plugins_folder = "plugins")
 	{
 		foreach(scandir($plugins_folder) as $file)
 		{
@@ -33,9 +33,8 @@ abstract class PluginManager
 	 * The function called by plugins when they would like to be registered.
 	 * @param string $name This has to be identical to the name of file exluding the extension.
 	 * @param callable $callback The callback function called with a Plugin as parameter.
-	 * @return void
 	 */
-	public static function registerPlugin($name, $callback)
+	public static function registerPlugin(string $name, callable $callback)
 	{
 		if(!PluginManager::$load_state)
 		{
@@ -76,7 +75,7 @@ abstract class PluginManager
 				array_push($handlers, $plugin->event_handlers[$type]);
 			}
 		}
-		usort($handlers, function($a, $b)
+		usort($handlers, function(array $a, array $b)
 		{
 			return $b["priority"] - $a["priority"];
 		});
