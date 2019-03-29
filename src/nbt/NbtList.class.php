@@ -1,7 +1,8 @@
 <?php
 namespace Phpcraft;
-class NbtList extends NbtTag
+class NbtList extends NbtTag implements \Iterator
 {
+	private $current = 0;
 	/**
 	 * The NBT tag type ID of children.
 	 * @var integer $childType
@@ -40,7 +41,7 @@ class NbtList extends NbtTag
 		}
 		$con->writeByte($this->childType);
 		$con->writeInt(count($this->children), true);
-		foreach($this->children as $child)
+		foreach($this as $child)
 		{
 			$child->write($con, true);
 		}
@@ -55,10 +56,35 @@ class NbtList extends NbtTag
 	public function __toString()
 	{
 		$str = "{List \"".$this->name."\":";
-		foreach($this->children as $child)
+		foreach($this as $child)
 		{
 			$str .= " ".$child->__toString();
 		}
 		return $str."}";
+	}
+
+	public function current()
+	{
+		return $this->children[$this->current];
+	}
+
+	public function next()
+	{
+		$this->current++;
+	}
+
+	public function key()
+	{
+		return $this->current;
+	}
+
+	public function valid()
+	{
+		return $this->current < count($this->children);
+	}
+
+	public function rewind()
+	{
+		$this->current = 0;
 	}
 }
