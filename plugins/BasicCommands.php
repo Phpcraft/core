@@ -2,48 +2,44 @@
 // This plugin provides clients of the server with /abilities, /gamemode, and /metadata.
 
 use Phpcraft\
-{ClientConnection, Event, Plugin, PluginManager};
+{ClientChatEvent, ClientConnection, Plugin, PluginManager};
 
-if(!in_array(PluginManager::$platform, ["phpcraft:server"]))
-{
-	return;
-}
 PluginManager::registerPlugin("BasicCommands", function(Plugin $plugin)
 {
-	$plugin->on("chat_message", function(Event $event)
+	$plugin->on(function(ClientChatEvent $event)
 	{
-		if($event->isCancelled() || substr($event->data["message"], 0, 1) != "/")
+		if($event->cancelled || substr($event->message, 0, 1) != "/")
 		{
 			return;
 		}
-		$con = $event->data["client"];
+		$con = $event->client;
 		if(!$con instanceof ClientConnection)
 		{
 			return;
 		}
-		if(substr($event->data["message"], 0, 11) == "/abilities ")
+		if(substr($event->message, 0, 11) == "/abilities ")
 		{
 			$con->startPacket("clientbound_abilities");
-			$con->writeByte(hexdec(substr($event->data["message"], 11, 1)));
+			$con->writeByte(hexdec(substr($event->message, 11, 1)));
 			$con->writeFloat(0.4000000059604645);
 			$con->writeFloat(0.699999988079071);
 			$con->send();
 		}
-		else if(substr($event->data["message"], 0, 10) == "/gamemode ")
+		else if(substr($event->message, 0, 10) == "/gamemode ")
 		{
-			$gamemode = floatval(substr($event->data["message"], 10));
+			$gamemode = floatval(substr($event->message, 10));
 			$con->startPacket("change_game_state");
 			$con->writeByte(3);
 			$con->writeFloat($gamemode);
 			$con->send();
 		}
-		else if(substr($event->data["message"], 0, 10) == "/metadata ")
+		else if(substr($event->message, 0, 10) == "/metadata ")
 		{
 			$con->startPacket("entity_metadata");
 			$con->writeVarInt($con->eid);
 			$con->writeByte(0);
 			$con->writeVarInt(0);
-			$con->writeByte(hexdec(substr($event->data["message"], 10, 2)));
+			$con->writeByte(hexdec(substr($event->message, 10, 2)));
 			$con->writeByte(0xFF);
 			$con->send();
 		}
@@ -54,6 +50,6 @@ PluginManager::registerPlugin("BasicCommands", function(Plugin $plugin)
 			$con->writeByte(0);
 			$con->send();
 		}
-		$event->cancel();
+		$event->cancelled = true;
 	});
 });

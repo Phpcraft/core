@@ -15,6 +15,7 @@ class Server
 	/**
 	 * A ClientConnection array of all clients that are connected to the server.
 	 * @var array $clients
+	 * @see Server::getPlayers()
 	 */
 	public $clients = [];
 	/**
@@ -285,6 +286,23 @@ class Server
 			}
 		}
 		return $this;
+	}
+
+	/**
+	 * Returns all clients in state 3 (playing).
+	 * @return ClientConnection[]
+	 */
+	public function getPlayers()
+	{
+		$clients = [];
+		foreach($this->clients as $client)
+		{
+			if($client->state == 3)
+			{
+				array_push($clients, $client);
+			}
+		}
+		return $clients;
 	}
 
 	/**

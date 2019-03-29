@@ -1,13 +1,8 @@
 <?php
 namespace Phpcraft;
-class PluginManager
+abstract class PluginManager
 {
-	/**
-	 * The name of the platform plugins will run on, e.g. `phpcraft:client` or `phpcraft:server`.
-	 * @var string $platform
-	 */
-	public static $platform;
-	private static $loadee_name;
+	private static $load_state;
 	/**
 	 * A Plugin array of plugins currently loaded.
 	 * @var array $loaded_plugins
@@ -15,24 +10,20 @@ class PluginManager
 	public static $loaded_plugins = [];
 
 	/**
-	 * Reads the autoload.txt of the plugin folder and loads all plugins.
+	 * Loads all plugins in a folder.
 	 * @param string $plugins_folder The path to the folder in which plugins are contained.
 	 */
-	public static function autoloadPlugins($plugins_folder = "plugins")
+	public static function loadPlugins($plugins_folder = "plugins")
 	{
-		foreach(file($plugins_folder."/autoload.txt") as $line)
+		foreach(scandir($plugins_folder) as $file)
 		{
-			if($line = trim($line))
+			if(substr($file, -4) == ".php" && is_file($file))
 			{
-				if(substr($line, 0, 1) == "#")
+				PluginManager::$load_state = true;
+				include $plugins_folder."/".$file;
+				if(!PluginManager::$load_state)
 				{
-					continue;
-				}
-				if(file_exists($plugins_folder."/".$line.".php"))
-				{
-					PluginManager::$loadee_name = $line;
-					include $plugins_folder."/".$line.".php";
-					PluginManager::$loadee_name = null;
+					echo "{$file} did not register with PluginManager::registerPlugin\n";
 				}
 			}
 		}
@@ -46,11 +37,19 @@ class PluginManager
 	 */
 	public static function registerPlugin($name, $callback)
 	{
-		if(PluginManager::$loadee_name && PluginManager::$loadee_name == $name)
+		if(PluginManager::$load_state)
 		{
 			$plugin = new Plugin($name);
-			($callback)($plugin);
+			try
+			{
+				$callback($plugin);
+			}
+			catch(\Exception $e)
+			{
+				echo "Unhandled exception in plugin \"{$name}\": ".get_class($e).": ".$e->getMessage()."\n".$e->getTraceAsString()."\n";
+			}
 			array_push(PluginManager::$loaded_plugins, $plugin);
+			PluginManager::$load_state = false;
 		}
 		else
 		{
@@ -63,22 +62,15 @@ class PluginManager
 	 * @param Event $event
 	 * @return boolean True if the event was cancelled.
 	 */
-	public static function fire($event)
+	public static function fire(Event $event)
 	{
+		$type = get_class($event);
 		$handlers = [];
 		foreach(PluginManager::$loaded_plugins as $plugin)
 		{
-			if(isset($plugin->event_handlers[$event->name]))
+			if(isset($plugin->event_handlers[$type]))
 			{
-				array_push($handlers, $plugin->event_handlers[$event->name]);
-			}
-			else if(isset($plugin->event_handlers["."]))
-			{
-				array_push($handlers, $plugin->event_handlers["."]);
-			}
-			if(isset($plugin->event_handlers["*"]))
-			{
-				array_push($handlers, $plugin->event_handlers["*"]);
+				array_push($handlers, $plugin->event_handlers[$type]);
 			}
 		}
 		usort($handlers, function($a, $b)
@@ -92,10 +84,10 @@ class PluginManager
 				$handler["function"]($event);
 			}
 		}
-		catch(Exception $e)
+		catch(\Exception $e)
 		{
 			echo "Unhandled exception in plugin: ".get_class($e).": ".$e->getMessage()."\n".$e->getTraceAsString()."\n";
 		}
-		return $event->isCancelled();
+		return $event->cancelled;
 	}
 }

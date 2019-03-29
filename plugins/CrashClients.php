@@ -2,23 +2,15 @@
 // Crashes clients when they say "crash me"
 
 use Phpcraft\
-{Event, Plugin, PluginManager, ClientConnection};
+{ClientChatEvent, JoinGamePacket, Plugin, PluginManager, ClientConnection};
 
-if(!in_array(PluginManager::$platform, ["phpcraft:server"]))
-{
-	return;
-}
 PluginManager::registerPlugin("CrashClients", function(Plugin $plugin)
 {
-	$plugin->on("chat_message", function(Event $event)
+	$plugin->on(function(ClientChatEvent $event)
 	{
-		if($event->isCancelled())
+		if(!$event->cancelled && $event->message == "crash me")
 		{
-			return;
-		}
-		if($event->data["message"] == "crash me")
-		{
-			$con = $event->data["client"];
+			$con = $event->client;
 			if(!$con instanceof ClientConnection)
 			{
 				return;
@@ -53,10 +45,10 @@ PluginManager::registerPlugin("CrashClients", function(Plugin $plugin)
 			$con->writeByte(7);
 			$con->writeFloat(1337);
 			$con->send();
-			$packet = new \Phpcraft\JoinGamePacket();
+			$packet = new JoinGamePacket();
 			$packet->dimension = 1337;
 			$packet->send($con);
-			$event->cancel();
+			$event->cancelled = true;
 		}
 	});
 });

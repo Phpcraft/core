@@ -29,7 +29,7 @@ abstract class Identifier
 	/**
 	 * Returns an Identifier by its name or null if not found.
 	 * @param string $name
-	 * @return Identifier
+	 * @return static
 	 */
 	public static function get($name)
 	{
@@ -52,7 +52,7 @@ abstract class Identifier
 	 * Returns an Identifier by its ID in the given protocol version or null if not found.
 	 * @param integer $id
 	 * @param integer $protocol_version
-	 * @return Identifier
+	 * @return static
 	 */
 	public static function getById($id, $protocol_version)
 	{

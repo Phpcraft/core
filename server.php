@@ -1,14 +1,14 @@
 <?php
-
-use Phpcraft\
-{ClientConnection, Event, Phpcraft};
-
 echo "Phpcraft PHP Minecraft Server\n\n";
 if(empty($argv))
 {
 	die("This is for PHP-CLI. Connect to your server via SSH and use `php server.php`.\n");
 }
 require "vendor/autoload.php";
+
+use Phpcraft\
+{ClientChatEvent, ClientConnection, ServerJoinEvent, FancyUserInterface, Phpcraft, PluginManager, Server,
+	ServerConsoleEvent, ServerPacketEvent, ServerTickEvent, UserInterface, Versions};
 
 $options = ["offline" => false, "port" => 25565, "nocolor" => false, "plain" => false];
 for($i = 1; $i < count($argv); $i++)
@@ -52,7 +52,7 @@ for($i = 1; $i < count($argv); $i++)
 		die("Unknown argument '{$n}' -- try 'help' for a list of arguments.\n");
 	}
 }
-$ui = ($options["plain"] ? new \Phpcraft\UserInterface() : new \Phpcraft\FancyUserInterface("PHP Minecraft Server", "github.com/timmyrs/Phpcraft"));
+$ui = ($options["plain"] ? new UserInterface() : new FancyUserInterface("PHP Minecraft Server", "github.com/timmyrs/Phpcraft"));
 if($options["offline"])
 {
 	$private_key = null;
@@ -60,23 +60,19 @@ if($options["offline"])
 else
 {
 	$ui->add("Generating 1024-bit RSA keypair... ")->render();
-	$private_key = openssl_pkey_new([
-		"private_key_bits" => 1024,
-		"private_key_type" => OPENSSL_KEYTYPE_RSA,
-	]);
+	$private_key = openssl_pkey_new(["private_key_bits" => 1024, "private_key_type" => OPENSSL_KEYTYPE_RSA]);
 	$ui->append("Done.")->render();
 }
 $ui->add("Binding to port ".$options["port"]."... ")->render();
 $stream = stream_socket_server("tcp://0.0.0.0:".$options["port"], $errno, $errstr) or die(" {$errstr}\n");
-$server = new \Phpcraft\Server($stream, $private_key);
+$server = new Server($stream, $private_key);
 $ui->input_prefix = "[Server] ";
 $ui->append("Success!")->add("Preparing cache... ")->render();
 Phpcraft::populateCache();
 $ui->append("Done.")->render();
-echo "Autoloading plugins...\n";
-\Phpcraft\PluginManager::$platform = "phpcraft:server";
-\Phpcraft\PluginManager::autoloadPlugins();
-echo "Loaded ".count(\Phpcraft\PluginManager::$loaded_plugins)." plugin(s).\n";
+echo "Loading plugins...\n";
+PluginManager::loadPlugins();
+echo "Loaded ".count(PluginManager::$loaded_plugins)." plugin(s).\n";
 $ui->render();
 $ui->tabcomplete_function = function($word)
 {
@@ -93,18 +89,15 @@ $ui->tabcomplete_function = function($word)
 	}
 	return $completions;
 };
-$server->join_function = function(\Phpcraft\ClientConnection $con)
+$server->join_function = function(ClientConnection $con)
 {
-	if(!\Phpcraft\Versions::protocolSupported($con->protocol_version))
+	if(!Versions::protocolSupported($con->protocol_version))
 	{
 		$con->disconnect(["text" => "You're using an incompatible version."]);
 		return;
 	}
 	global $ui, $server;
-	if(\Phpcraft\PluginManager::fire(new Event("join", [
-		"server" => $server,
-		"client" => $con
-	])))
+	if(PluginManager::fire(new ServerJoinEvent($server, $con)))
 	{
 		$con->close();
 		return;
@@ -120,29 +113,22 @@ $server->join_function = function(\Phpcraft\ClientConnection $con)
 	];
 	$ui->add(Phpcraft::chatToText($msg, 1));
 	$msg = json_encode($msg);
-	foreach($server->clients as $c)
+	foreach($server->getPlayers() as $c)
 	{
-		if($c instanceof ClientConnection && $c->state == 3)
+		try
 		{
-			try
-			{
-				$c->startPacket("clientbound_chat_message");
-				$c->writeString($msg);
-				$c->writeByte(1);
-				$c->send();
-			}
-			catch(Exception $ignored){}
+			$c->startPacket("clientbound_chat_message");
+			$c->writeString($msg);
+			$c->writeByte(1);
+			$c->send();
 		}
+		catch(Exception $ignored){}
 	}
 };
 $server->packet_function = function(ClientConnection $con, $packet_name)
 {
 	global $options, $ui, $server;
-	if(\Phpcraft\PluginManager::fire(new Event("packet", [
-		"server" => $server,
-		"packet_name" => $packet_name,
-		"client" => $con
-	])))
+	if(PluginManager::fire(new ServerPacketEvent($server, $con, $packet_name)))
 	{
 		return;
 	}
@@ -153,10 +139,7 @@ $server->packet_function = function(ClientConnection $con, $packet_name)
 	else if($packet_name == "serverbound_chat_message")
 	{
 		$msg = $con->readString(256);
-		if(\Phpcraft\PluginManager::fire(new Event("chat_message", [
-			"message" => $msg,
-			"client" => $con
-		])))
+		if(PluginManager::fire(new ClientChatEvent($server, $con, $msg)))
 		{
 			return;
 		}
@@ -179,19 +162,16 @@ $server->packet_function = function(ClientConnection $con, $packet_name)
 		];
 		$ui->add(Phpcraft::chatToText($msg, 1));
 		$msg = json_encode($msg);
-		foreach($server->clients as $c)
+		foreach($server->getPlayers() as $c)
 		{
-			if($c instanceof ClientConnection && $c->state == 3)
+			try
 			{
-				try
-				{
-					$c->startPacket("clientbound_chat_message");
-					$c->writeString($msg);
-					$c->writeByte(1);
-					$c->send();
-				}
-				catch(Exception $ignored){}
+				$c->startPacket("clientbound_chat_message");
+				$c->writeString($msg);
+				$c->writeByte(1);
+				$c->send();
 			}
+			catch(Exception $ignored){}
 		}
 	}
 };
@@ -211,9 +191,9 @@ $server->disconnect_function = function(ClientConnection $con)
 		];
 		$ui->add(Phpcraft::chatToText($msg, 1));
 		$msg = json_encode($msg);
-		foreach($server->clients as $c)
+		foreach($server->getPlayers() as $c)
 		{
-			if($c instanceof ClientConnection && $c->state == 3)
+			if($c !== $con)
 			{
 				try
 				{
@@ -235,10 +215,7 @@ do
 	$server->handle();
 	while($msg = $ui->render(true))
 	{
-		if(\Phpcraft\PluginManager::fire(new Event("console_message", [
-			"server" => $server,
-			"message" => $msg
-		])))
+		if(PluginManager::fire(new ServerConsoleEvent($server, $msg)))
 		{
 			continue;
 		}
@@ -255,22 +232,19 @@ do
 		];
 		$ui->add(Phpcraft::chatToText($msg, 1));
 		$msg = json_encode($msg);
-		foreach($server->clients as $c)
+		foreach($server->getPlayers() as $c)
 		{
-			if($c instanceof ClientConnection && $c->state == 3)
+			try
 			{
-				try
-				{
-					$c->startPacket("clientbound_chat_message");
-					$c->writeString($msg);
-					$c->writeByte(1);
-					$c->send();
-				}
-				catch(Exception $ignored){}
+				$c->startPacket("clientbound_chat_message");
+				$c->writeString($msg);
+				$c->writeByte(1);
+				$c->send();
 			}
+			catch(Exception $ignored){}
 		}
 	}
-	\Phpcraft\PluginManager::fire(new Event("tick", ["server" => $server]));
+	PluginManager::fire(new ServerTickEvent($server));
 	if(($remaining = (0.050 - (microtime(true) - $start))) > 0)
 	{
 		time_nanosleep(0, $remaining * 1000000000);

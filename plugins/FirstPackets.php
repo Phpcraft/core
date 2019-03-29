@@ -2,26 +2,18 @@
 // Provides clients with some essential first packets.
 
 use Phpcraft\
-{ClientboundPluginMessagePacket, ClientConnection, Difficulty, Dimension, Event, Gamemode, JoinGamePacket, Plugin,
-	PluginManager, PluginMessagePacket, Position};
+{BlockMaterial, ClientboundPluginMessagePacket, ClientConnection, ServerJoinEvent, Connection, Difficulty, Dimension,
+	Event, Gamemode, JoinGamePacket, Plugin, PluginManager, PluginMessagePacket, Position, ServerTickEvent};
 
-if(!in_array(PluginManager::$platform, ["phpcraft:server"]))
-{
-	return;
-}
 PluginManager::registerPlugin("FirstPackets", function(Plugin $plugin)
 {
-	$plugin->on("join", function(Event $event)
+	$plugin->on(function(ServerJoinEvent $event)
 	{
-		if($event->isCancelled())
+		if($event->cancelled)
 		{
 			return;
 		}
-		$con = $event->data["client"];
-		if(!$con instanceof ClientConnection)
-		{
-			return;
-		}
+		$con = $event->client;
 		$packet = new ClientboundPluginMessagePacket();
 		$packet->channel = PluginMessagePacket::CHANNEL_BRAND;
 		$packet->data = "\x08Phpcraft";
@@ -52,8 +44,8 @@ PluginManager::registerPlugin("FirstPackets", function(Plugin $plugin)
 		$con->writeString('{"text":"Welcome to this Phpcraft server."}');
 		$con->writeByte(1);
 		$con->send();
-	}, \Phpcraft\Event::PRIORITY_NORMAL);
-	$plugin->on("tick", function($event)
+	}, Event::PRIORITY_NORMAL);
+	$plugin->on(function(ServerTickEvent $event)
 	{
 		global $WorldImitator_version;
 		if($WorldImitator_version !== null)
@@ -63,7 +55,7 @@ PluginManager::registerPlugin("FirstPackets", function(Plugin $plugin)
 		$chunks_limit = 2; // chunks/tick limit
 		for($render_distance = 4; $render_distance <= 8; $render_distance += 2)
 		{
-			foreach($event->data["server"]->clients as $con)
+			foreach($event->server->clients as $con)
 			{
 				if(!$con instanceof ClientConnection || $con->state != 3)
 				{
@@ -94,13 +86,13 @@ PluginManager::registerPlugin("FirstPackets", function(Plugin $plugin)
 							$con->writeShort(0b00000001);
 						}
 						// Data Size + Data:
-						$data = new \Phpcraft\Connection();
+						$data = new Connection();
 						for($i = 0; $i < 1; $i++)
 						{
 							$data->writeByte(8); // Bits per Block
 							$data->writeVarInt(2); // Palette Size
-							$data->writeVarInt(\Phpcraft\BlockMaterial::get("grass_block")->getId($con->protocol_version));
-							$data->writeVarInt(\Phpcraft\BlockMaterial::get("stone")->getId($con->protocol_version));
+							$data->writeVarInt(BlockMaterial::get("grass_block")->getId($con->protocol_version));
+							$data->writeVarInt(BlockMaterial::get("stone")->getId($con->protocol_version));
 							$data->writeVarInt(512); // (4096 / (64 / Bits per Block))
 							$data->write_buffer .= str_repeat("\x00\x01", 2048); // Blocks
 							$data->write_buffer .= str_repeat("\x00", 2048); // Block Light

@@ -45,7 +45,7 @@ abstract class PluginMessagePacket extends Packet
 	{
 		if($con->protocol_version >= 385)
 		{
-			$packet->channel = $con->readString();
+			$this->channel = $con->readString();
 		}
 		else
 		{
@@ -53,15 +53,15 @@ abstract class PluginMessagePacket extends Packet
 			$channel = array_search($legacy_channel, self::channelMap());
 			if($channel)
 			{
-				$packet->channel = $channel;
+				$this->channel = $channel;
 			}
 			else
 			{
 				trigger_error("Unmapped legacy plugin message channel: ".$legacy_channel);
-				$packet->channel = $legacy_channel;
+				$this->channel = $legacy_channel;
 			}
 		}
-		$packet->data = $con->read_buffer;
+		$this->data = $con->read_buffer;
 		$con->read_buffer = "";
 	}
 

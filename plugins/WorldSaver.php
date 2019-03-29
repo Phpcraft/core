@@ -1,15 +1,11 @@
 <?php
 // Stores world-related packets received by the client so that the server can reproduce them using the WorldImitator plugin.
 use Phpcraft\
-{Connection, Event, Plugin, PluginManager};
+{ClientJoinEvent, ClientPacketEvent, Connection, Plugin, PluginManager};
 
-if(!in_array(PluginManager::$platform, ["phpcraft:client"]))
-{
-	return;
-}
 PluginManager::registerPlugin("WorldSaver", function(Plugin $plugin)
 {
-	$plugin->on("load", function(Event $event)
+	$plugin->on(function(ClientJoinEvent $event)
 	{
 		$fh = fopen("world.bin", "w");
 		if($fh === false)
@@ -18,17 +14,13 @@ PluginManager::registerPlugin("WorldSaver", function(Plugin $plugin)
 			return;
 		}
 		global $WorldSaver_con;
-		$WorldSaver_con = new Connection($event->data["server_protocol_version"], $fh);
-		$WorldSaver_con->writeVarInt($event->data["server_protocol_version"]);
+		$WorldSaver_con = new Connection($event->server->protocol_version, $fh);
+		$WorldSaver_con->writeVarInt($event->server->protocol_version);
 		$WorldSaver_con->send();
 	});
-	$plugin->on("packet", function(Event $event)
+	$plugin->on(function(ClientPacketEvent $event)
 	{
-		if($event->isCancelled())
-		{
-			return;
-		}
-		if(in_array($event->data["packet_name"], [
+		if(!$event->cancelled && in_array($event->packet_name, [
 			"update_sign_entity",
 			"spawn_object",
 			"spawn_experience_orb",
@@ -98,8 +90,8 @@ PluginManager::registerPlugin("WorldSaver", function(Plugin $plugin)
 			global $WorldSaver_con;
 			if($WorldSaver_con instanceof Connection)
 			{
-				$WorldSaver_con->startPacket($event->data["packet_name"]);
-				$WorldSaver_con->write_buffer .= $event->data["connection"]->read_buffer;
+				$WorldSaver_con->startPacket($event->packet_name);
+				$WorldSaver_con->write_buffer .= $event->server->read_buffer;
 				$WorldSaver_con->send();
 			}
 		}

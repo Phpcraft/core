@@ -2,9 +2,13 @@
 namespace Phpcraft;
 class Plugin
 {
-	private $name;
 	/**
-	 * An array mapping of event names to an object with a function and priority.
+	 * Tha name of the plugin.
+	 * @var string $name
+	 */
+	public $name;
+	/**
+	 * An associative array of associative arrays with a 'function' and 'priority'.
 	 * @var array $event_handlers
 	 */
 	public $event_handlers = [];
@@ -18,27 +22,39 @@ class Plugin
 	}
 
 	/**
-	 * Returns the name of the plugin.
-	 * @return string The name of the plugin.
-	 */
-	public function getName()
-	{
-		return $this->name;
-	}
-
-	/**
 	 * Defines a function to be called to handle the given event.
-	 * Only one function can be defined per event per plugin, so subsequent calls with the same event name will overwrite the previously defined function.
-	 * @param string $event_name The name of the event to be handled. Use an asterisk (*) to catch all events, and a period (.) to catch all uncaught events.
-	 * @param callable $function
+	 * @param callable $callable The function. The first parameter should explicitly declare its type to be a decendant of Event.
 	 * @param integer $priority The priority of the event handler. The higher the priority, the earlier it will be executed. Use a high value if you plan to cancel the event.
 	 * @return Plugin $this
+	 * @throws \ReflectionException
+	 * @throws Exception
 	 */
-	public function on($event_name, $function, $priority = Event::PRIORITY_NORMAL)
+	public function on($callable, $priority = Event::PRIORITY_NORMAL)
 	{
-		$this->event_handlers[$event_name] = [
+		if(gettype($callable) != "callable")
+		{
+			throw new Exception("First parameter of Plugin::on needs to be a callable.");
+		}
+		$ref = new \ReflectionFunction($callable);
+		$params = $ref->getParameters();
+		if(count($params) == 1)
+		{
+			throw new Exception("Callable needs to have exactly one parameter.");
+		}
+		$param = $params[0];
+		if(!$param->hasType())
+		{
+			throw new Exception("Callable's parameter needs to explicitly declare parameter type. Example: function(\\Phpcraft\\ServerTickEvent \$event){ ... }");
+		}
+		$type = $param->getType()->getName();
+		$class = new \ReflectionClass($type);
+		if($class->isSubclassOf("Phpcraft\\Event"))
+		{
+			throw new Exception("Callable's parameter type needs to be a decendant of \\Phpcraft\\Event.");
+		}
+		$this->event_handlers[$type] = [
 			"priority" => $priority,
-			"function" => $function
+			"function" => $callable
 		];
 		return $this;
 	}
@@ -48,20 +64,13 @@ class Plugin
 	 * @param Event $event
 	 * @return boolean True if the event was cancelled.
 	 */
-	public function fire($event)
+	public function fire(Event $event)
 	{
-		if(isset($this->event_handlers[$event->name]))
+		$type = get_class($event);
+		if(isset($this->event_handlers[$type]))
 		{
-			($this->event_handlers[$event->name]["function"])($event);
+			($this->event_handlers[$type])($event);
 		}
-		else if(isset($this->event_handlers["."]))
-		{
-			($this->event_handlers["."]["function"])($event);
-		}
-		if(isset($this->event_handlers["*"]))
-		{
-			($this->event_handlers["*"]["function"])($event);
-		}
-		return $event->isCancelled();
+		return $event->cancelled;
 	}
 }

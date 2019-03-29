@@ -447,11 +447,11 @@ abstract class Phpcraft
 	 * @param array $parent Ignore this parameter.
 	 * @return string
 	 */
-	public static function chatToText($chat, $format = 0, $translations = null, $parent = [])
+	public static function chatToText($chat, int $format = 0, $translations = null, $parent = [])
 	{
 		if($parent === [])
 		{
-			if(gettype($format) != "integer" || $format < 0 || $format > 4)
+			if($format < 0 || $format > 4)
 			{
 				trigger_error("Format has to be an integer between 0 and 4. Defaulting to 0.");
 				$format = 0;

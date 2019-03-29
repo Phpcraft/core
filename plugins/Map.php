@@ -2,12 +2,9 @@
 // Loads a 128x128 image from map.png and displays it to clients as a map.
 
 use Phpcraft\
-{Event, Plugin, PluginManager};
+{ServerJoinEvent, Event, Item, MapDataPacket, NbtCompound, NbtInt, NbtString, Phpcraft, Plugin, PluginManager,
+	SetSlotPacket, Slot};
 
-if(!in_array(PluginManager::$platform, ["phpcraft:server"]))
-{
-	return;
-}
 if(!extension_loaded("gd"))
 {
 	echo "[Map] Not loading because php-gd is not loaded.\n";
@@ -15,28 +12,28 @@ if(!extension_loaded("gd"))
 }
 PluginManager::registerPlugin("Map", function(Plugin $plugin)
 {
-	$plugin->on("join", function(Event $event)
+	$plugin->on(function(ServerJoinEvent $event)
 	{
-		if($event->isCancelled())
+		if($event->cancelled)
 		{
 			return;
 		}
-		$con = $event->data["client"];
-		$packet = new \Phpcraft\SetSlotPacket();
+		$con = $event->client;
+		$packet = new SetSlotPacket();
 		$packet->window = 0;
-		$packet->slotId = \Phpcraft\Slot::ID_HOTBAR_1;
-		$packet->slot = new \Phpcraft\Slot(
-			\Phpcraft\Item::get("filled_map"),
+		$packet->slotId = Slot::ID_HOTBAR_1;
+		$packet->slot = new Slot(
+			Item::get("filled_map"),
 			1,
-			new \Phpcraft\NbtCompound("tag", [
-				new \Phpcraft\NbtCompound("display", [
-					new \Phpcraft\NbtString("Name", json_encode(\Phpcraft\Phpcraft::textToChat("§4§lMÄP")))
+			new NbtCompound("tag", [
+				new NbtCompound("display", [
+					new NbtString("Name", json_encode(Phpcraft::textToChat("§4§lMÄP")))
 				]),
-				new \Phpcraft\NbtInt("map", 1337),
+				new NbtInt("map", 1337),
 			])
 		);
 		$packet->send($con);
-		$packet = new \Phpcraft\MapDataPacket();
+		$packet = new MapDataPacket();
 		$packet->mapId = 1337;
 		$packet->width = 128;
 		$packet->height = 128;
@@ -49,9 +46,9 @@ PluginManager::registerPlugin("Map", function(Plugin $plugin)
 				$r = ($rgb >> 16) & 0xFF;
 				$g = ($rgb >> 8) & 0xFF;
 				$b = $rgb & 0xFF;
-				array_push($packet->contents, Phpcraft\MapDataPacket::getColorId([$r, $g, $b]));
+				array_push($packet->contents, MapDataPacket::getColorId([$r, $g, $b]));
 			}
 		}
 		$packet->send($con);
-	}, \Phpcraft\Event::PRIORITY_LOWEST);
+	}, Event::PRIORITY_LOWEST);
 });

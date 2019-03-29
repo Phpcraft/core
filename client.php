@@ -8,7 +8,9 @@ if(empty($argv))
 require "vendor/autoload.php";
 
 use Phpcraft\
-{AssetsManager, Phpcraft, Versions};
+{Account, AssetsManager, ClientboundPacket, ClientConsoleEvent, ClientJoinEvent, ClientPacketEvent, FancyUserInterface,
+	KeepAliveRequestPacket, Phpcraft, PluginManager, PluginMessagePacket, Position, ServerboundPluginMessagePacket,
+	ServerConnection, UserInterface, Versions};
 
 $options = [];
 for($i = 1; $i < count($argv); $i++)
@@ -142,7 +144,7 @@ while($name == "")
 		}
 	}
 }
-$account = new \Phpcraft\Account($name);
+$account = new Account($name);
 if($online && !$account->loginUsingProfiles())
 {
 	do
@@ -181,7 +183,7 @@ if(!$server)
 	}
 }
 fclose($stdin);
-$ui = (isset($options["plain"]) ? new \Phpcraft\UserInterface() : new \Phpcraft\FancyUserInterface("PHP Minecraft Client", "github.com/timmyrs/Phpcraft"));
+$ui = (isset($options["plain"]) ? new UserInterface() : new FancyUserInterface("PHP Minecraft Client", "github.com/timmyrs/Phpcraft"));
 $ui->add("Resolving... ")->render();
 $server = Phpcraft::resolve($server);
 $serverarr = explode(":", $server);
@@ -220,21 +222,16 @@ else
 $ui->add("Preparing cache... ")->render();
 Phpcraft::populateCache();
 $ui->append("Done.")->render();
-\Phpcraft\PluginManager::$platform = "phpcraft:client";
-function autoloadPlugins()
+function loadPlugins()
 {
-	global $ui, $minecraft_version, $protocol_version;
-	echo "Autoloading plugins...\n";
-	\Phpcraft\PluginManager::$loaded_plugins = [];
-	\Phpcraft\PluginManager::autoloadPlugins();
-	\Phpcraft\PluginManager::fire(new \Phpcraft\Event("load", [
-		"server_minecraft_version" => $minecraft_version,
-		"server_protocol_version" => $protocol_version
-	]));
-	echo "Loaded ".count(\Phpcraft\PluginManager::$loaded_plugins)." plugin(s).\n";
+	global $ui;
+	echo "Loading plugins...\n";
+	PluginManager::$loaded_plugins = [];
+	PluginManager::loadPlugins();
+	echo "Loaded ".count(PluginManager::$loaded_plugins)." plugin(s).\n";
 	$ui->render();
 }
-autoloadPlugins();
+loadPlugins();
 function handleConsoleMessage($msg)
 {
 	if($msg == "")
@@ -242,10 +239,7 @@ function handleConsoleMessage($msg)
 		return;
 	}
 	global $con;
-	if(\Phpcraft\PluginManager::fire(new \Phpcraft\Event("console_message", [
-		"message" => $msg,
-		"connection" => $con
-	])))
+	if(PluginManager::fire(new ClientConsoleEvent($con, $msg)))
 	{
 		return;
 	}
@@ -361,7 +355,7 @@ function handleConsoleMessage($msg)
 			else
 			{
 				$con->startPacket("player_block_placement");
-				$con->writePosition(new \Phpcraft\Position($x, $y, $z));
+				$con->writePosition(new Position($x, $y, $z));
 				$con->writeByte(-1); // Face
 				$con->writeShort(-1); // Slot
 				$con->writeByte(-1); // Cursor X
@@ -468,7 +462,7 @@ function handleConsoleMessage($msg)
 			break;
 
 			case "reload":
-			autoloadPlugins();
+			loadPlugins();
 			break;
 
 			case "reconnect":
@@ -514,7 +508,7 @@ do
 {
 	$ui->add("Connecting using {$minecraft_version}... ")->render();
 	$stream = fsockopen($serverarr[0], intval($serverarr[1]), $errno, $errstr, 3) or die($errstr."\n");
-	$con = new \Phpcraft\ServerConnection($stream, $protocol_version);
+	$con = new ServerConnection($stream, $protocol_version);
 	$con->sendHandshake($serverarr[0], intval($serverarr[1]), 2);
 	$ui->append("Connection established.")->add("Logging in... ")->render();
 	if($error = $con->login($account, $translations))
@@ -524,6 +518,7 @@ do
 	}
 	$ui->input_prefix = "<{$account->username}> ";
 	$ui->append("Success!")->render();
+	PluginManager::fire(new ClientJoinEvent($con));
 	$ui->add("");
 	$reconnect = false;
 	$players = [];
@@ -551,14 +546,11 @@ do
 		$start = microtime(true);
 		while(($packet_id = $con->readPacket(0)) !== false)
 		{
-			if(!($packet_name = @\Phpcraft\ClientboundPacket::getById($packet_id, $protocol_version)->name))
+			if(!($packet_name = @ClientboundPacket::getById($packet_id, $protocol_version)->name))
 			{
 				continue;
 			}
-			if(\Phpcraft\PluginManager::fire(new \Phpcraft\Event("packet", [
-				"packet_name" => $packet_name,
-				"connection" => $con
-			])))
+			if(PluginManager::fire(new ClientPacketEvent($con, $packet_name)))
 			{
 				continue;
 			}
@@ -739,7 +731,7 @@ do
 			}
 			else if($packet_name == "keep_alive_request")
 			{
-				\Phpcraft\KeepAliveRequestPacket::read($con)->getResponse()->send($con);
+				KeepAliveRequestPacket::read($con)->getResponse()->send($con);
 			}
 			else if($packet_name == "teleport")
 			{
@@ -828,10 +820,7 @@ do
 				{
 					$dimension = $con->readByte();
 				}
-				$packet = new \Phpcraft\ServerboundPluginMessagePacket();
-				$packet->channel = \Phpcraft\PluginMessagePacket::CHANNEL_BRAND;
-				$packet->data = "\x08Phpcraft";
-				$packet->send($con);
+				(new ServerboundPluginMessagePacket(PluginMessagePacket::CHANNEL_BRAND, "\x08Phpcraft"))->send($con);
 				$con->startPacket("client_settings");
 				$con->writeString($options["lang"]);
 				$con->writeByte(16); // View Distance
