@@ -22,7 +22,7 @@ class Position
 		$this->z = $z;
 	}
 
-	public function toString()
+	public function __toString()
 	{
 		return "{Position ".$this->x." ".$this->y." ".$this->z."}";
 	}

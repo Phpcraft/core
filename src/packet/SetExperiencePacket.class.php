@@ -66,7 +66,7 @@ class SetExperiencePacket extends Packet
 		$con->send();
 	}
 
-	public function toString()
+	public function __toString()
 	{
 		return "{SetExperiencePacket: Level ".$this->level.", ".($this->percent * 100)."% to next}";
 	}

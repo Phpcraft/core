@@ -176,7 +176,7 @@ abstract class EntityMetadata
 
 	abstract public function getStringAttributes();
 
-	public function toString()
+	public function __toString()
 	{
 		$attr = $this->getStringAttributes();
 		if(count($attr) > 0)

@@ -49,7 +49,7 @@ class DestroyEntitiesPacket extends Packet
 		$con->send();
 	}
 
-	public function toString()
+	public function __toString()
 	{
 		$str = "{DestroyEntitiesPacket:";
 		foreach($this->eids as $eid)

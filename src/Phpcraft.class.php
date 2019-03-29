@@ -63,7 +63,7 @@ abstract class Phpcraft
 		}
 		if(empty($profiles["clientToken"]))
 		{
-			$profiles["clientToken"] = UUID::v4()->toString();
+			$profiles["clientToken"] = UUID::v4()->__toString();
 		}
 		if(!isset($profiles["selectedUser"]))
 		{

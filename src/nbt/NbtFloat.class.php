@@ -39,7 +39,7 @@ class NbtFloat extends NbtTag
 		return new NbtFloat($this->name, $this->value);
 	}
 
-	public function toString()
+	public function __toString()
 	{
 		return "{Float \"".$this->name."\": ".$this->value."}";
 	}

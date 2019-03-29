@@ -229,7 +229,7 @@ class MapDataPacket extends Packet
 		$con->send();
 	}
 
-	public function toString()
+	public function __toString()
 	{
 		$str = "{Map Data: Map ID ".$this->mapId.", Scale ".$this->scale.", {$this->width}x{$this->height} Pixels, From {$this->x}:{$this->z}, Markers:";
 		if(empty($this->markers))
@@ -238,7 +238,7 @@ class MapDataPacket extends Packet
 		}
 		foreach($this->markers as $marker)
 		{
-			$str .= " ".$marker->toString();
+			$str .= " ".$marker->__toString();
 		}
 		return $str."}";
 	}

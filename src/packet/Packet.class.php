@@ -37,5 +37,5 @@ abstract class Packet
 	 */
 	abstract public function send(Connection $con);
 
-	abstract public function toString();
+	abstract public function __toString();
 }

@@ -88,7 +88,7 @@ class MapMarker
 		$this->name = $name;
 	}
 
-	public function toString()
+	public function __toString()
 	{
 		return "{Map Marker".($this->name ? " \"".Phpcraft::chatToText($this->name)."\"" : "")." at {$this->x}:{$this->z}, Type {$this->type}, ".($this->rotation * 22.5)."° Rotation}";
 	}

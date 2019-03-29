@@ -568,7 +568,7 @@ do
 				$amount = $con->readVarInt();
 				for($i = 0; $i < $amount; $i++)
 				{
-					$uuid = $con->readUuid()->toString();
+					$uuid = $con->readUuid()->__toString();
 					if($action == 0)
 					{
 						$username = $con->readString();
@@ -618,7 +618,7 @@ do
 					if($protocol_version > 47)
 					{
 						$entities[$eid] = [
-							"uuid" => $con->readUuid()->toString(),
+							"uuid" => $con->readUuid()->__toString(),
 							"x" => $con->readDouble(),
 							"y" => $con->readDouble(),
 							"z" => $con->readDouble(),
@@ -629,7 +629,7 @@ do
 					else
 					{
 						$entities[$eid] = [
-							"uuid" => $con->readUuid()->toString(),
+							"uuid" => $con->readUuid()->__toString(),
 							"x" => $con->readInt() / 32,
 							"y" => $con->readInt() / 32,
 							"z" => $con->readInt() / 32,

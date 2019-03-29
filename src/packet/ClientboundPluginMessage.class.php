@@ -24,7 +24,7 @@ class ClientboundPluginMessagePacket extends PluginMessagePacket
 		return $packet;
 	}
 
-	public function toString()
+	public function __toString()
 	{
 		return "{ClientboundPluginMessagePacket: \"".$this->channel."\": ".Phpcraft::binaryStringToHex($this->data)."}";
 	}

@@ -19,7 +19,7 @@ class NbtEnd extends NbtTag
 		return new NbtEnd();
 	}
 
-	public function toString()
+	public function __toString()
 	{
 		return "{End}";
 	}

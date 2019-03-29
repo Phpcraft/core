@@ -52,12 +52,12 @@ class NbtList extends NbtTag
 		return new NbtList($this->name, $this->childType, $this->children);
 	}
 
-	public function toString()
+	public function __toString()
 	{
 		$str = "{List \"".$this->name."\":";
 		foreach($this->children as $child)
 		{
-			$str .= " ".$child->toString();
+			$str .= " ".$child->__toString();
 		}
 		return $str."}";
 	}

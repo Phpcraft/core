@@ -101,12 +101,12 @@ class NbtCompound extends NbtTag
 		return new NbtCompound($this->name, $this->children);
 	}
 
-	public function toString()
+	public function __toString()
 	{
 		$str = "{Compound \"".$this->name."\":";
 		foreach($this->children as $child)
 		{
-			$str .= " ".$child->toString();
+			$str .= " ".$child->__toString();
 		}
 		return $str."}";
 	}

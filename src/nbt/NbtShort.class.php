@@ -39,7 +39,7 @@ class NbtShort extends NbtTag
 		return new NbtShort($this->name, $this->value);
 	}
 
-	public function toString()
+	public function __toString()
 	{
 		return "{Short \"".$this->name."\": ".$this->value."}";
 	}

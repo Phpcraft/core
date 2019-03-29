@@ -39,7 +39,7 @@ class NbtInt extends NbtTag
 		return new NbtInt($this->name, $this->value);
 	}
 
-	public function toString()
+	public function __toString()
 	{
 		return "{Int \"".$this->name."\": ".$this->value."}";
 	}

@@ -43,7 +43,7 @@ class NbtByteArray extends NbtTag
 		return new NbtByteArray($this->name, $this->children);
 	}
 
-	public function toString()
+	public function __toString()
 	{
 		$str = "{ByteArray \"".$this->name."\":";
 		foreach($this->children as $child)

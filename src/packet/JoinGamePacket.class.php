@@ -64,7 +64,7 @@ class JoinGamePacket extends Packet
 		$con->send();
 	}
 
-	public function toString()
+	public function __toString()
 	{
 		return "{JoinGamePacket: Entity ID ".$this->eid.", Gamemode ".$this->gamemode.", ".($this->hardcore ? "Not " : "")."Hardcore Mode, Dimension ".$this->dimension.", Difficulty ".$this->difficulty."}";
 	}

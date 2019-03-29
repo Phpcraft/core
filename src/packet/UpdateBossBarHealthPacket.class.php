@@ -49,8 +49,8 @@ class UpdateBossBarHealthPacket extends BossBarPacket
 		$con->send();
 	}
 
-	public function toString()
+	public function __toString()
 	{
-		return "{UpdateBossBarHealthPacket: Boss Bar ".$this->uuid->toString().", ".($this->health * 100)."% Health}";
+		return "{UpdateBossBarHealthPacket: Boss Bar ".$this->uuid->__toString().", ".($this->health * 100)."% Health}";
 	}
 }

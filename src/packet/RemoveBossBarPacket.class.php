@@ -23,8 +23,8 @@ class RemoveBossBarPacket extends BossBarPacket
 		}
 	}
 
-	public function toString()
+	public function __toString()
 	{
-		return "{RemoveBossBarPacket: Boss Bar ".$this->uuid->toString()."}";
+		return "{RemoveBossBarPacket: Boss Bar ".$this->uuid->__toString()."}";
 	}
 }

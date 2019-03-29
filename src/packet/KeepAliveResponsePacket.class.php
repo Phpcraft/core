@@ -44,7 +44,7 @@ class KeepAliveResponsePacket extends Packet
 		$con->send();
 	}
 
-	public function toString()
+	public function __toString()
 	{
 		return "{Keep Alive Response: ID ".$this->keepAliveId."}";
 	}

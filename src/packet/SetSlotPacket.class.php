@@ -49,7 +49,7 @@ class SetSlotPacket extends Packet
 		$con->send();
 	}
 
-	public function toString()
+	public function __toString()
 	{
 		return "{Set Slot: Window ID {$this->window}, Slot ID {$this->slotId}, ".Slot::toString($this->slot)."}";
 	}

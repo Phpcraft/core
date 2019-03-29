@@ -127,13 +127,13 @@ class SpawnMobPacket extends Packet
 		$con->send();
 	}
 
-	public function toString()
+	public function __toString()
 	{
 		$str = "{SpawnMobPacket: ";
 		if($this->type)
 		{
 			$str .= $this->type->name.", ";
 		}
-		return $str."Entity ID ".$this->eid.", ".$this->pos->toString().", ".$this->metadata->toString()."}";
+		return $str."Entity ID ".$this->eid.", ".$this->pos->__toString().", ".$this->metadata->__toString()."}";
 	}
 }

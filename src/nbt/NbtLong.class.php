@@ -39,7 +39,7 @@ class NbtLong extends NbtTag
 		return new NbtLong($this->name, $this->value);
 	}
 
-	public function toString()
+	public function __toString()
 	{
 		return "{Long \"".$this->name."\": ".$this->value."}";
 	}

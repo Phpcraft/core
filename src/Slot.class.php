@@ -134,8 +134,13 @@ class Slot
 		$str = "{Slot: {$slot->count}x {$slot->item->name}";
 		if($slot->hasNBT())
 		{
-			$str .= ", NBT ".$slot->nbt->toString();
+			$str .= ", NBT ".$slot->nbt->__toString();
 		}
 		return $str."}";
+	}
+
+	public function __toString()
+	{
+		return Slot::toString($this);
 	}
 }

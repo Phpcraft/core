@@ -53,7 +53,7 @@ class KeepAliveRequestPacket extends Packet
 		return new KeepAliveResponsePacket($this->keepAliveId);
 	}
 
-	public function toString()
+	public function __toString()
 	{
 		return "{Keep Alive Request: ID ".$this->keepAliveId."}";
 	}

@@ -89,7 +89,7 @@ while($id = $con->readPacket())
 			$id_count = 0;
 			$total_size = 0;
 		}
-		echo $packet->toString()."\n";
+		echo $packet->__toString()."\n";
 	}
 	else if($last_id === $id)
 	{

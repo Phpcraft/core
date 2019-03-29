@@ -39,7 +39,7 @@ class NbtByte extends NbtTag
 		return new NbtByte($this->name, $this->value);
 	}
 
-	public function toString()
+	public function __toString()
 	{
 		return "{Byte \"".$this->name."\": ".$this->value."}";
 	}

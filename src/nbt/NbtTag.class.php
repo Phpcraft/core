@@ -43,5 +43,5 @@ abstract class NbtTag
 
 	abstract public function copy();
 
-	abstract public function toString();
+	abstract public function __toString();
 }

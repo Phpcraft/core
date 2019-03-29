@@ -44,8 +44,8 @@ class UpdateBossBarTitlePacket extends BossBarPacket
 		$con->send();
 	}
 
-	public function toString()
+	public function __toString()
 	{
-		return "{UpdateBossBarTitlePacket: Boss Bar ".$this->uuid->toString().", \"".Phpcraft::chatToText($this->title)."\"}";
+		return "{UpdateBossBarTitlePacket: Boss Bar ".$this->uuid->__toString().", \"".Phpcraft::chatToText($this->title)."\"}";
 	}
 }

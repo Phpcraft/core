@@ -110,9 +110,9 @@ class AddBossBarPacket extends BossBarPacket
 		}
 	}
 
-	public function toString()
+	public function __toString()
 	{
-		$str = "{AddBossBarPacket: Boss Bar ".$this->uuid->toString().", \"".Phpcraft::chatToText($this->title)."\", ".($this->health * 100)."% Health, Color ID {$this->color}, Division ID {$this->division}";
+		$str = "{AddBossBarPacket: Boss Bar ".$this->uuid->__toString().", \"".Phpcraft::chatToText($this->title)."\", ".($this->health * 100)."% Health, Color ID {$this->color}, Division ID {$this->division}";
 		if($this->darken_sky)
 		{
 			$str .= ", Darkens Sky";

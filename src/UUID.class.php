@@ -97,6 +97,11 @@ class UUID
 		return $str;
 	}
 
+	public function __toString()
+	{
+		return "{UUID ".$this->toString()."}";
+	}
+
 	/**
 	 * Returns an integer which will always be the same given the same UUID, but collisions are far more likely.
 	 * @return integer
