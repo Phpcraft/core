@@ -4,7 +4,7 @@ abstract class ServerClientEvent extends ServerEvent
 {
 	/**
 	 * The client that has triggered this event.
-	 * @var ClientConnection
+	 * @var ClientConnection $client
 	 */
 	public $client;
 

@@ -5,6 +5,7 @@ use Phpcraft\
 {BlockMaterial, ClientboundPluginMessagePacket, ClientConnection, ServerJoinEvent, Connection, Difficulty, Dimension,
 	Event, Gamemode, JoinGamePacket, Plugin, PluginManager, PluginMessagePacket, Position, ServerTickEvent};
 
+$WorldImitatorActive = false;
 PluginManager::registerPlugin("FirstPackets", function(Plugin $plugin)
 {
 	$plugin->on(function(ServerJoinEvent $event)
@@ -18,8 +19,8 @@ PluginManager::registerPlugin("FirstPackets", function(Plugin $plugin)
 		$packet->channel = PluginMessagePacket::CHANNEL_BRAND;
 		$packet->data = "\x08Phpcraft";
 		$packet->send($con);
-		global $WorldImitator_version;
-		if($WorldImitator_version !== null)
+		global $WorldImitatorActive;
+		if($WorldImitatorActive)
 		{
 			return;
 		}
@@ -47,8 +48,8 @@ PluginManager::registerPlugin("FirstPackets", function(Plugin $plugin)
 	}, Event::PRIORITY_NORMAL);
 	$plugin->on(function(ServerTickEvent $event)
 	{
-		global $WorldImitator_version;
-		if($WorldImitator_version !== null)
+		global $WorldImitatorActive;
+		if($WorldImitatorActive)
 		{
 			return;
 		}

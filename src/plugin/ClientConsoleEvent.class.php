@@ -5,7 +5,7 @@ class ClientConsoleEvent extends ClientEvent
 {
 	/**
 	 * The message that the console has proposed.
-	 * @var string
+	 * @var string $message
 	 */
 	public $message;
 

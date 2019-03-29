@@ -16,7 +16,7 @@ class Plugin
 	/**
 	 * @param string $name The name of the plugin.
 	 */
-	public function __construct($name)
+	public function __construct(string $name)
 	{
 		$this->name = $name;
 	}
@@ -26,29 +26,25 @@ class Plugin
 	 * @param callable $callable The function. The first parameter should explicitly declare its type to be a decendant of Event.
 	 * @param integer $priority The priority of the event handler. The higher the priority, the earlier it will be executed. Use a high value if you plan to cancel the event.
 	 * @return Plugin $this
-	 * @throws \ReflectionException
 	 * @throws Exception
 	 */
-	public function on($callable, $priority = Event::PRIORITY_NORMAL)
+	public function on(callable $callable, int $priority = Event::PRIORITY_NORMAL)
 	{
-		if(gettype($callable) != "callable")
-		{
-			throw new Exception("First parameter of Plugin::on needs to be a callable.");
-		}
 		$ref = new \ReflectionFunction($callable);
 		$params = $ref->getParameters();
-		if(count($params) == 1)
+		if(count($params) != 1)
 		{
 			throw new Exception("Callable needs to have exactly one parameter.");
 		}
 		$param = $params[0];
 		if(!$param->hasType())
 		{
-			throw new Exception("Callable's parameter needs to explicitly declare parameter type. Example: function(\\Phpcraft\\ServerTickEvent \$event){ ... }");
+			throw new Exception("Callable's parameter needs to explicitly declare parameter type.");
 		}
-		$type = $param->getType()->getName();
+		$type = $param->getType();
+		$type = $type instanceof ReflectionNamedType ? $type->getName() : $type->__toString();
 		$class = new \ReflectionClass($type);
-		if($class->isSubclassOf("Phpcraft\\Event"))
+		if(!$class->isSubclassOf("Phpcraft\\Event"))
 		{
 			throw new Exception("Callable's parameter type needs to be a decendant of \\Phpcraft\\Event.");
 		}

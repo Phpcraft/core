@@ -17,11 +17,11 @@ abstract class PluginManager
 	{
 		foreach(scandir($plugins_folder) as $file)
 		{
-			if(substr($file, -4) == ".php" && is_file($file))
+			if(substr($file, -4) == ".php" && is_file($plugins_folder."/".$file))
 			{
 				PluginManager::$load_state = true;
 				include $plugins_folder."/".$file;
-				if(!PluginManager::$load_state)
+				if(PluginManager::$load_state)
 				{
 					echo "{$file} did not register with PluginManager::registerPlugin\n";
 				}
@@ -37,24 +37,27 @@ abstract class PluginManager
 	 */
 	public static function registerPlugin($name, $callback)
 	{
-		if(PluginManager::$load_state)
-		{
-			$plugin = new Plugin($name);
-			try
-			{
-				$callback($plugin);
-			}
-			catch(\Exception $e)
-			{
-				echo "Unhandled exception in plugin \"{$name}\": ".get_class($e).": ".$e->getMessage()."\n".$e->getTraceAsString()."\n";
-			}
-			array_push(PluginManager::$loaded_plugins, $plugin);
-			PluginManager::$load_state = false;
-		}
-		else
+		if(!PluginManager::$load_state)
 		{
 			echo "Plugin \"{$name}\" tried to be registered despite not having been asked.\n";
+			return;
 		}
+		if(isset(PluginManager::$loaded_plugins[$name]))
+		{
+			echo "Plugin \"{$name}\" tried to be registered twice.\n";
+			return;
+		}
+		$plugin = new Plugin($name);
+		try
+		{
+			$callback($plugin);
+		}
+		catch(\Exception $e)
+		{
+			echo "Unhandled exception in plugin \"{$name}\": ".get_class($e).": ".$e->getMessage()."\n".$e->getTraceAsString()."\n";
+		}
+		PluginManager::$loaded_plugins[$name] = $plugin;
+		PluginManager::$load_state = false;
 	}
 
 	/**

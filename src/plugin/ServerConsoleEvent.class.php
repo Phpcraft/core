@@ -5,13 +5,12 @@ class ServerConsoleEvent extends ServerEvent
 {
 	/**
 	 * The message that the console has proposed.
-	 * @var string
+	 * @var string $message
 	 */
 	public $message;
 
 	/**
 	 * @param Server $server
-	 * @param ClientConnection $client
 	 * @param string $message The message that the console has proposed.
 	 */
 	public function __construct(Server $server, $message)

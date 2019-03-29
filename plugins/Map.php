@@ -1,20 +1,24 @@
 <?php
 // Loads a 128x128 image from map.png and displays it to clients as a map.
 
-use Phpcraft\
-{ServerJoinEvent, Event, Item, MapDataPacket, NbtCompound, NbtInt, NbtString, Phpcraft, Plugin, PluginManager,
-	SetSlotPacket, Slot};
+use Phpcraft\{ServerJoinEvent, Event, Item, MapDataPacket, NbtCompound, NbtInt, NbtString, Phpcraft, Plugin, PluginManager, SetSlotPacket, Slot};
 
-if(!extension_loaded("gd"))
-{
-	echo "[Map] Not loading because php-gd is not loaded.\n";
-	return;
-}
+$WorldImitatorActive = false;
 PluginManager::registerPlugin("Map", function(Plugin $plugin)
 {
+	if(!extension_loaded("gd"))
+	{
+		echo "[Map] Please install the PHP gd extension.\n";
+		return;
+	}
 	$plugin->on(function(ServerJoinEvent $event)
 	{
 		if($event->cancelled)
+		{
+			return;
+		}
+		global $WorldImitatorActive;
+		if($WorldImitatorActive)
 		{
 			return;
 		}

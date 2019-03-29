@@ -5,7 +5,7 @@ class ClientChatEvent extends ServerClientEvent
 {
 	/**
 	 * The message that the client has proposed.
-	 * @var string
+	 * @var string $message
 	 */
 	public $message;
 
