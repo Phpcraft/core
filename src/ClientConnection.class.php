@@ -405,7 +405,7 @@ class ClientConnection extends Connection
 	 */
 	public function setGamemode(int $gamemode)
 	{
-		if(!Gamemode::validate($gamemode))
+		if(!Gamemode::validateValue($gamemode))
 		{
 			throw new Exception("Invalid gamemode: ".$gamemode);
 		}

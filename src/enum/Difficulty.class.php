@@ -1,6 +1,6 @@
 <?php
 namespace Phpcraft;
-abstract class Difficulty
+abstract class Difficulty extends Enum
 {
 	const PEACEFUL = 0;
 	const EASY = 1;
