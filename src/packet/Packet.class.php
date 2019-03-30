@@ -7,7 +7,7 @@ abstract class Packet
 	 * Returns a binary string containing the payload of the packet.
 	 * @param integer $protocol_version The protocol version you'd like to get the payload for.
 	 * @return string
-	 * @throws Exception
+	 * @throws IOException
 	 */
 	public function getPayload(int $protocol_version = -1)
 	{
@@ -22,14 +22,14 @@ abstract class Packet
 	 * Initialises the packet class by reading its payload from the given Connection.
 	 * @param Connection $con
 	 * @return Packet
-	 * @throws Exception
+	 * @throws IOException
 	 */
 	abstract public static function read(Connection $con);
 
 	/**
 	 * Adds the packet's ID and payload to the Connection's write buffer and, if the connection has a stream, sends it over the wire.
 	 * @param Connection $con
-	 * @throws Exception
+	 * @throws IOException
 	 */
 	abstract public function send(Connection $con);
 

@@ -38,7 +38,7 @@ abstract class PluginMessagePacket extends Packet
 
 	/**
 	 * @param Connection $con
-	 * @throws Exception
+	 * @throws IOException
 	 */
 	protected function _read(Connection $con)
 	{
@@ -67,7 +67,7 @@ abstract class PluginMessagePacket extends Packet
 	/**
 	 * Adds the packet's ID and payload to the Connection's write buffer and, if the connection has a stream, sends it over the wire.
 	 * @param Connection $con
-	 * @throws Exception
+	 * @throws IOException
 	 */
 	public function send(Connection $con)
 	{

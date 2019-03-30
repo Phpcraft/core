@@ -15,7 +15,7 @@ class ClientboundPluginMessagePacket extends PluginMessagePacket
 	 * Initialises the packet class by reading its payload from the given Connection.
 	 * @param Connection $con
 	 * @return ClientboundPluginMessagePacket
-	 * @throws Exception
+	 * @throws IOException
 	 */
 	public static function read(Connection $con)
 	{

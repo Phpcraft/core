@@ -44,7 +44,7 @@ class EntityBase extends EntityMetadata
 	 * @param Connection $con
 	 * @param integer $index
 	 * @return boolean
-	 * @throws Exception
+	 * @throws IOException
 	 */
 	protected function read_(Connection $con, int $index)
 	{
@@ -147,7 +147,6 @@ class EntityBase extends EntityMetadata
 	/**
 	 * Writes this non-null metadata values to the Connection's write buffer.
 	 * @param Connection $con
-	 * @throws Exception
 	 */
 	public function write(Connection $con)
 	{

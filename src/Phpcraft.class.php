@@ -684,7 +684,7 @@ abstract class Phpcraft
 	 * @param float $timeout The amount of seconds to wait for a response with each method.
 	 * @param integer $method The method(s) used to get the status. 2 = legacy list ping, 1 = modern list ping, 0 = both.
 	 * @return array
-	 * @throws Exception
+	 * @throws IOException
 	 */
 	public static function getServerStatus(string $server_name, int $server_port = 25565, float $timeout = 3.000, int $method = 0)
 	{

@@ -59,7 +59,7 @@ class SpawnMobPacket extends Packet
 	 * Initialises the packet class by reading its payload from the given Connection.
 	 * @param Connection $con
 	 * @return SpawnMobPacket
-	 * @throws Exception
+	 * @throws IOException
 	 */
 	public static function read(Connection $con)
 	{
@@ -90,7 +90,7 @@ class SpawnMobPacket extends Packet
 	/**
 	 * Adds the packet's ID and payload to the Connection's write buffer and, if the connection has a stream, sends it over the wire.
 	 * @param Connection $con
-	 * @throws Exception
+	 * @throws IOException
 	 */
 	public function send(Connection $con)
 	{

@@ -1,5 +1,7 @@
 <?php
 namespace Phpcraft;
+use DomainException;
+use InvalidArgumentException;
 /** A client-to-server connection. */
 class ServerConnection extends Connection
 {
@@ -10,7 +12,7 @@ class ServerConnection extends Connection
 	 * @param resource $stream A stream created by fsockopen.
 	 * @param integer $protocol_version 404 = 1.13.2
 	 */
-	public function __construct(int $stream, int $protocol_version = 404)
+	public function __construct($stream, int $protocol_version = 404)
 	{
 		parent::__construct($protocol_version, $stream);
 	}
@@ -22,7 +24,7 @@ class ServerConnection extends Connection
 	 * @param integer $server_port
 	 * @param integer $next_state Use 1 for status, or 2 for login to play.
 	 * @return ServerConnection $this
-	 * @throws Exception
+	 * @throws IOException
 	 */
 	public function sendHandshake(string $server_name, int $server_port, int $next_state)
 	{
@@ -41,7 +43,7 @@ class ServerConnection extends Connection
 	 * @param Account $account
 	 * @param array $translations The translations array so translated messages look proper.
 	 * @return string Error message. Empty on success.
-	 * @throws Exception
+	 * @throws IOException
 	 */
 	public function login(Account $account, array $translations = null)
 	{
@@ -125,7 +127,8 @@ class ServerConnection extends Connection
 	 * Clears the write buffer and starts a new packet.
 	 * @param string|integer $packet The name or ID of the new packet.
 	 * @return Connection $this
-	 * @throws Exception
+	 * @throws DomainException
+	 * @throws InvalidArgumentException
 	 */
 	public function startPacket($packet)
 	{
@@ -134,7 +137,7 @@ class ServerConnection extends Connection
 			$packetId = ServerboundPacket::get($packet);
 			if(!$packetId)
 			{
-				throw new Exception("Unknown packet name: ".$packet);
+				throw new DomainException("Unknown packet name: ".$packet);
 			}
 			$packet = $packetId->getId($this->protocol_version);
 		}

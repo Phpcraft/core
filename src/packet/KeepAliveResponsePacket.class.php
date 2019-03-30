@@ -17,7 +17,7 @@ class KeepAliveResponsePacket extends Packet
 	 * Initialises the packet class by reading its payload from the given Connection.
 	 * @param Connection $con
 	 * @return KeepAliveResponsePacket
-	 * @throws Exception
+	 * @throws IOException
 	 */
 	public static function read(Connection $con)
 	{
@@ -27,7 +27,7 @@ class KeepAliveResponsePacket extends Packet
 	/**
 	 * Adds the packet's ID and payload to the Connection's write buffer and, if the connection has a stream, sends it over the wire.
 	 * @param Connection $con
-	 * @throws Exception
+	 * @throws IOException
 	 */
 	public function send(Connection $con)
 	{

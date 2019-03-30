@@ -33,7 +33,8 @@ abstract class BossBarPacket extends Packet
 	 * Initialises the packet class by reading its payload from the given Connection.
 	 * @param Connection $con
 	 * @return BossBarPacket
-	 * @throws Exception
+	 * @throws IOException
+	 * @todo Implement every subpacket.
 	 */
 	public static function read(Connection $con)
 	{

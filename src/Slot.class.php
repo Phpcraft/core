@@ -72,7 +72,6 @@ class Slot
 	 * Sets the display name of the item in this slot.
 	 * @param array $name The new display name; chat object, or null to clear.
 	 * @return Slot $this
-	 * @throws Exception
 	 */
 	public function setDisplayName(array $name)
 	{

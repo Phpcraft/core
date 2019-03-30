@@ -1,5 +1,6 @@
 <?php
 namespace Phpcraft;
+use InvalidArgumentException;
 /** A UUID helper class. */
 class UUID
 {
@@ -11,7 +12,7 @@ class UUID
 
 	/**
 	 * @param string $uuid A UUID string or binary string.
-	 * @throws Exception When the given string is not a valid UUID.
+	 * @throws InvalidArgumentException When the given string is not a valid UUID.
 	 */
 	public function __construct(string $uuid)
 	{
@@ -24,7 +25,7 @@ class UUID
 			$uuid = str_replace(["-", "{", "}"], "", $uuid);
 			if(strlen($uuid) != 32)
 			{
-				throw new Exception("Invalid UUID: ".$uuid);
+				throw new InvalidArgumentException("Invalid UUID: ".$uuid);
 			}
 			$this->binary = "";
 			for($i = 0; $i < 32; $i += 2)
@@ -34,7 +35,7 @@ class UUID
 		}
 		else
 		{
-			throw new Exception("Invalid UUID: ".$uuid);
+			throw new InvalidArgumentException("Invalid UUID: ".$uuid);
 		}
 	}
 
@@ -52,7 +53,6 @@ class UUID
 	 * @param string $str
 	 * @param UUID|null $namespace
 	 * @return UUID
-	 * @throws Exception
 	 */
 	public static function v5($str, UUID $namespace = null)
 	{

@@ -1,5 +1,9 @@
 <?php
 namespace Phpcraft;
+use DomainException;
+use UnexpectedValueException;
+use InvalidArgumentException;
+use LogicException;
 /**
  * Entity metadata.
  * All values are "null" by default, meaning EntityMetadata::write won't write it.
@@ -9,7 +13,8 @@ abstract class EntityMetadata
 	/**
 	 * @param Connection $con
 	 * @param string $type
-	 * @throws Exception
+	 * @throws IOException
+	 * @throws DomainException
 	 */
 	private static function ignoreType(Connection $con, string $type)
 	{
@@ -45,7 +50,7 @@ abstract class EntityMetadata
 			break;
 
 			default:
-			throw new Exception("Unimplemented type: {$type}");
+			throw new DomainException("Unimplemented type: {$type}");
 		}
 	}
 
@@ -53,7 +58,9 @@ abstract class EntityMetadata
 	 * Reads metadata values from the Connection.
 	 * @param Connection $con
 	 * @return EntityMetadata $this
-	 * @throws Exception
+	 * @throws IOException
+	 * @throws DomainException
+	 * @throws InvalidArgumentException
 	 */
 	public function read(Connection $con)
 	{
@@ -99,7 +106,7 @@ abstract class EntityMetadata
 									break 2;
 
 									default:
-									throw new Exception("Unimplemented type: ".$type[0]);
+									throw new DomainException("Unimplemented type: ".$type[0]);
 								}
 							}
 							else
@@ -156,7 +163,7 @@ abstract class EntityMetadata
 						break;
 
 						default:
-						throw new Exception("Invalid type: {$type}");
+						throw new UnexpectedValueException("Invalid type: {$type}");
 					}
 				}
 			}
@@ -227,13 +234,13 @@ abstract class EntityMetadata
 	 * @param Connection $con
 	 * @param integer $index
 	 * @param array|string $value
-	 * @throws Exception
+	 * @throws LogicException
 	 */
 	public static function writeOptChat(Connection $con, int $index, $value)
 	{
 		if($con->protocol_version < 57)
 		{
-			throw new Exception("OptChat is not available at this protocol version.");
+			throw new LogicException("OptChat is not available at this protocol version.");
 		}
 		$con->writeByte($index);
 		$con->writeByte(5);

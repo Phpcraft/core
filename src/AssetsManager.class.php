@@ -1,5 +1,6 @@
 <?php
 namespace Phpcraft;
+use Exception;
 class AssetsManager
 {
 	public $index_url;
@@ -16,7 +17,7 @@ class AssetsManager
 	 * Returns an AssetsManager using the given Minecraft version's asset index.
 	 * @param string $version The Minecraft version you'd like to access the assets of.
 	 * @return AssetsManager
-	 * @throws Exception
+	 * @throws Exception When the version manifest for the given version couldn't be fetched.
 	 */
 	public static function fromMinecraftVersion(string $version)
 	{

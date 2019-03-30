@@ -1,5 +1,7 @@
 <?php
 namespace Phpcraft;
+use DomainException;
+use InvalidArgumentException;
 /** A server-to-client connection. */
 class ClientConnection extends Connection
 {
@@ -163,7 +165,7 @@ class ClientConnection extends Connection
 				}
 			}
 		}
-		catch(Exception $ignored){}
+		catch(IOException $ignored){}
 		$this->close();
 		return 0;
 	}
@@ -181,7 +183,7 @@ class ClientConnection extends Connection
 	 * Sends an Encryption Request Packet.
 	 * @param resource $private_key Your OpenSSL private key resource.
 	 * @return ClientConnection $this
-	 * @throws Exception
+	 * @throws IOException
 	 */
 	public function sendEncryptionRequest($private_key)
 	{
@@ -202,7 +204,7 @@ class ClientConnection extends Connection
 	 * In case of an error, the client is disconnected and false is returned. Otherwise, true is returned, and ClientConnection::handleAuthentication should be regularly called to finish the authentication.
 	 * @param resource $private_key Your OpenSSL private key resource.
 	 * @return boolean
-	 * @throws Exception
+	 * @throws IOException
 	 */
 	public function handleEncryptionResponse($private_key)
 	{
@@ -281,7 +283,7 @@ class ClientConnection extends Connection
 	 * @param Counter $eidCounter The server's Counter to assign an entity ID to the client.
 	 * @param integer $compression_threshold Use -1 to disable compression.
 	 * @return ClientConnection $this
-	 * @throws Exception
+	 * @throws IOException
 	 */
 	public function finishLogin(UUID $uuid, Counter $eidCounter, int $compression_threshold = 256)
 	{
@@ -325,7 +327,7 @@ class ClientConnection extends Connection
 				$this->writeChat($reason);
 				$this->send();
 			}
-			catch(Exception $ignored){}
+			catch(IOException $ignored){}
 		}
 		$this->close();
 	}
@@ -334,7 +336,8 @@ class ClientConnection extends Connection
 	 * Clears the write buffer and starts a new packet.
 	 * @param string|integer $packet The name or ID of the new packet.
 	 * @return Connection $this
-	 * @throws Exception
+	 * @throws DomainException
+	 * @throws InvalidArgumentException
 	 */
 	public function startPacket($packet)
 	{
@@ -343,7 +346,7 @@ class ClientConnection extends Connection
 			$packetId = ClientboundPacket::get($packet);
 			if(!$packetId)
 			{
-				throw new Exception("Unknown packet name: ".$packet);
+				throw new DomainException("Unknown packet name: ".$packet);
 			}
 			$packet = $packetId->getId($this->protocol_version);
 		}
@@ -352,7 +355,7 @@ class ClientConnection extends Connection
 
 	/**
 	 * Sends the client their abilities.
-	 * @throws Exception
+	 * @throws IOException
 	 * @return ClientConnection $this
 	 * @see ClientConnection::$invulnerable
 	 * @see ClientConnection::$flying
@@ -376,9 +379,10 @@ class ClientConnection extends Connection
 
 	/**
 	 * Sets the client's abilities according to the given gamemode.
+	 * @param integer $gamemode
+	 * @return ClientConnection $this
 	 * @see ClientConnection::sendAbilities
 	 * @see ClientConnection::setGamemode
-	 * @return ClientConnection $this
 	 */
 	public function setAbilities(int $gamemode)
 	{
@@ -399,15 +403,17 @@ class ClientConnection extends Connection
 
 	/**
 	 * Sets the client's gamemode and adjusts their abilities accordingly.
-	 * @throws Exception
+	 * @param integer $gamemode
 	 * @return ClientConnection $this
+	 * @throws DomainException
+	 * @throws IOException
 	 * @see Gamemode
 	 */
 	public function setGamemode(int $gamemode)
 	{
 		if(!Gamemode::validateValue($gamemode))
 		{
-			throw new Exception("Invalid gamemode: ".$gamemode);
+			throw new DomainException("Invalid gamemode: ".$gamemode);
 		}
 		$this->gamemode = $gamemode;
 		$this->startPacket("change_game_state");

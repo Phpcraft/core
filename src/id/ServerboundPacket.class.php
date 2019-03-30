@@ -52,7 +52,7 @@ class ServerboundPacket extends PacketId
 	 * Returns null if the packet does not have a class implementation yet.
 	 * @param Connection $con
 	 * @return Packet
-	 * @throws Exception
+	 * @throws IOException
 	 */
 	public function init(Connection $con)
 	{

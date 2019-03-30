@@ -1,5 +1,8 @@
 <?php
 namespace Phpcraft;
+use DomainException;
+use InvalidArgumentException;
+use LengthException;
 /**
  * A wrapper to read and write from streams.
  * The Connection object can also be utilized without a stream:
@@ -127,7 +130,7 @@ class Connection
 	 * Adds a chat object to the read buffer.
 	 * @param array|string $value The chat object or a strings that will be converted into a chat object.
 	 * @return Connection $this
-	 * @throws Exception
+	 * @throws InvalidArgumentException
 	 */
 	public function writeChat($value)
 	{
@@ -137,7 +140,7 @@ class Connection
 		}
 		else if(gettype($value) != "array")
 		{
-			throw new Exception("Invalid argument type: ".gettype($value));
+			throw new InvalidArgumentException("Argument can't be of type ".gettype($value));
 		}
 		$this->writeString(json_encode($value));
 		return null;
@@ -262,7 +265,7 @@ class Connection
 	 * Adds a slot to the write buffer.
 	 * @param Slot $slot
 	 * @return Connection $this
-	 * @throws Exception
+	 * @throws MissingMetadataException
 	 */
 	public function writeSlot(Slot $slot)
 	{
@@ -295,9 +298,9 @@ class Connection
 					switch($slot->item->name)
 					{
 						case "filled_map":
-						if(!($slot->nbt instanceof NbtCompound))
+						if(!($slot->nbt instanceof NbtCompound) || !$slot->nbt->hasChild("map"))
 						{
-							throw new Exception("filled_map is missing ID.");
+							throw new MissingMetadataException("filled_map is missing ID.");
 						}
 						$this->writeShort($slot->nbt->getChild("map")->value);
 						break;
@@ -346,7 +349,8 @@ class Connection
 	 * Clears the write buffer and starts a new packet.
 	 * @param string|integer $packet The name or ID of the new packet.
 	 * @return Connection $this
-	 * @throws Exception
+	 * @throws DomainException
+	 * @throws InvalidArgumentException
 	 */
 	public function startPacket($packet)
 	{
@@ -355,13 +359,13 @@ class Connection
 			$packetId = PacketId::get($packet);
 			if(!$packetId)
 			{
-				throw new Exception("Unknown packet name: ".$packet);
+				throw new DomainException("Unknown packet name: ".$packet);
 			}
 			$packet = $packetId->getId($this->protocol_version);
 		}
 		else if(gettype($packet) != "integer")
 		{
-			throw new Exception("Packet has to be either string or integer.");
+			throw new InvalidArgumentException("Packet has to be either string or integer.");
 		}
 		$this->write_buffer = Phpcraft::intToVarInt($packet);
 		return $this;
@@ -370,7 +374,7 @@ class Connection
 	/**
 	 * Sends the contents of the write buffer over the stream and clears the write buffer or does nothing if there is no stream.
 	 * @param boolean $raw When true, the write buffer is sent as-is, without length prefix or compression, which you probably don't want.
-	 * @throws Exception If the connection is not open.
+	 * @throws IOException If the connection is not open.
 	 * @return Connection $this
 	 */
 	public function send(bool $raw = false)
@@ -379,7 +383,7 @@ class Connection
 		{
 			if(@feof($this->stream) !== false)
 			{
-				throw new Exception("Can't send to connection that's not open.");
+				throw new IOException("Can't send to connection that's not open.");
 			}
 			stream_set_blocking($this->stream, true);
 			if($raw)
@@ -459,7 +463,8 @@ class Connection
 	 * Puts a new packet into the read buffer.
 	 * @see Connection::readRawPacket
 	 * @param float $timeout The amount of seconds to wait before read is aborted.
-	 * @throws Exception When the packet length or packet id VarInt is too big.
+	 * @throws LengthException When the packet's length or ID VarInt is too big.
+	 * @throws IOException When there are not enough bytes to read the packet ID.
 	 * @return integer|boolean The packet's id or false if no packet was received within the time limit.
 	 * @see Packet::clientboundPacketIdToName()
 	 * @see Packet::serverboundPacketIdToName()
@@ -484,7 +489,7 @@ class Connection
 			$length |= (($byte & 0x7F) << ($read++ * 7));
 			if($read > 5)
 			{
-				throw new Exception("VarInt is too big");
+				throw new LengthException("VarInt is too big");
 			}
 			if(($byte & 0x80) != 128)
 			{
@@ -532,7 +537,8 @@ class Connection
 
 	/**
 	 * Reads an integer encoded as a VarInt from the read buffer.
-	 * @throws Exception When there are not enough bytes to read a VarInt or the VarInt is too big.
+	 * @throws IOException When there are not enough bytes to read or continue reading a VarInt.
+	 * @throws LengthException When the VarInt is too big.
 	 * @return integer
 	 */
 	public function readVarInt()
@@ -543,13 +549,13 @@ class Connection
 		{
 			if(strlen($this->read_buffer) == 0)
 			{
-				throw new Exception("There are not enough bytes to read a VarInt.");
+				throw new LengthException("There are not enough bytes to read a VarInt.");
 			}
 			$byte = $this->readByte();
 			$value |= (($byte & 0b01111111) << (7 * $read++));
 			if($read > 5)
 			{
-				throw new Exception("VarInt is too big");
+				throw new LengthException("VarInt is too big");
 			}
 		}
 		while(($byte & 0b10000000) != 0);
@@ -564,7 +570,8 @@ class Connection
 	 * Reads a string from the read buffer.
 	 * @param integer $maxLength The maxmium amount of bytes this string may use.
 	 * @param integer $minLength The minimum amount of bytes this string must use.
-	 * @throws Exception When there are not enough bytes to read a string or the string exceeds $maxLength.
+	 * @throws IOException When there are not enough bytes to read a string.
+	 * @throws LengthException When the string doesn't fit the length requirements.
 	 * @return string
 	 */
 	public function readString(int $maxLength = 32767, int $minLength = -1)
@@ -576,15 +583,15 @@ class Connection
 		}
 		if($length > $maxLength)
 		{
-			throw new Exception("The string on the wire apparently has {$length} bytes which exceeds {$maxLength}.");
+			throw new IOException("The string on the wire apparently has {$length} bytes which exceeds {$maxLength}.");
 		}
 		if($length < $minLength)
 		{
-			throw new Exception("This string on the wire apparently has {$length} bytes but at least {$minLength} are required.");
+			throw new LengthException("This string on the wire apparently has {$length} bytes but at least {$minLength} are required.");
 		}
 		if($length > strlen($this->read_buffer))
 		{
-			throw new Exception("String on the wire is apparently {$length} bytes long, but that exceeds the bytes in the read buffer.");
+			throw new LengthException("String on the wire is apparently {$length} bytes long, but that exceeds the bytes in the read buffer.");
 		}
 		$str = substr($this->read_buffer, 0, $length);
 		$this->read_buffer = substr($this->read_buffer, $length);
@@ -593,7 +600,7 @@ class Connection
 
 	/**
 	 * Reads a chat object from the read buffer.
-	 * @throws Exception When there are not enough bytes to read the string.
+	 * @throws IOException When there are not enough bytes to read the string.
 	 * @return array
 	 */
 	public function readChat()
@@ -604,14 +611,14 @@ class Connection
 	/**
 	 * Reads a byte from the read buffer.
 	 * @param boolean $signed
-	 * @throws Exception When there are not enough bytes to read a byte.
 	 * @return integer
+	 *@throws IOException When there are not enough bytes to read a byte.
 	 */
 	public function readByte(bool $signed = false)
 	{
 		if(strlen($this->read_buffer) < 1)
 		{
-			throw new Exception("There are not enough bytes to read a byte.");
+			throw new IOException("There are not enough bytes to read a byte.");
 		}
 		$byte = unpack(($signed ? "c" : "C")."byte", substr($this->read_buffer, 0, 1))["byte"];
 		$this->read_buffer = substr($this->read_buffer, 1);
@@ -620,14 +627,14 @@ class Connection
 
 	/**
 	 * Reads a boolean from the read buffer.
-	 * @throws Exception When there are not enough bytes to read a boolean.
 	 * @return boolean
+	 *@throws IOException When there are not enough bytes to read a boolean.
 	 */
 	public function readBoolean()
 	{
 		if(strlen($this->read_buffer) < 1)
 		{
-			throw new Exception("There are not enough bytes to read a boolean.");
+			throw new IOException("There are not enough bytes to read a boolean.");
 		}
 		$byte = unpack("cbyte", substr($this->read_buffer, 0, 1))["byte"];
 		$this->read_buffer = substr($this->read_buffer, 1);
@@ -637,14 +644,14 @@ class Connection
 	/**
 	 * Reads a short from the read buffer.
 	 * @param boolean $signed
-	 * @throws Exception When there are not enough bytes to read a short.
 	 * @return integer
+	 * @throws IOException When there are not enough bytes to read a short.
 	 */
 	public function readShort(bool $signed = true)
 	{
 		if(strlen($this->read_buffer) < 2)
 		{
-			throw new Exception("There are not enough bytes to read a short.");
+			throw new IOException("There are not enough bytes to read a short.");
 		}
 		$short = unpack("nshort", substr($this->read_buffer, 0, 2))["short"];
 		$this->read_buffer = substr($this->read_buffer, 2);
@@ -658,14 +665,14 @@ class Connection
 	/**
 	 * Reads an integer from the read buffer.
 	 * @param boolean $signed
-	 * @throws Exception When there are not enough bytes to read an integer.
+	 * @throws IOException When there are not enough bytes to read an integer.
 	 * @return integer
 	 */
 	public function readInt(bool $signed = false)
 	{
 		if(strlen($this->read_buffer) < 4)
 		{
-			throw new Exception("There are not enough bytes to read a int.");
+			throw new IOException("There are not enough bytes to read a int.");
 		}
 		$int = unpack("Nint", substr($this->read_buffer, 0, 4))["int"];
 		$this->read_buffer = substr($this->read_buffer, 4);
@@ -679,14 +686,14 @@ class Connection
 	/**
 	 * Reads a long from the read buffer.
 	 * @param boolean $signed
-	 * @throws Exception When there are not enough bytes to read a long.
+	 * @throws IOException When there are not enough bytes to read a long.
 	 * @return integer
 	 */
 	public function readLong(bool $signed = false)
 	{
 		if(strlen($this->read_buffer) < 8)
 		{
-			throw new Exception("There are not enough bytes to read a long.");
+			throw new IOException("There are not enough bytes to read a long.");
 		}
 		$long = gmp_import(substr($this->read_buffer, 0, 8));
 		$this->read_buffer = substr($this->read_buffer, 8);
@@ -699,7 +706,7 @@ class Connection
 
 	/**
 	 * Reads a position encoded as one long from the read buffer.
-	 * @throws Exception When there are not enough bytes to read a position.
+	 * @throws IOException When there are not enough bytes to read a position.
 	 * @return Position
 	 */
 	public function readPosition()
@@ -713,7 +720,7 @@ class Connection
 
 	/**
 	 * Reads a position encoded as three doubles from the read buffer.
-	 * @throws Exception When there are not enough bytes to read a position.
+	 * @throws IOException When there are not enough bytes to read a position.
 	 * @return Position
 	 */
 	public function readPrecisePosition()
@@ -723,7 +730,7 @@ class Connection
 
 	/**
 	 * Reads a position encoded as three ints from the read buffer.
-	 * @throws Exception When there are not enough bytes to read a position.
+	 * @throws IOException When there are not enough bytes to read a position.
 	 * @return Position
 	 */
 	public function readFixedPointPosition()
@@ -733,14 +740,14 @@ class Connection
 
 	/**
 	 * Reads a float from the read buffer.
-	 * @throws Exception When there are not enough bytes to read a float.
+	 * @throws IOException When there are not enough bytes to read a float.
 	 * @return float
 	 */
 	public function readFloat()
 	{
 		if(strlen($this->read_buffer) < 4)
 		{
-			throw new Exception("There are not enough bytes to read a float.");
+			throw new IOException("There are not enough bytes to read a float.");
 		}
 		$float = unpack("Gfloat", substr($this->read_buffer, 0, 4))["float"];
 		$this->read_buffer = substr($this->read_buffer, 4);
@@ -749,14 +756,14 @@ class Connection
 
 	/**
 	 * Reads a double from the read buffer.
-	 * @throws Exception When there are not enough bytes to read a double.
+	 * @throws IOException When there are not enough bytes to read a double.
 	 * @return float
 	 */
 	public function readDouble()
 	{
 		if(strlen($this->read_buffer) < 8)
 		{
-			throw new Exception("There are not enough bytes to read a double.");
+			throw new IOException("There are not enough bytes to read a double.");
 		}
 		$double = unpack("Edouble", substr($this->read_buffer, 0, 8))["double"];
 		$this->read_buffer = substr($this->read_buffer, 8);
@@ -765,14 +772,14 @@ class Connection
 
 	/**
 	 * Reads a UUID.
-	 * @throws Exception When there are not enough bytes to read a UUID.
+	 * @throws IOException When there are not enough bytes to read a UUID.
 	 * @return UUID
 	 */
 	public function readUUID()
 	{
 		if(strlen($this->read_buffer) < 16)
 		{
-			throw new Exception("There are not enough bytes to read a UUID.");
+			throw new IOException("There are not enough bytes to read a UUID.");
 		}
 		$uuid = new UUID(substr($this->read_buffer, 0, 16));
 		$this->read_buffer = substr($this->read_buffer, 16);
@@ -783,7 +790,8 @@ class Connection
 	 * Reads an NbtTag.
 	 * @param int $type Ignore this parameter.
 	 * @return NbtTag
-	 * @throws Exception
+	 * @throws IOException
+	 * @throws DomainException
 	 */
 	public function readNBT(int $type = 0)
 	{
@@ -865,7 +873,7 @@ class Connection
 			return new NbtLongArray($name, $children);
 
 			default:
-			throw new Exception("Unsupported NBT Tag: {$type}");
+			throw new DomainException("Unsupported NBT Tag: {$type}");
 		}
 	}
 
@@ -873,7 +881,7 @@ class Connection
 	 * Reads a Slot.
 	 * @param boolean $additional_processing Whether additional processing should occur to properly receive pre-1.13 data. You should only set this to false if you want a lazy read, and don't even care about the slot.
 	 * @return Slot
-	 * @throws Exception
+	 * @throws IOException
 	 */
 	public function readSlot(bool $additional_processing = true)
 	{
@@ -969,13 +977,13 @@ class Connection
 	 * Skips over the given amount of bytes in the read buffer.
 	 * @param integer $bytes
 	 * @return Connection $this
-	 * @throws Exception
+	 * @throws IOException When there are not enough bytes in the buffer to ignore the given number.
 	 */
 	public function ignoreBytes(int $bytes)
 	{
 		if(strlen($this->read_buffer) < $bytes)
 		{
-			throw new Exception("There are less than {$bytes} bytes");
+			throw new IOException("There are less than {$bytes} bytes");
 		}
 		$this->read_buffer = substr($this->read_buffer, $bytes);
 		return $this;

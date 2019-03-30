@@ -147,7 +147,7 @@ class Server
 					$con->close();
 				}
 			}
-			catch(Exception $ignored)
+			catch(IOException $ignored)
 			{
 				if($con != null)
 				{
@@ -267,7 +267,7 @@ class Server
 						}
 					}
 				}
-				catch(Exception $e)
+				catch(IOException $e)
 				{
 					if($con->username)
 					{

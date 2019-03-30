@@ -36,6 +36,23 @@ class NbtCompound extends NbtTag
 	}
 
 	/**
+	 * Returns true if the compound has a child with the given name.
+	 * @param string $name
+	 * @return boolean
+	 */
+	public function hasChild(string $name)
+	{
+		foreach($this->children as $child)
+		{
+			if($child->name == $name)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
 	 * Gets the index of a child of the compound by its name or -1 if not found.
 	 * @param string $name
 	 * @return integer
@@ -56,22 +73,24 @@ class NbtCompound extends NbtTag
 	 * Adds a child to the compound or replaces an existing one by the same name.
 	 * @param NbtTag $tag
 	 * @return NbtCompound $this
-	 * @throws Exception
 	 */
 	public function addChild(NbtTag $tag)
 	{
 		if($tag instanceof NbtEnd)
 		{
-			throw new Exception("NbtEnd is not a valid child");
-		}
-		$i = $this->getChildIndex($tag->name);
-		if($i > -1)
-		{
-			$this->children[$i] = $tag;
+			trigger_error("Ignoring NbtEnd, as it is not a valid child");
 		}
 		else
 		{
-			array_push($this->children, $tag);
+			$i = $this->getChildIndex($tag->name);
+			if($i > -1)
+			{
+				$this->children[$i] = $tag;
+			}
+			else
+			{
+				array_push($this->children, $tag);
+			}
 		}
 		return $this;
 	}
