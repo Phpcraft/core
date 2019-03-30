@@ -1,6 +1,6 @@
 <?php
 namespace Phpcraft;
-class NbtList extends NbtTag implements \Iterator
+class NbtList extends NbtTag implements \Iterator, \Countable
 {
 	private $current = 0;
 	/**
@@ -86,5 +86,10 @@ class NbtList extends NbtTag implements \Iterator
 	public function rewind()
 	{
 		$this->current = 0;
+	}
+
+	public function count()
+	{
+		return count($this->children);
 	}
 }

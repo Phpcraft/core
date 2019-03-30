@@ -10,6 +10,7 @@
 	},
 	"require": {
 		"php": "^7.0",
+		"ext-SPL": "^7.0",
 		"ext-json": "^1.4",
 		"ext-zlib": "^7.0"
 	}
