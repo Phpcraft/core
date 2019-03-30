@@ -1,6 +1,6 @@
 # Phpcraft [![Build Status](https://travis-ci.org/timmyrs/Phpcraft.svg?branch=master)](https://travis-ci.org/timmyrs/Phpcraft)
 
-A PHP library for [all things](https://phpcraft.de/docs/namespacePhpcraft.html) Minecraft: Java Edition.
+A PHP library for [all things](https://phpcraft.de/docs/inherits.html) Minecraft: Java Edition.
 
 Note: Windows might work for some features, but it's not supported due to [a bug](https://bugs.php.net/bug.php?id=34972) and a general lack of features. Instead, use [the Windows Subsystem for Linux](https://aka.ms/wslinstall).
 
@@ -44,7 +44,7 @@ If any dependencies are missing, run the given command(s), and then run the self
 
 Finally, you can `require "vendor/autoload.php";` to use Phpcraft's many APIs.
 
-In addition to the CLI utilities above and the "Who uses Phpcraft?" section below serving up great example code, there's also a [documentation](https://phpcraft.de/docs/namespacePhpcraft.html) and [wiki](https://github.com/timmyrs/Phpcraft/wiki) for you to read.
+In addition to the CLI utilities above and the "Who uses Phpcraft?" section below serving up great example code, there's also the [docs](https://phpcraft.de/docs/index.html) and [wiki](https://github.com/timmyrs/Phpcraft/wiki) for you to read.
 
 ## Who uses Phpcraft?
 
