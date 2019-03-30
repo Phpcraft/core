@@ -26,6 +26,7 @@ class FancyUserInterface extends UserInterface
 
 	/**
 	 * Note that from this point forward, STDIN and STDOUT are in the hands of the UI until it is destructed.
+	 * The FancyUserInterface doesn't support Windows; use UserInterface, instead.
 	 * @param string $title The title displayed at the top left.
 	 * @param string $optional_info Displayed at the top right, if possible.
 	 */

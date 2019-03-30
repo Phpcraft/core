@@ -36,6 +36,16 @@ abstract class Phpcraft
 	}
 
 	/**
+	 * Returns true if the code is running on a Windows machine.
+	 * @return boolean
+	 */
+	public static function isWindows()
+	{
+		// "WIN" is also present in "DARWIN" for MacOS :^)
+		return stristr(PHP_OS, "WIN") && !stristr(PHP_OS, "DAR");
+	}
+
+	/**
 	 * Returns the path of Minecraft's launcher_profiles.json.
 	 * @return string
 	 */

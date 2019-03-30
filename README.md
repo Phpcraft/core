@@ -2,13 +2,15 @@
 
 A PHP library for [all things](https://phpcraft.de/docs/inherits.html) Minecraft: Java Edition.
 
-Note: Windows might work for some features, but it's not supported due to [a bug](https://bugs.php.net/bug.php?id=34972) and a general lack of features. Instead, use [the Windows Subsystem for Linux](https://aka.ms/wslinstall).
+## Dependencies
+
+There are different dependencies for different use cases — the `selfcheck.php` can help you find out what you need for what — but in general, you will need [PHP-CLI](https://www.php.net/downloads.php), [Composer](https://getcomposer.org/download/), and [Git](https://git-scm.com/downloads).
+If you're apt to it, feel free to run `sudo apt-get -y install php-cli composer git` to install them.
 
 ## Using the Phpcraft CLI utilities
 
 First, we'll clone the repository and generate the autoload script:
 
-    sudo apt-get -y install php-cli composer git
     git clone https://github.com/timmyrs/Phpcraft
     cd Phpcraft
     composer install
@@ -31,9 +33,8 @@ Finally, you can use the Phpcraft CLI utilities:
 
 ## Using Phpcraft as a library
 
-Thanks to [Composer](https://getcomposer.org/), using Phpcraft as a library is really easy. Just head into your project folder, and run:
+Thanks to Composer, using Phpcraft as a library is really easy. Just head into your project folder and run:
 
-    sudo apt-get -y install composer
     composer require timmyrs/phpcraft:dev-master
 
 Next, we'll run a self check:

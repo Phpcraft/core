@@ -219,10 +219,15 @@ class ClientConnection extends Connection
 		stream_filter_append($this->stream, "mcrypt.rijndael-128", STREAM_FILTER_WRITE, $opts);
 		stream_filter_append($this->stream, "mdecrypt.rijndael-128", STREAM_FILTER_READ, $opts);
 		$this->ch = curl_init("https://sessionserver.mojang.com/session/minecraft/hasJoined?username=".$this->username."&serverId=".Phpcraft::sha1($shared_secret.base64_decode(trim(substr(openssl_pkey_get_details($private_key)["key"], 26, -24)))));
-		curl_setopt_array($this->ch, [
-			CURLOPT_HEADER => 0,
-			CURLOPT_RETURNTRANSFER => true
-		]);
+		curl_setopt($this->ch, CURLOPT_RETURNTRANSFER, true);
+		if(Phpcraft::isWindows())
+		{
+			if(!file_exists(__DIR__."/../cacert.pem"))
+			{
+				file_put_contents(__DIR__."/../cacert.pem", file_get_contents("http://curl.haxx.se/ca/cacert.pem"));
+			}
+			curl_setopt($this->ch, CURLOPT_CAINFO, __DIR__."/../cacert.pem");
+		}
 		$this->mh = curl_multi_init();
 		curl_multi_add_handle($this->mh, $this->ch);
 		return true;

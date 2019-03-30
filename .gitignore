@@ -2,6 +2,7 @@
 vendor/
 *.bin
 *.cache
+cacert.pem
 composer.lock
 desktop.ini
 phpunit

@@ -50,6 +50,11 @@ for($i = 1; $i < count($argv); $i++)
 		die("Unknown argument '{$n}' -- try 'help' for a list of arguments.\n");
 	}
 }
+if(Phpcraft::isWindows())
+{
+	echo "Some things to note about Windows: You won't be able to send messages as server or use server commands, and plain user interface is forcefully enabled.\n";
+	$options["plain"] = true;
+}
 $ui = ($options["plain"] ? new UserInterface() : new FancyUserInterface("PHP Minecraft Server", "github.com/timmyrs/Phpcraft"));
 if($options["offline"])
 {
@@ -58,7 +63,12 @@ if($options["offline"])
 else
 {
 	$ui->add("Generating 1024-bit RSA keypair... ")->render();
-	$private_key = openssl_pkey_new(["private_key_bits" => 1024, "private_key_type" => OPENSSL_KEYTYPE_RSA]);
+	$args = ["private_key_bits" => 1024, "private_key_type" => OPENSSL_KEYTYPE_RSA];
+	if(Phpcraft::isWindows())
+	{
+		$args["config"] = __DIR__."/openssl.cnf";
+	}
+	$private_key = openssl_pkey_new($args) or die("Failed to generate private key.\n");
 	$ui->append("Done.")->render();
 }
 $ui->add("Binding to port ".$options["port"]."... ")->render();

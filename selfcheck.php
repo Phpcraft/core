@@ -9,10 +9,11 @@ if(!file_exists("vendor/autoload.php"))
 	die("Please run `composer install` first.\n");
 }
 require "vendor/autoload.php";
+use Phpcraft\Phpcraft;
 if(file_exists(__DIR__."/src/.cache"))
 {
 	$before = count(json_decode(file_get_contents("src/.cache"), true));
-	\Phpcraft\Phpcraft::maintainCache();
+	Phpcraft::maintainCache();
 	if(file_exists(__DIR__."/src/.cache"))
 	{
 		$after = count(json_decode(file_get_contents("src/.cache"), true));
@@ -69,7 +70,7 @@ else
 }
 echo " GMP\n\n";
 
-if(extension_loaded("openssl") && extension_loaded("curl") && extension_loaded("mcrypt"))
+if(extension_loaded("openssl") && extension_loaded("curl") && in_array("mcrypt.rijndael-128", stream_get_filters()))
 {
 	echo "./";
 }
@@ -116,7 +117,7 @@ else
 	echo "./";
 }
 echo " cURL\n  ";
-if(extension_loaded("mcrypt"))
+if(in_array("mcrypt.rijndael-128", stream_get_filters()))
 {
 	echo "./";
 }
@@ -128,13 +129,24 @@ echo " mcrypt\n\n";
 
 if(!empty($apt) || !empty($pecl))
 {
-	echo "\nTo install all missing dependencies, run:\n";
-	if(!empty($apt))
+	if(Phpcraft::isWindows())
 	{
-		echo "sudo apt-get -y install ".join(" ", $apt)."\n";
+		echo "Check the extensions section of your php.ini.\n";
 	}
-	if(!empty($pecl))
+	else
 	{
-		echo "sudo pecl install ".join(" ", $pecl)."\n";
+		echo "To install all missing dependencies, run:\n";
+		if(!empty($apt))
+		{
+			echo "sudo apt-get -y install ".join(" ", $apt)."\n";
+		}
+		if(!empty($pecl))
+		{
+			echo "sudo pecl install ".join(" ", $pecl)."\n";
+		}
 	}
+}
+if(in_array("mcrypt-1.0.1", $pecl))
+{
+	echo "If you can't install mcrypt: composer require phpseclib/mcrypt_compat\n";
 }

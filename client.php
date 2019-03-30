@@ -9,6 +9,11 @@ if(empty($argv))
 require "vendor/autoload.php";
 use Phpcraft\{Account, AssetsManager, ClientboundPacket, ClientConsoleEvent, ClientJoinEvent, ClientPacketEvent, FancyUserInterface, KeepAliveRequestPacket, Phpcraft, PluginManager, PluginMessagePacket, Position, ServerboundPluginMessagePacket, ServerConnection, UserInterface, Versions};
 
+if(Phpcraft::isWindows() && !in_array("help", $argv))
+{
+	die("I'm sorry, due to a bug in PHP's Windows port <https://bugs.php.net/bug.php?id=34972> and the nature of the PHP Minecraft Client, you'll have to use the Windows Subsystem for Linux <https://aka.ms/wslinstall> if you really want to try it out.\n");
+}
+
 $options = [];
 for($i = 1; $i < count($argv); $i++)
 {

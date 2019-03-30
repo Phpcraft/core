@@ -5,27 +5,30 @@ class UserInterface
 	protected $stdin;
 
 	/**
-	 * Note that from this point forward, STDIN is in the hands of the UI until it is destructed.
+	 * Note that from this point forward, STDIN is in the hands of the UI, unless on Winodws, where user input is impossible.
+	 * @see https://bugs.php.net/bug.php?id=34972
 	 */
 	public function __construct()
 	{
-		$this->stdin = fopen("php://stdin", "r");
-		stream_set_blocking($this->stdin, false);
-	}
-
-	public function __destruct()
-	{
-		fclose($this->stdin);
+		if(Phpcraft::isWindows())
+		{
+			$this->stdin = null;
+		}
+		else
+		{
+			$this->stdin = fopen("php://stdin", "r");
+			stream_set_blocking($this->stdin, false);
+		}
 	}
 
 	/**
 	 * Renders the UI.
 	 * @param boolean $accept_input Set to true if you are looking for a return value.
-	 * @return string If $accept_input is true and the user has submitted a line, the return will be that line. Otherwise, it will be null.
+	 * @return string If $accept_input is true, we're not on Windows, and the user has submitted a line, the return will be that line. Otherwise, it will be null.
 	 */
 	public function render(bool $accept_input = false)
 	{
-		if($accept_input)
+		if($accept_input && $this->stdin !== null)
 		{
 			$read = [$this->stdin];
 			$null = [];
