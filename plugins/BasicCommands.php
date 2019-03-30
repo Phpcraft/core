@@ -2,11 +2,11 @@
 // This plugin provides clients of the server with /abilities, /gamemode, and /metadata.
 
 use Phpcraft\
-{ClientChatEvent, ClientConnection, Plugin, PluginManager};
+{ServerChatEvent, ClientConnection, Plugin, PluginManager};
 
 PluginManager::registerPlugin("BasicCommands", function(Plugin $plugin)
 {
-	$plugin->on(function(ClientChatEvent $event)
+	$plugin->on(function(ServerChatEvent $event)
 	{
 		if($event->cancelled || substr($event->message, 0, 1) != "/")
 		{

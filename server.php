@@ -6,7 +6,7 @@ if(empty($argv))
 }
 
 require "vendor/autoload.php";
-use Phpcraft\{ClientChatEvent, ClientConnection, ServerJoinEvent, FancyUserInterface, Phpcraft, PluginManager, Server, ServerConsoleEvent, ServerPacketEvent, ServerTickEvent, ServerOnGroundChangeEvent, ServerFlyingChangeEvent, UserInterface, Versions};
+use Phpcraft\{ServerChatEvent, ClientConnection, ServerJoinEvent, FancyUserInterface, Phpcraft, PluginManager, Server, ServerConsoleEvent, ServerPacketEvent, ServerTickEvent, ServerOnGroundChangeEvent, ServerFlyingChangeEvent, UserInterface, Versions};
 
 $options = ["offline" => false, "port" => 25565, "nocolor" => false, "plain" => false];
 for($i = 1; $i < count($argv); $i++)
@@ -169,7 +169,7 @@ $server->packet_function = function(ClientConnection $con, $packet_name)
 	else if($packet_name == "serverbound_chat_message")
 	{
 		$msg = $con->readString(256);
-		if(PluginManager::fire(new ClientChatEvent($server, $con, $msg)))
+		if(PluginManager::fire(new ServerChatEvent($server, $con, $msg)))
 		{
 			return;
 		}

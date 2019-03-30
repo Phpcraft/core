@@ -1,7 +1,7 @@
 <?php
 namespace Phpcraft;
 /** The event emitted by the server when a client has proposed a chat message. Cancellable. */
-class ClientChatEvent extends ServerClientEvent
+class ServerChatEvent extends ServerClientEvent
 {
 	/**
 	 * The message that the client has proposed.

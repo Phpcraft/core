@@ -2,11 +2,11 @@
 // Crashes clients when they say "crash me"
 
 use Phpcraft\
-{ClientChatEvent, JoinGamePacket, Plugin, PluginManager, ClientConnection};
+{ServerChatEvent, JoinGamePacket, Plugin, PluginManager, ClientConnection};
 
 PluginManager::registerPlugin("CrashClients", function(Plugin $plugin)
 {
-	$plugin->on(function(ClientChatEvent $event)
+	$plugin->on(function(ServerChatEvent $event)
 	{
 		if(!$event->cancelled && $event->message == "crash me")
 		{
