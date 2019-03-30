@@ -4,11 +4,9 @@ if(empty($argv))
 {
 	die("This is for PHP-CLI. Connect to your server via SSH and use `php server.php`.\n");
 }
-require "vendor/autoload.php";
 
-use Phpcraft\
-{ClientChatEvent, ClientConnection, ServerJoinEvent, FancyUserInterface, Phpcraft, PluginManager, Server,
-	ServerConsoleEvent, ServerPacketEvent, ServerTickEvent, UserInterface, Versions};
+require "vendor/autoload.php";
+use Phpcraft\{ClientChatEvent, ClientConnection, ServerJoinEvent, FancyUserInterface, Phpcraft, PluginManager, Server, ServerConsoleEvent, ServerPacketEvent, ServerTickEvent, ServerOnGroundChangeEvent, ServerFlyingChangeEvent, UserInterface, Versions};
 
 $options = ["offline" => false, "port" => 25565, "nocolor" => false, "plain" => false];
 for($i = 1; $i < count($argv); $i++)
@@ -132,9 +130,41 @@ $server->packet_function = function(ClientConnection $con, $packet_name)
 	{
 		return;
 	}
-	if($packet_name == "position" || $packet_name == "position_and_look")
+	if($packet_name == "position" || $packet_name == "position_and_look" || $packet_name == "look" || $packet_name == "no_movement")
 	{
-		$con->pos = $con->readPrecisePosition();
+		if($packet_name == "position" || $packet_name == "position_and_look")
+		{
+			$con->pos = $con->readPrecisePosition();
+		}
+		if($packet_name == "position_and_look" || $packet_name == "look")
+		{
+			$con->yaw = $con->readFloat();
+			$con->pitch = $con->readFloat();
+		}
+		$_on_ground = $con->on_ground;
+		$con->on_ground = $con->readBoolean();
+		if($_on_ground != $con->on_ground)
+		{
+			PluginManager::fire(new ServerOnGroundChangeEvent($server, $con, $_on_ground));
+		}
+	}
+	else if($packet_name == "serverbound_abilities")
+	{
+		$flags = $con->readByte();
+		if($flags >= 0x08)
+		{
+			$flags -= 0x08;
+		}
+		if($flags >= 0x04)
+		{
+			$flags -= 0x04;
+		}
+		$_flying = $con->flying;
+		$con->flying = ($flags >= 0x02);
+		if($_flying != $con->flying)
+		{
+			PluginManager::fire(new ServerFlyingChangeEvent($server, $con, $_flying));
+		}
 	}
 	else if($packet_name == "serverbound_chat_message")
 	{

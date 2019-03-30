@@ -21,17 +21,13 @@ PluginManager::registerPlugin("BasicCommands", function(Plugin $plugin)
 		{
 			$con->startPacket("clientbound_abilities");
 			$con->writeByte(hexdec(substr($event->message, 11, 1)));
-			$con->writeFloat(0.4000000059604645);
-			$con->writeFloat(0.699999988079071);
+			$con->writeFloat(0.05);
+			$con->writeFloat(0.1);
 			$con->send();
 		}
 		else if(substr($event->message, 0, 10) == "/gamemode ")
 		{
-			$gamemode = floatval(substr($event->message, 10));
-			$con->startPacket("change_game_state");
-			$con->writeByte(3);
-			$con->writeFloat($gamemode);
-			$con->send();
+			$con->setGamemode(intval(substr($event->message, 10)));
 		}
 		else if(substr($event->message, 0, 10) == "/metadata ")
 		{

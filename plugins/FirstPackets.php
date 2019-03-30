@@ -1,9 +1,7 @@
 <?php
 // Provides clients with some essential first packets.
 
-use Phpcraft\
-{BlockMaterial, ClientboundPluginMessagePacket, ClientConnection, ServerJoinEvent, Connection, Difficulty, Dimension,
-	Event, Gamemode, JoinGamePacket, Plugin, PluginManager, PluginMessagePacket, Position, ServerTickEvent};
+use Phpcraft\{BlockMaterial, ClientboundPluginMessagePacket, ClientConnection, ServerJoinEvent, Connection, Difficulty, Dimension, Event, Gamemode, JoinGamePacket, Plugin, PluginManager, PluginMessagePacket, Position, ServerTickEvent};
 
 $WorldImitatorActive = false;
 PluginManager::registerPlugin("FirstPackets", function(Plugin $plugin)
@@ -26,10 +24,12 @@ PluginManager::registerPlugin("FirstPackets", function(Plugin $plugin)
 		}
 		$packet = new JoinGamePacket();
 		$packet->eid = $con->eid;
-		$packet->gamemode = Gamemode::CREATIVE;
+		$packet->gamemode = $con->gamemode = Gamemode::CREATIVE;
 		$packet->dimension = Dimension::OVERWORLD;
 		$packet->difficulty = Difficulty::PEACEFUL;
 		$packet->send($con);
+		$con->setAbilities($con->gamemode);
+		$con->sendAbilities();
 		$con->startPacket("spawn_position");
 		$con->writePosition($con->pos = new Position(0, 16, 0));
 		$con->send();

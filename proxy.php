@@ -8,9 +8,9 @@ if(@$argv[1] == "help")
 {
 	die("Syntax: php proxy.php [account name]\n");
 }
+
 require "vendor/autoload.php";
-use Phpcraft\
-{Account, ClientboundPacket, ClientConnection, Difficulty, Dimension, Gamemode, JoinGamePacket, KeepAliveRequestPacket, Phpcraft, Position, Server, ServerConnection, Versions};
+use Phpcraft\{Account, ClientboundPacket, ClientConnection, Difficulty, Dimension, Gamemode, JoinGamePacket, KeepAliveRequestPacket, Phpcraft, Position, Server, ServerConnection, Versions};
 
 $stdin = fopen("php://stdin", "r") or die("Failed to open php://stdin\n");
 stream_set_blocking($stdin, true);
@@ -158,8 +158,8 @@ $server->packet_function = function(ClientConnection $con, $packet_name, $packet
 				}
 				$con->startPacket("clientbound_abilities");
 				$con->writeByte(hexdec($arr[1]));
-				$con->writeFloat(0.4000000059604645);
-				$con->writeFloat(0.699999988079071);
+				$con->writeFloat(0.05);
+				$con->writeFloat(0.1);
 				$con->send();
 				break;
 
@@ -281,10 +281,7 @@ $server->packet_function = function(ClientConnection $con, $packet_name, $packet
 					$con->send();
 					break;
 				}
-				$con->startPacket("change_game_state");
-				$con->writeByte(3);
-				$con->writeFloat($arr[1]);
-				$con->send();
+				$con->setGamemode(intval($arr[1]));
 				break;
 
 				case ".metadata":

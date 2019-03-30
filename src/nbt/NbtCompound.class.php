@@ -62,7 +62,7 @@ class NbtCompound extends NbtTag
 	{
 		if($tag instanceof NbtEnd)
 		{
-			throw new Exception("\\NbtEnd is not a valid child");
+			throw new Exception("NbtEnd is not a valid child");
 		}
 		$i = $this->getChildIndex($tag->name);
 		if($i > -1)

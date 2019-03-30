@@ -1,9 +1,6 @@
 <?php
 namespace Phpcraft;
-/**
- * A Packet.
- * Look at the source code of this class for a list of packet names.
- */
+/** The base class for packets. */
 abstract class Packet
 {
 	/**

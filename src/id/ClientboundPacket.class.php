@@ -68,6 +68,9 @@ class ClientboundPacket extends PacketId
 	{
 		switch($this->name)
 		{
+			case "clientbound_abilities":
+			return ClientboundAbilitiesPacket::read($con);
+
 			case "boss_bar":
 			return BossBarPacket::read($con);
 

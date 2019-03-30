@@ -40,20 +40,69 @@ class ClientConnection extends Connection
 	 */
 	public $disconnect_after = 0;
 	/**
-	 * This variable is for servers to keep track of the client's entity ID.
+	 * The client's entity ID.
 	 * @var integer $eid
 	 */
 	public $eid;
 	/**
-	 * This variable is for servers to keep track of the client's position.
+	 * The client's position.
 	 * @var Position $pos
 	 */
 	public $pos;
 	/**
-	 * This variable is for servers to keep track of the chunks this client has received by storing their coordinates as a string (e.g. "-1:1").
+	 * @var float $yaw
+	 */
+	public $yaw;
+	/**
+	 * @var float $pitch
+	 */
+	public $pitch;
+	/**
+	 * @var boolean $on_ground
+	 * @see ServerOnGroundChangeEvent
+	 */
+	public $on_ground = false;
+	/**
+	 * A string array of chunks the client has received.
 	 * @var array $chunks
 	 */
-	public $chunks;
+	public $chunks = [];
+	/**
+	 * @var integer $gamemode
+	 */
+	public $gamemode = Gamemode::SURVIVAL;
+	/**
+	 * @var boolean $invulnerable
+	 * @see ClientConnection::sendAbilities
+	 */
+	public $invulnerable = false;
+	/**
+	 * @var boolean $flying
+	 * @see ClientConnection::sendAbilities
+	 * @see ServerFlyChangeEvent
+	 */
+	public $flying = false;
+	/**
+	 * @var boolean $can_fly
+	 * @see ClientConnection::sendAbilities
+	 */
+	public $can_fly = false;
+	/**
+	 * @var boolean $instant_breaking
+	 * @see ClientConnection::sendAbilities
+	 * @see ClientConnection::setGamemode
+	 */
+	public $instant_breaking = false;
+	/**
+	 * @var float $fly_speed
+	 * @see ClientConnection::sendAbilities
+	 */
+	public $fly_speed = 0.05;
+	/**
+	 * @var float $walk_speed
+	 * @see ClientConnection::sendAbilities
+	 */
+	public $walk_speed = 0.1;
 
 	/**
 	 * After this, you should call ClientConnection::handleInitialPacket().
@@ -249,7 +298,6 @@ class ClientConnection extends Connection
 			$this->writeString(($this->uuid = $uuid)->toString(true));
 			$this->writeString($this->username);
 			$this->send();
-			$this->chunks = [];
 			$this->eid = $eidCounter->next();
 			$this->state = 3;
 		}
@@ -300,5 +348,74 @@ class ClientConnection extends Connection
 			$packet = $packetId->getId($this->protocol_version);
 		}
 		return parent::startPacket($packet);
+	}
+
+	/**
+	 * Sends the client their abilities.
+	 * @throws Exception
+	 * @return ClientConnection $this
+	 * @see ClientConnection::$invulnerable
+	 * @see ClientConnection::$flying
+	 * @see ClientConnection::$can_fly
+	 * @see ClientConnection::$instant_breaking
+	 * @see ClientConnection::$fly_speed
+	 * @see ClientConnection::$walk_speed
+	 */
+	public function sendAbilities()
+	{
+		$packet = new ClientboundAbilitiesPacket();
+		$packet->invulnerable = $this->invulnerable;
+		$packet->flying = $this->flying;
+		$packet->can_fly = $this->can_fly;
+		$packet->instant_breaking = $this->instant_breaking;
+		$packet->fly_speed = $this->fly_speed;
+		$packet->walk_speed = $this->walk_speed;
+		$packet->send($this);
+		return $this;
+	}
+
+	/**
+	 * Sets the client's abilities according to the given gamemode.
+	 * @see ClientConnection::sendAbilities
+	 * @see ClientConnection::setGamemode
+	 * @return ClientConnection $this
+	 */
+	public function setAbilities(int $gamemode)
+	{
+		$this->instant_breaking = ($gamemode == Gamemode::CREATIVE);
+		$this->flying = ($gamemode == Gamemode::SPECTATOR);
+		if($gamemode == Gamemode::CREATIVE || $gamemode == Gamemode::SPECTATOR)
+		{
+			$this->invulnerable = true;
+			$this->can_fly = true;
+		}
+		else
+		{
+			$this->invulnerable = false;
+			$this->can_fly = false;
+		}
+		return $this;
+	}
+
+	/**
+	 * Sets the client's gamemode and adjusts their abilities accordingly.
+	 * @throws Exception
+	 * @return ClientConnection $this
+	 * @see Gamemode
+	 */
+	public function setGamemode(int $gamemode)
+	{
+		if(!Gamemode::validate($gamemode))
+		{
+			throw new Exception("Invalid gamemode: ".$gamemode);
+		}
+		$this->gamemode = $gamemode;
+		$this->startPacket("change_game_state");
+		$this->writeByte(3);
+		$this->writeFloat($gamemode);
+		$this->send();
+		$this->setAbilities($gamemode);
+		$this->sendAbilities();
+		return $this;
 	}
 }

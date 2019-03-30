@@ -5,12 +5,9 @@ if(empty($argv))
 {
 	die("This is for PHP-CLI. Connect to your server via SSH and use `php client.php`.\n");
 }
-require "vendor/autoload.php";
 
-use Phpcraft\
-{Account, AssetsManager, ClientboundPacket, ClientConsoleEvent, ClientJoinEvent, ClientPacketEvent, FancyUserInterface,
-	KeepAliveRequestPacket, Phpcraft, PluginManager, PluginMessagePacket, Position, ServerboundPluginMessagePacket,
-	ServerConnection, UserInterface, Versions};
+require "vendor/autoload.php";
+use Phpcraft\{Account, AssetsManager, ClientboundPacket, ClientConsoleEvent, ClientJoinEvent, ClientPacketEvent, FancyUserInterface, KeepAliveRequestPacket, Phpcraft, PluginManager, PluginMessagePacket, Position, ServerboundPluginMessagePacket, ServerConnection, UserInterface, Versions};
 
 $options = [];
 for($i = 1; $i < count($argv); $i++)

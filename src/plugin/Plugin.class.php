@@ -1,5 +1,6 @@
 <?php
 namespace Phpcraft;
+use ReflectionException;
 class Plugin
 {
 	/**
@@ -27,6 +28,7 @@ class Plugin
 	 * @param integer $priority The priority of the event handler. The higher the priority, the earlier it will be executed. Use a high value if you plan to cancel the event.
 	 * @return Plugin $this
 	 * @throws Exception
+	 * @throws ReflectionException
 	 */
 	public function on(callable $callable, int $priority = Event::PRIORITY_NORMAL)
 	{
@@ -42,7 +44,7 @@ class Plugin
 			throw new Exception("Callable's parameter needs to explicitly declare parameter type.");
 		}
 		$type = $param->getType();
-		$type = $type instanceof ReflectionNamedType ? $type->getName() : $type->__toString();
+		$type = $type instanceof \ReflectionNamedType ? $type->getName() : $type->__toString();
 		$class = new \ReflectionClass($type);
 		if(!$class->isSubclassOf("Phpcraft\\Event"))
 		{
