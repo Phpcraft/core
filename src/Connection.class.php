@@ -795,28 +795,28 @@ class Connection
 		$name = ($type == 0 || $inList) ? "" : $this->readRaw($this->readShort());
 		switch($type)
 		{
-			case 0:
+			case NbtTag::TYPE_END:
 			return new NbtEnd();
 
-			case 1:
+			case NbtTag::TYPE_BYTE:
 			return new NbtByte($name, $this->readByte(true));
 
-			case 2:
+			case NbtTag::TYPE_SHORT:
 			return new NbtShort($name, $this->readShort(true));
 
-			case 3:
+			case NbtTag::TYPE_INT:
 			return new NbtInt($name, $this->readInt(true));
 
-			case 4:
+			case NbtTag::TYPE_LONG:
 			return new NbtLong($name, $this->readLong(true));
 
-			case 5:
+			case NbtTag::TYPE_FLOAT:
 			return new NbtFloat($name, $this->readFloat());
 
-			case 6:
+			case NbtTag::TYPE_DOUBLE:
 			return new NbtDouble($name, $this->readDouble());
 
-			case 7:
+			case NbtTag::TYPE_BYTE_ARRAY:
 			$children_i = $this->readInt(true);
 			$children = [];
 			for($i = 0; $i < $children_i; $i++)
@@ -825,10 +825,10 @@ class Connection
 			}
 			return new NbtByteArray($name, $children);
 
-			case 8:
+			case NbtTag::TYPE_STRING:
 			return new NbtString($name, $this->readRaw($this->readShort()));
 
-			case 9:
+			case NbtTag::TYPE_LIST:
 			$childType = $this->readByte();
 			$children_i = $this->readInt(true);
 			$children = [];
@@ -838,7 +838,7 @@ class Connection
 			}
 			return new NbtList($name, $childType, $children);
 
-			case 10:
+			case NbtTag::TYPE_COMPOUND:
 			$children = [];
 			while(!(($tag = $this->readNBT()) instanceof NbtEnd))
 			{
@@ -846,7 +846,7 @@ class Connection
 			}
 			return new NbtCompound($name, $children);
 
-			case 11:
+			case NbtTag::TYPE_INT_ARRAY:
 			$children_i = $this->readInt(true);
 			$children = [];
 			for($i = 0; $i < $children_i; $i++)
@@ -855,7 +855,7 @@ class Connection
 			}
 			return new NbtIntArray($name, $children);
 
-			case 12:
+			case NbtTag::TYPE_LONG_ARRAY:
 			$children_i = $this->readInt(true);
 			$children = [];
 			for($i = 0; $i < $children_i; $i++)
