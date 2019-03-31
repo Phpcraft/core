@@ -57,7 +57,7 @@ $last_id = null;
 $last_name = "";
 $id_count = 0;
 $total_size = 0;
-while($id = $con->readPacket())
+while(($id = $con->readPacket()) !== false)
 {
 	$size = strlen($con->read_buffer);
 	if($argv[1] == "client")

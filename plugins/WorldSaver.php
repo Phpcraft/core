@@ -5,23 +5,24 @@ use Phpcraft\
 
 PluginManager::registerPlugin("WorldSaver", function(Plugin $plugin)
 {
-	$plugin->on(function(ClientJoinEvent $event)
+	$plugin->on(function(ClientJoinEvent $event) use ($plugin)
 	{
 		$fh = fopen("world.bin", "w");
 		if($fh === false)
 		{
 			echo "[WorldSaver] Failed to open world.bin.\n";
+			$plugin->unregister();
 			return;
 		}
 		global $WorldSaver_con;
 		$WorldSaver_con = new Connection($event->server->protocol_version, $fh);
 		$WorldSaver_con->writeVarInt($event->server->protocol_version);
 		$WorldSaver_con->send();
+		echo "[WorldSaver] Saving packets to world.bin. Use '.disconnect' to finish.\n";
 	});
 	$plugin->on(function(ClientPacketEvent $event)
 	{
 		if(!$event->cancelled && in_array($event->packet_name, [
-			"update_sign_entity",
 			"spawn_object",
 			"spawn_experience_orb",
 			"spawn_global_entity",
@@ -30,7 +31,8 @@ PluginManager::registerPlugin("WorldSaver", function(Plugin $plugin)
 			"spawn_player",
 			"entity_animation",
 			"statistics",
-			"update_block_entity",
+			"tile_entity_data",
+			"update_sign",
 			"block_action",
 			"block_change",
 			"boss_bar",
@@ -88,12 +90,9 @@ PluginManager::registerPlugin("WorldSaver", function(Plugin $plugin)
 		]))
 		{
 			global $WorldSaver_con;
-			if($WorldSaver_con instanceof Connection)
-			{
-				$WorldSaver_con->startPacket($event->packet_name);
-				$WorldSaver_con->write_buffer .= $event->server->read_buffer;
-				$WorldSaver_con->send();
-			}
+			$WorldSaver_con->startPacket($event->packet_name);
+			$WorldSaver_con->write_buffer .= $event->server->read_buffer;
+			$WorldSaver_con->send();
 		}
 	});
 });

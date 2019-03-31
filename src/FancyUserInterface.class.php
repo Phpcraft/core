@@ -43,7 +43,6 @@ class FancyUserInterface extends UserInterface
 
 	public function __destruct()
 	{
-		parent::__destruct();
 		readline_callback_handler_remove();
 		ob_end_flush();
 		echo "\n";

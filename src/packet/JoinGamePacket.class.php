@@ -20,7 +20,7 @@ class JoinGamePacket extends Packet
 		$packet = new JoinGamePacket();
 		$packet->eid = $con->readInt();
 		$packet->gamemode = $con->readByte(true);
-		if($packet->gamemode > 0x8)
+		if($packet->gamemode >= 0x8)
 		{
 			$packet->gamemode -= 0x8;
 			$packet->hardcore = true;

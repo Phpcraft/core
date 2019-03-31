@@ -46,16 +46,15 @@ abstract class PluginManager
 			echo "Plugin \"{$name}\" tried to be registered twice.\n";
 			return;
 		}
-		$plugin = new Plugin($name);
+		PluginManager::$loaded_plugins[$name] = new Plugin($name);
 		try
 		{
-			$callback($plugin);
+			$callback(PluginManager::$loaded_plugins[$name]);
 		}
 		catch(\Exception $e)
 		{
 			echo "Unhandled exception in plugin \"{$name}\": ".get_class($e).": ".$e->getMessage()."\n".$e->getTraceAsString()."\n";
 		}
-		PluginManager::$loaded_plugins[$name] = $plugin;
 		PluginManager::$load_state = false;
 	}
 

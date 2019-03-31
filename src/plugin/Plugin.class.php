@@ -72,4 +72,14 @@ class Plugin
 		}
 		return $event->cancelled;
 	}
+
+	/**
+	 * Unregisters the plugin.
+	 * This is useful, for example, if your plugin had a fatal error.
+	 */
+	public function unregister()
+	{
+		unset(PluginManager::$loaded_plugins[$this->name]);
+		echo "Plugin \"".$this->name."\" has unregistered.\n";
+	}
 }

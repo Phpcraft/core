@@ -9,6 +9,7 @@ PluginManager::registerPlugin("Map", function(Plugin $plugin)
 	if(!extension_loaded("gd"))
 	{
 		echo "[Map] Please install the PHP gd extension.\n";
+		$plugin->unregister();
 		return;
 	}
 	$plugin->on(function(ServerJoinEvent $event)
