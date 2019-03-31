@@ -141,7 +141,7 @@ class Server
 					}
 					$data = "§1\x00127\x00".@$json["version"]["name"]."\x00".Phpcraft::chatToText(@$json["description"], 2)."\x00".$json["players"]["online"]."\x00".$json["players"]["max"];
 					$con->writeByte(0xFF);
-					$con->writeShort(strlen($data) - 1);
+					$con->writeShort(mb_strlen($data));
 					$con->writeRaw(mb_convert_encoding($data, "utf-16be"));
 					$con->send(true);
 					$con->close();
