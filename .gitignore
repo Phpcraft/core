@@ -4,4 +4,3 @@ vendor/
 *.cache
 composer.lock
 desktop.ini
-phpunit

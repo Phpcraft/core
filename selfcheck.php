@@ -6,7 +6,7 @@ if(version_compare(PHP_VERSION, "7.0", "<"))
 }
 if(!file_exists("vendor/autoload.php"))
 {
-	die("Please run `composer install` first.\n");
+	die("Please run `composer install --no-dev` first.\n");
 }
 require "vendor/autoload.php";
 use Phpcraft\Phpcraft;
