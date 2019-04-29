@@ -9,6 +9,6 @@ cache:
     - vendor
 script:
   - mv vendor/.cache src/.cache
-  - composer install
+  - composer install --no-dev
   - phpunit tests/ --testdox
   - mv src/.cache vendor/.cache
