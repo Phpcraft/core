@@ -13,7 +13,7 @@ First, we'll clone the repository and generate the autoload script:
 
     git clone https://github.com/timmyrs/Phpcraft
     cd Phpcraft
-    composer install
+    composer install --no-dev
 
 Next, we'll run a self check:
 
