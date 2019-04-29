@@ -2,6 +2,7 @@
 namespace Phpcraft;
 use DomainException;
 use InvalidArgumentException;
+use \hellsh\UUID;
 /** A client-to-server connection. */
 class ServerConnection extends Connection
 {

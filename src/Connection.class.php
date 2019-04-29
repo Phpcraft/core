@@ -3,6 +3,7 @@ namespace Phpcraft;
 use DomainException;
 use InvalidArgumentException;
 use LengthException;
+use \hellsh\UUID;
 /**
  * A wrapper to read and write from streams.
  * The Connection object can also be utilized without a stream:

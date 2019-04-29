@@ -1,5 +1,6 @@
 <?php
 namespace Phpcraft;
+use \hellsh\UUID;
 class UpdateBossBarTitlePacket extends BossBarPacket
 {
 	/**

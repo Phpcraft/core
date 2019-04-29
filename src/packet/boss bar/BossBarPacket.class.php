@@ -1,5 +1,6 @@
 <?php
 namespace Phpcraft;
+use \hellsh\UUID;
 abstract class BossBarPacket extends Packet
 {
 	const COLOR_PINK = 0;
