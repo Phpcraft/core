@@ -13,7 +13,8 @@
 		"ext-SPL": "^7.0",
 		"ext-json": "^1.4",
 		"ext-zlib": "^7.0",
-		"hellsh/uuid": "dev-master"
+		"hell-sh/uuid": "dev-master",
+		"phpseclib/mcrypt_compat": "^1.0"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "^6.0 | ^7.0 | ^8.0"

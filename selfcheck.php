@@ -28,7 +28,7 @@ if(file_exists(__DIR__."/src/.cache"))
 	}
 	else
 	{
-		echo "(i) Removed ".($after - $before)." outdated cache entries; {$after} remain\n\n";
+		echo "(i) Removed ".($before - $after)." outdated cache entries; {$after} remain\n\n";
 	}
 }
 else
@@ -125,7 +125,7 @@ else
 {
 	echo "X";
 }
-echo " mcrypt\n\n";
+echo " mcrypt (optional for more performance)\n\n";
 
 if(!empty($apt) || !empty($pecl))
 {
@@ -145,8 +145,4 @@ if(!empty($apt) || !empty($pecl))
 			echo "sudo pecl install ".join(" ", $pecl)."\n";
 		}
 	}
-}
-if(in_array("mcrypt-1.0.1", $pecl))
-{
-	echo "If you can't install mcrypt: composer require phpseclib/mcrypt_compat\n";
 }
