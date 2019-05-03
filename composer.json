@@ -13,6 +13,7 @@
 		"ext-SPL": "^7.0",
 		"ext-json": "^1.4",
 		"ext-zlib": "^7.0",
+		"hell-sh/enum": "dev-master",
 		"hell-sh/uuid": "dev-master",
 		"phpseclib/mcrypt_compat": "^1.0"
 	},
