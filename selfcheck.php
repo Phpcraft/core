@@ -12,11 +12,11 @@ require "vendor/autoload.php";
 use Phpcraft\Phpcraft;
 if(file_exists(__DIR__."/src/.cache"))
 {
-	$before = count(json_decode(file_get_contents("src/.cache"), true));
+	$before = count(json_decode(file_get_contents(__DIR__."/src/.cache"), true));
 	Phpcraft::maintainCache();
 	if(file_exists(__DIR__."/src/.cache"))
 	{
-		$after = count(json_decode(file_get_contents("src/.cache"), true));
+		$after = count(json_decode(file_get_contents(__DIR__."/src/.cache"), true));
 	}
 	else
 	{
@@ -70,7 +70,7 @@ else
 }
 echo " GMP\n\n";
 
-if(extension_loaded("openssl") && extension_loaded("curl") && in_array("mcrypt.rijndael-128", stream_get_filters()))
+if(extension_loaded("openssl") && extension_loaded("curl") && extension_loaded("mcrypt"))
 {
 	echo "./";
 }
@@ -117,7 +117,7 @@ else
 	echo "./";
 }
 echo " cURL\n  ";
-if(in_array("mcrypt.rijndael-128", stream_get_filters()))
+if(extension_loaded("mcrypt"))
 {
 	echo "./";
 }
