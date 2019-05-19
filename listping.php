@@ -19,7 +19,7 @@ if(count($serverarr) != 2)
 	die(" Failed to resolve name. Got {$server}\n");
 }
 echo " Requesting status from {$server}...";
-$info = Phpcraft::getServerStatus($serverarr[0], intval($serverarr[1]), 3, @$argv[2]);
+$info = Phpcraft::getServerStatus($serverarr[0], intval($serverarr[1]), 3, empty($argv[2]) ? 0 : $argv[0]);
 echo "\n\n";
 if(empty($info))
 {
