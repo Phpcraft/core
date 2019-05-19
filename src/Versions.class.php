@@ -10,6 +10,17 @@ abstract class Versions
 	public static function all()
 	{
 		return [
+			"1.14.2 Pre-Release 2" => 482,
+			"1.14.2 Pre-Release 1" => 481,
+			"1.14.1" => 480,
+			"1.14.1 Pre-Release 2" => 479,
+			"1.14.1 Pre-Release 1" => 478,
+			"1.14" => 477,
+			"1.14 Pre-Release 5" => 476,
+			"1.14 Pre-Release 4" => 475,
+			"1.14 Pre-Release 3" => 474,
+			"1.14 Pre-Release 2" => 473,
+			"1.14 Pre-Release 1" => 472,
 			"1.13.2" => 404,
 			"1.13.2-pre2" => 403,
 			"1.13.2-pre1" => 402,
@@ -118,6 +129,15 @@ abstract class Versions
 	public static function minecraft()
 	{
 		return array_keys(Versions::all());
+	}
+
+	/**
+	 * Returns an array of all supported Minecraft release versions; newest first.
+	 * @return string[]
+	 */
+	public static function minecraftReleases()
+	{
+		return array_keys(Versions::releases());
 	}
 
 	/**

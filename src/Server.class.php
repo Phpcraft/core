@@ -76,7 +76,7 @@ class Server
 					]);
 				}
 			}
-			$versions = Versions::minecraft();
+			$versions = Versions::minecraftReleases();
 			return [
 				"version" => [
 					"name" => "Phpcraft ".$versions[count($versions) - 1]." - ".$versions[0],

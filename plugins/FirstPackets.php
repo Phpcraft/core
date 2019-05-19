@@ -70,43 +70,47 @@ PluginManager::registerPlugin("FirstPackets", function(Plugin $plugin)
 						{
 							continue;
 						}
-						$con->startPacket("chunk_data");
-						$con->writeInt($x, true); // Chunk X
-						$con->writeInt($z, true); // Chunk Z
-						$con->writeBoolean(true); // Is New Chunk
-						if($con->protocol_version >= 70) // Sections Bit Mask
+						// TODO: 1.14 Support
+						if($con->protocol_version < 472)
 						{
-							$con->writeVarInt(0b00000001);
+							$con->startPacket("chunk_data");
+							$con->writeInt($x, true); // Chunk X
+							$con->writeInt($z, true); // Chunk Z
+							$con->writeBoolean(true); // Is New Chunk
+							if($con->protocol_version >= 70) // Sections Bit Mask
+							{
+								$con->writeVarInt(0b00000001);
+							}
+							else if($con->protocol_version >= 60)
+							{
+								$con->writeInt(0b00000001);
+							}
+							else
+							{
+								$con->writeShort(0b00000001);
+							}
+							// Data Size + Data:
+							$data = new Connection();
+							for($i = 0; $i < 1; $i++)
+							{
+								$data->writeByte(8); // Bits per Block
+								$data->writeVarInt(2); // Palette Size
+								$data->writeVarInt(BlockMaterial::get("grass_block")->getId($con->protocol_version));
+								$data->writeVarInt(BlockMaterial::get("stone")->getId($con->protocol_version));
+								$data->writeVarInt(512); // (4096 / (64 / Bits per Block))
+								$data->write_buffer .= str_repeat("\x00\x01", 2048); // Blocks
+								$data->write_buffer .= str_repeat("\x00", 2048); // Block Light
+								$data->write_buffer .= str_repeat("\xFF", 2048); // Sky Light
+							}
+							$data->write_buffer .= str_repeat($con->protocol_version >= 357 ? "\x00\x00\x00\x7F" : "\x00", 256); // Biomes
+							$con->writeVarInt(strlen($data->write_buffer));
+							$con->write_buffer .= $data->write_buffer;
+							if($con->protocol_version >= 110)
+							{
+								$con->writeVarInt(0); // Number of block entities
+							}
+							$con->send();
 						}
-						else if($con->protocol_version >= 60)
-						{
-							$con->writeInt(0b00000001);
-						}
-						else
-						{
-							$con->writeShort(0b00000001);
-						}
-						// Data Size + Data:
-						$data = new Connection();
-						for($i = 0; $i < 1; $i++)
-						{
-							$data->writeByte(8); // Bits per Block
-							$data->writeVarInt(2); // Palette Size
-							$data->writeVarInt(BlockMaterial::get("grass_block")->getId($con->protocol_version));
-							$data->writeVarInt(BlockMaterial::get("stone")->getId($con->protocol_version));
-							$data->writeVarInt(512); // (4096 / (64 / Bits per Block))
-							$data->write_buffer .= str_repeat("\x00\x01", 2048); // Blocks
-							$data->write_buffer .= str_repeat("\x00", 2048); // Block Light
-							$data->write_buffer .= str_repeat("\xFF", 2048); // Sky Light
-						}
-						$data->write_buffer .= str_repeat($con->protocol_version >= 357 ? "\x00\x00\x00\x7F" : "\x00", 256); // Biomes
-						$con->writeVarInt(strlen($data->write_buffer));
-						$con->write_buffer .= $data->write_buffer;
-						if($con->protocol_version >= 110)
-						{
-							$con->writeVarInt(0); // Number of block entities
-						}
-						$con->send();
 						if(count($con->chunks) == 0)
 						{
 							$con->startPacket("teleport");

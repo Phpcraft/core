@@ -26,9 +26,16 @@ class JoinGamePacket extends Packet
 			$packet->hardcore = true;
 		}
 		$packet->dimension = $con->protocol_version > 107 ? $con->readInt() : $con->readByte();
-		$packet->difficulty = $con->readByte(true);
+		if($con->protocol_version < 472)
+		{
+			$packet->difficulty = $con->readByte(true);
+		}
 		$con->ignoreBytes(1); // Max Players (Byte)
 		$con->ignoreBytes($con->readVarInt()); // Level Type (String)
+		if($con->protocol_version >= 472)
+		{
+			$con->readVarInt(); // View Distance
+		}
 		$con->ignoreBytes(1); // Reduced Debug Info (Boolean)
 		return $packet;
 	}
@@ -56,11 +63,25 @@ class JoinGamePacket extends Packet
 		{
 			$con->writeByte($this->dimension);
 		}
-		$con->writeByte($this->difficulty, true);
+		if($con->protocol_version < 472)
+		{
+			$con->writeByte($this->difficulty);
+		}
 		$con->writeByte(100, true); // Max Players
 		$con->writeString(""); // Level Type
+		if($con->protocol_version >= 472)
+		{
+			$con->writeVarInt(8); // View Distance
+		}
 		$con->writeBoolean(false); // Reduced Debug Info
 		$con->send();
+		if($con->protocol_version >= 472)
+		{
+			$con->startPacket("difficulty");
+			$con->writeByte($this->difficulty);
+			$con->writeBoolean(true); // Locked
+			$con->send();
+		}
 	}
 
 	public function __toString()

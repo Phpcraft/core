@@ -90,7 +90,11 @@ class MapDataPacket extends Packet
 		$packet->scale = $con->readByte();
 		if($con->protocol_version > 47)
 		{
-			$con->ignoreBytes(1);
+			$con->ignoreBytes(1); // Tracking Position
+			if($con->protocol_version >= 472)
+			{
+				$con->ignoreBytes(1); // Locked
+			}
 		}
 		$markers_i = $con->readVarInt();
 		for($i = 0; $i < $markers_i; $i++)
@@ -162,7 +166,11 @@ class MapDataPacket extends Packet
 		$con->writeByte($this->scale);
 		if($con->protocol_version > 47)
 		{
-			$con->writeBoolean(true);
+			$con->writeBoolean(true); // Tracking Position
+			if($con->protocol_version >= 472)
+			{
+				$con->writeBoolean(true); // Locked
+			}
 		}
 		$con->writeVarInt(count($this->markers));
 		foreach($this->markers as $marker)
