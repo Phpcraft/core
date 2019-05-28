@@ -11,9 +11,9 @@ class ServerConnection extends Connection
 
 	/**
 	 * @param resource $stream A stream created by fsockopen.
-	 * @param integer $protocol_version 404 = 1.13.2
+	 * @param integer $protocol_version
 	 */
-	public function __construct($stream, int $protocol_version = 404)
+	public function __construct($stream, int $protocol_version)
 	{
 		parent::__construct($protocol_version, $stream);
 	}

@@ -702,7 +702,7 @@ abstract class Phpcraft
 		{
 			if($stream = @fsockopen($server_name, $server_port, $errno, $errstr, $timeout))
 			{
-				$con = new ServerConnection($stream);
+				$con = new ServerConnection($stream, Versions::protocol()[0]);
 				$start = microtime(true);
 				$con->sendHandshake($server_name, $server_port, 1);
 				$con->writeVarInt(0x00);
@@ -721,7 +721,7 @@ abstract class Phpcraft
 		{
 			if($stream = @fsockopen($server_name, $server_port, $errno, $errstr, $timeout))
 			{
-				$con = new ServerConnection($stream, 0);
+				$con = new ServerConnection($stream, 73);
 				$start = microtime(true);
 				$con->writeByte(0xFE);
 				$con->writeByte(0x01);
@@ -730,7 +730,7 @@ abstract class Phpcraft
 				$con->writeRaw(mb_convert_encoding("MC|PingHost", "utf-16be"));
 				$host = mb_convert_encoding($server_name, "utf-16be");
 				$con->writeShort(strlen($host) + 7);
-				$con->writeByte(73); // Protocol Version
+				$con->writeByte($con->protocol_version);
 				$con->writeShort(strlen($server_name));
 				$con->writeRaw($host);
 				$con->writeInt($server_port);
