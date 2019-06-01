@@ -10,6 +10,9 @@ abstract class Versions
 	public static function all()
 	{
 		return [
+			"1.14.2" => 485,
+			"1.14.2 Pre-Release 4" => 484,
+			"1.14.2 Pre-Release 3" => 483,
 			"1.14.2 Pre-Release 2" => 482,
 			"1.14.2 Pre-Release 1" => 481,
 			"1.14.1" => 480,
