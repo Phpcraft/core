@@ -1,0 +1,4 @@
+<map id="Phpcraft\RemoveBossBarPacket" name="Phpcraft\RemoveBossBarPacket">
+<area shape="rect" id="node2" href="$classPhpcraft_1_1BossBarPacket.html" title="Phpcraft\\BossBarPacket" alt="" coords="32,80,208,107"/>
+<area shape="rect" id="node3" href="$classPhpcraft_1_1Packet.html" title="Phpcraft\\Packet" alt="" coords="59,5,181,32"/>
+</map>

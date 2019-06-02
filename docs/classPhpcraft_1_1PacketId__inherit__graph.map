@@ -1,0 +1,5 @@
+<map id="Phpcraft\PacketId" name="Phpcraft\PacketId">
+<area shape="rect" id="node3" href="$classPhpcraft_1_1ClientboundPacket.html" title="Phpcraft\\ClientboundPacket" alt="" coords="5,155,207,181"/>
+<area shape="rect" id="node4" href="$classPhpcraft_1_1ServerboundPacket.html" title="Phpcraft\\ServerboundPacket" alt="" coords="231,155,437,181"/>
+<area shape="rect" id="node2" href="$classPhpcraft_1_1Identifier.html" title="Phpcraft\\Identifier" alt="" coords="150,5,289,32"/>
+</map>
