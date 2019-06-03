@@ -36,15 +36,22 @@ abstract class PluginMessagePacket extends Packet
 		$this->data = $data;
 	}
 
+	protected function read_(Connection $con)
+	{
+		$this->data = $con->read_buffer;
+		$con->read_buffer = "";
+	}
+
 	/**
 	 * @param Connection $con
 	 * @throws IOException
 	 */
-	protected function _read(Connection $con)
+	public static function read(Connection $con)
 	{
+		$ret = new (get_called_class())();
 		if($con->protocol_version >= 385)
 		{
-			$this->channel = $con->readString();
+			$ret->channel = $con->readString();
 		}
 		else
 		{
@@ -52,16 +59,21 @@ abstract class PluginMessagePacket extends Packet
 			$channel = array_search($legacy_channel, self::channelMap());
 			if($channel)
 			{
-				$this->channel = $channel;
+				$ret->channel = $channel;
 			}
 			else
 			{
 				trigger_error("Unmapped legacy plugin message channel: ".$legacy_channel);
-				$this->channel = $legacy_channel;
+				$ret->channel = $legacy_channel;
 			}
 		}
-		$this->data = $con->read_buffer;
-		$con->read_buffer = "";
+		/** @noinspection PhpUndefinedMethodInspection */
+		$ret->read_($con);
+	}
+
+	protected function send_(Connection $con)
+	{
+		$con->writeRaw($this->data);
 	}
 
 	/**
@@ -89,7 +101,12 @@ abstract class PluginMessagePacket extends Packet
 				$con->writeString($this->channel);
 			}
 		}
-		$con->writeRaw($this->data);
+		$this->send_($con);
 		$con->send();
+	}
+
+	public function __toString()
+	{
+		return "{".substr(get_called_class(), 9).": \"".$this->channel."\": ".Phpcraft::binaryStringToHex($this->data)."}";
 	}
 }

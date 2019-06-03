@@ -1,7 +1,8 @@
 <?php
 // Provides clients with some essential first packets.
 
-use Phpcraft\{BlockMaterial, ClientboundPluginMessagePacket, ClientConnection, ServerJoinEvent, Connection, Difficulty, Dimension, Event, Gamemode, JoinGamePacket, Plugin, PluginManager, PluginMessagePacket, Position, ServerTickEvent};
+use Phpcraft\
+{BlockMaterial, ClientboundBrandPluginMessagePacket, ClientConnection, ServerJoinEvent, Connection, Difficulty, Dimension, Event, Gamemode, JoinGamePacket, Plugin, PluginManager, Position, ServerTickEvent};
 
 $WorldImitatorActive = false;
 PluginManager::registerPlugin("FirstPackets", function(Plugin $plugin)
@@ -13,10 +14,7 @@ PluginManager::registerPlugin("FirstPackets", function(Plugin $plugin)
 			return;
 		}
 		$con = $event->client;
-		$packet = new ClientboundPluginMessagePacket();
-		$packet->channel = PluginMessagePacket::CHANNEL_BRAND;
-		$packet->data = "\x08Phpcraft";
-		$packet->send($con);
+		(new ClientboundBrandPluginMessagePacket("Phpcraft"))->send($con);
 		global $WorldImitatorActive;
 		if($WorldImitatorActive)
 		{
@@ -31,7 +29,7 @@ PluginManager::registerPlugin("FirstPackets", function(Plugin $plugin)
 		$con->setAbilities($con->gamemode);
 		$con->sendAbilities();
 		$con->startPacket("spawn_position");
-		$con->writePosition($con->pos = new Position(0, 16, 0));
+		$con->writePosition($con->pos = new Position(0.0, 16.0, 0.0));
 		$con->send();
 		$con->startPacket("update_time");
 		$con->writeLong(0); // World Age

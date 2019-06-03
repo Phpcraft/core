@@ -10,22 +10,4 @@ class ClientboundPluginMessagePacket extends PluginMessagePacket
 	{
 		parent::__construct("clientbound_plugin_message", $channel, $data);
 	}
-
-	/**
-	 * Initialises the packet class by reading its payload from the given Connection.
-	 * @param Connection $con
-	 * @return ClientboundPluginMessagePacket
-	 * @throws IOException
-	 */
-	public static function read(Connection $con)
-	{
-		$packet = new ClientboundPluginMessagePacket();
-		$packet->_read($con);
-		return $packet;
-	}
-
-	public function __toString()
-	{
-		return "{ClientboundPluginMessagePacket: \"".$this->channel."\": ".Phpcraft::binaryStringToHex($this->data)."}";
-	}
 }

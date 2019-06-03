@@ -7,7 +7,8 @@ if(empty($argv))
 }
 
 require "vendor/autoload.php";
-use Phpcraft\{Account, AssetsManager, ClientboundPacket, ClientConsoleEvent, ClientJoinEvent, ClientPacketEvent, FancyUserInterface, KeepAliveRequestPacket, Phpcraft, PluginManager, PluginMessagePacket, Position, ServerboundPluginMessagePacket, ServerConnection, UserInterface, Versions};
+use Phpcraft\
+{Account, AssetsManager, ClientboundPacket, ClientConsoleEvent, ClientJoinEvent, ClientPacketEvent, FancyUserInterface, KeepAliveRequestPacket, Phpcraft, PluginManager, Position, ServerboundBrandPluginMessagePacket, ServerConnection, UserInterface, Versions};
 
 if(Phpcraft::isWindows() && !in_array("help", $argv))
 {
@@ -822,7 +823,7 @@ do
 				{
 					$dimension = $con->readByte();
 				}
-				(new ServerboundPluginMessagePacket(PluginMessagePacket::CHANNEL_BRAND, "\x08Phpcraft"))->send($con);
+				(new ServerboundBrandPluginMessagePacket("Phpcraft"))->send($con);
 				$con->startPacket("client_settings");
 				$con->writeString($options["lang"]);
 				$con->writeByte(16); // View Distance
