@@ -48,7 +48,8 @@ abstract class PluginMessagePacket extends Packet
 	 */
 	public static function read(Connection $con)
 	{
-		$ret = new (get_called_class())();
+		$class = get_called_class();
+		$ret = new $class();
 		if($con->protocol_version >= 385)
 		{
 			$ret->channel = $con->readString();
@@ -67,7 +68,6 @@ abstract class PluginMessagePacket extends Packet
 				$ret->channel = $legacy_channel;
 			}
 		}
-		/** @noinspection PhpUndefinedMethodInspection */
 		$ret->read_($con);
 	}
 
