@@ -3,7 +3,7 @@ namespace Phpcraft;
 /** The first packet sent to the client after they've logged in. */
 class JoinGamePacket extends Packet
 {
-	public $eid;
+	public $eid = 0;
 	public $gamemode = 0;
 	public $hardcore = false;
 	public $dimension = 0;
