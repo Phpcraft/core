@@ -3,11 +3,29 @@ namespace Phpcraft;
 abstract class Versions
 {
 	/**
-	 * Returns an associative array of supported Minecraft versions with their protocol version as value; newest first.
+	 * Returns an associative array of all Minecraft versions with their protocol version as value; newest first.
 	 * @return array
 	 * @see Versions::releases
 	 */
 	public static function all()
+	{
+		$versions = [];
+		foreach(Phpcraft::getCachableJson("https://raw.githubusercontent.com/timmyrs/minecraft-data/master/data/pc/common/protocolVersions.json", 259200) as $version)
+		{
+			if(!$version["usesNetty"])
+			{
+				break;
+			}
+			$versions[$version["minecraftVersion"]] = $version["version"];
+		}
+		return $versions;
+	}
+
+	/**
+	 * Returns an associative array of supported Minecraft versions with their protocol version as value; newest first.
+	 * @return array
+	 */
+	public static function supported()
 	{
 		return [
 			"1.14.2" => 485,
@@ -79,7 +97,7 @@ abstract class Versions
 	}
 
 	/**
-	 * Returns an associative array of supported non-snapshot Minecraft versions with their protocol version as value; newest first.
+	 * Returns an associative array of non-snapshot Minecraft versions with their protocol version as value; newest first.
 	 * @return array
 	 * @see Versions::all
 	 */
@@ -97,7 +115,7 @@ abstract class Versions
 	}
 
 	/**
-	 * Returns a list of supported protocol versions; newest first.
+	 * Returns a list of protocol versions; newest first.
 	 * @return integer[]
 	 */
 	public static function protocol()
@@ -106,13 +124,23 @@ abstract class Versions
 	}
 
 	/**
-	 * Returns whether a given protocol version is supported.
+	 * Returns true if the given protocol version is supported by Phpcraft.
 	 * @param integer $protocol_version e.g., 340
 	 * @return boolean
 	 */
 	public static function protocolSupported(int $protocol_version)
 	{
-		return in_array($protocol_version, Versions::all());
+		return in_array($protocol_version, Versions::supported());
+	}
+
+	/**
+	 * Returns true if the given Minecraft version is supported by Phpcraft.
+	 * @param string $minecraft_version
+	 * @return boolean
+	 */
+	public static function minecraftSupported(string $minecraft_version)
+	{
+		return array_key_exists($minecraft_version, Versions::supported());
 	}
 
 	/**
@@ -126,7 +154,7 @@ abstract class Versions
 	}
 
 	/**
-	 * Returns an array of all supported Minecraft versions; newest first.
+	 * Returns an array of Minecraft versions; newest first.
 	 * @return string[]
 	 */
 	public static function minecraft()
@@ -135,22 +163,12 @@ abstract class Versions
 	}
 
 	/**
-	 * Returns an array of all supported Minecraft release versions; newest first.
+	 * Returns an array of non-snapshot Minecraft versions; newest first.
 	 * @return string[]
 	 */
 	public static function minecraftReleases()
 	{
 		return array_keys(Versions::releases());
-	}
-
-	/**
-	 * Returns whether a given Minecraft version is supported.
-	 * @param string $minecraft_version
-	 * @return boolean
-	 */
-	public static function minecraftSupported(string $minecraft_version)
-	{
-		return isset(Versions::all()[$minecraft_version]);
 	}
 
 	/**
