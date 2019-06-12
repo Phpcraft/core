@@ -9,6 +9,6 @@ cache:
     - vendor
 script:
   - if [[ -f "vendor/.cache" ]]; then mv vendor/.cache src/.cache; fi
-  - composer install --no-dev
-  - phpunit tests/ --testdox
+  - composer install
+  - vendor/bin/nose
   - if [[ -f "src/.cache" ]]; then mv src/.cache vendor/.cache; fi
