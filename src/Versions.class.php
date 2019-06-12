@@ -28,6 +28,7 @@ abstract class Versions
 	public static function supported()
 	{
 		return [
+			"1.14.3-pre2" => 487,
 			"1.14.3-pre1" => 486,
 			"1.14.2" => 485,
 			"1.14.2-pre4" => 484,
