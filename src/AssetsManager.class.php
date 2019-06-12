@@ -34,11 +34,11 @@ class AssetsManager
 		$version_manifest = $version_folder."/".$version.".json";
 		if(!file_exists($version_manifest) || !is_file($version_manifest))
 		{
-			foreach(Phpcraft::getCachableJson("https://launchermeta.mojang.com/mc/game/version_manifest.json", 86400)["versions"] as $version)
+			foreach(Phpcraft::getCachableJson("https://launchermeta.mojang.com/mc/game/version_manifest.json", 86400)["versions"] as $v)
 			{
-				if($version["id"] == $version)
+				if($v["id"] == $version)
 				{
-					file_put_contents($version_manifest, file_get_contents($version["url"]));
+					file_put_contents($version_manifest, file_get_contents($v["url"]));
 					break;
 				}
 			}
