@@ -23,7 +23,7 @@ var searchData=
   ['readvarint',['readVarInt',['../classPhpcraft_1_1Connection.html#a31e927e43beb7463823b8fbb970b49c6',1,'Phpcraft::Connection']]],
   ['recursivelydelete',['recursivelyDelete',['../classPhpcraft_1_1Phpcraft.html#aa1d3fc7f04e2cbc09b6aecf824444c6d',1,'Phpcraft::Phpcraft']]],
   ['registerplugin',['registerPlugin',['../classPhpcraft_1_1PluginManager.html#a3a015bb5e2f909df67e1fec275d9c7b5',1,'Phpcraft::PluginManager']]],
-  ['releases',['releases',['../classPhpcraft_1_1Versions.html#a7705f1170c5524e30c6e3c53af0083ec',1,'Phpcraft::Versions']]],
+  ['releases',['releases',['../classPhpcraft_1_1Versions.html#a7dec6dde245708976d70b171f4c30ccc',1,'Phpcraft::Versions']]],
   ['render',['render',['../classPhpcraft_1_1FancyUserInterface.html#a743f30aeb5d1007ace49a0c8dfbf0946',1,'Phpcraft\FancyUserInterface\render()'],['../classPhpcraft_1_1UserInterface.html#ad80d10131ece8fa438e4bf526faf6234',1,'Phpcraft\UserInterface\render()']]],
   ['resolve',['resolve',['../classPhpcraft_1_1Phpcraft.html#aa55d0acee3de518a9075d433d396c344',1,'Phpcraft::Phpcraft']]],
   ['rewind',['rewind',['../classPhpcraft_1_1NbtList.html#a5920fc2a4a0bebb8537edea0da25f420',1,'Phpcraft::NbtList']]]
