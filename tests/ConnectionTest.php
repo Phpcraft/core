@@ -1,4 +1,5 @@
 <?php
+/** @noinspection PhpUnhandledExceptionInspection */
 require_once __DIR__."/../vendor/autoload.php";
 use Phpcraft\Connection;
 class ConnectionTest

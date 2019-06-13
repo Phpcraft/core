@@ -85,11 +85,13 @@ class AddBossBarPacket extends BossBarPacket
 		}
 		else
 		{
+			assert($this->uuid instanceof UUID);
 			$packet = new SpawnMobPacket(
 				$this->uuid->toInt() * -1,
 				EntityType::get("ender_dragon"),
 				$this->uuid
 			);
+			assert($packet->metadata instanceof EntityLiving);
 			if($con instanceof ClientConnection)
 			{
 				$packet->pos = new Position($con->pos->x, -10, $con->pos->z);

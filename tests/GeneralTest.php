@@ -1,4 +1,5 @@
 <?php
+/** @noinspection PhpUnhandledExceptionInspection */
 require __DIR__."/../vendor/autoload.php";
 use Phpcraft\
 {BlockMaterial, Connection, Counter, EntityBase, EntityLiving, Item, Phpcraft, Slot, UUID, Versions};
@@ -86,6 +87,7 @@ class GeneralTest
 		Nose::assert(strpos($con->write_buffer, "§eTest") !== false);
 		$con->read_buffer = $con->write_buffer;
 		$read_metadata = (new EntityBase())->read($con);
+		assert($read_metadata instanceof EntityLiving);
 		Nose::assertEquals("", $con->read_buffer);
 		Nose::assert($read_metadata->burning);
 		Nose::assertFalse($read_metadata->crouching);

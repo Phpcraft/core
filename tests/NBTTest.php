@@ -1,4 +1,5 @@
 <?php
+/** @noinspection PhpUnhandledExceptionInspection */
 require_once __DIR__."/../vendor/autoload.php";
 use Phpcraft\{Connection, NbtCompound, NbtInt, NbtList};
 class NBTTest
@@ -10,7 +11,7 @@ class NBTTest
 		$con->read_buffer = $bin;
 		$list = $con->readNBT();
 		Nose::assertEquals("", $con->read_buffer);
-		Nose::assert($list instanceof NbtList);
+		assert($list instanceof NbtList);
 		Nose::assertEquals("List", $list->name);
 		Nose::assertEquals(1, count($list->children));
 		$compound = $list->children[0];
