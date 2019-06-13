@@ -7,7 +7,7 @@ var searchData=
   ['writedouble',['writeDouble',['../classPhpcraft_1_1Connection.html#a4aa11422166b757242805d7afdd4f671',1,'Phpcraft::Connection']]],
   ['writefixedpointposition',['writeFixedPointPosition',['../classPhpcraft_1_1Connection.html#a1d93b11de7b19c40180542dcff0be2e7',1,'Phpcraft::Connection']]],
   ['writefloat',['writeFloat',['../classPhpcraft_1_1Connection.html#af17b98816f9ccf70b04eb1fabbb1f612',1,'Phpcraft\Connection\writeFloat()'],['../classPhpcraft_1_1EntityMetadata.html#a7e6ca6f397260baec1c2e89bbbeba59a',1,'Phpcraft\EntityMetadata\writeFloat()']]],
-  ['writeint',['writeInt',['../classPhpcraft_1_1Connection.html#a976234740f0c11904910ecc5e6228216',1,'Phpcraft::Connection']]],
+  ['writeint',['writeInt',['../classPhpcraft_1_1Connection.html#a657dbad7e8331679dc8223d9ae2cbe3d',1,'Phpcraft::Connection']]],
   ['writelong',['writeLong',['../classPhpcraft_1_1Connection.html#a15e4732fd9d7743c56e864c62e0889ec',1,'Phpcraft::Connection']]],
   ['writeoptchat',['writeOptChat',['../classPhpcraft_1_1EntityMetadata.html#aacf8cf61872d2710e0a1b5f2e9e53811',1,'Phpcraft::EntityMetadata']]],
   ['writeposition',['writePosition',['../classPhpcraft_1_1Connection.html#a18fea2360ab6be9a88be626a94774aa7',1,'Phpcraft::Connection']]],
