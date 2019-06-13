@@ -19,6 +19,6 @@
 		"phpseclib/mcrypt_compat": "^1.0"
 	},
 	"require-dev": {
-		"hell-sh/nose": "0.3.1"
+		"hell-sh/nose": "^1.0"
 	}
 }
