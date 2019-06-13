@@ -1,8 +1,9 @@
 var searchData=
 [
   ['clientboundabilitiespacket_2eclass_2ephp',['ClientboundAbilitiesPacket.class.php',['../ClientboundAbilitiesPacket_8class_8php.html',1,'']]],
+  ['clientboundbrandpluginmessagepacket_2eclass_2ephp',['ClientboundBrandPluginMessagePacket.class.php',['../ClientboundBrandPluginMessagePacket_8class_8php.html',1,'']]],
   ['clientboundpacket_2eclass_2ephp',['ClientboundPacket.class.php',['../ClientboundPacket_8class_8php.html',1,'']]],
-  ['clientboundpluginmessage_2eclass_2ephp',['ClientboundPluginMessage.class.php',['../ClientboundPluginMessage_8class_8php.html',1,'']]],
+  ['clientboundpluginmessagepacket_2eclass_2ephp',['ClientboundPluginMessagePacket.class.php',['../ClientboundPluginMessagePacket_8class_8php.html',1,'']]],
   ['clientconnection_2eclass_2ephp',['ClientConnection.class.php',['../ClientConnection_8class_8php.html',1,'']]],
   ['clientconsoleevent_2eclass_2ephp',['ClientConsoleEvent.class.php',['../ClientConsoleEvent_8class_8php.html',1,'']]],
   ['clientevent_2eclass_2ephp',['ClientEvent.class.php',['../ClientEvent_8class_8php.html',1,'']]],
