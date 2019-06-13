@@ -1,6 +1,7 @@
 <?php
 require __DIR__."/../vendor/autoload.php";
-use Phpcraft\{Phpcraft, UUID, Versions};
+use Phpcraft\
+{BlockMaterial, Connection, Counter, EntityBase, EntityLiving, Item, Phpcraft, Slot, UUID, Versions};
 class GeneralTest
 {
 	function testTextToChat()
@@ -54,19 +55,19 @@ class GeneralTest
 
 	function testCounter()
 	{
-		$counter = new \Phpcraft\Counter();
+		$counter = new Counter();
 		Nose::assertEquals(0, $counter->next());
 		Nose::assertEquals(1, $counter->next());
 	}
 
 	function testSlotDisplayName()
 	{
-		$slot = new \Phpcraft\Slot(\Phpcraft\Item::get("stone"));
+		$slot = new Slot(Item::get("stone"));
 		Nose::assertNull($slot->getDisplayName());
 		$name = ["text" => "Test", "color" => "yellow"];
 		$slot->setDisplayName($name);
 		Nose::assertEquals($name, $slot->getDisplayName());
-		$con = new \Phpcraft\Connection(47);
+		$con = new Connection(47);
 		$con->writeSlot($slot);
 		Nose::assert(strpos($con->write_buffer, "§eTest") !== false);
 		$con->read_buffer = $con->write_buffer;
@@ -76,15 +77,15 @@ class GeneralTest
 
 	function testEntityMetadata()
 	{
-		$metadata = new \Phpcraft\EntityBase();
+		$metadata = new EntityBase();
 		$metadata->burning = true;
 		$metadata->elytraing = true;
 		$metadata->custom_name = ["text" => "Test", "color" => "yellow"];
-		$con = new \Phpcraft\Connection(47);
+		$con = new Connection(47);
 		$metadata->write($con);
 		Nose::assert(strpos($con->write_buffer, "§eTest") !== false);
 		$con->read_buffer = $con->write_buffer;
-		$read_metadata = (new \Phpcraft\EntityBase())->read($con);
+		$read_metadata = (new EntityBase())->read($con);
 		Nose::assertEquals("", $con->read_buffer);
 		Nose::assert($read_metadata->burning);
 		Nose::assertFalse($read_metadata->crouching);
@@ -95,7 +96,7 @@ class GeneralTest
 
 	function testBlockMaterial()
 	{
-		Nose::assertNotNull($grass = \Phpcraft\BlockMaterial::get("grass_block"));
+		Nose::assertNotNull($grass = BlockMaterial::get("grass_block"));
 		Nose::assertEquals(2 << 4, $grass->getId(47));
 		Nose::assertEquals(9, $grass->getId(404));
 	}
