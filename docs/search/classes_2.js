@@ -1,6 +1,7 @@
 var searchData=
 [
   ['clientboundabilitiespacket',['ClientboundAbilitiesPacket',['../classPhpcraft_1_1ClientboundAbilitiesPacket.html',1,'Phpcraft']]],
+  ['clientboundbrandpluginmessagepacket',['ClientboundBrandPluginMessagePacket',['../classPhpcraft_1_1ClientboundBrandPluginMessagePacket.html',1,'Phpcraft']]],
   ['clientboundpacket',['ClientboundPacket',['../classPhpcraft_1_1ClientboundPacket.html',1,'Phpcraft']]],
   ['clientboundpluginmessagepacket',['ClientboundPluginMessagePacket',['../classPhpcraft_1_1ClientboundPluginMessagePacket.html',1,'Phpcraft']]],
   ['clientconnection',['ClientConnection',['../classPhpcraft_1_1ClientConnection.html',1,'Phpcraft']]],

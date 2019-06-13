@@ -8,13 +8,15 @@
 <area shape="rect" id="node11" href="$classPhpcraft_1_1KeepAliveResponsePacket.html" title="Phpcraft\\KeepAliveResponse\lPacket" alt="" coords="183,385,389,426"/>
 <area shape="rect" id="node12" href="$classPhpcraft_1_1MapDataPacket.html" title="Phpcraft\\MapDataPacket" alt="" coords="195,451,377,477"/>
 <area shape="rect" id="node13" href="$classPhpcraft_1_1PluginMessagePacket.html" title="Phpcraft\\PluginMessagePacket" alt="" coords="176,501,396,528"/>
-<area shape="rect" id="node16" href="$classPhpcraft_1_1SetExperiencePacket.html" title="Phpcraft\\SetExperiencePacket" alt="" coords="178,552,394,579"/>
-<area shape="rect" id="node17" href="$classPhpcraft_1_1SetSlotPacket.html" title="Phpcraft\\SetSlotPacket" alt="" coords="201,603,371,629"/>
-<area shape="rect" id="node18" href="$classPhpcraft_1_1SpawnMobPacket.html" title="Phpcraft\\SpawnMobPacket" alt="" coords="189,653,383,680"/>
+<area shape="rect" id="node18" href="$classPhpcraft_1_1SetExperiencePacket.html" title="Phpcraft\\SetExperiencePacket" alt="" coords="178,552,394,579"/>
+<area shape="rect" id="node19" href="$classPhpcraft_1_1SetSlotPacket.html" title="Phpcraft\\SetSlotPacket" alt="" coords="201,603,371,629"/>
+<area shape="rect" id="node20" href="$classPhpcraft_1_1SpawnMobPacket.html" title="Phpcraft\\SpawnMobPacket" alt="" coords="189,653,383,680"/>
 <area shape="rect" id="node3" href="$classPhpcraft_1_1AddBossBarPacket.html" title="Phpcraft\\AddBossBarPacket" alt="" coords="458,5,659,32"/>
 <area shape="rect" id="node4" href="$classPhpcraft_1_1RemoveBossBarPacket.html" title="Phpcraft\\RemoveBossBarPacket" alt="" coords="444,56,673,83"/>
 <area shape="rect" id="node5" href="$classPhpcraft_1_1UpdateBossBarHealthPacket.html" title="Phpcraft\\UpdateBossBarHealth\lPacket" alt="" coords="447,107,670,149"/>
 <area shape="rect" id="node6" href="$classPhpcraft_1_1UpdateBossBarTitlePacket.html" title="Phpcraft\\UpdateBossBarTitle\lPacket" alt="" coords="454,173,663,214"/>
 <area shape="rect" id="node14" href="$classPhpcraft_1_1ClientboundPluginMessagePacket.html" title="Phpcraft\\ClientboundPlugin\lMessagePacket" alt="" coords="459,462,658,503"/>
-<area shape="rect" id="node15" href="$classPhpcraft_1_1ServerboundPluginMessagePacket.html" title="Phpcraft\\ServerboundPlugin\lMessagePacket" alt="" coords="457,527,660,569"/>
+<area shape="rect" id="node16" href="$classPhpcraft_1_1ServerboundPluginMessagePacket.html" title="Phpcraft\\ServerboundPlugin\lMessagePacket" alt="" coords="457,527,660,569"/>
+<area shape="rect" id="node15" href="$classPhpcraft_1_1ClientboundBrandPluginMessagePacket.html" title="Phpcraft\\ClientboundBrand\lPluginMessagePacket" alt="" coords="723,462,919,503"/>
+<area shape="rect" id="node17" href="$classPhpcraft_1_1ServerboundBrandPluginMessagePacket.html" title="Phpcraft\\ServerboundBrand\lPluginMessagePacket" alt="" coords="721,527,921,569"/>
 </map>

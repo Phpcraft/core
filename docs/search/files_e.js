@@ -1,6 +1,7 @@
 var searchData=
 [
   ['server_2eclass_2ephp',['Server.class.php',['../Server_8class_8php.html',1,'']]],
+  ['serverboundbrandpluginmessagepacket_2eclass_2ephp',['ServerboundBrandPluginMessagePacket.class.php',['../ServerboundBrandPluginMessagePacket_8class_8php.html',1,'']]],
   ['serverboundpacket_2eclass_2ephp',['ServerboundPacket.class.php',['../ServerboundPacket_8class_8php.html',1,'']]],
   ['serverboundpluginmessagepacket_2eclass_2ephp',['ServerboundPluginMessagePacket.class.php',['../ServerboundPluginMessagePacket_8class_8php.html',1,'']]],
   ['serverchatevent_2eclass_2ephp',['ServerChatEvent.class.php',['../ServerChatEvent_8class_8php.html',1,'']]],

@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['deprecated_20list',['Deprecated List',['../deprecated.html',1,'']]],
   ['destroyentitiespacket',['DestroyEntitiesPacket',['../classPhpcraft_1_1DestroyEntitiesPacket.html',1,'Phpcraft']]],
   ['destroyentitiespacket_2eclass_2ephp',['DestroyEntitiesPacket.class.php',['../DestroyEntitiesPacket_8class_8php.html',1,'']]],
   ['difficulty',['Difficulty',['../classPhpcraft_1_1Difficulty.html',1,'Phpcraft']]],

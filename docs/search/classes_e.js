@@ -1,6 +1,7 @@
 var searchData=
 [
   ['server',['Server',['../classPhpcraft_1_1Server.html',1,'Phpcraft']]],
+  ['serverboundbrandpluginmessagepacket',['ServerboundBrandPluginMessagePacket',['../classPhpcraft_1_1ServerboundBrandPluginMessagePacket.html',1,'Phpcraft']]],
   ['serverboundpacket',['ServerboundPacket',['../classPhpcraft_1_1ServerboundPacket.html',1,'Phpcraft']]],
   ['serverboundpluginmessagepacket',['ServerboundPluginMessagePacket',['../classPhpcraft_1_1ServerboundPluginMessagePacket.html',1,'Phpcraft']]],
   ['serverchatevent',['ServerChatEvent',['../classPhpcraft_1_1ServerChatEvent.html',1,'Phpcraft']]],
