@@ -1,6 +1,6 @@
 <?php
 namespace Phpcraft;
-use InvalidArgumentException;
+use GMP;
 /** A UUID helper class. */
 class UUID extends \hellsh\UUID
 {
@@ -15,10 +15,10 @@ class UUID extends \hellsh\UUID
 
 	/**
 	 * Returns an integer which will always be the same given the same UUID, but collisions are far more likely.
-	 * @return integer
+	 * @return GMP
 	 */
 	public function toInt()
 	{
-		return gmp_intval(gmp_import(substr($this->binary, 0, 2).substr($this->binary, -2)));
+		return gmp_import(substr($this->binary, 0, 2).substr($this->binary, -2));
 	}
 }

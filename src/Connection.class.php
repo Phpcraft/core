@@ -180,7 +180,7 @@ class Connection
 	 * @param boolean $signed
 	 * @return Connection $this
 	 */
-	public function writeInt(int $value, bool $signed = false)
+	public function writeInt($value, bool $signed = false)
 	{
 		if($signed && $value > 0x7FFFFFFF)
 		{

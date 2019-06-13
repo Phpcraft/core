@@ -23,7 +23,7 @@ class GeneralTest
 	function testUuid()
 	{
 		$uuid = new UUID("e0603b592edc45f7acc7b0cccd6656e1");
-		Nose::assertEquals(3764410081, $uuid->toInt());
+		Nose::assert(gmp_cmp($uuid->toInt(), "3764410081") === 0);
 		Nose::assertFalse((new UUID("fffffff0-ffff-fff0-ffff-fff0fffffff0"))->isSlim());
 		Nose::assertFalse((new UUID("fffffff0-ffff-fff0-ffff-fff1fffffff1"))->isSlim());
 		Nose::assertFalse((new UUID("fffffff0-ffff-fff1-ffff-fff0fffffff1"))->isSlim());
@@ -32,14 +32,14 @@ class GeneralTest
 		Nose::assertFalse((new UUID("fffffff1-ffff-fff0-ffff-fff1fffffff0"))->isSlim());
 		Nose::assertFalse((new UUID("fffffff1-ffff-fff1-ffff-fff0fffffff0"))->isSlim());
 		Nose::assertFalse((new UUID("fffffff1-ffff-fff1-ffff-fff1fffffff1"))->isSlim());
-		Nose::assert((new UUID("fffffff0-ffff-fff0-ffff-fff0fffffff1"))->isSlim());
-		Nose::assert((new UUID("fffffff0-ffff-fff0-ffff-fff1fffffff0"))->isSlim());
-		Nose::assert((new UUID("fffffff0-ffff-fff1-ffff-fff0fffffff0"))->isSlim());
-		Nose::assert((new UUID("fffffff0-ffff-fff1-ffff-fff1fffffff1"))->isSlim());
-		Nose::assert((new UUID("fffffff1-ffff-fff0-ffff-fff0fffffff0"))->isSlim());
-		Nose::assert((new UUID("fffffff1-ffff-fff0-ffff-fff1fffffff1"))->isSlim());
-		Nose::assert((new UUID("fffffff1-ffff-fff1-ffff-fff0fffffff1"))->isSlim());
-		Nose::assert((new UUID("fffffff1-ffff-fff1-ffff-fff1fffffff0"))->isSlim());
+		Nose::assertTrue((new UUID("fffffff0-ffff-fff0-ffff-fff0fffffff1"))->isSlim());
+		Nose::assertTrue((new UUID("fffffff0-ffff-fff0-ffff-fff1fffffff0"))->isSlim());
+		Nose::assertTrue((new UUID("fffffff0-ffff-fff1-ffff-fff0fffffff0"))->isSlim());
+		Nose::assertTrue((new UUID("fffffff0-ffff-fff1-ffff-fff1fffffff1"))->isSlim());
+		Nose::assertTrue((new UUID("fffffff1-ffff-fff0-ffff-fff0fffffff0"))->isSlim());
+		Nose::assertTrue((new UUID("fffffff1-ffff-fff0-ffff-fff1fffffff1"))->isSlim());
+		Nose::assertTrue((new UUID("fffffff1-ffff-fff1-ffff-fff0fffffff1"))->isSlim());
+		Nose::assertTrue((new UUID("fffffff1-ffff-fff1-ffff-fff1fffffff0"))->isSlim());
 	}
 
 	function testVersions()

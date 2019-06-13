@@ -11,13 +11,20 @@ class ConnectionTest
 		$con->writeInt(-1);
 		$con->writeInt(3405691582);
 		$con->writeInt(3405691582, true);
-		Nose::assertEquals("\x00\x00\x00\x01\xFF\xFF\xFF\xFF\xCA\xFE\xBA\xBE\xCA\xFE\xBA\xBE", $con->write_buffer);
+		Nose::assert($con->write_buffer === "\x00\x00\x00\x01\xFF\xFF\xFF\xFF\xCA\xFE\xBA\xBE\xCA\xFE\xBA\xBE");
 		$con->read_buffer = $con->write_buffer;
-		Nose::assertEquals(1, $con->readInt());
-		Nose::assertEquals(-1, $con->readInt(true));
-		Nose::assertEquals(3405691582, $con->readInt());
-		Nose::assertEquals(-889275714, $con->readInt(true));
-		Nose::assertEquals("", $con->read_buffer);
+		Nose::assertEquals($con->readInt(), 1);
+		Nose::assertEquals($con->readInt(true), -1);
+		if(PHP_INT_SIZE == 8)
+		{
+			Nose::assertEquals($con->readInt(), 3405691582);
+		}
+		else
+		{
+			$con->readInt(); // TODO: Assert on 32-bit systems
+		}
+		Nose::assertEquals($con->readInt(true), -889275714);
+		Nose::assert($con->read_buffer === "");
 	}
 
 	function testReadAndWriteFloats()
