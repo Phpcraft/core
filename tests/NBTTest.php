@@ -21,7 +21,7 @@ class NBTTest
 		$int = $compound->children[0];
 		Nose::assert($int instanceof NbtInt);
 		Nose::assertEquals("Int", $int->name);
-		Nose::assertEquals(-1, $int->value);
+		Nose::assert(gmp_cmp($int->value, -1) == 0);
 		$list->write($con);
 		Nose::assertEquals($bin, $con->write_buffer);
 	}
