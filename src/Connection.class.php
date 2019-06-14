@@ -1,6 +1,7 @@
 <?php
 namespace Phpcraft;
 use DomainException;
+use GMP;
 use InvalidArgumentException;
 use LengthException;
 use \hellsh\UUID;
@@ -106,13 +107,36 @@ class Connection
 	}
 
 	/**
+	 * Converts a number to a VarInt binary string.
+	 * @param GMP|string|integer $value
+	 * @return string
+	 */
+	public static function varInt($value)
+	{
+		$value = self::complimentNumber($value, 32);
+		$bytes = "";
+		do
+		{
+			$temp = gmp_intval(gmp_and($value, 0b01111111));
+			$value = gmp_div($value, 128); // $value >> 7
+			if(gmp_cmp($value, 0) != 0)
+			{
+				$temp |= 0b10000000;
+			}
+			$bytes .= pack("C", $temp);
+		}
+		while($value != 0);
+		return $bytes;
+	}
+
+	/**
 	 * Adds a VarInt to the write buffer.
-	 * @param integer $value
+	 * @param GMP|string|integer $value
 	 * @return Connection $this
 	 */
-	public function writeVarInt(int $value)
+	public function writeVarInt($value)
 	{
-		$this->write_buffer .= Phpcraft::intToVarInt($value);
+		$this->write_buffer .= self::varInt($value);
 		return $this;
 	}
 
@@ -123,7 +147,7 @@ class Connection
 	 */
 	public function writeString(string $value)
 	{
-		$this->write_buffer .= Phpcraft::intToVarInt(strlen($value)).$value;
+		$this->write_buffer .= self::varInt(strlen($value)).$value;
 		return $this;
 	}
 
@@ -158,52 +182,77 @@ class Connection
 		return $this;
 	}
 
-	/**
-	 * Adds a short to the write buffer.
-	 * @param integer $value
-	 * @param boolean $signed
-	 * @return Connection $this
-	 */
-	public function writeShort(int $value, bool $signed = false)
+	private static function signNumber($value, int $bits)
 	{
-		if($signed && $value > 0x7FFF)
+		if(gmp_cmp($value, gmp_pow(2, $bits - 1)) >= 0)
 		{
-			$value -= 0x10000;
+			$value = gmp_sub($value, gmp_pow(2, $bits));
 		}
-		$this->write_buffer .= pack("n", $value);
+		return $value;
+	}
+
+	private static function complimentNumber($value, int $bits)
+	{
+		if(gmp_cmp($value, 0) < 0)
+		{
+			$value = gmp_sub(gmp_pow(2, $bits), gmp_abs($value));
+		}
+		return $value;
+	}
+
+	private function writeGMP($value, int $bytes, bool $signed)
+	{
+		$bits = $bytes * 8;
+		if(is_float($value))
+		{
+			$value = intval($value);
+		}
+		if($signed)
+		{
+			$value = self::signNumber($value, $bits);
+		}
+		if(gmp_cmp($value, 0) == 0)
+		{
+			$this->write_buffer .= str_repeat("\0", $bytes);
+		}
+		else
+		{
+			$this->write_buffer .= gmp_export(self::complimentNumber($value, $bits), $bytes, GMP_BIG_ENDIAN);
+		}
 		return $this;
 	}
 
 	/**
+	 * Adds a short to the write buffer.
+	 * @param GMP|string|integer $value
+	 * @param boolean $signed
+	 * @return Connection $this
+	 */
+	public function writeShort($value, bool $signed = false)
+	{
+		return $this->writeGMP($value, 2, $signed);
+	}
+
+	/**
 	 * Adds an integer to the write buffer.
-	 * @param integer $value
+	 * @param GMP|string|integer $value
 	 * @param boolean $signed
 	 * @return Connection $this
 	 */
 	public function writeInt($value, bool $signed = false)
 	{
-		if($signed && $value > 0x7FFFFFFF)
-		{
-			$value -= 0x100000000;
-		}
-		$this->write_buffer .= pack("N", $value);
-		return $this;
+		return $this->writeGMP($value, 4, $signed);
 	}
 
 	/**
 	 * Adds a long to the write buffer.
-	 * @param integer $value
+	 * @param GMP|string|integer $value
 	 * @param boolean $signed
 	 * @return Connection $this
 	 */
-	public function writeLong(int $value, bool $signed = false)
+	public function writeLong($value, bool $signed = false)
 	{
-		if($signed && $value > 0x7FFFFFFFFFFFFFFF)
-		{
-			$value -= 0x10000000000000000;
-		}
-		$this->write_buffer .= pack("J", $value);
-		return $this;
+		return $this->writeGMP($value, 8, $signed);
 	}
 
 	/**
@@ -368,7 +417,7 @@ class Connection
 		{
 			throw new InvalidArgumentException("Packet has to be either string or integer.");
 		}
-		$this->write_buffer = Phpcraft::intToVarInt($packet);
+		$this->write_buffer = self::varInt($packet);
 		return $this;
 	}
 
@@ -400,17 +449,17 @@ class Connection
 					{
 						$compressed = gzcompress($this->write_buffer, 1);
 						$compressed_length = strlen($compressed);
-						$length_varint = Phpcraft::intToVarInt($length);
-						fwrite($this->stream, Phpcraft::intToVarInt($compressed_length + strlen($length_varint)).$length_varint.$compressed) or $this->close();
+						$length_varint = self::varInt($length);
+						fwrite($this->stream, self::varInt($compressed_length + strlen($length_varint)).$length_varint.$compressed) or $this->close();
 					}
 					else
 					{
-						fwrite($this->stream, Phpcraft::intToVarInt($length + 1)."\x00".$this->write_buffer) or $this->close();
+						fwrite($this->stream, self::varInt($length + 1)."\x00".$this->write_buffer) or $this->close();
 					}
 				}
 				else
 				{
-					fwrite($this->stream, Phpcraft::intToVarInt($length).$this->write_buffer) or $this->close();
+					fwrite($this->stream, self::varInt($length).$this->write_buffer) or $this->close();
 				}
 			}
 			stream_set_blocking($this->stream, false);
@@ -511,7 +560,7 @@ class Connection
 		}
 		if($this->compression_threshold > -1)
 		{
-			$uncompressed_length = $this->readVarInt();
+			$uncompressed_length = gmp_intval($this->readVarInt());
 			if($uncompressed_length > 0)
 			{
 				$this->read_buffer = @gzuncompress($this->read_buffer, $uncompressed_length);
@@ -521,7 +570,7 @@ class Connection
 				}
 			}
 		}
-		return $this->readVarInt();
+		return gmp_intval($this->readVarInt());
 	}
 
 	/**
@@ -540,11 +589,11 @@ class Connection
 	 * Reads an integer encoded as a VarInt from the read buffer.
 	 * @throws IOException When there are not enough bytes to read or continue reading a VarInt.
 	 * @throws LengthException When the VarInt is too big.
-	 * @return integer
+	 * @return GMP
 	 */
 	public function readVarInt()
 	{
-		$value = 0;
+		$value = gmp_init(0);
 		$read = 0;
 		do
 		{
@@ -553,18 +602,15 @@ class Connection
 				throw new LengthException("There are not enough bytes to read a VarInt.");
 			}
 			$byte = $this->readByte();
-			$value |= (($byte & 0b01111111) << (7 * $read++));
-			if($read > 5)
+			$value = gmp_or($value, gmp_mul(gmp_and($byte, 0b01111111), pow(2, 7 * $read)));
+			// $value |= (($byte & 0b01111111) << (7 * $read));
+			if(++$read > 5)
 			{
 				throw new LengthException("VarInt is too big");
 			}
 		}
 		while(($byte & 0b10000000) != 0);
-		if($value >= 0x80000000)
-		{
-			$value = ((($value ^ 0xFFFFFFFF) + 1) * -1);
-		}
-		return $value;
+		return self::signNumber($value, 32);
 	}
 
 	/**
@@ -577,7 +623,7 @@ class Connection
 	 */
 	public function readString(int $maxLength = 32767, int $minLength = -1)
 	{
-		$length = $this->readVarInt();
+		$length = gmp_intval($this->readVarInt());
 		if($length == 0)
 		{
 			return "";
@@ -643,66 +689,58 @@ class Connection
 	}
 
 	/**
+	 * @param integer $bytes
+	 * @param bool $signed
+	 * @return GMP
+	 * @throws IOException
+	 */
+	private function readGMP(int $bytes, bool $signed)
+	{
+		if(strlen($this->read_buffer) < $bytes)
+		{
+			throw new IOException("There are not enough bytes to read a {$bytes}-byte number.");
+		}
+		$value = gmp_import(substr($this->read_buffer, 0, $bytes), $bytes, GMP_BIG_ENDIAN);
+		$this->read_buffer = substr($this->read_buffer, $bytes);
+		$bits = $bytes * 8;
+		if($signed)
+		{
+			$value = self::signNumber($value, $bits);
+		}
+		return $value;
+	}
+
+	/**
 	 * Reads a short from the read buffer.
 	 * @param boolean $signed
-	 * @return integer
+	 * @return GMP
 	 * @throws IOException When there are not enough bytes to read a short.
 	 */
 	public function readShort(bool $signed = true)
 	{
-		if(strlen($this->read_buffer) < 2)
-		{
-			throw new IOException("There are not enough bytes to read a short.");
-		}
-		$short = unpack("nshort", substr($this->read_buffer, 0, 2))["short"];
-		$this->read_buffer = substr($this->read_buffer, 2);
-		if($signed && $short >= 0x8000)
-		{
-			return ((($short ^ 0xFFFF) + 1) * -1);
-		}
-		return $short;
+		return $this->readGMP(2, $signed);
 	}
 
 	/**
 	 * Reads an integer from the read buffer.
 	 * @param boolean $signed
 	 * @throws IOException When there are not enough bytes to read an integer.
-	 * @return integer
+	 * @return GMP
 	 */
 	public function readInt(bool $signed = false)
 	{
-		if(strlen($this->read_buffer) < 4)
-		{
-			throw new IOException("There are not enough bytes to read a int.");
-		}
-		$int = unpack("Nint", substr($this->read_buffer, 0, 4))["int"];
-		$this->read_buffer = substr($this->read_buffer, 4);
-		if($signed && $int >= 0x80000000)
-		{
-			return ((($int ^ 0xFFFFFFFF) + 1) * -1);
-		}
-		return $int;
+		return $this->readGMP(4, $signed);
 	}
 
 	/**
 	 * Reads a long from the read buffer.
 	 * @param boolean $signed
 	 * @throws IOException When there are not enough bytes to read a long.
-	 * @return integer
+	 * @return GMP
 	 */
 	public function readLong(bool $signed = false)
 	{
-		if(strlen($this->read_buffer) < 8)
-		{
-			throw new IOException("There are not enough bytes to read a long.");
-		}
-		$long = gmp_import(substr($this->read_buffer, 0, 8));
-		$this->read_buffer = substr($this->read_buffer, 8);
-		if($signed && gmp_cmp($long, gmp_pow(2, 63)) >= 0)
-		{
-			$long = gmp_sub($long, gmp_pow(2, 64));
-		}
-		return gmp_intval($long);
+		return $this->readGMP(8, $signed);
 	}
 
 	/**
@@ -713,10 +751,12 @@ class Connection
 	public function readPosition()
 	{
 		$val = $this->readLong();
-		$x = $val >> 38;
-		$y = ($val >> 26) & 0xFFF;
-		$z = $val << 38 >> 38;
-		return new Position($x, $y, $z);
+		$pow_2_38 = gmp_pow(2, 38);
+		return new Position(
+			gmp_intval(gmp_div($val, $pow_2_38)), // $val >> 38
+			gmp_intval(gmp_and(gmp_div($val, gmp_pow(2, 26)), 0xFFF)), // ($val >> 26) & 0xFFF
+			gmp_intval(gmp_div(gmp_mul($val, $pow_2_38), $pow_2_38)) // $val << 38 >> 38;
+		);
 	}
 
 	/**
@@ -736,7 +776,7 @@ class Connection
 	 */
 	public function readFixedPointPosition()
 	{
-		return new Position($this->readInt(true) / 32, $this->readInt(true) / 32, $this->readInt(true) / 32);
+		return new Position(gmp_intval($this->readInt()) / 32, gmp_intval($this->readInt()) / 32, gmp_intval($this->readInt()) / 32);
 	}
 
 	/**
@@ -801,7 +841,7 @@ class Connection
 		{
 			$type = $this->readByte();
 		}
-		$name = ($type == 0 || $inList) ? "" : $this->readRaw($this->readShort());
+		$name = ($type == 0 || $inList) ? "" : $this->readRaw(gmp_intval($this->readShort()));
 		switch($type)
 		{
 			case NbtTag::TYPE_END:
@@ -811,7 +851,7 @@ class Connection
 			return new NbtByte($name, $this->readByte(true));
 
 			case NbtTag::TYPE_SHORT:
-			return new NbtShort($name, $this->readShort(true));
+			return new NbtShort($name, gmp_intval($this->readShort(true)));
 
 			case NbtTag::TYPE_INT:
 			return new NbtInt($name, $this->readInt(true));
@@ -826,7 +866,7 @@ class Connection
 			return new NbtDouble($name, $this->readDouble());
 
 			case NbtTag::TYPE_BYTE_ARRAY:
-			$children_i = $this->readInt(true);
+			$children_i = gmp_intval($this->readInt(true));
 			$children = [];
 			for($i = 0; $i < $children_i; $i++)
 			{
@@ -835,11 +875,11 @@ class Connection
 			return new NbtByteArray($name, $children);
 
 			case NbtTag::TYPE_STRING:
-			return new NbtString($name, $this->readRaw($this->readShort()));
+			return new NbtString($name, $this->readRaw(gmp_intval($this->readShort())));
 
 			case NbtTag::TYPE_LIST:
 			$childType = $this->readByte();
-			$children_i = $this->readInt(true);
+			$children_i = gmp_intval($this->readInt(true));
 			$children = [];
 			for($i = 0; $i < $children_i; $i++)
 			{
@@ -856,7 +896,7 @@ class Connection
 			return new NbtCompound($name, $children);
 
 			case NbtTag::TYPE_INT_ARRAY:
-			$children_i = $this->readInt(true);
+			$children_i = gmp_intval($this->readInt(true));
 			$children = [];
 			for($i = 0; $i < $children_i; $i++)
 			{
@@ -865,7 +905,7 @@ class Connection
 			return new NbtIntArray($name, $children);
 
 			case NbtTag::TYPE_LONG_ARRAY:
-			$children_i = $this->readInt(true);
+			$children_i = gmp_intval($this->readInt(true));
 			$children = [];
 			for($i = 0; $i < $children_i; $i++)
 			{
@@ -893,12 +933,12 @@ class Connection
 			{
 				return $slot;
 			}
-			$slot->item = Item::getById($this->readVarInt(), $this->protocol_version);
+			$slot->item = Item::getById(gmp_intval($this->readVarInt()), $this->protocol_version);
 			$slot->count = $this->readByte();
 		}
 		else
 		{
-			$id = $this->readShort();
+			$id = gmp_intval($this->readShort());
 			if($id <= 0)
 			{
 				return $slot;
@@ -910,7 +950,7 @@ class Connection
 			}
 			else
 			{
-				$metadata = $this->readShort();
+				$metadata = gmp_intval($this->readShort());
 				if($additional_processing && $metadata > 0)
 				{
 					switch($id)

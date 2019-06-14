@@ -1,7 +1,8 @@
 <?php
 namespace Phpcraft;
+use Exception;
 /** The exception thrown by Phpcraft functions if nessary metadata is missing. */
-class MissingMetadataException extends \Exception
+class MissingMetadataException extends Exception
 {
 	/**
 	 * @param string $message The error message.

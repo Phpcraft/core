@@ -242,6 +242,7 @@ function handleConsoleMessage(string $msg)
 		return;
 	}
 	global $con;
+	assert($con instanceof ServerConnection);
 	if(PluginManager::fire(new ClientConsoleEvent($con, $msg)))
 	{
 		return;
@@ -567,15 +568,15 @@ do
 			}
 			else if($packet_name == "player_info")
 			{
-				$action = $con->readVarInt();
-				$amount = $con->readVarInt();
+				$action = gmp_intval($con->readVarInt());
+				$amount = gmp_intval($con->readVarInt());
 				for($i = 0; $i < $amount; $i++)
 				{
 					$uuid = $con->readUuid()->__toString();
 					if($action == 0)
 					{
 						$username = $con->readString();
-						$properties = $con->readVarInt();
+						$properties = gmp_intval($con->readVarInt());
 						for($j = 0; $j < $properties; $j++)
 						{
 							$con->readString();
@@ -585,8 +586,8 @@ do
 								$con->readString();
 							}
 						}
-						$gamemode = $con->readVarInt();
-						$ping = $con->readVarInt();
+						$gamemode = gmp_intval($con->readVarInt());
+						$ping = gmp_intval($con->readVarInt());
 						$players[$uuid] = [
 							"name" => $username,
 							"gamemode" => $gamemode,
@@ -597,14 +598,14 @@ do
 					{
 						if(isset($players[$uuid]))
 						{
-							$players[$uuid]["gamemode"] = $con->readVarInt();
+							$players[$uuid]["gamemode"] = gmp_intval($con->readVarInt());
 						}
 					}
 					else if($action == 2)
 					{
 						if(isset($players[$uuid]))
 						{
-							$players[$uuid]["ping"] = $con->readVarInt();
+							$players[$uuid]["ping"] = gmp_intval($con->readVarInt());
 						}
 					}
 					else if($action == 4)
@@ -615,7 +616,7 @@ do
 			}
 			else if($packet_name == "spawn_player")
 			{
-				$eid = $con->readVarInt();
+				$eid = gmp_intval($con->readVarInt());
 				if($eid != $entityId)
 				{
 					if($protocol_version > 47)
@@ -633,9 +634,9 @@ do
 					{
 						$entities[$eid] = [
 							"uuid" => $con->readUuid()->__toString(),
-							"x" => $con->readInt() / 32,
-							"y" => $con->readInt() / 32,
-							"z" => $con->readInt() / 32,
+							"x" => gmp_intval($con->readInt()) / 32,
+							"y" => gmp_intval($con->readInt()) / 32,
+							"z" => gmp_intval($con->readInt()) / 32,
 							"yaw" => $con->readByte(),
 							"pitch" => $con->readByte()
 						];
@@ -644,14 +645,14 @@ do
 			}
 			else if($packet_name == "entity_look_and_relative_move")
 			{
-				$eid = $con->readVarInt();
+				$eid = gmp_intval($con->readVarInt());
 				if(isset($entities[$eid]))
 				{
 					if($protocol_version > 47)
 					{
-						$entities[$eid]["x"] += ($con->readShort(true) / 4096);
-						$entities[$eid]["y"] += ($con->readShort(true) / 4096);
-						$entities[$eid]["z"] += ($con->readShort(true) / 4096);
+						$entities[$eid]["x"] += (gmp_intval($con->readShort(true)) / 4096);
+						$entities[$eid]["y"] += (gmp_intval($con->readShort(true)) / 4096);
+						$entities[$eid]["z"] += (gmp_intval($con->readShort(true)) / 4096);
 					}
 					else
 					{
@@ -665,14 +666,14 @@ do
 			}
 			else if($packet_name == "entity_relative_move")
 			{
-				$eid = $con->readVarInt();
+				$eid = gmp_intval($con->readVarInt());
 				if(isset($entities[$eid]))
 				{
 					if($protocol_version > 47)
 					{
-						$entities[$eid]["x"] += ($con->readShort(true) / 4096);
-						$entities[$eid]["y"] += ($con->readShort(true) / 4096);
-						$entities[$eid]["z"] += ($con->readShort(true) / 4096);
+						$entities[$eid]["x"] += (gmp_intval($con->readShort(true)) / 4096);
+						$entities[$eid]["y"] += (gmp_intval($con->readShort(true)) / 4096);
+						$entities[$eid]["z"] += (gmp_intval($con->readShort(true)) / 4096);
 					}
 					else
 					{
@@ -684,7 +685,7 @@ do
 			}
 			else if($packet_name == "entity_look")
 			{
-				$eid = $con->readVarInt();
+				$eid = gmp_intval($con->readVarInt());
 				if(isset($entities[$eid]))
 				{
 					$entities[$eid]["yaw"] = $con->readByte();
@@ -693,7 +694,7 @@ do
 			}
 			else if($packet_name == "entity_teleport")
 			{
-				$eid = $con->readVarInt();
+				$eid = gmp_intval($con->readVarInt());
 				if(isset($entities[$eid]))
 				{
 					if($eid != $entityId && isset($entities[$eid]))
@@ -706,9 +707,9 @@ do
 						}
 						else
 						{
-							$entities[$eid]["x"] = $con->readInt() / 32;
-							$entities[$eid]["y"] = $con->readInt() / 32;
-							$entities[$eid]["z"] = $con->readInt() / 32;
+							$entities[$eid]["x"] = gmp_intval($con->readInt()) / 32;
+							$entities[$eid]["y"] = gmp_intval($con->readInt()) / 32;
+							$entities[$eid]["z"] = gmp_intval($con->readInt()) / 32;
 						}
 						$entities[$eid]["yaw"] = $con->readByte();
 						$entities[$eid]["pitch"] = $con->readByte();
@@ -717,10 +718,10 @@ do
 			}
 			else if($packet_name == "destroy_entites")
 			{
-				$count = $con->readVarInt();
+				$count = gmp_intval($con->readVarInt());
 				for($i = 0; $i < $count; $i++)
 				{
-					$eid = $con->readVarInt();
+					$eid = gmp_intval($con->readVarInt());
 					if(isset($entities[$eid]))
 					{
 						if($followEntity === $eid)
@@ -791,7 +792,7 @@ do
 				if($protocol_version > 47)
 				{
 					$con->startPacket("teleport_confirm");
-					$con->writeVarInt($con->readVarInt());
+					$con->writeVarInt(gmp_intval($con->readVarInt()));
 					$con->send();
 				}
 			}
@@ -813,11 +814,11 @@ do
 			else if($packet_name == "join_game")
 			{
 				$next_tick = microtime(true);
-				$entityId = $con->readInt();
+				$entityId = gmp_intval($con->readInt());
 				$con->ignoreBytes(1);
 				if($protocol_version > 47)
 				{
-					$dimension = $con->readInt();
+					$dimension = gmp_intval($con->readInt());
 				}
 				else
 				{
@@ -844,7 +845,7 @@ do
 			{
 				if($protocol_version > 47)
 				{
-					$dimension = $con->readInt();
+					$dimension = gmp_intval($con->readInt());
 				}
 				else
 				{

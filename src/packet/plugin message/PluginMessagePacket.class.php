@@ -50,6 +50,7 @@ abstract class PluginMessagePacket extends Packet
 	{
 		$class = get_called_class();
 		$ret = new $class();
+		assert($ret instanceof PluginMessagePacket);
 		if($con->protocol_version >= 385)
 		{
 			$ret->channel = $con->readString();

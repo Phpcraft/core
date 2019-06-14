@@ -2,7 +2,6 @@
 namespace Phpcraft;
 use DomainException;
 use InvalidArgumentException;
-use \hellsh\UUID;
 /** A server-to-client connection. */
 class ClientConnection extends Connection
 {
@@ -131,24 +130,24 @@ class ClientConnection extends Connection
 				$packet_length = $this->readByte();
 				if($packet_length == 0xFE)
 				{
-					if($this->readRawPacket(0) && $this->readByte() == 0x01 && $this->readByte() == 0xFA && $this->readShort() == 11 && $this->readRaw(22) == mb_convert_encoding("MC|PingHost", "utf-16be"))
+					if($this->readRawPacket(0) && $this->readByte() == 0x01 && $this->readByte() == 0xFA && gmp_intval($this->readShort()) == 11 && $this->readRaw(22) == mb_convert_encoding("MC|PingHost", "utf-16be"))
 					{
 						$this->ignoreBytes(2);
 						$this->protocol_version = $this->readByte();
-						$this->hostname = mb_convert_encoding($this->readRaw($this->readShort() * 2), "utf-8", "utf-16be");
-						$this->hostport = $this->readInt();
+						$this->hostname = mb_convert_encoding($this->readRaw(gmp_intval($this->readShort()) * 2), "utf-8", "utf-16be");
+						$this->hostport = gmp_intval($this->readInt());
 						return 2;
 					}
 				}
 				else if($this->readRawPacket(0, $packet_length))
 				{
-					$packet_id = $this->readVarInt();
+					$packet_id = gmp_intval($this->readVarInt());
 					if($packet_id === 0x00)
 					{
-						$this->protocol_version = $this->readVarInt();
+						$this->protocol_version = gmp_intval($this->readVarInt());
 						$this->hostname = $this->readString();
-						$this->hostport = $this->readShort();
-						$this->state = $this->readVarInt();
+						$this->hostport = gmp_intval($this->readShort());
+						$this->state = gmp_intval($this->readVarInt());
 						if($this->state == 1)
 						{
 							$this->disconnect_after = microtime(true) + 10;

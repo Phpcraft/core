@@ -2,7 +2,7 @@
 namespace Phpcraft;
 use DomainException;
 use InvalidArgumentException;
-use \hellsh\UUID;
+use \hellshUUID;
 /** A client-to-server connection. */
 class ServerConnection extends Connection
 {
@@ -62,13 +62,13 @@ class ServerConnection extends Connection
 			{
 				echo "Login Plugin Request: ".$this->readString()."\n";
 				$this->writeVarInt(0x02); // Login Plugin Response
-				$this->writeVarInt($this->readVarInt());
+				$this->writeVarInt(gmp_intval($this->readVarInt()));
 				$this->writeBoolean(false);
 				$this->send();
 			}
 			else if($id == 0x03) // Set Compression
 			{
-				$this->compression_threshold = $this->readVarInt();
+				$this->compression_threshold = gmp_intval($this->readVarInt());
 			}
 			else if($id == 0x02) // Login Success
 			{

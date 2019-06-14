@@ -32,8 +32,8 @@ class SetExperiencePacket extends Packet
 	{
 		$packet = new SetExperiencePacket();
 		$packet->percent = $con->readFloat();
-		$packet->level = $con->readVarInt();
-		$con->readVarInt(); // Total Experience
+		$packet->level = gmp_intval($con->readVarInt());
+		gmp_intval($con->readVarInt()); // Total Experience
 		return $packet;
 	}
 

@@ -1,6 +1,7 @@
 <?php
 namespace Phpcraft;
-abstract class Gamemode extends \hellsh\Enum
+use hellsh\Enum;
+abstract class Gamemode extends Enum
 {
 	const SURVIVAL = 0;
 	const CREATIVE = 1;

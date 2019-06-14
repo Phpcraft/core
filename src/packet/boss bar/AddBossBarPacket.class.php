@@ -85,7 +85,6 @@ class AddBossBarPacket extends BossBarPacket
 		}
 		else
 		{
-			assert($this->uuid instanceof UUID);
 			/** @noinspection PhpParamsInspection */
 			$packet = new SpawnMobPacket(
 				gmp_intval($this->uuid->toInt()) * -1,

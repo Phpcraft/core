@@ -56,6 +56,7 @@ switch(@$argv[1])
 	case "maintain":
 	require "vendor/autoload.php";
 	echo "Cache entries — before: ".count(json_decode(file_get_contents("src/.cache"), true))."\n";
+	/** @noinspection PhpFullyQualifiedNameUsageInspection */
 	\Phpcraft\Phpcraft::maintainCache();
 	if(file_exists("src/.cache"))
 	{

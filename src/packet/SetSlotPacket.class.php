@@ -29,7 +29,7 @@ class SetSlotPacket extends Packet
 	{
 		$packet = new SetSlotPacket();
 		$packet->window = $con->readByte();
-		$packet->slotId = $con->readShort();
+		$packet->slotId = gmp_intval($con->readShort());
 		$packet->slot = $con->readSlot();
 		return $packet;
 	}

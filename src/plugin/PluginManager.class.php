@@ -1,5 +1,6 @@
 <?php
 namespace Phpcraft;
+use Exception;
 abstract class PluginManager
 {
 	private static $load_state;
@@ -51,7 +52,7 @@ abstract class PluginManager
 		{
 			$callback(PluginManager::$loaded_plugins[$name]);
 		}
-		catch(\Exception $e)
+		catch(Exception $e)
 		{
 			echo "Unhandled exception in plugin \"{$name}\": ".get_class($e).": ".$e->getMessage()."\n".$e->getTraceAsString()."\n";
 		}
@@ -85,7 +86,7 @@ abstract class PluginManager
 				$handler["function"]($event);
 			}
 		}
-		catch(\Exception $e)
+		catch(Exception $e)
 		{
 			echo "Unhandled exception in plugin: ".get_class($e).": ".$e->getMessage()."\n".$e->getTraceAsString()."\n";
 		}

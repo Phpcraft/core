@@ -18,23 +18,23 @@ class JoinGamePacket extends Packet
 	public static function read(Connection $con)
 	{
 		$packet = new JoinGamePacket();
-		$packet->eid = $con->readInt();
+		$packet->eid = gmp_intval($con->readInt());
 		$packet->gamemode = $con->readByte(true);
 		if($packet->gamemode >= 0x8)
 		{
 			$packet->gamemode -= 0x8;
 			$packet->hardcore = true;
 		}
-		$packet->dimension = $con->protocol_version > 107 ? $con->readInt() : $con->readByte();
+		$packet->dimension = $con->protocol_version > 107 ? gmp_intval($con->readInt()) : $con->readByte();
 		if($con->protocol_version < 472)
 		{
 			$packet->difficulty = $con->readByte(true);
 		}
 		$con->ignoreBytes(1); // Max Players (Byte)
-		$con->ignoreBytes($con->readVarInt()); // Level Type (String)
+		$con->ignoreBytes(gmp_intval($con->readVarInt())); // Level Type (String)
 		if($con->protocol_version >= 472)
 		{
-			$con->readVarInt(); // View Distance
+			gmp_intval($con->readVarInt()); // View Distance
 		}
 		$con->ignoreBytes(1); // Reduced Debug Info (Boolean)
 		return $packet;

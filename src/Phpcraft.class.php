@@ -1,5 +1,6 @@
 <?php
 namespace Phpcraft;
+use GMP;
 abstract class Phpcraft
 {
 	/**
@@ -270,29 +271,14 @@ abstract class Phpcraft
 	}
 
 	/**
-	 * Converts an integer into a VarInt binary string.
-	 * @param integer $value
+	 * Converts a number to a VarInt binary string.
+	 * @deprecated Replaced by Connection::varInt
+	 * @param GMP|string|integer $value
 	 * @return string
 	 */
-	public static function intToVarInt(int $value)
+	public static function intToVarInt($value)
 	{
-		if($value < 0)
-		{
-			$value = ((($value ^ 0xFFFFFFFF) + 1) * -1);
-		}
-		$bytes = "";
-		do
-		{
-			$temp = ($value & 0b01111111);
-			$value = ($value >> 7);
-			if($value != 0)
-			{
-				$temp |= 0b10000000;
-			}
-			$bytes .= pack("C", $temp);
-		}
-		while($value != 0);
-		return $bytes;
+		return Connection::varInt($value);
 	}
 
 	public static function binaryStringToHex(string $str)

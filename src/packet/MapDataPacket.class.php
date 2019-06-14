@@ -86,7 +86,7 @@ class MapDataPacket extends Packet
 	public static function read(Connection $con)
 	{
 		$packet = new MapDataPacket();
-		$packet->mapId = $con->readVarInt();
+		$packet->mapId = gmp_intval($con->readVarInt());
 		$packet->scale = $con->readByte();
 		if($con->protocol_version > 47)
 		{
@@ -96,13 +96,13 @@ class MapDataPacket extends Packet
 				$con->ignoreBytes(1); // Locked
 			}
 		}
-		$markers_i = $con->readVarInt();
+		$markers_i = gmp_intval($con->readVarInt());
 		for($i = 0; $i < $markers_i; $i++)
 		{
 			$marker = new MapMarker();
 			if($con->protocol_version >= 373)
 			{
-				$marker->type = $con->readVarInt();
+				$marker->type = gmp_intval($con->readVarInt());
 				$marker->x = $con->readByte();
 				$marker->z = $con->readByte();
 				$marker->rotation = $con->readByte();
@@ -126,7 +126,7 @@ class MapDataPacket extends Packet
 			$packet->height = $con->readByte();
 			$packet->x = $con->readByte();
 			$packet->z = $con->readByte();
-			$contents_i = $con->readVarInt();
+			$contents_i = gmp_intval($con->readVarInt());
 			if($con->protocol_version > 47)
 			{
 				for($i = 0; $i < $contents_i; $i++)

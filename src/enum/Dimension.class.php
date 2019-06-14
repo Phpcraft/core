@@ -1,6 +1,7 @@
 <?php
 namespace Phpcraft;
-abstract class Dimension extends \hellsh\Enum
+use hellsh\Enum;
+abstract class Dimension extends Enum
 {
 	const OVERWORLD = 0;
 	const NETHER = -1;

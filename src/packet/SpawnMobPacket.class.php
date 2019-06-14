@@ -1,6 +1,5 @@
 <?php
 namespace Phpcraft;
-use \hellsh\UUID;
 class SpawnMobPacket extends Packet
 {
 	/**
@@ -64,7 +63,7 @@ class SpawnMobPacket extends Packet
 	 */
 	public static function read(Connection $con)
 	{
-		$eid = $con->readVarInt();
+		$eid = gmp_intval($con->readVarInt());
 		if($con->protocol_version >= 49)
 		{
 			$uuid = $con->readUUID();
@@ -75,7 +74,7 @@ class SpawnMobPacket extends Packet
 		}
 		if($con->protocol_version >= 301)
 		{
-			$type = EntityType::getById($con->readVarInt(), $con->protocol_version);
+			$type = EntityType::getById(gmp_intval($con->readVarInt()), $con->protocol_version);
 		}
 		else
 		{

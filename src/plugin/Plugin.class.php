@@ -1,7 +1,10 @@
 <?php
 namespace Phpcraft;
 use InvalidArgumentException;
+use ReflectionClass;
 use ReflectionException;
+use ReflectionFunction;
+use ReflectionNamedType;
 class Plugin
 {
 	/**
@@ -33,7 +36,7 @@ class Plugin
 	 */
 	public function on(callable $callable, int $priority = Event::PRIORITY_NORMAL)
 	{
-		$ref = new \ReflectionFunction($callable);
+		$ref = new ReflectionFunction($callable);
 		$params = $ref->getParameters();
 		if(count($params) != 1)
 		{
@@ -45,8 +48,9 @@ class Plugin
 			throw new InvalidArgumentException("Callable's parameter needs to explicitly declare parameter type.");
 		}
 		$type = $param->getType();
-		$type = $type instanceof \ReflectionNamedType ? $type->getName() : $type->__toString();
-		$class = new \ReflectionClass($type);
+		/** @noinspection PhpDeprecationInspection */
+		$type = $type instanceof ReflectionNamedType ? $type->getName() : $type->__toString();
+		$class = new ReflectionClass($type);
 		if(!$class->isSubclassOf("Phpcraft\\Event"))
 		{
 			throw new InvalidArgumentException("Callable's parameter type needs to be a decendant of \\Phpcraft\\Event.");

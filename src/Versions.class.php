@@ -169,7 +169,7 @@ abstract class Versions
 	 */
 	public static function minecraftToProtocol(string $minecraft_version)
 	{
-		return @Versions::all()[$minecraft_version];
+		return @Versions::list(true)[$minecraft_version];
 	}
 
 	/**

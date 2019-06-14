@@ -14,7 +14,7 @@ abstract class Packet
 		$con = new Connection($protocol_version);
 		$this->send($con);
 		$con->read_buffer = $con->write_buffer;
-		$con->readVarInt();
+		gmp_intval($con->readVarInt());
 		return $con->read_buffer;
 	}
 

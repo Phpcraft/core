@@ -1,5 +1,6 @@
 <?php
 namespace Phpcraft;
+use GMP;
 class NbtLongArray extends NbtTag
 {
 	/**
@@ -10,7 +11,7 @@ class NbtLongArray extends NbtTag
 
 	/**
 	 * @param string $name The name of this tag.
-	 * @param $children integer[] The longs in the array.
+	 * @param $children GMP[] The longs in the array.
 	 */
 	public function __construct(string $name, array $children = [])
 	{

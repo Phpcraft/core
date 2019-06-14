@@ -1,5 +1,6 @@
 <?php
 namespace Phpcraft;
+use GMP;
 class NbtIntArray extends NbtTag
 {
 	/**
@@ -10,7 +11,7 @@ class NbtIntArray extends NbtTag
 
 	/**
 	 * @param string $name The name of this tag.
-	 * @param $children integer[] The integers in the array.
+	 * @param $children GMP[] The integers in the array.
 	 */
 	public function __construct(string $name, array $children = [])
 	{

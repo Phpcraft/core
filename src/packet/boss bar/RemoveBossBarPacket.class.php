@@ -18,6 +18,7 @@ class RemoveBossBarPacket extends BossBarPacket
 		}
 		else
 		{
+			/** @noinspection PhpUndefinedMethodInspection */
 			(new DestroyEntitiesPacket([$this->uuid->toInt() * -1]))->send($con);
 		}
 	}

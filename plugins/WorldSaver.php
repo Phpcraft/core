@@ -90,6 +90,7 @@ PluginManager::registerPlugin("WorldSaver", function(Plugin $plugin)
 		]))
 		{
 			global $WorldSaver_con;
+			assert($WorldSaver_con instanceof Connection);
 			$WorldSaver_con->startPacket($event->packet_name);
 			$WorldSaver_con->write_buffer .= $event->server->read_buffer;
 			$WorldSaver_con->send();

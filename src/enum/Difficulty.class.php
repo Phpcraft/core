@@ -1,6 +1,7 @@
 <?php
 namespace Phpcraft;
-abstract class Difficulty extends \hellsh\Enum
+use hellsh\Enum;
+abstract class Difficulty extends Enum
 {
 	const PEACEFUL = 0;
 	const EASY = 1;

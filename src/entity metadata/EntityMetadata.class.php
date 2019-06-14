@@ -34,11 +34,11 @@ abstract class EntityMetadata
 			break;
 
 			case "varint":
-			$con->readVarInt();
+			gmp_intval($con->readVarInt());
 			break;
 
 			case "string":
-			$con->ignoreBytes($con->readVarInt());
+			$con->ignoreBytes(gmp_intval($con->readVarInt()));
 			break;
 
 			case "slot":
@@ -150,7 +150,7 @@ abstract class EntityMetadata
 						break;
 
 						case 4:
-						$con->ignoreBytes($con->readVarInt());
+						$con->ignoreBytes(gmp_intval($con->readVarInt()));
 						break;
 
 						case 5:

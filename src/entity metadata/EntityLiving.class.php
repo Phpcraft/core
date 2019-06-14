@@ -38,7 +38,6 @@ class EntityLiving extends EntityBase
 	/**
 	 * Writes this non-null metadata values to the Connection's write buffer.
 	 * @param Connection $con
-	 * @throws IOException
 	 */
 	public function write(Connection $con)
 	{

@@ -1,15 +1,24 @@
 <?php
 namespace Phpcraft;
+use GMP;
 /** Sent by the client to the server in response to KeepAliveRequestPacket to ensure it is still connected. */
 class KeepAliveResponsePacket extends Packet
 {
+	/**
+	 * The identifier of this keep alive packet.
+	 * @var GMP $keepAliveId
+	 */
 	public $keepAliveId;
 
 	/**
-	 * @param integer $keepAliveId The identifier of the keep alive request packet this response is for.
+	 * @param GMP|string|integer $keepAliveId The identifier of the keep alive request packet this response is for.
 	 */
-	public function __construct(int $keepAliveId)
+	public function __construct($keepAliveId)
 	{
+		if(!$keepAliveId instanceof GMP)
+		{
+			$keepAliveId = gmp_init($keepAliveId);
+		}
 		$this->keepAliveId = $keepAliveId;
 	}
 
@@ -45,6 +54,6 @@ class KeepAliveResponsePacket extends Packet
 
 	public function __toString()
 	{
-		return "{Keep Alive Response: ID ".$this->keepAliveId."}";
+		return "{Keep Alive Response: ID ".gmp_strval($this->keepAliveId)."}";
 	}
 }

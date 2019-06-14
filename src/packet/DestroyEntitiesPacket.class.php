@@ -25,9 +25,9 @@ class DestroyEntitiesPacket extends Packet
 	public static function read(Connection $con)
 	{
 		$packet = new DestroyEntitiesPacket();
-		for($i = $con->readVarInt(); $i > 0; $i--)
+		for($i = gmp_intval($con->readVarInt()); $i > 0; $i--)
 		{
-			array_push($packet->eids, $con->readVarInt());
+			array_push($packet->eids, gmp_intval($con->readVarInt()));
 		}
 		return $packet;
 	}

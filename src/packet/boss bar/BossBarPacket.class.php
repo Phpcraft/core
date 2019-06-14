@@ -40,15 +40,15 @@ abstract class BossBarPacket extends Packet
 	public static function read(Connection $con)
 	{
 		$uuid = $con->readUuid();
-		$action = $con->readVarInt();
+		$action = gmp_intval($con->readVarInt());
 		switch($action)
 		{
 			case 0:
 			$packet = new AddBossBarPacket($uuid);
 			$packet->title = $con->readChat();
 			$packet->health = $con->readFloat();
-			$packet->color = $con->readVarInt();
-			$packet->division = $con->readVarInt();
+			$packet->color = gmp_intval($con->readVarInt());
+			$packet->division = gmp_intval($con->readVarInt());
 			$flags = $con->readByte();
 			if($flags >= 0x4)
 			{

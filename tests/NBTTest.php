@@ -28,10 +28,6 @@ class NBTTest
 
 	function testNbtBigTest()
 	{
-		if(PHP_INT_SIZE != 8)
-		{
-			return; // TODO: Make it work on 32-bit systems
-		}
 		$bin = file_get_contents(__DIR__."/bigtest.nbt");
 		$con = new Connection(-1);
 		$con->read_buffer = $bin;

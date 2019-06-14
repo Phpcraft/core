@@ -1,6 +1,8 @@
 <?php
 namespace Phpcraft;
-class NbtList extends NbtTag implements \Iterator, \Countable
+use Countable;
+use Iterator;
+class NbtList extends NbtTag implements Iterator, Countable
 {
 	private $current = 0;
 	/**

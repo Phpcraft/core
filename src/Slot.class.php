@@ -130,6 +130,7 @@ class Slot
 		{
 			return "{Slot: Empty}";
 		}
+		assert($slot instanceof Slot);
 		$str = "{Slot: {$slot->count}x {$slot->item->name}";
 		if($slot->hasNBT())
 		{
