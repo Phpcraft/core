@@ -90,8 +90,8 @@ Collaboration diagram for Phpcraft\KeepAliveRequestPacket:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a4ccf08a3db3f382180da45954ee437d5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1KeepAliveRequestPacket.html#a4ccf08a3db3f382180da45954ee437d5">__construct</a> (int $keepAliveId=null)</td></tr>
-<tr class="separator:a4ccf08a3db3f382180da45954ee437d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a38e7b022bf44e7c3fae6abf998c3b3ba"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1KeepAliveRequestPacket.html#a38e7b022bf44e7c3fae6abf998c3b3ba">__construct</a> ($keepAliveId=null)</td></tr>
+<tr class="separator:a38e7b022bf44e7c3fae6abf998c3b3ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeafd99973f88890a0d7e35b8c93c7cd0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1KeepAliveRequestPacket.html#aeafd99973f88890a0d7e35b8c93c7cd0">send</a> (<a class="el" href="classPhpcraft_1_1Connection.html">Connection</a> $con)</td></tr>
 <tr class="separator:aeafd99973f88890a0d7e35b8c93c7cd0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3a23d43da7dd5e618c62e300b14306e9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1KeepAliveRequestPacket.html#a3a23d43da7dd5e618c62e300b14306e9">getResponse</a> ()</td></tr>
@@ -116,14 +116,14 @@ Static Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:aa28cb92a52a20b7abf4066e7b2e811af"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1KeepAliveRequestPacket.html#aa28cb92a52a20b7abf4066e7b2e811af">$keepAliveId</a></td></tr>
-<tr class="separator:aa28cb92a52a20b7abf4066e7b2e811af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2d6d07318d48d92f391d49699cbbfcda"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1KeepAliveRequestPacket.html#a2d6d07318d48d92f391d49699cbbfcda">$keepAliveId</a></td></tr>
+<tr class="separator:a2d6d07318d48d92f391d49699cbbfcda"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Sent by the server to the client to make sure it's still connected. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a4ccf08a3db3f382180da45954ee437d5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4ccf08a3db3f382180da45954ee437d5">&#9670;&nbsp;</a></span>__construct()</h2>
+<a id="a38e7b022bf44e7c3fae6abf998c3b3ba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a38e7b022bf44e7c3fae6abf998c3b3ba">&#9670;&nbsp;</a></span>__construct()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -131,7 +131,7 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="memname">Phpcraft\KeepAliveRequestPacket::__construct </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
+          <td class="paramtype">&#160;</td>
           <td class="paramname"><em>$keepAliveId</em> = <code>null</code></td><td>)</td>
           <td></td>
         </tr>
@@ -139,7 +139,7 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype">integer</td><td class="paramname">$keepAliveId</td><td>The identifier of this keep alive packet. Defaults to current time. </td></tr>
+    <tr><td class="paramtype">GMP&#160;|&#160;string&#160;|&#160;integer</td><td class="paramname">$keepAliveId</td><td>The identifier of this keep alive packet. Defaults to current time. </td></tr>
   </table>
   </dd>
 </dl>
@@ -252,17 +252,18 @@ Public Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="aa28cb92a52a20b7abf4066e7b2e811af"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa28cb92a52a20b7abf4066e7b2e811af">&#9670;&nbsp;</a></span>$keepAliveId</h2>
+<a id="a2d6d07318d48d92f391d49699cbbfcda"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2d6d07318d48d92f391d49699cbbfcda">&#9670;&nbsp;</a></span>$keepAliveId</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">Phpcraft\KeepAliveRequestPacket::$keepAliveId</td>
+          <td class="memname">GMP Phpcraft\KeepAliveRequestPacket::$keepAliveId</td>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>The identifier of this keep alive packet. </p>
 
 </div>
 </div>

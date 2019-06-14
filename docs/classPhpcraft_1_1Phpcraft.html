@@ -96,8 +96,8 @@ Static Public Member Functions</h2></td></tr>
 <tr class="separator:aeac27389b5091470360b68defe25d305"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa55d0acee3de518a9075d433d396c344"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Phpcraft.html#aa55d0acee3de518a9075d433d396c344">resolve</a> (string $server)</td></tr>
 <tr class="separator:aa55d0acee3de518a9075d433d396c344"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abdffbbcb71c3a8a1e289ff73acaa6f33"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Phpcraft.html#abdffbbcb71c3a8a1e289ff73acaa6f33">intToVarInt</a> (int $value)</td></tr>
-<tr class="separator:abdffbbcb71c3a8a1e289ff73acaa6f33"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a98f9997cbdfcf0c06c1292db9293d5a2"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Phpcraft.html#a98f9997cbdfcf0c06c1292db9293d5a2">intToVarInt</a> ($value)</td></tr>
+<tr class="separator:a98f9997cbdfcf0c06c1292db9293d5a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a31fe0ef2465673ad8f42f1c418ed1fe9"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Phpcraft.html#a31fe0ef2465673ad8f42f1c418ed1fe9">binaryStringToHex</a> (string $str)</td></tr>
 <tr class="separator:a31fe0ef2465673ad8f42f1c418ed1fe9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a81acb8558a1a03521ee54679e066a7bc"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Phpcraft.html#a81acb8558a1a03521ee54679e066a7bc">sha1</a> (string $str)</td></tr>
@@ -558,8 +558,8 @@ Phpcraft::saveProfiles() </dd></dl>
 
 </div>
 </div>
-<a id="abdffbbcb71c3a8a1e289ff73acaa6f33"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abdffbbcb71c3a8a1e289ff73acaa6f33">&#9670;&nbsp;</a></span>intToVarInt()</h2>
+<a id="a98f9997cbdfcf0c06c1292db9293d5a2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a98f9997cbdfcf0c06c1292db9293d5a2">&#9670;&nbsp;</a></span>intToVarInt()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -570,7 +570,7 @@ Phpcraft::saveProfiles() </dd></dl>
         <tr>
           <td class="memname">static Phpcraft\Phpcraft::intToVarInt </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
+          <td class="paramtype">&#160;</td>
           <td class="paramname"><em>$value</em></td><td>)</td>
           <td></td>
         </tr>
@@ -581,9 +581,10 @@ Phpcraft::saveProfiles() </dd></dl>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Converts an integer into a VarInt binary string. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Converts a number to a VarInt binary string. </p><dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000001">Deprecated:</a></b></dt><dd>Replaced by <a class="el" href="classPhpcraft_1_1Connection.html#af2b764c00dea42bfc18f234dd61022a9">Connection::varInt</a> </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype">integer</td><td class="paramname">$value</td><td></td></tr>
+    <tr><td class="paramtype">GMP&#160;|&#160;string&#160;|&#160;integer</td><td class="paramname">$value</td><td></td></tr>
   </table>
   </dd>
 </dl>

@@ -8,14 +8,14 @@ var searchData=
   ['writefixedpointposition',['writeFixedPointPosition',['../classPhpcraft_1_1Connection.html#a1d93b11de7b19c40180542dcff0be2e7',1,'Phpcraft::Connection']]],
   ['writefloat',['writeFloat',['../classPhpcraft_1_1Connection.html#af17b98816f9ccf70b04eb1fabbb1f612',1,'Phpcraft\Connection\writeFloat()'],['../classPhpcraft_1_1EntityMetadata.html#a7e6ca6f397260baec1c2e89bbbeba59a',1,'Phpcraft\EntityMetadata\writeFloat()']]],
   ['writeint',['writeInt',['../classPhpcraft_1_1Connection.html#a657dbad7e8331679dc8223d9ae2cbe3d',1,'Phpcraft::Connection']]],
-  ['writelong',['writeLong',['../classPhpcraft_1_1Connection.html#a15e4732fd9d7743c56e864c62e0889ec',1,'Phpcraft::Connection']]],
+  ['writelong',['writeLong',['../classPhpcraft_1_1Connection.html#a9e58652ca2c3abc858c299e16b4b2700',1,'Phpcraft::Connection']]],
   ['writeoptchat',['writeOptChat',['../classPhpcraft_1_1EntityMetadata.html#aacf8cf61872d2710e0a1b5f2e9e53811',1,'Phpcraft::EntityMetadata']]],
   ['writeposition',['writePosition',['../classPhpcraft_1_1Connection.html#a18fea2360ab6be9a88be626a94774aa7',1,'Phpcraft::Connection']]],
   ['writepreciseposition',['writePrecisePosition',['../classPhpcraft_1_1Connection.html#a2641b551bd4ac2b8b250c33bce7254f2',1,'Phpcraft::Connection']]],
   ['writeraw',['writeRaw',['../classPhpcraft_1_1Connection.html#a7176634ff93842f2589562532e807536',1,'Phpcraft::Connection']]],
-  ['writeshort',['writeShort',['../classPhpcraft_1_1Connection.html#a00fd24360730c30052cd552c4f3cba9c',1,'Phpcraft::Connection']]],
+  ['writeshort',['writeShort',['../classPhpcraft_1_1Connection.html#a2a45e40c41cbb906c388731cdcbe6ebe',1,'Phpcraft::Connection']]],
   ['writeslot',['writeSlot',['../classPhpcraft_1_1Connection.html#a10f94704437d0bf43d9e32c704416d57',1,'Phpcraft::Connection']]],
   ['writestring',['writeString',['../classPhpcraft_1_1Connection.html#a5bbf2b6797d4e27bd836051505a40705',1,'Phpcraft\Connection\writeString()'],['../classPhpcraft_1_1EntityMetadata.html#abfb7ce896a8003ca44a98fcfbcfb6625',1,'Phpcraft\EntityMetadata\writeString()']]],
   ['writeuuid',['writeUUID',['../classPhpcraft_1_1Connection.html#a0b9435a6988eb692669c8a79fb497c84',1,'Phpcraft::Connection']]],
-  ['writevarint',['writeVarInt',['../classPhpcraft_1_1Connection.html#aac7def419a2a82866fff5779bbf0902c',1,'Phpcraft::Connection']]]
+  ['writevarint',['writeVarInt',['../classPhpcraft_1_1Connection.html#a6d8f5b65887ec4d3dc1809563231911f',1,'Phpcraft::Connection']]]
 ];
