@@ -372,7 +372,7 @@ do
 			{
 				$packet_name = ClientboundPacket::getById($packet_id, $server_con->protocol_version)->name;
 				//echo "< ".$packet_name." (".$packet_id.")\n";
-				if($packet_name == "entity_animation" || $packet_name == "entity_metadata" || $packet_name == "entity_velocity")
+				if(in_array($packet_name, ["entity_animation", "entity_effect", "entity_metadata", "entity_velocity"]))
 				{
 					$client_con->startPacket($packet_name);
 					$eid = $server_con->readVarInt();
