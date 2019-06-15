@@ -15,7 +15,7 @@ class KeepAliveRequestPacket extends Packet
 	 */
 	public function __construct($keepAliveId = null)
 	{
-		if(!$keepAliveId)
+		if($keepAliveId === null)
 		{
 			$keepAliveId = gmp_init(time());
 		}
