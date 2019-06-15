@@ -14,6 +14,7 @@
 		"ext-json": "^1.4",
 		"ext-zlib": "^7.0",
 		"ext-mbstring": "^7.0",
+		"ext-gmp": "^7.0",
 		"hell-sh/enum": "^1.0",
 		"hell-sh/uuid": "^1.0",
 		"phpseclib/mcrypt_compat": "^1.0"
