@@ -12,17 +12,17 @@ abstract class Phpcraft
 		$minecraft_folder = null;
 		if(getenv("HOME"))
 		{
-			if(stristr(PHP_OS, "LINUX"))
+			if(Phpcraft::isWindows())
+			{
+				$minecraft_folder = getenv("APPDATA")."\\.minecraft";
+			}
+			else if(stristr(PHP_OS, "LINUX"))
 			{
 				$minecraft_folder = getenv("HOME")."/.minecraft";
 			}
 			else if(stristr(PHP_OS, "DAR"))
 			{
 				$minecraft_folder = getenv("HOME")."/Library/Application Support/minecraft";
-			}
-			else if(stristr(PHP_OS, "WIN"))
-			{
-				$minecraft_folder = getenv("APPDATA")."\\.minecraft";
 			}
 		}
 		if(!$minecraft_folder)
@@ -42,8 +42,7 @@ abstract class Phpcraft
 	 */
 	public static function isWindows()
 	{
-		// "WIN" is also present in "DARWIN" for MacOS :^)
-		return stristr(PHP_OS, "WIN") && !stristr(PHP_OS, "DAR");
+		return defined("PHP_WINDOWS_VERSION_MAJOR");
 	}
 
 	/**

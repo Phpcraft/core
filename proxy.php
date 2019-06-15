@@ -27,7 +27,14 @@ else
 	{
 		do
 		{
-			readline_callback_handler_install("What's your account password? (hidden) ", function($input){});
+			if(Phpcraft::isWindows())
+			{
+				echo "What's your account password? (visible) ";
+			}
+			else
+			{
+				readline_callback_handler_install("What's your account password? (hidden) ", function($input){});
+			}
 			if(!($pass = trim(fgets($stdin))))
 			{
 				echo "No password provided.\n";
@@ -43,7 +50,10 @@ else
 			}
 		}
 		while(true);
-		readline_callback_handler_remove();
+		if(!Phpcraft::isWindows())
+		{
+			readline_callback_handler_remove();
+		}
 	}
 	echo "Authenticated as ".$account->username."\n";
 }

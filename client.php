@@ -12,7 +12,7 @@ use Phpcraft\
 
 if(Phpcraft::isWindows() && !in_array("help", $argv))
 {
-	die("I'm sorry, due to a bug in PHP's Windows port <https://bugs.php.net/bug.php?id=34972> and the nature of the PHP Minecraft Client, you'll have to use the Windows Subsystem for Linux <https://aka.ms/wslinstall> if you really want to try it out.\n");
+	die("I'm sorry, due to a bug in PHP's Windows port <https://bugs.php.net/bug.php?id=34972>, you'll have to use the Windows Subsystem for Linux <https://aka.ms/wslinstall> to use the PHP Minecraft Client.\n");
 }
 
 $options = [];
