@@ -4,11 +4,14 @@ if(version_compare(PHP_VERSION, "7.0", "<"))
 {
 	die("Phpcraft requires PHP 7.0 or above.\n");
 }
-if(!file_exists("vendor/autoload.php"))
+foreach(["SPL", "json", "zlib"] as $ext)
 {
-	die("Please run `composer install --no-dev` first.\n");
+	if(!extension_loaded($ext))
+	{
+		die("The {$ext} extension is required.\n");
+	}
 }
-require "vendor/autoload.php";
+require "src/Phpcraft.class.php";
 use Phpcraft\Phpcraft;
 if(file_exists(__DIR__."/src/.cache"))
 {

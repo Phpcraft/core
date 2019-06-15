@@ -13,7 +13,7 @@ First, we'll clone the repository and generate the autoload script:
 
     git clone https://github.com/timmyrs/Phpcraft
     cd Phpcraft
-    composer install --no-dev
+    composer install --no-dev --ignore-platform-reqs
 
 Next, we'll run a self check:
 
@@ -35,7 +35,7 @@ Finally, you can use the Phpcraft CLI utilities:
 
 Thanks to Composer, using Phpcraft as a library is really easy. Just head into your project folder and run:
 
-    composer require timmyrs/phpcraft:dev-master
+    composer require timmyrs/phpcraft:dev-master --ignore-platform-reqs
 
 Next, we'll run a self check:
 
