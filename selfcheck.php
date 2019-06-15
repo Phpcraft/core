@@ -46,10 +46,9 @@ if(extension_loaded("mbstring"))
 else
 {
 	echo "X";
-	array_push($apt, "mbstring");
+	array_push($apt, "php-mbstring");
 }
-echo " Multi-byte string library mbstring\n\n";
-
+echo " mbstring\n";
 if(extension_loaded("gmp"))
 {
 	echo "./";
@@ -58,15 +57,6 @@ else
 {
 	echo "X";
 	array_push($apt, "php-gmp");
-}
-echo " Full functionality of Connection and NbtTag\n  ";
-if(in_array("php-gmp", $apt))
-{
-	echo "X";
-}
-else
-{
-	echo "./";
 }
 echo " GMP\n\n";
 
