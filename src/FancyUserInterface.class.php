@@ -6,6 +6,7 @@ class FancyUserInterface extends UserInterface
 	private $optional_info;
 	/**
 	 * The string displayed before the user's input, e.g. `$ `
+	 *
 	 * @var string $input_prefix
 	 */
 	public $input_prefix = "";
@@ -13,6 +14,7 @@ class FancyUserInterface extends UserInterface
 	private $cursorpos = 1;
 	/**
 	 * The function called when the user presses the tabulator key with the currently selected word as parameter. The return should be an array of possible completions.
+	 *
 	 * @var callable $tabcomplete_function
 	 */
 	public $tabcomplete_function = null;
@@ -27,6 +29,7 @@ class FancyUserInterface extends UserInterface
 	/**
 	 * Note that from this point forward, STDIN and STDOUT are in the hands of the UI until it is destructed.
 	 * The FancyUserInterface doesn't support Windows; use UserInterface, instead.
+	 *
 	 * @param string $title The title displayed at the top left.
 	 * @param string $optional_info Displayed at the top right, if possible.
 	 */
@@ -37,7 +40,9 @@ class FancyUserInterface extends UserInterface
 		$this->optional_info = $optional_info;
 		echo "\x1B[2J";
 		readline_callback_handler_remove();
-		readline_callback_handler_install("", function(){});
+		readline_callback_handler_install("", function()
+		{
+		});
 		$this->ob_start();
 	}
 
@@ -65,6 +70,7 @@ class FancyUserInterface extends UserInterface
 
 	/**
 	 * Renders the UI.
+	 *
 	 * @param boolean $accept_input Set to true if you are looking for a return value.
 	 * @return string If $accept_input is true and the user has submitted a line, the return will be that line. Otherwise, it will be null.
 	 */
@@ -75,7 +81,7 @@ class FancyUserInterface extends UserInterface
 		$null = [];
 		if(stream_select($read, $null, $null, 0))
 		{
-			while(($char = fgetc($this->stdin)) !== FALSE)
+			while(($char = fgetc($this->stdin)) !== false)
 			{
 				if($char == "\n")
 				{
@@ -106,13 +112,13 @@ class FancyUserInterface extends UserInterface
 					else
 					{
 						$this->cursorpos--;
-						$this->input_buffer = mb_substr($this->input_buffer, 0, $this->cursorpos - 1, "utf-8").mb_substr($this->input_buffer, $this->cursorpos, NULL, "utf-8");
+						$this->input_buffer = mb_substr($this->input_buffer, 0, $this->cursorpos - 1, "utf-8").mb_substr($this->input_buffer, $this->cursorpos, null, "utf-8");
 						$this->next_render = 0;
 					}
 				}
 				else if($char == "\t") // Tabulator
 				{
-					if($this->tabcomplete_function == NULL)
+					if($this->tabcomplete_function == null)
 					{
 						echo "\x07"; // Bell/Alert
 					}
@@ -183,7 +189,7 @@ class FancyUserInterface extends UserInterface
 					{
 						$char = "^";
 					}
-					$this->input_buffer = mb_substr($this->input_buffer, 0, $this->cursorpos - 1, "utf-8").$char.mb_substr($this->input_buffer, $this->cursorpos - 1, NULL, "utf-8");
+					$this->input_buffer = mb_substr($this->input_buffer, 0, $this->cursorpos - 1, "utf-8").$char.mb_substr($this->input_buffer, $this->cursorpos - 1, null, "utf-8");
 					$this->cursorpos++;
 					if($this->cursorpos > mb_strlen($this->input_buffer, "utf-8") + 1)
 					{
@@ -191,19 +197,19 @@ class FancyUserInterface extends UserInterface
 					}
 					if(mb_substr($this->input_buffer, $this->cursorpos - 4, 3, "utf-8") == "^[A") // Arrow Up
 					{
-						$this->input_buffer = mb_substr($this->input_buffer, 0, $this->cursorpos - 4, "utf-8").mb_substr($this->input_buffer, $this->cursorpos - 1, NULL, "utf-8");
+						$this->input_buffer = mb_substr($this->input_buffer, 0, $this->cursorpos - 4, "utf-8").mb_substr($this->input_buffer, $this->cursorpos - 1, null, "utf-8");
 						$this->cursorpos -= 3;
 						$this->screen_scroll++;
 					}
 					else if(mb_substr($this->input_buffer, $this->cursorpos - 4, 3, "utf-8") == "^[B") // Arrow Down
 					{
-						$this->input_buffer = mb_substr($this->input_buffer, 0, $this->cursorpos - 4, "utf-8").mb_substr($this->input_buffer, $this->cursorpos - 1, NULL, "utf-8");
+						$this->input_buffer = mb_substr($this->input_buffer, 0, $this->cursorpos - 4, "utf-8").mb_substr($this->input_buffer, $this->cursorpos - 1, null, "utf-8");
 						$this->cursorpos -= 3;
 						$this->screen_scroll--;
 					}
 					else if(mb_substr($this->input_buffer, $this->cursorpos - 4, 3, "utf-8") == "^[C") // Arrow Right
 					{
-						$this->input_buffer = mb_substr($this->input_buffer, 0, $this->cursorpos - 4, "utf-8").mb_substr($this->input_buffer, $this->cursorpos - 1, NULL, "utf-8");
+						$this->input_buffer = mb_substr($this->input_buffer, 0, $this->cursorpos - 4, "utf-8").mb_substr($this->input_buffer, $this->cursorpos - 1, null, "utf-8");
 						$this->cursorpos -= 3;
 						if($this->cursorpos == mb_strlen($this->input_buffer, "utf-8") + 1)
 						{
@@ -216,7 +222,7 @@ class FancyUserInterface extends UserInterface
 					}
 					else if(mb_substr($this->input_buffer, $this->cursorpos - 4, 3, "utf-8") == "^[D") // Arrow Left
 					{
-						$this->input_buffer = mb_substr($this->input_buffer, 0, $this->cursorpos - 4, "utf-8").mb_substr($this->input_buffer, $this->cursorpos - 1, NULL, "utf-8");
+						$this->input_buffer = mb_substr($this->input_buffer, 0, $this->cursorpos - 4, "utf-8").mb_substr($this->input_buffer, $this->cursorpos - 1, null, "utf-8");
 						$this->cursorpos -= 3;
 						if($this->cursorpos == 1)
 						{
@@ -229,12 +235,12 @@ class FancyUserInterface extends UserInterface
 					}
 					else if(mb_substr($this->input_buffer, $this->cursorpos - 5, 4, "utf-8") == "^[1~") // Pos1
 					{
-						$this->input_buffer = mb_substr($this->input_buffer, 0, $this->cursorpos - 5, "utf-8").mb_substr($this->input_buffer, $this->cursorpos - 1, NULL, "utf-8");
+						$this->input_buffer = mb_substr($this->input_buffer, 0, $this->cursorpos - 5, "utf-8").mb_substr($this->input_buffer, $this->cursorpos - 1, null, "utf-8");
 						$this->cursorpos = 1;
 					}
 					else if(mb_substr($this->input_buffer, $this->cursorpos - 5, 4, "utf-8") == "^[3~") // Delete
 					{
-						$this->input_buffer = mb_substr($this->input_buffer, 0, $this->cursorpos - 5, "utf-8").mb_substr($this->input_buffer, $this->cursorpos, NULL, "utf-8");
+						$this->input_buffer = mb_substr($this->input_buffer, 0, $this->cursorpos - 5, "utf-8").mb_substr($this->input_buffer, $this->cursorpos, null, "utf-8");
 						if($this->input_buffer == "" || $this->cursorpos == mb_strlen($this->input_buffer, "utf-8") + 1)
 						{
 							echo "\x07"; // Bell/Alert
@@ -243,18 +249,18 @@ class FancyUserInterface extends UserInterface
 					}
 					else if(mb_substr($this->input_buffer, $this->cursorpos - 5, 4, "utf-8") == "^[4~") // End
 					{
-						$this->input_buffer = mb_substr($this->input_buffer, 0, $this->cursorpos - 5, "utf-8").mb_substr($this->input_buffer, $this->cursorpos - 1, NULL, "utf-8");
+						$this->input_buffer = mb_substr($this->input_buffer, 0, $this->cursorpos - 5, "utf-8").mb_substr($this->input_buffer, $this->cursorpos - 1, null, "utf-8");
 						$this->cursorpos = mb_strlen($this->input_buffer, "utf-8") + 1;
 					}
 					else if(mb_substr($this->input_buffer, $this->cursorpos - 5, 4, "utf-8") == "^[5~") // Screen Up
 					{
-						$this->input_buffer = mb_substr($this->input_buffer, 0, $this->cursorpos - 5, "utf-8").mb_substr($this->input_buffer, $this->cursorpos - 1, NULL, "utf-8");
+						$this->input_buffer = mb_substr($this->input_buffer, 0, $this->cursorpos - 5, "utf-8").mb_substr($this->input_buffer, $this->cursorpos - 1, null, "utf-8");
 						$this->cursorpos -= 4;
 						$this->screen_scroll++;
 					}
 					else if(mb_substr($this->input_buffer, $this->cursorpos - 5, 4, "utf-8") == "^[6~") // Screen Down
 					{
-						$this->input_buffer = mb_substr($this->input_buffer, 0, $this->cursorpos - 5, "utf-8").mb_substr($this->input_buffer, $this->cursorpos - 1, NULL, "utf-8");
+						$this->input_buffer = mb_substr($this->input_buffer, 0, $this->cursorpos - 5, "utf-8").mb_substr($this->input_buffer, $this->cursorpos - 1, null, "utf-8");
 						$this->cursorpos -= 4;
 						$this->screen_scroll--;
 					}
@@ -348,6 +354,7 @@ class FancyUserInterface extends UserInterface
 
 	/**
 	 * Adds a message to the chat log.
+	 *
 	 * @param string $message
 	 * @return $this
 	 */
@@ -359,6 +366,7 @@ class FancyUserInterface extends UserInterface
 
 	/**
 	 * Appends to the last message in the chat log.
+	 *
 	 * @param string $appendix
 	 * @return $this
 	 */

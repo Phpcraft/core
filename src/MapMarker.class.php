@@ -2,6 +2,7 @@
 namespace Phpcraft;
 /**
  * A marker on a map.
+ *
  * @see MapDataPacket
  */
 class MapMarker
@@ -45,29 +46,33 @@ class MapMarker
 	const TYPE_RED_BANNER = 24;
 	const TYPE_BLACK_BANNER = 25;
 	const TYPE_TREASURE_MARKER = 26;
-
 	/**
 	 * The type of the marker. >= 9 will be replaced with 7 for clients below 1.13.
+	 *
 	 * @var integer $type
 	 */
 	public $type;
 	/**
 	 * The x coordinate of the marker on the map from -127 to 128.
+	 *
 	 * @var integer $x
 	 */
 	public $x;
 	/**
 	 * The z coordinate of the marker on the map from -127 to 128.
+	 *
 	 * @var integer $z
 	 */
 	public $z;
 	/**
 	 * The rotation of the marker divided by 22.5°, so it has a value between 0 and 15.
+	 *
 	 * @var integer $rotation
 	 */
 	public $rotation;
 	/**
 	 * The display name of this marker; chat object. Only visible to 1.13+ clients.
+	 *
 	 * @var array $name
 	 */
 	public $name;

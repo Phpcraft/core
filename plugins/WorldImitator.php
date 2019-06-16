@@ -1,8 +1,7 @@
 <?php
 // Provides clients connecting to the server with the packets captured by the WorldSaver plugin.
 use Phpcraft\
-{ServerJoinEvent, Connection, Event, Phpcraft, Plugin, PluginManager, Versions};
-
+{Connection, Event, Phpcraft, Plugin, PluginManager, ServerJoinEvent, Versions};
 PluginManager::registerPlugin("WorldImitator", function(Plugin $plugin)
 {
 	$plugin->on(function(ServerJoinEvent $event)

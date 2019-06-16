@@ -6,6 +6,7 @@ class UserInterface
 
 	/**
 	 * Note that from this point forward, STDIN is in the hands of the UI, unless on Winodws, where user input is impossible.
+	 *
 	 * @see https://bugs.php.net/bug.php?id=34972
 	 */
 	public function __construct()
@@ -23,6 +24,7 @@ class UserInterface
 
 	/**
 	 * Renders the UI.
+	 *
 	 * @param boolean $accept_input Set to true if you are looking for a return value.
 	 * @return string If $accept_input is true, we're not on Windows, and the user has submitted a line, the return will be that line. Otherwise, it will be null.
 	 */
@@ -42,6 +44,7 @@ class UserInterface
 
 	/**
 	 * Prints a message.
+	 *
 	 * @param string $message
 	 * @return $this
 	 */
@@ -53,6 +56,7 @@ class UserInterface
 
 	/**
 	 * Prints a message.
+	 *
 	 * @param string $message
 	 * @return $this
 	 */

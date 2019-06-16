@@ -7,17 +7,35 @@ class GeneralTest
 {
 	function testTextToChat()
 	{
-		Nose::assertEquals(["text" => "&1Test", "color" => "black"], Phpcraft::textToChat("§0&1Test", false));
+		Nose::assertEquals([
+			"text" => "&1Test",
+			"color" => "black"
+		], Phpcraft::textToChat("§0&1Test", false));
 		Nose::assertEquals(["text" => "&r&0Test"], Phpcraft::textToChat("&r&0Test", false));
-		Nose::assertEquals(["text" => "Test", "color" => "black"], Phpcraft::textToChat("&r&0Test", true));
+		Nose::assertEquals([
+			"text" => "Test",
+			"color" => "black"
+		], Phpcraft::textToChat("&r&0Test", true));
 	}
 
 	function testChatToText()
 	{
-		Nose::assertEquals("Test", Phpcraft::chatToText(["text" => "Test", "color" => "black"], 0));
-		Nose::assertEquals("§r§0Test", Phpcraft::chatToText(["text" => "Test", "color" => "black"], 2));
-		Nose::assertEquals("&r&0Test", Phpcraft::chatToText(["text" => "Test", "color" => "black"], 3));
-		Nose::assertEquals('<span style="color:#000">Test</span>', Phpcraft::chatToText(["text" => "Test", "color" => "black"], 4));
+		Nose::assertEquals("Test", Phpcraft::chatToText([
+			"text" => "Test",
+			"color" => "black"
+		], 0));
+		Nose::assertEquals("§r§0Test", Phpcraft::chatToText([
+			"text" => "Test",
+			"color" => "black"
+		], 2));
+		Nose::assertEquals("&r&0Test", Phpcraft::chatToText([
+			"text" => "Test",
+			"color" => "black"
+		], 3));
+		Nose::assertEquals('<span style="color:#000">Test</span>', Phpcraft::chatToText([
+			"text" => "Test",
+			"color" => "black"
+		], 4));
 	}
 
 	function testUuid()
@@ -45,7 +63,11 @@ class GeneralTest
 	function testVersions()
 	{
 		Nose::assertEquals(["1.12.2"], Versions::protocolToMinecraft(340));
-		Nose::assertEquals(["1.10.2", "1.10.1", "1.10"], Versions::protocolToMinecraft(210));
+		Nose::assertEquals([
+			"1.10.2",
+			"1.10.1",
+			"1.10"
+		], Versions::protocolToMinecraft(210));
 		Nose::assertEquals("1.8 - 1.8.9", Versions::protocolToRange(47));
 		Nose::assert(array_key_exists("1.9", Versions::releases()));
 		Nose::assertFalse(array_key_exists("1.9-pre1", Versions::releases()));
@@ -65,14 +87,18 @@ class GeneralTest
 	{
 		$slot = new Slot(Item::get("stone"));
 		Nose::assertNull($slot->getDisplayName());
-		$name = ["text" => "Test", "color" => "yellow"];
+		$name = [
+			"text" => "Test",
+			"color" => "yellow"
+		];
 		$slot->setDisplayName($name);
 		Nose::assertEquals($name, $slot->getDisplayName());
 		$con = new Connection(47);
 		$con->writeSlot($slot);
 		Nose::assert(strpos($con->write_buffer, "§eTest") !== false);
 		$con->read_buffer = $con->write_buffer;
-		Nose::assertEquals($name, $con->readSlot()->getDisplayName());
+		Nose::assertEquals($name, $con->readSlot()
+									  ->getDisplayName());
 		Nose::assertEquals("", $con->read_buffer);
 	}
 
@@ -81,7 +107,10 @@ class GeneralTest
 		$metadata = new EntityBase();
 		$metadata->burning = true;
 		$metadata->elytraing = true;
-		$metadata->custom_name = ["text" => "Test", "color" => "yellow"];
+		$metadata->custom_name = [
+			"text" => "Test",
+			"color" => "yellow"
+		];
 		$con = new Connection(47);
 		$metadata->write($con);
 		Nose::assert(strpos($con->write_buffer, "§eTest") !== false);

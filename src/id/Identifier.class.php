@@ -4,23 +4,27 @@ abstract class Identifier
 {
 	/**
 	 * The name of this Identifier.
+	 *
 	 * @var string $name
 	 */
 	public $name;
 	/**
 	 * The protocol version at which this Identifier was introduced.
+	 *
 	 * @var integer $since_protocol_version
 	 */
 	public $since_protocol_version;
 
 	/**
 	 * Returns everything of this type.
+	 *
 	 * @return Identifier[]
 	 */
 	abstract public static function all();
 
 	/**
 	 * Returns the ID of this Identifier for the given protocol version or null if not applicable.
+	 *
 	 * @param integer $protocol_version
 	 * @return integer
 	 */
@@ -28,6 +32,7 @@ abstract class Identifier
 
 	/**
 	 * Returns an Identifier by its name or null if not found.
+	 *
 	 * @param string $name
 	 * @return static
 	 */
@@ -50,6 +55,7 @@ abstract class Identifier
 
 	/**
 	 * Returns an Identifier by its ID in the given protocol version or null if not found.
+	 *
 	 * @param integer $id
 	 * @param integer $protocol_version
 	 * @return static

@@ -6,14 +6,16 @@ class BlockMaterial extends Identifier
 	private $legacy_id;
 	/**
 	 * The name of each Item dropped when this block is destroyed.
+	 *
 	 * @var array $drops
 	 */
 	public $drops;
 
 	/**
 	 * Returns every BlockMaterial.
-	 * @todo Actually return *every* BlockMaterial.
+	 *
 	 * @return BlockMaterial[]
+	 * @todo Actually return *every* BlockMaterial.
 	 */
 	public static function all()
 	{
@@ -39,6 +41,7 @@ class BlockMaterial extends Identifier
 
 	/**
 	 * Returns the ID of this Identifier for the given protocol version or null if not applicable.
+	 *
 	 * @param integer $protocol_version
 	 * @return integer
 	 */
@@ -52,10 +55,14 @@ class BlockMaterial extends Identifier
 			}
 			switch($this->name)
 			{
-				case "air": return 0;
-				case "stone": return 1;
-				case "grass_block": return 9;
-				case "dirt": return 10;
+				case "air":
+					return 0;
+				case "stone":
+					return 1;
+				case "grass_block":
+					return 9;
+				case "dirt":
+					return 10;
 			}
 		}
 		return null;
@@ -63,6 +70,7 @@ class BlockMaterial extends Identifier
 
 	/**
 	 * Returns each Item that are supposed to be dropped when this block is destroyed.
+	 *
 	 * @return Item[]
 	 */
 	public function getDrops()

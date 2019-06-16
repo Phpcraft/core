@@ -6,14 +6,16 @@ class Item extends Identifier
 	private $legacy_id;
 	/**
 	 * The name of the related BlockMaterial.
-	 * @var string $block;
+	 *
+	 * @var string $block ;
 	 */
 	public $block;
 
 	/**
 	 * Returns every Item.
-	 * @todo Actually return *every* Item.
+	 *
 	 * @return Item[]
+	 * @todo Actually return *every* Item.
 	 */
 	public static function all()
 	{
@@ -40,6 +42,7 @@ class Item extends Identifier
 
 	/**
 	 * Returns the ID of this Identifier for the given protocol version or null if not applicable.
+	 *
 	 * @param integer $protocol_version
 	 * @return integer
 	 */
@@ -53,11 +56,16 @@ class Item extends Identifier
 			}
 			switch($this->name)
 			{
-				case "air": return 0;
-				case "stone": return 1;
-				case "grass_block": return 8;
-				case "dirt": return 9;
-				case "filled_map": return 613;
+				case "air":
+					return 0;
+				case "stone":
+					return 1;
+				case "grass_block":
+					return 8;
+				case "dirt":
+					return 9;
+				case "filled_map":
+					return 613;
 			}
 		}
 		return null;
@@ -65,6 +73,7 @@ class Item extends Identifier
 
 	/**
 	 * Returns the related block material.
+	 *
 	 * @return BlockMaterial
 	 */
 	public function getBlock()

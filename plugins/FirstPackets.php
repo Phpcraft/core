@@ -1,9 +1,7 @@
 <?php
 // Provides clients with some essential first packets.
-
 use Phpcraft\
-{BlockMaterial, ClientboundBrandPluginMessagePacket, ClientConnection, ServerJoinEvent, Connection, Difficulty, Dimension, Event, Gamemode, JoinGamePacket, Plugin, PluginManager, Position, ServerTickEvent};
-
+{BlockMaterial, ClientboundBrandPluginMessagePacket, ClientConnection, Connection, Difficulty, Dimension, Event, Gamemode, JoinGamePacket, Plugin, PluginManager, Position, ServerJoinEvent, ServerTickEvent};
 $WorldImitatorActive = false;
 PluginManager::registerPlugin("FirstPackets", function(Plugin $plugin)
 {
@@ -93,8 +91,10 @@ PluginManager::registerPlugin("FirstPackets", function(Plugin $plugin)
 							{
 								$data->writeByte(8); // Bits per Block
 								$data->writeVarInt(2); // Palette Size
-								$data->writeVarInt(BlockMaterial::get("grass_block")->getId($con->protocol_version));
-								$data->writeVarInt(BlockMaterial::get("stone")->getId($con->protocol_version));
+								$data->writeVarInt(BlockMaterial::get("grass_block")
+																->getId($con->protocol_version));
+								$data->writeVarInt(BlockMaterial::get("stone")
+																->getId($con->protocol_version));
 								$data->writeVarInt(512); // (4096 / (64 / Bits per Block))
 								$data->write_buffer .= str_repeat("\x00\x01", 2048); // Blocks
 								$data->write_buffer .= str_repeat("\x00", 2048); // Block Light

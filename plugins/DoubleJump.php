@@ -1,8 +1,7 @@
 <?php
 // Allows clients to double-jump.
-
-use Phpcraft\{Gamemode, Plugin, PluginManager, ServerOnGroundChangeEvent, ServerFlyingChangeEvent};
-
+use Phpcraft\
+{Gamemode, Plugin, PluginManager, ServerFlyingChangeEvent, ServerOnGroundChangeEvent};
 PluginManager::registerPlugin("DoubleJump", function(Plugin $plugin)
 {
 	$plugin->on(function(ServerOnGroundChangeEvent $event)

@@ -4,6 +4,7 @@ class NbtCompound extends NbtTag
 {
 	/**
 	 * The child tags of the compound.
+	 *
 	 * @var array $children
 	 */
 	public $children;
@@ -20,6 +21,7 @@ class NbtCompound extends NbtTag
 
 	/**
 	 * Gets a child of the compound by its name or null if not found.
+	 *
 	 * @param string $name
 	 * @return NbtTag
 	 */
@@ -37,6 +39,7 @@ class NbtCompound extends NbtTag
 
 	/**
 	 * Returns true if the compound has a child with the given name.
+	 *
 	 * @param string $name
 	 * @return boolean
 	 */
@@ -54,6 +57,7 @@ class NbtCompound extends NbtTag
 
 	/**
 	 * Gets the index of a child of the compound by its name or -1 if not found.
+	 *
 	 * @param string $name
 	 * @return integer
 	 */
@@ -71,6 +75,7 @@ class NbtCompound extends NbtTag
 
 	/**
 	 * Adds a child to the compound or replaces an existing one by the same name.
+	 *
 	 * @param NbtTag $tag
 	 * @return NbtCompound $this
 	 */
@@ -97,6 +102,7 @@ class NbtCompound extends NbtTag
 
 	/**
 	 * Adds the NBT tag to the write buffer of the connection.
+	 *
 	 * @param Connection $con
 	 * @param boolean $inList Ignore this parameter.
 	 * @return Connection $con

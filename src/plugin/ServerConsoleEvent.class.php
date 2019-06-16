@@ -5,6 +5,7 @@ class ServerConsoleEvent extends ServerEvent
 {
 	/**
 	 * The message that the console has proposed.
+	 *
 	 * @var string $message
 	 */
 	public $message;

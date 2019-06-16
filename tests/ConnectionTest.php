@@ -82,7 +82,10 @@ class ConnectionTest
 
 	function testReadAndWriteChatObject()
 	{
-		$chat = ["text" => "Hey", "color" => "gold"];
+		$chat = [
+			"text" => "Hey",
+			"color" => "gold"
+		];
 		$con = new Connection();
 		$con->writeChat("Hi");
 		$con->writeChat($chat);

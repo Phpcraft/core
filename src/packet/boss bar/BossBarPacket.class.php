@@ -1,6 +1,6 @@
 <?php
 namespace Phpcraft;
-use \hellsh\UUID;
+use hellsh\UUID;
 abstract class BossBarPacket extends Packet
 {
 	const COLOR_PINK = 0;
@@ -15,9 +15,9 @@ abstract class BossBarPacket extends Packet
 	const DIVISION_10 = 2;
 	const DIVISION_12 = 3;
 	const DIVISION_20 = 4;
-
 	/**
 	 * The UUID of the boss bar.
+	 *
 	 * @var UUID $uuid
 	 */
 	public $uuid;
@@ -32,6 +32,7 @@ abstract class BossBarPacket extends Packet
 
 	/**
 	 * Initialises the packet class by reading its payload from the given Connection.
+	 *
 	 * @param Connection $con
 	 * @return BossBarPacket
 	 * @throws IOException
@@ -44,43 +45,39 @@ abstract class BossBarPacket extends Packet
 		switch($action)
 		{
 			case 0:
-			$packet = new AddBossBarPacket($uuid);
-			$packet->title = $con->readChat();
-			$packet->health = $con->readFloat();
-			$packet->color = gmp_intval($con->readVarInt());
-			$packet->division = gmp_intval($con->readVarInt());
-			$flags = $con->readByte();
-			if($flags >= 0x4)
-			{
-				$packet->create_fog = true;
-				$flags -= 0x4;
-			}
-			if($flags >= 0x2)
-			{
-				if($con->protocol_version < 395)
+				$packet = new AddBossBarPacket($uuid);
+				$packet->title = $con->readChat();
+				$packet->health = $con->readFloat();
+				$packet->color = gmp_intval($con->readVarInt());
+				$packet->division = gmp_intval($con->readVarInt());
+				$flags = $con->readByte();
+				if($flags >= 0x4)
 				{
 					$packet->create_fog = true;
+					$flags -= 0x4;
 				}
-				$packet->play_end_music = true;
-				$flags -= 0x2;
-			}
-			if($flags >= 0x1)
-			{
-				$packet->darken_sky = true;
-			}
-			return $packet;
-
+				if($flags >= 0x2)
+				{
+					if($con->protocol_version < 395)
+					{
+						$packet->create_fog = true;
+					}
+					$packet->play_end_music = true;
+					$flags -= 0x2;
+				}
+				if($flags >= 0x1)
+				{
+					$packet->darken_sky = true;
+				}
+				return $packet;
 			case 1:
-			return new RemoveBossBarPacket($uuid);
-
+				return new RemoveBossBarPacket($uuid);
 			case 2:
-			return new UpdateBossBarHealthPacket($uuid, $con->readFloat());
-
+				return new UpdateBossBarHealthPacket($uuid, $con->readFloat());
 			case 3:
-			return new UpdateBossBarTitlePacket($uuid, $con->readChat());
-
+				return new UpdateBossBarTitlePacket($uuid, $con->readChat());
 			default:
-			trigger_error("Unimplemented boss bar action: ".$action);
+				trigger_error("Unimplemented boss bar action: ".$action);
 		}
 		return null;
 	}

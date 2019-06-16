@@ -24,7 +24,6 @@ class ClientboundPacket extends PacketId
 			"game_state_change" => "change_game_state",
 			"experience" => "set_experience",
 			"kick_disconnect" => "disconnect",
-
 			"keep_alive" => "keep_alive_request",
 			"abilities" => "clientbound_abilities",
 			"chat" => "clientbound_chat_message",
@@ -34,6 +33,7 @@ class ClientboundPacket extends PacketId
 
 	/**
 	 * Returns every ClientboundPacket.
+	 *
 	 * @return ClientboundPacket[]
 	 */
 	public static function all()
@@ -50,6 +50,7 @@ class ClientboundPacket extends PacketId
 
 	/**
 	 * Returns the ID of this Identifier for the given protocol version or null if not applicable.
+	 *
 	 * @param integer $protocol_version
 	 * @return integer
 	 */
@@ -61,6 +62,7 @@ class ClientboundPacket extends PacketId
 	/**
 	 * Initialises this packet's class by reading its payload from the given Connection.
 	 * Returns null if the packet does not have a class implementation yet.
+	 *
 	 * @param Connection $con
 	 * @return Packet
 	 * @throws IOException
@@ -70,34 +72,25 @@ class ClientboundPacket extends PacketId
 		switch($this->name)
 		{
 			case "clientbound_abilities":
-			return ClientboundAbilitiesPacket::read($con);
-
+				return ClientboundAbilitiesPacket::read($con);
 			case "boss_bar":
-			return BossBarPacket::read($con);
-
+				return BossBarPacket::read($con);
 			case "destroy_entities":
-			return DestroyEntitiesPacket::read($con);
-
+				return DestroyEntitiesPacket::read($con);
 			case "join_game":
-			return JoinGamePacket::read($con);
-
+				return JoinGamePacket::read($con);
 			case "keep_alive_request":
-			return KeepAliveRequestPacket::read($con);
-
+				return KeepAliveRequestPacket::read($con);
 			case "map_data":
-			return MapDataPacket::read($con);
-
+				return MapDataPacket::read($con);
 			case "set_experience":
-			return SetExperiencePacket::read($con);
-
+				return SetExperiencePacket::read($con);
 			case "set_slot":
-			return SetSlotPacket::read($con);
-
+				return SetSlotPacket::read($con);
 			case "spawn_mob":
-			return SpawnMobPacket::read($con);
-
+				return SpawnMobPacket::read($con);
 			case "clientbound_plugin_message":
-			return ClientboundPluginMessagePacket::read($con);
+				return ClientboundPluginMessagePacket::read($con);
 		}
 		return null;
 	}

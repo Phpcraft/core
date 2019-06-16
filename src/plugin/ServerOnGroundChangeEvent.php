@@ -2,12 +2,14 @@
 namespace Phpcraft;
 /**
  * The event emitted by the server when a client's on_ground value has changed. Not cancellable.
+ *
  * @see ClientConnection::on_ground
  */
 class ServerOnGroundChangeEvent extends ServerClientEvent
 {
 	/**
 	 * The client's on_ground value before the change.
+	 *
 	 * @var boolean $old_value
 	 */
 	public $old_value;

@@ -1,9 +1,9 @@
 <?php
 namespace Phpcraft;
 use DomainException;
-use UnexpectedValueException;
 use InvalidArgumentException;
 use LogicException;
+use UnexpectedValueException;
 /**
  * Entity metadata.
  * All values are "null" by default, meaning EntityMetadata::write won't write it.
@@ -22,40 +22,34 @@ abstract class EntityMetadata
 		{
 			case "i8":
 			case "bool":
-			$con->ignoreBytes(1);
-			break;
-
+				$con->ignoreBytes(1);
+				break;
 			case "f32":
-			$con->ignoreBytes(4);
-			break;
-
+				$con->ignoreBytes(4);
+				break;
 			case "position":
-			$con->ignoreBytes(8);
-			break;
-
+				$con->ignoreBytes(8);
+				break;
 			case "varint":
-			gmp_intval($con->readVarInt());
-			break;
-
+				gmp_intval($con->readVarInt());
+				break;
 			case "string":
-			$con->ignoreBytes(gmp_intval($con->readVarInt()));
-			break;
-
+				$con->ignoreBytes(gmp_intval($con->readVarInt()));
+				break;
 			case "slot":
-			$con->readSlot(false);
-			break;
-
+				$con->readSlot(false);
+				break;
 			case "nbt":
-			$con->readNBT();
-			break;
-
+				$con->readNBT();
+				break;
 			default:
-			throw new DomainException("Unimplemented type: {$type}");
+				throw new DomainException("Unimplemented type: {$type}");
 		}
 	}
 
 	/**
 	 * Reads metadata values from the Connection.
+	 *
 	 * @param Connection $con
 	 * @return EntityMetadata $this
 	 * @throws IOException
@@ -92,21 +86,19 @@ abstract class EntityMetadata
 								switch($type[0])
 								{
 									case "option":
-									if($con->readBoolean())
-									{
-										self::ignoreType($con, $type[1]);
-									}
-									break 2;
-
+										if($con->readBoolean())
+										{
+											self::ignoreType($con, $type[1]);
+										}
+										break 2;
 									case "container":
-									foreach($type[1] as $contained)
-									{
-										self::ignoreType($con, $contained["type"]);
-									}
-									break 2;
-
+										foreach($type[1] as $contained)
+										{
+											self::ignoreType($con, $contained["type"]);
+										}
+										break 2;
 									default:
-									throw new DomainException("Unimplemented type: ".$type[0]);
+										throw new DomainException("Unimplemented type: ".$type[0]);
 								}
 							}
 							else
@@ -137,33 +129,27 @@ abstract class EntityMetadata
 					switch($type)
 					{
 						case 0:
-						$con->ignoreBytes(1);
-						break;
-
+							$con->ignoreBytes(1);
+							break;
 						case 1:
-						$con->ignoreBytes(2);
-						break;
-
+							$con->ignoreBytes(2);
+							break;
 						case 2:
 						case 3:
-						$con->ignoreBytes(4);
-						break;
-
+							$con->ignoreBytes(4);
+							break;
 						case 4:
-						$con->ignoreBytes(gmp_intval($con->readVarInt()));
-						break;
-
+							$con->ignoreBytes(gmp_intval($con->readVarInt()));
+							break;
 						case 5:
-						$con->readSlot();
-						break;
-
+							$con->readSlot();
+							break;
 						case 6:
 						case 7:
-						$con->ignoreBytes(12);
-						break;
-
+							$con->ignoreBytes(12);
+							break;
 						default:
-						throw new UnexpectedValueException("Invalid type: {$type}");
+							throw new UnexpectedValueException("Invalid type: {$type}");
 					}
 				}
 			}
@@ -176,6 +162,7 @@ abstract class EntityMetadata
 
 	/**
 	 * Writes this non-null metadata values to the Connection's write buffer.
+	 *
 	 * @param Connection $con
 	 */
 	abstract public function write(Connection $con);

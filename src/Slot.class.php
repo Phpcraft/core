@@ -16,25 +16,28 @@ class Slot
 	const ID_HOTBAR_8 = 43;
 	const ID_HOTBAR_9 = 44;
 	const ID_OFF_HAND = 45;
-
 	/**
 	 * The item in this slot.
+	 *
 	 * @var Item $item
 	 */
 	public $item;
 	/**
 	 * How many times the item is in this slot.
+	 *
 	 * @var integer $count
 	 */
 	public $count;
 	/**
 	 * The NBT data of the item in this slot.
+	 *
 	 * @var NbtTag $nbt
 	 */
 	public $nbt;
 
 	/**
 	 * The construct.
+	 *
 	 * @param Item $item The item in this slot.
 	 * @param integer $count How many times the item is in this slot.
 	 * @param NbtTag $nbt The NBT data of the item in this slot.
@@ -48,6 +51,7 @@ class Slot
 
 	/**
 	 * Returns the display name of the item in this slot as a chat object or null if not set.
+	 *
 	 * @return array
 	 */
 	public function getDisplayName()
@@ -70,6 +74,7 @@ class Slot
 
 	/**
 	 * Sets the display name of the item in this slot.
+	 *
 	 * @param array $name The new display name; chat object, or null to clear.
 	 * @return Slot $this
 	 */

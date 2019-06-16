@@ -4,6 +4,7 @@ class DestroyEntitiesPacket extends Packet
 {
 	/**
 	 * An array of the IDs of the entities to be destroyed.
+	 *
 	 * @var array $eids
 	 */
 	public $eids = [];
@@ -18,6 +19,7 @@ class DestroyEntitiesPacket extends Packet
 
 	/**
 	 * Initialises the packet class by reading its payload from the given Connection.
+	 *
 	 * @param Connection $con
 	 * @return DestroyEntitiesPacket
 	 * @throws IOException
@@ -34,6 +36,7 @@ class DestroyEntitiesPacket extends Packet
 
 	/**
 	 * Adds the packet's ID and payload to the Connection's write buffer and, if the connection has a stream, sends it over the wire.
+	 *
 	 * @param Connection $con
 	 * @throws IOException
 	 */

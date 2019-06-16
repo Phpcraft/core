@@ -1,8 +1,7 @@
 <?php
 // Loads a 128x128 image from map.png and displays it to clients as a map.
-
-use Phpcraft\{ServerJoinEvent, Event, Item, MapDataPacket, NbtCompound, NbtInt, NbtString, Phpcraft, Plugin, PluginManager, SetSlotPacket, Slot};
-
+use Phpcraft\
+{Event, Item, MapDataPacket, NbtCompound, NbtInt, NbtString, Phpcraft, Plugin, PluginManager, ServerJoinEvent, SetSlotPacket, Slot};
 $WorldImitatorActive = false;
 PluginManager::registerPlugin("Map", function(Plugin $plugin)
 {
@@ -27,16 +26,12 @@ PluginManager::registerPlugin("Map", function(Plugin $plugin)
 		$packet = new SetSlotPacket();
 		$packet->window = 0;
 		$packet->slotId = Slot::ID_HOTBAR_1;
-		$packet->slot = new Slot(
-			Item::get("filled_map"),
-			1,
-			new NbtCompound("tag", [
+		$packet->slot = new Slot(Item::get("filled_map"), 1, new NbtCompound("tag", [
 				new NbtCompound("display", [
 					new NbtString("Name", json_encode(Phpcraft::textToChat("§4§lMÄP")))
 				]),
 				new NbtInt("map", 1337),
-			])
-		);
+			]));
 		$packet->send($con);
 		$packet = new MapDataPacket();
 		$packet->mapId = 1337;
@@ -51,7 +46,11 @@ PluginManager::registerPlugin("Map", function(Plugin $plugin)
 				$r = ($rgb >> 16) & 0xFF;
 				$g = ($rgb >> 8) & 0xFF;
 				$b = $rgb & 0xFF;
-				array_push($packet->contents, MapDataPacket::getColorId([$r, $g, $b]));
+				array_push($packet->contents, MapDataPacket::getColorId([
+					$r,
+					$g,
+					$b
+				]));
 			}
 		}
 		$packet->send($con);

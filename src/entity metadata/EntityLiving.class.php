@@ -18,25 +18,26 @@ class EntityLiving extends EntityBase
 		switch($index)
 		{
 			case 6:
-			if($con->protocol_version < 57)
-			{
-				$this->health = $con->readFloat();
-				return true;
-			}
-			break;
+				if($con->protocol_version < 57)
+				{
+					$this->health = $con->readFloat();
+					return true;
+				}
+				break;
 			case 7:
-			if($con->protocol_version >= 57)
-			{
-				$this->health = $con->readFloat();
-				return true;
-			}
-			break;
+				if($con->protocol_version >= 57)
+				{
+					$this->health = $con->readFloat();
+					return true;
+				}
+				break;
 		}
 		return parent::read_($con, $index);
 	}
 
 	/**
 	 * Writes this non-null metadata values to the Connection's write buffer.
+	 *
 	 * @param Connection $con
 	 */
 	public function write(Connection $con)

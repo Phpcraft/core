@@ -13,7 +13,6 @@ class ServerboundPacket extends PacketId
 			"position_look" => "position_and_look",
 			"flying" => "no_movement",
 			"settings" => "client_settings",
-
 			"keep_alive" => "keep_alive_response",
 			"abilities" => "serverbound_abilities",
 			"chat" => "serverbound_chat_message",
@@ -23,6 +22,7 @@ class ServerboundPacket extends PacketId
 
 	/**
 	 * Returns every ServerboundPacket.
+	 *
 	 * @return ServerboundPacket[]
 	 */
 	public static function all()
@@ -39,6 +39,7 @@ class ServerboundPacket extends PacketId
 
 	/**
 	 * Returns the ID of this Identifier for the given protocol version or null if not applicable.
+	 *
 	 * @param integer $protocol_version
 	 * @return integer
 	 */
@@ -50,6 +51,7 @@ class ServerboundPacket extends PacketId
 	/**
 	 * Initialises this packet's class by reading its payload from the given Connection.
 	 * Returns null if the packet does not have a class implementation yet.
+	 *
 	 * @param Connection $con
 	 * @return Packet
 	 * @throws IOException
@@ -59,10 +61,9 @@ class ServerboundPacket extends PacketId
 		switch($this->name)
 		{
 			case "keep_alive_response":
-			return KeepAliveResponsePacket::read($con);
-
+				return KeepAliveResponsePacket::read($con);
 			case "serverbound_plugin_message":
-			return ServerboundPluginMessagePacket::read($con);
+				return ServerboundPluginMessagePacket::read($con);
 		}
 		return null;
 	}

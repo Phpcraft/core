@@ -5,13 +5,17 @@ if(empty($argv))
 	die("This is for PHP-CLI. Connect to your server via SSH and use `php packets.php`.\n");
 }
 require "vendor/autoload.php";
-use Phpcraft\{ClientboundPacket, Connection, PacketId, ServerboundPacket, Versions};
+use Phpcraft\
+{ClientboundPacket, Connection, PacketId, ServerboundPacket, Versions};
 echo "PHP Minecraft Packet Dump Reader\nhttps://github.com/timmyrs/Phpcraft\n";
 if(empty($argv[1]) || empty($argv[2]))
 {
 	die("Syntax: ".$argv[0]." <recipient: client or server> <dump file>\n");
 }
-if(!in_array($argv[1], ["client", "server"]))
+if(!in_array($argv[1], [
+	"client",
+	"server"
+]))
 {
 	die("Invalid recipient '".$argv[1]."', expected 'client' or 'server'.\n");
 }
@@ -41,6 +45,7 @@ function processBatch()
 		echo $id_count."x ".convertPacket($last_id, $last_name)." with {$total_size} B (avg. ".round($total_size / $id_count)." B) of data\n";
 	}
 }
+
 function convertPacket(int $id, string $name)
 {
 	if($name)
@@ -52,6 +57,7 @@ function convertPacket(int $id, string $name)
 		return "0x".dechex($id)." ({$id})";
 	}
 }
+
 $con->protocol_version = $pv;
 $last_id = null;
 $last_name = "";

@@ -6,12 +6,14 @@ abstract class PluginManager
 	private static $load_state;
 	/**
 	 * A Plugin array of plugins currently loaded.
+	 *
 	 * @var array $loaded_plugins
 	 */
 	public static $loaded_plugins = [];
 
 	/**
 	 * Loads all plugins in a folder.
+	 *
 	 * @param string $plugins_folder The path to the folder in which plugins are contained.
 	 */
 	public static function loadPlugins(string $plugins_folder = "plugins")
@@ -32,6 +34,7 @@ abstract class PluginManager
 
 	/**
 	 * The function called by plugins when they would like to be registered.
+	 *
 	 * @param string $name This has to be identical to the name of file exluding the extension.
 	 * @param callable $callback The callback function called with a Plugin as parameter.
 	 */
@@ -61,6 +64,7 @@ abstract class PluginManager
 
 	/**
 	 * Fires an Event to all loaded plugins.
+	 *
 	 * @param Event $event
 	 * @return boolean True if the event was cancelled.
 	 */

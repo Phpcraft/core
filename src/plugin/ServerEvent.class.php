@@ -4,6 +4,7 @@ abstract class ServerEvent extends Event
 {
 	/**
 	 * The server emitting the event.
+	 *
 	 * @var Server $server
 	 */
 	public $server;

@@ -4,6 +4,7 @@ abstract class ClientEvent extends Event
 {
 	/**
 	 * The client's server connection.
+	 *
 	 * @var ServerConnection $server
 	 */
 	public $server;

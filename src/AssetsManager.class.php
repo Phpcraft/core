@@ -15,6 +15,7 @@ class AssetsManager
 
 	/**
 	 * Returns an AssetsManager using the given Minecraft version's asset index.
+	 *
 	 * @param string $version The Minecraft version you'd like to access the assets of.
 	 * @return AssetsManager
 	 * @throws Exception When the version manifest for the given version couldn't be fetched.
@@ -52,6 +53,7 @@ class AssetsManager
 
 	/**
 	 * Returns the JSON-decoded content of the asset index of the version.
+	 *
 	 * @return array
 	 */
 	public function getAssetIndex()
@@ -76,6 +78,7 @@ class AssetsManager
 
 	/**
 	 * Checks the asset index for the existence of an asset.
+	 *
 	 * @param string $name
 	 * @return boolean
 	 */
@@ -86,6 +89,7 @@ class AssetsManager
 
 	/**
 	 * Downloads an asset by name and returns the path to the downloaded file or null if the asset doesn't exist.
+	 *
 	 * @param string $name
 	 * @return string
 	 */

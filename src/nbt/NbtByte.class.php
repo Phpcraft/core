@@ -4,6 +4,7 @@ class NbtByte extends NbtTag
 {
 	/**
 	 * The value of this tag.
+	 *
 	 * @var integer $value
 	 */
 	public $value;
@@ -20,6 +21,7 @@ class NbtByte extends NbtTag
 
 	/**
 	 * Adds the NBT tag to the write buffer of the connection.
+	 *
 	 * @param Connection $con
 	 * @param boolean $inList Ignore this parameter.
 	 * @return Connection $con

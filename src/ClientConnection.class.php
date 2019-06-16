@@ -1,8 +1,8 @@
 <?php
 namespace Phpcraft;
 use DomainException;
-use InvalidArgumentException;
 use hellsh\UUID;
+use InvalidArgumentException;
 /** A server-to-client connection. */
 class ClientConnection extends Connection
 {
@@ -10,6 +10,7 @@ class ClientConnection extends Connection
 	private $mh;
 	/**
 	 * The hostname the client had connected to.
+	 *
 	 * @see ClientConnection::getHost
 	 * @see ClientConnection::handleInitialPacket
 	 * @var string $hostname
@@ -17,6 +18,7 @@ class ClientConnection extends Connection
 	public $hostname;
 	/**
 	 * The port the client had connected to.
+	 *
 	 * @see ClientConnection::handleInitialPacket
 	 * @see ClientConnection::getHost
 	 * @var number $hostport
@@ -24,31 +26,37 @@ class ClientConnection extends Connection
 	public $hostport;
 	/**
 	 * The client's in-game name.
+	 *
 	 * @var string $username
 	 */
 	public $username;
 	/**
 	 * The UUID of the client.
+	 *
 	 * @var UUID $uuid
 	 */
 	public $uuid;
 	/**
 	 * This variable is for servers to keep track of when to send the next keep alive packet to clients.
+	 *
 	 * @var integer $next_heartbeat
 	 */
 	public $next_heartbeat = 0;
 	/**
 	 * This variable is for servers to keep track of how long clients have to answer keep alive packets.
+	 *
 	 * @var integer $disconnect_after
 	 */
 	public $disconnect_after = 0;
 	/**
 	 * The client's entity ID.
+	 *
 	 * @var integer $eid
 	 */
 	public $eid;
 	/**
 	 * The client's position.
+	 *
 	 * @var Position $pos
 	 */
 	public $pos;
@@ -67,6 +75,7 @@ class ClientConnection extends Connection
 	public $on_ground = false;
 	/**
 	 * A string array of chunks the client has received.
+	 *
 	 * @var array $chunks
 	 */
 	public $chunks = [];
@@ -109,6 +118,7 @@ class ClientConnection extends Connection
 
 	/**
 	 * After this, you should call ClientConnection::handleInitialPacket().
+	 *
 	 * @param resource $stream
 	 */
 	public function __construct($stream)
@@ -120,6 +130,7 @@ class ClientConnection extends Connection
 	 * Deals with the first packet the client has sent.
 	 * This function deals with the handshake or legacy list ping packet.
 	 * Errors will cause the connection to be closed.
+	 *
 	 * @return integer Status: 0 = An error occured and the connection has been closed. 1 = Handshake was successfully read; use Connection::$state to see if the client wants to get the status (1) or login to play (2). 2 = A legacy list ping packet has been received.
 	 */
 	public function handleInitialPacket()
@@ -166,13 +177,16 @@ class ClientConnection extends Connection
 				}
 			}
 		}
-		catch(IOException $ignored){}
+		catch(IOException $ignored)
+		{
+		}
 		$this->close();
 		return 0;
 	}
 
 	/**
 	 * Returns the host the client had connected to, e.g. localhost:25565.
+	 *
 	 * @return string
 	 */
 	public function getHost()
@@ -182,6 +196,7 @@ class ClientConnection extends Connection
 
 	/**
 	 * Sends an Encryption Request Packet.
+	 *
 	 * @param resource $private_key Your OpenSSL private key resource.
 	 * @return ClientConnection $this
 	 * @throws IOException
@@ -203,6 +218,7 @@ class ClientConnection extends Connection
 	 * Reads an encryption response packet and starts asynchronous authentication with Mojang.
 	 * This requires ClientConnection::$username to be set.
 	 * In case of an error, the client is disconnected and false is returned. Otherwise, true is returned, and ClientConnection::handleAuthentication should be regularly called to finish the authentication.
+	 *
 	 * @param resource $private_key Your OpenSSL private key resource.
 	 * @return boolean
 	 * @throws IOException
@@ -216,7 +232,11 @@ class ClientConnection extends Connection
 			$this->close();
 			return false;
 		}
-		$opts = ["mode" => "cfb", "iv" => $shared_secret, "key" => $shared_secret];
+		$opts = [
+			"mode" => "cfb",
+			"iv" => $shared_secret,
+			"key" => $shared_secret
+		];
 		stream_filter_append($this->stream, "mcrypt.rijndael-128", STREAM_FILTER_WRITE, $opts);
 		stream_filter_append($this->stream, "mdecrypt.rijndael-128", STREAM_FILTER_READ, $opts);
 		$this->ch = curl_init("https://sessionserver.mojang.com/session/minecraft/hasJoined?username=".$this->username."&serverId=".Phpcraft::sha1($shared_secret.base64_decode(trim(substr(openssl_pkey_get_details($private_key)["key"], 26, -24)))));
@@ -232,6 +252,7 @@ class ClientConnection extends Connection
 
 	/**
 	 * Returns true if an asynchronous authentication with Mojang is still pending.
+	 *
 	 * @return boolean
 	 * @see ClientConnection::handleAuthentication
 	 */
@@ -256,6 +277,7 @@ class ClientConnection extends Connection
 	 *     ]
 	 *   ]
 	 * ]</pre>
+	 *
 	 * @return integer|array
 	 * @see ClientConnection::isAuthenticationPending
 	 */
@@ -281,6 +303,7 @@ class ClientConnection extends Connection
 
 	/**
 	 * Sets the compression threshold and finishes the login.
+	 *
 	 * @param UUID $uuid The UUID of the client.
 	 * @param Counter $eidCounter The server's Counter to assign an entity ID to the client.
 	 * @param integer $compression_threshold Use -1 to disable compression.
@@ -310,6 +333,7 @@ class ClientConnection extends Connection
 
 	/**
 	 * Disconnects the client with a reason.
+	 *
 	 * @param array|string $reason The reason of the disconnect; chat object.
 	 */
 	public function disconnect($reason = [])
@@ -329,13 +353,16 @@ class ClientConnection extends Connection
 				$this->writeChat($reason);
 				$this->send();
 			}
-			catch(IOException $ignored){}
+			catch(IOException $ignored)
+			{
+			}
 		}
 		$this->close();
 	}
 
 	/**
 	 * Clears the write buffer and starts a new packet.
+	 *
 	 * @param string|integer $packet The name or ID of the new packet.
 	 * @return Connection $this
 	 * @throws DomainException
@@ -357,8 +384,9 @@ class ClientConnection extends Connection
 
 	/**
 	 * Sends the client their abilities.
-	 * @throws IOException
+	 *
 	 * @return ClientConnection $this
+	 * @throws IOException
 	 * @see ClientConnection::$invulnerable
 	 * @see ClientConnection::$flying
 	 * @see ClientConnection::$can_fly
@@ -381,6 +409,7 @@ class ClientConnection extends Connection
 
 	/**
 	 * Sets the client's abilities according to the given gamemode.
+	 *
 	 * @param integer $gamemode
 	 * @return ClientConnection $this
 	 * @see ClientConnection::sendAbilities
@@ -405,6 +434,7 @@ class ClientConnection extends Connection
 
 	/**
 	 * Sets the client's gamemode and adjusts their abilities accordingly.
+	 *
 	 * @param integer $gamemode
 	 * @return ClientConnection $this
 	 * @throws DomainException

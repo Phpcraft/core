@@ -1,11 +1,12 @@
 <?php
 namespace Phpcraft;
-use \hellsh\UUID;
+use hellsh\UUID;
 class UpdateBossBarHealthPacket extends BossBarPacket
 {
 	/**
 	 * The percentage the boss bar is filled, aka. the health of the boss.
 	 * This should be between 0 and 1. And whilst values below 0 disconnect the client, values above 1 render additional boss bars to the right.
+	 *
 	 * @var float $health
 	 */
 	public $health = 1.0;
@@ -22,6 +23,7 @@ class UpdateBossBarHealthPacket extends BossBarPacket
 
 	/**
 	 * Adds the packet's ID and payload to the Connection's write buffer and, if the connection has a stream, sends it over the wire.
+	 *
 	 * @param Connection $con
 	 * @throws IOException
 	 */

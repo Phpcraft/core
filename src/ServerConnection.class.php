@@ -1,8 +1,8 @@
 <?php
 namespace Phpcraft;
 use DomainException;
+use hellsh\UUID;
 use InvalidArgumentException;
-use \hellsh\UUID;
 /** A client-to-server connection. */
 class ServerConnection extends Connection
 {
@@ -21,6 +21,7 @@ class ServerConnection extends Connection
 	/**
 	 * Sends a handshake to the server.
 	 * If $next_state is 2, you should call ServerConnection::login() after this, even when joining an offline mode server.
+	 *
 	 * @param string $server_name
 	 * @param integer $server_port
 	 * @param integer $next_state Use 1 for status, or 2 for login to play.
@@ -41,6 +42,7 @@ class ServerConnection extends Connection
 	/**
 	 * Logs in to the server using the given account.
 	 * This has to be called even when joining an offline mode server.
+	 *
 	 * @param Account $account
 	 * @param array $translations The translations array so translated messages look proper.
 	 * @return string Error message. Empty on success.
@@ -92,10 +94,10 @@ class ServerConnection extends Connection
 					$shared_secret .= chr(rand(0, 255));
 				}
 				if(Phpcraft::httpPOST("https://sessionserver.mojang.com/session/minecraft/join", [
-					"accessToken" => $account->accessToken,
-					"selectedProfile" => $account->profileId,
-					"serverId" => Phpcraft::sha1($server_id.$shared_secret.$public_key)
-				]) === false)
+						"accessToken" => $account->accessToken,
+						"selectedProfile" => $account->profileId,
+						"serverId" => Phpcraft::sha1($server_id.$shared_secret.$public_key)
+					]) === false)
 				{
 					return "The session servers are down for maintenance.";
 				}
@@ -107,7 +109,11 @@ class ServerConnection extends Connection
 				openssl_public_encrypt($verify_token, $crypted, $public_key, OPENSSL_PKCS1_PADDING);
 				$this->writeString($crypted);
 				$this->send();
-				$opts = ["mode" => "cfb", "iv" => $shared_secret, "key" => $shared_secret];
+				$opts = [
+					"mode" => "cfb",
+					"iv" => $shared_secret,
+					"key" => $shared_secret
+				];
 				stream_filter_append($this->stream, "mcrypt.rijndael-128", STREAM_FILTER_WRITE, $opts);
 				stream_filter_append($this->stream, "mdecrypt.rijndael-128", STREAM_FILTER_READ, $opts);
 			}
@@ -126,6 +132,7 @@ class ServerConnection extends Connection
 
 	/**
 	 * Clears the write buffer and starts a new packet.
+	 *
 	 * @param string|integer $packet The name or ID of the new packet.
 	 * @return Connection $this
 	 * @throws DomainException

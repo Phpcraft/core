@@ -1,9 +1,7 @@
 <?php
 // Crashes clients when they say "crash me"
-
 use Phpcraft\
-{ServerChatEvent, JoinGamePacket, Plugin, PluginManager, ClientConnection};
-
+{ClientConnection, JoinGamePacket, Plugin, PluginManager, ServerChatEvent};
 PluginManager::registerPlugin("CrashClients", function(Plugin $plugin)
 {
 	$plugin->on(function(ServerChatEvent $event)

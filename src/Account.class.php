@@ -5,21 +5,25 @@ class Account
 {
 	/**
 	 * The email address of the Mojang account or the in-game name if legacy.
+	 *
 	 * @var string $name
 	 */
 	public $name;
 	/**
 	 * The in-game name.
+	 *
 	 * @var string $username
 	 */
 	public $username;
 	/**
 	 * The selected profile ID or null if offline.
+	 *
 	 * @var string $profileId
 	 */
 	public $profileId = null;
 	/**
 	 * The access token for the account or null if offline.
+	 *
 	 * @var string $accessToken
 	 */
 	public $accessToken = null;
@@ -35,6 +39,7 @@ class Account
 
 	/**
 	 * Returns whether this account can be used to join servers in online mode.
+	 *
 	 * @return boolean
 	 */
 	public function isOnline()
@@ -44,6 +49,7 @@ class Account
 
 	/**
 	 * Logs in using .minecraft/launcher_profiles.json.
+	 *
 	 * @return boolean True on success.
 	 */
 	public function loginUsingProfiles()
@@ -90,16 +96,16 @@ class Account
 			return false;
 		}
 		if(Phpcraft::httpPOST("https://authserver.mojang.com/validate", [
-			"accessToken" => $profiles["authenticationDatabase"][$profiles["selectedUser"]["account"]]["accessToken"],
-			"clientToken" => $profiles["clientToken"]
-		])["status"] == "204")
+				"accessToken" => $profiles["authenticationDatabase"][$profiles["selectedUser"]["account"]]["accessToken"],
+				"clientToken" => $profiles["clientToken"]
+			])["status"] == "204")
 		{
 			return true;
 		}
 		if($res = Phpcraft::httpPOST("https://authserver.mojang.com/refresh", [
-			"accessToken" => $profiles["authenticationDatabase"][$profiles["selectedUser"]["account"]]["accessToken"],
-			"clientToken" => $profiles["clientToken"]
-		]) && isset($res["accessToken"]))
+				"accessToken" => $profiles["authenticationDatabase"][$profiles["selectedUser"]["account"]]["accessToken"],
+				"clientToken" => $profiles["clientToken"]
+			]) && isset($res["accessToken"]))
 		{
 			$profiles["authenticationDatabase"][$profiles["selectedUser"]["account"]]["accessToken"] = $res["accessToken"];
 			Phpcraft::saveProfiles($profiles);
@@ -113,6 +119,7 @@ class Account
 	/**
 	 * Logs into Mojang or Minecraft account using password.
 	 * This function will write the obtained access token into the .minecraft/launcher_profiles.json so you can avoid the password prompt in the future using Account::loginUsingProfiles().
+	 *
 	 * @param string $password
 	 * @return string Error message. Empty on success.
 	 */

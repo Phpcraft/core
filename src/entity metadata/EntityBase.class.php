@@ -32,6 +32,7 @@ class EntityBase extends EntityMetadata
 	public $elytraing = null;
 	/**
 	 * Custom name of the entity; chat object.
+	 *
 	 * @var array $custom_name
 	 */
 	public $custom_name = null;
@@ -51,101 +52,102 @@ class EntityBase extends EntityMetadata
 		switch($index)
 		{
 			case 0:
-			$byte = $con->readByte();
-			$this->elytraing = false;
-			if($byte >= 0x80)
-			{
-				if($con->protocol_version >= 77)
+				$byte = $con->readByte();
+				$this->elytraing = false;
+				if($byte >= 0x80)
 				{
-					$this->elytraing = true;
+					if($con->protocol_version >= 77)
+					{
+						$this->elytraing = true;
+					}
+					$byte -= 0x80;
 				}
-				$byte -= 0x80;
-			}
-			$this->glowing = false;
-			if($byte >= 0x40)
-			{
-				if($con->protocol_version >= 49)
+				$this->glowing = false;
+				if($byte >= 0x40)
 				{
-					$this->glowing = false;
+					if($con->protocol_version >= 49)
+					{
+						$this->glowing = false;
+					}
+					$byte -= 0x40;
 				}
-				$byte -= 0x40;
-			}
-			if($byte >= 0x20)
-			{
-				$this->invisible = true;
-				$byte -= 0x20;
-			}
-			else
-			{
-				$this->invisible = false;
-			}
-			$this->swimming = false;
-			if($byte >= 0x10)
-			{
-				if($con->protocol_version >= 358)
+				if($byte >= 0x20)
 				{
-					$this->swimming = true;
-				}
-				$byte -= 0x10;
-			}
-			if($byte >= 0x08)
-			{
-				$this->sprinting = true;
-				$byte -= 0x08;
-			}
-			else
-			{
-				$this->sprinting = false;
-			}
-			if($byte >= 0x04)
-			{
-				$byte -= 0x04;
-			}
-			if($byte >= 0x02)
-			{
-				$this->crouching = true;
-				$byte -= 0x02;
-			}
-			else
-			{
-				$this->crouching = false;
-			}
-			if($byte >= 0x01)
-			{
-				$this->burning = true;
-			}
-			else
-			{
-				$this->burning = false;
-			}
-			return true;
-			case 2:
-			if($con->protocol_version >= 57)
-			{
-				$this->custom_name = $con->readBoolean() ? $con->readChat() : null;
-			}
-			else
-			{
-				$name = $con->readString();
-				if($name == "")
-				{
-					$this->custom_name = null;
+					$this->invisible = true;
+					$byte -= 0x20;
 				}
 				else
 				{
-					$this->custom_name = Phpcraft::textToChat($name);
+					$this->invisible = false;
 				}
-			}
-			return true;
+				$this->swimming = false;
+				if($byte >= 0x10)
+				{
+					if($con->protocol_version >= 358)
+					{
+						$this->swimming = true;
+					}
+					$byte -= 0x10;
+				}
+				if($byte >= 0x08)
+				{
+					$this->sprinting = true;
+					$byte -= 0x08;
+				}
+				else
+				{
+					$this->sprinting = false;
+				}
+				if($byte >= 0x04)
+				{
+					$byte -= 0x04;
+				}
+				if($byte >= 0x02)
+				{
+					$this->crouching = true;
+					$byte -= 0x02;
+				}
+				else
+				{
+					$this->crouching = false;
+				}
+				if($byte >= 0x01)
+				{
+					$this->burning = true;
+				}
+				else
+				{
+					$this->burning = false;
+				}
+				return true;
+			case 2:
+				if($con->protocol_version >= 57)
+				{
+					$this->custom_name = $con->readBoolean() ? $con->readChat() : null;
+				}
+				else
+				{
+					$name = $con->readString();
+					if($name == "")
+					{
+						$this->custom_name = null;
+					}
+					else
+					{
+						$this->custom_name = Phpcraft::textToChat($name);
+					}
+				}
+				return true;
 			case 4:
-			$this->silent = $con->readBoolean();
-			return true;
+				$this->silent = $con->readBoolean();
+				return true;
 		}
 		return false;
 	}
 
 	/**
 	 * Writes this non-null metadata values to the Connection's write buffer.
+	 *
 	 * @param Connection $con
 	 */
 	public function write(Connection $con)

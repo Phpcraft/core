@@ -7,12 +7,14 @@ class NbtList extends NbtTag implements Iterator, Countable
 	private $current = 0;
 	/**
 	 * The NBT tag type ID of children.
+	 *
 	 * @var integer $childType
 	 * @see NbtTag
 	 */
 	public $childType;
 	/**
 	 * The child tags of the list.
+	 *
 	 * @var array $children
 	 */
 	public $children;
@@ -31,6 +33,7 @@ class NbtList extends NbtTag implements Iterator, Countable
 
 	/**
 	 * Adds the NBT tag to the write buffer of the connection.
+	 *
 	 * @param Connection $con
 	 * @param boolean $inList Ignore this parameter.
 	 * @return Connection $con

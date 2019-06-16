@@ -4,11 +4,15 @@ if(empty($argv))
 {
 	die("This is for PHP-CLI. Connect to your server via SSH and use `php server.php`.\n");
 }
-
 require "vendor/autoload.php";
-use Phpcraft\{ServerChatEvent, ClientConnection, ServerJoinEvent, FancyUserInterface, Phpcraft, PluginManager, Server, ServerConsoleEvent, ServerPacketEvent, ServerTickEvent, ServerOnGroundChangeEvent, ServerFlyingChangeEvent, UserInterface, Versions};
-
-$options = ["offline" => false, "port" => 25565, "nocolor" => false, "plain" => false];
+use Phpcraft\
+{ClientConnection, FancyUserInterface, Phpcraft, PluginManager, Server, ServerChatEvent, ServerConsoleEvent, ServerFlyingChangeEvent, ServerJoinEvent, ServerOnGroundChangeEvent, ServerPacketEvent, ServerTickEvent, UserInterface, Versions};
+$options = [
+	"offline" => false,
+	"port" => 25565,
+	"nocolor" => false,
+	"plain" => false
+];
 for($i = 1; $i < count($argv); $i++)
 {
 	$arg = $argv[$i];
@@ -29,25 +33,22 @@ for($i = 1; $i < count($argv); $i++)
 	switch($n)
 	{
 		case "port":
-		$options[$n] = $v;
-		break;
-
+			$options[$n] = $v;
+			break;
 		case "offline":
 		case "nocolor":
 		case "plain":
-		$options[$n] = true;
-		break;
-
+			$options[$n] = true;
+			break;
 		case "?":
 		case "help":
-		echo "port=<port>  bind to port <port>\n";
-		echo "offline      disables online mode and allows cracked players\n";
-		echo "nocolor      disallows players to use '&' to write colorfully\n";
-		echo "plain        replaces the fancy user interface with a plain one\n";
-		exit;
-
+			echo "port=<port>  bind to port <port>\n";
+			echo "offline      disables online mode and allows cracked players\n";
+			echo "nocolor      disallows players to use '&' to write colorfully\n";
+			echo "plain        replaces the fancy user interface with a plain one\n";
+			exit;
 		default:
-		die("Unknown argument '{$n}' -- try 'help' for a list of arguments.\n");
+			die("Unknown argument '{$n}' -- try 'help' for a list of arguments.\n");
 	}
 }
 if(Phpcraft::isWindows())
@@ -62,22 +63,31 @@ if($options["offline"])
 }
 else
 {
-	$ui->add("Generating 1024-bit RSA keypair... ")->render();
-	$args = ["private_key_bits" => 1024, "private_key_type" => OPENSSL_KEYTYPE_RSA];
+	$ui->add("Generating 1024-bit RSA keypair... ")
+	   ->render();
+	$args = [
+		"private_key_bits" => 1024,
+		"private_key_type" => OPENSSL_KEYTYPE_RSA
+	];
 	if(Phpcraft::isWindows())
 	{
 		$args["config"] = __DIR__."/openssl.cnf";
 	}
 	$private_key = openssl_pkey_new($args) or die("Failed to generate private key.\n");
-	$ui->append("Done.")->render();
+	$ui->append("Done.")
+	   ->render();
 }
-$ui->add("Binding to port ".$options["port"]."... ")->render();
+$ui->add("Binding to port ".$options["port"]."... ")
+   ->render();
 $stream = stream_socket_server("tcp://0.0.0.0:".$options["port"], $errno, $errstr) or die(" {$errstr}\n");
 $server = new Server($stream, $private_key);
 $ui->input_prefix = "[Server] ";
-$ui->append("Success!")->add("Preparing cache... ")->render();
+$ui->append("Success!")
+   ->add("Preparing cache... ")
+   ->render();
 Phpcraft::populateCache();
-$ui->append("Done.")->render();
+$ui->append("Done.")
+   ->render();
 echo "Loading plugins...\n";
 PluginManager::loadPlugins();
 echo "Loaded ".count(PluginManager::$loaded_plugins)." plugin(s).\n";
@@ -130,7 +140,9 @@ $server->join_function = function(ClientConnection $con)
 			$c->writeByte(1);
 			$c->send();
 		}
-		catch(Exception $ignored){}
+		catch(Exception $ignored)
+		{
+		}
 	}
 };
 $server->packet_function = function(ClientConnection $con, $packet_name)
@@ -211,7 +223,9 @@ $server->packet_function = function(ClientConnection $con, $packet_name)
 				$c->writeByte(1);
 				$c->send();
 			}
-			catch(Exception $ignored){}
+			catch(Exception $ignored)
+			{
+			}
 		}
 	}
 };
@@ -242,7 +256,9 @@ $server->disconnect_function = function(ClientConnection $con)
 					$c->writeByte(1);
 					$c->send();
 				}
-				catch(Exception $ignored){}
+				catch(Exception $ignored)
+				{
+				}
 			}
 		}
 	}
@@ -281,7 +297,9 @@ do
 				$c->writeByte(1);
 				$c->send();
 			}
-			catch(Exception $ignored){}
+			catch(Exception $ignored)
+			{
+			}
 		}
 	}
 	PluginManager::fire(new ServerTickEvent($server));

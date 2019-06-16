@@ -4,39 +4,46 @@ class Server
 {
 	/**
 	 * The stream the server listens for new connections on.
+	 *
 	 * @var resource $stream
 	 */
 	public $stream;
 	/**
 	 * A private key generated using openssl_pkey_new(["private_key_bits" => 1024, "private_key_type" => OPENSSL_KEYTYPE_RSA]) to use for online mode, or null to use offline mode.
+	 *
 	 * @var resource $private_key
 	 */
 	public $private_key;
 	/**
 	 * A ClientConnection array of all clients that are connected to the server.
+	 *
 	 * @var array $clients
 	 * @see Server::getPlayers()
 	 */
 	public $clients = [];
 	/**
 	 * The counter used to assign entity IDs.
+	 *
 	 * @var Counter $eidCounter
 	 */
 	public $eidCounter;
 	/**
 	 * The function called when a client has entered state 3 (playing) with the ClientConnection as argument.
+	 *
 	 * @see Server::handle()
 	 * @var callable $join_function
 	 */
 	public $join_function = null;
 	/**
 	 * The function called when the server receives a packet from a client in state 3 (playing) unless it's a keep alive response with the ClientConnection, packet name, and packet id as parameters.
+	 *
 	 * @see Server::handle()
 	 * @var callable $packet_function
 	 */
 	public $packet_function = null;
 	/**
 	 * The function called when a client's disconnected from the server with the ClientConnection as argument.
+	 *
 	 * @see Server::handle()
 	 * @var callable $disconnect_function
 	 */
@@ -44,6 +51,7 @@ class Server
 	/**
 	 * The function called when to get the server's response to a list ping request with the ClientConnection as argument.
 	 * See Phpcraft::getServerStatus for an example of all the data a server may respond with (excluding "ping").
+	 *
 	 * @see Server::accept()
 	 * @see Server::handle()
 	 * @var callable $list_ping_function
@@ -96,6 +104,7 @@ class Server
 
 	/**
 	 * Returns whether the server socket is open or not.
+	 *
 	 * @return boolean
 	 */
 	public function isOpen()
@@ -105,6 +114,7 @@ class Server
 
 	/**
 	 * Accepts new clients and processes each client's first packet.
+	 *
 	 * @return Server $this
 	 */
 	public function accept()
@@ -118,33 +128,32 @@ class Server
 				switch($con->handleInitialPacket())
 				{
 					case 1:
-					if($con->state == 1)
-					{
-						$con->disconnect_after = microtime(true) + 10;
-					}
-					array_push($this->clients, $con);
-					break;
-
+						if($con->state == 1)
+						{
+							$con->disconnect_after = microtime(true) + 10;
+						}
+						array_push($this->clients, $con);
+						break;
 					case 2: // Legacy List Ping
-					$json = ($this->list_ping_function)($con);
-					if(!isset($json["players"]))
-					{
-						$json["players"] = [];
-					}
-					if(!isset($json["players"]["online"]))
-					{
-						$json["players"]["online"] = 0;
-					}
-					if(!isset($json["players"]["max"]))
-					{
-						$json["players"]["max"] = 0;
-					}
-					$data = "§1\x00127\x00".@$json["version"]["name"]."\x00".Phpcraft::chatToText(@$json["description"], 2)."\x00".$json["players"]["online"]."\x00".$json["players"]["max"];
-					$con->writeByte(0xFF);
-					$con->writeShort(mb_strlen($data));
-					$con->writeRaw(mb_convert_encoding($data, "utf-16be"));
-					$con->send(true);
-					$con->close();
+						$json = ($this->list_ping_function)($con);
+						if(!isset($json["players"]))
+						{
+							$json["players"] = [];
+						}
+						if(!isset($json["players"]["online"]))
+						{
+							$json["players"]["online"] = 0;
+						}
+						if(!isset($json["players"]["max"]))
+						{
+							$json["players"]["max"] = 0;
+						}
+						$data = "§1\x00127\x00".@$json["version"]["name"]."\x00".Phpcraft::chatToText(@$json["description"], 2)."\x00".$json["players"]["online"]."\x00".$json["players"]["max"];
+						$con->writeByte(0xFF);
+						$con->writeShort(mb_strlen($data));
+						$con->writeRaw(mb_convert_encoding($data, "utf-16be"));
+						$con->send(true);
+						$con->close();
 				}
 			}
 			catch(IOException $ignored)
@@ -162,6 +171,7 @@ class Server
 	 * Deals with all connected clients.
 	 * This includes responding to status requests, dealing with keep alive packets, and closing dead connections.
 	 * This does not include implementing an entire server; that is what the packet_function is for.
+	 *
 	 * @return Server $this
 	 */
 	public function handle()
@@ -290,6 +300,7 @@ class Server
 
 	/**
 	 * Returns all clients in state 3 (playing).
+	 *
 	 * @return ClientConnection[]
 	 */
 	public function getPlayers()
@@ -307,6 +318,7 @@ class Server
 
 	/**
 	 * Closes all client connections and the server socket.
+	 *
 	 * @param array|string $reason The reason for closing the server; chat object.
 	 */
 	public function close($reason = [])

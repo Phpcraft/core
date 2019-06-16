@@ -2,12 +2,14 @@
 namespace Phpcraft;
 /**
  * The event emitted by the server when a client's flying value has changed. Not cancellable.
+ *
  * @see ClientConnection::flying
  */
 class ServerFlyingChangeEvent extends ServerClientEvent
 {
 	/**
 	 * The client's flying value before the change.
+	 *
 	 * @var boolean $old_value
 	 */
 	public $old_value;

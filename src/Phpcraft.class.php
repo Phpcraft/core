@@ -5,6 +5,7 @@ abstract class Phpcraft
 {
 	/**
 	 * Returns the path of the .minecraft folder without a folder seperator at the end.
+	 *
 	 * @return string
 	 */
 	public static function getMinecraftFolder()
@@ -38,6 +39,7 @@ abstract class Phpcraft
 
 	/**
 	 * Returns true if the code is running on a Windows machine.
+	 *
 	 * @return boolean
 	 */
 	public static function isWindows()
@@ -47,6 +49,7 @@ abstract class Phpcraft
 
 	/**
 	 * Returns the path of Minecraft's launcher_profiles.json.
+	 *
 	 * @return string
 	 */
 	public static function getProfilesFile()
@@ -56,6 +59,7 @@ abstract class Phpcraft
 
 	/**
 	 * Returns the contents of Minecraft's launcher_profiles.json with some values being set if they are unset.
+	 *
 	 * @return array
 	 * @see Phpcraft::getProfilesFile()
 	 * @see Phpcraft::saveProfiles()
@@ -73,7 +77,8 @@ abstract class Phpcraft
 		}
 		if(empty($profiles["clientToken"]))
 		{
-			$profiles["clientToken"] = UUID::v4()->__toString();
+			$profiles["clientToken"] = UUID::v4()
+										   ->__toString();
 		}
 		if(!isset($profiles["selectedUser"]))
 		{
@@ -88,6 +93,7 @@ abstract class Phpcraft
 
 	/**
 	 * Saves the profiles array into Minecraft's launcher_profiles.json.
+	 *
 	 * @param array $profiles
 	 */
 	public static function saveProfiles(array $profiles)
@@ -99,6 +105,7 @@ abstract class Phpcraft
 
 	/**
 	 * Returns the contents of a JSON file as associative array with additional memory and disk caching levels.
+	 *
 	 * @param string $url The URL of the resource.
 	 * @param integer $caching_duration How long the resource should be kept in the cache, in seconds. (Default: 31 days)
 	 * @return array
@@ -116,6 +123,7 @@ abstract class Phpcraft
 
 	/**
 	 * Returns the contents of a resource with an additional disk caching level.
+	 *
 	 * @param string $url The URL of the resource.
 	 * @param integer $caching_duration How long the resource should be kept in the cache, in seconds. (Default: 1 day)
 	 * @return string
@@ -143,6 +151,7 @@ abstract class Phpcraft
 
 	/**
 	 * Deletes expired cache entries.
+	 *
 	 * @see getCachableJson
 	 * @see getCachableResource
 	 */
@@ -188,6 +197,7 @@ abstract class Phpcraft
 
 	/**
 	 * Validates an in-game name.
+	 *
 	 * @param string $name
 	 * @return boolean True if the name is valid.
 	 */
@@ -197,7 +207,19 @@ abstract class Phpcraft
 		{
 			return false;
 		}
-		$allowed_characters = ["_", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+		$allowed_characters = [
+			"_",
+			"0",
+			"1",
+			"2",
+			"3",
+			"4",
+			"5",
+			"6",
+			"7",
+			"8",
+			"9"
+		];
 		foreach(range("a", "z") as $char)
 		{
 			array_push($allowed_characters, $char);
@@ -219,6 +241,7 @@ abstract class Phpcraft
 	/**
 	 * Sends an HTTP POST request with a JSON payload.
 	 * The response will always contain a "status" value which will be the HTTP response code, e.g. 200.
+	 *
 	 * @param string $url
 	 * @param array $data
 	 * @return array
@@ -246,6 +269,7 @@ abstract class Phpcraft
 
 	/**
 	 * Resolves the given address.
+	 *
 	 * @param string $server The server address, e.g. localhost
 	 * @return string The resolved address, e.g. localhost:25565
 	 */
@@ -271,9 +295,10 @@ abstract class Phpcraft
 
 	/**
 	 * Converts a number to a VarInt binary string.
-	 * @deprecated Replaced by Connection::varInt
+	 *
 	 * @param GMP|string|integer $value
 	 * @return string
+	 * @deprecated Replaced by Connection::varInt
 	 */
 	public static function intToVarInt($value)
 	{
@@ -298,6 +323,7 @@ abstract class Phpcraft
 	/**
 	 * Generates a Minecraft-style SHA1 hash.
 	 * This function requires GMP to be installed, but is only needed when going online.
+	 *
 	 * @param string $str
 	 * @return string
 	 */
@@ -313,6 +339,7 @@ abstract class Phpcraft
 
 	/**
 	 * Converts a string using § format codes into a chat object.
+	 *
 	 * @param string $str
 	 * @param boolean $allowAmp If true, '&' will be handled like '§'.
 	 * @param integer $i Ignore this parameter.
@@ -333,7 +360,10 @@ abstract class Phpcraft
 				array_push($extras, Phpcraft::textToChat($str, $allowAmp, $i, true));
 				$i++;
 			}
-			return ["text" => "", "extra" => $extras];
+			return [
+				"text" => "",
+				"extra" => $extras
+			];
 		}
 		$colors = [
 			"0" => "black",
@@ -433,6 +463,7 @@ abstract class Phpcraft
 
 	/**
 	 * Converts a chat object into text.
+	 *
 	 * @param array|string $chat The chat object as an array or string.
 	 * @param integer $format The formatting to convert to: <ul><li>0: None (drop colors and formatting)</li><li>1: ANSI escape codes (for compatible consoles/shells)</li><li>2: Legacy paragraph (§) format</li><li>3: Even more legacy ampersand (&) format</li><li>4: HTML</li></ul>
 	 * @param array $translations The translations array so translated messages look proper.
@@ -598,7 +629,24 @@ abstract class Phpcraft
 						$closing_tags .= "</span>";
 					}
 				}
-				else if(($i = array_search($chat["color"], ["black","dark_blue","dark_green","dark_aqua","dark_red","dark_purple","gold","gray","dark_gray","blue","green","aqua","red","light_purple","yellow","white"])) !== false)
+				else if(($i = array_search($chat["color"], [
+						"black",
+						"dark_blue",
+						"dark_green",
+						"dark_aqua",
+						"dark_red",
+						"dark_purple",
+						"gold",
+						"gray",
+						"dark_gray",
+						"blue",
+						"green",
+						"aqua",
+						"red",
+						"light_purple",
+						"yellow",
+						"white"
+					])) !== false)
 				{
 					$text .= ($format == 2 ? "§" : "&").dechex(intval($i));
 				}
@@ -670,10 +718,9 @@ abstract class Phpcraft
 	 *   "favicon" => "data:image/png;base64,&lt;data&gt;",
 	 *   "ping" => 0.068003177642822
 	 * ]</pre>
-	 *
 	 * Note that a server might not present all of these values, so always check with `isset` first.
-	 *
 	 * Also, the `description` is a chat object, so you can pass it to Phpcraft::chatToText().
+	 *
 	 * @param string $server_name
 	 * @param integer $server_port
 	 * @param float $timeout The amount of seconds to wait for a response with each method.
@@ -744,6 +791,7 @@ abstract class Phpcraft
 
 	/**
 	 * Calculates the "distance" between two RGB arrays (each 3 integers).
+	 *
 	 * @param $rgb1 integer[]
 	 * @param $rgb2 integer[]
 	 * @return integer
@@ -755,6 +803,7 @@ abstract class Phpcraft
 
 	/**
 	 * Recursively deletes a folder.
+	 *
 	 * @param string $path
 	 */
 	public static function recursivelyDelete(string $path)
@@ -771,7 +820,10 @@ abstract class Phpcraft
 		{
 			foreach(scandir($path) as $file)
 			{
-				if(!in_array($file, [".", ".."]))
+				if(!in_array($file, [
+					".",
+					".."
+				]))
 				{
 					Phpcraft::recursivelyDelete($path."/".$file);
 				}

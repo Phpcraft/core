@@ -1,7 +1,15 @@
 {
 	"name": "timmyrs/phpcraft",
 	"description": "A PHP library for all things Minecraft: Java Edition.",
-	"keywords": ["minecraft-api", "minecraft-library", "nbt-library", "minecraft-protocol", "mcje", "minecraft-java", "minecraft"],
+	"keywords": [
+		"minecraft-api",
+		"minecraft-library",
+		"nbt-library",
+		"minecraft-protocol",
+		"mcje",
+		"minecraft-java",
+		"minecraft"
+	],
 	"homepage": "https://github.com/timmyrs/Phpcraft",
 	"type": "library",
 	"license": "MIT",

@@ -5,16 +5,13 @@ if(empty($argv))
 {
 	die("This is for PHP-CLI. Connect to your server via SSH and use `php client.php`.\n");
 }
-
 require "vendor/autoload.php";
 use Phpcraft\
 {Account, AssetsManager, ClientboundPacket, ClientConsoleEvent, ClientJoinEvent, ClientPacketEvent, FancyUserInterface, KeepAliveRequestPacket, Phpcraft, PluginManager, Position, ServerboundBrandPluginMessagePacket, ServerConnection, UserInterface, Versions};
-
 if(Phpcraft::isWindows() && !in_array("help", $argv))
 {
 	die("I'm sorry, due to a bug in PHP's Windows port <https://bugs.php.net/bug.php?id=34972>, you'll have to use the Windows Subsystem for Linux <https://aka.ms/wslinstall> to use the PHP Minecraft Client.\n");
 }
-
 $options = [];
 for($i = 1; $i < count($argv); $i++)
 {
@@ -37,46 +34,44 @@ for($i = 1; $i < count($argv); $i++)
 	{
 		case "plain":
 		case "noreconnect":
-		$options[$n] = true;
-		break;
-
-		case "online":
-		if($v == "on")
-		{
 			$options[$n] = true;
-		}
-		else if($v == "off")
-		{
-			$options[$n] = false;
-		}
-		else die("Value for argument '{$n}' has to be either 'on' or 'off'.\n");
-		break;
-
+			break;
+		case "online":
+			if($v == "on")
+			{
+				$options[$n] = true;
+			}
+			else if($v == "off")
+			{
+				$options[$n] = false;
+			}
+			else
+			{
+				die("Value for argument '{$n}' has to be either 'on' or 'off'.\n");
+			}
+			break;
 		case "name":
 		case "server":
 		case "lang":
 		case "joinmsg":
 		case "version":
-		$options[$n] = $v;
-		break;
-
+			$options[$n] = $v;
+			break;
 		case "?":
 		case "help":
-		echo "online=<on/off>   set online or offline mode\n";
-		echo "name=<name>       skip name input and use <name> as name\n";
-		echo "server=<server>   skip server input and connect to <server>\n";
-		echo "lang=<lang>       use Minecraft language <lang>, default: en_GB\n";
-		echo "joinmsg=<msg>     as soon as connected, <msg> will be handled\n";
-		echo "version=<version> don't check server version, connect using <version>\n";
-		echo "plain             replaces the fancy user interface with a plain one\n";
-		echo "noreconnect       don't reconnect when server disconnects\n";
-		exit;
-
+			echo "online=<on/off>   set online or offline mode\n";
+			echo "name=<name>       skip name input and use <name> as name\n";
+			echo "server=<server>   skip server input and connect to <server>\n";
+			echo "lang=<lang>       use Minecraft language <lang>, default: en_GB\n";
+			echo "joinmsg=<msg>     as soon as connected, <msg> will be handled\n";
+			echo "version=<version> don't check server version, connect using <version>\n";
+			echo "plain             replaces the fancy user interface with a plain one\n";
+			echo "noreconnect       don't reconnect when server disconnects\n";
+			exit;
 		default:
-		die("Unknown argument '{$n}' -- try 'help' for a list of arguments.\n");
+			die("Unknown argument '{$n}' -- try 'help' for a list of arguments.\n");
 	}
 }
-
 $am = AssetsManager::fromMinecraftVersion(Versions::minecraft()[0]);
 if(empty($options["lang"]))
 {
@@ -92,7 +87,7 @@ else
 	}
 	else
 	{
-		$options["lang"] = strtolower($arr[0])."_".strtoupper($arr[1]);		
+		$options["lang"] = strtolower($arr[0])."_".strtoupper($arr[1]);
 		if(!$am->doesAssetExist("minecraft/lang/".strtolower($options["lang"]).".json"))
 		{
 			echo "Couldn't find translations for ".$options["lang"].", using en_GB.\n";
@@ -101,10 +96,8 @@ else
 	}
 }
 $translations = json_decode(file_get_contents($am->downloadAsset("minecraft/lang/".strtolower($options["lang"]).".json")), true);
-
 $stdin = fopen("php://stdin", "r") or die("Failed to open php://stdin\n");
 stream_set_blocking($stdin, true);
-
 $online = false;
 if(isset($options["online"]) && $options["online"] === true)
 {
@@ -118,7 +111,6 @@ else if(!isset($options["online"]))
 		$online = true;
 	}
 }
-
 $name = "";
 if(isset($options["name"]))
 {
@@ -152,7 +144,9 @@ if($online && !$account->loginUsingProfiles())
 {
 	do
 	{
-		readline_callback_handler_install("What's your account password? (hidden) ", function(){});
+		readline_callback_handler_install("What's your account password? (hidden) ", function()
+		{
+		});
 		if(!($pass = trim(fgets($stdin))))
 		{
 			echo "No password provided.\n";
@@ -170,7 +164,6 @@ if($online && !$account->loginUsingProfiles())
 	while(true);
 	readline_callback_handler_remove();
 }
-
 $server = "";
 if(isset($options["server"]))
 {
@@ -187,27 +180,32 @@ if(!$server)
 }
 fclose($stdin);
 $ui = (isset($options["plain"]) ? new UserInterface() : new FancyUserInterface("PHP Minecraft Client", "github.com/timmyrs/Phpcraft"));
-$ui->add("Resolving... ")->render();
+$ui->add("Resolving... ")
+   ->render();
 $server = Phpcraft::resolve($server);
 $serverarr = explode(":", $server);
 if(count($serverarr) != 2)
 {
-	$ui->append("Failed to resolve name. Got {$server}")->render();
+	$ui->append("Failed to resolve name. Got {$server}")
+	   ->render();
 	exit;
 }
-$ui->append("Resolved to {$server}")->render();
+$ui->append("Resolved to {$server}")
+   ->render();
 if(empty($options["version"]))
 {
 	$info = Phpcraft::getServerStatus($serverarr[0], intval($serverarr[1]), 3, 1);
 	if(empty($info) || empty($info["version"]) || empty($info["version"]["protocol"]))
 	{
-		$ui->add("Invalid status: ".json_encode($info))->render();
+		$ui->add("Invalid status: ".json_encode($info))
+		   ->render();
 		exit;
 	}
 	$protocol_version = $info["version"]["protocol"];
 	if(!($minecraft_versions = Versions::protocolToMinecraft($protocol_version)))
 	{
-		$ui->add("This server uses an unknown protocol version: {$protocol_version}")->render();
+		$ui->add("This server uses an unknown protocol version: {$protocol_version}")
+		   ->render();
 		exit;
 	}
 	$minecraft_version = $minecraft_versions[0];
@@ -216,15 +214,18 @@ else
 {
 	$minecraft_version = $options["version"];
 	$protocol_version = Versions::minecraftToProtocol($minecraft_version);
-	if($protocol_version === NULL)
+	if($protocol_version === null)
 	{
-		$ui->add("Unknown Minecraft version: {$minecraft_version}")->render();
+		$ui->add("Unknown Minecraft version: {$minecraft_version}")
+		   ->render();
 		exit;
 	}
 }
-$ui->add("Preparing cache... ")->render();
+$ui->add("Preparing cache... ")
+   ->render();
 Phpcraft::populateCache();
-$ui->append("Done.")->render();
+$ui->append("Done.")
+   ->render();
 function loadPlugins()
 {
 	global $ui;
@@ -234,6 +235,7 @@ function loadPlugins()
 	echo "Loaded ".count(PluginManager::$loaded_plugins)." plugin(s).\n";
 	$ui->render();
 }
+
 loadPlugins();
 function handleConsoleMessage(string $msg)
 {
@@ -263,226 +265,212 @@ function handleConsoleMessage(string $msg)
 		{
 			case "?":
 			case "help":
-			$ui->add("Yay! You've found commands, which start with a period.");
-			$ui->add("If you want to send a message starting with a period, use two periods.");
-			$ui->add("?, help                    shows this help");
-			$ui->add("pos                        returns the current position");
-			$ui->add("move <y>, move <x> [y] <z> initates movement");
-			$ui->add("rot <yaw> <pitch>          change yaw and pitch degrees");
-			$ui->add("list                       lists all players in the player list");
-			$ui->add("entities                   lists all player entities");
-			$ui->add("follow <name>              follows <name>'s player entity");
-			$ui->add("unfollow                   stops following whoever is being followed");
-			$ui->add("slot <1-9>                 sets selected hotbar slot");
-			$ui->add("hit                        swings the main hand");
-			$ui->add("use                        uses the held item");
-			$ui->add("reload                     reloads all autoloaded plugins");
-			$ui->add("reconnect                  reconnects to the server");
-			$ui->add("quit, disconnect           disconnects from the server");
-			break;
-
+				$ui->add("Yay! You've found commands, which start with a period.");
+				$ui->add("If you want to send a message starting with a period, use two periods.");
+				$ui->add("?, help                    shows this help");
+				$ui->add("pos                        returns the current position");
+				$ui->add("move <y>, move <x> [y] <z> initates movement");
+				$ui->add("rot <yaw> <pitch>          change yaw and pitch degrees");
+				$ui->add("list                       lists all players in the player list");
+				$ui->add("entities                   lists all player entities");
+				$ui->add("follow <name>              follows <name>'s player entity");
+				$ui->add("unfollow                   stops following whoever is being followed");
+				$ui->add("slot <1-9>                 sets selected hotbar slot");
+				$ui->add("hit                        swings the main hand");
+				$ui->add("use                        uses the held item");
+				$ui->add("reload                     reloads all autoloaded plugins");
+				$ui->add("reconnect                  reconnects to the server");
+				$ui->add("quit, disconnect           disconnects from the server");
+				break;
 			case "pos":
-			global $x, $y, $z;
-			$ui->add("$x $y $z");
-			break;
-
+				global $x, $y, $z;
+				$ui->add("$x $y $z");
+				break;
 			case "move":
-			global $followEntity;
-			if($followEntity !== false)
-			{
-				$ui->add("I'm currently following someone.");
-			}
-			else
-			{
-				global $motion_x, $motion_y, $motion_z;
-				if(isset($args[1]) && isset($args[2]) && isset($args[3]))
+				global $followEntity;
+				if($followEntity !== false)
 				{
-					$motion_x += doubleval($args[1]);
-					$motion_y += doubleval($args[2]);
-					$motion_z += doubleval($args[3]);
-					$ui->add("Understood.");
-				}
-				else if(isset($args[1]) && isset($args[2]))
-				{
-					$motion_x += doubleval($args[1]);
-					$motion_z += doubleval($args[2]);
-					$ui->add("Understood.");
-				}
-				else if(isset($args[1]))
-				{
-					$motion_y += doubleval($args[1]);
-					$ui->add("Understood.");
+					$ui->add("I'm currently following someone.");
 				}
 				else
 				{
-					$ui->add("Syntax: .move <y>, .move <x> [y] <z>");
-				}
-			}
-			break;
-
-			case "rot":
-			global $followEntity;
-			if($followEntity !== false)
-			{
-				$ui->add("I'm currently following someone.");
-			}
-			else if(isset($args[1]) && isset($args[2]))
-			{
-				global $yaw, $pitch;
-				$yaw = floatval($args[1]);
-				$pitch = floatval($args[2]);
-				$ui->add("Understood.");
-			}
-			else
-			{
-				$ui->add("Syntax: .rot <yaw> <pitch>");
-			}
-			break;
-
-			case "hit":
-			$con->startPacket("animation");
-			if($con->protocol_version > 47)
-			{
-				$con->writeVarInt(0);
-			}
-			$con->send();
-			$ui->add("Done.");
-			break;
-
-			case "use":
-			global $x, $y, $z;
-			if($con->protocol_version > 47)
-			{
-				$con->startPacket("use_item");
-				$con->writeVarInt(0);
-			}
-			else
-			{
-				$con->startPacket("player_block_placement");
-				$con->writePosition(new Position($x, $y, $z));
-				$con->writeByte(-1); // Face
-				$con->writeShort(-1); // Slot
-				$con->writeByte(-1); // Cursor X
-				$con->writeByte(-1); // Cursor Y
-				$con->writeByte(-1); // Cursor Z
-			}
-			$con->send();
-			$ui->add("Done.");
-			break;
-
-			case "list":
-			$gamemodes = [
-				0 => "Survival",
-				1 => "Creative",
-				2 => "Adventure",
-				3 => "Spectator"
-			];
-			global $players;
-			foreach($players as $uuid => $player)
-			{
-				$ui->add($uuid."  ".$player["name"].str_repeat(" ", 17 - strlen($player["name"])).str_repeat(" ", 5 - strlen($player["ping"])).$player["ping"]." ms  ".$gamemodes[$player["gamemode"]]." Mode");
-			}
-			break;
-
-			case "entities":
-			global $entities;
-			foreach($entities as $eid => $entity)
-			{
-				$ui->add($eid." ".$entity["x"]." ".$entity["y"]." ".$entity["z"]);
-			}
-			break;
-
-			case "follow":
-			if(isset($args[1]))
-			{
-				$username = null;
-				$uuids = [];
-				global $players;
-				foreach($players as $uuid => $player)
-				{
-					if(stristr($player["name"], $args[1]))
+					global $motion_x, $motion_y, $motion_z;
+					if(isset($args[1]) && isset($args[2]) && isset($args[3]))
 					{
-						$uuids[$player["name"]] = $uuid;
-						$username = $player["name"];
+						$motion_x += doubleval($args[1]);
+						$motion_y += doubleval($args[2]);
+						$motion_z += doubleval($args[3]);
+						$ui->add("Understood.");
 					}
-				}
-				if($username == null)
-				{
-					$ui->add("Couldn't find ".$args[1]);
-				}
-				else if(count($uuids) > 1)
-				{
-					$ui->add("Ambiguous name; found: ".join(", ", array_keys($uuids)));
-				}
-				else
-				{
-					global $followEntity, $entities;
-					$followEntity = false;
-					$uuid = $uuids[$username];
-					foreach($entities as $eid => $entity)
+					else if(isset($args[1]) && isset($args[2]))
 					{
-						if($entity["uuid"] == $uuid)
-						{
-							$followEntity = $eid;
-						}
+						$motion_x += doubleval($args[1]);
+						$motion_z += doubleval($args[2]);
+						$ui->add("Understood.");
 					}
-					if($followEntity === false)
+					else if(isset($args[1]))
 					{
-						$ui->add("Couldn't find {$username}'s entity");
+						$motion_y += doubleval($args[1]);
+						$ui->add("Understood.");
 					}
 					else
 					{
-						$ui->add("Understood.");
+						$ui->add("Syntax: .move <y>, .move <x> [y] <z>");
 					}
 				}
-			}
-			else
-			{
-				$ui->add("Syntax: .follow <name>");
-			}
-			break;
-
-			case "unfollow":
-			global $followEntity;
-			$followEntity = false;
-			$ui->add("Done.");
-			break;
-
-			case "slot":
-			$slot = 0;
-			if(isset($args[1]))
-			{
-				$slot = intval($args[1]);
-			}
-			if($slot < 1 || $slot > 9)
-			{
-				$ui->add("Syntax: .slot <1-9>");
 				break;
-			}
-			$con->startPacket("held_item_change");
-			$con->writeShort($slot - 1);
-			$con->send();
-			$ui->add("Done.");
-			break;
-
+			case "rot":
+				global $followEntity;
+				if($followEntity !== false)
+				{
+					$ui->add("I'm currently following someone.");
+				}
+				else if(isset($args[1]) && isset($args[2]))
+				{
+					global $yaw, $pitch;
+					$yaw = floatval($args[1]);
+					$pitch = floatval($args[2]);
+					$ui->add("Understood.");
+				}
+				else
+				{
+					$ui->add("Syntax: .rot <yaw> <pitch>");
+				}
+				break;
+			case "hit":
+				$con->startPacket("animation");
+				if($con->protocol_version > 47)
+				{
+					$con->writeVarInt(0);
+				}
+				$con->send();
+				$ui->add("Done.");
+				break;
+			case "use":
+				global $x, $y, $z;
+				if($con->protocol_version > 47)
+				{
+					$con->startPacket("use_item");
+					$con->writeVarInt(0);
+				}
+				else
+				{
+					$con->startPacket("player_block_placement");
+					$con->writePosition(new Position($x, $y, $z));
+					$con->writeByte(-1); // Face
+					$con->writeShort(-1); // Slot
+					$con->writeByte(-1); // Cursor X
+					$con->writeByte(-1); // Cursor Y
+					$con->writeByte(-1); // Cursor Z
+				}
+				$con->send();
+				$ui->add("Done.");
+				break;
+			case "list":
+				$gamemodes = [
+					0 => "Survival",
+					1 => "Creative",
+					2 => "Adventure",
+					3 => "Spectator"
+				];
+				global $players;
+				foreach($players as $uuid => $player)
+				{
+					$ui->add($uuid."  ".$player["name"].str_repeat(" ", 17 - strlen($player["name"])).str_repeat(" ", 5 - strlen($player["ping"])).$player["ping"]." ms  ".$gamemodes[$player["gamemode"]]." Mode");
+				}
+				break;
+			case "entities":
+				global $entities;
+				foreach($entities as $eid => $entity)
+				{
+					$ui->add($eid." ".$entity["x"]." ".$entity["y"]." ".$entity["z"]);
+				}
+				break;
+			case "follow":
+				if(isset($args[1]))
+				{
+					$username = null;
+					$uuids = [];
+					global $players;
+					foreach($players as $uuid => $player)
+					{
+						if(stristr($player["name"], $args[1]))
+						{
+							$uuids[$player["name"]] = $uuid;
+							$username = $player["name"];
+						}
+					}
+					if($username == null)
+					{
+						$ui->add("Couldn't find ".$args[1]);
+					}
+					else if(count($uuids) > 1)
+					{
+						$ui->add("Ambiguous name; found: ".join(", ", array_keys($uuids)));
+					}
+					else
+					{
+						global $followEntity, $entities;
+						$followEntity = false;
+						$uuid = $uuids[$username];
+						foreach($entities as $eid => $entity)
+						{
+							if($entity["uuid"] == $uuid)
+							{
+								$followEntity = $eid;
+							}
+						}
+						if($followEntity === false)
+						{
+							$ui->add("Couldn't find {$username}'s entity");
+						}
+						else
+						{
+							$ui->add("Understood.");
+						}
+					}
+				}
+				else
+				{
+					$ui->add("Syntax: .follow <name>");
+				}
+				break;
+			case "unfollow":
+				global $followEntity;
+				$followEntity = false;
+				$ui->add("Done.");
+				break;
+			case "slot":
+				$slot = 0;
+				if(isset($args[1]))
+				{
+					$slot = intval($args[1]);
+				}
+				if($slot < 1 || $slot > 9)
+				{
+					$ui->add("Syntax: .slot <1-9>");
+					break;
+				}
+				$con->startPacket("held_item_change");
+				$con->writeShort($slot - 1);
+				$con->send();
+				$ui->add("Done.");
+				break;
 			case "reload":
-			loadPlugins();
-			break;
-
+				loadPlugins();
+				break;
 			case "reconnect":
-			global $reconnect;
-			$reconnect = true;
-			break;
-
+				global $reconnect;
+				$reconnect = true;
+				break;
 			case "quit":
 			case "disconnect":
-			global $options;
-			$options["noreconnect"] = true;
-			$con->close();
-			break;
-
+				global $options;
+				$options["noreconnect"] = true;
+				$con->close();
+				break;
 			default:
-			$ui->add("Unknown command '.".$args[0]."' -- use '.help' for a list of commands.");
+				$ui->add("Unknown command '.".$args[0]."' -- use '.help' for a list of commands.");
 		}
 	}
 	if($send)
@@ -493,6 +481,7 @@ function handleConsoleMessage(string $msg)
 		$con->send();
 	}
 }
+
 $ui->tabcomplete_function = function(string $word)
 {
 	global $players;
@@ -510,18 +499,23 @@ $ui->tabcomplete_function = function(string $word)
 };
 do
 {
-	$ui->add("Connecting using {$minecraft_version}... ")->render();
+	$ui->add("Connecting using {$minecraft_version}... ")
+	   ->render();
 	$stream = fsockopen($serverarr[0], intval($serverarr[1]), $errno, $errstr, 3) or die($errstr."\n");
 	$con = new ServerConnection($stream, $protocol_version);
 	$con->sendHandshake($serverarr[0], intval($serverarr[1]), 2);
-	$ui->append("Connection established.")->add("Logging in... ")->render();
+	$ui->append("Connection established.")
+	   ->add("Logging in... ")
+	   ->render();
 	if($error = $con->login($account, $translations))
 	{
-		$ui->add($error)->render();
+		$ui->add($error)
+		   ->render();
 		exit;
 	}
 	$ui->input_prefix = "<{$account->username}> ";
-	$ui->append("Success!")->render();
+	$ui->append("Success!")
+	   ->render();
 	PluginManager::fire(new ClientJoinEvent($con));
 	$ui->add("");
 	$reconnect = false;
@@ -572,7 +566,8 @@ do
 				$amount = gmp_intval($con->readVarInt());
 				for($i = 0; $i < $amount; $i++)
 				{
-					$uuid = $con->readUuid()->__toString();
+					$uuid = $con->readUuid()
+								->__toString();
 					if($action == 0)
 					{
 						$username = $con->readString();
@@ -622,7 +617,8 @@ do
 					if($protocol_version > 47)
 					{
 						$entities[$eid] = [
-							"uuid" => $con->readUuid()->__toString(),
+							"uuid" => $con->readUuid()
+										  ->__toString(),
 							"x" => $con->readDouble(),
 							"y" => $con->readDouble(),
 							"z" => $con->readDouble(),
@@ -633,7 +629,8 @@ do
 					else
 					{
 						$entities[$eid] = [
-							"uuid" => $con->readUuid()->__toString(),
+							"uuid" => $con->readUuid()
+										  ->__toString(),
 							"x" => gmp_intval($con->readInt()) / 32,
 							"y" => gmp_intval($con->readInt()) / 32,
 							"z" => gmp_intval($con->readInt()) / 32,
@@ -735,7 +732,9 @@ do
 			}
 			else if($packet_name == "keep_alive_request")
 			{
-				KeepAliveRequestPacket::read($con)->getResponse()->send($con);
+				KeepAliveRequestPacket::read($con)
+									  ->getResponse()
+									  ->send($con);
 			}
 			else if($packet_name == "teleport")
 			{
@@ -856,12 +855,14 @@ do
 			{
 				if($con->readByte() == 7 && $con->readFloat() > 1)
 				{
-					$ui->add("The server just sent a packet that would crash a vanilla client.")->render();
+					$ui->add("The server just sent a packet that would crash a vanilla client.")
+					   ->render();
 				}
 			}
 			else if($packet_name == "disconnect")
 			{
-				$ui->add("Server closed connection: ".Phpcraft::chatToText($con->readString(), 1))->render();
+				$ui->add("Server closed connection: ".Phpcraft::chatToText($con->readString(), 1))
+				   ->render();
 				$reconnect = !isset($options["noreconnect"]);
 				$next_tick = microtime(true) + 10;
 			}

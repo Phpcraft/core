@@ -4,6 +4,7 @@ class RemoveBossBarPacket extends BossBarPacket
 {
 	/**
 	 * Adds the packet's ID and payload to the Connection's write buffer and, if the connection has a stream, sends it over the wire.
+	 *
 	 * @param Connection $con
 	 * @throws IOException
 	 */

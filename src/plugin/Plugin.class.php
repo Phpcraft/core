@@ -9,11 +9,13 @@ class Plugin
 {
 	/**
 	 * Tha name of the plugin.
+	 *
 	 * @var string $name
 	 */
 	public $name;
 	/**
 	 * An associative array of associative arrays with a 'function' and 'priority'.
+	 *
 	 * @var array $event_handlers
 	 */
 	public $event_handlers = [];
@@ -28,6 +30,7 @@ class Plugin
 
 	/**
 	 * Defines a function to be called to handle the given event.
+	 *
 	 * @param callable $callable The function. The first parameter should explicitly declare its type to be a decendant of Event.
 	 * @param integer $priority The priority of the event handler. The higher the priority, the earlier it will be executed. Use a high value if you plan to cancel the event.
 	 * @return Plugin $this
@@ -64,6 +67,7 @@ class Plugin
 
 	/**
 	 * Fires the event handler for the given event with its data as parameter.
+	 *
 	 * @param Event $event
 	 * @return boolean True if the event was cancelled.
 	 */

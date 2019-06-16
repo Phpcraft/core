@@ -4,23 +4,27 @@ class SetSlotPacket extends Packet
 {
 	/**
 	 * The ID of the window being updated. 0 for inventory.
+	 *
 	 * @var integer $window
 	 */
 	public $window = 0;
 	/**
 	 * The ID of the slot being updated.
+	 *
 	 * @var integer $slotId
 	 * @see https://wiki.vg/Inventory
 	 */
 	public $slotId = 0;
 	/**
 	 * The new value of the slot.
+	 *
 	 * @var Slot $slot
 	 */
 	public $slot = null;
 
 	/**
 	 * Initialises the packet class by reading its payload from the given Connection.
+	 *
 	 * @param Connection $con
 	 * @return SetSlotPacket
 	 * @throws IOException
@@ -36,6 +40,7 @@ class SetSlotPacket extends Packet
 
 	/**
 	 * Adds the packet's ID and payload to the Connection's write buffer and, if the connection has a stream, sends it over the wire.
+	 *
 	 * @param Connection $con
 	 * @throws IOException
 	 * @throws MissingMetadataException

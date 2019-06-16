@@ -4,6 +4,7 @@ class SetExperiencePacket extends Packet
 {
 	/**
 	 * How many percent the experience bar is filled from 0.00 to 1.00.
+	 *
 	 * @param float $percent
 	 */
 	public $percent;
@@ -24,6 +25,7 @@ class SetExperiencePacket extends Packet
 
 	/**
 	 * Initialises the packet class by reading its payload from the given Connection.
+	 *
 	 * @param Connection $con
 	 * @return SetExperiencePacket
 	 * @throws IOException
@@ -39,6 +41,7 @@ class SetExperiencePacket extends Packet
 
 	/**
 	 * Adds the packet's ID and payload to the Connection's write buffer and, if the connection has a stream, sends it over the wire.
+	 *
 	 * @param Connection $con
 	 * @throws IOException
 	 */

@@ -5,6 +5,7 @@ class NbtLongArray extends NbtTag
 {
 	/**
 	 * The longs in the array.
+	 *
 	 * @var array $children
 	 */
 	public $children;
@@ -21,6 +22,7 @@ class NbtLongArray extends NbtTag
 
 	/**
 	 * Adds the NBT tag to the write buffer of the connection.
+	 *
 	 * @param Connection $con
 	 * @param boolean $inList Ignore this parameter.
 	 * @return Connection $con

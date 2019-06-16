@@ -8,6 +8,7 @@ class ClientPacketEvent extends ClientEvent
 {
 	/**
 	 * The name of the packet that the server has sent.
+	 *
 	 * @var string $packet_name
 	 */
 	public $packet_name;

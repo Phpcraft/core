@@ -4,7 +4,11 @@ if(version_compare(PHP_VERSION, "7.0", "<"))
 {
 	die("Phpcraft requires PHP 7.0 or above.\n");
 }
-foreach(["SPL", "json", "zlib"] as $ext)
+foreach([
+	"SPL",
+	"json",
+	"zlib"
+] as $ext)
 {
 	if(!extension_loaded($ext))
 	{
@@ -38,10 +42,8 @@ else
 {
 	echo "(i) 0 cache entries\n\n";
 }
-
 $apt = [];
 $pecl = [];
-
 if(extension_loaded("mbstring"))
 {
 	echo "./";
@@ -62,7 +64,6 @@ else
 	array_push($apt, "php-gmp");
 }
 echo " GMP\n\n";
-
 if(extension_loaded("openssl") && extension_loaded("curl") && extension_loaded("mcrypt"))
 {
 	echo "./";
@@ -119,7 +120,6 @@ else
 	echo "X";
 }
 echo " mcrypt (optional for more performance)\n\n";
-
 if(!empty($apt) || !empty($pecl))
 {
 	if(Phpcraft::isWindows())

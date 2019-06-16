@@ -1,29 +1,35 @@
 <?php
 namespace Phpcraft;
+use hellsh\UUID;
 class SpawnMobPacket extends Packet
 {
 	/**
 	 * The entity ID of the mob.
+	 *
 	 * @var integer $eid
 	 */
 	public $eid;
 	/**
 	 * The UUID of the entity.
+	 *
 	 * @var UUID $uuid
 	 */
 	public $uuid;
 	/**
 	 * The type of mob.
+	 *
 	 * @var EntityType $type
 	 */
 	public $type;
 	/**
 	 * The position of the mob.
+	 *
 	 * @var Position $pos
 	 */
 	public $pos;
 	/**
 	 * The entity metadata of the mob.
+	 *
 	 * @var EntityMetadata $metadata
 	 */
 	public $metadata;
@@ -57,6 +63,7 @@ class SpawnMobPacket extends Packet
 
 	/**
 	 * Initialises the packet class by reading its payload from the given Connection.
+	 *
 	 * @param Connection $con
 	 * @return SpawnMobPacket
 	 * @throws IOException
@@ -89,6 +96,7 @@ class SpawnMobPacket extends Packet
 
 	/**
 	 * Adds the packet's ID and payload to the Connection's write buffer and, if the connection has a stream, sends it over the wire.
+	 *
 	 * @param Connection $con
 	 * @throws IOException
 	 */

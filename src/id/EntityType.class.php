@@ -7,6 +7,7 @@ class EntityType extends Identifier
 
 	/**
 	 * Returns every EntityType.
+	 *
 	 * @return EntityType[]
 	 */
 	public static function all()
@@ -123,6 +124,7 @@ class EntityType extends Identifier
 
 	/**
 	 * Returns the ID of this Identifier for the given protocol version or null if not applicable.
+	 *
 	 * @param integer $protocol_version
 	 * @return integer
 	 */
@@ -150,7 +152,8 @@ class EntityType extends Identifier
 
 	/**
 	 * Returns the appropriate EntityMetadata class for this entity type.
-	 * @return EntityMetadata 
+	 *
+	 * @return EntityMetadata
 	 */
 	public function getMetadata()
 	{

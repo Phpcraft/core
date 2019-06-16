@@ -4,6 +4,7 @@ abstract class Versions
 {
 	/**
 	 * Returns an associative array of Minecraft versions with their protocol version as value; newest first.
+	 *
 	 * @param boolean $all true = all versions; false = only supported versions.
 	 * @return array
 	 */
@@ -95,6 +96,7 @@ abstract class Versions
 
 	/**
 	 * Returns an associative array of all Minecraft versions with their protocol version as value; newest first.
+	 *
 	 * @return array
 	 * @deprecated Replaced by Versions::list(true)
 	 */
@@ -105,6 +107,7 @@ abstract class Versions
 
 	/**
 	 * Returns an associative array of supported Minecraft versions with their protocol version as value; newest first.
+	 *
 	 * @return array
 	 * @deprecated Replaced by Versions::list(false)
 	 */
@@ -115,6 +118,7 @@ abstract class Versions
 
 	/**
 	 * Returns an associative array of non-snapshot Minecraft versions with their protocol version as value; newest first.
+	 *
 	 * @param boolean $all true = all versions; false = only supported versions.
 	 * @return array
 	 * @see Versions::all
@@ -134,6 +138,7 @@ abstract class Versions
 
 	/**
 	 * Returns a list of protocol versions; newest first.
+	 *
 	 * @param boolean $all true = all versions; false = only supported versions.
 	 * @return integer[]
 	 */
@@ -144,6 +149,7 @@ abstract class Versions
 
 	/**
 	 * Returns true if the given protocol version is supported by Phpcraft.
+	 *
 	 * @param integer $protocol_version e.g., 340
 	 * @return boolean
 	 */
@@ -154,6 +160,7 @@ abstract class Versions
 
 	/**
 	 * Returns true if the given Minecraft version is supported by Phpcraft.
+	 *
 	 * @param string $minecraft_version
 	 * @return boolean
 	 */
@@ -164,6 +171,7 @@ abstract class Versions
 
 	/**
 	 * Returns the protocol version corresponding to the given Minecraft version; newest first.
+	 *
 	 * @param string $minecraft_version
 	 * @return integer The protocol version or NULL if the Minecraft version doesn't exist.
 	 */
@@ -174,6 +182,7 @@ abstract class Versions
 
 	/**
 	 * Returns an array of Minecraft versions; newest first.
+	 *
 	 * @param boolean $all true = all versions; false = only supported versions.
 	 * @return string[]
 	 */
@@ -184,6 +193,7 @@ abstract class Versions
 
 	/**
 	 * Returns an array of non-snapshot Minecraft versions; newest first.
+	 *
 	 * @param boolean $all true = all versions; false = only supported versions.
 	 * @return string[]
 	 */
@@ -194,6 +204,7 @@ abstract class Versions
 
 	/**
 	 * Returns an array of Minecraft versions corresponding to the given protocol version; newest first.
+	 *
 	 * @param integer $protocol_version
 	 * @return string[]
 	 */
@@ -212,6 +223,7 @@ abstract class Versions
 
 	/**
 	 * Returns a human-readable range of Minecraft versions corresponding to the given protocol version, e.g. 47 would return "1.8 - 1.8.9"
+	 *
 	 * @param integer $protocol_version
 	 * @return string The version range or an empty string if the given protocol version is not supported.
 	 */

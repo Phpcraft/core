@@ -6,15 +6,16 @@ abstract class PluginMessagePacket extends Packet
 	const CHANNEL_UNREGISTER = "minecraft:unregister";
 	const CHANNEL_BRAND = "minecraft:brand";
 	const CHANNEL_BUNGEECORD = "bungeecord:main";
-
 	private $packet_name;
 	/**
 	 * The name of the plugin message's channel.
+	 *
 	 * @var string $channel
 	 */
 	public $channel;
 	/**
 	 * The data of the plugin message; binary string, as it could be anything.
+	 *
 	 * @var string $data
 	 */
 	public $data;
@@ -79,6 +80,7 @@ abstract class PluginMessagePacket extends Packet
 
 	/**
 	 * Adds the packet's ID and payload to the Connection's write buffer and, if the connection has a stream, sends it over the wire.
+	 *
 	 * @param Connection $con
 	 * @throws IOException
 	 */

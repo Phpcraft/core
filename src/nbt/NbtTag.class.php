@@ -2,6 +2,7 @@
 namespace Phpcraft;
 /**
  * The base class for NBT tags.
+ *
  * @see Connection::readNBT
  */
 abstract class NbtTag
@@ -19,15 +20,16 @@ abstract class NbtTag
 	const TYPE_COMPOUND = 10;
 	const TYPE_INT_ARRAY = 11;
 	const TYPE_LONG_ARRAY = 12;
-
 	/**
 	 * The name of this tag.
+	 *
 	 * @var string $name
 	 */
 	public $name;
 
 	/**
 	 * Adds the NBT tag to the write buffer of the connection.
+	 *
 	 * @param Connection $con
 	 * @param boolean $inList Ignore this parameter.
 	 * @return Connection $con

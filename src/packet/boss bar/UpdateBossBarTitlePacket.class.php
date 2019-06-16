@@ -1,10 +1,11 @@
 <?php
 namespace Phpcraft;
-use \hellsh\UUID;
+use hellsh\UUID;
 class UpdateBossBarTitlePacket extends BossBarPacket
 {
 	/**
 	 * The "title" of the boss bar; chat object.
+	 *
 	 * @var array $title
 	 */
 	public $title = ["text" => ""];
@@ -21,6 +22,7 @@ class UpdateBossBarTitlePacket extends BossBarPacket
 
 	/**
 	 * Adds the packet's ID and payload to the Connection's write buffer and, if the connection has a stream, sends it over the wire.
+	 *
 	 * @param Connection $con
 	 * @throws IOException
 	 */

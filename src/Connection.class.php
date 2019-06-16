@@ -2,9 +2,9 @@
 namespace Phpcraft;
 use DomainException;
 use GMP;
+use hellsh\UUID;
 use InvalidArgumentException;
 use LengthException;
-use \hellsh\UUID;
 /**
  * A wrapper to read and write from streams.
  * The Connection object can also be utilized without a stream:
@@ -18,32 +18,38 @@ class Connection
 {
 	/**
 	 * The protocol version that is used for this connection.
+	 *
 	 * @var integer $protocol_version
 	 */
 	public $protocol_version;
 	/**
 	 * The stream of the connection of null.
+	 *
 	 * @var resource $stream
 	 */
 	public $stream;
 	/**
 	 * The amount of bytes a packet needs for it to be compressed as an integer or -1 if disabled.
+	 *
 	 * @var integer $compression_threshold
 	 */
 	public $compression_threshold = -1;
 	/**
 	 * The state of the connection.
 	 * 1 stands for status, 2 for logging in, and 3 for playing.
+	 *
 	 * @var integer $state
 	 */
 	public $state;
 	/**
 	 * The write buffer binary string.
+	 *
 	 * @var string $write_buffer
 	 */
 	public $write_buffer = "";
 	/**
 	 * The read buffer binary string.
+	 *
 	 * @var string $read_buffer
 	 */
 	public $read_buffer = "";
@@ -64,6 +70,7 @@ class Connection
 
 	/**
 	 * Returns whether the stream is (still) open.
+	 *
 	 * @return boolean
 	 */
 	public function isOpen()
@@ -85,6 +92,7 @@ class Connection
 
 	/**
 	 * Adds a byte to the write buffer.
+	 *
 	 * @param integer $value
 	 * @param boolean $signed
 	 * @return Connection $this
@@ -97,6 +105,7 @@ class Connection
 
 	/**
 	 * Adds a boolean to the write buffer.
+	 *
 	 * @param boolean $value
 	 * @return Connection this
 	 */
@@ -108,6 +117,7 @@ class Connection
 
 	/**
 	 * Converts a number to a VarInt binary string.
+	 *
 	 * @param GMP|string|integer $value
 	 * @return string
 	 */
@@ -131,6 +141,7 @@ class Connection
 
 	/**
 	 * Adds a VarInt to the write buffer.
+	 *
 	 * @param GMP|string|integer $value
 	 * @return Connection $this
 	 */
@@ -142,6 +153,7 @@ class Connection
 
 	/**
 	 * Adds a string to the write buffer.
+	 *
 	 * @param string $value
 	 * @return Connection $this
 	 */
@@ -153,6 +165,7 @@ class Connection
 
 	/**
 	 * Adds a chat object to the read buffer.
+	 *
 	 * @param array|string $value The chat object or a strings that will be converted into a chat object.
 	 * @return Connection $this
 	 * @throws InvalidArgumentException
@@ -173,6 +186,7 @@ class Connection
 
 	/**
 	 * Adds the byte string to the write buffer.
+	 *
 	 * @param string $value
 	 * @return Connection $this
 	 */
@@ -224,6 +238,7 @@ class Connection
 
 	/**
 	 * Adds a short to the write buffer.
+	 *
 	 * @param GMP|string|integer $value
 	 * @param boolean $signed
 	 * @return Connection $this
@@ -235,6 +250,7 @@ class Connection
 
 	/**
 	 * Adds an integer to the write buffer.
+	 *
 	 * @param GMP|string|integer $value
 	 * @param boolean $signed
 	 * @return Connection $this
@@ -246,6 +262,7 @@ class Connection
 
 	/**
 	 * Adds a long to the write buffer.
+	 *
 	 * @param GMP|string|integer $value
 	 * @param boolean $signed
 	 * @return Connection $this
@@ -257,6 +274,7 @@ class Connection
 
 	/**
 	 * Adds a float to the write buffer.
+	 *
 	 * @param float $value
 	 * @return Connection $this
 	 */
@@ -268,6 +286,7 @@ class Connection
 
 	/**
 	 * Adds a double to the write buffer.
+	 *
 	 * @param double $value
 	 * @return Connection $this
 	 */
@@ -279,6 +298,7 @@ class Connection
 
 	/**
 	 * Adds a position encoded as one long to the write buffer.
+	 *
 	 * @param Position $pos
 	 * @return Connection $this
 	 */
@@ -289,6 +309,7 @@ class Connection
 
 	/**
 	 * Adds a position encoded as three double to the write buffer.
+	 *
 	 * @param Position $pos
 	 * @return Connection $this
 	 */
@@ -301,6 +322,7 @@ class Connection
 
 	/**
 	 * Adds a position encoded as three ints to the write buffer.
+	 *
 	 * @param Position $pos
 	 * @return Connection $this
 	 */
@@ -313,6 +335,7 @@ class Connection
 
 	/**
 	 * Adds a slot to the write buffer.
+	 *
 	 * @param Slot $slot
 	 * @return Connection $this
 	 * @throws MissingMetadataException
@@ -348,15 +371,14 @@ class Connection
 					switch($slot->item->name)
 					{
 						case "filled_map":
-						if(!($slot->nbt instanceof NbtCompound) || !$slot->nbt->hasChild("map"))
-						{
-							throw new MissingMetadataException("filled_map is missing ID.");
-						}
-						$this->writeShort($slot->nbt->getChild("map")->value);
-						break;
-
+							if(!($slot->nbt instanceof NbtCompound) || !$slot->nbt->hasChild("map"))
+							{
+								throw new MissingMetadataException("filled_map is missing ID.");
+							}
+							$this->writeShort($slot->nbt->getChild("map")->value);
+							break;
 						default:
-						$this->writeShort($id & 0xF);
+							$this->writeShort($id & 0xF);
 					}
 				}
 				else
@@ -386,6 +408,7 @@ class Connection
 
 	/**
 	 * Adds a UUID to the write buffer.
+	 *
 	 * @param UUID $uuid
 	 * @return Connection $this
 	 */
@@ -397,6 +420,7 @@ class Connection
 
 	/**
 	 * Clears the write buffer and starts a new packet.
+	 *
 	 * @param string|integer $packet The name or ID of the new packet.
 	 * @return Connection $this
 	 * @throws DomainException
@@ -423,6 +447,7 @@ class Connection
 
 	/**
 	 * Sends the contents of the write buffer over the stream and clears the write buffer or does nothing if there is no stream.
+	 *
 	 * @param boolean $raw When true, the write buffer is sent as-is, without length prefix or compression, which you probably don't want.
 	 * @throws IOException If the connection is not open.
 	 * @return Connection $this
@@ -470,10 +495,11 @@ class Connection
 
 	/**
 	 * Puts raw bytes from the stream into the read buffer.
-	 * @see Connection::readPacket
+	 *
 	 * @param float $timeout The amount of seconds to wait before the read is aborted.
 	 * @param integer $bytes The exact amount of bytes you would like to receive. 0 means read up to 8 KiB.
 	 * @return boolean True on success.
+	 * @see Connection::readPacket
 	 */
 	public function readRawPacket(float $timeout = 3.000, int $bytes = 0)
 	{
@@ -511,11 +537,12 @@ class Connection
 
 	/**
 	 * Puts a new packet into the read buffer.
-	 * @see Connection::readRawPacket
+	 *
 	 * @param float $timeout The amount of seconds to wait before read is aborted.
-	 * @throws LengthException When the packet's length or ID VarInt is too big.
-	 * @throws IOException When there are not enough bytes to read the packet ID.
 	 * @return integer|boolean The packet's id or false if no packet was received within the time limit.
+	 * @throws IOException When there are not enough bytes to read the packet ID.
+	 * @throws LengthException When the packet's length or ID VarInt is too big.
+	 * @see Connection::readRawPacket
 	 * @see Packet::clientboundPacketIdToName()
 	 * @see Packet::serverboundPacketIdToName()
 	 */
@@ -575,6 +602,7 @@ class Connection
 
 	/**
 	 * Read the specified amount of bytes from the read buffer.
+	 *
 	 * @param integer $bytes
 	 * @return string
 	 */
@@ -587,9 +615,10 @@ class Connection
 
 	/**
 	 * Reads an integer encoded as a VarInt from the read buffer.
-	 * @throws IOException When there are not enough bytes to read or continue reading a VarInt.
-	 * @throws LengthException When the VarInt is too big.
+	 *
 	 * @return GMP
+	 * @throws LengthException When the VarInt is too big.
+	 * @throws IOException When there are not enough bytes to read or continue reading a VarInt.
 	 */
 	public function readVarInt()
 	{
@@ -615,11 +644,12 @@ class Connection
 
 	/**
 	 * Reads a string from the read buffer.
+	 *
 	 * @param integer $maxLength The maxmium amount of bytes this string may use.
 	 * @param integer $minLength The minimum amount of bytes this string must use.
-	 * @throws IOException When there are not enough bytes to read a string.
-	 * @throws LengthException When the string doesn't fit the length requirements.
 	 * @return string
+	 * @throws LengthException When the string doesn't fit the length requirements.
+	 * @throws IOException When there are not enough bytes to read a string.
 	 */
 	public function readString(int $maxLength = 32767, int $minLength = -1)
 	{
@@ -647,8 +677,9 @@ class Connection
 
 	/**
 	 * Reads a chat object from the read buffer.
-	 * @throws IOException When there are not enough bytes to read the string.
+	 *
 	 * @return array
+	 * @throws IOException When there are not enough bytes to read the string.
 	 */
 	public function readChat()
 	{
@@ -657,9 +688,10 @@ class Connection
 
 	/**
 	 * Reads a byte from the read buffer.
+	 *
 	 * @param boolean $signed
 	 * @return integer
-	 *@throws IOException When there are not enough bytes to read a byte.
+	 * @throws IOException When there are not enough bytes to read a byte.
 	 */
 	public function readByte(bool $signed = false)
 	{
@@ -674,8 +706,9 @@ class Connection
 
 	/**
 	 * Reads a boolean from the read buffer.
+	 *
 	 * @return boolean
-	 *@throws IOException When there are not enough bytes to read a boolean.
+	 * @throws IOException When there are not enough bytes to read a boolean.
 	 */
 	public function readBoolean()
 	{
@@ -712,6 +745,7 @@ class Connection
 
 	/**
 	 * Reads a short from the read buffer.
+	 *
 	 * @param boolean $signed
 	 * @return GMP
 	 * @throws IOException When there are not enough bytes to read a short.
@@ -723,9 +757,10 @@ class Connection
 
 	/**
 	 * Reads an integer from the read buffer.
+	 *
 	 * @param boolean $signed
-	 * @throws IOException When there are not enough bytes to read an integer.
 	 * @return GMP
+	 * @throws IOException When there are not enough bytes to read an integer.
 	 */
 	public function readInt(bool $signed = false)
 	{
@@ -734,9 +769,10 @@ class Connection
 
 	/**
 	 * Reads a long from the read buffer.
+	 *
 	 * @param boolean $signed
-	 * @throws IOException When there are not enough bytes to read a long.
 	 * @return GMP
+	 * @throws IOException When there are not enough bytes to read a long.
 	 */
 	public function readLong(bool $signed = false)
 	{
@@ -745,15 +781,15 @@ class Connection
 
 	/**
 	 * Reads a position encoded as one long from the read buffer.
-	 * @throws IOException When there are not enough bytes to read a position.
+	 *
 	 * @return Position
+	 * @throws IOException When there are not enough bytes to read a position.
 	 */
 	public function readPosition()
 	{
 		$val = $this->readLong();
 		$pow_2_38 = gmp_pow(2, 38);
-		return new Position(
-			gmp_intval(gmp_div($val, $pow_2_38)), // $val >> 38
+		return new Position(gmp_intval(gmp_div($val, $pow_2_38)), // $val >> 38
 			gmp_intval(gmp_and(gmp_div($val, gmp_pow(2, 26)), 0xFFF)), // ($val >> 26) & 0xFFF
 			gmp_intval(gmp_div(gmp_mul($val, $pow_2_38), $pow_2_38)) // $val << 38 >> 38;
 		);
@@ -761,8 +797,9 @@ class Connection
 
 	/**
 	 * Reads a position encoded as three doubles from the read buffer.
-	 * @throws IOException When there are not enough bytes to read a position.
+	 *
 	 * @return Position
+	 * @throws IOException When there are not enough bytes to read a position.
 	 */
 	public function readPrecisePosition()
 	{
@@ -771,8 +808,9 @@ class Connection
 
 	/**
 	 * Reads a position encoded as three ints from the read buffer.
-	 * @throws IOException When there are not enough bytes to read a position.
+	 *
 	 * @return Position
+	 * @throws IOException When there are not enough bytes to read a position.
 	 */
 	public function readFixedPointPosition()
 	{
@@ -781,8 +819,9 @@ class Connection
 
 	/**
 	 * Reads a float from the read buffer.
-	 * @throws IOException When there are not enough bytes to read a float.
+	 *
 	 * @return float
+	 * @throws IOException When there are not enough bytes to read a float.
 	 */
 	public function readFloat()
 	{
@@ -797,8 +836,9 @@ class Connection
 
 	/**
 	 * Reads a double from the read buffer.
-	 * @throws IOException When there are not enough bytes to read a double.
+	 *
 	 * @return float
+	 * @throws IOException When there are not enough bytes to read a double.
 	 */
 	public function readDouble()
 	{
@@ -813,8 +853,9 @@ class Connection
 
 	/**
 	 * Reads a UUID.
-	 * @throws IOException When there are not enough bytes to read a UUID.
+	 *
 	 * @return UUID
+	 * @throws IOException When there are not enough bytes to read a UUID.
 	 */
 	public function readUUID()
 	{
@@ -829,6 +870,7 @@ class Connection
 
 	/**
 	 * Reads an NbtTag.
+	 *
 	 * @param int $type Ignore this parameter.
 	 * @return NbtTag
 	 * @throws IOException
@@ -845,81 +887,69 @@ class Connection
 		switch($type)
 		{
 			case NbtTag::TYPE_END:
-			return new NbtEnd();
-
+				return new NbtEnd();
 			case NbtTag::TYPE_BYTE:
-			return new NbtByte($name, $this->readByte(true));
-
+				return new NbtByte($name, $this->readByte(true));
 			case NbtTag::TYPE_SHORT:
-			return new NbtShort($name, gmp_intval($this->readShort(true)));
-
+				return new NbtShort($name, gmp_intval($this->readShort(true)));
 			case NbtTag::TYPE_INT:
-			return new NbtInt($name, $this->readInt(true));
-
+				return new NbtInt($name, $this->readInt(true));
 			case NbtTag::TYPE_LONG:
-			return new NbtLong($name, $this->readLong(true));
-
+				return new NbtLong($name, $this->readLong(true));
 			case NbtTag::TYPE_FLOAT:
-			return new NbtFloat($name, $this->readFloat());
-
+				return new NbtFloat($name, $this->readFloat());
 			case NbtTag::TYPE_DOUBLE:
-			return new NbtDouble($name, $this->readDouble());
-
+				return new NbtDouble($name, $this->readDouble());
 			case NbtTag::TYPE_BYTE_ARRAY:
-			$children_i = gmp_intval($this->readInt(true));
-			$children = [];
-			for($i = 0; $i < $children_i; $i++)
-			{
-				array_push($children, $this->readByte());
-			}
-			return new NbtByteArray($name, $children);
-
+				$children_i = gmp_intval($this->readInt(true));
+				$children = [];
+				for($i = 0; $i < $children_i; $i++)
+				{
+					array_push($children, $this->readByte());
+				}
+				return new NbtByteArray($name, $children);
 			case NbtTag::TYPE_STRING:
-			return new NbtString($name, $this->readRaw(gmp_intval($this->readShort())));
-
+				return new NbtString($name, $this->readRaw(gmp_intval($this->readShort())));
 			case NbtTag::TYPE_LIST:
-			$childType = $this->readByte();
-			$children_i = gmp_intval($this->readInt(true));
-			$children = [];
-			for($i = 0; $i < $children_i; $i++)
-			{
-				array_push($children, $this->readNBT($childType));
-			}
-			return new NbtList($name, $childType, $children);
-
+				$childType = $this->readByte();
+				$children_i = gmp_intval($this->readInt(true));
+				$children = [];
+				for($i = 0; $i < $children_i; $i++)
+				{
+					array_push($children, $this->readNBT($childType));
+				}
+				return new NbtList($name, $childType, $children);
 			case NbtTag::TYPE_COMPOUND:
-			$children = [];
-			while(!(($tag = $this->readNBT()) instanceof NbtEnd))
-			{
-				array_push($children, $tag);
-			}
-			return new NbtCompound($name, $children);
-
+				$children = [];
+				while(!(($tag = $this->readNBT()) instanceof NbtEnd))
+				{
+					array_push($children, $tag);
+				}
+				return new NbtCompound($name, $children);
 			case NbtTag::TYPE_INT_ARRAY:
-			$children_i = gmp_intval($this->readInt(true));
-			$children = [];
-			for($i = 0; $i < $children_i; $i++)
-			{
-				array_push($children, $this->readInt(true));
-			}
-			return new NbtIntArray($name, $children);
-
+				$children_i = gmp_intval($this->readInt(true));
+				$children = [];
+				for($i = 0; $i < $children_i; $i++)
+				{
+					array_push($children, $this->readInt(true));
+				}
+				return new NbtIntArray($name, $children);
 			case NbtTag::TYPE_LONG_ARRAY:
-			$children_i = gmp_intval($this->readInt(true));
-			$children = [];
-			for($i = 0; $i < $children_i; $i++)
-			{
-				array_push($children, $this->readLong());
-			}
-			return new NbtLongArray($name, $children);
-
+				$children_i = gmp_intval($this->readInt(true));
+				$children = [];
+				for($i = 0; $i < $children_i; $i++)
+				{
+					array_push($children, $this->readLong());
+				}
+				return new NbtLongArray($name, $children);
 			default:
-			throw new DomainException("Unsupported NBT Tag: {$type}");
+				throw new DomainException("Unsupported NBT Tag: {$type}");
 		}
 	}
 
 	/**
 	 * Reads a Slot.
+	 *
 	 * @param boolean $additional_processing Whether additional processing should occur to properly receive pre-1.13 data. You should only set this to false if you want a lazy read, and don't even care about the slot.
 	 * @return Slot
 	 * @throws IOException
@@ -956,31 +986,31 @@ class Connection
 					switch($id)
 					{
 						case 358:
-						if(!($slot->nbt instanceof NbtCompound))
-						{
-							$slot->nbt = new NbtCompound("tag", []);
-						}
-						$addMap = true;
-						$children_ = [];
-						foreach($slot->nbt->children as $child)
-						{
-							if($child->name == "map")
+							if(!($slot->nbt instanceof NbtCompound))
 							{
-								if(@$child->value !== $metadata)
-								{
-									continue;
-								}
-								$addMap = false;
+								$slot->nbt = new NbtCompound("tag", []);
 							}
-							array_push($children_, $child);
-						}
-						if($addMap)
-						{
-							array_push($children_, new NbtInt("map", $metadata));
-						}
-						$slot->nbt->children = $children_;
-						$metadata = 0;
-						break;
+							$addMap = true;
+							$children_ = [];
+							foreach($slot->nbt->children as $child)
+							{
+								if($child->name == "map")
+								{
+									if(@$child->value !== $metadata)
+									{
+										continue;
+									}
+									$addMap = false;
+								}
+								array_push($children_, $child);
+							}
+							if($addMap)
+							{
+								array_push($children_, new NbtInt("map", $metadata));
+							}
+							$slot->nbt->children = $children_;
+							$metadata = 0;
+							break;
 					}
 					$slot->item = Item::getById($id << 4 | $metadata, $this->protocol_version);
 					if(!$slot->item)
@@ -1016,6 +1046,7 @@ class Connection
 
 	/**
 	 * Skips over the given amount of bytes in the read buffer.
+	 *
 	 * @param integer $bytes
 	 * @return Connection $this
 	 * @throws IOException When there are not enough bytes in the buffer to ignore the given number.

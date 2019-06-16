@@ -4,45 +4,53 @@ class AddBossBarPacket extends BossBarPacket
 {
 	/**
 	 * The "title" of the boss bar; chat object.
+	 *
 	 * @var array $title
 	 */
 	public $title = ["text" => ""];
 	/**
 	 * The percentage the boss bar is filled, aka. the health of the boss.
 	 * This should be between 0 and 1. And whilst values below 0 disconnect the client, values above 1 render additional boss bars to the right.
+	 *
 	 * @var float $health
 	 */
 	public $health = 1.0;
 	/**
 	 * The color of the boss bar.
+	 *
 	 * @see BossBarPacket
 	 * @var integer $color
 	 */
 	public $color = 0;
 	/**
 	 * The division of the boss bar.
+	 *
 	 * @see BossBarPacket
 	 * @var integer $division
 	 */
 	public $division = 0;
 	/**
 	 * True if the sky should be darkened.
+	 *
 	 * @var boolean $darken_sky
 	 */
 	public $darken_sky = false;
 	/**
 	 * True if this should play the end music.
+	 *
 	 * @var boolean $play_end_music
 	 */
 	public $play_end_music = false;
 	/**
 	 * True if this should create fog.
+	 *
 	 * @var boolean $create_fog
 	 */
 	public $create_fog = false;
 
 	/**
 	 * Adds the packet's ID and payload to the Connection's write buffer and, if the connection has a stream, sends it over the wire.
+	 *
 	 * @param Connection $con
 	 * @throws IOException
 	 */
@@ -86,11 +94,7 @@ class AddBossBarPacket extends BossBarPacket
 		else
 		{
 			/** @noinspection PhpParamsInspection */
-			$packet = new SpawnMobPacket(
-				gmp_intval($this->uuid->toInt()) * -1,
-				EntityType::get("ender_dragon"),
-				$this->uuid
-			);
+			$packet = new SpawnMobPacket(gmp_intval($this->uuid->toInt()) * -1, EntityType::get("ender_dragon"), $this->uuid);
 			assert($packet->metadata instanceof EntityLiving);
 			if($con instanceof ClientConnection)
 			{

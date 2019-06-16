@@ -6,6 +6,7 @@ class UUID extends \hellsh\UUID
 {
 	/**
 	 * Returns true if the skin of a player with this UUID would be slim ("Alex" style).
+	 *
 	 * @return boolean
 	 */
 	public function isSlim()
@@ -15,6 +16,7 @@ class UUID extends \hellsh\UUID
 
 	/**
 	 * Returns an integer which will always be the same given the same UUID, but collisions are far more likely.
+	 *
 	 * @return GMP
 	 */
 	public function toInt()
