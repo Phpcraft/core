@@ -326,7 +326,7 @@ $server->packet_function = function(ClientConnection $con, $packet_name, $packet
 	}
 	else if($server_con instanceof ServerConnection)
 	{
-		$server_con->write_buffer = Phpcraft::intToVarInt($packet_id).$con->read_buffer;
+		$server_con->write_buffer = Connection::varInt($packet_id).$con->read_buffer;
 		$server_con->send();
 	}
 };
@@ -400,7 +400,7 @@ do
 				}
 				else
 				{
-					$client_con->write_buffer = Phpcraft::intToVarInt($packet_id).$server_con->read_buffer;
+					$client_con->write_buffer = Connection::varInt($packet_id).$server_con->read_buffer;
 					$client_con->send();
 				}
 			}

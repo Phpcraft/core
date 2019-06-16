@@ -23,7 +23,7 @@ PluginManager::registerPlugin("WorldImitator", function(Plugin $plugin)
 		}
 		while(($id = $con->readPacket(0)) !== false)
 		{
-			$event->client->write_buffer = Phpcraft::intToVarInt($id).$con->read_buffer;
+			$event->client->write_buffer = Connection::varInt($id).$con->read_buffer;
 			$event->client->send();
 		}
 		fclose($fh);

@@ -205,7 +205,7 @@ class ClientConnection extends Connection
 	{
 		if($this->state == 2)
 		{
-			$this->write_buffer = Phpcraft::intToVarInt(0x01);
+			$this->write_buffer = Connection::varInt(0x01);
 			$this->writeString(""); // Server ID
 			$this->writeString(base64_decode(trim(substr(openssl_pkey_get_details($private_key)["key"], 26, -24)))); // Public Key
 			$this->writeString("1337"); // Verify Token
@@ -316,12 +316,12 @@ class ClientConnection extends Connection
 		{
 			if($compression_threshold > -1 || $this->protocol_version < 48)
 			{
-				$this->write_buffer = Phpcraft::intToVarInt(0x03);
+				$this->write_buffer = Connection::varInt(0x03);
 				$this->writeVarInt($compression_threshold);
 				$this->send();
 			}
 			$this->compression_threshold = $compression_threshold;
-			$this->write_buffer = Phpcraft::intToVarInt(0x02);
+			$this->write_buffer = Connection::varInt(0x02);
 			$this->writeString(($this->uuid = $uuid)->toString(true));
 			$this->writeString($this->username);
 			$this->send();
@@ -344,7 +344,7 @@ class ClientConnection extends Connection
 			{
 				if($this->state == 2) // Login
 				{
-					$this->write_buffer = Phpcraft::intToVarInt(0x00);
+					$this->write_buffer = Connection::varInt(0x00);
 				}
 				else // Play
 				{
