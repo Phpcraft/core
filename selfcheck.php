@@ -11,7 +11,7 @@ foreach(["SPL", "json", "zlib"] as $ext)
 		die("The {$ext} extension is required.\n");
 	}
 }
-require "src/Phpcraft.class.php";
+require __DIR__."/src/Phpcraft.class.php";
 use Phpcraft\Phpcraft;
 if(file_exists(__DIR__."/src/.cache"))
 {
