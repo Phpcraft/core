@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['nether',['NETHER',['../classPhpcraft_1_1Dimension.html#a4f3845ea5735421ce6daa642fb1818b4',1,'Phpcraft::Dimension']]],
-  ['normal',['NORMAL',['../classPhpcraft_1_1Difficulty.html#aa4f109edbbc996c0f4406f05f4b59bfb',1,'Phpcraft::Difficulty']]]
+  ['nether',['NETHER',['../classPhpcraft_1_1Enum_1_1Dimension.html#a0f28bc92ade3c7e5cc7bc35e9c80f1d5',1,'Phpcraft::Enum::Dimension']]],
+  ['normal',['NORMAL',['../classPhpcraft_1_1Enum_1_1Difficulty.html#a1a47fc18a184563563ab8e52ff6d8e58',1,'Phpcraft::Enum::Difficulty']]]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['removebossbarpacket_2eclass_2ephp',['RemoveBossBarPacket.class.php',['../RemoveBossBarPacket_8class_8php.html',1,'']]]
+  ['removebossbarpacket_2ephp',['RemoveBossBarPacket.php',['../RemoveBossBarPacket_8php.html',1,'']]]
 ];

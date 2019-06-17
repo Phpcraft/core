@@ -75,9 +75,9 @@ $(function() {
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a9894ec3a08a483c97fafd03df15c970f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Plugin.html#a9894ec3a08a483c97fafd03df15c970f">__construct</a> (string $name)</td></tr>
 <tr class="separator:a9894ec3a08a483c97fafd03df15c970f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a83856a2a2b1951a8573352b536578f96"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Plugin.html#a83856a2a2b1951a8573352b536578f96">on</a> (callable $callable, int $priority=<a class="el" href="classPhpcraft_1_1Event.html#ae4bd963cd8841890b4f2ff14904cb01f">Event::PRIORITY_NORMAL</a>)</td></tr>
+<tr class="memitem:a83856a2a2b1951a8573352b536578f96"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Plugin.html#a83856a2a2b1951a8573352b536578f96">on</a> (callable $callable, int $priority=<a class="el" href="classPhpcraft_1_1Event_1_1Event.html#a97847933903973de3ef3d7be6c57b945">Event::PRIORITY_NORMAL</a>)</td></tr>
 <tr class="separator:a83856a2a2b1951a8573352b536578f96"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aba78b35a6a482731e1c166823bb17e49"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Plugin.html#aba78b35a6a482731e1c166823bb17e49">fire</a> (<a class="el" href="classPhpcraft_1_1Event.html">Event</a> $event)</td></tr>
+<tr class="memitem:aba78b35a6a482731e1c166823bb17e49"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Plugin.html#aba78b35a6a482731e1c166823bb17e49">fire</a> (<a class="el" href="classPhpcraft_1_1Event_1_1Event.html">Event</a> $event)</td></tr>
 <tr class="separator:aba78b35a6a482731e1c166823bb17e49"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aae3ebad92fd03d0041aab886403a3e96"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Plugin.html#aae3ebad92fd03d0041aab886403a3e96">unregister</a> ()</td></tr>
 <tr class="separator:aae3ebad92fd03d0041aab886403a3e96"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -124,15 +124,16 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="memname">Phpcraft\Plugin::fire </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classPhpcraft_1_1Event.html">Event</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="classPhpcraft_1_1Event_1_1Event.html">Event</a>&#160;</td>
           <td class="paramname"><em>$event</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Fires the event handler for the given event with its data as parameter. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Fires the event handler for the given event with its data as parameter.</p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype"><a class="el" href="classPhpcraft_1_1Event.html">Event</a></td><td class="paramname">$event</td><td></td></tr>
+    <tr><td class="paramtype"><a class="el" href="namespacePhpcraft_1_1Event.html">Event</a></td><td class="paramname">$event</td><td></td></tr>
   </table>
   </dd>
 </dl>
@@ -156,7 +157,7 @@ Public Attributes</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>$priority</em> = <code><a class="el" href="classPhpcraft_1_1Event.html#ae4bd963cd8841890b4f2ff14904cb01f">Event::PRIORITY_NORMAL</a></code>&#160;</td>
+          <td class="paramname"><em>$priority</em> = <code><a class="el" href="classPhpcraft_1_1Event_1_1Event.html#a97847933903973de3ef3d7be6c57b945">Event::PRIORITY_NORMAL</a></code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -165,9 +166,10 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Defines a function to be called to handle the given event. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Defines a function to be called to handle the given event.</p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype">callable</td><td class="paramname">$callable</td><td>The function. The first parameter should explicitly declare its type to be a decendant of <a class="el" href="classPhpcraft_1_1Event.html">Event</a>. </td></tr>
+    <tr><td class="paramtype">callable</td><td class="paramname">$callable</td><td>The function. The first parameter should explicitly declare its type to be a decendant of <a class="el" href="namespacePhpcraft_1_1Event.html">Event</a>. </td></tr>
     <tr><td class="paramtype">integer</td><td class="paramname">$priority</td><td>The priority of the event handler. The higher the priority, the earlier it will be executed. Use a high value if you plan to cancel the event. </td></tr>
   </table>
   </dd>
@@ -234,7 +236,7 @@ Public Attributes</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>src/plugin/<a class="el" href="Plugin_8class_8php.html">Plugin.class.php</a></li>
+<li>src/<a class="el" href="Plugin_8php.html">Plugin.php</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

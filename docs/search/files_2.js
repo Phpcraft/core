@@ -1,14 +1,14 @@
 var searchData=
 [
-  ['clientboundabilitiespacket_2eclass_2ephp',['ClientboundAbilitiesPacket.class.php',['../ClientboundAbilitiesPacket_8class_8php.html',1,'']]],
-  ['clientboundbrandpluginmessagepacket_2eclass_2ephp',['ClientboundBrandPluginMessagePacket.class.php',['../ClientboundBrandPluginMessagePacket_8class_8php.html',1,'']]],
-  ['clientboundpacket_2eclass_2ephp',['ClientboundPacket.class.php',['../ClientboundPacket_8class_8php.html',1,'']]],
-  ['clientboundpluginmessagepacket_2eclass_2ephp',['ClientboundPluginMessagePacket.class.php',['../ClientboundPluginMessagePacket_8class_8php.html',1,'']]],
-  ['clientconnection_2eclass_2ephp',['ClientConnection.class.php',['../ClientConnection_8class_8php.html',1,'']]],
-  ['clientconsoleevent_2eclass_2ephp',['ClientConsoleEvent.class.php',['../ClientConsoleEvent_8class_8php.html',1,'']]],
-  ['clientevent_2eclass_2ephp',['ClientEvent.class.php',['../ClientEvent_8class_8php.html',1,'']]],
-  ['clientjoinevent_2eclass_2ephp',['ClientJoinEvent.class.php',['../ClientJoinEvent_8class_8php.html',1,'']]],
-  ['clientpacketevent_2eclass_2ephp',['ClientPacketEvent.class.php',['../ClientPacketEvent_8class_8php.html',1,'']]],
-  ['connection_2eclass_2ephp',['Connection.class.php',['../Connection_8class_8php.html',1,'']]],
-  ['counter_2eclass_2ephp',['Counter.class.php',['../Counter_8class_8php.html',1,'']]]
+  ['clientboundabilitiespacket_2ephp',['ClientboundAbilitiesPacket.php',['../ClientboundAbilitiesPacket_8php.html',1,'']]],
+  ['clientboundbrandpluginmessagepacket_2ephp',['ClientboundBrandPluginMessagePacket.php',['../ClientboundBrandPluginMessagePacket_8php.html',1,'']]],
+  ['clientboundpacket_2ephp',['ClientboundPacket.php',['../ClientboundPacket_8php.html',1,'']]],
+  ['clientboundpluginmessagepacket_2ephp',['ClientboundPluginMessagePacket.php',['../ClientboundPluginMessagePacket_8php.html',1,'']]],
+  ['clientconnection_2ephp',['ClientConnection.php',['../ClientConnection_8php.html',1,'']]],
+  ['clientconsoleevent_2ephp',['ClientConsoleEvent.php',['../ClientConsoleEvent_8php.html',1,'']]],
+  ['clientevent_2ephp',['ClientEvent.php',['../ClientEvent_8php.html',1,'']]],
+  ['clientjoinevent_2ephp',['ClientJoinEvent.php',['../ClientJoinEvent_8php.html',1,'']]],
+  ['clientpacketevent_2ephp',['ClientPacketEvent.php',['../ClientPacketEvent_8php.html',1,'']]],
+  ['connection_2ephp',['Connection.php',['../Connection_8php.html',1,'']]],
+  ['counter_2ephp',['Counter.php',['../Counter_8php.html',1,'']]]
 ];

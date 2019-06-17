@@ -11,5 +11,5 @@ var searchData=
   ['color_5fred',['COLOR_RED',['../classPhpcraft_1_1BossBarPacket.html#ac67051c6db01e2a7e902351befda1104',1,'Phpcraft::BossBarPacket']]],
   ['color_5fwhite',['COLOR_WHITE',['../classPhpcraft_1_1BossBarPacket.html#a2b771fb7cb5968da99ae316ad10e9e9a',1,'Phpcraft::BossBarPacket']]],
   ['color_5fyellow',['COLOR_YELLOW',['../classPhpcraft_1_1BossBarPacket.html#a0cdf30b9b376302525a7098d8d443d24',1,'Phpcraft::BossBarPacket']]],
-  ['creative',['CREATIVE',['../classPhpcraft_1_1Gamemode.html#aa96d5c85caa9939b8dd850fe3dfd32d2',1,'Phpcraft::Gamemode']]]
+  ['creative',['CREATIVE',['../classPhpcraft_1_1Enum_1_1Gamemode.html#a6f03d6f49f9d7242ffb016676a132d04',1,'Phpcraft::Enum::Gamemode']]]
 ];

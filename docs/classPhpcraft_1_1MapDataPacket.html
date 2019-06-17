@@ -104,10 +104,10 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:ad2ce2f53572d74b579e0fe92122d2d0d"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1MapDataPacket.html#ad2ce2f53572d74b579e0fe92122d2d0d">getColorId</a> (array $rgb, bool $new_colors=true)</td></tr>
-<tr class="separator:ad2ce2f53572d74b579e0fe92122d2d0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2fdadf14fa73fa9d6115d21662e75fc2"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1MapDataPacket.html#a2fdadf14fa73fa9d6115d21662e75fc2">read</a> (<a class="el" href="classPhpcraft_1_1Connection.html">Connection</a> $con)</td></tr>
 <tr class="separator:a2fdadf14fa73fa9d6115d21662e75fc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad2ce2f53572d74b579e0fe92122d2d0d"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1MapDataPacket.html#ad2ce2f53572d74b579e0fe92122d2d0d">getColorId</a> (array $rgb, bool $new_colors=true)</td></tr>
+<tr class="separator:ad2ce2f53572d74b579e0fe92122d2d0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_static_methods_classPhpcraft_1_1Packet"><td colspan="2" onclick="javascript:toggleInherit('pub_static_methods_classPhpcraft_1_1Packet')"><img src="closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="classPhpcraft_1_1Packet.html">Phpcraft\Packet</a></td></tr>
 <tr class="memitem:abe9ce2378779c7984896e8ddd5474baf inherit pub_static_methods_classPhpcraft_1_1Packet"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Packet.html#abe9ce2378779c7984896e8ddd5474baf">read</a> (<a class="el" href="classPhpcraft_1_1Connection.html">Connection</a> $con)</td></tr>
 <tr class="separator:abe9ce2378779c7984896e8ddd5474baf inherit pub_static_methods_classPhpcraft_1_1Packet"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -184,7 +184,8 @@ Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Gets the color ID closest to the given RGB array (3 integers). </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Gets the color ID closest to the given RGB array (3 integers).</p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramtype"></td><td class="paramname">$rgb</td><td>integer[] </td></tr>
     <tr><td class="paramtype">boolean</td><td class="paramname">$new_colors</td><td>Ignore this parameter. </td></tr>
@@ -218,7 +219,8 @@ Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Initialises the packet class by reading its payload from the given <a class="el" href="classPhpcraft_1_1Connection.html">Connection</a>. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Initialises the packet class by reading its payload from the given <a class="el" href="classPhpcraft_1_1Connection.html">Connection</a>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramtype"><a class="el" href="classPhpcraft_1_1Connection.html">Connection</a></td><td class="paramname">$con</td><td></td></tr>
   </table>
@@ -227,7 +229,7 @@ Public Attributes</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="classPhpcraft_1_1MapDataPacket.html">MapDataPacket</a> </dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname"><a class="el" href="classPhpcraft_1_1IOException.html">IOException</a></td><td></td></tr>
+    <tr><td class="paramname">IOException</td><td></td></tr>
   </table>
   </dd>
 </dl>
@@ -249,7 +251,8 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Adds the packet's ID and payload to the <a class="el" href="classPhpcraft_1_1Connection.html">Connection</a>'s write buffer and, if the connection has a stream, sends it over the wire. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Adds the packet's ID and payload to the <a class="el" href="classPhpcraft_1_1Connection.html">Connection</a>'s write buffer and, if the connection has a stream, sends it over the wire.</p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramtype"><a class="el" href="classPhpcraft_1_1Connection.html">Connection</a></td><td class="paramname">$con</td><td></td></tr>
   </table>
@@ -257,7 +260,7 @@ Public Attributes</h2></td></tr>
 </dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname"><a class="el" href="classPhpcraft_1_1IOException.html">IOException</a></td><td></td></tr>
+    <tr><td class="paramname">IOException</td><td></td></tr>
   </table>
   </dd>
 </dl>
@@ -276,7 +279,8 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>The contents of the map. This should have $width * $height elements. </p><dl class="section see"><dt>See also</dt><dd><a class="el" href="classPhpcraft_1_1MapDataPacket.html#ad2ce2f53572d74b579e0fe92122d2d0d">MapDataPacket::getColorId</a> </dd></dl>
+<p>The contents of the map. This should have $width * $height elements.</p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classPhpcraft_1_1MapDataPacket.html#ad2ce2f53572d74b579e0fe92122d2d0d">MapDataPacket::getColorId</a> </dd></dl>
 
 </div>
 </div>
@@ -386,7 +390,7 @@ Public Attributes</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>src/packet/<a class="el" href="MapDataPacket_8class_8php.html">MapDataPacket.class.php</a></li>
+<li>src/<a class="el" href="MapDataPacket_8php.html">MapDataPacket.php</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

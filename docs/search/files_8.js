@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['joingamepacket_2eclass_2ephp',['JoinGamePacket.class.php',['../JoinGamePacket_8class_8php.html',1,'']]]
+  ['joingamepacket_2ephp',['JoinGamePacket.php',['../JoinGamePacket_8php.html',1,'']]]
 ];

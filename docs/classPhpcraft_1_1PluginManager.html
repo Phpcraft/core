@@ -77,7 +77,7 @@ Static Public Member Functions</h2></td></tr>
 <tr class="separator:a5a98b981fcd31665f1b590814a8964a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3a015bb5e2f909df67e1fec275d9c7b5"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1PluginManager.html#a3a015bb5e2f909df67e1fec275d9c7b5">registerPlugin</a> (string $name, callable $callback)</td></tr>
 <tr class="separator:a3a015bb5e2f909df67e1fec275d9c7b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad912f829d164fd31f61a4eee2da88804"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1PluginManager.html#ad912f829d164fd31f61a4eee2da88804">fire</a> (<a class="el" href="classPhpcraft_1_1Event.html">Event</a> $event)</td></tr>
+<tr class="memitem:ad912f829d164fd31f61a4eee2da88804"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1PluginManager.html#ad912f829d164fd31f61a4eee2da88804">fire</a> (<a class="el" href="classPhpcraft_1_1Event_1_1Event.html">Event</a> $event)</td></tr>
 <tr class="separator:ad912f829d164fd31f61a4eee2da88804"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
@@ -98,7 +98,7 @@ Static Public Attributes</h2></td></tr>
         <tr>
           <td class="memname">static Phpcraft\PluginManager::fire </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classPhpcraft_1_1Event.html">Event</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="classPhpcraft_1_1Event_1_1Event.html">Event</a>&#160;</td>
           <td class="paramname"><em>$event</em></td><td>)</td>
           <td></td>
         </tr>
@@ -109,9 +109,10 @@ Static Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Fires an <a class="el" href="classPhpcraft_1_1Event.html">Event</a> to all loaded plugins. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Fires an <a class="el" href="namespacePhpcraft_1_1Event.html">Event</a> to all loaded plugins.</p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype"><a class="el" href="classPhpcraft_1_1Event.html">Event</a></td><td class="paramname">$event</td><td></td></tr>
+    <tr><td class="paramtype"><a class="el" href="namespacePhpcraft_1_1Event.html">Event</a></td><td class="paramname">$event</td><td></td></tr>
   </table>
   </dd>
 </dl>
@@ -142,7 +143,8 @@ Static Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Loads all plugins in a folder. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Loads all plugins in a folder.</p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramtype">string</td><td class="paramname">$plugins_folder</td><td>The path to the folder in which plugins are contained. </td></tr>
   </table>
@@ -184,7 +186,8 @@ Static Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>The function called by plugins when they would like to be registered. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>The function called by plugins when they would like to be registered.</p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramtype">string</td><td class="paramname">$name</td><td>This has to be identical to the name of file exluding the extension. </td></tr>
     <tr><td class="paramtype">callable</td><td class="paramname">$callback</td><td>The callback function called with a <a class="el" href="classPhpcraft_1_1Plugin.html">Plugin</a> as parameter. </td></tr>
@@ -219,7 +222,7 @@ Static Public Attributes</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>src/plugin/<a class="el" href="PluginManager_8class_8php.html">PluginManager.class.php</a></li>
+<li>src/<a class="el" href="PluginManager_8php.html">PluginManager.php</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
