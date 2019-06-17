@@ -31,5 +31,8 @@
 	},
 	"require-dev": {
 		"hell-sh/nose": "^1.0"
+	},
+	"suggest": {
+		"ext-mcrypt": "Install the mcrypt extension to speed up \"online mode\" connections."
 	}
 }
