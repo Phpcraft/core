@@ -1,0 +1,85 @@
+<?php
+namespace Phpcraft;
+class BlockMaterial extends Identifier
+{
+	private static $all_cache;
+	/**
+	 * The name of each Item dropped when this block is destroyed.
+	 *
+	 * @var array $drops
+	 */
+	public $drops;
+	private $legacy_id;
+
+	private function __construct(string $name, int $legacy_id, int $since_protocol_version = 0, array $drops = [])
+	{
+		$this->name = $name;
+		$this->legacy_id = $legacy_id;
+		$this->since_protocol_version = $since_protocol_version;
+		$this->drops = $drops;
+	}
+
+	/**
+	 * Returns every BlockMaterial.
+	 *
+	 * @return BlockMaterial[]
+	 * @todo Actually return *every* BlockMaterial.
+	 */
+	public static function all()
+	{
+		if(self::$all_cache === null)
+		{
+			self::$all_cache = [
+				new BlockMaterial("air", 0),
+				new BlockMaterial("stone", 1 << 4, 0, ["stone"]),
+				new BlockMaterial("grass_block", 2 << 4, 0, ["grass_block"]),
+				new BlockMaterial("dirt", 3 << 4, 0, ["dirt"])
+			];
+		}
+		return self::$all_cache;
+	}
+
+	/**
+	 * Returns the ID of this Identifier for the given protocol version or null if not applicable.
+	 *
+	 * @param integer $protocol_version
+	 * @return integer
+	 */
+	public function getId(int $protocol_version)
+	{
+		if($protocol_version >= $this->since_protocol_version)
+		{
+			if($protocol_version < 346)
+			{
+				return $this->legacy_id;
+			}
+			switch($this->name)
+			{
+				case "air":
+					return 0;
+				case "stone":
+					return 1;
+				case "grass_block":
+					return 9;
+				case "dirt":
+					return 10;
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * Returns each Item that are supposed to be dropped when this block is destroyed.
+	 *
+	 * @return Item[]
+	 */
+	public function getDrops()
+	{
+		$drops = [];
+		foreach($this->drops as $name)
+		{
+			array_push($drops, Item::get($name));
+		}
+		return $drops;
+	}
+}

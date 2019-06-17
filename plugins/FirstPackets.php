@@ -1,7 +1,7 @@
 <?php
 // Provides clients with some essential first packets.
 use Phpcraft\
-{BlockMaterial, ClientboundBrandPluginMessagePacket, ClientConnection, Connection, Difficulty, Dimension, Event, Gamemode, JoinGamePacket, Plugin, PluginManager, Position, ServerJoinEvent, ServerTickEvent};
+{BlockMaterial, ClientboundBrandPluginMessagePacket, ClientConnection, Connection, Enum\Difficulty, Enum\Dimension, Enum\Gamemode, Event\Event, Event\ServerJoinEvent, Event\ServerTickEvent, JoinGamePacket, Plugin, PluginManager, Position};
 $WorldImitatorActive = false;
 PluginManager::registerPlugin("FirstPackets", function(Plugin $plugin)
 {

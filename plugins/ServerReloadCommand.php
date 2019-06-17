@@ -1,7 +1,7 @@
 <?php
 // This plugin provides the ".reload" console command.
 use Phpcraft\
-{Plugin, PluginManager, ServerConsoleEvent};
+{Event\ServerConsoleEvent, Plugin, PluginManager};
 PluginManager::registerPlugin("ServerReloadCommand", function(Plugin $plugin)
 {
 	$plugin->on(function(ServerConsoleEvent $event)

@@ -14,7 +14,9 @@
 	"type": "library",
 	"license": "MIT",
 	"autoload": {
-		"classmap": ["src/"]
+		"psr-4": {
+			"Phpcraft\\": "src/"
+		}
 	},
 	"require": {
 		"php": "^7.0",

@@ -6,7 +6,7 @@ if(empty($argv))
 }
 require "vendor/autoload.php";
 use Phpcraft\
-{ClientConnection, FancyUserInterface, Phpcraft, PluginManager, Server, ServerChatEvent, ServerConsoleEvent, ServerFlyingChangeEvent, ServerJoinEvent, ServerOnGroundChangeEvent, ServerPacketEvent, ServerTickEvent, UserInterface, Versions};
+{ClientConnection, Event\ServerChatEvent, Event\ServerConsoleEvent, Event\ServerFlyingChangeEvent, Event\ServerJoinEvent, Event\ServerOnGroundChangeEvent, Event\ServerPacketEvent, Event\ServerTickEvent, FancyUserInterface, Phpcraft, PluginManager, Server, UserInterface, Versions};
 $options = [
 	"offline" => false,
 	"port" => 25565,

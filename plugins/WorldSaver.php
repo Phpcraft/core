@@ -1,7 +1,7 @@
 <?php
 // Stores world-related packets received by the client so that the server can reproduce them using the WorldImitator plugin.
 use Phpcraft\
-{ClientJoinEvent, ClientPacketEvent, Connection, Plugin, PluginManager};
+{Connection, Event\ClientJoinEvent, Event\ClientPacketEvent, Plugin, PluginManager};
 PluginManager::registerPlugin("WorldSaver", function(Plugin $plugin)
 {
 	$plugin->on(function(ClientJoinEvent $event) use ($plugin)

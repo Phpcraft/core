@@ -2,7 +2,7 @@
 /** @noinspection PhpUnhandledExceptionInspection */
 require_once __DIR__."/../vendor/autoload.php";
 use Phpcraft\
-{Connection, NbtCompound, NbtInt, NbtList};
+{Connection, Nbt\NbtCompound, Nbt\NbtInt, Nbt\NbtList};
 class NBTTest
 {
 	function testReadAndWriteListCompoundAndInt()
