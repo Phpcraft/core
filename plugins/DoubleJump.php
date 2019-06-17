@@ -22,7 +22,7 @@ PluginManager::registerPlugin("DoubleJump", function(Plugin $plugin)
 			$con->sendAbilities();
 			$y_perc = 100 / 90 * (90 - abs($event->client->pitch)) / 100;
 			$x = sin(pi() / 180 * $event->client->yaw) * $y_perc * -13;
-			$y = (1 - $y_perc) * 9 + 1;
+			$y = (1 - $y_perc) * 7 + 1;
 			$z = cos(pi() / 180 * $event->client->yaw) * $y_perc * 13;
 			$con->startPacket("entity_velocity");
 			$con->writeVarInt($con->eid);
