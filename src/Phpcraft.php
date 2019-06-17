@@ -56,23 +56,19 @@ abstract class Phpcraft
 	 */
 	public static function getMinecraftFolder()
 	{
-		$minecraft_folder = null;
-		if(getenv("HOME"))
+		if(Phpcraft::isWindows())
 		{
-			if(Phpcraft::isWindows())
-			{
-				$minecraft_folder = getenv("APPDATA")."\\.minecraft";
-			}
-			else if(stristr(PHP_OS, "LINUX"))
-			{
-				$minecraft_folder = getenv("HOME")."/.minecraft";
-			}
-			else if(stristr(PHP_OS, "DAR"))
-			{
-				$minecraft_folder = getenv("HOME")."/Library/Application Support/minecraft";
-			}
+			$minecraft_folder = getenv("APPDATA")."\\.minecraft";
 		}
-		if(!$minecraft_folder)
+		else if(stristr(PHP_OS, "LINUX"))
+		{
+			$minecraft_folder = getenv("HOME")."/.minecraft";
+		}
+		else if(stristr(PHP_OS, "DAR"))
+		{
+			$minecraft_folder = getenv("HOME")."/Library/Application Support/minecraft";
+		}
+		else
 		{
 			$minecraft_folder = __DIR__."/.minecraft";
 		}
