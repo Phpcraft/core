@@ -293,18 +293,6 @@ abstract class Phpcraft
 		return $server.($withPort ? ":25565" : "");
 	}
 
-	/**
-	 * Converts a number to a VarInt binary string.
-	 *
-	 * @param GMP|string|integer $value
-	 * @return string
-	 * @deprecated Replaced by Connection::varInt
-	 */
-	public static function intToVarInt($value)
-	{
-		return Connection::varInt($value);
-	}
-
 	public static function binaryStringToHex(string $str)
 	{
 		$hex_str = "";

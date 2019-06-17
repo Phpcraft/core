@@ -96,33 +96,11 @@ abstract class Versions
 	}
 
 	/**
-	 * Returns an associative array of all Minecraft versions with their protocol version as value; newest first.
-	 *
-	 * @return array
-	 * @deprecated Replaced by Versions::list(true)
-	 */
-	public static function all()
-	{
-		return Versions::list(true);
-	}
-
-	/**
-	 * Returns an associative array of supported Minecraft versions with their protocol version as value; newest first.
-	 *
-	 * @return array
-	 * @deprecated Replaced by Versions::list(false)
-	 */
-	public static function supported()
-	{
-		return Versions::list(false);
-	}
-
-	/**
 	 * Returns an associative array of non-snapshot Minecraft versions with their protocol version as value; newest first.
 	 *
 	 * @param boolean $all true = all versions; false = only supported versions.
 	 * @return array
-	 * @see Versions::all
+	 * @see Versions::list
 	 */
 	public static function releases(bool $all = true)
 	{
