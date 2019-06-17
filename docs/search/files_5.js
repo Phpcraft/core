@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['fancyuserinterface_2eclass_2ephp',['FancyUserInterface.class.php',['../FancyUserInterface_8class_8php.html',1,'']]]
+  ['fancyuserinterface_2ephp',['FancyUserInterface.php',['../FancyUserInterface_8php.html',1,'']]]
 ];

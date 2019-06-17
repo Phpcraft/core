@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['adventure',['ADVENTURE',['../classPhpcraft_1_1Gamemode.html#aa686a3651cb7d6ae12c8d70f3b4bb10f',1,'Phpcraft::Gamemode']]]
+  ['adventure',['ADVENTURE',['../classPhpcraft_1_1Enum_1_1Gamemode.html#aaacf695c1f68037da0c1f7743ae3bca0',1,'Phpcraft::Enum::Gamemode']]]
 ];

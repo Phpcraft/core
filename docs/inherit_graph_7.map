@@ -1,9 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classPhpcraft_1_1Identifier.html" title="Phpcraft\\Identifier" alt="" coords="5,81,144,108"/>
-<area shape="rect" id="node2" href="$classPhpcraft_1_1BlockMaterial.html" title="Phpcraft\\BlockMaterial" alt="" coords="192,5,361,32"/>
-<area shape="rect" id="node3" href="$classPhpcraft_1_1EntityType.html" title="Phpcraft\\EntityType" alt="" coords="203,56,351,83"/>
-<area shape="rect" id="node4" href="$classPhpcraft_1_1Item.html" title="Phpcraft\\Item" alt="" coords="221,107,332,133"/>
-<area shape="rect" id="node5" href="$classPhpcraft_1_1PacketId.html" title="Phpcraft\\PacketId" alt="" coords="209,157,344,184"/>
-<area shape="rect" id="node6" href="$classPhpcraft_1_1ClientboundPacket.html" title="Phpcraft\\ClientboundPacket" alt="" coords="411,132,613,159"/>
-<area shape="rect" id="node7" href="$classPhpcraft_1_1ServerboundPacket.html" title="Phpcraft\\ServerboundPacket" alt="" coords="409,183,615,209"/>
+<area shape="rect" id="node2" href="$classPhpcraft_1_1Exception_1_1IOException.html" title="Phpcraft\\Exception\l\\IOException" alt="" coords="168,5,312,47"/>
+<area shape="rect" id="node3" href="$classPhpcraft_1_1Exception_1_1MissingMetadataException.html" title="Phpcraft\\Exception\l\\MissingMetadataException" alt="" coords="140,71,340,112"/>
 </map>

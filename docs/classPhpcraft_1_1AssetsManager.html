@@ -76,14 +76,14 @@ $(function() {
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ac5983ffb3902ff2578f272fc928ca010"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1AssetsManager.html#ac5983ffb3902ff2578f272fc928ca010">__construct</a> (string $index_url)</td></tr>
 <tr class="separator:ac5983ffb3902ff2578f272fc928ca010"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a870a5711a5403082daea74fb17a62cd9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1AssetsManager.html#a870a5711a5403082daea74fb17a62cd9">getAssetIndex</a> ()</td></tr>
-<tr class="separator:a870a5711a5403082daea74fb17a62cd9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a13a585f3fdb1caab24292cf9b43e9872"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1AssetsManager.html#a13a585f3fdb1caab24292cf9b43e9872">doesAssetExist</a> (string $name)</td></tr>
 <tr class="separator:a13a585f3fdb1caab24292cf9b43e9872"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a55828e6fd7653132c68891dd925da18f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1AssetsManager.html#a55828e6fd7653132c68891dd925da18f">downloadAsset</a> (string $name)</td></tr>
-<tr class="separator:a55828e6fd7653132c68891dd925da18f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a870a5711a5403082daea74fb17a62cd9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1AssetsManager.html#a870a5711a5403082daea74fb17a62cd9">getAssetIndex</a> ()</td></tr>
+<tr class="separator:a870a5711a5403082daea74fb17a62cd9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0acdd8f596c09d2bdffa6d6e0add69a9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1AssetsManager.html#a0acdd8f596c09d2bdffa6d6e0add69a9">downloadAllAssets</a> ()</td></tr>
 <tr class="separator:a0acdd8f596c09d2bdffa6d6e0add69a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a55828e6fd7653132c68891dd925da18f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1AssetsManager.html#a55828e6fd7653132c68891dd925da18f">downloadAsset</a> (string $name)</td></tr>
+<tr class="separator:a55828e6fd7653132c68891dd925da18f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aed92d67b2b8e22dac0c0a17456f09cea"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1AssetsManager.html#aed92d67b2b8e22dac0c0a17456f09cea">buildLegacyAssetsFolder</a> ()</td></tr>
 <tr class="separator:aed92d67b2b8e22dac0c0a17456f09cea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -156,7 +156,8 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Checks the asset index for the existence of an asset. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Checks the asset index for the existence of an asset.</p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramtype">string</td><td class="paramname">$name</td><td></td></tr>
   </table>
@@ -199,7 +200,8 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Downloads an asset by name and returns the path to the downloaded file or null if the asset doesn't exist. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Downloads an asset by name and returns the path to the downloaded file or null if the asset doesn't exist.</p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramtype">string</td><td class="paramname">$name</td><td></td></tr>
   </table>
@@ -232,7 +234,8 @@ Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Returns an <a class="el" href="classPhpcraft_1_1AssetsManager.html">AssetsManager</a> using the given Minecraft version's asset index. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Returns an <a class="el" href="classPhpcraft_1_1AssetsManager.html">AssetsManager</a> using the given Minecraft version's asset index.</p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramtype">string</td><td class="paramname">$version</td><td>The Minecraft version you'd like to access the assets of. </td></tr>
   </table>
@@ -241,7 +244,7 @@ Public Attributes</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="classPhpcraft_1_1AssetsManager.html">AssetsManager</a> </dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">Exception</td><td>When the version manifest for the given version couldn't be fetched. </td></tr>
+    <tr><td class="paramname"><a class="el" href="namespacePhpcraft_1_1Exception.html">Exception</a></td><td>When the version manifest for the given version couldn't be fetched. </td></tr>
   </table>
   </dd>
 </dl>
@@ -262,7 +265,8 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Returns the JSON-decoded content of the asset index of the version. </p><dl class="section return"><dt>Returns</dt><dd>array </dd></dl>
+<p>Returns the JSON-decoded content of the asset index of the version.</p>
+<dl class="section return"><dt>Returns</dt><dd>array </dd></dl>
 
 </div>
 </div>
@@ -282,7 +286,7 @@ Public Attributes</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>src/<a class="el" href="AssetsManager_8class_8php.html">AssetsManager.class.php</a></li>
+<li>src/<a class="el" href="AssetsManager_8php.html">AssetsManager.php</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
