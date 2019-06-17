@@ -3,6 +3,7 @@ namespace Phpcraft\Nbt;
 use Phpcraft\Connection;
 class NbtDouble extends NbtTag
 {
+	const ORD = 6;
 	/**
 	 * The value of this tag.
 	 *
@@ -31,7 +32,7 @@ class NbtDouble extends NbtTag
 	{
 		if(!$inList)
 		{
-			$this->_write($con, 6);
+			$this->_write($con);
 		}
 		$con->writeDouble($this->value);
 		return $con;

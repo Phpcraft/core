@@ -5,6 +5,7 @@ use Iterator;
 use Phpcraft\Connection;
 class NbtList extends NbtTag implements Iterator, Countable
 {
+	const ORD = 9;
 	/**
 	 * The NBT tag type ID of children.
 	 *
@@ -43,7 +44,7 @@ class NbtList extends NbtTag implements Iterator, Countable
 	{
 		if(!$inList)
 		{
-			$this->_write($con, 9);
+			$this->_write($con);
 		}
 		$con->writeByte($this->childType);
 		$con->writeInt(count($this->children), true);

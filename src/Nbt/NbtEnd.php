@@ -3,6 +3,8 @@ namespace Phpcraft\Nbt;
 use Phpcraft\Connection;
 class NbtEnd extends NbtTag
 {
+	const ORD = 0;
+
 	/**
 	 * Adds the NBT tag to the write buffer of the connection.
 	 *

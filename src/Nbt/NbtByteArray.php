@@ -3,6 +3,7 @@ namespace Phpcraft\Nbt;
 use Phpcraft\Connection;
 class NbtByteArray extends NbtTag
 {
+	const ORD = 7;
 	/**
 	 * The bytes in the array.
 	 *
@@ -31,7 +32,7 @@ class NbtByteArray extends NbtTag
 	{
 		if(!$inList)
 		{
-			$this->_write($con, 7);
+			$this->_write($con);
 		}
 		$con->writeInt(count($this->children), true);
 		foreach($this->children as $child)

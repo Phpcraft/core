@@ -8,19 +8,7 @@ use Phpcraft\Connection;
  */
 abstract class NbtTag
 {
-	const TYPE_END = 0;
-	const TYPE_BYTE = 1;
-	const TYPE_SHORT = 2;
-	const TYPE_INT = 3;
-	const TYPE_LONG = 4;
-	const TYPE_FLOAT = 5;
-	const TYPE_DOUBLE = 6;
-	const TYPE_BYTE_ARRAY = 7;
-	const TYPE_STRING = 8;
-	const TYPE_LIST = 9;
-	const TYPE_COMPOUND = 10;
-	const TYPE_INT_ARRAY = 11;
-	const TYPE_LONG_ARRAY = 12;
+	const ORD = -1;
 	/**
 	 * The name of this tag.
 	 *
@@ -41,9 +29,10 @@ abstract class NbtTag
 
 	abstract public function __toString();
 
-	protected function _write(Connection $con, int $type)
+	protected function _write(Connection $con)
 	{
-		$con->writeByte($type);
+		assert(static::ORD != -1);
+		$con->writeByte(static::ORD);
 		$con->writeShort(strlen($this->name));
 		$con->writeRaw($this->name);
 	}

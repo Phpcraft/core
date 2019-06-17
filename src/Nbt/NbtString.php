@@ -3,6 +3,7 @@ namespace Phpcraft\Nbt;
 use Phpcraft\Connection;
 class NbtString extends NbtTag
 {
+	const ORD = 8;
 	/**
 	 * The value of this tag.
 	 *
@@ -31,7 +32,7 @@ class NbtString extends NbtTag
 	{
 		if(!$inList)
 		{
-			$this->_write($con, 8);
+			$this->_write($con);
 		}
 		$con->writeShort(strlen($this->value));
 		$con->writeRaw($this->value);

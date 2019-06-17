@@ -4,6 +4,7 @@ use GMP;
 use Phpcraft\Connection;
 class NbtLongArray extends NbtTag
 {
+	const ORD = 12;
 	/**
 	 * The longs in the array.
 	 *
@@ -32,7 +33,7 @@ class NbtLongArray extends NbtTag
 	{
 		if(!$inList)
 		{
-			$this->_write($con, 12);
+			$this->_write($con);
 		}
 		$con->writeInt(count($this->children), true);
 		foreach($this->children as $child)

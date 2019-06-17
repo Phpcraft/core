@@ -957,21 +957,21 @@ class Connection
 		$name = ($type == 0 || $inList) ? "" : $this->readRaw(gmp_intval($this->readShort()));
 		switch($type)
 		{
-			case NbtTag::TYPE_END:
+			case NbtEnd::ORD:
 				return new NbtEnd();
-			case NbtTag::TYPE_BYTE:
+			case NbtByte::ORD:
 				return new NbtByte($name, $this->readByte(true));
-			case NbtTag::TYPE_SHORT:
+			case NbtShort::ORD:
 				return new NbtShort($name, gmp_intval($this->readShort(true)));
-			case NbtTag::TYPE_INT:
+			case NbtInt::ORD:
 				return new NbtInt($name, $this->readInt(true));
-			case NbtTag::TYPE_LONG:
+			case NbtLong::ORD:
 				return new NbtLong($name, $this->readLong(true));
-			case NbtTag::TYPE_FLOAT:
+			case NbtFloat::ORD:
 				return new NbtFloat($name, $this->readFloat());
-			case NbtTag::TYPE_DOUBLE:
+			case NbtDouble::ORD:
 				return new NbtDouble($name, $this->readDouble());
-			case NbtTag::TYPE_BYTE_ARRAY:
+			case NbtByteArray::ORD:
 				$children_i = gmp_intval($this->readInt(true));
 				$children = [];
 				for($i = 0; $i < $children_i; $i++)
@@ -979,9 +979,9 @@ class Connection
 					array_push($children, $this->readByte());
 				}
 				return new NbtByteArray($name, $children);
-			case NbtTag::TYPE_STRING:
+			case NbtString::ORD:
 				return new NbtString($name, $this->readRaw(gmp_intval($this->readShort())));
-			case NbtTag::TYPE_LIST:
+			case NbtList::ORD:
 				$childType = $this->readByte();
 				$children_i = gmp_intval($this->readInt(true));
 				$children = [];
@@ -990,14 +990,14 @@ class Connection
 					array_push($children, $this->readNBT($childType));
 				}
 				return new NbtList($name, $childType, $children);
-			case NbtTag::TYPE_COMPOUND:
+			case NbtCompound::ORD:
 				$children = [];
 				while(!(($tag = $this->readNBT()) instanceof NbtEnd))
 				{
 					array_push($children, $tag);
 				}
 				return new NbtCompound($name, $children);
-			case NbtTag::TYPE_INT_ARRAY:
+			case NbtIntArray::ORD:
 				$children_i = gmp_intval($this->readInt(true));
 				$children = [];
 				for($i = 0; $i < $children_i; $i++)
@@ -1005,7 +1005,7 @@ class Connection
 					array_push($children, $this->readInt(true));
 				}
 				return new NbtIntArray($name, $children);
-			case NbtTag::TYPE_LONG_ARRAY:
+			case NbtLongArray::ORD:
 				$children_i = gmp_intval($this->readInt(true));
 				$children = [];
 				for($i = 0; $i < $children_i; $i++)

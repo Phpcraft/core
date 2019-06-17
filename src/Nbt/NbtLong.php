@@ -4,6 +4,7 @@ use GMP;
 use Phpcraft\Connection;
 class NbtLong extends NbtTag
 {
+	const ORD = 4;
 	/**
 	 * The value of this tag.
 	 *
@@ -36,7 +37,7 @@ class NbtLong extends NbtTag
 	{
 		if(!$inList)
 		{
-			$this->_write($con, 4);
+			$this->_write($con);
 		}
 		$con->writeLong($this->value, true);
 		return $con;

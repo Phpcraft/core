@@ -3,6 +3,7 @@ namespace Phpcraft\Nbt;
 use Phpcraft\Connection;
 class NbtFloat extends NbtTag
 {
+	const ORD = 5;
 	/**
 	 * The value of this tag.
 	 *
@@ -31,7 +32,7 @@ class NbtFloat extends NbtTag
 	{
 		if(!$inList)
 		{
-			$this->_write($con, 5);
+			$this->_write($con);
 		}
 		$con->writeFloat($this->value);
 		return $con;

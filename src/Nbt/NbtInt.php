@@ -4,6 +4,7 @@ use GMP;
 use Phpcraft\Connection;
 class NbtInt extends NbtTag
 {
+	const ORD = 3;
 	/**
 	 * The value of this tag.
 	 *
@@ -36,7 +37,7 @@ class NbtInt extends NbtTag
 	{
 		if(!$inList)
 		{
-			$this->_write($con, 3);
+			$this->_write($con);
 		}
 		$con->writeInt($this->value, true);
 		return $con;

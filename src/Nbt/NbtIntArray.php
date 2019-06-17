@@ -4,6 +4,7 @@ use GMP;
 use Phpcraft\Connection;
 class NbtIntArray extends NbtTag
 {
+	const ORD = 11;
 	/**
 	 * The integers in the array.
 	 *
@@ -32,7 +33,7 @@ class NbtIntArray extends NbtTag
 	{
 		if(!$inList)
 		{
-			$this->_write($con, 11);
+			$this->_write($con);
 		}
 		$con->writeInt(count($this->children), true);
 		foreach($this->children as $child)

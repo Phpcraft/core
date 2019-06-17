@@ -3,6 +3,7 @@ namespace Phpcraft\Nbt;
 use Phpcraft\Connection;
 class NbtCompound extends NbtTag
 {
+	const ORD = 10;
 	/**
 	 * The child tags of the compound.
 	 *
@@ -112,7 +113,7 @@ class NbtCompound extends NbtTag
 	{
 		if(!$inList)
 		{
-			$this->_write($con, 10);
+			$this->_write($con);
 		}
 		foreach($this->children as $child)
 		{
