@@ -6,20 +6,20 @@ use Phpcraft\Nbt\NbtString;
 use Phpcraft\Nbt\NbtTag;
 class Slot
 {
-	const ID_HEAD = 5;
-	const ID_CHEST = 6;
-	const ID_LEGS = 7;
-	const ID_FEET = 8;
-	const ID_HOTBAR_1 = 36;
-	const ID_HOTBAR_2 = 37;
-	const ID_HOTBAR_3 = 38;
-	const ID_HOTBAR_4 = 39;
-	const ID_HOTBAR_5 = 40;
-	const ID_HOTBAR_6 = 41;
-	const ID_HOTBAR_7 = 42;
-	const ID_HOTBAR_8 = 43;
-	const ID_HOTBAR_9 = 44;
-	const ID_OFF_HAND = 45;
+	const HEAD = 5;
+	const CHEST = 6;
+	const LEGS = 7;
+	const FEET = 8;
+	const HOTBAR_1 = 36;
+	const HOTBAR_2 = 37;
+	const HOTBAR_3 = 38;
+	const HOTBAR_4 = 39;
+	const HOTBAR_5 = 40;
+	const HOTBAR_6 = 41;
+	const HOTBAR_7 = 42;
+	const HOTBAR_8 = 43;
+	const HOTBAR_9 = 44;
+	const OFF_HAND = 45;
 	/**
 	 * The item in this slot.
 	 *

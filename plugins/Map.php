@@ -25,7 +25,7 @@ PluginManager::registerPlugin("Map", function(Plugin $plugin)
 		$con = $event->client;
 		$packet = new SetSlotPacket();
 		$packet->window = 0;
-		$packet->slotId = Slot::ID_HOTBAR_1;
+		$packet->slotId = Slot::HOTBAR_2;
 		$packet->slot = new Slot(Item::get("filled_map"), 1, new NbtCompound("tag", [
 			new NbtCompound("display", [
 				new NbtString("Name", json_encode(Phpcraft::textToChat("§4§lMÄP")))
