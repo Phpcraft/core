@@ -1,7 +1,8 @@
 <?php
-namespace Phpcraft;
+namespace Phpcraft\Packet;
 use hellsh\UUID;
-use Phpcraft\Exception\IOException;
+use Phpcraft\
+{Connection, EntityLiving, Exception\IOException, Phpcraft};
 class UpdateBossBarTitlePacket extends BossBarPacket
 {
 	/**

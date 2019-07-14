@@ -1,7 +1,8 @@
 <?php
-namespace Phpcraft;
-use Phpcraft\Exception\IOException;
-class ClientboundBrandPluginMessagePacket extends ClientboundPluginMessagePacket
+namespace Phpcraft\Packet;
+use Phpcraft\
+{Connection, Exception\IOException};
+class ServerboundBrandPluginMessagePacket extends ServerboundPluginMessagePacket
 {
 	/**
 	 * @param string $data The brand.

@@ -3,8 +3,8 @@ namespace Phpcraft;
 use DomainException;
 use hellsh\UUID;
 use InvalidArgumentException;
-use Phpcraft\Enum\Gamemode;
-use Phpcraft\Exception\IOException;
+use Phpcraft\
+{Enum\Gamemode, Exception\IOException, Packet\ClientboundAbilitiesPacket, Packet\ClientboundPacket};
 /** A server-to-client connection. */
 class ClientConnection extends Connection
 {

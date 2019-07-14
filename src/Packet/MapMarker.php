@@ -1,5 +1,6 @@
 <?php
-namespace Phpcraft;
+namespace Phpcraft\Packet;
+use Phpcraft\Phpcraft;
 /**
  * A marker on a map.
  *

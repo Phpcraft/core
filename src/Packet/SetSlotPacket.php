@@ -1,7 +1,7 @@
 <?php
-namespace Phpcraft;
-use Phpcraft\Exception\IOException;
-use Phpcraft\Exception\MissingMetadataException;
+namespace Phpcraft\Packet;
+use Phpcraft\
+{Connection, Exception\IOException, Exception\MissingMetadataException, Slot};
 class SetSlotPacket extends Packet
 {
 	/**

@@ -1,6 +1,7 @@
 <?php
 namespace Phpcraft;
-use Phpcraft\Exception\IOException;
+use Phpcraft\
+{Exception\IOException, Packet\KeepAliveRequestPacket, Packet\ServerboundPacket};
 class Server
 {
 	/**

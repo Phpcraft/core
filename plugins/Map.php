@@ -1,7 +1,7 @@
 <?php
 // Loads a 128x128 image from map.png and displays it to clients as a map.
 use Phpcraft\
-{Event\Event, Event\ServerJoinEvent, Item, MapDataPacket, Nbt\NbtCompound, Nbt\NbtInt, Nbt\NbtString, Phpcraft, Plugin, PluginManager, SetSlotPacket, Slot};
+{Event\Event, Event\ServerJoinEvent, Item, Nbt\NbtCompound, Nbt\NbtInt, Nbt\NbtString, Packet\MapDataPacket, Packet\SetSlotPacket, Phpcraft, Plugin, PluginManager, Slot};
 $WorldImitatorActive = false;
 PluginManager::registerPlugin("Map", function(Plugin $plugin)
 {

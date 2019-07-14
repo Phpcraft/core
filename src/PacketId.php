@@ -1,5 +1,7 @@
 <?php
 namespace Phpcraft;
+use Phpcraft\Packet\
+{ClientboundPacket, Packet, ServerboundPacket};
 abstract class PacketId extends Identifier
 {
 	protected function __construct(string $name, int $since_protocol_version)

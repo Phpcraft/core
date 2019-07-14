@@ -1,7 +1,8 @@
 <?php
-namespace Phpcraft;
+namespace Phpcraft\Packet;
 use GMP;
-use Phpcraft\Exception\IOException;
+use Phpcraft\
+{Connection, Exception\IOException};
 /** Sent by the server to the client to make sure it's still connected. */
 class KeepAliveRequestPacket extends Packet
 {

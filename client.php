@@ -7,7 +7,7 @@ if(empty($argv))
 }
 require "vendor/autoload.php";
 use Phpcraft\
-{Account, AssetsManager, ClientboundPacket, Event\ClientConsoleEvent, Event\ClientJoinEvent, Event\ClientPacketEvent, FancyUserInterface, KeepAliveRequestPacket, Phpcraft, PluginManager, Position, ServerboundBrandPluginMessagePacket, ServerConnection, UserInterface, Versions};
+{Account, AssetsManager, Packet\ClientboundPacket, Event\ClientConsoleEvent, Event\ClientJoinEvent, Event\ClientPacketEvent, FancyUserInterface, Packet\KeepAliveRequestPacket, Phpcraft, PluginManager, Position, Packet\ServerboundBrandPluginMessagePacket, ServerConnection, UserInterface, Versions};
 if(Phpcraft::isWindows() && !in_array("help", $argv))
 {
 	die("I'm sorry, due to a bug in PHP's Windows port <https://bugs.php.net/bug.php?id=34972>, you'll have to use the Windows Subsystem for Linux <https://aka.ms/wslinstall> to use the PHP Minecraft Client.\n");

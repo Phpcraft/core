@@ -1,7 +1,7 @@
 <?php
 // This plugin adds an annoying boss bar. Enjoy!
 use Phpcraft\
-{AddBossBarPacket, Event\Event, Event\ServerJoinEvent, Event\ServerTickEvent, Plugin, PluginManager, UpdateBossBarHealthPacket, UpdateBossBarTitlePacket, UUID};
+{Event\Event, Event\ServerJoinEvent, Event\ServerTickEvent, Packet\AddBossBarPacket, Packet\UpdateBossBarHealthPacket, Packet\UpdateBossBarTitlePacket, Plugin, PluginManager, UUID};
 PluginManager::registerPlugin("BossBar", function(Plugin $plugin)
 {
 	global $bossbar_i;

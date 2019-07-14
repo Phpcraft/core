@@ -1,6 +1,7 @@
 <?php
-namespace Phpcraft;
-use Phpcraft\Exception\IOException;
+namespace Phpcraft\Packet;
+use Phpcraft\
+{ClientConnection, Connection, EntityLiving, EntityType, Exception\IOException, Phpcraft, Position};
 class AddBossBarPacket extends BossBarPacket
 {
 	/**

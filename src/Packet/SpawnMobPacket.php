@@ -1,7 +1,8 @@
 <?php
-namespace Phpcraft;
+namespace Phpcraft\Packet;
 use hellsh\UUID;
-use Phpcraft\Exception\IOException;
+use Phpcraft\
+{Connection, EntityBase, EntityMetadata, EntityType, Exception\IOException, Position};
 class SpawnMobPacket extends Packet
 {
 	/**

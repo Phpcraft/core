@@ -3,7 +3,8 @@ namespace Phpcraft;
 use DomainException;
 use hellsh\UUID;
 use InvalidArgumentException;
-use Phpcraft\Exception\IOException;
+use Phpcraft\
+{Exception\IOException, Packet\ServerboundPacket};
 /** A client-to-server connection. */
 class ServerConnection extends Connection
 {

@@ -1,6 +1,7 @@
 <?php
-namespace Phpcraft;
-use Phpcraft\Exception\IOException;
+namespace Phpcraft\Packet;
+use Phpcraft\
+{Connection, Exception\IOException};
 /** The first packet sent to the client after they've logged in. */
 class JoinGamePacket extends Packet
 {
