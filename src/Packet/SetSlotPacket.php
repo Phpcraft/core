@@ -9,20 +9,33 @@ class SetSlotPacket extends Packet
 	 *
 	 * @var integer $window
 	 */
-	public $window = 0;
+	public $window;
 	/**
 	 * The ID of the slot being updated.
 	 *
 	 * @var integer $slotId
+	 * @see Slot
 	 * @see https://wiki.vg/Inventory
 	 */
-	public $slotId = 0;
+	public $slotId;
 	/**
 	 * The new value of the slot.
 	 *
 	 * @var Slot $slot
 	 */
-	public $slot = null;
+	public $slot;
+
+	/**
+	 * @param integer $window The ID of the window being updated. 0 for inventory.
+	 * @param integer $slotId The ID of the slot being updated. See https://wiki.vg/Inventory and {@link Slot} constants.
+	 * @param Slot $slot The new value of the slot.
+	 */
+	function __construct(int $window = 0, int $slotId = 0, Slot $slot = null)
+	{
+		$this->window = $window;
+		$this->slotId = $slotId;
+		$this->slot = $slot;
+	}
 
 	/**
 	 * Initialises the packet class by reading its payload from the given Connection.
@@ -33,11 +46,7 @@ class SetSlotPacket extends Packet
 	 */
 	public static function read(Connection $con)
 	{
-		$packet = new SetSlotPacket();
-		$packet->window = $con->readByte();
-		$packet->slotId = gmp_intval($con->readShort());
-		$packet->slot = $con->readSlot();
-		return $packet;
+		return new SetSlotPacket($con->readByte(), gmp_intval($con->readShort()), $con->readSlot());
 	}
 
 	/**

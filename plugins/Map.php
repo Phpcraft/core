@@ -23,16 +23,12 @@ PluginManager::registerPlugin("Map", function(Plugin $plugin)
 			return;
 		}
 		$con = $event->client;
-		$packet = new SetSlotPacket();
-		$packet->window = 0;
-		$packet->slotId = Slot::HOTBAR_2;
-		$packet->slot = new Slot(Item::get("filled_map"), 1, new NbtCompound("tag", [
+		(new SetSlotPacket(0, Slot::HOTBAR_2, new Slot(Item::get("filled_map"), 1, new NbtCompound("tag", [
 			new NbtCompound("display", [
 				new NbtString("Name", json_encode(Phpcraft::textToChat("§4§lMÄP")))
 			]),
 			new NbtInt("map", 1337),
-		]));
-		$packet->send($con);
+		]))))->send($con);
 		$packet = new MapDataPacket();
 		$packet->mapId = 1337;
 		$packet->width = 128;
