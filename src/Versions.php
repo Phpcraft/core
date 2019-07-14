@@ -102,7 +102,7 @@ abstract class Versions
 			];
 		}
 		$versions = [];
-		foreach(Phpcraft::getCachableJson("https://raw.githubusercontent.com/timmyrs/minecraft-data/master/data/pc/common/protocolVersions.json", 259200) as $version)
+		foreach(Phpcraft::getCachableJson("https://raw.githubusercontent.com/PrismarineJS/minecraft-data/master/data/pc/common/protocolVersions.json", 259200) as $version)
 		{
 			if(!$version["usesNetty"])
 			{
