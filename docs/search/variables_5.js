@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['hard',['HARD',['../classPhpcraft_1_1Enum_1_1Difficulty.html#a1510f020eb71078ec56fbc640884d7ad',1,'Phpcraft::Enum::Difficulty']]]
+  ['feet',['FEET',['../classPhpcraft_1_1Slot.html#a43d1ef95a8e832bdd8fa686905ec2c4f',1,'Phpcraft::Slot']]]
 ];

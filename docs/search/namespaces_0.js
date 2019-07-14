@@ -4,5 +4,6 @@ var searchData=
   ['event',['Event',['../namespacePhpcraft_1_1Event.html',1,'Phpcraft']]],
   ['exception',['Exception',['../namespacePhpcraft_1_1Exception.html',1,'Phpcraft']]],
   ['nbt',['Nbt',['../namespacePhpcraft_1_1Nbt.html',1,'Phpcraft']]],
+  ['packet',['Packet',['../namespacePhpcraft_1_1Packet.html',1,'Phpcraft']]],
   ['phpcraft',['Phpcraft',['../namespacePhpcraft.html',1,'']]]
 ];

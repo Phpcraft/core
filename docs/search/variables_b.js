@@ -1,30 +1,5 @@
 var searchData=
 [
-  ['type_5fblack_5fbanner',['TYPE_BLACK_BANNER',['../classPhpcraft_1_1MapMarker.html#a596fd13e33261fc89de367d67ec24c40',1,'Phpcraft::MapMarker']]],
-  ['type_5fblue_5farrow',['TYPE_BLUE_ARROW',['../classPhpcraft_1_1MapMarker.html#a1a33b510591409f58c8a7b87647c39f1',1,'Phpcraft::MapMarker']]],
-  ['type_5fblue_5fbanner',['TYPE_BLUE_BANNER',['../classPhpcraft_1_1MapMarker.html#a8e8a4fede8514f50f8d36323aa318f54',1,'Phpcraft::MapMarker']]],
-  ['type_5fbrown_5fbanner',['TYPE_BROWN_BANNER',['../classPhpcraft_1_1MapMarker.html#a7ff69fa40efdc3400fd7e314e1ef5695',1,'Phpcraft::MapMarker']]],
-  ['type_5fcyan_5fbanner',['TYPE_CYAN_BANNER',['../classPhpcraft_1_1MapMarker.html#ab60904ff8b750bd38149b122514f68e7',1,'Phpcraft::MapMarker']]],
-  ['type_5fgray_5fbanner',['TYPE_GRAY_BANNER',['../classPhpcraft_1_1MapMarker.html#a621c01718f2be434bb7735ef71be1a57',1,'Phpcraft::MapMarker']]],
-  ['type_5fgreen_5farrow',['TYPE_GREEN_ARROW',['../classPhpcraft_1_1MapMarker.html#a3b754db273159ab4cbad1c801af8497d',1,'Phpcraft::MapMarker']]],
-  ['type_5fgreen_5fbanner',['TYPE_GREEN_BANNER',['../classPhpcraft_1_1MapMarker.html#ae21bb955c4acc864471a23c97ed6ecaf',1,'Phpcraft::MapMarker']]],
-  ['type_5flight_5fblue_5fbanner',['TYPE_LIGHT_BLUE_BANNER',['../classPhpcraft_1_1MapMarker.html#a9e84148e10464a9c2334b96f8fc1388d',1,'Phpcraft::MapMarker']]],
-  ['type_5flight_5fgray_5fbanner',['TYPE_LIGHT_GRAY_BANNER',['../classPhpcraft_1_1MapMarker.html#a9692de0ba74a40951b711d8b2d976f52',1,'Phpcraft::MapMarker']]],
-  ['type_5flime_5fbanner',['TYPE_LIME_BANNER',['../classPhpcraft_1_1MapMarker.html#a1099b7a975a8ed052a54246c7f7583b0',1,'Phpcraft::MapMarker']]],
-  ['type_5fmagenta_5fbanner',['TYPE_MAGENTA_BANNER',['../classPhpcraft_1_1MapMarker.html#a3c07ff0f4f094e9a7743d96437a70db5',1,'Phpcraft::MapMarker']]],
-  ['type_5fmansion',['TYPE_MANSION',['../classPhpcraft_1_1MapMarker.html#ab91166818b985bcbfa92c75a4d393a37',1,'Phpcraft::MapMarker']]],
-  ['type_5forange_5fbanner',['TYPE_ORANGE_BANNER',['../classPhpcraft_1_1MapMarker.html#ab1ebe31c45df29a56d85c50ff64aa3b6',1,'Phpcraft::MapMarker']]],
-  ['type_5fpink_5fbanner',['TYPE_PINK_BANNER',['../classPhpcraft_1_1MapMarker.html#ac700fdbe77f577f1f1eb8131d8f2c32b',1,'Phpcraft::MapMarker']]],
-  ['type_5fpurple_5fbanner',['TYPE_PURPLE_BANNER',['../classPhpcraft_1_1MapMarker.html#aafb9a71cf7f94d2644f85322e1973075',1,'Phpcraft::MapMarker']]],
-  ['type_5fred_5farrow',['TYPE_RED_ARROW',['../classPhpcraft_1_1MapMarker.html#a66f6a99b6ccf5d8e355ca02e867f1cea',1,'Phpcraft::MapMarker']]],
-  ['type_5fred_5fbanner',['TYPE_RED_BANNER',['../classPhpcraft_1_1MapMarker.html#acf4d44868641a266a18d147e72ed908c',1,'Phpcraft::MapMarker']]],
-  ['type_5fred_5fpointer',['TYPE_RED_POINTER',['../classPhpcraft_1_1MapMarker.html#a3137751e1c3fef0501361f1063189697',1,'Phpcraft::MapMarker']]],
-  ['type_5fsmall_5fwhite_5fcircle',['TYPE_SMALL_WHITE_CIRCLE',['../classPhpcraft_1_1MapMarker.html#ac5d6e0ee8c4013aeb60e9a2211293428',1,'Phpcraft::MapMarker']]],
-  ['type_5ftemple',['TYPE_TEMPLE',['../classPhpcraft_1_1MapMarker.html#a422a97b1e3364b2eae604df94d2b2cdf',1,'Phpcraft::MapMarker']]],
-  ['type_5ftreasure_5fmarker',['TYPE_TREASURE_MARKER',['../classPhpcraft_1_1MapMarker.html#aa0115df92dffa8a9569e412591da0b47',1,'Phpcraft::MapMarker']]],
-  ['type_5fwhite_5farrow',['TYPE_WHITE_ARROW',['../classPhpcraft_1_1MapMarker.html#a5366675ad935792644c15ec4ace0d3ec',1,'Phpcraft::MapMarker']]],
-  ['type_5fwhite_5fbanner',['TYPE_WHITE_BANNER',['../classPhpcraft_1_1MapMarker.html#a5f69056cfdec05b5ed932e542da094a9',1,'Phpcraft::MapMarker']]],
-  ['type_5fwhite_5fcircle',['TYPE_WHITE_CIRCLE',['../classPhpcraft_1_1MapMarker.html#a0a02614ca9659b90596294e65431547b',1,'Phpcraft::MapMarker']]],
-  ['type_5fwhite_5fcross',['TYPE_WHITE_CROSS',['../classPhpcraft_1_1MapMarker.html#a7a7a963692e301b260d6308b1f30837a',1,'Phpcraft::MapMarker']]],
-  ['type_5fyellow_5fbanner',['TYPE_YELLOW_BANNER',['../classPhpcraft_1_1MapMarker.html#ae699384617b4fa9a31459705751849bd',1,'Phpcraft::MapMarker']]]
+  ['spectator',['SPECTATOR',['../classPhpcraft_1_1Enum_1_1Gamemode.html#ab71290bd4b4fd61744781ead60b25ada',1,'Phpcraft::Enum::Gamemode']]],
+  ['survival',['SURVIVAL',['../classPhpcraft_1_1Enum_1_1Gamemode.html#afe2e359b750e356c9a19c6fea3b30858',1,'Phpcraft::Enum::Gamemode']]]
 ];

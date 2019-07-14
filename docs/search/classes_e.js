@@ -1,9 +1,9 @@
 var searchData=
 [
   ['server',['Server',['../classPhpcraft_1_1Server.html',1,'Phpcraft']]],
-  ['serverboundbrandpluginmessagepacket',['ServerboundBrandPluginMessagePacket',['../classPhpcraft_1_1ServerboundBrandPluginMessagePacket.html',1,'Phpcraft']]],
-  ['serverboundpacket',['ServerboundPacket',['../classPhpcraft_1_1ServerboundPacket.html',1,'Phpcraft']]],
-  ['serverboundpluginmessagepacket',['ServerboundPluginMessagePacket',['../classPhpcraft_1_1ServerboundPluginMessagePacket.html',1,'Phpcraft']]],
+  ['serverboundbrandpluginmessagepacket',['ServerboundBrandPluginMessagePacket',['../classPhpcraft_1_1Packet_1_1ServerboundBrandPluginMessagePacket.html',1,'Phpcraft::Packet']]],
+  ['serverboundpacket',['ServerboundPacket',['../classPhpcraft_1_1Packet_1_1ServerboundPacket.html',1,'Phpcraft::Packet']]],
+  ['serverboundpluginmessagepacket',['ServerboundPluginMessagePacket',['../classPhpcraft_1_1Packet_1_1ServerboundPluginMessagePacket.html',1,'Phpcraft::Packet']]],
   ['serverchatevent',['ServerChatEvent',['../classPhpcraft_1_1Event_1_1ServerChatEvent.html',1,'Phpcraft::Event']]],
   ['serverclientevent',['ServerClientEvent',['../classPhpcraft_1_1Event_1_1ServerClientEvent.html',1,'Phpcraft::Event']]],
   ['serverconnection',['ServerConnection',['../classPhpcraft_1_1ServerConnection.html',1,'Phpcraft']]],
@@ -14,8 +14,8 @@ var searchData=
   ['serverongroundchangeevent',['ServerOnGroundChangeEvent',['../classPhpcraft_1_1Event_1_1ServerOnGroundChangeEvent.html',1,'Phpcraft::Event']]],
   ['serverpacketevent',['ServerPacketEvent',['../classPhpcraft_1_1Event_1_1ServerPacketEvent.html',1,'Phpcraft::Event']]],
   ['servertickevent',['ServerTickEvent',['../classPhpcraft_1_1Event_1_1ServerTickEvent.html',1,'Phpcraft::Event']]],
-  ['setexperiencepacket',['SetExperiencePacket',['../classPhpcraft_1_1SetExperiencePacket.html',1,'Phpcraft']]],
-  ['setslotpacket',['SetSlotPacket',['../classPhpcraft_1_1SetSlotPacket.html',1,'Phpcraft']]],
+  ['setexperiencepacket',['SetExperiencePacket',['../classPhpcraft_1_1Packet_1_1SetExperiencePacket.html',1,'Phpcraft::Packet']]],
+  ['setslotpacket',['SetSlotPacket',['../classPhpcraft_1_1Packet_1_1SetSlotPacket.html',1,'Phpcraft::Packet']]],
   ['slot',['Slot',['../classPhpcraft_1_1Slot.html',1,'Phpcraft']]],
-  ['spawnmobpacket',['SpawnMobPacket',['../classPhpcraft_1_1SpawnMobPacket.html',1,'Phpcraft']]]
+  ['spawnmobpacket',['SpawnMobPacket',['../classPhpcraft_1_1Packet_1_1SpawnMobPacket.html',1,'Phpcraft::Packet']]]
 ];
