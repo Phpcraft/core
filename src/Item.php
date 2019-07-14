@@ -1,5 +1,6 @@
 <?php
 namespace Phpcraft;
+use Phpcraft\Nbt\NbtTag;
 class Item extends Identifier
 {
 	private static $all_cache;
@@ -79,5 +80,17 @@ class Item extends Identifier
 	public function getBlock()
 	{
 		return $this->block == null ? null : BlockMaterial::get($this->block);
+	}
+
+	/**
+	 * Creates a slot containing this item.
+	 *
+	 * @param integer $count How many times this item is in the slot.
+	 * @param NbtTag $nbt The NBT data of this item in the slot.
+	 * @return Slot
+	 */
+	public function slot(int $count = 1, NbtTag $nbt = null)
+	{
+		return new Slot($this, $count, $nbt);
 	}
 }

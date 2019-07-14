@@ -85,7 +85,7 @@ class GeneralTest
 
 	function testSlotDisplayName()
 	{
-		$slot = new Slot(Item::get("stone"));
+		$slot = Item::get("stone")->slot();
 		Nose::assertNull($slot->getDisplayName());
 		$name = [
 			"text" => "Test",
