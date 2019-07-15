@@ -41,7 +41,7 @@ class GeneralTest
 	function testUuid()
 	{
 		$uuid = new UUID("e0603b592edc45f7acc7b0cccd6656e1");
-		Nose::assert(gmp_cmp($uuid->toInt(), "3764410081") === 0);
+		Nose::assertEquals($uuid->toInt(), "963689993953");
 		Nose::assertFalse((new UUID("fffffff0-ffff-fff0-ffff-fff0fffffff0"))->isSlim());
 		Nose::assertFalse((new UUID("fffffff0-ffff-fff0-ffff-fff1fffffff1"))->isSlim());
 		Nose::assertFalse((new UUID("fffffff0-ffff-fff1-ffff-fff0fffffff1"))->isSlim());
