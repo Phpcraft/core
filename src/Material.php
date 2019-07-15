@@ -11,11 +11,10 @@ class Material extends Identifier
 	public $drops;
 	private $legacy_id;
 
-	private function __construct(string $name, int $legacy_id, int $since_protocol_version = 0, array $drops = [])
+	protected function __construct(string $name, int $legacy_id, int $since_protocol_version = 0, array $drops = [])
 	{
-		$this->name = $name;
+		parent::__construct($name, $since_protocol_version);
 		$this->legacy_id = $legacy_id;
-		$this->since_protocol_version = $since_protocol_version;
 		$this->drops = $drops;
 	}
 

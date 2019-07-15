@@ -15,6 +15,12 @@ abstract class Identifier
 	 */
 	public $since_protocol_version;
 
+	protected function __construct(string $name, int $since_protocol_version)
+	{
+		$this->name = $name;
+		$this->since_protocol_version = $since_protocol_version;
+	}
+
 	/**
 	 * Returns an Identifier by its name or null if not found.
 	 *

@@ -5,11 +5,10 @@ class EntityType extends Identifier
 	private static $all_cache;
 	private $legacy_id;
 
-	private function __construct(string $name, int $legacy_id, int $since_protocol_version = 0)
+	protected function __construct(string $name, int $legacy_id, int $since_protocol_version = 0)
 	{
-		$this->name = $name;
+		parent::__construct($name, $since_protocol_version);
 		$this->legacy_id = $legacy_id;
-		$this->since_protocol_version = $since_protocol_version;
 	}
 
 	/**

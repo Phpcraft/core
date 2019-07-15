@@ -4,12 +4,6 @@ use Phpcraft\Packet\
 {ClientboundPacket, Packet, ServerboundPacket};
 abstract class PacketId extends Identifier
 {
-	protected function __construct(string $name, int $since_protocol_version)
-	{
-		$this->name = $name;
-		$this->since_protocol_version = $since_protocol_version;
-	}
-
 	/**
 	 * Returns every ClientboundPacket and ServerboundPacket.
 	 *
