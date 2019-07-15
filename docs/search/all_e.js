@@ -5,6 +5,8 @@ var searchData=
   ['mapdatapacket_2ephp',['MapDataPacket.php',['../MapDataPacket_8php.html',1,'']]],
   ['mapmarker',['MapMarker',['../classPhpcraft_1_1Packet_1_1MapMarker.html',1,'Phpcraft::Packet']]],
   ['mapmarker_2ephp',['MapMarker.php',['../MapMarker_8php.html',1,'']]],
+  ['material',['Material',['../classPhpcraft_1_1Material.html',1,'Phpcraft']]],
+  ['material_2ephp',['Material.php',['../Material_8php.html',1,'']]],
   ['minecraft',['minecraft',['../classPhpcraft_1_1Versions.html#aa31f8f10a3fb2e69957f2991c2424280',1,'Phpcraft::Versions']]],
   ['minecraftreleases',['minecraftReleases',['../classPhpcraft_1_1Versions.html#a14670ab1a1408affc965ef1568393584',1,'Phpcraft::Versions']]],
   ['minecraftsupported',['minecraftSupported',['../classPhpcraft_1_1Versions.html#a2178e98d67933760999588a28a2ed9f5',1,'Phpcraft::Versions']]],
