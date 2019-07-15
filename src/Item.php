@@ -4,11 +4,6 @@ use Phpcraft\Nbt\NbtTag;
 class Item extends Identifier
 {
 	private static $all_cache;
-	/**
-	 * The name of the related BlockMaterial.
-	 *
-	 * @var string $block ;
-	 */
 	public $block;
 	private $legacy_id;
 
@@ -75,11 +70,11 @@ class Item extends Identifier
 	/**
 	 * Returns the related block material.
 	 *
-	 * @return BlockMaterial
+	 * @return Material
 	 */
 	public function getBlock()
 	{
-		return $this->block == null ? null : BlockMaterial::get($this->block);
+		return $this->block == null ? null : Material::get($this->block);
 	}
 
 	/**
