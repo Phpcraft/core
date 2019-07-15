@@ -21,6 +21,6 @@ class UUID extends \hellsh\UUID
 	 */
 	public function toInt()
 	{
-		return gmp_import(substr($this->binary, 0, 2).substr($this->binary, -2));
+		return gmp_import(substr($this->binary, 0, 2).substr($this->binary, -3));
 	}
 }
