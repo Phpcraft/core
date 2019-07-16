@@ -128,10 +128,13 @@ abstract class Phpcraft
 	 */
 	public static function getCachableResource(string $url, int $caching_duration = 86400)
 	{
-		self::maintainCache();
 		$cache = [];
 		if(file_exists(__DIR__."/.cache"))
 		{
+			if(filemtime(__DIR__."/.cache") < time() - 86400)
+			{
+				self::maintainCache();
+			}
 			$cache = json_decode(file_get_contents(__DIR__."/.cache"), true);
 		}
 		if(empty($cache[$url]))
@@ -153,29 +156,30 @@ abstract class Phpcraft
 	 */
 	public static function maintainCache()
 	{
-		if(file_exists(__DIR__."/.cache"))
+		if(!file_exists(__DIR__."/.cache"))
 		{
-			$cache = json_decode(file_get_contents(__DIR__."/.cache"), true);
-			$time = time();
-			foreach($cache as $url => $entry)
+			return;
+		}
+		$cache = json_decode(file_get_contents(__DIR__."/.cache"), true);
+		$time = time();
+		foreach($cache as $url => $entry)
+		{
+			if($entry["expiry"] < $time)
 			{
-				if($entry["expiry"] < $time)
+				unset($cache[$url]);
+				if(isset(self::$json_cache[$url]))
 				{
-					unset($cache[$url]);
-					if(isset(self::$json_cache[$url]))
-					{
-						unset(self::$json_cache[$url]);
-					}
+					unset(self::$json_cache[$url]);
 				}
 			}
-			if(empty($cache))
-			{
-				unlink(__DIR__."/.cache");
-			}
-			else
-			{
-				file_put_contents(__DIR__."/.cache", json_encode($cache));
-			}
+		}
+		if(empty($cache))
+		{
+			unlink(__DIR__."/.cache");
+		}
+		else
+		{
+			file_put_contents(__DIR__."/.cache", json_encode($cache));
 		}
 	}
 
