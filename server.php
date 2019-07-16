@@ -6,7 +6,7 @@ if(empty($argv))
 }
 require "vendor/autoload.php";
 use Phpcraft\
-{ClientConnection, Event\ServerChatEvent, Event\ServerConsoleEvent, Event\ServerFlyingChangeEvent, Event\ServerJoinEvent, Event\ServerOnGroundChangeEvent, Event\ServerPacketEvent, Event\ServerTickEvent, FancyUserInterface, Phpcraft, PluginManager, Server, UserInterface, Versions};
+{ClientConnection, Event\ServerChatEvent, Event\ServerConsoleEvent, Event\ServerFlyingChangeEvent, Event\ServerJoinEvent, Event\ServerLeaveEvent, Event\ServerOnGroundChangeEvent, Event\ServerPacketEvent, Event\ServerTickEvent, FancyUserInterface, Phpcraft, PluginManager, Server, UserInterface, Versions};
 $options = [
 	"offline" => false,
 	"port" => 25565,
@@ -234,30 +234,33 @@ $server->disconnect_function = function(ClientConnection $con)
 	global $ui, $server;
 	if($con->state == 3)
 	{
-		$msg = [
-			"color" => "yellow",
-			"translate" => "multiplayer.player.left",
-			"with" => [
-				[
-					"text" => $con->username
-				]
-			]
-		];
-		$ui->add(Phpcraft::chatToText($msg, 1));
-		$msg = json_encode($msg);
-		foreach($server->getPlayers() as $c)
+		if(!PluginManager::fire(new ServerLeaveEvent($server, $con)))
 		{
-			if($c !== $con)
+			$msg = [
+				"color" => "yellow",
+				"translate" => "multiplayer.player.left",
+				"with" => [
+					[
+						"text" => $con->username
+					]
+				]
+			];
+			$ui->add(Phpcraft::chatToText($msg, 1));
+			$msg = json_encode($msg);
+			foreach($server->getPlayers() as $c)
 			{
-				try
+				if($c !== $con)
 				{
-					$c->startPacket("clientbound_chat_message");
-					$c->writeString($msg);
-					$c->writeByte(1);
-					$c->send();
-				}
-				catch(Exception $ignored)
-				{
+					try
+					{
+						$c->startPacket("clientbound_chat_message");
+						$c->writeString($msg);
+						$c->writeByte(1);
+						$c->send();
+					}
+					catch(Exception $ignored)
+					{
+					}
 				}
 			}
 		}
