@@ -37,10 +37,7 @@ PluginManager::registerPlugin("FirstPackets", function(Plugin $plugin)
 		$con->writeString('{"text":"Phpcraft Server"}');
 		$con->writeString('{"text":"github.com/timmyrs/Phpcraft"}');
 		$con->send();
-		$con->startPacket("clientbound_chat_message");
-		$con->writeString('{"text":"Welcome to this Phpcraft server."}');
-		$con->writeByte(1);
-		$con->send();
+		$con->sendMessage("Welcome to this Phpcraft server.");
 	}, Event::PRIORITY_NORMAL);
 	$plugin->on(function(ServerTickEvent $event)
 	{

@@ -4,7 +4,7 @@ use DomainException;
 use hellsh\UUID;
 use InvalidArgumentException;
 use Phpcraft\
-{Enum\Gamemode, Exception\IOException, Packet\ClientboundAbilitiesPacket, Packet\ClientboundPacket};
+{Enum\ChatPosition, Enum\Gamemode, Exception\IOException, Packet\ClientboundAbilitiesPacket, Packet\ClientboundPacket};
 /** A server-to-client connection. */
 class ClientConnection extends Connection
 {
@@ -382,6 +382,25 @@ class ClientConnection extends Connection
 			$this->state = 3;
 		}
 		return $this;
+	}
+
+	/**
+	 * Sends the client a chat message.
+	 *
+	 * @param array|string $message
+	 * @param int $position
+	 * @throws IOException
+	 */
+	public function sendMessage($message, int $position = ChatPosition::SYSTEM)
+	{
+		if(is_string($message))
+		{
+			$message = Phpcraft::textToChat($message);
+		}
+		$this->startPacket("clientbound_chat_message");
+		$this->writeString(json_encode($message));
+		$this->writeByte($position);
+		$this->send();
 	}
 
 	/**

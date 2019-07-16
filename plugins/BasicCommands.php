@@ -39,10 +39,7 @@ PluginManager::registerPlugin("BasicCommands", function(Plugin $plugin)
 		}
 		else
 		{
-			$con->startPacket("clientbound_chat_message");
-			$con->writeString(json_encode(["text" => "That's not any command I know. Try /abilities <0-F>, /gamemode <0-3>, or /metadata <00-FF>."]));
-			$con->writeByte(0);
-			$con->send();
+			$con->sendMessage("That's not any command I know. Try /abilities <0-F>, /gamemode <0-3>, or /metadata <00-FF>.");
 		}
 		$event->cancelled = true;
 	});
