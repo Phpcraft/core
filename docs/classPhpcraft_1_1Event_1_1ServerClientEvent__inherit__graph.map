@@ -1,9 +1,10 @@
 <map id="Phpcraft\Event\ServerClientEvent" name="Phpcraft\Event\ServerClientEvent">
-<area shape="rect" id="node4" href="$classPhpcraft_1_1Event_1_1ServerChatEvent.html" title="Phpcraft\\Event\\ServerChat\lEvent" alt="" coords="727,5,920,47"/>
-<area shape="rect" id="node5" href="$classPhpcraft_1_1Event_1_1ServerFlyingChangeEvent.html" title="Phpcraft\\Event\\ServerFlying\lChangeEvent" alt="" coords="722,71,925,112"/>
-<area shape="rect" id="node6" href="$classPhpcraft_1_1Event_1_1ServerJoinEvent.html" title="Phpcraft\\Event\\ServerJoin\lEvent" alt="" coords="730,136,917,177"/>
-<area shape="rect" id="node7" href="$classPhpcraft_1_1Event_1_1ServerOnGroundChangeEvent.html" title="Phpcraft\\Event\\ServerOnGround\lChangeEvent" alt="" coords="709,201,937,243"/>
-<area shape="rect" id="node8" href="$classPhpcraft_1_1Event_1_1ServerPacketEvent.html" title="Phpcraft\\Event\\ServerPacket\lEvent" alt="" coords="720,267,927,308"/>
-<area shape="rect" id="node2" href="$classPhpcraft_1_1Event_1_1ServerEvent.html" title="Phpcraft\\Event\\ServerEvent" alt="" coords="212,143,412,170"/>
-<area shape="rect" id="node3" href="$classPhpcraft_1_1Event_1_1Event.html" title="Phpcraft\\Event\\Event" alt="" coords="5,143,164,170"/>
+<area shape="rect" id="node4" href="$classPhpcraft_1_1Event_1_1ServerChatEvent.html" title="Phpcraft\\Event\\ServerChat\lEvent" alt="" coords="717,5,907,47"/>
+<area shape="rect" id="node5" href="$classPhpcraft_1_1Event_1_1ServerFlyingChangeEvent.html" title="Phpcraft\\Event\\ServerFlying\lChangeEvent" alt="" coords="713,71,911,112"/>
+<area shape="rect" id="node6" href="$classPhpcraft_1_1Event_1_1ServerJoinEvent.html" title="Phpcraft\\Event\\ServerJoin\lEvent" alt="" coords="721,136,903,177"/>
+<area shape="rect" id="node7" href="$classPhpcraft_1_1Event_1_1ServerLeaveEvent.html" title="Phpcraft\\Event\\ServerLeave\lEvent" alt="" coords="713,201,911,243"/>
+<area shape="rect" id="node8" href="$classPhpcraft_1_1Event_1_1ServerOnGroundChangeEvent.html" title="Phpcraft\\Event\\ServerOnGround\lChangeEvent" alt="" coords="699,267,925,308"/>
+<area shape="rect" id="node9" href="$classPhpcraft_1_1Event_1_1ServerPacketEvent.html" title="Phpcraft\\Event\\ServerPacket\lEvent" alt="" coords="711,332,913,373"/>
+<area shape="rect" id="node2" href="$classPhpcraft_1_1Event_1_1ServerEvent.html" title="Phpcraft\\Event\\ServerEvent" alt="" coords="208,177,405,203"/>
+<area shape="rect" id="node3" href="$classPhpcraft_1_1Event_1_1Event.html" title="Phpcraft\\Event\\Event" alt="" coords="5,177,160,203"/>
 </map>

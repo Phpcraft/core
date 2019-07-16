@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['above_5fhotbar',['ABOVE_HOTBAR',['../classPhpcraft_1_1Enum_1_1ChatPosition.html#a3af5611c11eebe06d22e9211806b1de3',1,'Phpcraft::Enum::ChatPosition']]],
   ['accept',['accept',['../classPhpcraft_1_1Server.html#a172423393c7cd2339523706457c05c37',1,'Phpcraft::Server']]],
   ['account',['Account',['../classPhpcraft_1_1Account.html',1,'Phpcraft']]],
   ['account_2ephp',['Account.php',['../Account_8php.html',1,'']]],

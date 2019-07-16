@@ -11,6 +11,7 @@ var searchData=
   ['serverevent_2ephp',['ServerEvent.php',['../ServerEvent_8php.html',1,'']]],
   ['serverflyingchangeevent_2ephp',['ServerFlyingChangeEvent.php',['../ServerFlyingChangeEvent_8php.html',1,'']]],
   ['serverjoinevent_2ephp',['ServerJoinEvent.php',['../ServerJoinEvent_8php.html',1,'']]],
+  ['serverleaveevent_2ephp',['ServerLeaveEvent.php',['../ServerLeaveEvent_8php.html',1,'']]],
   ['serverongroundchangeevent_2ephp',['ServerOnGroundChangeEvent.php',['../ServerOnGroundChangeEvent_8php.html',1,'']]],
   ['serverpacketevent_2ephp',['ServerPacketEvent.php',['../ServerPacketEvent_8php.html',1,'']]],
   ['servertickevent_2ephp',['ServerTickEvent.php',['../ServerTickEvent_8php.html',1,'']]],

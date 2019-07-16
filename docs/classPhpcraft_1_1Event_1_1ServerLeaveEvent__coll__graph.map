@@ -1,0 +1,5 @@
+<map id="Phpcraft\Event\ServerLeaveEvent" name="Phpcraft\Event\ServerLeaveEvent">
+<area shape="rect" id="node2" href="$classPhpcraft_1_1Event_1_1ServerClientEvent.html" title="Phpcraft\\Event\\ServerClient\lEvent" alt="" coords="6,155,203,196"/>
+<area shape="rect" id="node3" href="$classPhpcraft_1_1Event_1_1ServerEvent.html" title="Phpcraft\\Event\\ServerEvent" alt="" coords="6,80,203,107"/>
+<area shape="rect" id="node4" href="$classPhpcraft_1_1Event_1_1Event.html" title="Phpcraft\\Event\\Event" alt="" coords="27,5,182,32"/>
+</map>

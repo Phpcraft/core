@@ -11,6 +11,7 @@ var searchData=
   ['serverevent',['ServerEvent',['../classPhpcraft_1_1Event_1_1ServerEvent.html',1,'Phpcraft::Event']]],
   ['serverflyingchangeevent',['ServerFlyingChangeEvent',['../classPhpcraft_1_1Event_1_1ServerFlyingChangeEvent.html',1,'Phpcraft::Event']]],
   ['serverjoinevent',['ServerJoinEvent',['../classPhpcraft_1_1Event_1_1ServerJoinEvent.html',1,'Phpcraft::Event']]],
+  ['serverleaveevent',['ServerLeaveEvent',['../classPhpcraft_1_1Event_1_1ServerLeaveEvent.html',1,'Phpcraft::Event']]],
   ['serverongroundchangeevent',['ServerOnGroundChangeEvent',['../classPhpcraft_1_1Event_1_1ServerOnGroundChangeEvent.html',1,'Phpcraft::Event']]],
   ['serverpacketevent',['ServerPacketEvent',['../classPhpcraft_1_1Event_1_1ServerPacketEvent.html',1,'Phpcraft::Event']]],
   ['servertickevent',['ServerTickEvent',['../classPhpcraft_1_1Event_1_1ServerTickEvent.html',1,'Phpcraft::Event']]],

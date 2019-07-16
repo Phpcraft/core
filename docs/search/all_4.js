@@ -4,6 +4,8 @@ var searchData=
   ['channel_5fbungeecord',['CHANNEL_BUNGEECORD',['../classPhpcraft_1_1Packet_1_1PluginMessagePacket.html#afe6d937f857c08cdb81980c64c0a7e3e',1,'Phpcraft::Packet::PluginMessagePacket']]],
   ['channel_5fregister',['CHANNEL_REGISTER',['../classPhpcraft_1_1Packet_1_1PluginMessagePacket.html#abc8da4736894c53890fa9ec570080729',1,'Phpcraft::Packet::PluginMessagePacket']]],
   ['channel_5funregister',['CHANNEL_UNREGISTER',['../classPhpcraft_1_1Packet_1_1PluginMessagePacket.html#aac28ecbce8839a933b08261867062f6d',1,'Phpcraft::Packet::PluginMessagePacket']]],
+  ['chatposition',['ChatPosition',['../classPhpcraft_1_1Enum_1_1ChatPosition.html',1,'Phpcraft::Enum']]],
+  ['chatposition_2ephp',['ChatPosition.php',['../ChatPosition_8php.html',1,'']]],
   ['chattotext',['chatToText',['../classPhpcraft_1_1Phpcraft.html#aeb62643cd6426f50e349218e7bde040f',1,'Phpcraft::Phpcraft']]],
   ['chest',['CHEST',['../classPhpcraft_1_1Slot.html#adf4a3ccb88f926794eb34f01aceecaa2',1,'Phpcraft::Slot']]],
   ['clientboundabilitiespacket',['ClientboundAbilitiesPacket',['../classPhpcraft_1_1Packet_1_1ClientboundAbilitiesPacket.html',1,'Phpcraft::Packet']]],

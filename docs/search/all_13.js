@@ -6,6 +6,7 @@ var searchData=
   ['sendabilities',['sendAbilities',['../classPhpcraft_1_1ClientConnection.html#a33e24346731d452a1a83fc3e2d8e63db',1,'Phpcraft::ClientConnection']]],
   ['sendencryptionrequest',['sendEncryptionRequest',['../classPhpcraft_1_1ClientConnection.html#a46c17ecc49a8c218ed013f26ba947549',1,'Phpcraft::ClientConnection']]],
   ['sendhandshake',['sendHandshake',['../classPhpcraft_1_1ServerConnection.html#a0313f1bc69c838893530d157da88ae5b',1,'Phpcraft::ServerConnection']]],
+  ['sendmessage',['sendMessage',['../classPhpcraft_1_1ClientConnection.html#a9ed0586a5ca0d6898b7a547739296025',1,'Phpcraft::ClientConnection']]],
   ['server',['Server',['../classPhpcraft_1_1Server.html',1,'Phpcraft']]],
   ['server_2ephp',['Server.php',['../Server_8php.html',1,'']]],
   ['serverboundbrandpluginmessagepacket',['ServerboundBrandPluginMessagePacket',['../classPhpcraft_1_1Packet_1_1ServerboundBrandPluginMessagePacket.html',1,'Phpcraft::Packet']]],
@@ -28,6 +29,8 @@ var searchData=
   ['serverflyingchangeevent_2ephp',['ServerFlyingChangeEvent.php',['../ServerFlyingChangeEvent_8php.html',1,'']]],
   ['serverjoinevent',['ServerJoinEvent',['../classPhpcraft_1_1Event_1_1ServerJoinEvent.html',1,'Phpcraft::Event']]],
   ['serverjoinevent_2ephp',['ServerJoinEvent.php',['../ServerJoinEvent_8php.html',1,'']]],
+  ['serverleaveevent',['ServerLeaveEvent',['../classPhpcraft_1_1Event_1_1ServerLeaveEvent.html',1,'Phpcraft::Event']]],
+  ['serverleaveevent_2ephp',['ServerLeaveEvent.php',['../ServerLeaveEvent_8php.html',1,'']]],
   ['serverongroundchangeevent',['ServerOnGroundChangeEvent',['../classPhpcraft_1_1Event_1_1ServerOnGroundChangeEvent.html',1,'Phpcraft::Event']]],
   ['serverongroundchangeevent_2ephp',['ServerOnGroundChangeEvent.php',['../ServerOnGroundChangeEvent_8php.html',1,'']]],
   ['serverpacketevent',['ServerPacketEvent',['../classPhpcraft_1_1Event_1_1ServerPacketEvent.html',1,'Phpcraft::Event']]],
@@ -48,5 +51,6 @@ var searchData=
   ['spawnmobpacket_2ephp',['SpawnMobPacket.php',['../SpawnMobPacket_8php.html',1,'']]],
   ['spectator',['SPECTATOR',['../classPhpcraft_1_1Enum_1_1Gamemode.html#ab71290bd4b4fd61744781ead60b25ada',1,'Phpcraft::Enum::Gamemode']]],
   ['startpacket',['startPacket',['../classPhpcraft_1_1ClientConnection.html#af43f7e5b67ffd1c48d283c33afc22a49',1,'Phpcraft\ClientConnection\startPacket()'],['../classPhpcraft_1_1Connection.html#ae75b93f971919d518998913181dec6da',1,'Phpcraft\Connection\startPacket()'],['../classPhpcraft_1_1ServerConnection.html#a446ce0b8432847cd35942905b4dbdc83',1,'Phpcraft\ServerConnection\startPacket()']]],
-  ['survival',['SURVIVAL',['../classPhpcraft_1_1Enum_1_1Gamemode.html#afe2e359b750e356c9a19c6fea3b30858',1,'Phpcraft::Enum::Gamemode']]]
+  ['survival',['SURVIVAL',['../classPhpcraft_1_1Enum_1_1Gamemode.html#afe2e359b750e356c9a19c6fea3b30858',1,'Phpcraft::Enum::Gamemode']]],
+  ['system',['SYSTEM',['../classPhpcraft_1_1Enum_1_1ChatPosition.html#ad83fa54b5869f3710e6d914766eaa069',1,'Phpcraft::Enum::ChatPosition']]]
 ];

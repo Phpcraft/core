@@ -102,8 +102,8 @@ Static Public Member Functions</h2></td></tr>
 <tr class="separator:a81acb8558a1a03521ee54679e066a7bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeb62643cd6426f50e349218e7bde040f"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Phpcraft.html#aeb62643cd6426f50e349218e7bde040f">chatToText</a> ($chat, int $format=0, array $translations=null, array $parent=[])</td></tr>
 <tr class="separator:aeb62643cd6426f50e349218e7bde040f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a91c6e90ad52ac044df0f982c043acd05"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Phpcraft.html#a91c6e90ad52ac044df0f982c043acd05">textToChat</a> (string $str, bool $allowAmp=false, int &amp;$i=0, bool $child=false)</td></tr>
-<tr class="separator:a91c6e90ad52ac044df0f982c043acd05"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abac320a100d201b159eb114d052ed6c0"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Phpcraft.html#abac320a100d201b159eb114d052ed6c0">textToChat</a> (string $text, bool $allowAmp=false)</td></tr>
+<tr class="separator:abac320a100d201b159eb114d052ed6c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7f54ec4ed3668e9bd54e8426199af170"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Phpcraft.html#a7f54ec4ed3668e9bd54e8426199af170">getServerStatus</a> (string $server_name, int $server_port=25565, float $timeout=3.000, int $method=0)</td></tr>
 <tr class="separator:a7f54ec4ed3668e9bd54e8426199af170"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a11fab2d2d4e08c8e14f2642530d94f80"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Phpcraft.html#a11fab2d2d4e08c8e14f2642530d94f80">colorDiff</a> (array $rgb1, array $rgb2)</td></tr>
@@ -780,8 +780,8 @@ Phpcraft::saveProfiles() </dd></dl>
 
 </div>
 </div>
-<a id="a91c6e90ad52ac044df0f982c043acd05"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a91c6e90ad52ac044df0f982c043acd05">&#9670;&nbsp;</a></span>textToChat()</h2>
+<a id="abac320a100d201b159eb114d052ed6c0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abac320a100d201b159eb114d052ed6c0">&#9670;&nbsp;</a></span>textToChat()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -793,25 +793,13 @@ Phpcraft::saveProfiles() </dd></dl>
           <td class="memname">static Phpcraft\Phpcraft::textToChat </td>
           <td>(</td>
           <td class="paramtype">string&#160;</td>
-          <td class="paramname"><em>$str</em>, </td>
+          <td class="paramname"><em>$text</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>$allowAmp</em> = <code>false</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int &amp;&#160;</td>
-          <td class="paramname"><em>$i</em> = <code>0</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>$child</em> = <code>false</code>&#160;</td>
+          <td class="paramname"><em>$allowAmp</em> = <code>false</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -828,10 +816,8 @@ Phpcraft::saveProfiles() </dd></dl>
 <p>Converts a string using § format codes into a chat object.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype">string</td><td class="paramname">$str</td><td></td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$text</td><td></td></tr>
     <tr><td class="paramtype">boolean</td><td class="paramname">$allowAmp</td><td>If true, '&amp;' will be handled like '§'. </td></tr>
-    <tr><td class="paramtype">integer</td><td class="paramname">$i</td><td>Ignore this parameter. </td></tr>
-    <tr><td class="paramtype">boolean</td><td class="paramname">$child</td><td>Ignore this parameter. </td></tr>
   </table>
   </dd>
 </dl>

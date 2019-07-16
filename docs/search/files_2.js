@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['chatposition_2ephp',['ChatPosition.php',['../ChatPosition_8php.html',1,'']]],
   ['clientboundabilitiespacket_2ephp',['ClientboundAbilitiesPacket.php',['../ClientboundAbilitiesPacket_8php.html',1,'']]],
   ['clientboundbrandpluginmessagepacket_2ephp',['ClientboundBrandPluginMessagePacket.php',['../ClientboundBrandPluginMessagePacket_8php.html',1,'']]],
   ['clientboundpacket_2ephp',['ClientboundPacket.php',['../ClientboundPacket_8php.html',1,'']]],

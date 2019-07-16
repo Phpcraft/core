@@ -6,6 +6,7 @@ var searchData=
   ['sendabilities',['sendAbilities',['../classPhpcraft_1_1ClientConnection.html#a33e24346731d452a1a83fc3e2d8e63db',1,'Phpcraft::ClientConnection']]],
   ['sendencryptionrequest',['sendEncryptionRequest',['../classPhpcraft_1_1ClientConnection.html#a46c17ecc49a8c218ed013f26ba947549',1,'Phpcraft::ClientConnection']]],
   ['sendhandshake',['sendHandshake',['../classPhpcraft_1_1ServerConnection.html#a0313f1bc69c838893530d157da88ae5b',1,'Phpcraft::ServerConnection']]],
+  ['sendmessage',['sendMessage',['../classPhpcraft_1_1ClientConnection.html#a9ed0586a5ca0d6898b7a547739296025',1,'Phpcraft::ClientConnection']]],
   ['setabilities',['setAbilities',['../classPhpcraft_1_1ClientConnection.html#a224b97346c4c3762b94192217f7b278d',1,'Phpcraft::ClientConnection']]],
   ['setdisplayname',['setDisplayName',['../classPhpcraft_1_1Slot.html#a28ca230ae317e722863efbc9670d610d',1,'Phpcraft::Slot']]],
   ['setgamemode',['setGamemode',['../classPhpcraft_1_1ClientConnection.html#ab83bc7aa368b731af94813d74523886f',1,'Phpcraft::ClientConnection']]],

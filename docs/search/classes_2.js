@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['chatposition',['ChatPosition',['../classPhpcraft_1_1Enum_1_1ChatPosition.html',1,'Phpcraft::Enum']]],
   ['clientboundabilitiespacket',['ClientboundAbilitiesPacket',['../classPhpcraft_1_1Packet_1_1ClientboundAbilitiesPacket.html',1,'Phpcraft::Packet']]],
   ['clientboundbrandpluginmessagepacket',['ClientboundBrandPluginMessagePacket',['../classPhpcraft_1_1Packet_1_1ClientboundBrandPluginMessagePacket.html',1,'Phpcraft::Packet']]],
   ['clientboundpacket',['ClientboundPacket',['../classPhpcraft_1_1Packet_1_1ClientboundPacket.html',1,'Phpcraft::Packet']]],
