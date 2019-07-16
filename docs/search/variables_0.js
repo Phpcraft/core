@@ -1,7 +1,6 @@
 var searchData=
 [
   ['_24accesstoken',['$accessToken',['../classPhpcraft_1_1Account.html#a8f979d899fd0c810b247cfd643336781',1,'Phpcraft::Account']]],
-  ['_24block',['$block',['../classPhpcraft_1_1Item.html#a42dce8b7b00cf5c7964ee8f17462b3c3',1,'Phpcraft::Item']]],
   ['_24burning',['$burning',['../classPhpcraft_1_1EntityBase.html#a272e739cfc204230ec7b1e22f4f8a440',1,'Phpcraft::EntityBase']]],
   ['_24can_5ffly',['$can_fly',['../classPhpcraft_1_1ClientConnection.html#a7d3c5e03d26e88f7314430379ce0ed01',1,'Phpcraft\ClientConnection\$can_fly()'],['../classPhpcraft_1_1Packet_1_1ClientboundAbilitiesPacket.html#ad474513968d0579419d09dbd0b25b6de',1,'Phpcraft\Packet\ClientboundAbilitiesPacket\$can_fly()']]],
   ['_24cancelled',['$cancelled',['../classPhpcraft_1_1Event_1_1Event.html#adcd41c634e973be3c7341eaa0100142b',1,'Phpcraft::Event::Event']]],
@@ -24,6 +23,7 @@ var searchData=
   ['_24dimension',['$dimension',['../classPhpcraft_1_1Packet_1_1JoinGamePacket.html#afa7b6e6e7cfff68d1277a1174ffaa493',1,'Phpcraft::Packet::JoinGamePacket']]],
   ['_24disconnect_5fafter',['$disconnect_after',['../classPhpcraft_1_1ClientConnection.html#a3122283000e4c184351298949769300d',1,'Phpcraft::ClientConnection']]],
   ['_24disconnect_5ffunction',['$disconnect_function',['../classPhpcraft_1_1Server.html#a95ddd9e5013bc9fadf8f3fa1860eedc5',1,'Phpcraft::Server']]],
+  ['_24display_5fname',['$display_name',['../classPhpcraft_1_1Item.html#a4e1ba3350814068c73c9f6639cbc4d07',1,'Phpcraft::Item']]],
   ['_24division',['$division',['../classPhpcraft_1_1Packet_1_1AddBossBarPacket.html#a88cbffe8642b38a30f813d29dcc90935',1,'Phpcraft::Packet::AddBossBarPacket']]],
   ['_24drops',['$drops',['../classPhpcraft_1_1Material.html#a6a1205357e05ba892952456042686434',1,'Phpcraft::Material']]],
   ['_24eid',['$eid',['../classPhpcraft_1_1ClientConnection.html#a23c43c5b0a59c890b256703996c8d375',1,'Phpcraft\ClientConnection\$eid()'],['../classPhpcraft_1_1Packet_1_1JoinGamePacket.html#a9e96f81d3143cacd0cbfd11c1322b6ae',1,'Phpcraft\Packet\JoinGamePacket\$eid()'],['../classPhpcraft_1_1Packet_1_1SpawnMobPacket.html#a58bed5cb346561550619b700ef7fadeb',1,'Phpcraft\Packet\SpawnMobPacket\$eid()']]],
@@ -79,6 +79,7 @@ var searchData=
   ['_24slot',['$slot',['../classPhpcraft_1_1Packet_1_1SetSlotPacket.html#af138a1ebe973a93a3baccb118c6fc626',1,'Phpcraft::Packet::SetSlotPacket']]],
   ['_24slotid',['$slotId',['../classPhpcraft_1_1Packet_1_1SetSlotPacket.html#a25451d220fa9e2835cd40ea5374af445',1,'Phpcraft::Packet::SetSlotPacket']]],
   ['_24sprinting',['$sprinting',['../classPhpcraft_1_1EntityBase.html#aff6038f757da04a1b2cb741d830ee054',1,'Phpcraft::EntityBase']]],
+  ['_24stack_5fsize',['$stack_size',['../classPhpcraft_1_1Item.html#ac61d280dd913dfb88fe2a4b26132173e',1,'Phpcraft::Item']]],
   ['_24state',['$state',['../classPhpcraft_1_1Connection.html#a22835d4eefaa059692c254456864a405',1,'Phpcraft::Connection']]],
   ['_24stdin',['$stdin',['../classPhpcraft_1_1UserInterface.html#ac111125b65a6e6fd4a22062a56cf8781',1,'Phpcraft::UserInterface']]],
   ['_24stream',['$stream',['../classPhpcraft_1_1Connection.html#af1e92d8d3381fc0384e4c7c175cc10ed',1,'Phpcraft\Connection\$stream()'],['../classPhpcraft_1_1Server.html#a7e900482f4d4db56ccbca75464738fde',1,'Phpcraft\Server\$stream()']]],
