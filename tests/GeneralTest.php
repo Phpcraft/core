@@ -2,20 +2,50 @@
 /** @noinspection PhpUnhandledExceptionInspection */
 require __DIR__."/../vendor/autoload.php";
 use Phpcraft\
-{Material, Connection, Counter, EntityBase, EntityLiving, Item, Phpcraft, Slot, UUID, Versions};
+{Connection, Counter, EntityBase, EntityLiving, Item, Material, Phpcraft, UUID, Versions};
 class GeneralTest
 {
 	function testTextToChat()
 	{
-		Nose::assertEquals([
-			"text" => "&1Test",
-			"color" => "black"
-		], Phpcraft::textToChat("§0&1Test", false));
-		Nose::assertEquals(["text" => "&r&0Test"], Phpcraft::textToChat("&r&0Test", false));
-		Nose::assertEquals([
-			"text" => "Test",
-			"color" => "black"
-		], Phpcraft::textToChat("&r&0Test", true));
+		Nose::assertEquals(Phpcraft::textToChat("Hello, world!"), ["text" => "Hello, world!"]);
+		Nose::assertEquals(Phpcraft::textToChat("§rHello, world!"), ["text" => "Hello, world!"]);
+		Nose::assertEquals(Phpcraft::textToChat("§lHello, world!"), [
+			"text" => "Hello, world!",
+			"bold" => true
+		]);
+		Nose::assertEquals(Phpcraft::textToChat("Hello, §lworld!"), [
+			"text" => "Hello, ",
+			"extra" => [
+				[
+					"text" => "world!",
+					"bold" => true
+				]
+			]
+		]);
+		Nose::assertEquals(Phpcraft::textToChat("Hello, §lworld§r!"), [
+			"text" => "Hello, ",
+			"extra" => [
+				[
+					"text" => "world",
+					"bold" => true
+				],
+				[
+					"text" => "!"
+				]
+			]
+		]);
+		Nose::assertEquals(Phpcraft::textToChat("Hello, &lworld&r!", true), [
+			"text" => "Hello, ",
+			"extra" => [
+				[
+					"text" => "world",
+					"bold" => true
+				],
+				[
+					"text" => "!"
+				]
+			]
+		]);
 	}
 
 	function testChatToText()
@@ -85,7 +115,8 @@ class GeneralTest
 
 	function testSlotDisplayName()
 	{
-		$slot = Item::get("stone")->slot();
+		$slot = Item::get("stone")
+					->slot();
 		Nose::assertNull($slot->getDisplayName());
 		$name = [
 			"text" => "Test",

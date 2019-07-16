@@ -557,30 +557,15 @@ abstract class Phpcraft
 	/**
 	 * Converts a string using § format codes into a chat object.
 	 *
-	 * @param string $str
+	 * @param string $text
 	 * @param boolean $allowAmp If true, '&' will be handled like '§'.
-	 * @param integer $i Ignore this parameter.
-	 * @param boolean $child Ignore this parameter.
 	 * @return array
 	 */
-	public static function textToChat(string $str, bool $allowAmp = false, int &$i = 0, bool $child = false)
+	public static function textToChat(string $text, bool $allowAmp = false)
 	{
-		if(strpos($str, "§") === false && (!$allowAmp || strpos($str, "&") === false))
+		if(strpos($text, "§") === false && (!$allowAmp || strpos($text, "&") === false))
 		{
-			return ["text" => $str];
-		}
-		if(!$child && $i == 0 && (strpos(mb_substr($str, 2, null, "utf-8"), "§r") !== false || ($allowAmp && strpos(mb_substr($str, 2, null, "utf-8"), "&r") !== false)))
-		{
-			$extras = [];
-			while($i < mb_strlen($str, "utf-8"))
-			{
-				array_push($extras, Phpcraft::textToChat($str, $allowAmp, $i, true));
-				$i++;
-			}
-			return [
-				"text" => "",
-				"extra" => $extras
-			];
+			return ["text" => $text];
 		}
 		$colors = [
 			"0" => "black",
@@ -600,11 +585,11 @@ abstract class Phpcraft
 			"e" => "yellow",
 			"f" => "white"
 		];
-		$chat = ["text" => ""];
+		$components = [["text" => ""]];
+		$component = 0;
 		$lastWasParagraph = false;
-		while($i < mb_strlen($str, "utf-8"))
+		foreach(preg_split('//u', $text, null, PREG_SPLIT_NO_EMPTY) as $c)
 		{
-			$c = mb_substr($str, $i, 1, "utf-8");
 			if($c == "§" || ($allowAmp && $c == "&"))
 			{
 				$lastWasParagraph = true;
@@ -612,68 +597,63 @@ abstract class Phpcraft
 			else if($lastWasParagraph)
 			{
 				$lastWasParagraph = false;
-				if($child && $c == "r")
+				if($c == "r")
 				{
-					return $chat;
+					if($component != 0)
+					{
+						$components[++$component] = ["text" => ""];
+					}
+					continue;
 				}
-				if($chat["text"] == "")
+				if($component == 0 || $components[$component]["text"] != "")
 				{
-					if($c == "r")
-					{
-						unset($chat["obfuscated"]);
-						unset($chat["bold"]);
-						unset($chat["strikethrough"]);
-						unset($chat["underlined"]);
-						unset($chat["italic"]);
-						unset($chat["color"]);
-					}
-					else if($c == "k")
-					{
-						$chat["obfuscated"] = true;
-					}
-					else if($c == "l")
-					{
-						$chat["bold"] = true;
-					}
-					else if($c == "m")
-					{
-						$chat["strikethrough"] = true;
-					}
-					else if($c == "n")
-					{
-						$chat["underlined"] = true;
-					}
-					else if($c == "o")
-					{
-						$chat["italic"] = true;
-					}
-					else if(isset($colors[$c]))
-					{
-						$chat["color"] = $colors[$c];
-					}
+					$components[++$component] = ["text" => ""];
 				}
-				else
+				if($c == "k")
 				{
-					$i--;
-					$component = Phpcraft::textToChat($str, $allowAmp, $i, true);
-					if(!empty($component["text"]) || count($component) > 1)
-					{
-						if(empty($chat["extra"]))
-						{
-							$chat["extra"] = [$component];
-						}
-						else
-						{
-							array_push($chat["extra"], $component);
-						}
-					}
+					$components[$component]["obfuscated"] = true;
+				}
+				else if($c == "l")
+				{
+					$components[$component]["bold"] = true;
+				}
+				else if($c == "m")
+				{
+					$components[$component]["strikethrough"] = true;
+				}
+				else if($c == "n")
+				{
+					$components[$component]["underlined"] = true;
+				}
+				else if($c == "o")
+				{
+					$components[$component]["italic"] = true;
+				}
+				else if(isset($colors[$c]))
+				{
+					$components[$component]["color"] = $colors[$c];
 				}
 			}
 			else
 			{
-				$chat["text"] .= $c;
+				$components[$component]["text"] .= $c;
 			}
-			$i++;
+		}
+		if($components[0]["text"] == "")
+		{
+			unset($components[0]["text"]);
+		}
+		$chat = $components[0];
+		if($component > 0)
+		{
+			if($component == 1 && !array_key_exists("text", $chat))
+			{
+				$chat = $components[1];
+			}
+			else
+			{
+				$chat["extra"] = array_slice($components, 1);
+			}
 		}
 		return $chat;
 	}
