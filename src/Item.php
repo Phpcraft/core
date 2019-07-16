@@ -4,33 +4,102 @@ use Phpcraft\Nbt\NbtTag;
 class Item extends Identifier
 {
 	private static $all_cache;
-	public $block;
+	/**
+	 * @var integer $stack_size
+	 */
+	public $stack_size;
+	/**
+	 * @var string $display_name
+	 */
+	public $display_name;
 	private $legacy_id;
 
-	protected function __construct(string $name, int $legacy_id, int $since_protocol_version = 0, string $block = null)
+	protected function __construct(string $name, int $since_protocol_version, $legacy_id, int $stack_size, string $display_name)
 	{
 		parent::__construct($name, $since_protocol_version);
 		$this->legacy_id = $legacy_id;
-		$this->block = $block;
+		$this->stack_size = $stack_size;
+		$this->display_name = $display_name;
+	}
+
+	/**
+	 * Returns an Identifier by its name or null if not found.
+	 *
+	 * @param string $name
+	 * @return static
+	 */
+	public static function get(string $name)
+	{
+		$name = strtolower($name);
+		if(substr($name, 0, 10) == "minecraft:")
+		{
+			$name = substr($name, 10);
+		}
+		return @self::all()[$name];
 	}
 
 	/**
 	 * Returns every Item.
 	 *
 	 * @return Item[]
-	 * @todo Actually return *every* Item.
 	 */
 	public static function all()
 	{
 		if(self::$all_cache === null)
 		{
-			self::$all_cache = [
-				new Item("air", 0),
-				new Item("stone", 1 << 4, 0, "stone"),
-				new Item("grass_block", 2 << 4, 0, "grass_block"),
-				new Item("dirt", 3 << 4, 0, "dirt"),
-				new Item("filled_map", 358 << 4)
-			];
+			self::$all_cache = [];
+			foreach([
+				477 => "1.14",
+				404 => "1.13.2",
+				393 => "1.13"
+			] as $pv => $v)
+			{
+				foreach(Phpcraft::getCachableJson("https://raw.githubusercontent.com/PrismarineJS/minecraft-data/master/data/pc/{$v}/items.json") as $item)
+				{
+					if($pv == 477 || !array_key_exists($item["name"], self::$all_cache))
+					{
+						$since_pv = $pv;
+						$legacy_id = null;
+						foreach([
+							47 => "1.8",
+							107 => "1.9",
+							210 => "1.10",
+							314 => "1.11",
+							328 => "1.12"
+						] as $_pv => $_v)
+						{
+							foreach([
+								"blocks",
+								"items"
+							] as $type)
+							{
+								foreach(Phpcraft::getCachableJson("https://raw.githubusercontent.com/PrismarineJS/minecraft-data/master/data/pc/{$_v}/{$type}.json") as $_item)
+								{
+									if(array_key_exists("variations", $_item))
+									{
+										foreach($_item["variations"] as $variation)
+										{
+											if($variation["displayName"] == $item["displayName"])
+											{
+												$legacy_id = ($_item["id"] << 4) | $variation["metadata"];
+												$since_pv = $_pv;
+												break 3;
+											}
+										}
+									}
+									else if($_item["name"] == $item["name"])
+									{
+										$legacy_id = $_item["id"] << 4;
+										$since_pv = $_pv;
+										break 3;
+									}
+								}
+							}
+						}
+						self::$all_cache[$item["name"]] = new Item($item["name"], $since_pv, $legacy_id, $item["stackSize"], $item["displayName"]);
+					}
+				}
+			}
 		}
 		return self::$all_cache;
 	}
@@ -49,18 +118,23 @@ class Item extends Identifier
 			{
 				return $this->legacy_id;
 			}
-			switch($this->name)
+			foreach([
+				477 => "1.14",
+				404 => "1.13.2",
+				393 => "1.13"
+			] as $pv => $v)
 			{
-				case "air":
-					return 0;
-				case "stone":
-					return 1;
-				case "grass_block":
-					return 8;
-				case "dirt":
-					return 9;
-				case "filled_map":
-					return 613;
+				if($protocol_version < $pv)
+				{
+					continue;
+				}
+				foreach(Phpcraft::getCachableJson("https://raw.githubusercontent.com/PrismarineJS/minecraft-data/master/data/pc/{$v}/items.json") as $item)
+				{
+					if($item["name"] == $this->name)
+					{
+						return $item["id"];
+					}
+				}
 			}
 		}
 		return null;
@@ -73,7 +147,7 @@ class Item extends Identifier
 	 */
 	public function getBlock()
 	{
-		return $this->block == null ? null : Material::get($this->block);
+		return Material::get($this->name);
 	}
 
 	/**
