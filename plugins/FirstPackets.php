@@ -1,8 +1,9 @@
 <?php
 // Provides clients with some essential first packets.
 use Phpcraft\
-{Material, ClientConnection, Connection, Enum\Difficulty, Enum\Dimension, Enum\Gamemode, Event\Event, Event\ServerJoinEvent, Event\ServerTickEvent, Packet\ClientboundBrandPluginMessagePacket, Packet\JoinGamePacket, Plugin, PluginManager, Position};
+{Event\ServerChatEvent, Event\ServerLeaveEvent, Material, ClientConnection, Connection, Enum\Difficulty, Enum\Dimension, Enum\Gamemode, Event\Event, Event\ServerJoinEvent, Event\ServerTickEvent, Packet\ClientboundBrandPluginMessagePacket, Packet\JoinGamePacket, Phpcraft, Plugin, PluginManager, Position};
 $WorldImitatorActive = false;
+$client_chunk_preferences = [];
 PluginManager::registerPlugin("FirstPackets", function(Plugin $plugin)
 {
 	$plugin->on(function(ServerJoinEvent $event)
@@ -38,7 +39,39 @@ PluginManager::registerPlugin("FirstPackets", function(Plugin $plugin)
 		$con->writeString('{"text":"github.com/timmyrs/Phpcraft"}');
 		$con->send();
 		$con->sendMessage("Welcome to this Phpcraft server.");
+		$con->sendMessage("Use /grass, /stone, and /grass_stone to §ochange the world§r.");
+		global $client_chunk_preferences;
+		$client_chunk_preferences[$con->username] = "\x00\x01";
 	}, Event::PRIORITY_NORMAL);
+	$plugin->on(function(ServerChatEvent $event)
+	{
+		if($event->message == "/grass")
+		{
+			global $client_chunk_preferences;
+			$client_chunk_preferences[$event->client->username] = "\x00\x00";
+			$event->client->chunks = [];
+			$event->cancelled = true;
+		}
+		else if($event->message == "/stone")
+		{
+			global $client_chunk_preferences;
+			$client_chunk_preferences[$event->client->username] = "\x01\x01";
+			$event->client->chunks = [];
+			$event->cancelled = true;
+		}
+		else if($event->message == "/grass_stone")
+		{
+			global $client_chunk_preferences;
+			$client_chunk_preferences[$event->client->username] = "\x00\x01";
+			$event->client->chunks = [];
+			$event->cancelled = true;
+		}
+	}, Event::PRIORITY_HIGH);
+	$plugin->on(function(ServerLeaveEvent $event)
+	{
+		global $client_chunk_preferences;
+		unset($client_chunk_preferences[$event->client->username]);
+	}, Event::PRIORITY_HIGH);
 	$plugin->on(function(ServerTickEvent $event)
 	{
 		global $WorldImitatorActive;
@@ -49,12 +82,14 @@ PluginManager::registerPlugin("FirstPackets", function(Plugin $plugin)
 		$chunks_limit = 2; // chunks/tick limit
 		for($render_distance = 4; $render_distance <= 8; $render_distance += 2)
 		{
+			global $client_chunk_preferences;
 			foreach($event->server->clients as $con)
 			{
 				if(!$con instanceof ClientConnection || $con->state != 3)
 				{
 					continue;
 				}
+				$chunk_preference = $client_chunk_preferences[$con->username];
 				for($x = round(($con->pos->x - ($render_distance * 16)) / 16); $x <= round(($con->pos->x + ($render_distance * 16)) / 16); $x++)
 				{
 					for($z = round(($con->pos->z - ($render_distance * 16)) / 16); $z <= round(($con->pos->z + ($render_distance * 16)) / 16); $z++)
@@ -93,7 +128,7 @@ PluginManager::registerPlugin("FirstPackets", function(Plugin $plugin)
 								$data->writeVarInt(Material::get("stone")
 														   ->getId($con->protocol_version));
 								$data->writeVarInt(512); // (4096 / (64 / Bits per Block))
-								$data->write_buffer .= str_repeat("\x00\x01", 2048); // Blocks
+								$data->write_buffer .= str_repeat($chunk_preference, 2048); // Blocks
 								$data->write_buffer .= str_repeat("\x00", 2048); // Block Light
 								$data->write_buffer .= str_repeat("\xFF", 2048); // Sky Light
 							}
