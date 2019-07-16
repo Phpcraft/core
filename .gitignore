@@ -3,4 +3,4 @@ vendor/
 *.bin
 *.cache
 composer.lock
-desktop.ini
+sketch.php
