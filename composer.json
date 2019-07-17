@@ -20,17 +20,17 @@
 	},
 	"require": {
 		"php": "^7.0",
-		"ext-SPL": "^7.0",
+		"ext-SPL": "*",
 		"ext-json": "^1.4",
-		"ext-zlib": "^7.0",
-		"ext-mbstring": "^7.0",
-		"ext-gmp": "^7.0",
+		"ext-zlib": "*",
+		"ext-mbstring": "*",
+		"ext-gmp": "*",
 		"hell-sh/enum": "^1.0",
 		"hell-sh/uuid": "^1.0",
 		"phpseclib/mcrypt_compat": "^1.0"
 	},
 	"require-dev": {
-		"hell-sh/nose": "^1.0"
+		"hell-sh/nose": "^1.1"
 	},
 	"suggest": {
 		"ext-mcrypt": "Install the mcrypt extension to speed up \"online mode\" connections."
