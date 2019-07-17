@@ -24,7 +24,7 @@ class Plugin
 	/**
 	 * @param string $name The name of the plugin.
 	 */
-	public function __construct(string $name)
+	function __construct(string $name)
 	{
 		$this->name = $name;
 	}
@@ -38,7 +38,7 @@ class Plugin
 	 * @throws InvalidArgumentException
 	 * @throws ReflectionException
 	 */
-	public function on(callable $callable, int $priority = Event::PRIORITY_NORMAL)
+	function on(callable $callable, int $priority = Event::PRIORITY_NORMAL)
 	{
 		$ref = new ReflectionFunction($callable);
 		$params = $ref->getParameters();
@@ -72,7 +72,7 @@ class Plugin
 	 * @param Event $event
 	 * @return boolean True if the event was cancelled.
 	 */
-	public function fire(Event $event)
+	function fire(Event $event)
 	{
 		$type = get_class($event);
 		if(isset($this->event_handlers[$type]))
@@ -86,7 +86,7 @@ class Plugin
 	 * Unregisters the plugin.
 	 * This is useful, for example, if your plugin had a fatal error.
 	 */
-	public function unregister()
+	function unregister()
 	{
 		unset(PluginManager::$loaded_plugins[$this->name]);
 		echo "Plugin \"".$this->name."\" has unregistered.\n";

@@ -23,11 +23,11 @@ abstract class NbtTag
 	 * @param boolean $inList Ignore this parameter.
 	 * @return Connection $con
 	 */
-	abstract public function write(Connection $con, bool $inList = false);
+	abstract function write(Connection $con, bool $inList = false);
 
-	abstract public function copy();
+	abstract function copy();
 
-	abstract public function __toString();
+	abstract function __toString();
 
 	protected function _write(Connection $con)
 	{

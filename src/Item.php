@@ -110,7 +110,7 @@ class Item extends Identifier
 	 * @param integer $protocol_version
 	 * @return integer
 	 */
-	public function getId(int $protocol_version)
+	function getId(int $protocol_version)
 	{
 		if($protocol_version >= $this->since_protocol_version)
 		{
@@ -145,7 +145,7 @@ class Item extends Identifier
 	 *
 	 * @return Material
 	 */
-	public function getBlock()
+	function getBlock()
 	{
 		return Material::get($this->name);
 	}
@@ -157,7 +157,7 @@ class Item extends Identifier
 	 * @param NbtTag $nbt The NBT data of this item in the slot.
 	 * @return Slot
 	 */
-	public function slot(int $count = 1, NbtTag $nbt = null)
+	function slot(int $count = 1, NbtTag $nbt = null)
 	{
 		return new Slot($this, $count, $nbt);
 	}

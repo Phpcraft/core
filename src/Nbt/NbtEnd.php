@@ -12,18 +12,18 @@ class NbtEnd extends NbtTag
 	 * @param boolean $inList Ignore this parameter.
 	 * @return Connection $con
 	 */
-	public function write(Connection $con, bool $inList = false)
+	function write(Connection $con, bool $inList = false)
 	{
 		$con->writeByte(0);
 		return $con;
 	}
 
-	public function copy()
+	function copy()
 	{
 		return new NbtEnd();
 	}
 
-	public function __toString()
+	function __toString()
 	{
 		return "{End}";
 	}

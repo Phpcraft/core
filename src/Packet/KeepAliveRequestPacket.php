@@ -16,7 +16,7 @@ class KeepAliveRequestPacket extends Packet
 	/**
 	 * @param GMP|string|integer $keepAliveId The identifier of this keep alive packet. Defaults to current time.
 	 */
-	public function __construct($keepAliveId = null)
+	function __construct($keepAliveId = null)
 	{
 		if($keepAliveId === null)
 		{
@@ -47,7 +47,7 @@ class KeepAliveRequestPacket extends Packet
 	 * @param Connection $con
 	 * @throws IOException
 	 */
-	public function send(Connection $con)
+	function send(Connection $con)
 	{
 		$con->startPacket("keep_alive_request");
 		if($con->protocol_version >= 339)
@@ -66,12 +66,12 @@ class KeepAliveRequestPacket extends Packet
 	 *
 	 * @return KeepAliveResponsePacket
 	 */
-	public function getResponse()
+	function getResponse()
 	{
 		return new KeepAliveResponsePacket($this->keepAliveId);
 	}
 
-	public function __toString()
+	function __toString()
 	{
 		return "{Keep Alive Request: ID ".gmp_strval($this->keepAliveId)."}";
 	}

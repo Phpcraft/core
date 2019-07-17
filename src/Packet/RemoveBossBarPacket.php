@@ -10,7 +10,7 @@ class RemoveBossBarPacket extends BossBarPacket
 	 * @param Connection $con
 	 * @throws IOException
 	 */
-	public function send(Connection $con)
+	function send(Connection $con)
 	{
 		if($con->protocol_version > 49)
 		{
@@ -26,7 +26,7 @@ class RemoveBossBarPacket extends BossBarPacket
 		}
 	}
 
-	public function __toString()
+	function __toString()
 	{
 		return "{RemoveBossBarPacket: Boss Bar ".$this->uuid->__toString()."}";
 	}

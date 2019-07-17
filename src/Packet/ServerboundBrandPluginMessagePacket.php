@@ -7,7 +7,7 @@ class ServerboundBrandPluginMessagePacket extends ServerboundPluginMessagePacket
 	/**
 	 * @param string $data The brand.
 	 */
-	public function __construct(string $data = "")
+	function __construct(string $data = "")
 	{
 		parent::__construct("minecraft:brand", $data);
 	}

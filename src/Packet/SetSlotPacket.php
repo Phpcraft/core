@@ -56,7 +56,7 @@ class SetSlotPacket extends Packet
 	 * @throws IOException
 	 * @throws MissingMetadataException
 	 */
-	public function send(Connection $con)
+	function send(Connection $con)
 	{
 		$con->startPacket("set_slot");
 		$con->writeByte($this->window);
@@ -65,7 +65,7 @@ class SetSlotPacket extends Packet
 		$con->send();
 	}
 
-	public function __toString()
+	function __toString()
 	{
 		return "{Set Slot: Window ID {$this->window}, Slot ID {$this->slotId}, ".Slot::toString($this->slot)."}";
 	}

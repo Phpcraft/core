@@ -16,7 +16,7 @@ class NbtIntArray extends NbtTag
 	 * @param string $name The name of this tag.
 	 * @param $children GMP[] The integers in the array.
 	 */
-	public function __construct(string $name, array $children = [])
+	function __construct(string $name, array $children = [])
 	{
 		$this->name = $name;
 		$this->children = $children;
@@ -29,7 +29,7 @@ class NbtIntArray extends NbtTag
 	 * @param boolean $inList Ignore this parameter.
 	 * @return Connection $con
 	 */
-	public function write(Connection $con, bool $inList = false)
+	function write(Connection $con, bool $inList = false)
 	{
 		if(!$inList)
 		{
@@ -43,12 +43,12 @@ class NbtIntArray extends NbtTag
 		return $con;
 	}
 
-	public function copy()
+	function copy()
 	{
 		return new NbtIntArray($this->name, $this->children);
 	}
 
-	public function __toString()
+	function __toString()
 	{
 		$str = "{IntArray \"".$this->name."\":";
 		foreach($this->children as $child)

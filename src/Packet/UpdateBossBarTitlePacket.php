@@ -16,7 +16,7 @@ class UpdateBossBarTitlePacket extends BossBarPacket
 	 * @param UUID $uuid The UUID of the boss bar.
 	 * @param array|string $title The "title" of the boss bar; chat object.
 	 */
-	public function __construct(UUID $uuid = null, $title = ["text" => ""])
+	function __construct(UUID $uuid = null, $title = ["text" => ""])
 	{
 		parent::__construct($uuid);
 		$this->title = $title;
@@ -28,7 +28,7 @@ class UpdateBossBarTitlePacket extends BossBarPacket
 	 * @param Connection $con
 	 * @throws IOException
 	 */
-	public function send(Connection $con)
+	function send(Connection $con)
 	{
 		if($con->protocol_version > 49)
 		{
@@ -49,7 +49,7 @@ class UpdateBossBarTitlePacket extends BossBarPacket
 		$con->send();
 	}
 
-	public function __toString()
+	function __toString()
 	{
 		return "{UpdateBossBarTitlePacket: Boss Bar ".$this->uuid->__toString().", \"".Phpcraft::chatToText($this->title)."\"}";
 	}

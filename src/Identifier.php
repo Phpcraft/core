@@ -76,5 +76,5 @@ abstract class Identifier
 	 * @param integer $protocol_version
 	 * @return integer
 	 */
-	abstract public function getId(int $protocol_version);
+	abstract function getId(int $protocol_version);
 }

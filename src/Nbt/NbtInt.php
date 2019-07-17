@@ -16,7 +16,7 @@ class NbtInt extends NbtTag
 	 * @param string $name The name of this tag.
 	 * @param GMP|string|integer $value The value of this tag.
 	 */
-	public function __construct(string $name, $value = 0)
+	function __construct(string $name, $value = 0)
 	{
 		$this->name = $name;
 		if(!$value instanceof GMP)
@@ -33,7 +33,7 @@ class NbtInt extends NbtTag
 	 * @param boolean $inList Ignore this parameter.
 	 * @return Connection $con
 	 */
-	public function write(Connection $con, bool $inList = false)
+	function write(Connection $con, bool $inList = false)
 	{
 		if(!$inList)
 		{
@@ -43,12 +43,12 @@ class NbtInt extends NbtTag
 		return $con;
 	}
 
-	public function copy()
+	function copy()
 	{
 		return new NbtInt($this->name, $this->value);
 	}
 
-	public function __toString()
+	function __toString()
 	{
 		return "{Int \"".$this->name."\": ".$this->value."}";
 	}

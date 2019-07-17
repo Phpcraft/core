@@ -16,7 +16,7 @@ class KeepAliveResponsePacket extends Packet
 	/**
 	 * @param GMP|string|integer $keepAliveId The identifier of the keep alive request packet this response is for.
 	 */
-	public function __construct($keepAliveId)
+	function __construct($keepAliveId)
 	{
 		if(!$keepAliveId instanceof GMP)
 		{
@@ -43,7 +43,7 @@ class KeepAliveResponsePacket extends Packet
 	 * @param Connection $con
 	 * @throws IOException
 	 */
-	public function send(Connection $con)
+	function send(Connection $con)
 	{
 		$con->startPacket("keep_alive_response");
 		if($con->protocol_version >= 339)
@@ -57,7 +57,7 @@ class KeepAliveResponsePacket extends Packet
 		$con->send();
 	}
 
-	public function __toString()
+	function __toString()
 	{
 		return "{Keep Alive Response: ID ".gmp_strval($this->keepAliveId)."}";
 	}

@@ -15,7 +15,7 @@ class ServerConsoleEvent extends ServerEvent
 	 * @param Server $server
 	 * @param string $message The message that the console has proposed.
 	 */
-	public function __construct(Server $server, string $message)
+	function __construct(Server $server, string $message)
 	{
 		parent::__construct($server);
 		$this->message = $message;

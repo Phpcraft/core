@@ -31,7 +31,7 @@ class Account
 	/**
 	 * @param string $name The Mojang account email address or the in-game name if legacy or offline.
 	 */
-	public function __construct(string $name)
+	function __construct(string $name)
 	{
 		$this->name = $name;
 		$this->username = $name;
@@ -42,7 +42,7 @@ class Account
 	 *
 	 * @return boolean
 	 */
-	public function isOnline()
+	function isOnline()
 	{
 		return $this->profileId !== null && $this->accessToken !== null;
 	}
@@ -52,7 +52,7 @@ class Account
 	 *
 	 * @return boolean True on success.
 	 */
-	public function loginUsingProfiles()
+	function loginUsingProfiles()
 	{
 		$profiles = Phpcraft::getProfiles();
 		$foundAccount = false;
@@ -123,7 +123,7 @@ class Account
 	 * @param string $password
 	 * @return string Error message. Empty on success.
 	 */
-	public function login(string $password)
+	function login(string $password)
 	{
 		$profiles = Phpcraft::getProfiles();
 		if($res = Phpcraft::httpPOST("https://authserver.mojang.com/authenticate", [

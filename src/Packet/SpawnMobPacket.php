@@ -41,7 +41,7 @@ class SpawnMobPacket extends Packet
 	 * @param EntityType $type The type of mob.
 	 * @param UUID $uuid The UUID of the entity.
 	 */
-	public function __construct(int $eid = 0, EntityType $type = null, UUID $uuid = null)
+	function __construct(int $eid = 0, EntityType $type = null, UUID $uuid = null)
 	{
 		$this->eid = $eid;
 		if($type)
@@ -102,7 +102,7 @@ class SpawnMobPacket extends Packet
 	 * @param Connection $con
 	 * @throws IOException
 	 */
-	public function send(Connection $con)
+	function send(Connection $con)
 	{
 		$con->startPacket("spawn_mob");
 		$con->writeVarInt($this->eid);
@@ -136,7 +136,7 @@ class SpawnMobPacket extends Packet
 		$con->send();
 	}
 
-	public function __toString()
+	function __toString()
 	{
 		$str = "{SpawnMobPacket: ";
 		if($this->type)

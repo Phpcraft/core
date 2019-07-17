@@ -44,7 +44,7 @@ class Material extends Identifier
 	 * @param integer $protocol_version
 	 * @return integer
 	 */
-	public function getId(int $protocol_version)
+	function getId(int $protocol_version)
 	{
 		if($protocol_version >= $this->since_protocol_version)
 		{
@@ -72,7 +72,7 @@ class Material extends Identifier
 	 *
 	 * @return Item[]
 	 */
-	public function getDrops()
+	function getDrops()
 	{
 		$drops = [];
 		foreach($this->drops as $name)

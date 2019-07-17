@@ -18,7 +18,7 @@ class ClientPacketEvent extends ClientEvent
 	 * @param ServerConnection $server The client's server connection.
 	 * @param string $packet_name The name of the packet that the server has sent.
 	 */
-	public function __construct(ServerConnection $server, string $packet_name)
+	function __construct(ServerConnection $server, string $packet_name)
 	{
 		parent::__construct($server);
 		$this->packet_name = $packet_name;

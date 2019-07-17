@@ -123,7 +123,7 @@ class ClientConnection extends Connection
 	 *
 	 * @param resource $stream
 	 */
-	public function __construct($stream)
+	function __construct($stream)
 	{
 		parent::__construct(-1, $stream);
 	}
@@ -135,7 +135,7 @@ class ClientConnection extends Connection
 	 *
 	 * @return integer Status: 0 = An error occured and the connection has been closed. 1 = Handshake was successfully read; use Connection::$state to see if the client wants to get the status (1) or login to play (2). 2 = A legacy list ping packet has been received.
 	 */
-	public function handleInitialPacket()
+	function handleInitialPacket()
 	{
 		try
 		{
@@ -191,7 +191,7 @@ class ClientConnection extends Connection
 	 *
 	 * @param array|string $reason The reason of the disconnect; chat object.
 	 */
-	public function disconnect($reason = [])
+	function disconnect($reason = [])
 	{
 		if($reason && $this->state > 1)
 		{
@@ -223,7 +223,7 @@ class ClientConnection extends Connection
 	 * @throws DomainException
 	 * @throws InvalidArgumentException
 	 */
-	public function startPacket($packet)
+	function startPacket($packet)
 	{
 		if(gettype($packet) == "string")
 		{
@@ -242,7 +242,7 @@ class ClientConnection extends Connection
 	 *
 	 * @return string
 	 */
-	public function getHost()
+	function getHost()
 	{
 		return $this->hostname.":".$this->hostport;
 	}
@@ -254,7 +254,7 @@ class ClientConnection extends Connection
 	 * @return ClientConnection $this
 	 * @throws IOException
 	 */
-	public function sendEncryptionRequest($private_key)
+	function sendEncryptionRequest($private_key)
 	{
 		if($this->state == 2)
 		{
@@ -276,7 +276,7 @@ class ClientConnection extends Connection
 	 * @return boolean
 	 * @throws IOException
 	 */
-	public function handleEncryptionResponse($private_key)
+	function handleEncryptionResponse($private_key)
 	{
 		openssl_private_decrypt($this->readString(), $shared_secret, $private_key, OPENSSL_PKCS1_PADDING);
 		openssl_private_decrypt($this->readString(), $verify_token, $private_key, OPENSSL_PKCS1_PADDING);
@@ -309,7 +309,7 @@ class ClientConnection extends Connection
 	 * @return boolean
 	 * @see ClientConnection::handleAuthentication
 	 */
-	public function isAuthenticationPending()
+	function isAuthenticationPending()
 	{
 		return $this->mh !== null;
 	}
@@ -334,7 +334,7 @@ class ClientConnection extends Connection
 	 * @return integer|array
 	 * @see ClientConnection::isAuthenticationPending
 	 */
-	public function handleAuthentication()
+	function handleAuthentication()
 	{
 		$active = 0;
 		curl_multi_exec($this->mh, $active);
@@ -363,7 +363,7 @@ class ClientConnection extends Connection
 	 * @return ClientConnection $this
 	 * @throws IOException
 	 */
-	public function finishLogin(UUID $uuid, Counter $eidCounter, int $compression_threshold = 256)
+	function finishLogin(UUID $uuid, Counter $eidCounter, int $compression_threshold = 256)
 	{
 		if($this->state == 2)
 		{
@@ -391,7 +391,7 @@ class ClientConnection extends Connection
 	 * @param int $position
 	 * @throws IOException
 	 */
-	public function sendMessage($message, int $position = ChatPosition::SYSTEM)
+	function sendMessage($message, int $position = ChatPosition::SYSTEM)
 	{
 		if(is_string($message))
 		{
@@ -412,7 +412,7 @@ class ClientConnection extends Connection
 	 * @throws IOException
 	 * @see Gamemode
 	 */
-	public function setGamemode(int $gamemode)
+	function setGamemode(int $gamemode)
 	{
 		if(!Gamemode::validateValue($gamemode))
 		{
@@ -436,7 +436,7 @@ class ClientConnection extends Connection
 	 * @see ClientConnection::sendAbilities
 	 * @see ClientConnection::setGamemode
 	 */
-	public function setAbilities(int $gamemode)
+	function setAbilities(int $gamemode)
 	{
 		$this->instant_breaking = ($gamemode == Gamemode::CREATIVE);
 		$this->flying = ($gamemode == Gamemode::SPECTATOR);
@@ -465,7 +465,7 @@ class ClientConnection extends Connection
 	 * @see ClientConnection::$fly_speed
 	 * @see ClientConnection::$walk_speed
 	 */
-	public function sendAbilities()
+	function sendAbilities()
 	{
 		$packet = new ClientboundAbilitiesPacket();
 		$packet->invulnerable = $this->invulnerable;

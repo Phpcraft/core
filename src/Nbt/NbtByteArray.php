@@ -15,7 +15,7 @@ class NbtByteArray extends NbtTag
 	 * @param string $name The name of this tag.
 	 * @param $children integer[] The bytes in the array.
 	 */
-	public function __construct(string $name, array $children = [])
+	function __construct(string $name, array $children = [])
 	{
 		$this->name = $name;
 		$this->children = $children;
@@ -28,7 +28,7 @@ class NbtByteArray extends NbtTag
 	 * @param boolean $inList Ignore this parameter.
 	 * @return Connection $con
 	 */
-	public function write(Connection $con, bool $inList = false)
+	function write(Connection $con, bool $inList = false)
 	{
 		if(!$inList)
 		{
@@ -42,12 +42,12 @@ class NbtByteArray extends NbtTag
 		return $con;
 	}
 
-	public function copy()
+	function copy()
 	{
 		return new NbtByteArray($this->name, $this->children);
 	}
 
-	public function __toString()
+	function __toString()
 	{
 		$str = "{ByteArray \"".$this->name."\":";
 		foreach($this->children as $child)

@@ -105,7 +105,7 @@ abstract class EntityMetadata
 	 * @throws DomainException
 	 * @throws InvalidArgumentException
 	 */
-	public function read(Connection $con)
+	function read(Connection $con)
 	{
 		if($con->protocol_version >= 57)
 		{
@@ -251,9 +251,9 @@ abstract class EntityMetadata
 	 *
 	 * @param Connection $con
 	 */
-	abstract public function write(Connection $con);
+	abstract function write(Connection $con);
 
-	public function __toString()
+	function __toString()
 	{
 		$attr = $this->getStringAttributes();
 		if(count($attr) > 0)
@@ -263,5 +263,5 @@ abstract class EntityMetadata
 		return "{".substr(get_called_class(), 9)."}";
 	}
 
-	abstract public function getStringAttributes();
+	abstract function getStringAttributes();
 }

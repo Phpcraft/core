@@ -127,7 +127,7 @@ class EntityType extends Identifier
 	 * @param integer $protocol_version
 	 * @return integer
 	 */
-	public function getId(int $protocol_version)
+	function getId(int $protocol_version)
 	{
 		if($protocol_version >= $this->since_protocol_version)
 		{
@@ -154,7 +154,7 @@ class EntityType extends Identifier
 	 *
 	 * @return EntityMetadata
 	 */
-	public function getMetadata()
+	function getMetadata()
 	{
 		return new EntityLiving();
 	}

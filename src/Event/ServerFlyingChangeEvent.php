@@ -21,7 +21,7 @@ class ServerFlyingChangeEvent extends ServerClientEvent
 	 * @param ClientConnection $client
 	 * @param boolean $old_value The client's flying value before the change.
 	 */
-	public function __construct(Server $server, ClientConnection $client, bool $old_value)
+	function __construct(Server $server, ClientConnection $client, bool $old_value)
 	{
 		parent::__construct($server, $client);
 		$this->old_value = $old_value;

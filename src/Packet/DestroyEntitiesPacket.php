@@ -14,7 +14,7 @@ class DestroyEntitiesPacket extends Packet
 	/**
 	 * @param $eids integer[] An array of the IDs of the entities to be destroyed.
 	 */
-	public function __construct(array $eids = [])
+	function __construct(array $eids = [])
 	{
 		$this->eids = $eids;
 	}
@@ -42,7 +42,7 @@ class DestroyEntitiesPacket extends Packet
 	 * @param Connection $con
 	 * @throws IOException
 	 */
-	public function send(Connection $con)
+	function send(Connection $con)
 	{
 		$con->startPacket("destroy_entities");
 		$con->writeVarInt(count($this->eids));
@@ -53,7 +53,7 @@ class DestroyEntitiesPacket extends Packet
 		$con->send();
 	}
 
-	public function __toString()
+	function __toString()
 	{
 		$str = "{DestroyEntitiesPacket:";
 		foreach($this->eids as $eid)

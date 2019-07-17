@@ -47,7 +47,7 @@ class EntityBase extends EntityMetadata
 	 *
 	 * @param Connection $con
 	 */
-	public function write(Connection $con)
+	function write(Connection $con)
 	{
 		if($this->burning !== null || $this->crouching !== null || $this->sprinting !== null || $this->invisible !== null)
 		{
@@ -110,7 +110,7 @@ class EntityBase extends EntityMetadata
 		}
 	}
 
-	public function getStringAttributes()
+	function getStringAttributes()
 	{
 		$attr = [];
 		if($this->custom_name !== null)

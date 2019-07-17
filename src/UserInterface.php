@@ -9,7 +9,7 @@ class UserInterface
 	 *
 	 * @see https://bugs.php.net/bug.php?id=34972
 	 */
-	public function __construct()
+	function __construct()
 	{
 		if(Phpcraft::isWindows())
 		{
@@ -28,7 +28,7 @@ class UserInterface
 	 * @param boolean $accept_input Set to true if you are looking for a return value.
 	 * @return string If $accept_input is true, we're not on Windows, and the user has submitted a line, the return will be that line. Otherwise, it will be null.
 	 */
-	public function render(bool $accept_input = false)
+	function render(bool $accept_input = false)
 	{
 		if($accept_input && $this->stdin !== null)
 		{
@@ -48,7 +48,7 @@ class UserInterface
 	 * @param string $message
 	 * @return $this
 	 */
-	public function append(string $message)
+	function append(string $message)
 	{
 		return $this->add($message);
 	}
@@ -59,7 +59,7 @@ class UserInterface
 	 * @param string $message
 	 * @return $this
 	 */
-	public function add(string $message)
+	function add(string $message)
 	{
 		echo "\x1B[m{$message}\n\x1B[m";
 		return $this;

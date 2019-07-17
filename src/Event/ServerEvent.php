@@ -13,7 +13,7 @@ abstract class ServerEvent extends Event
 	/**
 	 * @param Server $server
 	 */
-	public function __construct(Server $server)
+	function __construct(Server $server)
 	{
 		$this->server = $server;
 	}

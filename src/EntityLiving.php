@@ -13,7 +13,7 @@ class EntityLiving extends EntityBase
 	 *
 	 * @param Connection $con
 	 */
-	public function write(Connection $con)
+	function write(Connection $con)
 	{
 		parent::write($con);
 		if($this->health !== null)
@@ -26,7 +26,7 @@ class EntityLiving extends EntityBase
 		}
 	}
 
-	public function getStringAttributes()
+	function getStringAttributes()
 	{
 		$attr = parent::getStringAttributes();
 		if($this->health !== null)

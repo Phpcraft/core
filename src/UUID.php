@@ -9,7 +9,7 @@ class UUID extends \hellsh\UUID
 	 *
 	 * @return boolean
 	 */
-	public function isSlim()
+	function isSlim()
 	{
 		return ((ord(substr($this->binary, 3, 1)) & 0xF) ^ (ord(substr($this->binary, 7, 1)) & 0xF) ^ (ord(substr($this->binary, 11, 1)) & 0xF) ^ (ord(substr($this->binary, 15, 1)) & 0xF)) == 1;
 	}
@@ -19,7 +19,7 @@ class UUID extends \hellsh\UUID
 	 *
 	 * @return GMP
 	 */
-	public function toInt()
+	function toInt()
 	{
 		return gmp_import(substr($this->binary, 0, 2).substr($this->binary, -3));
 	}

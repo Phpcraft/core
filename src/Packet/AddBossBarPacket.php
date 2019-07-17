@@ -56,7 +56,7 @@ class AddBossBarPacket extends BossBarPacket
 	 * @param Connection $con
 	 * @throws IOException
 	 */
-	public function send(Connection $con)
+	function send(Connection $con)
 	{
 		if($con->protocol_version > 49)
 		{
@@ -117,7 +117,7 @@ class AddBossBarPacket extends BossBarPacket
 		}
 	}
 
-	public function __toString()
+	function __toString()
 	{
 		$str = "{AddBossBarPacket: Boss Bar ".$this->uuid->__toString().", \"".Phpcraft::chatToText($this->title)."\", ".($this->health * 100)."% Health, Color ID {$this->color}, Division ID {$this->division}";
 		if($this->darken_sky)

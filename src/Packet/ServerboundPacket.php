@@ -45,7 +45,7 @@ class ServerboundPacket extends PacketId
 	 * @param integer $protocol_version
 	 * @return integer
 	 */
-	public function getId(int $protocol_version)
+	function getId(int $protocol_version)
 	{
 		return $protocol_version >= $this->since_protocol_version ? $this->_getId($protocol_version, "toServer", self::nameMap()) : null;
 	}
@@ -58,7 +58,7 @@ class ServerboundPacket extends PacketId
 	 * @return Packet
 	 * @throws IOException
 	 */
-	public function init(Connection $con)
+	function init(Connection $con)
 	{
 		switch($this->name)
 		{

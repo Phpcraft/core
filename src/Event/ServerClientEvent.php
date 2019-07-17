@@ -15,7 +15,7 @@ abstract class ServerClientEvent extends ServerEvent
 	 * @param Server $server
 	 * @param ClientConnection $client
 	 */
-	public function __construct(Server $server, ClientConnection $client)
+	function __construct(Server $server, ClientConnection $client)
 	{
 		parent::__construct($server);
 		$this->client = $client;

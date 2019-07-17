@@ -49,7 +49,7 @@ class JoinGamePacket extends Packet
 	 * @param Connection $con
 	 * @throws IOException
 	 */
-	public function send(Connection $con)
+	function send(Connection $con)
 	{
 		$con->startPacket("join_game");
 		$con->writeInt($this->eid);
@@ -88,7 +88,7 @@ class JoinGamePacket extends Packet
 		}
 	}
 
-	public function __toString()
+	function __toString()
 	{
 		return "{JoinGamePacket: Entity ID ".$this->eid.", Gamemode ".$this->gamemode.", ".($this->hardcore ? "Not " : "")."Hardcore Mode, Dimension ".$this->dimension.", Difficulty ".$this->difficulty."}";
 	}

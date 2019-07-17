@@ -15,7 +15,7 @@ class ServerConnection extends Connection
 	 * @param resource $stream A stream created by fsockopen.
 	 * @param integer $protocol_version
 	 */
-	public function __construct($stream, int $protocol_version)
+	function __construct($stream, int $protocol_version)
 	{
 		parent::__construct($protocol_version, $stream);
 	}
@@ -30,7 +30,7 @@ class ServerConnection extends Connection
 	 * @return ServerConnection $this
 	 * @throws IOException
 	 */
-	public function sendHandshake(string $server_name, int $server_port, int $next_state)
+	function sendHandshake(string $server_name, int $server_port, int $next_state)
 	{
 		$this->writeVarInt(0x00);
 		$this->writeVarInt($this->protocol_version);
@@ -50,7 +50,7 @@ class ServerConnection extends Connection
 	 * @return string Error message. Empty on success.
 	 * @throws IOException
 	 */
-	public function login(Account $account, array $translations = null)
+	function login(Account $account, array $translations = null)
 	{
 		$this->writeVarInt(0x00);
 		$this->writeString($account->username);
@@ -140,7 +140,7 @@ class ServerConnection extends Connection
 	 * @throws DomainException
 	 * @throws InvalidArgumentException
 	 */
-	public function startPacket($packet)
+	function startPacket($packet)
 	{
 		if(gettype($packet) == "string")
 		{

@@ -1894,7 +1894,7 @@ class MapDataPacket extends Packet
 	 * @param Connection $con
 	 * @throws IOException
 	 */
-	public function send(Connection $con)
+	function send(Connection $con)
 	{
 		$con->startPacket("map_data");
 		$con->writeVarInt($this->mapId);
@@ -1971,7 +1971,7 @@ class MapDataPacket extends Packet
 		$con->send();
 	}
 
-	public function __toString()
+	function __toString()
 	{
 		$str = "{Map Data: Map ID ".$this->mapId.", Scale ".$this->scale.", {$this->width}x{$this->height} Pixels, From {$this->x}:{$this->z}, Markers:";
 		if(empty($this->markers))

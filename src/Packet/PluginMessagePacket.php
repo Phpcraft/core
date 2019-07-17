@@ -81,7 +81,7 @@ abstract class PluginMessagePacket extends Packet
 	 * @param Connection $con
 	 * @throws IOException
 	 */
-	public function send(Connection $con)
+	function send(Connection $con)
 	{
 		$con->startPacket($this->packet_name);
 		if($con->protocol_version >= 385)
@@ -110,7 +110,7 @@ abstract class PluginMessagePacket extends Packet
 		$con->writeRaw($this->data);
 	}
 
-	public function __toString()
+	function __toString()
 	{
 		return "{".substr(get_called_class(), 9).": \"".$this->channel."\": ".Phpcraft::binaryStringToHex($this->data)."}";
 	}

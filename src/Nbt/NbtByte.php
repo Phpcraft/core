@@ -15,7 +15,7 @@ class NbtByte extends NbtTag
 	 * @param string $name The name of this tag.
 	 * @param integer $value The value of this tag.
 	 */
-	public function __construct(string $name, int $value = 0)
+	function __construct(string $name, int $value = 0)
 	{
 		$this->name = $name;
 		$this->value = $value;
@@ -28,7 +28,7 @@ class NbtByte extends NbtTag
 	 * @param boolean $inList Ignore this parameter.
 	 * @return Connection $con
 	 */
-	public function write(Connection $con, bool $inList = false)
+	function write(Connection $con, bool $inList = false)
 	{
 		if(!$inList)
 		{
@@ -38,12 +38,12 @@ class NbtByte extends NbtTag
 		return $con;
 	}
 
-	public function copy()
+	function copy()
 	{
 		return new NbtByte($this->name, $this->value);
 	}
 
-	public function __toString()
+	function __toString()
 	{
 		return "{Byte \"".$this->name."\": ".$this->value."}";
 	}

@@ -64,7 +64,7 @@ class Server
 	 * @param resource $stream A stream created by stream_socket_server.
 	 * @param resource $private_key A private key generated using openssl_pkey_new(["private_key_bits" => 1024, "private_key_type" => OPENSSL_KEYTYPE_RSA]) to use for online mode, or null to use offline mode.
 	 */
-	public function __construct($stream = null, $private_key = null)
+	function __construct($stream = null, $private_key = null)
 	{
 		if($stream)
 		{
@@ -109,7 +109,7 @@ class Server
 	 *
 	 * @return boolean
 	 */
-	public function isOpen()
+	function isOpen()
 	{
 		return $this->stream != null && @feof($this->stream) === false;
 	}
@@ -119,7 +119,7 @@ class Server
 	 *
 	 * @return Server $this
 	 */
-	public function accept()
+	function accept()
 	{
 		while(($stream = @stream_socket_accept($this->stream, 0)) !== false)
 		{
@@ -176,7 +176,7 @@ class Server
 	 *
 	 * @return Server $this
 	 */
-	public function handle()
+	function handle()
 	{
 		foreach($this->clients as $i => $con)
 		{
@@ -305,7 +305,7 @@ class Server
 	 *
 	 * @return ClientConnection[]
 	 */
-	public function getPlayers()
+	function getPlayers()
 	{
 		$clients = [];
 		foreach($this->clients as $client)
@@ -323,7 +323,7 @@ class Server
 	 *
 	 * @param array|string $reason The reason for closing the server; chat object.
 	 */
-	public function close($reason = [])
+	function close($reason = [])
 	{
 		fclose($this->stream);
 		foreach($this->clients as $client)

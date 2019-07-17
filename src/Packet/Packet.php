@@ -21,7 +21,7 @@ abstract class Packet
 	 * @return string
 	 * @throws IOException
 	 */
-	public function getPayload(int $protocol_version = -1)
+	function getPayload(int $protocol_version = -1)
 	{
 		$con = new Connection($protocol_version);
 		$this->send($con);
@@ -36,7 +36,7 @@ abstract class Packet
 	 * @param Connection $con
 	 * @throws IOException
 	 */
-	abstract public function send(Connection $con);
+	abstract function send(Connection $con);
 
-	abstract public function __toString();
+	abstract function __toString();
 }

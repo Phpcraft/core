@@ -15,14 +15,14 @@ class Position
 	 */
 	public $z = 0;
 
-	public function __construct(float $x = 0, float $y = 0, float $z = 0)
+	function __construct(float $x = 0, float $y = 0, float $z = 0)
 	{
 		$this->x = $x;
 		$this->y = $y;
 		$this->z = $z;
 	}
 
-	public function __toString()
+	function __toString()
 	{
 		return "{Position ".$this->x." ".$this->y." ".$this->z."}";
 	}
