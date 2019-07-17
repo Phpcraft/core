@@ -10,7 +10,7 @@ if(@$argv[1] == "help")
 }
 require "vendor/autoload.php";
 use Phpcraft\
-{Account, Packet\ClientboundPacket, ClientConnection, Connection, Enum\Difficulty, Enum\Dimension, Enum\Gamemode, Packet\JoinGamePacket, Packet\KeepAliveRequestPacket, Phpcraft, Position, Server, ServerConnection, Versions};
+{Account, ClientConnection, Connection, Enum\Difficulty, Enum\Dimension, Enum\Gamemode, Packet\ClientboundPacket, Packet\JoinGamePacket, Packet\KeepAliveRequestPacket, Phpcraft, Position, Server, ServerConnection, Versions};
 $stdin = fopen("php://stdin", "r") or die("Failed to open php://stdin\n");
 stream_set_blocking($stdin, true);
 if(empty($argv[1]))

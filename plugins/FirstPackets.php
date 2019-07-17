@@ -1,7 +1,7 @@
 <?php
 // Provides clients with some essential first packets.
 use Phpcraft\
-{Event\ServerChatEvent, Event\ServerLeaveEvent, Material, ClientConnection, Connection, Enum\Difficulty, Enum\Dimension, Enum\Gamemode, Event\Event, Event\ServerJoinEvent, Event\ServerTickEvent, Packet\ClientboundBrandPluginMessagePacket, Packet\JoinGamePacket, Phpcraft, Plugin, PluginManager, Position};
+{ClientConnection, Connection, Enum\Difficulty, Enum\Dimension, Enum\Gamemode, Event\Event, Event\ServerChatEvent, Event\ServerJoinEvent, Event\ServerLeaveEvent, Event\ServerTickEvent, Material, Packet\ClientboundBrandPluginMessagePacket, Packet\JoinGamePacket, Plugin, PluginManager, Position};
 $WorldImitatorActive = false;
 $client_chunk_preferences = [];
 PluginManager::registerPlugin("FirstPackets", function(Plugin $plugin)
