@@ -83,7 +83,7 @@ class Item extends Identifier
 											{
 												$legacy_id = ($_item["id"] << 4) | $variation["metadata"];
 												$since_pv = $_pv;
-												break 3;
+												break 4;
 											}
 										}
 									}
