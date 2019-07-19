@@ -24,6 +24,8 @@ abstract class Versions
 		if(!$all)
 		{
 			return [
+				"1.14.4" => 498,
+				"1.14.4-pre7" => 497,
 				"1.14.4-pre6" => 496,
 				"1.14.4-pre5" => 495,
 				"1.14.4-pre4" => 494,
