@@ -19,7 +19,7 @@ class Server
 	/**
 	 * A ClientConnection array of all clients that are connected to the server.
 	 *
-	 * @var array $clients
+	 * @var $clients ClientConnection[]
 	 * @see Server::getPlayers()
 	 */
 	public $clients = [];
@@ -298,6 +298,34 @@ class Server
 			}
 		}
 		return $this;
+	}
+
+	/**
+	 * Returns true if the server is in online mode.
+	 *
+	 * @return bool
+	 */
+	function isOnlineMode()
+	{
+		return $this->private_key !== null;
+	}
+
+	/**
+	 * Returns a client in state 3 (playing) with the given name or UUID, or null if not found.
+	 *
+	 * @param string|UUID $name_or_uuid
+	 * @return ClientConnection|null
+	 */
+	function getPlayer($name_or_uuid)
+	{
+		foreach($this->clients as $client)
+		{
+			if($client->state == 3 && ($client->username == $name_or_uuid || $client->uuid == $name_or_uuid))
+			{
+				return $client;
+			}
+		}
+		return null;
 	}
 
 	/**

@@ -1,4 +1,5 @@
 <?php
+/** @noinspection PhpComposerExtensionStubsInspection */
 echo "Phpcraft PHP Minecraft Server\n\n";
 if(empty($argv))
 {
@@ -115,6 +116,38 @@ $server->join_function = function(ClientConnection $con)
 		return;
 	}
 	global $ui, $server;
+	foreach($server->clients as $client)
+	{
+		if($client !== $con && $client->state == 3 && $client->username == $con->username)
+		{
+			if($server->isOnlineMode())
+			{
+				$client->disconnect(["text" => "You've logged in from a different location."]);
+				$server->handle();
+			}
+			else
+			{
+				$solved = false;
+				if(strlen($con->username) <= 13)
+				{
+					for($i = 2; $i <= 9; $i++)
+					{
+						if($server->getPlayer("{$con->username}($i)") === null)
+						{
+							$con->username .= "($i)";
+							$con->sendMessage(["text" => "To avoid conflicts, your name has been changed to {$con->username}.", "color" => "red"]);
+							$solved = true;
+							break;
+						}
+					}
+				}
+				if(!$solved)
+				{
+					$con->disconnect(["text" => "You're already on this server, and I have found no reasonable solution"]);
+				}
+			}
+		}
+	}
 	if(PluginManager::fire(new ServerJoinEvent($server, $con)))
 	{
 		$con->close();
