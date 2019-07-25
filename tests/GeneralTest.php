@@ -99,10 +99,17 @@ class GeneralTest
 			"1.10"
 		], Versions::protocolToMinecraft(210));
 		Nose::assertEquals("1.8 - 1.8.9", Versions::protocolToRange(47));
-		Nose::assert(array_key_exists("1.9", Versions::releases()));
-		Nose::assertFalse(array_key_exists("1.9-pre1", Versions::releases()));
-		Nose::assertFalse(array_key_exists("16w07a", Versions::releases()));
-		Nose::assert(Versions::protocolSupported(47));
+		Nose::assertTrue(array_key_exists("1.9", Versions::releases(true)));
+		Nose::assertTrue(array_key_exists("1.9", Versions::releases(false)));
+		Nose::assertTrue(array_key_exists("1.9-pre1", Versions::list(true)));
+		Nose::assertTrue(array_key_exists("1.9-pre1", Versions::list(false)));
+		Nose::assertFalse(array_key_exists("1.9-pre1", Versions::releases(true)));
+		Nose::assertFalse(array_key_exists("1.9-pre1", Versions::releases(false)));
+		Nose::assertTrue(array_key_exists("16w07a", Versions::list(true)));
+		Nose::assertTrue(array_key_exists("16w07a", Versions::list(false)));
+		Nose::assertFalse(array_key_exists("16w07a", Versions::releases(true)));
+		Nose::assertFalse(array_key_exists("16w07a", Versions::releases(false)));
+		Nose::assertTrue(Versions::protocolSupported(47));
 		Nose::assertFalse(Versions::protocolSupported(46));
 	}
 
