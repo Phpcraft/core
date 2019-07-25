@@ -702,7 +702,7 @@ abstract class Phpcraft
 		{
 			if($stream = @fsockopen($server_name, $server_port, $errno, $errstr, $timeout))
 			{
-				$con = new ServerConnection($stream, Versions::protocol()[0]);
+				$con = new ServerConnection($stream, Versions::protocol(false)[0]);
 				$start = microtime(true);
 				$con->sendHandshake($server_name, $server_port, 1);
 				$con->writeVarInt(0x00);

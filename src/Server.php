@@ -86,11 +86,11 @@ class Server
 					]);
 				}
 			}
-			$versions = Versions::minecraftReleases();
+			$versions = Versions::minecraftReleases(false);
 			return [
 				"version" => [
 					"name" => "Phpcraft ".$versions[count($versions) - 1]." - ".$versions[0],
-					"protocol" => (Versions::protocolSupported($con->protocol_version) ? $con->protocol_version : Versions::protocol()[0])
+					"protocol" => (Versions::protocolSupported($con->protocol_version) ? $con->protocol_version : Versions::protocol(false)[0])
 				],
 				"players" => [
 					"online" => count($players),
