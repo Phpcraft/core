@@ -9,7 +9,7 @@ var searchData=
   ['_24childtype',['$childType',['../classPhpcraft_1_1Nbt_1_1NbtList.html#a1ff7e88ebbdf9911a826c54344c488af',1,'Phpcraft::Nbt::NbtList']]],
   ['_24chunks',['$chunks',['../classPhpcraft_1_1ClientConnection.html#abb7300801f9bf088fa43f2be7029ca5a',1,'Phpcraft::ClientConnection']]],
   ['_24client',['$client',['../classPhpcraft_1_1Event_1_1ServerClientEvent.html#ac182fcdf127fe7d89f3e3985c1c58f16',1,'Phpcraft::Event::ServerClientEvent']]],
-  ['_24clients',['$clients',['../classPhpcraft_1_1Server.html#ae5ccc8ddd363734e7ff6fd8fe9c7bd5e',1,'Phpcraft::Server']]],
+  ['_24clients',['$clients',['../classPhpcraft_1_1Server.html#aa21cd78de3bbd12c1133d782f642a44e',1,'Phpcraft::Server']]],
   ['_24color',['$color',['../classPhpcraft_1_1Packet_1_1AddBossBarPacket.html#a88ced8b41c623fadb284068c806e357f',1,'Phpcraft::Packet::AddBossBarPacket']]],
   ['_24compression_5fthreshold',['$compression_threshold',['../classPhpcraft_1_1Connection.html#aaeb27e92dcac0caa63c5594cc93fc63e',1,'Phpcraft::Connection']]],
   ['_24contents',['$contents',['../classPhpcraft_1_1Packet_1_1MapDataPacket.html#a84becf95496ff9a1a5aad7d0e08538d2',1,'Phpcraft::Packet::MapDataPacket']]],

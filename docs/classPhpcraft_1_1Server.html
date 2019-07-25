@@ -81,6 +81,10 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a172423393c7cd2339523706457c05c37"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4f4c7ec689744dd6eed990527a773f00"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Server.html#a4f4c7ec689744dd6eed990527a773f00">handle</a> ()</td></tr>
 <tr class="separator:a4f4c7ec689744dd6eed990527a773f00"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a80c0df387dc345950a7599b800bf27c9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Server.html#a80c0df387dc345950a7599b800bf27c9">isOnlineMode</a> ()</td></tr>
+<tr class="separator:a80c0df387dc345950a7599b800bf27c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a70a90032d30059a1b5eb5a5cf64e82bf"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Server.html#a70a90032d30059a1b5eb5a5cf64e82bf">getPlayer</a> ($name_or_uuid)</td></tr>
+<tr class="separator:a70a90032d30059a1b5eb5a5cf64e82bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8eea4895410ef8bfda087f151cae491d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Server.html#a8eea4895410ef8bfda087f151cae491d">getPlayers</a> ()</td></tr>
 <tr class="separator:a8eea4895410ef8bfda087f151cae491d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae5413fde7de5d2f804607b6c91859276"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Server.html#ae5413fde7de5d2f804607b6c91859276">close</a> ($reason=[])</td></tr>
@@ -92,8 +96,8 @@ Public Attributes</h2></td></tr>
 <tr class="separator:a7e900482f4d4db56ccbca75464738fde"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab5129d24aa1f235130bc8132be0a417a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Server.html#ab5129d24aa1f235130bc8132be0a417a">$private_key</a></td></tr>
 <tr class="separator:ab5129d24aa1f235130bc8132be0a417a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae5ccc8ddd363734e7ff6fd8fe9c7bd5e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Server.html#ae5ccc8ddd363734e7ff6fd8fe9c7bd5e">$clients</a> = []</td></tr>
-<tr class="separator:ae5ccc8ddd363734e7ff6fd8fe9c7bd5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa21cd78de3bbd12c1133d782f642a44e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Server.html#aa21cd78de3bbd12c1133d782f642a44e">$clients</a> = []</td></tr>
+<tr class="separator:aa21cd78de3bbd12c1133d782f642a44e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af01b1599a936bc839de74e4927d94205"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Server.html#af01b1599a936bc839de74e4927d94205">$eidCounter</a></td></tr>
 <tr class="separator:af01b1599a936bc839de74e4927d94205"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a442a0d8f5948c01f6c512c9aa78ed83e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Server.html#a442a0d8f5948c01f6c512c9aa78ed83e">$join_function</a> = null</td></tr>
@@ -186,6 +190,32 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a70a90032d30059a1b5eb5a5cf64e82bf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a70a90032d30059a1b5eb5a5cf64e82bf">&#9670;&nbsp;</a></span>getPlayer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Phpcraft\Server::getPlayer </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$name_or_uuid</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Returns a client in state 3 (playing) with the given name or <a class="el" href="classPhpcraft_1_1UUID.html">UUID</a>, or null if not found.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string&#160;|&#160;<a class="el" href="classPhpcraft_1_1UUID.html">UUID</a></td><td class="paramname">$name_or_uuid</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>ClientConnection|null </dd></dl>
+
+</div>
+</div>
 <a id="a8eea4895410ef8bfda087f151cae491d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8eea4895410ef8bfda087f151cae491d">&#9670;&nbsp;</a></span>getPlayers()</h2>
 
@@ -224,6 +254,25 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a80c0df387dc345950a7599b800bf27c9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a80c0df387dc345950a7599b800bf27c9">&#9670;&nbsp;</a></span>isOnlineMode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Phpcraft\Server::isOnlineMode </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Returns true if the server is in online mode.</p>
+<dl class="section return"><dt>Returns</dt><dd>bool </dd></dl>
+
+</div>
+</div>
 <a id="a75d9cf1effa434c6ec3f967eb97c6254"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a75d9cf1effa434c6ec3f967eb97c6254">&#9670;&nbsp;</a></span>isOpen()</h2>
 
@@ -244,19 +293,17 @@ Public Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="ae5ccc8ddd363734e7ff6fd8fe9c7bd5e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae5ccc8ddd363734e7ff6fd8fe9c7bd5e">&#9670;&nbsp;</a></span>$clients</h2>
+<a id="aa21cd78de3bbd12c1133d782f642a44e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa21cd78de3bbd12c1133d782f642a44e">&#9670;&nbsp;</a></span>$clients</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">array Phpcraft\Server::$clients = []</td>
+          <td class="memname">Phpcraft\Server::$clients = []</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>A <a class="el" href="classPhpcraft_1_1ClientConnection.html">ClientConnection</a> array of all clients that are connected to the server.</p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="classPhpcraft_1_1Server.html#a8eea4895410ef8bfda087f151cae491d">Server::getPlayers()</a> </dd></dl>
 
 </div>
 </div>
