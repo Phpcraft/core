@@ -69,9 +69,9 @@ class ServerConnection extends Connection
 			}
 			if($id == 0x04) // Login Plugin Request
 			{
-				echo "Login Plugin Request: ".$this->readString()."\n";
 				$this->writeVarInt(0x02); // Login Plugin Response
 				$this->writeVarInt(gmp_intval($this->readVarInt()));
+				echo "Login Plugin Request: ".$this->readString()."\n";
 				$this->writeBoolean(false);
 				$this->send();
 			}
