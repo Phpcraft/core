@@ -376,7 +376,7 @@ function handleConsoleMessage(string $msg)
 				global $players;
 				foreach($players as $uuid => $player)
 				{
-					$ui->add($uuid."  ".$player["name"].str_repeat(" ", 17 - strlen($player["name"])).str_repeat(" ", 5 - strlen($player["ping"])).$player["ping"]." ms  ".$gamemodes[$player["gamemode"]]." Mode");
+					$ui->add($uuid."  ".$player["name"].str_repeat(" ", 17 - strlen($player["name"])).str_repeat(" ", 5 - strlen($player["ping"])).$player["ping"]." ms  ".(array_key_exists($player["gamemode"], $gamemodes) ? $gamemodes[$player["gamemode"]]." Mode" : "Gamemode ".$player["gamemode"]));
 				}
 				break;
 			case "entities":
