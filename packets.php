@@ -80,7 +80,7 @@ while(($id = $con->readPacket()) !== false)
 	}
 	else
 	{
-		$name = null;
+		$name = "";
 	}
 	if($size == 0)
 	{
