@@ -185,6 +185,29 @@ $server->join_function = function(ClientConnection $con)
 			$c->writeString($msg);
 			$c->writeByte(1);
 			$c->send();
+			$c->startPacket("player_info");
+			$c->writeVarInt(0);
+			$c->writeVarInt(1);
+			$c->writeUUID($con->uuid);
+			$c->writeString($con->username);
+			$c->writeVarInt(0);
+			$c->writeVarInt(-1);
+			$c->writeVarInt(-1);
+			$c->writeBoolean(false);
+			$c->send();
+			if($c !== $con)
+			{
+				$con->startPacket("player_info");
+				$con->writeVarInt(0);
+				$con->writeVarInt(1);
+				$con->writeUUID($c->uuid);
+				$con->writeString($c->username);
+				$con->writeVarInt(0);
+				$con->writeVarInt(0);
+				$con->writeVarInt(-1);
+				$con->writeBoolean(false);
+				$con->send();
+			}
 		}
 		catch(Exception $ignored)
 		{
@@ -302,6 +325,11 @@ $server->disconnect_function = function(ClientConnection $con)
 						$c->startPacket("clientbound_chat_message");
 						$c->writeString($msg);
 						$c->writeByte(1);
+						$c->send();
+						$c->startPacket("player_info");
+						$c->writeVarInt(4);
+						$c->writeVarInt(1);
+						$c->writeUUID($con->uuid);
 						$c->send();
 					}
 					catch(Exception $ignored)
