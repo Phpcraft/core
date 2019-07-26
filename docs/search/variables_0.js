@@ -48,6 +48,7 @@ var searchData=
   ['_24invulnerable',['$invulnerable',['../classPhpcraft_1_1ClientConnection.html#a6eba7cd30ae65cc971ea231a0d5086c8',1,'Phpcraft\ClientConnection\$invulnerable()'],['../classPhpcraft_1_1Packet_1_1ClientboundAbilitiesPacket.html#aba34b771133ddb1b361bce398647c85f',1,'Phpcraft\Packet\ClientboundAbilitiesPacket\$invulnerable()']]],
   ['_24item',['$item',['../classPhpcraft_1_1Slot.html#ac524272d3b264ed13d9f731db97c9525',1,'Phpcraft::Slot']]],
   ['_24join_5ffunction',['$join_function',['../classPhpcraft_1_1Server.html#a442a0d8f5948c01f6c512c9aa78ed83e',1,'Phpcraft::Server']]],
+  ['_24join_5fspecs',['$join_specs',['../classPhpcraft_1_1ClientConnection.html#a606a1819b4fe196b8e73a98403f81ab3',1,'Phpcraft::ClientConnection']]],
   ['_24keepaliveid',['$keepAliveId',['../classPhpcraft_1_1Packet_1_1KeepAliveRequestPacket.html#a4afc7d5b34f65785f377ce1990c587d4',1,'Phpcraft\Packet\KeepAliveRequestPacket\$keepAliveId()'],['../classPhpcraft_1_1Packet_1_1KeepAliveResponsePacket.html#aa9902070b1102bf21d3dbbe9d9266d29',1,'Phpcraft\Packet\KeepAliveResponsePacket\$keepAliveId()']]],
   ['_24level',['$level',['../classPhpcraft_1_1Packet_1_1SetExperiencePacket.html#a109f8ce55e8d041b25b25e5e23f7fb05',1,'Phpcraft::Packet::SetExperiencePacket']]],
   ['_24list_5fping_5ffunction',['$list_ping_function',['../classPhpcraft_1_1Server.html#a27aba103cfdd78a7e96f3da8e6d8af06',1,'Phpcraft::Server']]],

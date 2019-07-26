@@ -5,7 +5,7 @@ var searchData=
   ['send_5f',['send_',['../classPhpcraft_1_1Packet_1_1ClientboundBrandPluginMessagePacket.html#a47faf696e689c73ddb8206fc6a1782a6',1,'Phpcraft\Packet\ClientboundBrandPluginMessagePacket\send_()'],['../classPhpcraft_1_1Packet_1_1PluginMessagePacket.html#a663ab31c150d7a6546f2eb7e69182619',1,'Phpcraft\Packet\PluginMessagePacket\send_()'],['../classPhpcraft_1_1Packet_1_1ServerboundBrandPluginMessagePacket.html#abb2dc645257a62e7b70e5aec14bcd27c',1,'Phpcraft\Packet\ServerboundBrandPluginMessagePacket\send_()']]],
   ['sendabilities',['sendAbilities',['../classPhpcraft_1_1ClientConnection.html#a33e24346731d452a1a83fc3e2d8e63db',1,'Phpcraft::ClientConnection']]],
   ['sendencryptionrequest',['sendEncryptionRequest',['../classPhpcraft_1_1ClientConnection.html#a46c17ecc49a8c218ed013f26ba947549',1,'Phpcraft::ClientConnection']]],
-  ['sendhandshake',['sendHandshake',['../classPhpcraft_1_1ServerConnection.html#a0313f1bc69c838893530d157da88ae5b',1,'Phpcraft::ServerConnection']]],
+  ['sendhandshake',['sendHandshake',['../classPhpcraft_1_1ServerConnection.html#a715fa437fb0161042ced88be985ade84',1,'Phpcraft::ServerConnection']]],
   ['sendmessage',['sendMessage',['../classPhpcraft_1_1ClientConnection.html#a9ed0586a5ca0d6898b7a547739296025',1,'Phpcraft::ClientConnection']]],
   ['server',['Server',['../classPhpcraft_1_1Server.html',1,'Phpcraft']]],
   ['server_2ephp',['Server.php',['../Server_8php.html',1,'']]],

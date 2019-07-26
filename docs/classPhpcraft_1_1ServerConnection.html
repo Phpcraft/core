@@ -91,8 +91,8 @@ Collaboration diagram for Phpcraft\ServerConnection:</div>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a38521f035150bd4877d2dd74c233a162"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ServerConnection.html#a38521f035150bd4877d2dd74c233a162">__construct</a> ($stream, int $protocol_version)</td></tr>
 <tr class="separator:a38521f035150bd4877d2dd74c233a162"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0313f1bc69c838893530d157da88ae5b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ServerConnection.html#a0313f1bc69c838893530d157da88ae5b">sendHandshake</a> (string $server_name, int $server_port, int $next_state)</td></tr>
-<tr class="separator:a0313f1bc69c838893530d157da88ae5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a715fa437fb0161042ced88be985ade84"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ServerConnection.html#a715fa437fb0161042ced88be985ade84">sendHandshake</a> (string $server_name, int $server_port, int $next_state, array $join_specs=[])</td></tr>
+<tr class="separator:a715fa437fb0161042ced88be985ade84"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2e3be991b472e6cf4d29eb944384eef7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ServerConnection.html#a2e3be991b472e6cf4d29eb944384eef7">login</a> (<a class="el" href="classPhpcraft_1_1Account.html">Account</a> $account, array $translations=null)</td></tr>
 <tr class="separator:a2e3be991b472e6cf4d29eb944384eef7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a446ce0b8432847cd35942905b4dbdc83"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ServerConnection.html#a446ce0b8432847cd35942905b4dbdc83">startPacket</a> ($packet)</td></tr>
@@ -289,8 +289,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a0313f1bc69c838893530d157da88ae5b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0313f1bc69c838893530d157da88ae5b">&#9670;&nbsp;</a></span>sendHandshake()</h2>
+<a id="a715fa437fb0161042ced88be985ade84"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a715fa437fb0161042ced88be985ade84">&#9670;&nbsp;</a></span>sendHandshake()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -311,7 +311,13 @@ Additional Inherited Members</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>$next_state</em>&#160;</td>
+          <td class="paramname"><em>$next_state</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">array&#160;</td>
+          <td class="paramname"><em>$join_specs</em> = <code>[]</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -326,6 +332,7 @@ Additional Inherited Members</h2></td></tr>
     <tr><td class="paramtype">string</td><td class="paramname">$server_name</td><td></td></tr>
     <tr><td class="paramtype">integer</td><td class="paramname">$server_port</td><td></td></tr>
     <tr><td class="paramtype">integer</td><td class="paramname">$next_state</td><td>Use 1 for status, or 2 for login to play. </td></tr>
+    <tr><td class="paramtype"></td><td class="paramname">$join_specs</td><td>string[] Additional data to provide, e.g. "FML" is in this array for Forge clients. </td></tr>
   </table>
   </dd>
 </dl>
