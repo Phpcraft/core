@@ -16,6 +16,8 @@ var searchData=
   ['clientboundpacket_2ephp',['ClientboundPacket.php',['../ClientboundPacket_8php.html',1,'']]],
   ['clientboundpluginmessagepacket',['ClientboundPluginMessagePacket',['../classPhpcraft_1_1Packet_1_1ClientboundPluginMessagePacket.html',1,'Phpcraft::Packet']]],
   ['clientboundpluginmessagepacket_2ephp',['ClientboundPluginMessagePacket.php',['../ClientboundPluginMessagePacket_8php.html',1,'']]],
+  ['clientboundstringpluginmessagepacket',['ClientboundStringPluginMessagePacket',['../classPhpcraft_1_1Packet_1_1ClientboundStringPluginMessagePacket.html',1,'Phpcraft::Packet']]],
+  ['clientboundstringpluginmessagepacket_2ephp',['ClientboundStringPluginMessagePacket.php',['../ClientboundStringPluginMessagePacket_8php.html',1,'']]],
   ['clientconnection',['ClientConnection',['../classPhpcraft_1_1ClientConnection.html',1,'Phpcraft']]],
   ['clientconnection_2ephp',['ClientConnection.php',['../ClientConnection_8php.html',1,'']]],
   ['clientconsoleevent',['ClientConsoleEvent',['../classPhpcraft_1_1Event_1_1ClientConsoleEvent.html',1,'Phpcraft::Event']]],

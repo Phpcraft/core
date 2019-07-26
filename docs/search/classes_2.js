@@ -5,6 +5,7 @@ var searchData=
   ['clientboundbrandpluginmessagepacket',['ClientboundBrandPluginMessagePacket',['../classPhpcraft_1_1Packet_1_1ClientboundBrandPluginMessagePacket.html',1,'Phpcraft::Packet']]],
   ['clientboundpacket',['ClientboundPacket',['../classPhpcraft_1_1Packet_1_1ClientboundPacket.html',1,'Phpcraft::Packet']]],
   ['clientboundpluginmessagepacket',['ClientboundPluginMessagePacket',['../classPhpcraft_1_1Packet_1_1ClientboundPluginMessagePacket.html',1,'Phpcraft::Packet']]],
+  ['clientboundstringpluginmessagepacket',['ClientboundStringPluginMessagePacket',['../classPhpcraft_1_1Packet_1_1ClientboundStringPluginMessagePacket.html',1,'Phpcraft::Packet']]],
   ['clientconnection',['ClientConnection',['../classPhpcraft_1_1ClientConnection.html',1,'Phpcraft']]],
   ['clientconsoleevent',['ClientConsoleEvent',['../classPhpcraft_1_1Event_1_1ClientConsoleEvent.html',1,'Phpcraft::Event']]],
   ['clientevent',['ClientEvent',['../classPhpcraft_1_1Event_1_1ClientEvent.html',1,'Phpcraft::Event']]],

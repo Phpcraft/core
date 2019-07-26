@@ -4,6 +4,7 @@ var searchData=
   ['serverboundbrandpluginmessagepacket_2ephp',['ServerboundBrandPluginMessagePacket.php',['../ServerboundBrandPluginMessagePacket_8php.html',1,'']]],
   ['serverboundpacket_2ephp',['ServerboundPacket.php',['../ServerboundPacket_8php.html',1,'']]],
   ['serverboundpluginmessagepacket_2ephp',['ServerboundPluginMessagePacket.php',['../ServerboundPluginMessagePacket_8php.html',1,'']]],
+  ['serverboundstringpluginmessagepacket_2ephp',['ServerboundStringPluginMessagePacket.php',['../ServerboundStringPluginMessagePacket_8php.html',1,'']]],
   ['serverchatevent_2ephp',['ServerChatEvent.php',['../ServerChatEvent_8php.html',1,'']]],
   ['serverclientevent_2ephp',['ServerClientEvent.php',['../ServerClientEvent_8php.html',1,'']]],
   ['serverconnection_2ephp',['ServerConnection.php',['../ServerConnection_8php.html',1,'']]],
