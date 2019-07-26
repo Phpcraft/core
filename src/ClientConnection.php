@@ -25,6 +25,13 @@ class ClientConnection extends Connection
 	 */
 	public $hostport;
 	/**
+	 * Additional data the client had provided in the handshake.
+	 * E.g., "FML" is in this array for Forge clients.
+	 *
+	 * @var $join_specs string[]
+	 */
+	public $join_specs = [];
+	/**
 	 * The client's in-game name.
 	 *
 	 * @var string $username
@@ -176,6 +183,11 @@ class ClientConnection extends Connection
 							$this->disconnect(["text" => "Invalid state: ".$this->state]);
 						}
 					}
+				}
+				if($arr = explode("\0", $this->hostname))
+				{
+					$this->hostname = $arr[0];
+					$this->join_specs = array_slice($arr, 1);
 				}
 			}
 		}

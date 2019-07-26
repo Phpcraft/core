@@ -27,13 +27,18 @@ class ServerConnection extends Connection
 	 * @param string $server_name
 	 * @param integer $server_port
 	 * @param integer $next_state Use 1 for status, or 2 for login to play.
+	 * @param $join_specs string[] Additional data to provide, e.g. "FML" is in this array for Forge clients.
 	 * @return ServerConnection $this
 	 * @throws IOException
 	 */
-	function sendHandshake(string $server_name, int $server_port, int $next_state)
+	function sendHandshake(string $server_name, int $server_port, int $next_state, array $join_specs = [])
 	{
 		$this->writeVarInt(0x00);
 		$this->writeVarInt($this->protocol_version);
+		if($join_specs)
+		{
+			$server_name .= "\0".implode("\0", $join_specs);
+		}
 		$this->writeString($server_name);
 		$this->writeShort($server_port);
 		$this->writeVarInt($this->state = $next_state);

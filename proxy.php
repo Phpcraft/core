@@ -1,4 +1,5 @@
 <?php
+/** @noinspection PhpComposerExtensionStubsInspection */
 echo "Phpcraft PHP Minecraft Proxy\n\n";
 if(empty($argv))
 {
@@ -168,7 +169,7 @@ $server->packet_function = function(ClientConnection $con, $packet_name, $packet
 					$con->send();
 					break;
 				case ".connect":
-					$uuid = "";
+					$join_specs = [];
 					if(count($arr) < 2)
 					{
 						$con->startPacket("clientbound_chat_message");
@@ -193,7 +194,10 @@ $server->packet_function = function(ClientConnection $con, $packet_name, $packet
 							break;
 						}
 						$account = new Account($arr[2]);
-						$uuid = $json["id"];
+						$join_specs = [
+							"1.1.1.1",
+							$json["id"]
+						];
 					}
 					else
 					{
@@ -248,7 +252,7 @@ $server->packet_function = function(ClientConnection $con, $packet_name, $packet
 					$con->writeByte(1);
 					$con->send();
 					$server_con = new ServerConnection($stream, $con->protocol_version);
-					$server_con->sendHandshake($serverarr[0].($uuid ? "\x001.1.1.1\x00".$uuid : ""), intval($serverarr[1]), 2);
+					$server_con->sendHandshake($serverarr[0], intval($serverarr[1]), 2, $join_specs);
 					if($error = $server_con->login($account))
 					{
 						$con->startPacket("clientbound_chat_message");
