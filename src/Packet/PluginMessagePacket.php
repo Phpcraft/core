@@ -90,16 +90,7 @@ abstract class PluginMessagePacket extends Packet
 		}
 		else
 		{
-			$legacy_channel = @self::channelMap()[$this->channel];
-			if($legacy_channel)
-			{
-				$con->writeString($legacy_channel);
-			}
-			else
-			{
-				trigger_error("Unmapped plugin message channel: ".$this->channel);
-				$con->writeString($this->channel);
-			}
+			$con->writeString(@self::channelMap()[$this->channel] ?? $this->channel);
 		}
 		$this->send_($con);
 		$con->send();
