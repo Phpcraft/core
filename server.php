@@ -1,4 +1,5 @@
 <?php
+/** @noinspection DuplicatedCode */
 echo "Phpcraft PHP Minecraft Server\n\n";
 if(empty($argv))
 {
