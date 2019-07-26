@@ -135,13 +135,6 @@ class ClientConnection extends Connection
 		parent::__construct(-1, $stream);
 	}
 
-	private function setHostname(string $hostname)
-	{
-		$arr = explode("\0", $hostname);
-		$this->hostname = $arr[0];
-		$this->join_specs = array_slice($arr, 1);
-	}
-
 	/**
 	 * Deals with the first packet the client has sent.
 	 * This function deals with the handshake or legacy list ping packet.
@@ -198,6 +191,13 @@ class ClientConnection extends Connection
 		}
 		$this->close();
 		return 0;
+	}
+
+	private function setHostname(string $hostname)
+	{
+		$arr = explode("\0", $hostname);
+		$this->hostname = $arr[0];
+		$this->join_specs = array_slice($arr, 1);
 	}
 
 	/**
