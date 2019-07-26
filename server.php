@@ -108,6 +108,16 @@ $ui->tabcomplete_function = function(string $word)
 	}
 	return $completions;
 };
+$default_list_ping_function = $server->list_ping_function;
+$server->list_ping_function = function(ClientConnection $con) use (&$default_list_ping_function)
+{
+	return $default_list_ping_function($con) + [
+			"modinfo" => [
+				"type" => "FML",
+				"modList" => []
+			]
+		];
+};
 $server->join_function = function(ClientConnection $con)
 {
 	if(!Versions::protocolSupported($con->protocol_version))
