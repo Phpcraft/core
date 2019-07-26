@@ -135,6 +135,13 @@ class ClientConnection extends Connection
 		parent::__construct(-1, $stream);
 	}
 
+	private function setHostname(string $hostname)
+	{
+		$arr = explode("\0", $hostname);
+		$this->hostname = $arr[0];
+		$this->join_specs = array_slice($arr, 1);
+	}
+
 	/**
 	 * Deals with the first packet the client has sent.
 	 * This function deals with the handshake or legacy list ping packet.
@@ -155,7 +162,7 @@ class ClientConnection extends Connection
 					{
 						$this->ignoreBytes(2);
 						$this->protocol_version = $this->readByte();
-						$this->hostname = mb_convert_encoding($this->readRaw(gmp_intval($this->readShort()) * 2), "utf-8", "utf-16be");
+						$this->setHostname(mb_convert_encoding($this->readRaw(gmp_intval($this->readShort()) * 2), "utf-8", "utf-16be"));
 						$this->hostport = gmp_intval($this->readInt());
 						return 2;
 					}
@@ -166,7 +173,7 @@ class ClientConnection extends Connection
 					if($packet_id === 0x00)
 					{
 						$this->protocol_version = gmp_intval($this->readVarInt());
-						$this->hostname = $this->readString();
+						$this->setHostname($this->readString());
 						$this->hostport = gmp_intval($this->readShort());
 						$this->state = gmp_intval($this->readVarInt());
 						if($this->state == 1)
@@ -183,11 +190,6 @@ class ClientConnection extends Connection
 							$this->disconnect(["text" => "Invalid state: ".$this->state]);
 						}
 					}
-				}
-				if($arr = explode("\0", $this->hostname))
-				{
-					$this->hostname = $arr[0];
-					$this->join_specs = array_slice($arr, 1);
 				}
 			}
 		}
