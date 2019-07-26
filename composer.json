@@ -25,6 +25,7 @@
 		"ext-zlib": "*",
 		"ext-mbstring": "*",
 		"ext-gmp": "*",
+		"ext-openssl": "*",
 		"hell-sh/enum": "^1.0",
 		"hell-sh/uuid": "^1.0",
 		"phpseclib/mcrypt_compat": "^1.0"

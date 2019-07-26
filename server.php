@@ -1,5 +1,4 @@
 <?php
-/** @noinspection PhpComposerExtensionStubsInspection */
 echo "Phpcraft PHP Minecraft Server\n\n";
 if(empty($argv))
 {
