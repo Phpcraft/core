@@ -386,7 +386,7 @@ class ClientConnection extends Connection
 				$this->send();
 			}
 			$this->compression_threshold = $compression_threshold;
-			$this->write_buffer = Connection::varInt(0x02);
+			$this->write_buffer = Connection::varInt(0x02); // Login Success
 			$this->writeString(($this->uuid = $uuid)->toString(true));
 			$this->writeString($this->username);
 			$this->send();
