@@ -157,6 +157,7 @@ $server->join_function = function(ClientConnection $con)
 				if(!$solved)
 				{
 					$con->disconnect(["text" => "You're already on this server, and I have found no reasonable solution"]);
+					return;
 				}
 			}
 		}
