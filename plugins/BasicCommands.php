@@ -25,7 +25,14 @@ PluginManager::registerPlugin("BasicCommands", function(Plugin $plugin)
 		}
 		else if(substr($event->message, 0, 10) == "/gamemode ")
 		{
-			$con->setGamemode(intval(substr($event->message, 10)));
+			$gamemode = intval(substr($event->message, 10));
+			$con->setGamemode($gamemode);
+			$con->startPacket("player_info");
+			$con->writeVarInt(1);
+			$con->writeVarInt(1);
+			$con->writeUUID($con->uuid);
+			$con->writeVarInt($gamemode);
+			$con->send();
 		}
 		else if(substr($event->message, 0, 10) == "/metadata ")
 		{
