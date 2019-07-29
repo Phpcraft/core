@@ -48,6 +48,74 @@ class Account
 	}
 
 	/**
+	 * Asks the user of the CLI application to log-in by providing the password via STDIN.
+	 * This function will block until the login succeeded.
+	 *
+	 * @param resource|null $stdin Your own STDIN stream, if you have already created one.
+	 */
+	function cliLogin($stdin = null)
+	{
+		if($this->loginUsingProfiles())
+		{
+			return;
+		}
+		$blocking_prev = null;
+		if(is_resource($stdin))
+		{
+			$blocking_prev = stream_get_meta_data($stdin)["blocked"];
+		}
+		else
+		{
+			$stdin = fopen("php://stdin", "r") or die("Failed to open php://stdin\n");
+		}
+		if($blocking_prev !== true)
+		{
+			stream_set_blocking($stdin, true);
+		}
+		do
+		{
+			if(Phpcraft::isWindows())
+			{
+				echo "What's your account password? (visible) ";
+			}
+			else
+			{
+				/** @noinspection PhpComposerExtensionStubsInspection */
+				readline_callback_handler_install("What's your account password? (hidden) ", function($input)
+				{
+				});
+			}
+			if(!($pass = trim(fgets($stdin))))
+			{
+				echo "No password provided.\n";
+			}
+			else if($error = $this->login($pass))
+			{
+				echo $error."\n";
+			}
+			else
+			{
+				echo "\n";
+				break;
+			}
+		}
+		while(true);
+		if(!Phpcraft::isWindows())
+		{
+			/** @noinspection PhpComposerExtensionStubsInspection */
+			readline_callback_handler_remove();
+		}
+		if($blocking_prev === null)
+		{
+			fclose($stdin);
+		}
+		else if($blocking_prev === false)
+		{
+			stream_set_blocking($stdin, $blocking_prev);
+		}
+	}
+
+	/**
 	 * Logs in using .minecraft/launcher_profiles.json.
 	 *
 	 * @return boolean True on success.

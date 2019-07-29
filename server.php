@@ -52,9 +52,9 @@ for($i = 1; $i < count($argv); $i++)
 			die("Unknown argument '{$n}' -- try 'help' for a list of arguments.\n");
 	}
 }
-if(Phpcraft::isWindows())
+if(Phpcraft::isWindows() && !$options["plain"])
 {
-	echo "Some things to note about Windows: You won't be able to send messages as server or use server commands, and plain user interface is forcefully enabled.\n";
+	echo "Because you're on Windows, the plain user interface was forcefully enabled.\n";
 	$options["plain"] = true;
 }
 $ui = ($options["plain"] ? new UserInterface() : new FancyUserInterface("PHP Minecraft Server", "github.com/timmyrs/Phpcraft"));

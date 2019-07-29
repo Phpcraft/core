@@ -8,10 +8,6 @@ if(empty($argv))
 require "vendor/autoload.php";
 use Phpcraft\
 {Account, AssetsManager, Event\ClientConsoleEvent, Event\ClientJoinEvent, Event\ClientPacketEvent, FancyUserInterface, Packet\ClientboundPacket, Packet\KeepAliveRequestPacket, Packet\ServerboundBrandPluginMessagePacket, Phpcraft, PluginManager, Position, ServerConnection, UserInterface, Versions};
-if(Phpcraft::isWindows() && !in_array("help", $argv))
-{
-	die("I'm sorry, due to a bug in PHP's Windows port <https://bugs.php.net/bug.php?id=34972>, you'll have to use the Windows Subsystem for Linux <https://aka.ms/wslinstall> to use the PHP Minecraft Client.\n");
-}
 $options = [];
 for($i = 1; $i < count($argv); $i++)
 {
@@ -140,29 +136,9 @@ while($name == "")
 	}
 }
 $account = new Account($name);
-if($online && !$account->loginUsingProfiles())
+if($online)
 {
-	do
-	{
-		readline_callback_handler_install("What's your account password? (hidden) ", function()
-		{
-		});
-		if(!($pass = trim(fgets($stdin))))
-		{
-			echo "No password provided.\n";
-		}
-		else if($error = $account->login($pass))
-		{
-			echo $error."\n";
-		}
-		else
-		{
-			echo "\n";
-			break;
-		}
-	}
-	while(true);
-	readline_callback_handler_remove();
+	$account->cliLogin($stdin);
 }
 $server = "";
 if(isset($options["server"]))
@@ -179,6 +155,11 @@ if(!$server)
 	}
 }
 fclose($stdin);
+if(Phpcraft::isWindows() && !isset($options["plain"]))
+{
+	echo "Because you're on Windows, the plain user interface was forcefully enabled.\n";
+	$options["plain"] = true;
+}
 $ui = (isset($options["plain"]) ? new UserInterface() : new FancyUserInterface("PHP Minecraft Client", "github.com/timmyrs/Phpcraft"));
 $ui->add("Resolving... ")
    ->render();

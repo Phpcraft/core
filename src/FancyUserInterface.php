@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PhpComposerExtensionStubsInspection */
 namespace Phpcraft;
 class FancyUserInterface extends UserInterface
 {
@@ -14,6 +14,7 @@ class FancyUserInterface extends UserInterface
 	 * @var callable $tabcomplete_function
 	 */
 	public $tabcomplete_function = null;
+	private $stdin;
 	private $title;
 	private $optional_info;
 	private $input_buffer = "";
@@ -35,7 +36,6 @@ class FancyUserInterface extends UserInterface
 	 */
 	function __construct(string $title, string $optional_info = "")
 	{
-		parent::__construct();
 		$this->title = $title;
 		$this->optional_info = $optional_info;
 		echo "\x1B[2J";
@@ -43,6 +43,8 @@ class FancyUserInterface extends UserInterface
 		readline_callback_handler_install("", function()
 		{
 		});
+		$this->stdin = fopen("php://stdin", "r");
+		stream_set_blocking($this->stdin, false);
 		$this->ob_start();
 	}
 

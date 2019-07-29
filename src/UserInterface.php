@@ -1,25 +1,14 @@
 <?php
 namespace Phpcraft;
+use hellsh\pai;
 class UserInterface
 {
-	protected $stdin;
-
 	/**
-	 * Note that from this point forward, STDIN is in the hands of the UI, unless on Winodws, where user input is impossible.
-	 *
-	 * @see https://bugs.php.net/bug.php?id=34972
+	 * Note that from this point forward, STDIN is in the hands of pai.
 	 */
 	function __construct()
 	{
-		if(Phpcraft::isWindows())
-		{
-			$this->stdin = null;
-		}
-		else
-		{
-			$this->stdin = fopen("php://stdin", "r");
-			stream_set_blocking($this->stdin, false);
-		}
+		pai::init();
 	}
 
 	/**
@@ -30,16 +19,7 @@ class UserInterface
 	 */
 	function render(bool $accept_input = false)
 	{
-		if($accept_input && $this->stdin !== null)
-		{
-			$read = [$this->stdin];
-			$null = [];
-			if(stream_select($read, $null, $null, 0))
-			{
-				return trim(fgets($this->stdin));
-			}
-		}
-		return null;
+		return $accept_input && pai::hasLine() ? pai::getLine() : null;
 	}
 
 	/**

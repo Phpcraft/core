@@ -22,40 +22,7 @@ if(empty($argv[1]))
 else
 {
 	$account = new Account($argv[1]);
-	if(!$account->loginUsingProfiles())
-	{
-		do
-		{
-			if(Phpcraft::isWindows())
-			{
-				echo "What's your account password? (visible) ";
-			}
-			else
-			{
-				readline_callback_handler_install("What's your account password? (hidden) ", function($input)
-				{
-				});
-			}
-			if(!($pass = trim(fgets($stdin))))
-			{
-				echo "No password provided.\n";
-			}
-			else if($error = $account->login($pass))
-			{
-				echo $error."\n";
-			}
-			else
-			{
-				echo "\n";
-				break;
-			}
-		}
-		while(true);
-		if(!Phpcraft::isWindows())
-		{
-			readline_callback_handler_remove();
-		}
-	}
+	$account->cliLogin($stdin);
 	echo "Authenticated as ".$account->username."\n";
 }
 /*echo "Autoloading plugins...\n";
