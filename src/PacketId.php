@@ -9,7 +9,7 @@ abstract class PacketId extends Identifier
 	 *
 	 * @return PacketId[]
 	 */
-	public static function all()
+	static function all()
 	{
 		return array_merge(ClientboundPacket::all(), ServerboundPacket::all());
 	}

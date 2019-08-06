@@ -36,7 +36,7 @@ class ClientboundAbilitiesPacket extends Packet
 	 * @return Packet
 	 * @throws IOException
 	 */
-	public static function read(Connection $con)
+	static function read(Connection $con)
 	{
 		$packet = new ClientboundAbilitiesPacket();
 		$flags = $con->readByte();

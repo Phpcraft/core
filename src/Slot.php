@@ -121,7 +121,7 @@ class Slot
 		return Slot::toString($this);
 	}
 
-	public static function toString($slot)
+	static function toString($slot)
 	{
 		if(Slot::isEmpty($slot))
 		{
@@ -140,7 +140,7 @@ class Slot
 	 * @param Slot|null $slot
 	 * @return boolean
 	 */
-	public static function isEmpty($slot)
+	static function isEmpty($slot)
 	{
 		return $slot == null || $slot->item == null || $slot->count < 1 || $slot->count > 64;
 	}

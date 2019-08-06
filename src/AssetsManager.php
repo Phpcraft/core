@@ -20,7 +20,7 @@ class AssetsManager
 	 * @return AssetsManager
 	 * @throws Exception When the version manifest for the given version couldn't be fetched.
 	 */
-	public static function fromMinecraftVersion(string $version)
+	static function fromMinecraftVersion(string $version)
 	{
 		$versions_folder = Phpcraft::getMinecraftFolder()."/versions";
 		if(!file_exists($versions_folder) || !is_dir($versions_folder))

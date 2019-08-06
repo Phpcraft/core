@@ -121,7 +121,7 @@ class Connection
 	 * @param GMP|string|integer $value
 	 * @return string
 	 */
-	public static function varInt($value)
+	static function varInt($value)
 	{
 		$value = self::complimentNumber($value, 32);
 		$bytes = "";

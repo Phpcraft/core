@@ -63,7 +63,7 @@ class MapDataPacket extends Packet
 	 * @return MapDataPacket
 	 * @throws IOException
 	 */
-	public static function read(Connection $con)
+	static function read(Connection $con)
 	{
 		$packet = new MapDataPacket();
 		$packet->mapId = gmp_intval($con->readVarInt());
@@ -847,7 +847,7 @@ class MapDataPacket extends Packet
 	 * @param boolean $new_colors Ignore this parameter.
 	 * @return integer
 	 */
-	public static function getColorId(array $rgb, bool $new_colors = true)
+	static function getColorId(array $rgb, bool $new_colors = true)
 	{
 		$best_color = $best_diff = 0;
 		foreach(($new_colors ? MapDataPacket::colors_1_12() : MapDataPacket::colors_1_8_1()) as $id => $rgb2)

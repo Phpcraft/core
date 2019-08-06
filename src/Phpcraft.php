@@ -12,7 +12,7 @@ abstract class Phpcraft
 	 * @see Phpcraft::getProfilesFile()
 	 * @see Phpcraft::saveProfiles()
 	 */
-	public static function getProfiles()
+	static function getProfiles()
 	{
 		$profiles_file = Phpcraft::getProfilesFile();
 		if(file_exists($profiles_file) && is_file($profiles_file))
@@ -44,7 +44,7 @@ abstract class Phpcraft
 	 *
 	 * @return string
 	 */
-	public static function getProfilesFile()
+	static function getProfilesFile()
 	{
 		return Phpcraft::getMinecraftFolder()."/launcher_profiles.json";
 	}
@@ -54,7 +54,7 @@ abstract class Phpcraft
 	 *
 	 * @return string
 	 */
-	public static function getMinecraftFolder()
+	static function getMinecraftFolder()
 	{
 		if(Phpcraft::isWindows())
 		{
@@ -84,7 +84,7 @@ abstract class Phpcraft
 	 *
 	 * @return boolean
 	 */
-	public static function isWindows()
+	static function isWindows()
 	{
 		return defined("PHP_WINDOWS_VERSION_MAJOR");
 	}
@@ -94,7 +94,7 @@ abstract class Phpcraft
 	 *
 	 * @param array $profiles
 	 */
-	public static function saveProfiles(array $profiles)
+	static function saveProfiles(array $profiles)
 	{
 		file_put_contents(Phpcraft::getProfilesFile(), json_encode($profiles, JSON_PRETTY_PRINT));
 	}
@@ -108,7 +108,7 @@ abstract class Phpcraft
 	 * @see getCachableResource
 	 * @see maintainCache
 	 */
-	public static function getCachableJson(string $url, int $caching_duration = 2678400)
+	static function getCachableJson(string $url, int $caching_duration = 2678400)
 	{
 		if(!isset(self::$json_cache[$url]))
 		{
@@ -126,7 +126,7 @@ abstract class Phpcraft
 	 * @see getCachableJson
 	 * @see maintainCache
 	 */
-	public static function getCachableResource(string $url, int $caching_duration = 86400)
+	static function getCachableResource(string $url, int $caching_duration = 86400)
 	{
 		$cache = [];
 		if(file_exists(__DIR__."/.cache"))
@@ -154,7 +154,7 @@ abstract class Phpcraft
 	 * @see getCachableJson
 	 * @see getCachableResource
 	 */
-	public static function maintainCache()
+	static function maintainCache()
 	{
 		if(!file_exists(__DIR__."/.cache"))
 		{
@@ -187,7 +187,7 @@ abstract class Phpcraft
 	 * Downloads various resources which might be needed during runtime but are not yet in the disk cache, and populates the memory cache.
 	 * This improves performance for Material, Item, PacketId, EntityType, and EntityMetadata::read.
 	 */
-	public static function populateCache()
+	static function populateCache()
 	{
 		Material::all();
 		Item::all();
@@ -201,7 +201,7 @@ abstract class Phpcraft
 	 * @param string $name
 	 * @return boolean True if the name is valid.
 	 */
-	public static function validateName(string $name)
+	static function validateName(string $name)
 	{
 		if(strlen($name) < 3 || strlen($name) > 16)
 		{
@@ -246,7 +246,7 @@ abstract class Phpcraft
 	 * @param array $data
 	 * @return array
 	 */
-	public static function httpPOST(string $url, array $data)
+	static function httpPOST(string $url, array $data)
 	{
 		$res = @file_get_contents($url, false, stream_context_create([
 			"http" => [
@@ -273,7 +273,7 @@ abstract class Phpcraft
 	 * @param string $server The server address, e.g. localhost
 	 * @return string The resolved address, e.g. localhost:25565
 	 */
-	public static function resolve(string $server)
+	static function resolve(string $server)
 	{
 		$arr = explode(":", $server);
 		if(count($arr) > 1)
@@ -293,7 +293,7 @@ abstract class Phpcraft
 		return $server.($withPort ? ":25565" : "");
 	}
 
-	public static function binaryStringToHex(string $str)
+	static function binaryStringToHex(string $str)
 	{
 		$hex_str = "";
 		foreach(str_split($str) as $char)
@@ -315,7 +315,7 @@ abstract class Phpcraft
 	 * @param string $str
 	 * @return string
 	 */
-	public static function sha1(string $str)
+	static function sha1(string $str)
 	{
 		$gmp = gmp_import(sha1($str, true));
 		if(gmp_cmp($gmp, gmp_init("0x8000000000000000000000000000000000000000")) >= 0)
@@ -334,7 +334,7 @@ abstract class Phpcraft
 	 * @param array $parent Ignore this parameter.
 	 * @return string
 	 */
-	public static function chatToText($chat, int $format = 0, array $translations = null, array $parent = [])
+	static function chatToText($chat, int $format = 0, array $translations = null, array $parent = [])
 	{
 		if($parent === [])
 		{
@@ -565,7 +565,7 @@ abstract class Phpcraft
 	 * @param boolean $allowAmp If true, '&' will be handled like '§'.
 	 * @return array
 	 */
-	public static function textToChat(string $text, bool $allowAmp = false)
+	static function textToChat(string $text, bool $allowAmp = false)
 	{
 		if(strpos($text, "§") === false && (!$allowAmp || strpos($text, "&") === false))
 		{
@@ -696,7 +696,7 @@ abstract class Phpcraft
 	 * @return array
 	 * @throws IOException
 	 */
-	public static function getServerStatus(string $server_name, int $server_port = 25565, float $timeout = 3.000, int $method = 0)
+	static function getServerStatus(string $server_name, int $server_port = 25565, float $timeout = 3.000, int $method = 0)
 	{
 		if($method != 2)
 		{
@@ -764,7 +764,7 @@ abstract class Phpcraft
 	 * @param $rgb2 integer[]
 	 * @return integer
 	 */
-	public static function colorDiff(array $rgb1, array $rgb2)
+	static function colorDiff(array $rgb1, array $rgb2)
 	{
 		return abs($rgb1[0] - $rgb2[0]) + abs($rgb1[1] - $rgb2[1]) + abs($rgb1[2] - $rgb2[2]);
 	}
@@ -774,7 +774,7 @@ abstract class Phpcraft
 	 *
 	 * @param string $path
 	 */
-	public static function recursivelyDelete(string $path)
+	static function recursivelyDelete(string $path)
 	{
 		if(substr($path, -1) == "/")
 		{

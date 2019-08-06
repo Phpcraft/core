@@ -17,7 +17,7 @@ abstract class PluginManager
 	 *
 	 * @param string $plugins_folder The path to the folder in which plugins are contained.
 	 */
-	public static function loadPlugins(string $plugins_folder = "plugins")
+	static function loadPlugins(string $plugins_folder = "plugins")
 	{
 		foreach(scandir($plugins_folder) as $file)
 		{
@@ -39,7 +39,7 @@ abstract class PluginManager
 	 * @param string $name This has to be identical to the name of file exluding the extension.
 	 * @param callable $callback The callback function called with a Plugin as parameter.
 	 */
-	public static function registerPlugin(string $name, callable $callback)
+	static function registerPlugin(string $name, callable $callback)
 	{
 		if(!PluginManager::$load_state)
 		{
@@ -69,7 +69,7 @@ abstract class PluginManager
 	 * @param Event $event
 	 * @return boolean True if the event was cancelled.
 	 */
-	public static function fire(Event $event)
+	static function fire(Event $event)
 	{
 		$type = get_class($event);
 		$handlers = [];

@@ -32,7 +32,7 @@ class SetExperiencePacket extends Packet
 	 * @return SetExperiencePacket
 	 * @throws IOException
 	 */
-	public static function read(Connection $con)
+	static function read(Connection $con)
 	{
 		$packet = new SetExperiencePacket();
 		$packet->percent = $con->readFloat();

@@ -11,7 +11,7 @@ use UnexpectedValueException;
  */
 abstract class EntityMetadata
 {
-	public static function writeByte(Connection $con, int $index, int $value)
+	static function writeByte(Connection $con, int $index, int $value)
 	{
 		$con->writeByte($index);
 		if($con->protocol_version >= 57)
@@ -21,7 +21,7 @@ abstract class EntityMetadata
 		$con->writeByte($value);
 	}
 
-	public static function writeFloat(Connection $con, int $index, float $value)
+	static function writeFloat(Connection $con, int $index, float $value)
 	{
 		if($con->protocol_version >= 57)
 		{
@@ -35,7 +35,7 @@ abstract class EntityMetadata
 		$con->writeFloat($value);
 	}
 
-	public static function writeString(Connection $con, int $index, string $value)
+	static function writeString(Connection $con, int $index, string $value)
 	{
 		if($con->protocol_version >= 57)
 		{
@@ -55,7 +55,7 @@ abstract class EntityMetadata
 	 * @param array|string $value
 	 * @throws LogicException
 	 */
-	public static function writeOptChat(Connection $con, int $index, $value)
+	static function writeOptChat(Connection $con, int $index, $value)
 	{
 		if($con->protocol_version < 57)
 		{
@@ -74,7 +74,7 @@ abstract class EntityMetadata
 		}
 	}
 
-	public static function writeBoolean(Connection $con, int $index, bool $value)
+	static function writeBoolean(Connection $con, int $index, bool $value)
 	{
 		$con->writeByte($index);
 		if($con->protocol_version >= 57)
@@ -84,7 +84,7 @@ abstract class EntityMetadata
 		$con->writeBoolean($value);
 	}
 
-	public static function finish(Connection $con)
+	static function finish(Connection $con)
 	{
 		if($con->protocol_version >= 57)
 		{

@@ -16,7 +16,7 @@ class EntityType extends Identifier
 	 *
 	 * @return EntityType[]
 	 */
-	public static function all()
+	static function all()
 	{
 		if(self::$all_cache === null)
 		{

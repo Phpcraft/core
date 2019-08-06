@@ -26,7 +26,7 @@ class DestroyEntitiesPacket extends Packet
 	 * @return DestroyEntitiesPacket
 	 * @throws IOException
 	 */
-	public static function read(Connection $con)
+	static function read(Connection $con)
 	{
 		$packet = new DestroyEntitiesPacket();
 		for($i = gmp_intval($con->readVarInt()); $i > 0; $i--)

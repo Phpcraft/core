@@ -27,7 +27,7 @@ abstract class Identifier
 	 * @param string $name
 	 * @return static
 	 */
-	public static function get(string $name)
+	static function get(string $name)
 	{
 		$name = strtolower($name);
 		if(substr($name, 0, 10) == "minecraft:")
@@ -49,7 +49,7 @@ abstract class Identifier
 	 *
 	 * @return Identifier[]
 	 */
-	abstract public static function all();
+	abstract static function all();
 
 	/**
 	 * Returns an Identifier by its ID in the given protocol version or null if not found.
@@ -58,7 +58,7 @@ abstract class Identifier
 	 * @param integer $protocol_version
 	 * @return static
 	 */
-	public static function getById(int $id, int $protocol_version)
+	static function getById(int $id, int $protocol_version)
 	{
 		foreach(static::all() as $thing)
 		{

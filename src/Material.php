@@ -24,7 +24,7 @@ class Material extends Identifier
 	 * @return Material[]
 	 * @todo Actually return *every* Material.
 	 */
-	public static function all()
+	static function all()
 	{
 		if(self::$all_cache === null)
 		{

@@ -33,7 +33,7 @@ abstract class PluginMessagePacket extends Packet
 	 * @param Connection $con
 	 * @throws IOException
 	 */
-	public static function read(Connection $con)
+	static function read(Connection $con)
 	{
 		$class = get_called_class();
 		$ret = new $class();

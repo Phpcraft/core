@@ -14,7 +14,7 @@ class ServerboundPacket extends PacketId
 	 *
 	 * @return ServerboundPacket[]
 	 */
-	public static function all()
+	static function all()
 	{
 		if(self::$all_cache == null)
 		{

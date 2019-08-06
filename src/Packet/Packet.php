@@ -12,7 +12,7 @@ abstract class Packet
 	 * @return Packet
 	 * @throws IOException
 	 */
-	abstract public static function read(Connection $con);
+	abstract static function read(Connection $con);
 
 	/**
 	 * Returns a binary string containing the payload of the packet.

@@ -28,7 +28,7 @@ class Item extends Identifier
 	 * @param string $name
 	 * @return static
 	 */
-	public static function get(string $name)
+	static function get(string $name)
 	{
 		$name = strtolower($name);
 		if(substr($name, 0, 10) == "minecraft:")
@@ -43,7 +43,7 @@ class Item extends Identifier
 	 *
 	 * @return Item[]
 	 */
-	public static function all()
+	static function all()
 	{
 		if(self::$all_cache === null)
 		{
