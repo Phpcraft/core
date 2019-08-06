@@ -65,6 +65,7 @@ $(function() {
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="classPhpcraft_1_1Plugin-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Phpcraft\Plugin Class Reference</div>  </div>
@@ -84,6 +85,13 @@ Public Attributes</h2></td></tr>
 <tr class="separator:a8d7246cf3580e9800db208c71dc03222"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a96c8ce36340ba14a975f26cf98580c68"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Plugin.html#a96c8ce36340ba14a975f26cf98580c68">$event_handlers</a> = []</td></tr>
 <tr class="separator:a96c8ce36340ba14a975f26cf98580c68"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:a83856a2a2b1951a8573352b536578f96"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Plugin.html#a83856a2a2b1951a8573352b536578f96">on</a> (callable $callable, int $priority=<a class="el" href="classPhpcraft_1_1Event_1_1Event.html#a97847933903973de3ef3d7be6c57b945">Event::PRIORITY_NORMAL</a>)</td></tr>
+<tr class="separator:a83856a2a2b1951a8573352b536578f96"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aae3ebad92fd03d0041aab886403a3e96"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Plugin.html#aae3ebad92fd03d0041aab886403a3e96">unregister</a> ()</td></tr>
+<tr class="separator:aae3ebad92fd03d0041aab886403a3e96"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ae71f026e57e1d2adb66d69a21ec4c553"></a>
@@ -148,6 +156,84 @@ Public Attributes</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>boolean True if the event was cancelled. </dd></dl>
+
+</div>
+</div>
+<a id="a83856a2a2b1951a8573352b536578f96"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a83856a2a2b1951a8573352b536578f96">&#9670;&nbsp;</a></span>on()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Phpcraft\Plugin::on </td>
+          <td>(</td>
+          <td class="paramtype">callable&#160;</td>
+          <td class="paramname"><em>$callable</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>$priority</em> = <code><a class="el" href="classPhpcraft_1_1Event_1_1Event.html#a97847933903973de3ef3d7be6c57b945">Event::PRIORITY_NORMAL</a></code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Defines a function to be called to handle the given event.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">callable</td><td class="paramname">$callable</td><td>The function. The first parameter should explicitly declare its type to be a decendant of <a class="el" href="namespacePhpcraft_1_1Event.html">Event</a>. </td></tr>
+    <tr><td class="paramtype">integer</td><td class="paramname">$priority</td><td>The priority of the event handler. The higher the priority, the earlier it will be executed. Use a high value if you plan to cancel the event. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classPhpcraft_1_1Plugin.html">Plugin</a> $this </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">InvalidArgumentException</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<p>PhpDeprecationInspection </p>
+
+</div>
+</div>
+<a id="aae3ebad92fd03d0041aab886403a3e96"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aae3ebad92fd03d0041aab886403a3e96">&#9670;&nbsp;</a></span>unregister()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Phpcraft\Plugin::unregister </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Unregisters the plugin. This is useful, for example, if your plugin had a fatal error. </p>
 
 </div>
 </div>
