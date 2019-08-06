@@ -9,7 +9,7 @@ use ReflectionNamedType;
 class Plugin
 {
 	/**
-	 * Tha name of the plugin.
+	 * The name of the plugin.
 	 *
 	 * @var string $name
 	 */
@@ -22,11 +22,18 @@ class Plugin
 	public $event_handlers = [];
 
 	/**
+	 * The constructor.
+	 * Don't call this unless you know what you're doing.
+	 *
 	 * @param string $name The name of the plugin.
+	 * @param string $folder The path of the folder the plugin was loaded from.
+	 * @see PluginManager::loadPlugins()
 	 */
-	function __construct(string $name)
+	function __construct(string $folder, string $name)
 	{
 		$this->name = $name;
+		/** @noinspection PhpIncludeInspection */
+		require "$folder/$name.php";
 	}
 
 	/**
@@ -36,33 +43,39 @@ class Plugin
 	 * @param integer $priority The priority of the event handler. The higher the priority, the earlier it will be executed. Use a high value if you plan to cancel the event.
 	 * @return Plugin $this
 	 * @throws InvalidArgumentException
-	 * @throws ReflectionException
 	 */
-	function on(callable $callable, int $priority = Event::PRIORITY_NORMAL)
+	private function on(callable $callable, int $priority = Event::PRIORITY_NORMAL)
 	{
-		$ref = new ReflectionFunction($callable);
-		$params = $ref->getParameters();
-		if(count($params) != 1)
+		try
 		{
-			throw new InvalidArgumentException("Callable needs to have exactly one parameter.");
+			$ref = new ReflectionFunction($callable);
+			$params = $ref->getParameters();
+			if(count($params) != 1)
+			{
+				throw new InvalidArgumentException("Callable needs to have exactly one parameter.");
+			}
+			$param = $params[0];
+			if(!$param->hasType())
+			{
+				throw new InvalidArgumentException("Callable's parameter needs to explicitly declare parameter type.");
+			}
+			$type = $param->getType();
+			/** @noinspection PhpDeprecationInspection */
+			$type = $type instanceof ReflectionNamedType ? $type->getName() : $type->__toString();
+			$class = new ReflectionClass($type);
+			if(!$class->isSubclassOf("Phpcraft\\Event\\Event"))
+			{
+				throw new InvalidArgumentException("Callable's parameter type needs to be a decendant of \\Phpcraft\\Event.");
+			}
+			$this->event_handlers[$type] = [
+				"priority" => $priority,
+				"function" => $callable
+			];
 		}
-		$param = $params[0];
-		if(!$param->hasType())
+		catch(ReflectionException $e)
 		{
-			throw new InvalidArgumentException("Callable's parameter needs to explicitly declare parameter type.");
+			die("Unexpected exception: ".get_class($e).": ".$e->getMessage()."\n".$e->getTraceAsString()."\n");
 		}
-		$type = $param->getType();
-		/** @noinspection PhpDeprecationInspection */
-		$type = $type instanceof ReflectionNamedType ? $type->getName() : $type->__toString();
-		$class = new ReflectionClass($type);
-		if(!$class->isSubclassOf("Phpcraft\\Event\\Event"))
-		{
-			throw new InvalidArgumentException("Callable's parameter type needs to be a decendant of \\Phpcraft\\Event.");
-		}
-		$this->event_handlers[$type] = [
-			"priority" => $priority,
-			"function" => $callable
-		];
 		return $this;
 	}
 
@@ -86,7 +99,7 @@ class Plugin
 	 * Unregisters the plugin.
 	 * This is useful, for example, if your plugin had a fatal error.
 	 */
-	function unregister()
+	private function unregister()
 	{
 		unset(PluginManager::$loaded_plugins[$this->name]);
 		echo "Plugin \"".$this->name."\" has unregistered.\n";

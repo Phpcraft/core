@@ -5,12 +5,11 @@ use Phpcraft\Event\Event;
 abstract class PluginManager
 {
 	/**
-	 * A Plugin array of plugins currently loaded.
+	 * An array containing all the Plugins that are currently loaded.
 	 *
 	 * @var array $loaded_plugins
 	 */
 	public static $loaded_plugins = [];
-	private static $load_state;
 
 	/**
 	 * Loads all plugins in a folder.
@@ -23,44 +22,18 @@ abstract class PluginManager
 		{
 			if(substr($file, -4) == ".php" && is_file($plugins_folder."/".$file))
 			{
-				PluginManager::$load_state = true;
-				include $plugins_folder."/".$file;
-				if(PluginManager::$load_state)
+				$name = substr($file, 0, -4);
+				try
 				{
-					echo "{$file} did not register with PluginManager::registerPlugin\n";
+					$plugin = new Plugin($plugins_folder, $name);
+					array_push(self::$loaded_plugins, $plugin);
+				}
+				catch(Exception $e)
+				{
+					echo "Unhandled exception in plugin \"$name\": ".get_class($e).": ".$e->getMessage()."\n".$e->getTraceAsString()."\n";
 				}
 			}
 		}
-	}
-
-	/**
-	 * The function called by plugins when they would like to be registered.
-	 *
-	 * @param string $name This has to be identical to the name of file exluding the extension.
-	 * @param callable $callback The callback function called with a Plugin as parameter.
-	 */
-	static function registerPlugin(string $name, callable $callback)
-	{
-		if(!PluginManager::$load_state)
-		{
-			echo "Plugin \"{$name}\" tried to be registered despite not having been asked.\n";
-			return;
-		}
-		if(isset(PluginManager::$loaded_plugins[$name]))
-		{
-			echo "Plugin \"{$name}\" tried to be registered twice.\n";
-			return;
-		}
-		PluginManager::$loaded_plugins[$name] = new Plugin($name);
-		try
-		{
-			$callback(PluginManager::$loaded_plugins[$name]);
-		}
-		catch(Exception $e)
-		{
-			echo "Unhandled exception in plugin \"{$name}\": ".get_class($e).": ".$e->getMessage()."\n".$e->getTraceAsString()."\n";
-		}
-		PluginManager::$load_state = false;
 	}
 
 	/**
