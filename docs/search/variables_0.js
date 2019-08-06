@@ -82,7 +82,6 @@ var searchData=
   ['_24sprinting',['$sprinting',['../classPhpcraft_1_1EntityBase.html#aff6038f757da04a1b2cb741d830ee054',1,'Phpcraft::EntityBase']]],
   ['_24stack_5fsize',['$stack_size',['../classPhpcraft_1_1Item.html#ac61d280dd913dfb88fe2a4b26132173e',1,'Phpcraft::Item']]],
   ['_24state',['$state',['../classPhpcraft_1_1Connection.html#a22835d4eefaa059692c254456864a405',1,'Phpcraft::Connection']]],
-  ['_24stdin',['$stdin',['../classPhpcraft_1_1UserInterface.html#ac111125b65a6e6fd4a22062a56cf8781',1,'Phpcraft::UserInterface']]],
   ['_24stream',['$stream',['../classPhpcraft_1_1Connection.html#af1e92d8d3381fc0384e4c7c175cc10ed',1,'Phpcraft\Connection\$stream()'],['../classPhpcraft_1_1Server.html#a7e900482f4d4db56ccbca75464738fde',1,'Phpcraft\Server\$stream()']]],
   ['_24swimming',['$swimming',['../classPhpcraft_1_1EntityBase.html#a7ac085c429f41b27c9edb12e2bdc830d',1,'Phpcraft::EntityBase']]],
   ['_24tabcomplete_5ffunction',['$tabcomplete_function',['../classPhpcraft_1_1FancyUserInterface.html#a0ab43631da327c8fd32b07f2be6fe8b6',1,'Phpcraft::FancyUserInterface']]],
