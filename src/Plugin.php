@@ -44,7 +44,7 @@ class Plugin
 	 * @return Plugin $this
 	 * @throws InvalidArgumentException
 	 */
-	private function on(callable $callable, int $priority = Event::PRIORITY_NORMAL)
+	protected function on(callable $callable, int $priority = Event::PRIORITY_NORMAL)
 	{
 		try
 		{
@@ -99,7 +99,7 @@ class Plugin
 	 * Unregisters the plugin.
 	 * This is useful, for example, if your plugin had a fatal error.
 	 */
-	private function unregister()
+	protected function unregister()
 	{
 		unset(PluginManager::$loaded_plugins[$this->name]);
 		echo "Plugin \"".$this->name."\" has unregistered.\n";
