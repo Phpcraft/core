@@ -73,14 +73,10 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a9894ec3a08a483c97fafd03df15c970f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Plugin.html#a9894ec3a08a483c97fafd03df15c970f">__construct</a> (string $name)</td></tr>
-<tr class="separator:a9894ec3a08a483c97fafd03df15c970f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a83856a2a2b1951a8573352b536578f96"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Plugin.html#a83856a2a2b1951a8573352b536578f96">on</a> (callable $callable, int $priority=<a class="el" href="classPhpcraft_1_1Event_1_1Event.html#a97847933903973de3ef3d7be6c57b945">Event::PRIORITY_NORMAL</a>)</td></tr>
-<tr class="separator:a83856a2a2b1951a8573352b536578f96"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae71f026e57e1d2adb66d69a21ec4c553"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Plugin.html#ae71f026e57e1d2adb66d69a21ec4c553">__construct</a> (string $folder, string $name)</td></tr>
+<tr class="separator:ae71f026e57e1d2adb66d69a21ec4c553"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aba78b35a6a482731e1c166823bb17e49"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Plugin.html#aba78b35a6a482731e1c166823bb17e49">fire</a> (<a class="el" href="classPhpcraft_1_1Event_1_1Event.html">Event</a> $event)</td></tr>
 <tr class="separator:aba78b35a6a482731e1c166823bb17e49"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aae3ebad92fd03d0041aab886403a3e96"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Plugin.html#aae3ebad92fd03d0041aab886403a3e96">unregister</a> ()</td></tr>
-<tr class="separator:aae3ebad92fd03d0041aab886403a3e96"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -90,8 +86,8 @@ Public Attributes</h2></td></tr>
 <tr class="separator:a96c8ce36340ba14a975f26cf98580c68"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a9894ec3a08a483c97fafd03df15c970f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9894ec3a08a483c97fafd03df15c970f">&#9670;&nbsp;</a></span>__construct()</h2>
+<a id="ae71f026e57e1d2adb66d69a21ec4c553"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae71f026e57e1d2adb66d69a21ec4c553">&#9670;&nbsp;</a></span>__construct()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -100,17 +96,31 @@ Public Attributes</h2></td></tr>
           <td class="memname">Phpcraft\Plugin::__construct </td>
           <td>(</td>
           <td class="paramtype">string&#160;</td>
-          <td class="paramname"><em>$name</em></td><td>)</td>
+          <td class="paramname"><em>$folder</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>$name</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>The constructor. Don't call this unless you know what you're doing.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramtype">string</td><td class="paramname">$name</td><td>The name of the plugin. </td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$folder</td><td>The path of the folder the plugin was loaded from. </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classPhpcraft_1_1PluginManager.html#a5a98b981fcd31665f1b590814a8964a6">PluginManager::loadPlugins()</a> </dd></dl>
+<p>PhpIncludeInspection </p>
 
 </div>
 </div>
@@ -141,69 +151,6 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a83856a2a2b1951a8573352b536578f96"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a83856a2a2b1951a8573352b536578f96">&#9670;&nbsp;</a></span>on()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">Phpcraft\Plugin::on </td>
-          <td>(</td>
-          <td class="paramtype">callable&#160;</td>
-          <td class="paramname"><em>$callable</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>$priority</em> = <code><a class="el" href="classPhpcraft_1_1Event_1_1Event.html#a97847933903973de3ef3d7be6c57b945">Event::PRIORITY_NORMAL</a></code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Defines a function to be called to handle the given event.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramtype">callable</td><td class="paramname">$callable</td><td>The function. The first parameter should explicitly declare its type to be a decendant of <a class="el" href="namespacePhpcraft_1_1Event.html">Event</a>. </td></tr>
-    <tr><td class="paramtype">integer</td><td class="paramname">$priority</td><td>The priority of the event handler. The higher the priority, the earlier it will be executed. Use a high value if you plan to cancel the event. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classPhpcraft_1_1Plugin.html">Plugin</a> $this </dd></dl>
-<dl class="exception"><dt>Exceptions</dt><dd>
-  <table class="exception">
-    <tr><td class="paramname">InvalidArgumentException</td><td></td></tr>
-    <tr><td class="paramname">ReflectionException</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-<p>PhpDeprecationInspection </p>
-
-</div>
-</div>
-<a id="aae3ebad92fd03d0041aab886403a3e96"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aae3ebad92fd03d0041aab886403a3e96">&#9670;&nbsp;</a></span>unregister()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">Phpcraft\Plugin::unregister </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Unregisters the plugin. This is useful, for example, if your plugin had a fatal error. </p>
-
-</div>
-</div>
 <h2 class="groupheader">Member Data Documentation</h2>
 <a id="a96c8ce36340ba14a975f26cf98580c68"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a96c8ce36340ba14a975f26cf98580c68">&#9670;&nbsp;</a></span>$event_handlers</h2>
@@ -231,7 +178,7 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Tha name of the plugin. </p>
+<p>The name of the plugin. </p>
 
 </div>
 </div>

@@ -22,7 +22,6 @@ var searchData=
   ['readuuid',['readUUID',['../classPhpcraft_1_1Connection.html#a701de517989aad734ff3a01dfa631e5d',1,'Phpcraft::Connection']]],
   ['readvarint',['readVarInt',['../classPhpcraft_1_1Connection.html#a31e927e43beb7463823b8fbb970b49c6',1,'Phpcraft::Connection']]],
   ['recursivelydelete',['recursivelyDelete',['../classPhpcraft_1_1Phpcraft.html#aa1d3fc7f04e2cbc09b6aecf824444c6d',1,'Phpcraft::Phpcraft']]],
-  ['registerplugin',['registerPlugin',['../classPhpcraft_1_1PluginManager.html#a3a015bb5e2f909df67e1fec275d9c7b5',1,'Phpcraft::PluginManager']]],
   ['releases',['releases',['../classPhpcraft_1_1Versions.html#a7dec6dde245708976d70b171f4c30ccc',1,'Phpcraft::Versions']]],
   ['removebossbarpacket',['RemoveBossBarPacket',['../classPhpcraft_1_1Packet_1_1RemoveBossBarPacket.html',1,'Phpcraft::Packet']]],
   ['removebossbarpacket_2ephp',['RemoveBossBarPacket.php',['../RemoveBossBarPacket_8php.html',1,'']]],

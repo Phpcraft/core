@@ -75,8 +75,6 @@ $(function() {
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a5a98b981fcd31665f1b590814a8964a6"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1PluginManager.html#a5a98b981fcd31665f1b590814a8964a6">loadPlugins</a> (string $plugins_folder=&quot;plugins&quot;)</td></tr>
 <tr class="separator:a5a98b981fcd31665f1b590814a8964a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3a015bb5e2f909df67e1fec275d9c7b5"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1PluginManager.html#a3a015bb5e2f909df67e1fec275d9c7b5">registerPlugin</a> (string $name, callable $callback)</td></tr>
-<tr class="separator:a3a015bb5e2f909df67e1fec275d9c7b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad912f829d164fd31f61a4eee2da88804"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1PluginManager.html#ad912f829d164fd31f61a4eee2da88804">fire</a> (<a class="el" href="classPhpcraft_1_1Event_1_1Event.html">Event</a> $event)</td></tr>
 <tr class="separator:ad912f829d164fd31f61a4eee2da88804"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -153,50 +151,6 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a3a015bb5e2f909df67e1fec275d9c7b5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3a015bb5e2f909df67e1fec275d9c7b5">&#9670;&nbsp;</a></span>registerPlugin()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static Phpcraft\PluginManager::registerPlugin </td>
-          <td>(</td>
-          <td class="paramtype">string&#160;</td>
-          <td class="paramname"><em>$name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">callable&#160;</td>
-          <td class="paramname"><em>$callback</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>The function called by plugins when they would like to be registered.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramtype">string</td><td class="paramname">$name</td><td>This has to be identical to the name of file exluding the extension. </td></tr>
-    <tr><td class="paramtype">callable</td><td class="paramname">$callback</td><td>The callback function called with a <a class="el" href="classPhpcraft_1_1Plugin.html">Plugin</a> as parameter. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
 <h2 class="groupheader">Member Data Documentation</h2>
 <a id="a298bae54528abd0911a53011569c68aa"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a298bae54528abd0911a53011569c68aa">&#9670;&nbsp;</a></span>$loaded_plugins</h2>
@@ -217,7 +171,7 @@ Static Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>A <a class="el" href="classPhpcraft_1_1Plugin.html">Plugin</a> array of plugins currently loaded. </p>
+<p>An array containing all the Plugins that are currently loaded. </p>
 
 </div>
 </div>
