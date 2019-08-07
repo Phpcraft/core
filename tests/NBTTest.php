@@ -1,5 +1,4 @@
-<?php
-/** @noinspection PhpUnhandledExceptionInspection */
+<?php /** @noinspection PhpUnused PhpUnhandledExceptionInspection */
 require_once __DIR__."/../vendor/autoload.php";
 use Phpcraft\
 {Connection, Nbt\NbtCompound, Nbt\NbtInt, Nbt\NbtList};
@@ -38,5 +37,6 @@ class NBTTest
 		Nose::assertEquals("Level", $tag->name);
 		$tag->write($con);
 		Nose::assertEquals($bin, $con->write_buffer);
+		Nose::assertEquals($tag->toSNBT(true), file_get_contents(__DIR__."/bigtest.snbt"));
 	}
 }

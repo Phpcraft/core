@@ -109,7 +109,7 @@ class NbtCompound extends NbtTag
 	 * @param boolean $inList Ignore this parameter.
 	 * @return Connection $con
 	 */
-	function write(Connection $con, bool $inList = false)
+	function write(Connection $con, bool $inList = false): Connection
 	{
 		if(!$inList)
 		{
@@ -123,12 +123,12 @@ class NbtCompound extends NbtTag
 		return $con;
 	}
 
-	function copy()
+	function copy(): NbtTag
 	{
 		return new NbtCompound($this->name, $this->children);
 	}
 
-	function __toString()
+	function __toString(): string
 	{
 		$str = "{Compound \"".$this->name."\":";
 		foreach($this->children as $child)
@@ -136,5 +136,33 @@ class NbtCompound extends NbtTag
 			$str .= " ".$child->__toString();
 		}
 		return $str."}";
+	}
+
+	/**
+	 * Returns the NBT tag in SNBT (stringified NBT) format, as used in commands.
+	 *
+	 * @param bool $fancy
+	 * @param boolean $inList Ignore this parameter.
+	 * @return string
+	 */
+	function toSNBT(bool $fancy = false, bool $inList = false): string
+	{
+		$snbt = ($inList || !$this->name ? "" : self::stringToSNBT($this->name).($fancy ? ": " : ":"))."{".($fancy ? "\n" : "");
+		$c = count($this->children) - 1;
+		if($fancy)
+		{
+			for($i = 0; $i <= $c; $i++)
+			{
+				$snbt .= self::indentString($this->children[$i]->toSNBT(true)).($i == $c ? "" : ",")."\n";
+			}
+		}
+		else
+		{
+			for($i = 0; $i <= $c; $i++)
+			{
+				$snbt .= $this->children[$i]->toSNBT().($i == $c ? "" : ",");
+			}
+		}
+		return $snbt."}";
 	}
 }

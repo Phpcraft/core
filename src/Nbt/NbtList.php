@@ -3,23 +3,16 @@ namespace Phpcraft\Nbt;
 use Countable;
 use Iterator;
 use Phpcraft\Connection;
-class NbtList extends NbtTag implements Iterator, Countable
+class NbtList extends NbtListTag implements Iterator, Countable
 {
 	const ORD = 9;
 	/**
 	 * The NBT tag type ID of children.
 	 *
 	 * @var integer $childType
-	 * @see NbtTag
+	 * @see NbtTag::ORD
 	 */
 	public $childType;
-	/**
-	 * The child tags of the list.
-	 *
-	 * @var array $children
-	 */
-	public $children;
-	private $current = 0;
 
 	/**
 	 * @param string $name The name of this tag.
@@ -40,7 +33,7 @@ class NbtList extends NbtTag implements Iterator, Countable
 	 * @param boolean $inList Ignore this parameter.
 	 * @return Connection $con
 	 */
-	function write(Connection $con, bool $inList = false)
+	function write(Connection $con, bool $inList = false): Connection
 	{
 		if(!$inList)
 		{
@@ -55,12 +48,12 @@ class NbtList extends NbtTag implements Iterator, Countable
 		return $con;
 	}
 
-	function copy()
+	function copy(): NbtTag
 	{
 		return new NbtList($this->name, $this->childType, $this->children);
 	}
 
-	function __toString()
+	function __toString(): string
 	{
 		$str = "{List \"".$this->name."\":";
 		foreach($this as $child)
@@ -70,33 +63,31 @@ class NbtList extends NbtTag implements Iterator, Countable
 		return $str."}";
 	}
 
-	function current()
+	/**
+	 * Returns the NBT tag in SNBT (stringified NBT) format, as used in commands.
+	 *
+	 * @param bool $fancy
+	 * @param boolean $inList Ignore this parameter.
+	 * @return string
+	 */
+	function toSNBT(bool $fancy = false, bool $inList = false): string
 	{
-		return $this->children[$this->current];
-	}
-
-	function next()
-	{
-		$this->current++;
-	}
-
-	function key()
-	{
-		return $this->current;
-	}
-
-	function valid()
-	{
-		return $this->current < count($this->children);
-	}
-
-	function rewind()
-	{
-		$this->current = 0;
-	}
-
-	function count()
-	{
-		return count($this->children);
+		$snbt = ($inList || !$this->name ? "" : self::stringToSNBT($this->name).($fancy ? ": " : ":"))."[".($fancy ? "\n" : "");
+		$c = count($this->children) - 1;
+		if($fancy)
+		{
+			for($i = 0; $i <= $c; $i++)
+			{
+				$snbt .= self::indentString($this->children[$i]->toSNBT(true, true)).($i == $c ? "" : ",")."\n";
+			}
+		}
+		else
+		{
+			for($i = 0; $i <= $c; $i++)
+			{
+				$snbt .= $this->children[$i]->toSNBT(false, true).($i == $c ? "" : ",");
+			}
+		}
+		return $snbt."]";
 	}
 }

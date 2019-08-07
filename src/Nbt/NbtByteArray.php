@@ -1,15 +1,9 @@
 <?php
 namespace Phpcraft\Nbt;
 use Phpcraft\Connection;
-class NbtByteArray extends NbtTag
+class NbtByteArray extends NbtListTag
 {
 	const ORD = 7;
-	/**
-	 * The bytes in the array.
-	 *
-	 * @var array $children
-	 */
-	public $children;
 
 	/**
 	 * @param string $name The name of this tag.
@@ -28,7 +22,7 @@ class NbtByteArray extends NbtTag
 	 * @param boolean $inList Ignore this parameter.
 	 * @return Connection $con
 	 */
-	function write(Connection $con, bool $inList = false)
+	function write(Connection $con, bool $inList = false): Connection
 	{
 		if(!$inList)
 		{
@@ -42,12 +36,12 @@ class NbtByteArray extends NbtTag
 		return $con;
 	}
 
-	function copy()
+	function copy(): NbtTag
 	{
 		return new NbtByteArray($this->name, $this->children);
 	}
 
-	function __toString()
+	function __toString(): string
 	{
 		$str = "{ByteArray \"".$this->name."\":";
 		foreach($this->children as $child)
@@ -55,5 +49,23 @@ class NbtByteArray extends NbtTag
 			$str .= " ".dechex($child);
 		}
 		return $str."}";
+	}
+
+	/**
+	 * Returns the NBT tag in SNBT (stringified NBT) format, as used in commands.
+	 *
+	 * @param bool $fancy
+	 * @param boolean $inList Ignore this parameter.
+	 * @return string
+	 */
+	function toSNBT(bool $fancy = false, bool $inList = false): string
+	{
+		$snbt = ($inList || !$this->name ? "" : self::stringToSNBT($this->name).($fancy ? ": " : ":"))."[B;".($fancy ? " " : "");
+		$c = count($this->children);
+		for($i = 0; $i < $c; $i++)
+		{
+			$snbt .= $this->children[$i].($i == $c - 1 ? "" : ($fancy ? ", " : ","));
+		}
+		return $snbt."]";
 	}
 }

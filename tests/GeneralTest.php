@@ -1,5 +1,4 @@
-<?php
-/** @noinspection PhpUnhandledExceptionInspection */
+<?php /** @noinspection PhpUnused PhpUnhandledExceptionInspection */
 require __DIR__."/../vendor/autoload.php";
 use Phpcraft\
 {Connection, Counter, EntityBase, EntityLiving, Item, Material, Phpcraft, UUID, Versions};

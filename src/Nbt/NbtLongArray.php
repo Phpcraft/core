@@ -2,15 +2,9 @@
 namespace Phpcraft\Nbt;
 use GMP;
 use Phpcraft\Connection;
-class NbtLongArray extends NbtTag
+class NbtLongArray extends NbtListTag
 {
 	const ORD = 12;
-	/**
-	 * The longs in the array.
-	 *
-	 * @var array $children
-	 */
-	public $children;
 
 	/**
 	 * @param string $name The name of this tag.
@@ -29,7 +23,7 @@ class NbtLongArray extends NbtTag
 	 * @param boolean $inList Ignore this parameter.
 	 * @return Connection $con
 	 */
-	function write(Connection $con, bool $inList = false)
+	function write(Connection $con, bool $inList = false): Connection
 	{
 		if(!$inList)
 		{
@@ -43,12 +37,7 @@ class NbtLongArray extends NbtTag
 		return $con;
 	}
 
-	function copy()
-	{
-		return new NbtIntArray($this->name, $this->children);
-	}
-
-	function __toString()
+	function __toString(): string
 	{
 		$str = "{LongArray \"".$this->name."\":";
 		foreach($this->children as $child)
@@ -56,5 +45,22 @@ class NbtLongArray extends NbtTag
 			$str .= " ".$child;
 		}
 		return $str."}";
+	}
+
+	function copy(): NbtTag
+	{
+		return new NbtIntArray($this->name, $this->children);
+	}
+
+	/**
+	 * Returns the NBT tag in SNBT (stringified NBT) format, as used in commands.
+	 *
+	 * @param bool $fancy
+	 * @param boolean $inList Ignore this parameter.
+	 * @return string
+	 */
+	function toSNBT(bool $fancy = false, bool $inList = false): string
+	{
+		return self::gmpListToSNBT($fancy, $inList, "L");
 	}
 }

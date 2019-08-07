@@ -28,7 +28,7 @@ class NbtByte extends NbtTag
 	 * @param boolean $inList Ignore this parameter.
 	 * @return Connection $con
 	 */
-	function write(Connection $con, bool $inList = false)
+	function write(Connection $con, bool $inList = false): Connection
 	{
 		if(!$inList)
 		{
@@ -38,13 +38,25 @@ class NbtByte extends NbtTag
 		return $con;
 	}
 
-	function copy()
+	function copy(): NbtTag
 	{
 		return new NbtByte($this->name, $this->value);
 	}
 
-	function __toString()
+	function __toString(): string
 	{
 		return "{Byte \"".$this->name."\": ".$this->value."}";
+	}
+
+	/**
+	 * Returns the NBT tag in SNBT (stringified NBT) format, as used in commands.
+	 *
+	 * @param bool $fancy
+	 * @param boolean $inList Ignore this parameter.
+	 * @return string
+	 */
+	function toSNBT(bool $fancy = false, bool $inList = false): string
+	{
+		return ($inList || !$this->name ? "" : self::stringToSNBT($this->name).($fancy ? ": " : ":")).$this->value."b";
 	}
 }
