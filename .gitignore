@@ -2,5 +2,6 @@
 vendor/
 *.bin
 *.cache
+*.hex
 composer.lock
 sketch.php
