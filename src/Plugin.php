@@ -37,6 +37,22 @@ class Plugin
 	}
 
 	/**
+	 * Fires the event handler for the given event with its data as parameter.
+	 *
+	 * @param Event $event
+	 * @return boolean True if the event was cancelled.
+	 */
+	function fire(Event $event)
+	{
+		$type = get_class($event);
+		if(isset($this->event_handlers[$type]))
+		{
+			($this->event_handlers[$type])($event);
+		}
+		return $event->cancelled;
+	}
+
+	/**
 	 * Defines a function to be called to handle the given event.
 	 *
 	 * @param callable $callable The function. The first parameter should explicitly declare its type to be a decendant of Event.
@@ -77,22 +93,6 @@ class Plugin
 			die("Unexpected exception: ".get_class($e).": ".$e->getMessage()."\n".$e->getTraceAsString()."\n");
 		}
 		return $this;
-	}
-
-	/**
-	 * Fires the event handler for the given event with its data as parameter.
-	 *
-	 * @param Event $event
-	 * @return boolean True if the event was cancelled.
-	 */
-	function fire(Event $event)
-	{
-		$type = get_class($event);
-		if(isset($this->event_handlers[$type]))
-		{
-			($this->event_handlers[$type])($event);
-		}
-		return $event->cancelled;
 	}
 
 	/**
