@@ -29,7 +29,16 @@ Finally, you can use the Phpcraft CLI utilities:
 - `php listping.php` — A listping utility.
 - `php cache.php` — An interface to manage Phpcraft's resource cache.
 - `php packets.php` — A tool to print packets from a binary file, e.g. recorded by WorldSaver.
+- `php bin2hex.php` — A tool to convert binary files to hex files.
+- `php hex2bin.php` — A tool to convert hex files to binary files.
 - `php uuid.php` — A tool to convert UUIDs.
+- `php snbt.php` — A tool to convert SNBT.
+
+Here's an example chain to convert SNBT to a binary NBT file (in this case, `snbt.hex.bin`):
+
+```Bash
+php snbt.php "{Level: 9001}" | tail -n 1 > snbt.hex && php hex2bin.php snbt.hex
+```
 
 ## Using Phpcraft as a library
 
