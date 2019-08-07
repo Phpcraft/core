@@ -77,7 +77,7 @@ class Connection
 	 *
 	 * @return boolean
 	 */
-	function isOpen()
+	function isOpen(): bool
 	{
 		return $this->stream != null && @feof($this->stream) === false;
 	}
@@ -89,7 +89,7 @@ class Connection
 	 * @return Connection $this
 	 * @throws InvalidArgumentException
 	 */
-	function writeChat($value)
+	function writeChat($value): Connection
 	{
 		if(gettype($value) == "string")
 		{
@@ -100,7 +100,7 @@ class Connection
 			throw new InvalidArgumentException("Argument can't be of type ".gettype($value));
 		}
 		$this->writeString(json_encode($value));
-		return null;
+		return $this;
 	}
 
 	/**
@@ -109,7 +109,7 @@ class Connection
 	 * @param string $value
 	 * @return Connection $this
 	 */
-	function writeString(string $value)
+	function writeString(string $value): Connection
 	{
 		$this->write_buffer .= self::varInt(strlen($value)).$value;
 		return $this;
@@ -121,7 +121,7 @@ class Connection
 	 * @param GMP|string|integer $value
 	 * @return string
 	 */
-	static function varInt($value)
+	static function varInt($value): string
 	{
 		$value = self::complimentNumber($value, 32);
 		$bytes = "";
@@ -154,7 +154,7 @@ class Connection
 	 * @param string $value
 	 * @return Connection $this
 	 */
-	function writeRaw(string $value)
+	function writeRaw(string $value): Connection
 	{
 		$this->write_buffer .= $value;
 		return $this;
@@ -166,7 +166,7 @@ class Connection
 	 * @param float $value
 	 * @return Connection $this
 	 */
-	function writeFloat(float $value)
+	function writeFloat(float $value): Connection
 	{
 		$this->write_buffer .= pack("G", $value);
 		return $this;
@@ -178,7 +178,7 @@ class Connection
 	 * @param Position $pos
 	 * @return Connection $this
 	 */
-	function writePosition(Position $pos)
+	function writePosition(Position $pos): Connection
 	{
 		return $this->writeLong((($pos->x & 0x3FFFFFF) << 38) | (($pos->y & 0xFFF) << 26) | ($pos->z & 0x3FFFFFF));
 	}
@@ -190,12 +190,12 @@ class Connection
 	 * @param boolean $signed
 	 * @return Connection $this
 	 */
-	function writeLong($value, bool $signed = false)
+	function writeLong($value, bool $signed = false): Connection
 	{
 		return $this->writeGMP($value, 8, $signed);
 	}
 
-	private function writeGMP($value, int $bytes, bool $signed)
+	private function writeGMP($value, int $bytes, bool $signed): Connection
 	{
 		$bits = $bytes * 8;
 		if(is_float($value))
@@ -232,7 +232,7 @@ class Connection
 	 * @param Position $pos
 	 * @return Connection $this
 	 */
-	function writePrecisePosition(Position $pos)
+	function writePrecisePosition(Position $pos): Connection
 	{
 		$this->writeDouble($pos->x);
 		$this->writeDouble($pos->y);
@@ -245,7 +245,7 @@ class Connection
 	 * @param double $value
 	 * @return Connection $this
 	 */
-	function writeDouble(float $value)
+	function writeDouble(float $value): Connection
 	{
 		$this->write_buffer .= pack("E", $value);
 		return $this;
@@ -257,7 +257,7 @@ class Connection
 	 * @param Position $pos
 	 * @return Connection $this
 	 */
-	function writeFixedPointPosition(Position $pos)
+	function writeFixedPointPosition(Position $pos): Connection
 	{
 		$this->writeInt(intval($pos->x * 32));
 		$this->writeInt(intval($pos->y * 32));
@@ -271,7 +271,7 @@ class Connection
 	 * @param boolean $signed
 	 * @return Connection $this
 	 */
-	function writeInt($value, bool $signed = false)
+	function writeInt($value, bool $signed = false): Connection
 	{
 		return $this->writeGMP($value, 4, $signed);
 	}
@@ -283,7 +283,7 @@ class Connection
 	 * @return Connection $this
 	 * @throws MissingMetadataException
 	 */
-	function writeSlot(Slot $slot)
+	function writeSlot(Slot $slot): Connection
 	{
 		if(Slot::isEmpty($slot))
 		{
@@ -355,7 +355,7 @@ class Connection
 	 * @param boolean $value
 	 * @return Connection this
 	 */
-	function writeBoolean(bool $value)
+	function writeBoolean(bool $value): Connection
 	{
 		$this->write_buffer .= pack("C", ($value ? 1 : 0));
 		return $this;
@@ -368,7 +368,7 @@ class Connection
 	 * @param boolean $signed
 	 * @return Connection $this
 	 */
-	function writeShort($value, bool $signed = false)
+	function writeShort($value, bool $signed = false): Connection
 	{
 		return $this->writeGMP($value, 2, $signed);
 	}
@@ -379,7 +379,7 @@ class Connection
 	 * @param GMP|string|integer $value
 	 * @return Connection $this
 	 */
-	function writeVarInt($value)
+	function writeVarInt($value): Connection
 	{
 		$this->write_buffer .= self::varInt($value);
 		return $this;
@@ -392,7 +392,7 @@ class Connection
 	 * @param boolean $signed
 	 * @return Connection $this
 	 */
-	function writeByte(int $value, bool $signed = false)
+	function writeByte(int $value, bool $signed = false): Connection
 	{
 		$this->write_buffer .= pack(($signed ? "c" : "C"), $value);
 		return $this;
@@ -404,7 +404,7 @@ class Connection
 	 * @param UUID $uuid
 	 * @return Connection $this
 	 */
-	function writeUUID(UUID $uuid)
+	function writeUUID(UUID $uuid): Connection
 	{
 		$this->write_buffer .= $uuid->binary;
 		return $this;
@@ -418,7 +418,7 @@ class Connection
 	 * @throws DomainException
 	 * @throws InvalidArgumentException
 	 */
-	function startPacket($packet)
+	function startPacket($packet): Connection
 	{
 		if(gettype($packet) == "string")
 		{
@@ -444,7 +444,7 @@ class Connection
 	 * @throws IOException If the connection is not open.
 	 * @return Connection $this
 	 */
-	function send(bool $raw = false)
+	function send(bool $raw = false): Connection
 	{
 		if($this->stream != null)
 		{
@@ -505,7 +505,7 @@ class Connection
 	 * @return boolean True on success.
 	 * @see Connection::readPacket
 	 */
-	function readRawPacket(float $timeout = 3.000, int $bytes = 0)
+	function readRawPacket(float $timeout = 3.000, int $bytes = 0): bool
 	{
 		$start = microtime(true);
 		if($bytes == 0)
@@ -611,7 +611,7 @@ class Connection
 	 * @throws LengthException When the VarInt is too big.
 	 * @throws IOException When there are not enough bytes to read or continue reading a VarInt.
 	 */
-	function readVarInt()
+	function readVarInt(): GMP
 	{
 		$value = gmp_init(0);
 		$read = 0;
@@ -640,7 +640,7 @@ class Connection
 	 * @return integer
 	 * @throws IOException When there are not enough bytes to read a byte.
 	 */
-	function readByte(bool $signed = false)
+	function readByte(bool $signed = false): int
 	{
 		if(strlen($this->read_buffer) < 1)
 		{
@@ -657,7 +657,7 @@ class Connection
 	 * @return array
 	 * @throws IOException When there are not enough bytes to read the string.
 	 */
-	function readChat()
+	function readChat(): array
 	{
 		return json_decode($this->readString(), true);
 	}
@@ -671,7 +671,7 @@ class Connection
 	 * @throws LengthException When the string doesn't fit the length requirements.
 	 * @throws IOException When there are not enough bytes to read a string.
 	 */
-	function readString(int $maxLength = 32767, int $minLength = -1)
+	function readString(int $maxLength = 32767, int $minLength = -1): string
 	{
 		$length = gmp_intval($this->readVarInt());
 		if($length == 0)
@@ -701,7 +701,7 @@ class Connection
 	 * @return Position
 	 * @throws IOException When there are not enough bytes to read a position.
 	 */
-	function readPosition()
+	function readPosition(): Position
 	{
 		$val = $this->readLong();
 		$pow_2_38 = gmp_pow(2, 38);
@@ -718,7 +718,7 @@ class Connection
 	 * @return GMP
 	 * @throws IOException When there are not enough bytes to read a long.
 	 */
-	function readLong(bool $signed = false)
+	function readLong(bool $signed = false): GMP
 	{
 		return $this->readGMP(8, $signed);
 	}
@@ -729,7 +729,7 @@ class Connection
 	 * @return GMP
 	 * @throws IOException
 	 */
-	private function readGMP(int $bytes, bool $signed)
+	private function readGMP(int $bytes, bool $signed): GMP
 	{
 		if(strlen($this->read_buffer) < $bytes)
 		{
@@ -751,7 +751,7 @@ class Connection
 	 * @return Position
 	 * @throws IOException When there are not enough bytes to read a position.
 	 */
-	function readPrecisePosition()
+	function readPrecisePosition(): Position
 	{
 		return new Position($this->readDouble(), $this->readDouble(), $this->readDouble());
 	}
@@ -762,7 +762,7 @@ class Connection
 	 * @return float
 	 * @throws IOException When there are not enough bytes to read a double.
 	 */
-	function readDouble()
+	function readDouble(): float
 	{
 		if(strlen($this->read_buffer) < 8)
 		{
@@ -779,7 +779,7 @@ class Connection
 	 * @return Position
 	 * @throws IOException When there are not enough bytes to read a position.
 	 */
-	function readFixedPointPosition()
+	function readFixedPointPosition(): Position
 	{
 		return new Position(gmp_intval($this->readInt()) / 32, gmp_intval($this->readInt()) / 32, gmp_intval($this->readInt()) / 32);
 	}
@@ -791,7 +791,7 @@ class Connection
 	 * @return GMP
 	 * @throws IOException When there are not enough bytes to read an integer.
 	 */
-	function readInt(bool $signed = false)
+	function readInt(bool $signed = false): GMP
 	{
 		return $this->readGMP(4, $signed);
 	}
@@ -802,7 +802,7 @@ class Connection
 	 * @return UUID
 	 * @throws IOException When there are not enough bytes to read a UUID.
 	 */
-	function readUUID()
+	function readUUID(): UUID
 	{
 		if(strlen($this->read_buffer) < 16)
 		{
@@ -820,7 +820,7 @@ class Connection
 	 * @return Slot
 	 * @throws IOException
 	 */
-	function readSlot(bool $additional_processing = true)
+	function readSlot(bool $additional_processing = true): Slot
 	{
 		$slot = new Slot();
 		if($this->protocol_version >= 402)
@@ -916,7 +916,7 @@ class Connection
 	 * @return boolean
 	 * @throws IOException When there are not enough bytes to read a boolean.
 	 */
-	function readBoolean()
+	function readBoolean(): bool
 	{
 		if(strlen($this->read_buffer) < 1)
 		{
@@ -934,7 +934,7 @@ class Connection
 	 * @return GMP
 	 * @throws IOException When there are not enough bytes to read a short.
 	 */
-	function readShort(bool $signed = true)
+	function readShort(bool $signed = true): GMP
 	{
 		return $this->readGMP(2, $signed);
 	}
@@ -947,7 +947,7 @@ class Connection
 	 * @throws IOException
 	 * @throws DomainException
 	 */
-	function readNBT(int $type = 0)
+	function readNBT(int $type = 0): NbtTag
 	{
 		$inList = $type > 0;
 		if(!$inList)
@@ -1024,7 +1024,7 @@ class Connection
 	 * @param integer $bytes
 	 * @return string
 	 */
-	function readRaw(int $bytes)
+	function readRaw(int $bytes): string
 	{
 		$str = substr($this->read_buffer, 0, $bytes);
 		$this->read_buffer = substr($this->read_buffer, $bytes);
@@ -1037,7 +1037,7 @@ class Connection
 	 * @return float
 	 * @throws IOException When there are not enough bytes to read a float.
 	 */
-	function readFloat()
+	function readFloat(): float
 	{
 		if(strlen($this->read_buffer) < 4)
 		{
@@ -1055,7 +1055,7 @@ class Connection
 	 * @return Connection $this
 	 * @throws IOException When there are not enough bytes in the buffer to ignore the given number.
 	 */
-	function ignoreBytes(int $bytes)
+	function ignoreBytes(int $bytes): Connection
 	{
 		if(strlen($this->read_buffer) < $bytes)
 		{

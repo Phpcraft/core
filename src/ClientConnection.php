@@ -142,7 +142,7 @@ class ClientConnection extends Connection
 	 *
 	 * @return integer Status: 0 = An error occured and the connection has been closed. 1 = Handshake was successfully read; use Connection::$state to see if the client wants to get the status (1) or login to play (2). 2 = A legacy list ping packet has been received.
 	 */
-	function handleInitialPacket()
+	function handleInitialPacket(): int
 	{
 		try
 		{
@@ -237,7 +237,7 @@ class ClientConnection extends Connection
 	 * @throws DomainException
 	 * @throws InvalidArgumentException
 	 */
-	function startPacket($packet)
+	function startPacket($packet): Connection
 	{
 		if(gettype($packet) == "string")
 		{
@@ -256,7 +256,7 @@ class ClientConnection extends Connection
 	 *
 	 * @return string
 	 */
-	function getHost()
+	function getHost(): string
 	{
 		return $this->hostname.":".$this->hostport;
 	}
@@ -268,7 +268,7 @@ class ClientConnection extends Connection
 	 * @return ClientConnection $this
 	 * @throws IOException
 	 */
-	function sendEncryptionRequest($private_key)
+	function sendEncryptionRequest($private_key): ClientConnection
 	{
 		if($this->state == 2)
 		{
@@ -290,7 +290,7 @@ class ClientConnection extends Connection
 	 * @return boolean
 	 * @throws IOException
 	 */
-	function handleEncryptionResponse($private_key)
+	function handleEncryptionResponse($private_key): bool
 	{
 		openssl_private_decrypt($this->readString(), $shared_secret, $private_key, OPENSSL_PKCS1_PADDING);
 		openssl_private_decrypt($this->readString(), $verify_token, $private_key, OPENSSL_PKCS1_PADDING);
@@ -323,7 +323,7 @@ class ClientConnection extends Connection
 	 * @return boolean
 	 * @see ClientConnection::handleAuthentication
 	 */
-	function isAuthenticationPending()
+	function isAuthenticationPending(): bool
 	{
 		return $this->mh !== null;
 	}
@@ -377,7 +377,7 @@ class ClientConnection extends Connection
 	 * @return ClientConnection $this
 	 * @throws IOException
 	 */
-	function finishLogin(UUID $uuid, Counter $eidCounter, int $compression_threshold = 256)
+	function finishLogin(UUID $uuid, Counter $eidCounter, int $compression_threshold = 256): ClientConnection
 	{
 		if($this->state == 2)
 		{
@@ -403,9 +403,10 @@ class ClientConnection extends Connection
 	 *
 	 * @param array|string $message
 	 * @param int $position
+	 * @return ClientConnection $this
 	 * @throws IOException
 	 */
-	function sendMessage($message, int $position = ChatPosition::SYSTEM)
+	function sendMessage($message, int $position = ChatPosition::SYSTEM): ClientConnection
 	{
 		if(is_string($message))
 		{
@@ -415,6 +416,7 @@ class ClientConnection extends Connection
 		$this->writeString(json_encode($message));
 		$this->writeByte($position);
 		$this->send();
+		return $this;
 	}
 
 	/**
@@ -426,7 +428,7 @@ class ClientConnection extends Connection
 	 * @throws IOException
 	 * @see Gamemode
 	 */
-	function setGamemode(int $gamemode)
+	function setGamemode(int $gamemode): ClientConnection
 	{
 		if(!Gamemode::validateValue($gamemode))
 		{
@@ -450,7 +452,7 @@ class ClientConnection extends Connection
 	 * @see ClientConnection::sendAbilities
 	 * @see ClientConnection::setGamemode
 	 */
-	function setAbilities(int $gamemode)
+	function setAbilities(int $gamemode): ClientConnection
 	{
 		$this->instant_breaking = ($gamemode == Gamemode::CREATIVE);
 		$this->flying = ($gamemode == Gamemode::SPECTATOR);
@@ -479,7 +481,7 @@ class ClientConnection extends Connection
 	 * @see ClientConnection::$fly_speed
 	 * @see ClientConnection::$walk_speed
 	 */
-	function sendAbilities()
+	function sendAbilities(): ClientConnection
 	{
 		$packet = new ClientboundAbilitiesPacket();
 		$packet->invulnerable = $this->invulnerable;

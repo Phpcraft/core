@@ -31,7 +31,7 @@ class ServerConnection extends Connection
 	 * @return ServerConnection $this
 	 * @throws IOException
 	 */
-	function sendHandshake(string $server_name, int $server_port, int $next_state, array $join_specs = [])
+	function sendHandshake(string $server_name, int $server_port, int $next_state, array $join_specs = []): ServerConnection
 	{
 		$this->writeVarInt(0x00);
 		$this->writeVarInt($this->protocol_version);
@@ -55,7 +55,7 @@ class ServerConnection extends Connection
 	 * @return string Error message. Empty on success.
 	 * @throws IOException
 	 */
-	function login(Account $account, array $translations = null)
+	function login(Account $account, array $translations = null): string
 	{
 		$this->writeVarInt(0x00);
 		$this->writeString($account->username);
@@ -145,7 +145,7 @@ class ServerConnection extends Connection
 	 * @throws DomainException
 	 * @throws InvalidArgumentException
 	 */
-	function startPacket($packet)
+	function startPacket($packet): Connection
 	{
 		if(gettype($packet) == "string")
 		{
