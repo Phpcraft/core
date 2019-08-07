@@ -1,9 +1,7 @@
 <?php
 namespace Phpcraft\Nbt;
-use Countable;
-use Iterator;
 use Phpcraft\Connection;
-class NbtList extends NbtListTag implements Iterator, Countable
+class NbtList extends NbtListTag
 {
 	const ORD = 9;
 	/**
