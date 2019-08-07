@@ -18,6 +18,8 @@ var searchData=
   ['nbtintarray_2ephp',['NbtIntArray.php',['../NbtIntArray_8php.html',1,'']]],
   ['nbtlist',['NbtList',['../classPhpcraft_1_1Nbt_1_1NbtList.html',1,'Phpcraft::Nbt']]],
   ['nbtlist_2ephp',['NbtList.php',['../NbtList_8php.html',1,'']]],
+  ['nbtlisttag',['NbtListTag',['../classPhpcraft_1_1Nbt_1_1NbtListTag.html',1,'Phpcraft::Nbt']]],
+  ['nbtlisttag_2ephp',['NbtListTag.php',['../NbtListTag_8php.html',1,'']]],
   ['nbtlong',['NbtLong',['../classPhpcraft_1_1Nbt_1_1NbtLong.html',1,'Phpcraft::Nbt']]],
   ['nbtlong_2ephp',['NbtLong.php',['../NbtLong_8php.html',1,'']]],
   ['nbtlongarray',['NbtLongArray',['../classPhpcraft_1_1Nbt_1_1NbtLongArray.html',1,'Phpcraft::Nbt']]],
@@ -29,6 +31,6 @@ var searchData=
   ['nbttag',['NbtTag',['../classPhpcraft_1_1Nbt_1_1NbtTag.html',1,'Phpcraft::Nbt']]],
   ['nbttag_2ephp',['NbtTag.php',['../NbtTag_8php.html',1,'']]],
   ['nether',['NETHER',['../classPhpcraft_1_1Enum_1_1Dimension.html#a0f28bc92ade3c7e5cc7bc35e9c80f1d5',1,'Phpcraft::Enum::Dimension']]],
-  ['next',['next',['../classPhpcraft_1_1Counter.html#aed5594a217d12070396062b6e3914edb',1,'Phpcraft\Counter\next()'],['../classPhpcraft_1_1Nbt_1_1NbtList.html#acb483ec2268c8f96d92128b95f61c428',1,'Phpcraft\Nbt\NbtList\next()']]],
+  ['next',['next',['../classPhpcraft_1_1Counter.html#aed5594a217d12070396062b6e3914edb',1,'Phpcraft\Counter\next()'],['../classPhpcraft_1_1Nbt_1_1NbtListTag.html#a4277260fcb7ad091fa55b1890856d222',1,'Phpcraft\Nbt\NbtListTag\next()']]],
   ['normal',['NORMAL',['../classPhpcraft_1_1Enum_1_1Difficulty.html#a1a47fc18a184563563ab8e52ff6d8e58',1,'Phpcraft::Enum::Difficulty']]]
 ];

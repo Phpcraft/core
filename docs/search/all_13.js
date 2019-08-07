@@ -53,6 +53,8 @@ var searchData=
   ['spawnmobpacket_2ephp',['SpawnMobPacket.php',['../SpawnMobPacket_8php.html',1,'']]],
   ['spectator',['SPECTATOR',['../classPhpcraft_1_1Enum_1_1Gamemode.html#ab71290bd4b4fd61744781ead60b25ada',1,'Phpcraft::Enum::Gamemode']]],
   ['startpacket',['startPacket',['../classPhpcraft_1_1ClientConnection.html#af43f7e5b67ffd1c48d283c33afc22a49',1,'Phpcraft\ClientConnection\startPacket()'],['../classPhpcraft_1_1Connection.html#ae75b93f971919d518998913181dec6da',1,'Phpcraft\Connection\startPacket()'],['../classPhpcraft_1_1ServerConnection.html#a446ce0b8432847cd35942905b4dbdc83',1,'Phpcraft\ServerConnection\startPacket()']]],
+  ['stringfromsnbt',['stringFromSNBT',['../classPhpcraft_1_1Nbt_1_1NbtTag.html#a850d31f9c178799059cbd8ba388c7231',1,'Phpcraft::Nbt::NbtTag']]],
+  ['stringtosnbt',['stringToSNBT',['../classPhpcraft_1_1Nbt_1_1NbtTag.html#a30395be113f593156d7fdad87881970f',1,'Phpcraft::Nbt::NbtTag']]],
   ['survival',['SURVIVAL',['../classPhpcraft_1_1Enum_1_1Gamemode.html#afe2e359b750e356c9a19c6fea3b30858',1,'Phpcraft::Enum::Gamemode']]],
   ['system',['SYSTEM',['../classPhpcraft_1_1Enum_1_1ChatPosition.html#ad83fa54b5869f3710e6d914766eaa069',1,'Phpcraft::Enum::ChatPosition']]]
 ];

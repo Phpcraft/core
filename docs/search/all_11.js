@@ -8,6 +8,7 @@ var searchData=
   ['packet_2ephp',['Packet.php',['../Packet_8php.html',1,'']]],
   ['packetid',['PacketId',['../classPhpcraft_1_1PacketId.html',1,'Phpcraft']]],
   ['packetid_2ephp',['PacketId.php',['../PacketId_8php.html',1,'']]],
+  ['parsesnbtarray',['parseSNBTArray',['../classPhpcraft_1_1Nbt_1_1NbtTag.html#ab930f3ac5d90def9d2d968e1dd5594a6',1,'Phpcraft::Nbt::NbtTag']]],
   ['peaceful',['PEACEFUL',['../classPhpcraft_1_1Enum_1_1Difficulty.html#aae4c0f1646ee364479d6e154a111d4e6',1,'Phpcraft::Enum::Difficulty']]],
   ['phpcraft',['Phpcraft',['../classPhpcraft_1_1Phpcraft.html',1,'Phpcraft\Phpcraft'],['../namespacePhpcraft.html',1,'Phpcraft']]],
   ['phpcraft_2ephp',['Phpcraft.php',['../Phpcraft_8php.html',1,'']]],

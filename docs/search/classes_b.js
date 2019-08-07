@@ -9,6 +9,7 @@ var searchData=
   ['nbtint',['NbtInt',['../classPhpcraft_1_1Nbt_1_1NbtInt.html',1,'Phpcraft::Nbt']]],
   ['nbtintarray',['NbtIntArray',['../classPhpcraft_1_1Nbt_1_1NbtIntArray.html',1,'Phpcraft::Nbt']]],
   ['nbtlist',['NbtList',['../classPhpcraft_1_1Nbt_1_1NbtList.html',1,'Phpcraft::Nbt']]],
+  ['nbtlisttag',['NbtListTag',['../classPhpcraft_1_1Nbt_1_1NbtListTag.html',1,'Phpcraft::Nbt']]],
   ['nbtlong',['NbtLong',['../classPhpcraft_1_1Nbt_1_1NbtLong.html',1,'Phpcraft::Nbt']]],
   ['nbtlongarray',['NbtLongArray',['../classPhpcraft_1_1Nbt_1_1NbtLongArray.html',1,'Phpcraft::Nbt']]],
   ['nbtshort',['NbtShort',['../classPhpcraft_1_1Nbt_1_1NbtShort.html',1,'Phpcraft::Nbt']]],

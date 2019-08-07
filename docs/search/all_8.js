@@ -25,5 +25,6 @@ var searchData=
   ['getprofilesfile',['getProfilesFile',['../classPhpcraft_1_1Phpcraft.html#a738a4fbf79ff882e42fc90007ad4b83b',1,'Phpcraft::Phpcraft']]],
   ['getresponse',['getResponse',['../classPhpcraft_1_1Packet_1_1KeepAliveRequestPacket.html#ad1a0f33dab49ea04408ea74c5d17b263',1,'Phpcraft::Packet::KeepAliveRequestPacket']]],
   ['getserverstatus',['getServerStatus',['../classPhpcraft_1_1Phpcraft.html#a7f54ec4ed3668e9bd54e8426199af170',1,'Phpcraft::Phpcraft']]],
-  ['getstringattributes',['getStringAttributes',['../classPhpcraft_1_1EntityBase.html#af6645e6968cbbb1cd5ee662896b78a95',1,'Phpcraft\EntityBase\getStringAttributes()'],['../classPhpcraft_1_1EntityLiving.html#a66bbee4cec19b19739d1d9be57029bcf',1,'Phpcraft\EntityLiving\getStringAttributes()'],['../classPhpcraft_1_1EntityMetadata.html#af24d10c49b53dc0bd9585026547e0d19',1,'Phpcraft\EntityMetadata\getStringAttributes()']]]
+  ['getstringattributes',['getStringAttributes',['../classPhpcraft_1_1EntityBase.html#af6645e6968cbbb1cd5ee662896b78a95',1,'Phpcraft\EntityBase\getStringAttributes()'],['../classPhpcraft_1_1EntityLiving.html#a66bbee4cec19b19739d1d9be57029bcf',1,'Phpcraft\EntityLiving\getStringAttributes()'],['../classPhpcraft_1_1EntityMetadata.html#af24d10c49b53dc0bd9585026547e0d19',1,'Phpcraft\EntityMetadata\getStringAttributes()']]],
+  ['gmplisttosnbt',['gmpListToSNBT',['../classPhpcraft_1_1Nbt_1_1NbtListTag.html#a59ce1be7a4dc2237b28b0d5fb05ee3e3',1,'Phpcraft::Nbt::NbtListTag']]]
 ];
