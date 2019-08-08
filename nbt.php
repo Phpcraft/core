@@ -1,14 +1,31 @@
 <?php
 require "vendor/autoload.php";
+use Phpcraft\
+{Connection, Phpcraft};
+$con = new Connection();
 if(empty($argv[1]))
 {
-	die("Syntax: nbt.php <file>\n");
+	$con->read_buffer = Phpcraft::isWindows() ? "" : file_get_contents("php://stdin");
+	if($con->read_buffer === "")
+	{
+		echo "Syntax: php nbt.php <file>\n";
+		if(!Phpcraft::isWindows())
+		{
+			echo "or: echo \"...\" | php nbt.php\n";
+		}
+		exit;
+	}
 }
-use Phpcraft\Connection;
-$con = new Connection();
-$con->read_buffer = file_get_contents($argv[1]);
+else
+{
+	$con->read_buffer = file_get_contents($argv[1]);
+}
 $tag = $con->readNBT();
-assert($con->read_buffer === "");
+if($con->read_buffer !== "")
+{
+	$bytes = strlen($con->read_buffer);
+	echo "Warning: NBT has been read, but {$bytes} byte".($bytes == 1 ? "" : "s")." remain".($bytes == 1 ? "s" : "").": ".bin2hex($con->read_buffer)."\n";
+}
 echo "::: String Dump\n";
 echo $tag->__toString()."\n";
 echo "::: SNBT\n";

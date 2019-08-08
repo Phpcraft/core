@@ -32,13 +32,13 @@ Finally, you can use the Phpcraft CLI utilities:
 - `php uuid.php` — A tool to convert UUIDs.
 - `php snbt.php` — A tool to convert SNBT.
 - `php nbt.php` — A tool to read binary NBT files.
-- `php hex2bin.php` — A tool to convert hex files to binary files.
-- `php bin2hex.php` — A tool to convert binary files to hex files.
+- `php hex2bin.php` — A tool to convert hexadecimal strings and files to their binary representation.
+- `php bin2hex.php` — A tool to convert binary strings and files to their hexadecimal representation.
 
-Here's an example chain to convert SNBT to a binary NBT file (in this case, `snbt.hex.bin`):
+Here's an example chain to convert SNBT to a binary NBT file:
 
 ```Bash
-php snbt.php "{Level: 9001}" | tail -n 1 > snbt.hex && php hex2bin.php snbt.hex
+echo $(php snbt.php "{Level: 9001}" | tail -n 1) | php hex2bin.php > nbt.bin
 ```
 
 ## Using Phpcraft as a library
