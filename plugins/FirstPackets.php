@@ -87,7 +87,8 @@ $this->on(function(ServerTickEvent $event)
 		global $client_chunk_preferences;
 		foreach($event->server->clients as $con)
 		{
-			if(!$con instanceof ClientConnection || $con->state != 3)
+			assert($con instanceof ClientConnection);
+			if($con->state != 3)
 			{
 				continue;
 			}

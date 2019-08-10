@@ -11,10 +11,7 @@ $this->on(function(ServerChatEvent $event)
 	if(!$event->cancelled && $event->message == "crash me")
 	{
 		$con = $event->client;
-		if(!$con instanceof ClientConnection)
-		{
-			return;
-		}
+		assert($con instanceof ClientConnection);
 		echo $con->username." requested a crash\n";
 		if($con->protocol_version < 315)
 		{

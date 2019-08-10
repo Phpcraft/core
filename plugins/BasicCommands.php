@@ -13,10 +13,7 @@ $this->on(function(ServerChatEvent $event)
 		return;
 	}
 	$con = $event->client;
-	if(!$con instanceof ClientConnection)
-	{
-		return;
-	}
+	assert($con instanceof ClientConnection);
 	if(substr($event->message, 0, 11) == "/abilities ")
 	{
 		$con->startPacket("clientbound_abilities");
