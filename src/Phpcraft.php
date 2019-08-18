@@ -135,7 +135,10 @@ abstract class Phpcraft
 			{
 				self::maintainCache();
 			}
-			$cache = json_decode(file_get_contents(__DIR__."/.cache"), true);
+			if(file_exists(__DIR__."/.cache"))
+			{
+				$cache = json_decode(file_get_contents(__DIR__."/.cache"), true);
+			}
 		}
 		if(empty($cache[$url]))
 		{
