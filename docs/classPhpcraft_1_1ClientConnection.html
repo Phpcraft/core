@@ -107,7 +107,7 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a6d87e1f33d819184fcb64f08652c4afc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1863f864d45210aa52d15c75d959a135"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#a1863f864d45210aa52d15c75d959a135">handleAuthentication</a> ()</td></tr>
 <tr class="separator:a1863f864d45210aa52d15c75d959a135"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a891e459081509946f485e6253c18f168"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#a891e459081509946f485e6253c18f168">finishLogin</a> (<a class="el" href="classPhpcraft_1_1UUID.html">UUID</a> $uuid, <a class="el" href="classPhpcraft_1_1Counter.html">Counter</a> $eidCounter, int $compression_threshold=256)</td></tr>
+<tr class="memitem:a891e459081509946f485e6253c18f168"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#a891e459081509946f485e6253c18f168">finishLogin</a> (UUID $uuid, <a class="el" href="classPhpcraft_1_1Counter.html">Counter</a> $eidCounter, int $compression_threshold=256)</td></tr>
 <tr class="separator:a891e459081509946f485e6253c18f168"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9ed0586a5ca0d6898b7a547739296025"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#a9ed0586a5ca0d6898b7a547739296025">sendMessage</a> ($message, int $position=<a class="el" href="classPhpcraft_1_1Enum_1_1ChatPosition.html#ad83fa54b5869f3710e6d914766eaa069">ChatPosition::SYSTEM</a>)</td></tr>
 <tr class="separator:a9ed0586a5ca0d6898b7a547739296025"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -152,7 +152,7 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a6d8f5b65887ec4d3dc1809563231911f inherit pub_methods_classPhpcraft_1_1Connection"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab8fe0d6896634b285b9d19e00676a7e9 inherit pub_methods_classPhpcraft_1_1Connection"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#ab8fe0d6896634b285b9d19e00676a7e9">writeByte</a> (int $value, bool $signed=false)</td></tr>
 <tr class="separator:ab8fe0d6896634b285b9d19e00676a7e9 inherit pub_methods_classPhpcraft_1_1Connection"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0b9435a6988eb692669c8a79fb497c84 inherit pub_methods_classPhpcraft_1_1Connection"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#a0b9435a6988eb692669c8a79fb497c84">writeUUID</a> (<a class="el" href="classPhpcraft_1_1UUID.html">UUID</a> $uuid)</td></tr>
+<tr class="memitem:a0b9435a6988eb692669c8a79fb497c84 inherit pub_methods_classPhpcraft_1_1Connection"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#a0b9435a6988eb692669c8a79fb497c84">writeUUID</a> (UUID $uuid)</td></tr>
 <tr class="separator:a0b9435a6988eb692669c8a79fb497c84 inherit pub_methods_classPhpcraft_1_1Connection"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae75b93f971919d518998913181dec6da inherit pub_methods_classPhpcraft_1_1Connection"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#ae75b93f971919d518998913181dec6da">startPacket</a> ($packet)</td></tr>
 <tr class="separator:ae75b93f971919d518998913181dec6da inherit pub_methods_classPhpcraft_1_1Connection"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -326,7 +326,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">Phpcraft\ClientConnection::finishLogin </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classPhpcraft_1_1UUID.html">UUID</a>&#160;</td>
+          <td class="paramtype">UUID&#160;</td>
           <td class="paramname"><em>$uuid</em>, </td>
         </tr>
         <tr>
@@ -351,7 +351,7 @@ Additional Inherited Members</h2></td></tr>
 <p>Sets the compression threshold and finishes the login.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype"><a class="el" href="classPhpcraft_1_1UUID.html">UUID</a></td><td class="paramname">$uuid</td><td>The <a class="el" href="classPhpcraft_1_1UUID.html">UUID</a> of the client. </td></tr>
+    <tr><td class="paramtype">UUID</td><td class="paramname">$uuid</td><td>The UUID of the client. </td></tr>
     <tr><td class="paramtype"><a class="el" href="classPhpcraft_1_1Counter.html">Counter</a></td><td class="paramname">$eidCounter</td><td>The server's <a class="el" href="classPhpcraft_1_1Counter.html">Counter</a> to assign an entity ID to the client. </td></tr>
     <tr><td class="paramtype">integer</td><td class="paramname">$compression_threshold</td><td>Use -1 to disable compression. </td></tr>
   </table>
@@ -963,11 +963,11 @@ ServerFlyChangeEvent </dd></dl>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classPhpcraft_1_1UUID.html">UUID</a> Phpcraft\ClientConnection::$uuid</td>
+          <td class="memname">UUID Phpcraft\ClientConnection::$uuid</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>The <a class="el" href="classPhpcraft_1_1UUID.html">UUID</a> of the client. </p>
+<p>The UUID of the client. </p>
 
 </div>
 </div>

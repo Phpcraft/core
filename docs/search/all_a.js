@@ -12,7 +12,6 @@ var searchData=
   ['isonline',['isOnline',['../classPhpcraft_1_1Account.html#a6f7df18e660e7643779a467352f3da56',1,'Phpcraft::Account']]],
   ['isonlinemode',['isOnlineMode',['../classPhpcraft_1_1Server.html#a80c0df387dc345950a7599b800bf27c9',1,'Phpcraft::Server']]],
   ['isopen',['isOpen',['../classPhpcraft_1_1Connection.html#a97d64586a07790901e0e9dc83a9cfd66',1,'Phpcraft\Connection\isOpen()'],['../classPhpcraft_1_1Server.html#a75d9cf1effa434c6ec3f967eb97c6254',1,'Phpcraft\Server\isOpen()']]],
-  ['isslim',['isSlim',['../classPhpcraft_1_1UUID.html#ac7b5efe711c233b2462c1ccd2a6798c5',1,'Phpcraft::UUID']]],
   ['isvalidbarestring',['isValidBareString',['../classPhpcraft_1_1Nbt_1_1NbtTag.html#af3d1fcbb33919d8dad434530d7d01875',1,'Phpcraft::Nbt::NbtTag']]],
   ['iswindows',['isWindows',['../classPhpcraft_1_1Phpcraft.html#a5e7739b3a11a57b71a05ecb4b0648d31',1,'Phpcraft::Phpcraft']]],
   ['item',['Item',['../classPhpcraft_1_1Item.html',1,'Phpcraft']]],
