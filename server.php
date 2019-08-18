@@ -260,7 +260,7 @@ $server->packet_function = function(ClientConnection $con, $packet_name)
 	}
 	else if($packet_name == "serverbound_chat_message")
 	{
-		$msg = $con->readString(256);
+		$msg = $con->readString($con->protocol_version < 314 ? 100 : 256);
 		if(PluginManager::fire(new ServerChatEvent($server, $con, $msg)))
 		{
 			return;
