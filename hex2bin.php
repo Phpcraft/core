@@ -3,7 +3,13 @@ require "vendor/autoload.php";
 use Phpcraft\Phpcraft;
 if(empty($argv[1]))
 {
-	$in = Phpcraft::isWindows() ? "" : file_get_contents("php://stdin");
+	$in = "";
+	if(!Phpcraft::isWindows())
+	{
+		$fh = fopen("php://stdin", "r");
+		stream_set_blocking($fh, false);
+		$in = stream_get_contents($fh);
+	}
 	if($in === "")
 	{
 		echo "Syntax: php hex2bin.php <file>\n";

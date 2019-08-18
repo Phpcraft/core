@@ -5,7 +5,13 @@ use Phpcraft\
 $con = new Connection();
 if(empty($argv[1]))
 {
-	$con->read_buffer = Phpcraft::isWindows() ? "" : file_get_contents("php://stdin");
+	$con->read_buffer = "";
+	if(!Phpcraft::isWindows())
+	{
+		$fh = fopen("php://stdin", "r");
+		stream_set_blocking($fh, false);
+		$con->read_buffer = stream_get_contents($fh);
+	}
 	if($con->read_buffer === "")
 	{
 		echo "Syntax: php nbt.php <file>\n";
