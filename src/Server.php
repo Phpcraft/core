@@ -2,6 +2,7 @@
 namespace Phpcraft;
 use Phpcraft\
 {Exception\IOException, Packet\KeepAliveRequestPacket, Packet\ServerboundPacket};
+use hellsh\UUID;
 class Server
 {
 	/**

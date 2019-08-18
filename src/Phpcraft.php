@@ -1,5 +1,6 @@
 <?php
 namespace Phpcraft;
+use hellsh\UUID;
 use Phpcraft\Exception\IOException;
 abstract class Phpcraft
 {

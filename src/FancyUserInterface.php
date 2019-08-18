@@ -26,7 +26,7 @@ class FancyUserInterface extends UserInterface
 	private $next_render = 0;
 	private $_width = 0;
 	private $_height = 0;
-
+	/** @noinspection PhpMissingParentConstructorInspection */
 	/**
 	 * Note that from this point forward, STDIN and STDOUT are in the hands of the UI until it is destructed.
 	 * The FancyUserInterface doesn't support Windows; use UserInterface, instead.
@@ -320,7 +320,7 @@ class FancyUserInterface extends UserInterface
 			for($i = $height - $input_height - 1; $i > 1; $i--)
 			{
 				$message = @$gol_tahc[$j++];
-				$len = mb_strlen(preg_replace('/\x1B\[[0-9]{1,3}(\;[0-9]{1,3})*m/i', "", $message), "utf-8");
+				$len = mb_strlen(preg_replace('/\x1B\[[0-9]{1,3}(;[0-9]{1,3})*m/i', "", $message), "utf-8");
 				if($len > $width)
 				{
 					$i -= floor($len / $width);

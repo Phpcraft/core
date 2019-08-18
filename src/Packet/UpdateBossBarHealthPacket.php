@@ -41,8 +41,7 @@ class UpdateBossBarHealthPacket extends BossBarPacket
 		else
 		{
 			$con->startPacket("entity_metadata");
-			/** @noinspection PhpUndefinedMethodInspection */
-			$con->writeVarInt($this->uuid->toInt() * -1);
+			$con->writeVarInt(abs($this->uuid->hashCode()) * -1);
 			$metadata = new EntityLiving();
 			$metadata->health = ($this->health * 200);
 			if($metadata->health < 3)

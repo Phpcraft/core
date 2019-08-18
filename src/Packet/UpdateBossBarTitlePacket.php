@@ -40,8 +40,7 @@ class UpdateBossBarTitlePacket extends BossBarPacket
 		else
 		{
 			$con->startPacket("entity_metadata");
-			/** @noinspection PhpUndefinedMethodInspection */
-			$con->writeVarInt($this->uuid->toInt() * -1);
+			$con->writeVarInt(abs($this->uuid->hashCode()) * -1);
 			$metadata = new EntityLiving();
 			$metadata->custom_name = $this->title;
 			$metadata->write($con);

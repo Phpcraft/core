@@ -95,8 +95,7 @@ class AddBossBarPacket extends BossBarPacket
 		}
 		else
 		{
-			/** @noinspection PhpParamsInspection */
-			$packet = new SpawnMobPacket(gmp_intval($this->uuid->toInt()) * -1, EntityType::get("ender_dragon"), $this->uuid);
+			$packet = new SpawnMobPacket(abs($this->uuid->hashCode()) * -1, EntityType::get("ender_dragon"), $this->uuid);
 			assert($packet->metadata instanceof EntityLiving);
 			if($con instanceof ClientConnection)
 			{

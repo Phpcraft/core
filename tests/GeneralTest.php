@@ -1,7 +1,7 @@
 <?php /** @noinspection PhpUnused PhpUnhandledExceptionInspection */
 require __DIR__."/../vendor/autoload.php";
 use Phpcraft\
-{Connection, Counter, EntityBase, EntityLiving, Item, Material, Phpcraft, UUID, Versions};
+{Connection, Counter, EntityBase, EntityLiving, Item, Material, Phpcraft, Versions};
 class GeneralTest
 {
 	function testTextToChat()
@@ -65,28 +65,6 @@ class GeneralTest
 			"text" => "Test",
 			"color" => "black"
 		], 4));
-	}
-
-	function testUuid()
-	{
-		$uuid = new UUID("e0603b592edc45f7acc7b0cccd6656e1");
-		Nose::assertEquals($uuid->toInt(), "963689993953");
-		Nose::assertFalse((new UUID("fffffff0-ffff-fff0-ffff-fff0fffffff0"))->isSlim());
-		Nose::assertFalse((new UUID("fffffff0-ffff-fff0-ffff-fff1fffffff1"))->isSlim());
-		Nose::assertFalse((new UUID("fffffff0-ffff-fff1-ffff-fff0fffffff1"))->isSlim());
-		Nose::assertFalse((new UUID("fffffff0-ffff-fff1-ffff-fff1fffffff0"))->isSlim());
-		Nose::assertFalse((new UUID("fffffff1-ffff-fff0-ffff-fff0fffffff1"))->isSlim());
-		Nose::assertFalse((new UUID("fffffff1-ffff-fff0-ffff-fff1fffffff0"))->isSlim());
-		Nose::assertFalse((new UUID("fffffff1-ffff-fff1-ffff-fff0fffffff0"))->isSlim());
-		Nose::assertFalse((new UUID("fffffff1-ffff-fff1-ffff-fff1fffffff1"))->isSlim());
-		Nose::assertTrue((new UUID("fffffff0-ffff-fff0-ffff-fff0fffffff1"))->isSlim());
-		Nose::assertTrue((new UUID("fffffff0-ffff-fff0-ffff-fff1fffffff0"))->isSlim());
-		Nose::assertTrue((new UUID("fffffff0-ffff-fff1-ffff-fff0fffffff0"))->isSlim());
-		Nose::assertTrue((new UUID("fffffff0-ffff-fff1-ffff-fff1fffffff1"))->isSlim());
-		Nose::assertTrue((new UUID("fffffff1-ffff-fff0-ffff-fff0fffffff0"))->isSlim());
-		Nose::assertTrue((new UUID("fffffff1-ffff-fff0-ffff-fff1fffffff1"))->isSlim());
-		Nose::assertTrue((new UUID("fffffff1-ffff-fff1-ffff-fff0fffffff1"))->isSlim());
-		Nose::assertTrue((new UUID("fffffff1-ffff-fff1-ffff-fff1fffffff0"))->isSlim());
 	}
 
 	function testVersions()

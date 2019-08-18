@@ -1,15 +1,18 @@
 <?php
 namespace Phpcraft;
 use Exception;
-use Phpcraft\Event\Event;
+use Phpcraft\
+{Command\Command, Event\Event};
 abstract class PluginManager
 {
 	/**
-	 * An array containing all the Plugins that are currently loaded.
-	 *
-	 * @var array $loaded_plugins
+	 * @var $loaded_plugins Plugin[]
 	 */
 	public static $loaded_plugins = [];
+	/**
+	 * @var $registered_commands Command[]
+	 */
+	public static $registered_commands = [];
 
 	/**
 	 * Loads all plugins in a folder.
