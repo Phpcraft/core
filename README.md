@@ -38,7 +38,7 @@ Finally, you can use the Phpcraft CLI utilities:
 Here's an example chain to convert SNBT to a binary NBT file:
 
 ```Bash
-echo $(php snbt.php "{Level: 9001}" | tail -n 1) | php hex2bin.php > nbt.bin
+php snbt.php "{Level: 9001}" | tail -n 1 | php hex2bin.php > nbt.bin
 ```
 
 ## Using Phpcraft as a library
