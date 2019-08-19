@@ -5,7 +5,7 @@
  * @var Plugin $this
  */
 use Phpcraft\
-{ClientConnection, Connection, Enum\Difficulty, Enum\Dimension, Enum\Gamemode, Event\Event, Event\ServerChatEvent, Event\ServerJoinEvent, Event\ServerLeaveEvent, Event\ServerTickEvent, Material, Packet\ClientboundBrandPluginMessagePacket, Packet\JoinGamePacket, Plugin, Position};
+{ClientConnection, Connection, Enum\Difficulty, Enum\Dimension, Enum\Gamemode, Event\Event, Event\ServerChatEvent, Event\ServerJoinEvent, Event\ServerLeaveEvent, Event\ServerTickEvent, BlockState, Packet\ClientboundBrandPluginMessagePacket, Packet\JoinGamePacket, Plugin, Position};
 $WorldImitatorActive = false;
 $client_chunk_preferences = [];
 $this->on(function(ServerJoinEvent $event)
@@ -126,10 +126,10 @@ $this->on(function(ServerTickEvent $event)
 						{
 							$data->writeByte(8); // Bits per Block
 							$data->writeVarInt(2); // Palette Size
-							$data->writeVarInt(Material::get("grass_block")
-													   ->getId($con->protocol_version));
-							$data->writeVarInt(Material::get("stone")
-													   ->getId($con->protocol_version));
+							$data->writeVarInt(BlockState::get("grass_block")
+														 ->getId($con->protocol_version));
+							$data->writeVarInt(BlockState::get("stone")
+														 ->getId($con->protocol_version));
 							$data->writeVarInt(512); // (4096 / (64 / Bits per Block))
 							$data->write_buffer .= str_repeat($chunk_preference, 2048); // Blocks
 							$data->write_buffer .= str_repeat("\x00", 2048); // Block Light

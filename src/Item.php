@@ -143,11 +143,11 @@ class Item extends Identifier
 	/**
 	 * Returns the related block material.
 	 *
-	 * @return Material
+	 * @return BlockState
 	 */
 	function getBlock()
 	{
-		return Material::get($this->name);
+		return BlockState::get($this->name);
 	}
 
 	/**

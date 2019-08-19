@@ -1,6 +1,6 @@
 <?php
 namespace Phpcraft;
-class Material extends Identifier
+class BlockState extends Identifier
 {
 	private static $all_cache;
 	/**
@@ -19,20 +19,20 @@ class Material extends Identifier
 	}
 
 	/**
-	 * Returns every Material.
+	 * Returns every BlockState.
 	 *
-	 * @return Material[]
-	 * @todo Actually return *every* Material.
+	 * @return BlockState[]
+	 * @todo Actually return *every* BlockState.
 	 */
 	static function all()
 	{
 		if(self::$all_cache === null)
 		{
 			self::$all_cache = [
-				new Material("air", 0),
-				new Material("stone", 1 << 4, 0, ["stone"]),
-				new Material("grass_block", 2 << 4, 0, ["grass_block"]),
-				new Material("dirt", 3 << 4, 0, ["dirt"])
+				new BlockState("air", 0),
+				new BlockState("stone", 1 << 4, 0, ["stone"]),
+				new BlockState("grass_block", 2 << 4, 0, ["grass_block"]),
+				new BlockState("dirt", 3 << 4, 0, ["dirt"])
 			];
 		}
 		return self::$all_cache;

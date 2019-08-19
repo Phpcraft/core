@@ -1,7 +1,7 @@
 <?php /** @noinspection PhpUnused PhpUnhandledExceptionInspection */
 require __DIR__."/../vendor/autoload.php";
 use Phpcraft\
-{Connection, Counter, EntityBase, EntityLiving, Item, Material, Phpcraft, Versions};
+{Connection, Counter, EntityBase, EntityLiving, Item, BlockState, Phpcraft, Versions};
 class GeneralTest
 {
 	function testTextToChat()
@@ -142,7 +142,7 @@ class GeneralTest
 
 	function testBlockMaterial()
 	{
-		Nose::assertNotNull($grass = Material::get("grass_block"));
+		Nose::assertNotNull($grass = BlockState::get("grass_block"));
 		Nose::assertEquals(2 << 4, $grass->getId(47));
 		Nose::assertEquals(9, $grass->getId(404));
 	}
