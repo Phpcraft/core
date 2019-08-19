@@ -25,7 +25,7 @@ var searchData=
   ['_24disconnect_5ffunction',['$disconnect_function',['../classPhpcraft_1_1Server.html#a95ddd9e5013bc9fadf8f3fa1860eedc5',1,'Phpcraft::Server']]],
   ['_24display_5fname',['$display_name',['../classPhpcraft_1_1Item.html#a4e1ba3350814068c73c9f6639cbc4d07',1,'Phpcraft::Item']]],
   ['_24division',['$division',['../classPhpcraft_1_1Packet_1_1AddBossBarPacket.html#a88cbffe8642b38a30f813d29dcc90935',1,'Phpcraft::Packet::AddBossBarPacket']]],
-  ['_24drops',['$drops',['../classPhpcraft_1_1Material.html#a6a1205357e05ba892952456042686434',1,'Phpcraft::Material']]],
+  ['_24drops',['$drops',['../classPhpcraft_1_1BlockState.html#a172609f2055f1310a57029b330e846e1',1,'Phpcraft::BlockState']]],
   ['_24eid',['$eid',['../classPhpcraft_1_1ClientConnection.html#a23c43c5b0a59c890b256703996c8d375',1,'Phpcraft\ClientConnection\$eid()'],['../classPhpcraft_1_1Packet_1_1JoinGamePacket.html#a9e96f81d3143cacd0cbfd11c1322b6ae',1,'Phpcraft\Packet\JoinGamePacket\$eid()'],['../classPhpcraft_1_1Packet_1_1SpawnMobPacket.html#a58bed5cb346561550619b700ef7fadeb',1,'Phpcraft\Packet\SpawnMobPacket\$eid()']]],
   ['_24eidcounter',['$eidCounter',['../classPhpcraft_1_1Server.html#af01b1599a936bc839de74e4927d94205',1,'Phpcraft::Server']]],
   ['_24eids',['$eids',['../classPhpcraft_1_1Packet_1_1DestroyEntitiesPacket.html#acc7bda28d56da57b2c4b74f071602ea2',1,'Phpcraft::Packet::DestroyEntitiesPacket']]],
