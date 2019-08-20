@@ -11,6 +11,8 @@ var searchData=
   ['clientevent_2ephp',['ClientEvent.php',['../ClientEvent_8php.html',1,'']]],
   ['clientjoinevent_2ephp',['ClientJoinEvent.php',['../ClientJoinEvent_8php.html',1,'']]],
   ['clientpacketevent_2ephp',['ClientPacketEvent.php',['../ClientPacketEvent_8php.html',1,'']]],
+  ['command_2ephp',['Command.php',['../Command_8php.html',1,'']]],
+  ['commandsender_2ephp',['CommandSender.php',['../CommandSender_8php.html',1,'']]],
   ['connection_2ephp',['Connection.php',['../Connection_8php.html',1,'']]],
   ['counter_2ephp',['Counter.php',['../Counter_8php.html',1,'']]]
 ];

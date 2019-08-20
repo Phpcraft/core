@@ -11,6 +11,8 @@ var searchData=
   ['clientevent',['ClientEvent',['../classPhpcraft_1_1Event_1_1ClientEvent.html',1,'Phpcraft::Event']]],
   ['clientjoinevent',['ClientJoinEvent',['../classPhpcraft_1_1Event_1_1ClientJoinEvent.html',1,'Phpcraft::Event']]],
   ['clientpacketevent',['ClientPacketEvent',['../classPhpcraft_1_1Event_1_1ClientPacketEvent.html',1,'Phpcraft::Event']]],
+  ['command',['Command',['../classPhpcraft_1_1Command_1_1Command.html',1,'Phpcraft::Command']]],
+  ['commandsender',['CommandSender',['../interfacePhpcraft_1_1Command_1_1CommandSender.html',1,'Phpcraft::Command']]],
   ['connection',['Connection',['../classPhpcraft_1_1Connection.html',1,'Phpcraft']]],
   ['counter',['Counter',['../classPhpcraft_1_1Counter.html',1,'Phpcraft']]]
 ];

@@ -19,5 +19,6 @@ var searchData=
   ['setexperiencepacket_2ephp',['SetExperiencePacket.php',['../SetExperiencePacket_8php.html',1,'']]],
   ['setslotpacket_2ephp',['SetSlotPacket.php',['../SetSlotPacket_8php.html',1,'']]],
   ['slot_2ephp',['Slot.php',['../Slot_8php.html',1,'']]],
-  ['spawnmobpacket_2ephp',['SpawnMobPacket.php',['../SpawnMobPacket_8php.html',1,'']]]
+  ['spawnmobpacket_2ephp',['SpawnMobPacket.php',['../SpawnMobPacket_8php.html',1,'']]],
+  ['stringargumentprovider_2ephp',['StringArgumentProvider.php',['../StringArgumentProvider_8php.html',1,'']]]
 ];

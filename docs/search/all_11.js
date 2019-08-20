@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['command',['Command',['../namespacePhpcraft_1_1Command.html',1,'Phpcraft']]],
   ['enum',['Enum',['../namespacePhpcraft_1_1Enum.html',1,'Phpcraft']]],
   ['event',['Event',['../namespacePhpcraft_1_1Event.html',1,'Phpcraft']]],
   ['exception',['Exception',['../namespacePhpcraft_1_1Exception.html',1,'Phpcraft']]],
@@ -13,9 +14,9 @@ var searchData=
   ['phpcraft',['Phpcraft',['../classPhpcraft_1_1Phpcraft.html',1,'Phpcraft\Phpcraft'],['../namespacePhpcraft.html',1,'Phpcraft']]],
   ['phpcraft_2ephp',['Phpcraft.php',['../Phpcraft_8php.html',1,'']]],
   ['player',['PLAYER',['../classPhpcraft_1_1Enum_1_1ChatPosition.html#ab22a422657b2999e7eb9460c731ec192',1,'Phpcraft::Enum::ChatPosition']]],
-  ['plugin',['Plugin',['../classPhpcraft_1_1Plugin.html',1,'Phpcraft']]],
+  ['plugin',['Plugin',['../classPhpcraft_1_1Plugin_1_1Plugin.html',1,'Phpcraft\Plugin\Plugin'],['../namespacePhpcraft_1_1Plugin.html',1,'Phpcraft\Plugin']]],
   ['plugin_2ephp',['Plugin.php',['../Plugin_8php.html',1,'']]],
-  ['pluginmanager',['PluginManager',['../classPhpcraft_1_1PluginManager.html',1,'Phpcraft']]],
+  ['pluginmanager',['PluginManager',['../classPhpcraft_1_1Plugin_1_1PluginManager.html',1,'Phpcraft::Plugin']]],
   ['pluginmanager_2ephp',['PluginManager.php',['../PluginManager_8php.html',1,'']]],
   ['pluginmessagepacket',['PluginMessagePacket',['../classPhpcraft_1_1Packet_1_1PluginMessagePacket.html',1,'Phpcraft::Packet']]],
   ['pluginmessagepacket_2ephp',['PluginMessagePacket.php',['../PluginMessagePacket_8php.html',1,'']]],

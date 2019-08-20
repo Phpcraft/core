@@ -6,7 +6,7 @@ var searchData=
   ['sendabilities',['sendAbilities',['../classPhpcraft_1_1ClientConnection.html#a33e24346731d452a1a83fc3e2d8e63db',1,'Phpcraft::ClientConnection']]],
   ['sendencryptionrequest',['sendEncryptionRequest',['../classPhpcraft_1_1ClientConnection.html#a46c17ecc49a8c218ed013f26ba947549',1,'Phpcraft::ClientConnection']]],
   ['sendhandshake',['sendHandshake',['../classPhpcraft_1_1ServerConnection.html#a715fa437fb0161042ced88be985ade84',1,'Phpcraft::ServerConnection']]],
-  ['sendmessage',['sendMessage',['../classPhpcraft_1_1ClientConnection.html#a9ed0586a5ca0d6898b7a547739296025',1,'Phpcraft::ClientConnection']]],
+  ['sendmessage',['sendMessage',['../classPhpcraft_1_1ClientConnection.html#a9ed0586a5ca0d6898b7a547739296025',1,'Phpcraft\ClientConnection\sendMessage()'],['../interfacePhpcraft_1_1Command_1_1CommandSender.html#a9db2ce7b323f2042dfc6c5d729981d70',1,'Phpcraft\Command\CommandSender\sendMessage()'],['../classPhpcraft_1_1Server.html#a3dbcdf93f9f834134cea839460b5344e',1,'Phpcraft\Server\sendMessage()']]],
   ['setabilities',['setAbilities',['../classPhpcraft_1_1ClientConnection.html#a224b97346c4c3762b94192217f7b278d',1,'Phpcraft::ClientConnection']]],
   ['setdisplayname',['setDisplayName',['../classPhpcraft_1_1Slot.html#a28ca230ae317e722863efbc9670d610d',1,'Phpcraft::Slot']]],
   ['setgamemode',['setGamemode',['../classPhpcraft_1_1ClientConnection.html#ab83bc7aa368b731af94813d74523886f',1,'Phpcraft::ClientConnection']]],

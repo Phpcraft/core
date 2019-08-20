@@ -1,11 +1,12 @@
 var searchData=
 [
-  ['get',['get',['../classPhpcraft_1_1Identifier.html#a431a14cc7849a1307453e14548d5aa17',1,'Phpcraft\Identifier\get()'],['../classPhpcraft_1_1Item.html#a0897acdd8d9878b7259f60eb1e6a730e',1,'Phpcraft\Item\get()']]],
+  ['get',['get',['../classPhpcraft_1_1Command_1_1Command.html#a6cd5003a69eb1d0a416ffcc649d8463a',1,'Phpcraft\Command\Command\get()'],['../classPhpcraft_1_1Identifier.html#a431a14cc7849a1307453e14548d5aa17',1,'Phpcraft\Identifier\get()'],['../classPhpcraft_1_1Item.html#a0897acdd8d9878b7259f60eb1e6a730e',1,'Phpcraft\Item\get()']]],
   ['getassetindex',['getAssetIndex',['../classPhpcraft_1_1AssetsManager.html#a870a5711a5403082daea74fb17a62cd9',1,'Phpcraft::AssetsManager']]],
   ['getblock',['getBlock',['../classPhpcraft_1_1Item.html#af7cccdb6dee7e09cd46d14011dac74b8',1,'Phpcraft::Item']]],
   ['getbyid',['getById',['../classPhpcraft_1_1Identifier.html#a1d52b958fa53b9d4a77740f42e03477b',1,'Phpcraft::Identifier']]],
   ['getcachablejson',['getCachableJson',['../classPhpcraft_1_1Phpcraft.html#aa5e513e38acb16348f5c86b7d66017ba',1,'Phpcraft::Phpcraft']]],
   ['getcachableresource',['getCachableResource',['../classPhpcraft_1_1Phpcraft.html#aa833e306b45d74cb51ca0a46f39e6cc9',1,'Phpcraft::Phpcraft']]],
+  ['getcanonicalname',['getCanonicalName',['../classPhpcraft_1_1Command_1_1Command.html#aa0139d3b6a58328fff0418be3674294b',1,'Phpcraft::Command::Command']]],
   ['getchild',['getChild',['../classPhpcraft_1_1Nbt_1_1NbtCompound.html#a5a1ffcd1e5ba0185c67fe4b824e626a7',1,'Phpcraft::Nbt::NbtCompound']]],
   ['getchildindex',['getChildIndex',['../classPhpcraft_1_1Nbt_1_1NbtCompound.html#ad5a0fb230be08a00ca98ecbb310de754',1,'Phpcraft::Nbt::NbtCompound']]],
   ['getcolorid',['getColorId',['../classPhpcraft_1_1Packet_1_1MapDataPacket.html#ae76ce5289b4dc3e6d921f1025dd2f32f',1,'Phpcraft::Packet::MapDataPacket']]],
@@ -24,5 +25,7 @@ var searchData=
   ['getresponse',['getResponse',['../classPhpcraft_1_1Packet_1_1KeepAliveRequestPacket.html#ad1a0f33dab49ea04408ea74c5d17b263',1,'Phpcraft::Packet::KeepAliveRequestPacket']]],
   ['getserverstatus',['getServerStatus',['../classPhpcraft_1_1Phpcraft.html#a7f54ec4ed3668e9bd54e8426199af170',1,'Phpcraft::Phpcraft']]],
   ['getstringattributes',['getStringAttributes',['../classPhpcraft_1_1EntityBase.html#af6645e6968cbbb1cd5ee662896b78a95',1,'Phpcraft\EntityBase\getStringAttributes()'],['../classPhpcraft_1_1EntityLiving.html#a66bbee4cec19b19739d1d9be57029bcf',1,'Phpcraft\EntityLiving\getStringAttributes()'],['../classPhpcraft_1_1EntityMetadata.html#af24d10c49b53dc0bd9585026547e0d19',1,'Phpcraft\EntityMetadata\getStringAttributes()']]],
+  ['getsyntax',['getSyntax',['../classPhpcraft_1_1Command_1_1Command.html#a963654f50fde111c5bd39379075d94ac',1,'Phpcraft::Command::Command']]],
+  ['getvalue',['getValue',['../classPhpcraft_1_1Command_1_1ArgumentProvider.html#aa61f94800d28d564d0abef9a20e51ed5',1,'Phpcraft\Command\ArgumentProvider\getValue()'],['../classPhpcraft_1_1Command_1_1IntegerArgumentProvider.html#ad375633b0652c99d7c4fee186d7a7d76',1,'Phpcraft\Command\IntegerArgumentProvider\getValue()'],['../classPhpcraft_1_1Command_1_1StringArgumentProvider.html#a0bc10df7041029f13fd56974e4f6b78b',1,'Phpcraft\Command\StringArgumentProvider\getValue()']]],
   ['gmplisttosnbt',['gmpListToSNBT',['../classPhpcraft_1_1Nbt_1_1NbtListTag.html#a59ce1be7a4dc2237b28b0d5fb05ee3e3',1,'Phpcraft::Nbt::NbtListTag']]]
 ];

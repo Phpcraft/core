@@ -5,5 +5,6 @@ var searchData=
   ['blockstate_2ephp',['BlockState.php',['../BlockState_8php.html',1,'']]],
   ['bossbarpacket',['BossBarPacket',['../classPhpcraft_1_1Packet_1_1BossBarPacket.html',1,'Phpcraft::Packet']]],
   ['bossbarpacket_2ephp',['BossBarPacket.php',['../BossBarPacket_8php.html',1,'']]],
+  ['broadcast',['broadcast',['../classPhpcraft_1_1Server.html#a021d35af4150e5325fb90ab13261c1ac',1,'Phpcraft::Server']]],
   ['buildlegacyassetsfolder',['buildLegacyAssetsFolder',['../classPhpcraft_1_1AssetsManager.html#aed92d67b2b8e22dac0c0a17456f09cea',1,'Phpcraft::AssetsManager']]]
 ];

@@ -1,5 +1,7 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classPhpcraft_1_1EntityMetadata.html" title="Phpcraft\\EntityMetadata" alt="" coords="5,5,184,32"/>
-<area shape="rect" id="node2" href="$classPhpcraft_1_1EntityBase.html" title="Phpcraft\\EntityBase" alt="" coords="232,5,383,32"/>
-<area shape="rect" id="node3" href="$classPhpcraft_1_1EntityLiving.html" title="Phpcraft\\EntityLiving" alt="" coords="431,5,588,32"/>
+<area shape="rect" id="node1" href="$interfacePhpcraft_1_1Command_1_1CommandSender.html" title="Phpcraft\\Command\\Command\lSender" alt="" coords="5,9,223,50"/>
+<area shape="rect" id="node2" href="$classPhpcraft_1_1ClientConnection.html" title="Phpcraft\\ClientConnection" alt="" coords="274,56,461,83"/>
+<area shape="rect" id="node3" href="$classPhpcraft_1_1Server.html" title="Phpcraft\\Server" alt="" coords="307,5,428,32"/>
+<area shape="rect" id="node4" href="$classPhpcraft_1_1Connection.html" title="Phpcraft\\Connection" alt="" coords="39,85,189,112"/>
+<area shape="rect" id="node5" href="$classPhpcraft_1_1ServerConnection.html" title="Phpcraft\\ServerConnection" alt="" coords="271,107,464,133"/>
 </map>

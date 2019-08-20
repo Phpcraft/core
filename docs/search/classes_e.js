@@ -19,5 +19,6 @@ var searchData=
   ['setexperiencepacket',['SetExperiencePacket',['../classPhpcraft_1_1Packet_1_1SetExperiencePacket.html',1,'Phpcraft::Packet']]],
   ['setslotpacket',['SetSlotPacket',['../classPhpcraft_1_1Packet_1_1SetSlotPacket.html',1,'Phpcraft::Packet']]],
   ['slot',['Slot',['../classPhpcraft_1_1Slot.html',1,'Phpcraft']]],
-  ['spawnmobpacket',['SpawnMobPacket',['../classPhpcraft_1_1Packet_1_1SpawnMobPacket.html',1,'Phpcraft::Packet']]]
+  ['spawnmobpacket',['SpawnMobPacket',['../classPhpcraft_1_1Packet_1_1SpawnMobPacket.html',1,'Phpcraft::Packet']]],
+  ['stringargumentprovider',['StringArgumentProvider',['../classPhpcraft_1_1Command_1_1StringArgumentProvider.html',1,'Phpcraft::Command']]]
 ];

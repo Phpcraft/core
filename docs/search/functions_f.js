@@ -22,6 +22,7 @@ var searchData=
   ['readuuid',['readUUID',['../classPhpcraft_1_1Connection.html#a701de517989aad734ff3a01dfa631e5d',1,'Phpcraft::Connection']]],
   ['readvarint',['readVarInt',['../classPhpcraft_1_1Connection.html#a31e927e43beb7463823b8fbb970b49c6',1,'Phpcraft::Connection']]],
   ['recursivelydelete',['recursivelyDelete',['../classPhpcraft_1_1Phpcraft.html#aa1d3fc7f04e2cbc09b6aecf824444c6d',1,'Phpcraft::Phpcraft']]],
+  ['registercommand',['registerCommand',['../classPhpcraft_1_1Plugin_1_1Plugin.html#a24935295241c349dcf63622daa37d70d',1,'Phpcraft::Plugin::Plugin']]],
   ['releases',['releases',['../classPhpcraft_1_1Versions.html#a7dec6dde245708976d70b171f4c30ccc',1,'Phpcraft::Versions']]],
   ['render',['render',['../classPhpcraft_1_1FancyUserInterface.html#a743f30aeb5d1007ace49a0c8dfbf0946',1,'Phpcraft\FancyUserInterface\render()'],['../classPhpcraft_1_1UserInterface.html#ad80d10131ece8fa438e4bf526faf6234',1,'Phpcraft\UserInterface\render()']]],
   ['resolve',['resolve',['../classPhpcraft_1_1Phpcraft.html#aa55d0acee3de518a9075d433d396c344',1,'Phpcraft::Phpcraft']]],
