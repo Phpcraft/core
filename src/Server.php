@@ -2,7 +2,7 @@
 namespace Phpcraft;
 use hellsh\UUID;
 use Phpcraft\
-{Command\CommandSender, Exception\IOException, Packet\KeepAliveRequestPacket, Packet\ServerboundPacket};
+{Command\CommandSender, Enum\ChatPosition, Exception\IOException, Packet\KeepAliveRequestPacket, Packet\ServerboundPacket};
 class Server implements CommandSender
 {
 	/**
@@ -333,9 +333,10 @@ class Server implements CommandSender
 	 * Sends a message to all players (clients in playing state).
 	 *
 	 * @param string|array $message
+	 * @param int $position
 	 * @return Server $this
 	 */
-	function broadcast($message): Server
+	function broadcast($message, int $position = ChatPosition::SYSTEM): Server
 	{
 		if(is_string($message))
 		{
@@ -345,7 +346,7 @@ class Server implements CommandSender
 		{
 			try
 			{
-				$con->sendMessage($message);
+				$con->sendMessage($message, $position);
 			}
 			catch(IOException $e)
 			{
