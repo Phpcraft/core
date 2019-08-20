@@ -330,24 +330,6 @@ class Server implements CommandSender
 	}
 
 	/**
-	 * Returns all clients in state 3 (playing).
-	 *
-	 * @return ClientConnection[]
-	 */
-	function getPlayers(): array
-	{
-		$clients = [];
-		foreach($this->clients as $client)
-		{
-			if($client->state == 3)
-			{
-				array_push($clients, $client);
-			}
-		}
-		return $clients;
-	}
-
-	/**
 	 * Sends a message to all players (clients in playing state).
 	 *
 	 * @param string|array $message
@@ -370,6 +352,24 @@ class Server implements CommandSender
 			}
 		}
 		return $this;
+	}
+
+	/**
+	 * Returns all clients in state 3 (playing).
+	 *
+	 * @return ClientConnection[]
+	 */
+	function getPlayers(): array
+	{
+		$clients = [];
+		foreach($this->clients as $client)
+		{
+			if($client->state == 3)
+			{
+				array_push($clients, $client);
+			}
+		}
+		return $clients;
 	}
 
 	/**

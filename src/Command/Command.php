@@ -11,6 +11,11 @@ use ReflectionParameter;
 use RuntimeException;
 class Command
 {
+	static private $argument_providers;
+	/**
+	 * @var $last_declared_classes array
+	 */
+	static private $last_declared_classes = [];
 	/**
 	 * @var $plugin Plugin
 	 */
@@ -27,11 +32,6 @@ class Command
 	 * @var $params ReflectionParameter[]
 	 */
 	private $params;
-	static private $argument_providers;
-	/**
-	 * @var $last_declared_classes array
-	 */
-	static private $last_declared_classes = [];
 
 	function __construct(Plugin $plugin, array $names, callable $function)
 	{
@@ -64,7 +64,8 @@ class Command
 				{
 					if(is_subclass_of($class, ArgumentProvider::class))
 					{
-						$type = (new ReflectionClass($class))->getMethod("getValue")->getReturnType();
+						$type = (new ReflectionClass($class))->getMethod("getValue")
+															 ->getReturnType();
 						if($type === null)
 						{
 							throw new DomainException("$class's getValue() function doesn't have an explicit return type");
@@ -163,7 +164,9 @@ class Command
 				break;
 			}
 			/** @noinspection PhpDeprecationInspection */
-			$provider = self::$argument_providers[$param->getType() instanceof ReflectionNamedType ? $param->getType()->getName() : $param->getType()->__toString()];
+			$provider = self::$argument_providers[$param->getType() instanceof ReflectionNamedType ? $param->getType()
+																										   ->getName() : $param->getType()
+																															   ->__toString()];
 			$arg = new $provider($args[$i++]);
 			/**
 			 * @var $arg ArgumentProvider
@@ -181,5 +184,6 @@ class Command
 		call_user_func_array($this->function, $args_);
 	}
 }
+
 StringArgumentProvider::noop();
 IntegerArgumentProvider::noop();

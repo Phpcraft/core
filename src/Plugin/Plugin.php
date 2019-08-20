@@ -1,7 +1,6 @@
 <?php
 namespace Phpcraft\Plugin;
 use DomainException;
-use RuntimeException;
 use InvalidArgumentException;
 use Phpcraft\Command\Command;
 use Phpcraft\Event\Event;
@@ -9,6 +8,7 @@ use ReflectionClass;
 use ReflectionException;
 use ReflectionFunction;
 use ReflectionNamedType;
+use RuntimeException;
 class Plugin
 {
 	/**

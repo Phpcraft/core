@@ -10,8 +10,6 @@ abstract class ArgumentProvider
 {
 	abstract function __construct(string $arg);
 
-	abstract function getValue();
-
 	/**
 	 * Does nothing and shouldn't do anything.
 	 * This function is called on "native" argument providers by Command so they are forced into existence.
@@ -19,6 +17,8 @@ abstract class ArgumentProvider
 	static function noop()
 	{
 	}
+
+	abstract function getValue();
 
 	function isFinished(): bool
 	{
