@@ -41,15 +41,14 @@ class Command
 		try
 		{
 			$params = (new ReflectionFunction($this->function))->getParameters();
-			if(count($params) < 1)
+			if(count($params) > 0)
 			{
-				throw new DomainException("/".$this->getCanonicalName()." is missing the first parameter which should be ".CommandSender::class);
-			}
-			$type = $params[0]->getType();
-			/** @noinspection PhpDeprecationInspection */
-			if($type !== null && ($type->isBuiltin() || ($type instanceof ReflectionNamedType ? $type->getName() : $type->__toString()) != CommandSender::class))
-			{
-				throw new DomainException("/".$this->getCanonicalName()."'s first parameter's type should be ".CommandSender::class." or not restricted at all");
+				$type = $params[0]->getType();
+				/** @noinspection PhpDeprecationInspection */
+				if($type !== null && ($type->isBuiltin() || ($type instanceof ReflectionNamedType ? $type->getName() : $type->__toString()) != CommandSender::class))
+				{
+					throw new DomainException("/".$this->getCanonicalName()."'s first parameter's type should be ".CommandSender::class." or not restricted at all");
+				}
 			}
 			$classes = get_declared_classes();
 			if($new_classes = array_diff($classes, self::$last_declared_classes))
