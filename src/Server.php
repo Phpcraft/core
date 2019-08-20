@@ -383,7 +383,7 @@ class Server implements CommandSender
 	 */
 	function sendMessage($message): Server
 	{
-		echo Phpcraft::chatToText($message, Phpcraft::FORMAT_ANSI);
+		echo Phpcraft::chatToText($message, Phpcraft::FORMAT_ANSI)."\n\e[m";
 		return $this;
 	}
 
@@ -399,5 +399,10 @@ class Server implements CommandSender
 		{
 			$client->disconnect($reason);
 		}
+	}
+
+	function isOP(): bool
+	{
+		return true;
 	}
 }

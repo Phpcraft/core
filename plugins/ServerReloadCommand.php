@@ -1,19 +1,23 @@
 <?php
 /**
- * This plugin provides the ".reload" console command.
+ * This plugin provides the "/reload" command to the server console.
  *
  * @var Plugin $this
  */
 use Phpcraft\
-{Event\ServerConsoleEvent, Plugin\Plugin, Plugin\PluginManager};
-$this->on(function(ServerConsoleEvent $event)
+{Command\CommandSender, Plugin\Plugin, Plugin\PluginManager};
+$this->registerCommand("reload", function(CommandSender &$sender)
 {
-	if(!$event->cancelled && $event->message == ".reload")
+	if(!$sender->isOP())
 	{
-		PluginManager::unloadAllPlugins();
-		echo "Unloaded all plugins.\nLoading plugins...\n";
-		PluginManager::loadPlugins();
-		echo count(PluginManager::$loaded_plugins)." plugins loaded.\n";
-		$event->cancelled = true;
+		$sender->sendMessage([
+			"text" => "You need to be OP in order to use this command.",
+			"color" => "red"
+		]);
+		return;
 	}
+	PluginManager::unloadAllPlugins();
+	echo "Unloaded all plugins.\nLoading plugins...\n";
+	PluginManager::loadPlugins();
+	echo count(PluginManager::$loaded_plugins)." plugins loaded.\n";
 });

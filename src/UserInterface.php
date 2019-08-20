@@ -41,7 +41,7 @@ class UserInterface
 	 */
 	function add(string $message)
 	{
-		echo "\x1B[m{$message}\n\x1B[m";
+		echo "\x1B[m{$message}\n\e[m";
 		return $this;
 	}
 }

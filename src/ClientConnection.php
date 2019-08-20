@@ -493,4 +493,9 @@ class ClientConnection extends Connection implements CommandSender
 		$packet->send($this);
 		return $this;
 	}
+
+	function isOP(): bool
+	{
+		return false;
+	}
 }

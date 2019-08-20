@@ -7,7 +7,7 @@ if(empty($argv))
 }
 require "vendor/autoload.php";
 use Phpcraft\
-{ClientConnection, Command\Command, Event\ServerChatEvent, Event\ServerConsoleEvent, Event\ServerFlyingChangeEvent, Event\ServerJoinEvent, Event\ServerLeaveEvent, Event\ServerOnGroundChangeEvent, Event\ServerPacketEvent, Event\ServerTickEvent, FancyUserInterface, Phpcraft, Plugin\PluginManager, Server, UserInterface, Versions};
+{ClientConnection, Command\Command, Command\CommandSender, Event\ServerChatEvent, Event\ServerConsoleEvent, Event\ServerFlyingChangeEvent, Event\ServerJoinEvent, Event\ServerLeaveEvent, Event\ServerOnGroundChangeEvent, Event\ServerPacketEvent, Event\ServerTickEvent, FancyUserInterface, Phpcraft, Plugin\PluginManager, Server, UserInterface, Versions};
 $options = [
 	"offline" => false,
 	"port" => 25565,
@@ -215,6 +215,47 @@ $server->join_function = function(ClientConnection $con)
 		}
 	}
 };
+function handleCommand(CommandSender &$sender, string $msg): bool
+{
+	if(substr($msg, 0, 1) == "/")
+	{
+		$args = explode(" ", $msg);
+		$cmd = Command::get(substr($args[0], 1));
+		if($cmd === null)
+		{
+			if(substr($msg, 1, 4) == "help" || Command::get("help") === null)
+			{
+				$sender->sendMessage([
+					"text" => "Unknown command. I would suggest using /help, but that's also not a known command on this shitty server.",
+					"color" => "red"
+				]);
+			}
+			else
+			{
+				$sender->sendMessage([
+					"text" => "Unknown command. Use /help to get a list of commands.",
+					"color" => "red"
+				]);
+			}
+		}
+		else
+		{
+			try
+			{
+				$cmd->call($sender, array_slice($args, 1));
+			}
+			catch(Exception $e)
+			{
+				$sender->sendMessage([
+					"text" => $e->getMessage(),
+					"color" => "red"
+				]);
+			}
+		}
+		return true;
+	}
+	return false;
+}
 $server->packet_function = function(ClientConnection $con, $packet_name)
 {
 	global $options, $ui, $server;
@@ -261,44 +302,7 @@ $server->packet_function = function(ClientConnection $con, $packet_name)
 	else if($packet_name == "serverbound_chat_message")
 	{
 		$msg = $con->readString($con->protocol_version < 314 ? 100 : 256);
-		if(substr($msg, 0, 1) == "/")
-		{
-			$args = explode(" ", $msg);
-			$cmd = Command::get(substr($args[0], 1));
-			if($cmd === null)
-			{
-				if(substr($msg, 1, 4) == "help" || Command::get("help") === null)
-				{
-					$con->sendMessage([
-						"text" => "Unknown command. I would suggest using /help, but that's also not a known command on this shitty server.",
-						"color" => "red"
-					]);
-				}
-				else
-				{
-					$con->sendMessage([
-						"text" => "Unknown command. Use /help to get a list of commands.",
-						"color" => "red"
-					]);
-				}
-			}
-			else
-			{
-				try
-				{
-					$cmd->call($con, array_slice($args, 1));
-				}
-				catch(Exception $e)
-				{
-					$con->sendMessage([
-						"text" => $e->getMessage(),
-						"color" => "red"
-					]);
-				}
-			}
-			return;
-		}
-		if(PluginManager::fire(new ServerChatEvent($server, $con, $msg)))
+		if(handleCommand($con, $msg) || PluginManager::fire(new ServerChatEvent($server, $con, $msg)))
 		{
 			return;
 		}
@@ -386,7 +390,7 @@ do
 	$server->handle();
 	while($msg = $ui->render(true))
 	{
-		if(PluginManager::fire(new ServerConsoleEvent($server, $msg)))
+		if(handleCommand($server, $msg) || PluginManager::fire(new ServerConsoleEvent($server, $msg)))
 		{
 			continue;
 		}
@@ -402,20 +406,7 @@ do
 			]
 		];
 		$ui->add(Phpcraft::chatToText($msg, 1));
-		$msg = json_encode($msg);
-		foreach($server->getPlayers() as $c)
-		{
-			try
-			{
-				$c->startPacket("clientbound_chat_message");
-				$c->writeString($msg);
-				$c->writeByte(1);
-				$c->send();
-			}
-			catch(Exception $ignored)
-			{
-			}
-		}
+		$server->broadcast(json_encode($msg));
 	}
 	PluginManager::fire(new ServerTickEvent($server));
 	if(($remaining = (0.050 - (microtime(true) - $start))) > 0)

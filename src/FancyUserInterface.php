@@ -38,7 +38,7 @@ class FancyUserInterface extends UserInterface
 	{
 		$this->title = $title;
 		$this->optional_info = $optional_info;
-		echo "\x1B[2J";
+		echo "\e[2J";
 		readline_callback_handler_remove();
 		readline_callback_handler_install("", function()
 		{
@@ -52,6 +52,10 @@ class FancyUserInterface extends UserInterface
 	{
 		ob_start(function(string $buffer)
 		{
+			if(substr($buffer, -4) == "\n\e[m")
+			{
+				$buffer = substr($buffer, 0, -4);
+			}
 			foreach(explode("\n", $buffer) as $line)
 			{
 				if($line = trim($line))
@@ -199,7 +203,7 @@ class FancyUserInterface extends UserInterface
 				}
 				else
 				{
-					if($char == "\x1B")
+					if($char == "\e")
 					{
 						$char = "^";
 					}
@@ -292,7 +296,7 @@ class FancyUserInterface extends UserInterface
 			}
 			if(!$this->rendered_title)
 			{
-				echo "\x1B[1;1H\x1B[30;107m{$this->title}";
+				echo "\e[1;1H\e[30;107m{$this->title}";
 				$len = mb_strlen($this->title, "utf-8");
 				if($width > ($len + mb_strlen($this->optional_info, "utf-8")))
 				{
@@ -320,20 +324,20 @@ class FancyUserInterface extends UserInterface
 			for($i = $height - $input_height - 1; $i > 1; $i--)
 			{
 				$message = @$gol_tahc[$j++];
-				$len = mb_strlen(preg_replace('/\x1B\[[0-9]{1,3}(;[0-9]{1,3})*m/i', "", $message), "utf-8");
+				$len = mb_strlen(preg_replace('/\e\[[0-9]{1,3}(;[0-9]{1,3})*m/i', "", $message), "utf-8");
 				if($len > $width)
 				{
 					$i -= floor($len / $width);
 				}
-				//echo "\x1B[{$i};1H\x1B[97;40m{$message}\x1B[97;44m";
-				echo "\x1B[{$i};1H\x1B[97;40m{$message}";
+				//echo "\e[{$i};1H\e[97;40m{$message}\e[97;44m";
+				echo "\e[{$i};1H\e[97;40m{$message}";
 				$line_len = ($len == 0 ? 0 : ($len - (floor(($len - 1) / $width) * $width)));
 				if($line_len < $width)
 				{
 					echo str_repeat(" ", intval($width - $line_len));
 				}
 			}
-			echo "\x1B[".($height - $input_height).";1H\x1B[97;40m".$this->input_prefix.$this->input_buffer;
+			echo "\e[".($height - $input_height).";1H\e[97;40m".$this->input_prefix.$this->input_buffer;
 			$cursor_width = (mb_strlen($this->input_prefix, "utf-8") + $this->cursorpos);
 			if($cursor_width < $width)
 			{
@@ -353,7 +357,7 @@ class FancyUserInterface extends UserInterface
 			{
 				echo str_repeat(" ", intval($width - $line_len));
 			}
-			echo "\x1B[{$cursor_height};{$cursor_width}H";
+			echo "\e[{$cursor_height};{$cursor_width}H";
 			if(count($this->chat_log) > $this->chat_log_cap)
 			{
 				$this->chat_log = array_slice($this->chat_log, 1);
