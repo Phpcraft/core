@@ -26,6 +26,7 @@ else
 {
 	$con->read_buffer = file_get_contents($argv[1]);
 }
+/** @noinspection PhpUnhandledExceptionInspection */
 $tag = $con->readNBT();
 if($con->read_buffer !== "")
 {

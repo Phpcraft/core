@@ -1,6 +1,9 @@
 <?php
-namespace Phpcraft;
+namespace Phpcraft\Plugin;
+use DomainException;
+use RuntimeException;
 use InvalidArgumentException;
+use Phpcraft\Command\Command;
 use Phpcraft\Event\Event;
 use ReflectionClass;
 use ReflectionException;
@@ -14,6 +17,12 @@ class Plugin
 	 * @var string $name
 	 */
 	public $name;
+	/**
+	 * The namespace of the plugin.
+	 *
+	 * @var string $namespace
+	 */
+	public $namespace;
 	/**
 	 * An associative array of associative arrays with a 'function' and 'priority'.
 	 *
@@ -32,6 +41,7 @@ class Plugin
 	function __construct(string $folder, string $name)
 	{
 		$this->name = $name;
+		$this->namespace = strtolower($name);
 		/** @noinspection PhpIncludeInspection */
 		require "$folder/$name.php";
 	}
@@ -42,7 +52,7 @@ class Plugin
 	 * @param Event $event
 	 * @return boolean True if the event was cancelled.
 	 */
-	function fire(Event $event)
+	function fire(Event $event): bool
 	{
 		$type = get_class($event);
 		if(isset($this->event_handlers[$type]))
@@ -60,12 +70,11 @@ class Plugin
 	 * @return Plugin $this
 	 * @throws InvalidArgumentException
 	 */
-	protected function on(callable $callable, int $priority = Event::PRIORITY_NORMAL)
+	protected function on(callable $callable, int $priority = Event::PRIORITY_NORMAL): Plugin
 	{
 		try
 		{
-			$ref = new ReflectionFunction($callable);
-			$params = $ref->getParameters();
+			$params = (new ReflectionFunction($callable))->getParameters();
 			if(count($params) != 1)
 			{
 				throw new InvalidArgumentException("Callable needs to have exactly one parameter.");
@@ -90,8 +99,51 @@ class Plugin
 		}
 		catch(ReflectionException $e)
 		{
-			die("Unexpected exception: ".get_class($e).": ".$e->getMessage()."\n".$e->getTraceAsString()."\n");
+			throw new RuntimeException("Unexpected exception: ".get_class($e).": ".$e->getMessage()."\n".$e->getTraceAsString());
 		}
+		return $this;
+	}
+
+	/**
+	 * Registers a command.
+	 *
+	 * @param $names string|string[] One or more names without the / prefix. So, if you want a "/gamemode" comand, you provide "gamemode", and if you want a "//wand" command, you provide "/wand".
+	 * @param callable $function The function called when the command is executed with the first argument being a CommandSender. Further arguments determine the command's arguments, e.g. <code>-&gt;registerCommand("gamemode", function(CommandSender &$sender, int $gamemode){...})</code> would result in the command <code>/gamemode &lt;gamemode&gt;</code> where the gamemode argument only allows integers.
+	 * @return Plugin $this
+	 */
+	protected function registerCommand($names, callable $function): Plugin
+	{
+		if(is_string($names))
+		{
+			$names = [$names];
+		}
+		$names_ = [];
+		foreach($names as $name)
+		{
+			foreach(PluginManager::$registered_commands as $command)
+			{
+				if(in_array($this->namespace.":".$name, $command->names))
+				{
+					throw new DomainException("/{$name} is already registered");
+				}
+			}
+			array_push($names_, $this->namespace.":".$name);
+			foreach(PluginManager::$registered_commands as $command)
+			{
+				if(strpos($name, ":") !== false)
+				{
+					throw new DomainException("Invalid command name: /{$name}");
+				}
+				if(in_array($name, $command->names))
+				{
+					trigger_error("/{$name} was already registered by {$command->plugin->name}; it will still be accessible using /{$this->namespace}:{$name}, but maybe sort out your plugins, will ya?");
+					continue 2;
+				}
+			}
+			array_push($names_, $name);
+		}
+		assert(count($names_) > 0);
+		array_push(PluginManager::$registered_commands, new Command($this, $names_, $function));
 		return $this;
 	}
 

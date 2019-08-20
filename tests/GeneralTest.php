@@ -1,7 +1,7 @@
 <?php /** @noinspection PhpUnused PhpUnhandledExceptionInspection */
 require __DIR__."/../vendor/autoload.php";
 use Phpcraft\
-{Connection, Counter, EntityBase, EntityLiving, Item, BlockState, Phpcraft, Versions};
+{BlockState, Connection, Counter, EntityBase, EntityLiving, Item, Phpcraft, Versions};
 class GeneralTest
 {
 	function testTextToChat()

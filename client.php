@@ -7,7 +7,7 @@ if(empty($argv))
 }
 require "vendor/autoload.php";
 use Phpcraft\
-{Account, AssetsManager, Event\ClientConsoleEvent, Event\ClientJoinEvent, Event\ClientPacketEvent, FancyUserInterface, Packet\ClientboundPacket, Packet\KeepAliveRequestPacket, Packet\ServerboundBrandPluginMessagePacket, Phpcraft, PluginManager, Position, ServerConnection, UserInterface, Versions};
+{Account, AssetsManager, Event\ClientConsoleEvent, Event\ClientJoinEvent, Event\ClientPacketEvent, FancyUserInterface, Packet\ClientboundPacket, Packet\KeepAliveRequestPacket, Packet\ServerboundBrandPluginMessagePacket, Phpcraft, Plugin\PluginManager, Position, ServerConnection, UserInterface, Versions};
 $options = [];
 for($i = 1; $i < count($argv); $i++)
 {
@@ -538,7 +538,7 @@ do
 				$message = $con->readString();
 				if($con->readByte() != 2)
 				{
-					$ui->add(Phpcraft::chatToText(json_decode($message, true), 1, $translations));
+					$ui->add(Phpcraft::chatToText(json_decode($message, true), Phpcraft::FORMAT_ANSI, $translations));
 				}
 			}
 			else if($packet_name == "player_info")
@@ -842,7 +842,7 @@ do
 			}
 			else if($packet_name == "disconnect")
 			{
-				$ui->add("Server closed connection: ".Phpcraft::chatToText($con->readString(), 1))
+				$ui->add("Server closed connection: ".Phpcraft::chatToText($con->readString(), Phpcraft::FORMAT_ANSI))
 				   ->render();
 				$reconnect = !isset($options["noreconnect"]);
 				$next_tick = microtime(true) + 10;

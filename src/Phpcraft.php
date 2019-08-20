@@ -1,9 +1,14 @@
 <?php
 namespace Phpcraft;
 use hellsh\UUID;
+use InvalidArgumentException;
 use Phpcraft\Exception\IOException;
 abstract class Phpcraft
 {
+	const FORMAT_NONE = 0;
+	const FORMAT_ANSI = 1;
+	const FORMAT_SILCROW = 2;
+	const FORMAT_AMPERSAND = 3;
 	private static $json_cache = [];
 
 	/**
@@ -333,19 +338,18 @@ abstract class Phpcraft
 	 * Converts a chat object into text.
 	 *
 	 * @param array|string $chat The chat object as an array or string.
-	 * @param integer $format The formatting to convert to: <ul><li>0: None (drop colors and formatting)</li><li>1: ANSI escape codes (for compatible consoles/shells)</li><li>2: Legacy paragraph (§) format</li><li>3: Even more legacy ampersand (&) format</li><li>4: HTML</li></ul>
+	 * @param integer $format The formatting to convert to: <ul><li>0: None (drop colors and formatting)</li><li>1: ANSI escape codes (for compatible terminals)</li><li>2: Paragraph (§) format</li><li>3: Ampersand (&) format</li><li>4: HTML</li></ul>
 	 * @param array $translations The translations array so translated messages look proper.
 	 * @param array $parent Ignore this parameter.
 	 * @return string
 	 */
-	static function chatToText($chat, int $format = 0, array $translations = null, array $parent = [])
+	static function chatToText($chat, int $format = Phpcraft::FORMAT_NONE, array $translations = null, array $parent = [])
 	{
 		if($parent === [])
 		{
 			if($format < 0 || $format > 4)
 			{
-				trigger_error("Format has to be an integer between 0 and 4. Defaulting to 0.");
-				$format = 0;
+				throw new InvalidArgumentException("Format has to be an integer between 0 and 4 inclusive");
 			}
 			if($translations == null)
 			{

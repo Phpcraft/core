@@ -7,7 +7,7 @@ if(empty($argv))
 }
 require "vendor/autoload.php";
 use Phpcraft\
-{ClientConnection, Event\ServerChatEvent, Event\ServerConsoleEvent, Event\ServerFlyingChangeEvent, Event\ServerJoinEvent, Event\ServerLeaveEvent, Event\ServerOnGroundChangeEvent, Event\ServerPacketEvent, Event\ServerTickEvent, FancyUserInterface, Phpcraft, PluginManager, Server, UserInterface, Versions};
+{ClientConnection, Command\Command, Event\ServerChatEvent, Event\ServerConsoleEvent, Event\ServerFlyingChangeEvent, Event\ServerJoinEvent, Event\ServerLeaveEvent, Event\ServerOnGroundChangeEvent, Event\ServerPacketEvent, Event\ServerTickEvent, FancyUserInterface, Phpcraft, Plugin\PluginManager, Server, UserInterface, Versions};
 $options = [
 	"offline" => false,
 	"port" => 25565,
@@ -261,6 +261,43 @@ $server->packet_function = function(ClientConnection $con, $packet_name)
 	else if($packet_name == "serverbound_chat_message")
 	{
 		$msg = $con->readString($con->protocol_version < 314 ? 100 : 256);
+		if(substr($msg, 0, 1) == "/")
+		{
+			$args = explode(" ", $msg);
+			$cmd = Command::get(substr($args[0], 1));
+			if($cmd === null)
+			{
+				if(substr($msg, 1, 4) == "help" || Command::get("help") === null)
+				{
+					$con->sendMessage([
+						"text" => "Unknown command. I would suggest using /help, but that's also not a known command on this shitty server.",
+						"color" => "red"
+					]);
+				}
+				else
+				{
+					$con->sendMessage([
+						"text" => "Unknown command. Use /help to get a list of commands.",
+						"color" => "red"
+					]);
+				}
+			}
+			else
+			{
+				try
+				{
+					$cmd->call($con, array_slice($args, 1));
+				}
+				catch(Exception $e)
+				{
+					$con->sendMessage([
+						"text" => $e->getMessage(),
+						"color" => "red"
+					]);
+				}
+			}
+			return;
+		}
 		if(PluginManager::fire(new ServerChatEvent($server, $con, $msg)))
 		{
 			return;

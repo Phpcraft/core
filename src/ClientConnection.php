@@ -4,9 +4,9 @@ use DomainException;
 use hellsh\UUID;
 use InvalidArgumentException;
 use Phpcraft\
-{Enum\ChatPosition, Enum\Gamemode, Exception\IOException, Packet\ClientboundAbilitiesPacket, Packet\ClientboundPacket};
+{Command\CommandSender, Enum\ChatPosition, Enum\Gamemode, Exception\IOException, Packet\ClientboundAbilitiesPacket, Packet\ClientboundPacket};
 /** A server-to-client connection. */
-class ClientConnection extends Connection
+class ClientConnection extends Connection implements CommandSender
 {
 	/**
 	 * The hostname the client had connected to.

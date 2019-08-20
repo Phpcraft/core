@@ -1,5 +1,5 @@
 <?php
-namespace Phpcraft;
+namespace Phpcraft\Plugin;
 use Exception;
 use Phpcraft\
 {Command\Command, Event\Event};
@@ -37,6 +37,12 @@ abstract class PluginManager
 				}
 			}
 		}
+	}
+
+	static function unloadAllPlugins()
+	{
+		PluginManager::$loaded_plugins = [];
+		PluginManager::$registered_commands = [];
 	}
 
 	/**

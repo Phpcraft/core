@@ -1,9 +1,9 @@
 <?php
 namespace Phpcraft;
-use Phpcraft\
-{Exception\IOException, Packet\KeepAliveRequestPacket, Packet\ServerboundPacket};
 use hellsh\UUID;
-class Server
+use Phpcraft\
+{Command\CommandSender, Exception\IOException, Packet\KeepAliveRequestPacket, Packet\ServerboundPacket};
+class Server implements CommandSender
 {
 	/**
 	 * The stream the server listens for new connections on.
@@ -177,7 +177,7 @@ class Server
 	 *
 	 * @return Server $this
 	 */
-	function handle()
+	function handle(): Server
 	{
 		foreach($this->clients as $i => $con)
 		{
@@ -306,7 +306,7 @@ class Server
 	 *
 	 * @return bool
 	 */
-	function isOnlineMode()
+	function isOnlineMode(): bool
 	{
 		return $this->private_key !== null;
 	}
@@ -334,7 +334,7 @@ class Server
 	 *
 	 * @return ClientConnection[]
 	 */
-	function getPlayers()
+	function getPlayers(): array
 	{
 		$clients = [];
 		foreach($this->clients as $client)
@@ -345,6 +345,45 @@ class Server
 			}
 		}
 		return $clients;
+	}
+
+	/**
+	 * Sends a message to all players (clients in playing state).
+	 *
+	 * @param string|array $message
+	 * @return Server $this
+	 */
+	function broadcast($message): Server
+	{
+		if(is_string($message))
+		{
+			$message = Phpcraft::textToChat($message);
+		}
+		foreach(self::getPlayers() as $con)
+		{
+			try
+			{
+				$con->sendMessage($message);
+			}
+			catch(IOException $e)
+			{
+			}
+		}
+		return $this;
+	}
+
+	/**
+	 * Prints a message to the console.
+	 * Available in accordance with the CommandSender interface.
+	 * If you want to print to console specifically, just use PHP's `echo`.
+	 *
+	 * @param array|string $message
+	 * @return Server $this
+	 */
+	function sendMessage($message): Server
+	{
+		echo Phpcraft::chatToText($message, Phpcraft::FORMAT_ANSI);
+		return $this;
 	}
 
 	/**

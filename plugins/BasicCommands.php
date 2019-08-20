@@ -5,47 +5,59 @@
  * @var Plugin $this
  */
 use Phpcraft\
-{ClientConnection, Event\ServerChatEvent, Plugin};
-$this->on(function(ServerChatEvent $event)
+{ClientConnection, Command\CommandSender, Plugin\Plugin, Plugin\PluginManager};
+$this->registerCommand("help", function(CommandSender &$sender)
 {
-	if($event->cancelled || substr($event->message, 0, 1) != "/")
+	$commands = [];
+	foreach(PluginManager::$registered_commands as $command)
 	{
-		return;
+		array_push($commands, $command->getSyntax());
 	}
-	$con = $event->client;
-	assert($con instanceof ClientConnection);
-	if(substr($event->message, 0, 11) == "/abilities ")
-	{
-		$con->startPacket("clientbound_abilities");
-		$con->writeByte(hexdec(substr($event->message, 11, 1)));
-		$con->writeFloat(0.05);
-		$con->writeFloat(0.1);
-		$con->send();
-	}
-	else if(substr($event->message, 0, 10) == "/gamemode ")
-	{
-		$gamemode = intval(substr($event->message, 10));
-		$con->setGamemode($gamemode);
-		$con->startPacket("player_info");
-		$con->writeVarInt(1);
-		$con->writeVarInt(1);
-		$con->writeUUID($con->uuid);
-		$con->writeVarInt($gamemode);
-		$con->send();
-	}
-	else if(substr($event->message, 0, 10) == "/metadata ")
-	{
-		$con->startPacket("entity_metadata");
-		$con->writeVarInt($con->eid);
-		$con->writeByte(0);
-		$con->writeVarInt(0);
-		$con->writeByte(hexdec(substr($event->message, 10, 2)));
-		$con->writeByte(0xFF);
-		$con->send();
-	}
-	else
-	{
-		$con->sendMessage("That's not any command I know. Try /abilities <0-F>, /gamemode <0-3>, or /metadata <00-FF>.");
-	}
-	$event->cancelled = true;
-});
+	$sender->sendMessage(["text" => "I know the following commands:\n".join("\n", $commands)]);
+})
+	 ->registerCommand([
+		 "gamemode",
+		 "gm"
+	 ], function(CommandSender &$client, int $gamemode)
+	 {
+		 if(!$client instanceof ClientConnection)
+		 {
+			 $client->sendMessage("This command is only for players.");
+			 return;
+		 }
+		 $client->setGamemode($gamemode);
+		 $client->startPacket("player_info");
+		 $client->writeVarInt(1);
+		 $client->writeVarInt(1);
+		 $client->writeUUID($client->uuid);
+		 $client->writeVarInt($gamemode);
+		 $client->send();
+	 })
+	 ->registerCommand("abilities", function(CommandSender &$client, $abilities)
+	 {
+		 if(!$client instanceof ClientConnection)
+		 {
+			 $client->sendMessage("This command is only for players.");
+			 return;
+		 }
+		 $client->startPacket("clientbound_abilities");
+		 $client->writeByte(hexdec($abilities));
+		 $client->writeFloat(0.05);
+		 $client->writeFloat(0.1);
+		 $client->send();
+	 })
+	 ->registerCommand("metadata", function(CommandSender &$client, $metadata)
+	 {
+		 if(!$client instanceof ClientConnection)
+		 {
+			 $client->sendMessage("This command is only for players.");
+			 return;
+		 }
+		 $client->startPacket("entity_metadata");
+		 $client->writeVarInt($client->eid);
+		 $client->writeByte(0);
+		 $client->writeVarInt(0);
+		 $client->writeByte(hexdec($metadata));
+		 $client->writeByte(0xFF);
+		 $client->send();
+	 });

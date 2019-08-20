@@ -4,9 +4,9 @@
  *
  * @var Plugin $this
  */
-use Phpcraft\
-{Event\Event, Event\ServerJoinEvent, Event\ServerTickEvent, Packet\AddBossBarPacket, Packet\UpdateBossBarHealthPacket, Packet\UpdateBossBarTitlePacket, Plugin};
 use hellsh\UUID;
+use Phpcraft\
+{Event\Event, Event\ServerJoinEvent, Event\ServerTickEvent, Packet\AddBossBarPacket, Packet\UpdateBossBarHealthPacket, Packet\UpdateBossBarTitlePacket, Plugin\Plugin};
 global $bossbar_i;
 $bossbar_i = 0;
 $this->on(function(ServerJoinEvent $event)

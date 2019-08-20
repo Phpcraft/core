@@ -1,11 +1,11 @@
-<?php
+<?php /** @noinspection PhpComposerExtensionStubsInspection */
 /**
  * Loads a 128x128 image from map.png and displays it to clients as a map.
  *
  * @var Plugin $this
  */
 use Phpcraft\
-{Event\Event, Event\ServerJoinEvent, Item, Nbt\NbtCompound, Nbt\NbtInt, Nbt\NbtString, Packet\MapDataPacket, Packet\SetSlotPacket, Phpcraft, Plugin, Slot};
+{Event\Event, Event\ServerJoinEvent, Item, Nbt\NbtCompound, Nbt\NbtInt, Nbt\NbtString, Packet\MapDataPacket, Packet\SetSlotPacket, Phpcraft, Plugin\Plugin, Slot};
 $WorldImitatorActive = false;
 if(!extension_loaded("gd"))
 {

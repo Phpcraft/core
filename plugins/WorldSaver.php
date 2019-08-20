@@ -5,7 +5,7 @@
  * @var Plugin $this
  */
 use Phpcraft\
-{Connection, Event\ClientJoinEvent, Event\ClientPacketEvent, Plugin};
+{Connection, Event\ClientJoinEvent, Event\ClientPacketEvent, Plugin\Plugin};
 $this->on(function(ClientJoinEvent $event)
 {
 	$fh = fopen("world.bin", "w");
