@@ -74,7 +74,7 @@ abstract class Identifier
 	 * Returns the ID of this Identifier for the given protocol version or null if not applicable.
 	 *
 	 * @param integer $protocol_version
-	 * @return integer
+	 * @return integer|null
 	 */
-	abstract function getId(int $protocol_version): int;
+	abstract function getId(int $protocol_version);
 }

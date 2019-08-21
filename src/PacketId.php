@@ -53,9 +53,9 @@ abstract class PacketId extends Identifier
 	 * Returns null if the packet does not have a class implementation yet.
 	 *
 	 * @param Connection $con
-	 * @return Packet
+	 * @return Packet|null
 	 */
-	abstract function init(Connection $con): Packet;
+	abstract function init(Connection $con);
 
 	protected function _getId(int $protocol_version, string $key, array $name_map)
 	{

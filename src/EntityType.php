@@ -125,9 +125,9 @@ class EntityType extends Identifier
 	 * Returns the ID of this Identifier for the given protocol version or null if not applicable.
 	 *
 	 * @param integer $protocol_version
-	 * @return integer
+	 * @return integer|null
 	 */
-	function getId(int $protocol_version): int
+	function getId(int $protocol_version)
 	{
 		if($protocol_version >= $this->since_protocol_version)
 		{

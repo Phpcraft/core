@@ -54,9 +54,9 @@ class ClientboundPacket extends PacketId
 	 * Returns the ID of this Identifier for the given protocol version or null if not applicable.
 	 *
 	 * @param integer $protocol_version
-	 * @return integer
+	 * @return integer|null
 	 */
-	function getId(int $protocol_version): int
+	function getId(int $protocol_version)
 	{
 		return $protocol_version >= $this->since_protocol_version ? $this->_getId($protocol_version, "toClient", self::nameMap()) : null;
 	}
@@ -66,10 +66,10 @@ class ClientboundPacket extends PacketId
 	 * Returns null if the packet does not have a class implementation yet.
 	 *
 	 * @param Connection $con
-	 * @return Packet
+	 * @return Packet|null
 	 * @throws IOException
 	 */
-	function init(Connection $con): Packet
+	function init(Connection $con)
 	{
 		switch($this->name)
 		{
