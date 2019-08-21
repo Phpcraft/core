@@ -1,7 +1,7 @@
 <?php
 namespace Phpcraft\Enum;
 use hellsh\Enum;
-class ChatPosition extends Enum
+abstract class ChatPosition extends Enum
 {
 	/**
 	 * A message sent by another client, displayed in the chat box.
