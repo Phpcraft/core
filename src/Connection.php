@@ -87,7 +87,6 @@ class Connection
 	 *
 	 * @param array|string $value The chat object or a strings that will be converted into a chat object.
 	 * @return Connection $this
-	 * @throws InvalidArgumentException
 	 */
 	function writeChat($value): Connection
 	{
@@ -415,8 +414,6 @@ class Connection
 	 *
 	 * @param string|integer $packet The name or ID of the new packet.
 	 * @return Connection $this
-	 * @throws DomainException
-	 * @throws InvalidArgumentException
 	 */
 	function startPacket($packet): Connection
 	{
@@ -945,7 +942,6 @@ class Connection
 	 * @param int $type Ignore this parameter.
 	 * @return NbtTag
 	 * @throws IOException
-	 * @throws DomainException
 	 */
 	function readNBT(int $type = 0): NbtTag
 	{

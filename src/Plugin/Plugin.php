@@ -68,7 +68,6 @@ class Plugin
 	 * @param callable $callable The function. The first parameter should explicitly declare its type to be a decendant of Event.
 	 * @param integer $priority The priority of the event handler. The higher the priority, the earlier it will be executed. Use a high value if you plan to cancel the event.
 	 * @return Plugin $this
-	 * @throws InvalidArgumentException
 	 */
 	protected function on(callable $callable, int $priority = Event::PRIORITY_NORMAL): Plugin
 	{

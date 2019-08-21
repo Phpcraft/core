@@ -102,8 +102,6 @@ abstract class EntityMetadata
 	 * @param Connection $con
 	 * @return EntityMetadata $this
 	 * @throws IOException
-	 * @throws DomainException
-	 * @throws InvalidArgumentException
 	 */
 	function read(Connection $con)
 	{
@@ -213,7 +211,6 @@ abstract class EntityMetadata
 	 * @param Connection $con
 	 * @param string $type
 	 * @throws IOException
-	 * @throws DomainException
 	 */
 	private static function ignoreType(Connection $con, string $type)
 	{

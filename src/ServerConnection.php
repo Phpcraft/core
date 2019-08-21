@@ -142,8 +142,6 @@ class ServerConnection extends Connection
 	 *
 	 * @param string|integer $packet The name or ID of the new packet.
 	 * @return Connection $this
-	 * @throws DomainException
-	 * @throws InvalidArgumentException
 	 */
 	function startPacket($packet): Connection
 	{

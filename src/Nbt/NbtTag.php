@@ -2,6 +2,7 @@
 namespace Phpcraft\Nbt;
 use DomainException;
 use Phpcraft\Connection;
+use Phpcraft\Exception\IOException;
 /**
  * The base class for NBT tags.
  *
@@ -16,6 +17,20 @@ abstract class NbtTag
 	 * @var string $name
 	 */
 	public $name;
+
+	/**
+	 * Reads an NbtTag from a binary string.
+	 *
+	 * @param string $nbt
+	 * @return NbtTag
+	 * @throws IOException
+	 */
+	static function fromString(string $nbt): NbtTag
+	{
+		$con = new Connection();
+		$con->read_buffer = $nbt;
+		return $con->readNBT();
+	}
 
 	/**
 	 * Reads an NbtTag from an SNBT string.

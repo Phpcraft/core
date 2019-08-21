@@ -234,8 +234,6 @@ class ClientConnection extends Connection implements CommandSender
 	 *
 	 * @param string|integer $packet The name or ID of the new packet.
 	 * @return Connection $this
-	 * @throws DomainException
-	 * @throws InvalidArgumentException
 	 */
 	function startPacket($packet): Connection
 	{
@@ -424,7 +422,6 @@ class ClientConnection extends Connection implements CommandSender
 	 *
 	 * @param integer $gamemode
 	 * @return ClientConnection $this
-	 * @throws DomainException
 	 * @throws IOException
 	 * @see Gamemode
 	 */

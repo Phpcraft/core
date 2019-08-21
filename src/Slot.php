@@ -1,9 +1,7 @@
 <?php
 namespace Phpcraft;
-use Phpcraft\Nbt\NbtCompound;
-use Phpcraft\Nbt\NbtEnd;
-use Phpcraft\Nbt\NbtString;
-use Phpcraft\Nbt\NbtTag;
+use Phpcraft\Nbt\
+{NbtCompound, NbtEnd, NbtString, NbtTag};
 class Slot
 {
 	const HEAD = 5;

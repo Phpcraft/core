@@ -12,7 +12,7 @@ abstract class Packet
 	 * @return Packet
 	 * @throws IOException
 	 */
-	abstract static function read(Connection $con);
+	abstract static function read(Connection $con): Packet;
 
 	/**
 	 * Returns a binary string containing the payload of the packet.
@@ -21,7 +21,7 @@ abstract class Packet
 	 * @return string
 	 * @throws IOException
 	 */
-	function getPayload(int $protocol_version = -1)
+	function getPayload(int $protocol_version = -1): string
 	{
 		$con = new Connection($protocol_version);
 		$this->send($con);

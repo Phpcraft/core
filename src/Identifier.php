@@ -25,9 +25,9 @@ abstract class Identifier
 	 * Returns an Identifier by its name or null if not found.
 	 *
 	 * @param string $name
-	 * @return static|null
+	 * @return self|null
 	 */
-	static function get(string $name)
+	static function get(string $name): self
 	{
 		$name = strtolower($name);
 		if(substr($name, 0, 10) == "minecraft:")
@@ -47,7 +47,7 @@ abstract class Identifier
 	/**
 	 * Returns everything of this type.
 	 *
-	 * @return Identifier[]
+	 * @return self[]
 	 */
 	abstract static function all();
 
@@ -56,9 +56,9 @@ abstract class Identifier
 	 *
 	 * @param integer $id
 	 * @param integer $protocol_version
-	 * @return static
+	 * @return self
 	 */
-	static function getById(int $id, int $protocol_version): Identifier
+	static function getById(int $id, int $protocol_version): self
 	{
 		foreach(static::all() as $thing)
 		{
