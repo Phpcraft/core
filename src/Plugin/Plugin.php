@@ -116,33 +116,17 @@ class Plugin
 		{
 			$names = [$names];
 		}
-		$names_ = [];
 		foreach($names as $name)
 		{
 			foreach(PluginManager::$registered_commands as $command)
 			{
-				if(in_array($this->namespace.":".$name, $command->names))
+				if(in_array($name, $command->names))
 				{
 					throw new DomainException("/{$name} is already registered");
 				}
 			}
-			array_push($names_, $this->namespace.":".$name);
-			foreach(PluginManager::$registered_commands as $command)
-			{
-				if(strpos($name, ":") !== false)
-				{
-					throw new DomainException("Invalid command name: /{$name}");
-				}
-				if(in_array($name, $command->names))
-				{
-					trigger_error("/{$name} was already registered by {$command->plugin->name}; it will still be accessible using /{$this->namespace}:{$name}, but maybe sort out your plugins, will ya?");
-					continue 2;
-				}
-			}
-			array_push($names_, $name);
 		}
-		assert(count($names_) > 0);
-		array_push(PluginManager::$registered_commands, new Command($this, $names_, $function));
+		array_push(PluginManager::$registered_commands, new Command($this, $names, $function));
 		return $this;
 	}
 

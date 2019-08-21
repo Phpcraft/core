@@ -7,7 +7,7 @@ abstract class PacketId extends Identifier
 	/**
 	 * Returns every ClientboundPacket and ServerboundPacket.
 	 *
-	 * @return self[]
+	 * @return static[]
 	 */
 	static function all(): array
 	{

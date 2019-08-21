@@ -40,7 +40,7 @@ abstract class BossBarPacket extends Packet
 	 * @throws IOException
 	 * @todo Implement every subpacket.
 	 */
-	static function read(Connection $con)
+	static function read(Connection $con): Packet
 	{
 		$uuid = $con->readUuid();
 		$action = gmp_intval($con->readVarInt());

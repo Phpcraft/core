@@ -18,7 +18,7 @@ class JoinGamePacket extends Packet
 	 * @return JoinGamePacket
 	 * @throws IOException
 	 */
-	static function read(Connection $con)
+	static function read(Connection $con): Packet
 	{
 		$packet = new JoinGamePacket();
 		$packet->eid = gmp_intval($con->readInt());

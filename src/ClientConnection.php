@@ -2,7 +2,6 @@
 namespace Phpcraft;
 use DomainException;
 use hellsh\UUID;
-use InvalidArgumentException;
 use Phpcraft\
 {Command\CommandSender, Enum\ChatPosition, Enum\Gamemode, Exception\IOException, Packet\ClientboundAbilitiesPacket, Packet\ClientboundPacket};
 /** A server-to-client connection. */

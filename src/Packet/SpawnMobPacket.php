@@ -70,7 +70,7 @@ class SpawnMobPacket extends Packet
 	 * @return SpawnMobPacket
 	 * @throws IOException
 	 */
-	static function read(Connection $con)
+	static function read(Connection $con): Packet
 	{
 		$eid = gmp_intval($con->readVarInt());
 		if($con->protocol_version >= 49)

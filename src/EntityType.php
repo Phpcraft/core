@@ -16,7 +16,7 @@ class EntityType extends Identifier
 	 *
 	 * @return EntityType[]
 	 */
-	static function all()
+	static function all(): array
 	{
 		if(self::$all_cache === null)
 		{
@@ -127,7 +127,7 @@ class EntityType extends Identifier
 	 * @param integer $protocol_version
 	 * @return integer
 	 */
-	function getId(int $protocol_version)
+	function getId(int $protocol_version): int
 	{
 		if($protocol_version >= $this->since_protocol_version)
 		{
@@ -154,7 +154,7 @@ class EntityType extends Identifier
 	 *
 	 * @return EntityMetadata
 	 */
-	function getMetadata()
+	function getMetadata(): EntityMetadata
 	{
 		return new EntityLiving();
 	}

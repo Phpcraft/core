@@ -31,9 +31,10 @@ abstract class PluginMessagePacket extends Packet
 
 	/**
 	 * @param Connection $con
+	 * @return Packet
 	 * @throws IOException
 	 */
-	static function read(Connection $con)
+	static function read(Connection $con): Packet
 	{
 		$class = get_called_class();
 		$ret = new $class();
@@ -57,6 +58,7 @@ abstract class PluginMessagePacket extends Packet
 			}
 		}
 		$ret->read_($con);
+		return $ret;
 	}
 
 	private static function channelMap()

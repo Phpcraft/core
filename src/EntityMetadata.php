@@ -1,7 +1,6 @@
 <?php
 namespace Phpcraft;
 use DomainException;
-use InvalidArgumentException;
 use LogicException;
 use Phpcraft\Exception\IOException;
 use UnexpectedValueException;

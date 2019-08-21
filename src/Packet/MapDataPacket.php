@@ -63,7 +63,7 @@ class MapDataPacket extends Packet
 	 * @return MapDataPacket
 	 * @throws IOException
 	 */
-	static function read(Connection $con)
+	static function read(Connection $con): Packet
 	{
 		$packet = new MapDataPacket();
 		$packet->mapId = gmp_intval($con->readVarInt());
