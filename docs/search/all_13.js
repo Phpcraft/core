@@ -46,6 +46,7 @@ var searchData=
   ['setgamemode',['setGamemode',['../classPhpcraft_1_1ClientConnection.html#ab83bc7aa368b731af94813d74523886f',1,'Phpcraft::ClientConnection']]],
   ['setslotpacket',['SetSlotPacket',['../classPhpcraft_1_1Packet_1_1SetSlotPacket.html',1,'Phpcraft::Packet']]],
   ['setslotpacket_2ephp',['SetSlotPacket.php',['../SetSlotPacket_8php.html',1,'']]],
+  ['setsnbt',['setSNBT',['../classPhpcraft_1_1Slot.html#ad5c651ddbbeb7d3779bfdad63a1ff35b',1,'Phpcraft::Slot']]],
   ['sha1',['sha1',['../classPhpcraft_1_1Phpcraft.html#a81acb8558a1a03521ee54679e066a7bc',1,'Phpcraft::Phpcraft']]],
   ['slot',['Slot',['../classPhpcraft_1_1Slot.html',1,'Phpcraft\Slot'],['../classPhpcraft_1_1Item.html#aa2098a1be1009e6eb43c14a016e38456',1,'Phpcraft\Item\slot()']]],
   ['slot_2ephp',['Slot.php',['../Slot_8php.html',1,'']]],

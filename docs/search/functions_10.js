@@ -10,6 +10,7 @@ var searchData=
   ['setabilities',['setAbilities',['../classPhpcraft_1_1ClientConnection.html#a224b97346c4c3762b94192217f7b278d',1,'Phpcraft::ClientConnection']]],
   ['setdisplayname',['setDisplayName',['../classPhpcraft_1_1Slot.html#a28ca230ae317e722863efbc9670d610d',1,'Phpcraft::Slot']]],
   ['setgamemode',['setGamemode',['../classPhpcraft_1_1ClientConnection.html#ab83bc7aa368b731af94813d74523886f',1,'Phpcraft::ClientConnection']]],
+  ['setsnbt',['setSNBT',['../classPhpcraft_1_1Slot.html#ad5c651ddbbeb7d3779bfdad63a1ff35b',1,'Phpcraft::Slot']]],
   ['sha1',['sha1',['../classPhpcraft_1_1Phpcraft.html#a81acb8558a1a03521ee54679e066a7bc',1,'Phpcraft::Phpcraft']]],
   ['slot',['slot',['../classPhpcraft_1_1Item.html#aa2098a1be1009e6eb43c14a016e38456',1,'Phpcraft::Item']]],
   ['startpacket',['startPacket',['../classPhpcraft_1_1ClientConnection.html#af43f7e5b67ffd1c48d283c33afc22a49',1,'Phpcraft\ClientConnection\startPacket()'],['../classPhpcraft_1_1Connection.html#ae75b93f971919d518998913181dec6da',1,'Phpcraft\Connection\startPacket()'],['../classPhpcraft_1_1ServerConnection.html#a446ce0b8432847cd35942905b4dbdc83',1,'Phpcraft\ServerConnection\startPacket()']]],
