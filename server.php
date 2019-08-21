@@ -256,6 +256,7 @@ function handleCommand(CommandSender &$sender, string $msg): bool
 	}
 	return false;
 }
+
 $server->packet_function = function(ClientConnection $con, $packet_name)
 {
 	global $options, $ui, $server;

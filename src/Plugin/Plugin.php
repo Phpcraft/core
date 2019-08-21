@@ -119,7 +119,7 @@ class Plugin
 				}
 			}
 		}
-		array_push(PluginManager::$registered_commands, new Command($this, $names, $function));
+		PluginManager::$registered_commands->attach(new Command($this, $names, $function));
 		return $this;
 	}
 

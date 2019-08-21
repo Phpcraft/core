@@ -1,18 +1,18 @@
 <?php
 namespace Phpcraft\Plugin;
 use Exception;
-use Phpcraft\
-{Command\Command, Event\Event};
+use Phpcraft\Event\Event;
+use SplObjectStorage;
 abstract class PluginManager
 {
 	/**
-	 * @var $loaded_plugins Plugin[]
+	 * @var $loaded_plugins SplObjectStorage
 	 */
-	public static $loaded_plugins = [];
+	public static $loaded_plugins;
 	/**
-	 * @var $registered_commands Command[]
+	 * @var $registered_commands SplObjectStorage
 	 */
-	public static $registered_commands = [];
+	public static $registered_commands;
 
 	/**
 	 * Loads all plugins in a folder.
@@ -29,7 +29,7 @@ abstract class PluginManager
 				try
 				{
 					$plugin = new Plugin($plugins_folder, $name);
-					array_push(self::$loaded_plugins, $plugin);
+					self::$loaded_plugins->attach($plugin);
 				}
 				catch(Exception $e)
 				{
@@ -41,8 +41,8 @@ abstract class PluginManager
 
 	static function unloadAllPlugins()
 	{
-		PluginManager::$loaded_plugins = [];
-		PluginManager::$registered_commands = [];
+		PluginManager::$loaded_plugins = new SplObjectStorage();
+		PluginManager::$registered_commands = new SplObjectStorage();
 	}
 
 	/**
@@ -80,3 +80,5 @@ abstract class PluginManager
 		return $event->cancelled;
 	}
 }
+
+PluginManager::unloadAllPlugins();

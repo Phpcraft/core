@@ -120,6 +120,9 @@ class Command
 	{
 		foreach(PluginManager::$registered_commands as $command)
 		{
+			/**
+			 * @var $command Command
+			 */
 			foreach($command->names as $cname)
 			{
 				if($cname == $name)
