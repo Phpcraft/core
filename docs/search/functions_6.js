@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['get',['get',['../classPhpcraft_1_1Command_1_1Command.html#a6cd5003a69eb1d0a416ffcc649d8463a',1,'Phpcraft\Command\Command\get()'],['../classPhpcraft_1_1Identifier.html#a431a14cc7849a1307453e14548d5aa17',1,'Phpcraft\Identifier\get()'],['../classPhpcraft_1_1Item.html#a0897acdd8d9878b7259f60eb1e6a730e',1,'Phpcraft\Item\get()']]],
+  ['get',['get',['../classPhpcraft_1_1Identifier.html#a431a14cc7849a1307453e14548d5aa17',1,'Phpcraft\Identifier\get()'],['../classPhpcraft_1_1Item.html#a0897acdd8d9878b7259f60eb1e6a730e',1,'Phpcraft\Item\get()']]],
   ['getassetindex',['getAssetIndex',['../classPhpcraft_1_1AssetsManager.html#a870a5711a5403082daea74fb17a62cd9',1,'Phpcraft::AssetsManager']]],
   ['getblock',['getBlock',['../classPhpcraft_1_1Item.html#af7cccdb6dee7e09cd46d14011dac74b8',1,'Phpcraft::Item']]],
   ['getbyid',['getById',['../classPhpcraft_1_1Identifier.html#a1d52b958fa53b9d4a77740f42e03477b',1,'Phpcraft::Identifier']]],
