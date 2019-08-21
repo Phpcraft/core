@@ -14,7 +14,7 @@ class ServerboundPacket extends PacketId
 	 *
 	 * @return ServerboundPacket[]
 	 */
-	static function all()
+	static function all(): array
 	{
 		if(self::$all_cache == null)
 		{
@@ -26,7 +26,7 @@ class ServerboundPacket extends PacketId
 		return self::$all_cache;
 	}
 
-	private static function nameMap()
+	private static function nameMap(): array
 	{
 		return [
 			"position_look" => "position_and_look",
@@ -45,7 +45,7 @@ class ServerboundPacket extends PacketId
 	 * @param integer $protocol_version
 	 * @return integer
 	 */
-	function getId(int $protocol_version)
+	function getId(int $protocol_version): int
 	{
 		return $protocol_version >= $this->since_protocol_version ? $this->_getId($protocol_version, "toServer", self::nameMap()) : null;
 	}
@@ -58,7 +58,7 @@ class ServerboundPacket extends PacketId
 	 * @return Packet
 	 * @throws IOException
 	 */
-	function init(Connection $con)
+	function init(Connection $con): Packet
 	{
 		switch($this->name)
 		{

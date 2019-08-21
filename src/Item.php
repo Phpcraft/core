@@ -26,7 +26,7 @@ class Item extends Identifier
 	 * Returns an Identifier by its name or null if not found.
 	 *
 	 * @param string $name
-	 * @return static
+	 * @return Item|null
 	 */
 	static function get(string $name)
 	{
@@ -43,7 +43,7 @@ class Item extends Identifier
 	 *
 	 * @return Item[]
 	 */
-	static function all()
+	static function all(): array
 	{
 		if(self::$all_cache === null)
 		{
@@ -110,7 +110,7 @@ class Item extends Identifier
 	 * @param integer $protocol_version
 	 * @return integer
 	 */
-	function getId(int $protocol_version)
+	function getId(int $protocol_version): int
 	{
 		if($protocol_version >= $this->since_protocol_version)
 		{
@@ -141,11 +141,11 @@ class Item extends Identifier
 	}
 
 	/**
-	 * Returns the related block material.
+	 * Returns the related BlockState.
 	 *
 	 * @return BlockState
 	 */
-	function getBlock()
+	function getBlock(): BlockState
 	{
 		return BlockState::get($this->name);
 	}
@@ -157,7 +157,7 @@ class Item extends Identifier
 	 * @param NbtTag $nbt The NBT data of this item in the slot.
 	 * @return Slot
 	 */
-	function slot(int $count = 1, NbtTag $nbt = null)
+	function slot(int $count = 1, NbtTag $nbt = null): Slot
 	{
 		return new Slot($this, $count, $nbt);
 	}

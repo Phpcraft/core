@@ -14,7 +14,7 @@ class ClientboundPacket extends PacketId
 	 *
 	 * @return ClientboundPacket[]
 	 */
-	static function all()
+	static function all(): array
 	{
 		if(self::$all_cache == null)
 		{
@@ -26,7 +26,7 @@ class ClientboundPacket extends PacketId
 		return self::$all_cache;
 	}
 
-	private static function nameMap()
+	private static function nameMap(): array
 	{
 		return [
 			"spawn_entity" => "spawn_object",
@@ -69,7 +69,7 @@ class ClientboundPacket extends PacketId
 	 * @return Packet
 	 * @throws IOException
 	 */
-	function init(Connection $con)
+	function init(Connection $con): Packet
 	{
 		switch($this->name)
 		{

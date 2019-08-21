@@ -56,7 +56,7 @@ class Slot
 	/**
 	 * Returns the display name of the item in this slot as a chat object or null if not set.
 	 *
-	 * @return array
+	 * @return array|null
 	 */
 	function getDisplayName()
 	{
@@ -76,12 +76,21 @@ class Slot
 		return null;
 	}
 
-	/**
-	 * @return NbtTag
-	 */
-	function getNBT()
+	function getNBT(): NbtTag
 	{
 		return $this->nbt == null ? new NbtEnd() : $this->nbt;
+	}
+
+	/**
+	 * Sets the NBT of the Slot based on the given SNBT string.
+	 *
+	 * @param string $snbt
+	 * @return Slot $this
+	 */
+	function setSNBT(string $snbt): Slot
+	{
+		$this->nbt = NbtTag::fromSNBT($snbt);
+		return $this;
 	}
 
 	/**
@@ -90,7 +99,7 @@ class Slot
 	 * @param array $name The new display name; chat object, or null to clear.
 	 * @return Slot $this
 	 */
-	function setDisplayName(array $name)
+	function setDisplayName(array $name): Slot
 	{
 		$name = json_encode($name);
 		$nbt = $this->getNBT();

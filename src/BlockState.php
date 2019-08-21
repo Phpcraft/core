@@ -24,7 +24,7 @@ class BlockState extends Identifier
 	 * @return BlockState[]
 	 * @todo Actually return *every* BlockState.
 	 */
-	static function all()
+	static function all(): array
 	{
 		if(self::$all_cache === null)
 		{
@@ -44,7 +44,7 @@ class BlockState extends Identifier
 	 * @param integer $protocol_version
 	 * @return integer
 	 */
-	function getId(int $protocol_version)
+	function getId(int $protocol_version): int
 	{
 		if($protocol_version >= $this->since_protocol_version)
 		{
@@ -72,7 +72,7 @@ class BlockState extends Identifier
 	 *
 	 * @return Item[]
 	 */
-	function getDrops()
+	function getDrops(): array
 	{
 		$drops = [];
 		foreach($this->drops as $name)

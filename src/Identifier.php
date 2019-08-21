@@ -25,7 +25,7 @@ abstract class Identifier
 	 * Returns an Identifier by its name or null if not found.
 	 *
 	 * @param string $name
-	 * @return static
+	 * @return static|null
 	 */
 	static function get(string $name)
 	{
@@ -58,7 +58,7 @@ abstract class Identifier
 	 * @param integer $protocol_version
 	 * @return static
 	 */
-	static function getById(int $id, int $protocol_version)
+	static function getById(int $id, int $protocol_version): Identifier
 	{
 		foreach(static::all() as $thing)
 		{
@@ -76,5 +76,5 @@ abstract class Identifier
 	 * @param integer $protocol_version
 	 * @return integer
 	 */
-	abstract function getId(int $protocol_version);
+	abstract function getId(int $protocol_version): int;
 }

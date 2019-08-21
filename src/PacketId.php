@@ -9,7 +9,7 @@ abstract class PacketId extends Identifier
 	 *
 	 * @return PacketId[]
 	 */
-	static function all()
+	static function all(): array
 	{
 		return array_merge(ClientboundPacket::all(), ServerboundPacket::all());
 	}
@@ -34,7 +34,7 @@ abstract class PacketId extends Identifier
 		return array_values($packets);
 	}
 
-	private static function versions()
+	private static function versions(): array
 	{
 		return [
 			472 => "1.14.1",
@@ -55,7 +55,7 @@ abstract class PacketId extends Identifier
 	 * @param Connection $con
 	 * @return Packet
 	 */
-	abstract function init(Connection $con);
+	abstract function init(Connection $con): Packet;
 
 	protected function _getId(int $protocol_version, string $key, array $name_map)
 	{
