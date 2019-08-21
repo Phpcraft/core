@@ -18,12 +18,6 @@ class Plugin
 	 */
 	public $name;
 	/**
-	 * The namespace of the plugin.
-	 *
-	 * @var string $namespace
-	 */
-	public $namespace;
-	/**
 	 * An associative array of associative arrays with a 'function' and 'priority'.
 	 *
 	 * @var array $event_handlers
@@ -41,7 +35,6 @@ class Plugin
 	function __construct(string $folder, string $name)
 	{
 		$this->name = $name;
-		$this->namespace = strtolower($name);
 		/** @noinspection PhpIncludeInspection */
 		require "$folder/$name.php";
 	}
