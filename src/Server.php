@@ -112,7 +112,7 @@ class Server implements CommandSender
 	 *
 	 * @return boolean
 	 */
-	function isOpen()
+	function isOpen(): bool
 	{
 		return $this->stream != null && @feof($this->stream) === false;
 	}
@@ -122,7 +122,7 @@ class Server implements CommandSender
 	 *
 	 * @return Server $this
 	 */
-	function accept()
+	function accept(): Server
 	{
 		while(($stream = @stream_socket_accept($this->stream, 0)) !== false)
 		{
@@ -274,7 +274,7 @@ class Server implements CommandSender
 					if($con->state == 2 && $con->isAuthenticationPending())
 					{
 						$res = $con->handleAuthentication();
-						if(gettype($res) == "array")
+						if(is_array($res))
 						{
 							$con->finishLogin(new UUID($res["id"]), $this->eidCounter);
 							if($this->join_function)

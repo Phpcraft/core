@@ -213,7 +213,7 @@ function loadPlugins()
 	echo "Loading plugins...\n";
 	PluginManager::$loaded_plugins = [];
 	PluginManager::loadPlugins();
-	echo "Loaded ".count(PluginManager::$loaded_plugins)." plugin(s).\n";
+	echo "Loaded ".PluginManager::$loaded_plugins->count()." plugin(s).\n";
 	$ui->render();
 }
 

@@ -91,7 +91,7 @@ $ui->append("Done.")
    ->render();
 echo "Loading plugins...\n";
 PluginManager::loadPlugins();
-echo "Loaded ".count(PluginManager::$loaded_plugins)." plugin(s).\n";
+echo "Loaded ".PluginManager::$loaded_plugins->count()." plugin(s).\n";
 $ui->render();
 $ui->tabcomplete_function = function(string $word)
 {
