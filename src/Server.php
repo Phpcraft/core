@@ -3,6 +3,7 @@ namespace Phpcraft;
 use hellsh\UUID;
 use Phpcraft\
 {Command\CommandSender, Enum\ChatPosition, Exception\IOException, Packet\KeepAliveRequestPacket, Packet\ServerboundPacket};
+use SplObjectStorage;
 class Server implements CommandSender
 {
 	/**
@@ -20,10 +21,10 @@ class Server implements CommandSender
 	/**
 	 * A ClientConnection array of all clients that are connected to the server.
 	 *
-	 * @var $clients ClientConnection[]
+	 * @var SplObjectStorage $clients
 	 * @see Server::getPlayers()
 	 */
-	public $clients = [];
+	public $clients;
 	/**
 	 * The counter used to assign entity IDs.
 	 *
@@ -73,6 +74,7 @@ class Server implements CommandSender
 			$this->stream = $stream;
 		}
 		$this->private_key = $private_key;
+		$this->clients = new SplObjectStorage();
 		$this->eidCounter = new Counter();
 		$this->list_ping_function = function(ClientConnection $con)
 		{
@@ -135,7 +137,7 @@ class Server implements CommandSender
 						{
 							$con->disconnect_after = microtime(true) + 10;
 						}
-						array_push($this->clients, $con);
+						$this->clients->attach($con);
 						break;
 					case 2: // Legacy List Ping
 						$json = ($this->list_ping_function)($con);
@@ -179,8 +181,11 @@ class Server implements CommandSender
 	 */
 	function handle(): Server
 	{
-		foreach($this->clients as $i => $con)
+		foreach($this->clients as $con)
 		{
+			/**
+			 * @var ClientConnection $con
+			 */
 			if($con->isOpen())
 			{
 				try
@@ -295,7 +300,7 @@ class Server implements CommandSender
 				{
 					($this->disconnect_function)($con);
 				}
-				unset($this->clients[$i]);
+				$this->clients->detach($con);
 			}
 		}
 		return $this;
@@ -321,6 +326,9 @@ class Server implements CommandSender
 	{
 		foreach($this->clients as $client)
 		{
+			/**
+			 * @var ClientConnection $client
+			 */
 			if($client->state == 3 && ($client->username == $name_or_uuid || $client->uuid == $name_or_uuid))
 			{
 				return $client;
