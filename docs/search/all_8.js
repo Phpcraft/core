@@ -20,7 +20,6 @@ var searchData=
   ['getminecraftfolder',['getMinecraftFolder',['../classPhpcraft_1_1Phpcraft.html#abecdf68100423f0f529df5aef75390e9',1,'Phpcraft::Phpcraft']]],
   ['getnbt',['getNBT',['../classPhpcraft_1_1Slot.html#a18674a07610681a139c5e1802e474e99',1,'Phpcraft::Slot']]],
   ['getpayload',['getPayload',['../classPhpcraft_1_1Packet_1_1Packet.html#a8e85cf6751b74f92bfca07071615e41b',1,'Phpcraft::Packet::Packet']]],
-  ['getplayer',['getPlayer',['../classPhpcraft_1_1Server.html#a70a90032d30059a1b5eb5a5cf64e82bf',1,'Phpcraft::Server']]],
   ['getplayers',['getPlayers',['../classPhpcraft_1_1Server.html#a8eea4895410ef8bfda087f151cae491d',1,'Phpcraft::Server']]],
   ['getprofiles',['getProfiles',['../classPhpcraft_1_1Phpcraft.html#a4e54addd39ce8665ec5e1ee73b00be13',1,'Phpcraft::Phpcraft']]],
   ['getprofilesfile',['getProfilesFile',['../classPhpcraft_1_1Phpcraft.html#a738a4fbf79ff882e42fc90007ad4b83b',1,'Phpcraft::Phpcraft']]],
