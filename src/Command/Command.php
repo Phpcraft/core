@@ -189,3 +189,4 @@ class Command
 
 StringArgumentProvider::noop();
 IntegerArgumentProvider::noop();
+FloatArgumentProvider::noop();
