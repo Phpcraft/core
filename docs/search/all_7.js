@@ -6,6 +6,8 @@ var searchData=
   ['finish',['finish',['../classPhpcraft_1_1EntityMetadata.html#af968a3239650be1b5c614167b1e6504e',1,'Phpcraft::EntityMetadata']]],
   ['finishlogin',['finishLogin',['../classPhpcraft_1_1ClientConnection.html#a891e459081509946f485e6253c18f168',1,'Phpcraft::ClientConnection']]],
   ['fire',['fire',['../classPhpcraft_1_1Plugin_1_1Plugin.html#af167996571617e2366337abb91be02be',1,'Phpcraft\Plugin\Plugin\fire()'],['../classPhpcraft_1_1Plugin_1_1PluginManager.html#a158bac8802c00d3a1ffe92267291c601',1,'Phpcraft\Plugin\PluginManager\fire()']]],
+  ['floatargumentprovider',['FloatArgumentProvider',['../classPhpcraft_1_1Command_1_1FloatArgumentProvider.html',1,'Phpcraft::Command']]],
+  ['floatargumentprovider_2ephp',['FloatArgumentProvider.php',['../FloatArgumentProvider_8php.html',1,'']]],
   ['format_5fampersand',['FORMAT_AMPERSAND',['../classPhpcraft_1_1Phpcraft.html#a3f95aeb3ebd5b39428049147a1187a23',1,'Phpcraft::Phpcraft']]],
   ['format_5fansi',['FORMAT_ANSI',['../classPhpcraft_1_1Phpcraft.html#a711c879e0827b293c55181dabd86f950',1,'Phpcraft::Phpcraft']]],
   ['format_5fnone',['FORMAT_NONE',['../classPhpcraft_1_1Phpcraft.html#a711cebd92edfd78135b128d4585e178b',1,'Phpcraft::Phpcraft']]],
