@@ -129,7 +129,7 @@ class Plugin
 	 */
 	protected function unregister()
 	{
-		unset(PluginManager::$loaded_plugins[$this->name]);
+		PluginManager::$loaded_plugins->detach($this);
 		echo "Plugin \"".$this->name."\" has unregistered.\n";
 	}
 }
