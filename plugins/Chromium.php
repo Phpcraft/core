@@ -65,9 +65,9 @@ $this->on(function(ServerJoinEvent $event) use (&$i)
 {
 	$i->newPage(function(Page $page) use (&$event)
 	{
-		$page->setDeviceMetrics(512, 512, 0.25, function() use (&$event, &$page)
+		$page->setDeviceMetrics(128 * (1 / 0.6), 128 * (1 / 0.6), 0.6, function() use (&$event, &$page)
 		{
-			$page->navigate("https://github.com/timmyRS/Phpcraft", function() use (&$event, &$page)
+			$page->setDocumentContent("<body><h1>Welcome to Chromium on a Map!</h1><p>Use /scale 0.25 to continue.</p><p style='margin-top:50px;font-size:45px'>Well done, you're now seeing this page at 512x512 downscaled to 128x128.<br>Use /goto &lt;url&gt; to navigate somewhere on the interwebz.</p></body>", function() use (&$event, &$page)
 			{
 				global $client_pages;
 				$client_pages[$event->client->username] = [
@@ -90,7 +90,7 @@ $this->on(function(ServerLeaveEvent $event)
 	global $client_pages;
 	if(@array_key_exists($event->client->username, $client_pages))
 	{
-		$client_pages[$event->client->username]->close();
+		$client_pages[$event->client->username][0]->close();
 		unset($client_pages[$event->client->username]);
 	}
 });
