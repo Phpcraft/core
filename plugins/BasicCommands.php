@@ -5,7 +5,7 @@
  * @var Plugin $this
  */
 use Phpcraft\
-{ClientConnection, Command\ArgumentProvider, Command\CommandSender, Enum\Gamemode, Plugin\Plugin, Plugin\PluginManager};
+{ClientConnection, Command\ArgumentProvider, Command\Command, Command\CommandSender, Enum\Gamemode, Plugin\Plugin, Plugin\PluginManager};
 if(!class_exists("GamemodeArgument"))
 {
 	class GamemodeArgument
@@ -49,6 +49,7 @@ $this->registerCommand("help", function(CommandSender &$sender)
 	$commands = [];
 	foreach(PluginManager::$registered_commands as $command)
 	{
+		assert($command instanceof Command);
 		array_push($commands, $command->getSyntax());
 	}
 	$sender->sendMessage(["text" => "I know the following commands:\n".join("\n", $commands)]);

@@ -183,9 +183,7 @@ class Server implements CommandSender
 	{
 		foreach($this->clients as $con)
 		{
-			/**
-			 * @var ClientConnection $con
-			 */
+			assert($con instanceof ClientConnection);
 			if($con->isOpen())
 			{
 				try
@@ -326,9 +324,7 @@ class Server implements CommandSender
 	{
 		foreach($this->clients as $client)
 		{
-			/**
-			 * @var ClientConnection $client
-			 */
+			assert($client instanceof ClientConnection);
 			if($client->state == 3 && ($client->username == $name_or_uuid || $client->uuid == $name_or_uuid))
 			{
 				return $client;

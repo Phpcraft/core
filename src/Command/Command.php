@@ -120,9 +120,7 @@ class Command
 	{
 		foreach(PluginManager::$registered_commands as $command)
 		{
-			/**
-			 * @var $command Command
-			 */
+			assert($command instanceof Command);
 			foreach($command->names as $cname)
 			{
 				if($cname == $name)
@@ -170,9 +168,7 @@ class Command
 																										   ->getName() : $param->getType()
 																															   ->__toString()];
 			$arg = new $provider($args[$i++]);
-			/**
-			 * @var $arg ArgumentProvider
-			 */
+			assert($arg instanceof ArgumentProvider);
 			while(!$arg->isFinished())
 			{
 				if($i == $l)
