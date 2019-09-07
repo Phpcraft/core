@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['handle',['handle',['../classPhpcraft_1_1Server.html#a4f4c7ec689744dd6eed990527a773f00',1,'Phpcraft::Server']]],
   ['handleauthentication',['handleAuthentication',['../classPhpcraft_1_1ClientConnection.html#a1863f864d45210aa52d15c75d959a135',1,'Phpcraft::ClientConnection']]],
   ['handleencryptionresponse',['handleEncryptionResponse',['../classPhpcraft_1_1ClientConnection.html#ab8e7b8f299956acff9deabdcaf3aa3f0',1,'Phpcraft::ClientConnection']]],
   ['handleinitialpacket',['handleInitialPacket',['../classPhpcraft_1_1ClientConnection.html#add6f1a7c934ae44ebebb25baf52f843d',1,'Phpcraft::ClientConnection']]],

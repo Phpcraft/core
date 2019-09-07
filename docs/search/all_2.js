@@ -6,7 +6,7 @@ var searchData=
   ['account',['Account',['../classPhpcraft_1_1Account.html',1,'Phpcraft']]],
   ['account_2ephp',['Account.php',['../Account_8php.html',1,'']]],
   ['add',['add',['../classPhpcraft_1_1FancyUserInterface.html#a5cb50630d98c46db3375686da363425c',1,'Phpcraft\FancyUserInterface\add()'],['../classPhpcraft_1_1UserInterface.html#a2fff23e3ac4cdd682844714fcbc077e7',1,'Phpcraft\UserInterface\add()']]],
-  ['addbossbarpacket',['AddBossBarPacket',['../classPhpcraft_1_1Packet_1_1AddBossBarPacket.html',1,'Phpcraft::Packet']]],
+  ['addbossbarpacket',['AddBossBarPacket',['../classPhpcraft_1_1Packet_1_1BossBar_1_1AddBossBarPacket.html',1,'Phpcraft::Packet::BossBar']]],
   ['addbossbarpacket_2ephp',['AddBossBarPacket.php',['../AddBossBarPacket_8php.html',1,'']]],
   ['addchild',['addChild',['../classPhpcraft_1_1Nbt_1_1NbtCompound.html#ae74f3bf7fc1264b8895a72573eb1cda7',1,'Phpcraft::Nbt::NbtCompound']]],
   ['adventure',['ADVENTURE',['../classPhpcraft_1_1Enum_1_1Gamemode.html#aaacf695c1f68037da0c1f7743ae3bca0',1,'Phpcraft::Enum::Gamemode']]],

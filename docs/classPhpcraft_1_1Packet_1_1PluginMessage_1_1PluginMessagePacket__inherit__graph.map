@@ -1,0 +1,9 @@
+<map id="Phpcraft\Packet\PluginMessage\PluginMessagePacket" name="Phpcraft\Packet\PluginMessage\PluginMessagePacket">
+<area shape="rect" id="node3" href="$classPhpcraft_1_1Packet_1_1PluginMessage_1_1ClientboundPluginMessagePacket.html" title="Phpcraft\\Packet\\PluginMessage\l\\ClientboundPluginMessagePacket" alt="" coords="491,5,730,47"/>
+<area shape="rect" id="node6" href="$classPhpcraft_1_1Packet_1_1PluginMessage_1_1ServerboundPluginMessagePacket.html" title="Phpcraft\\Packet\\PluginMessage\l\\ServerboundPluginMessagePacket" alt="" coords="488,71,733,112"/>
+<area shape="rect" id="node2" href="$classPhpcraft_1_1Packet_1_1Packet.html" title="Phpcraft\\Packet\\Packet" alt="" coords="5,46,172,73"/>
+<area shape="rect" id="node4" href="$classPhpcraft_1_1Packet_1_1PluginMessage_1_1ClientboundStringPluginMessagePacket.html" title="Phpcraft\\Packet\\PluginMessage\l\\ClientboundStringPluginMessagePacket" alt="" coords="784,5,1061,47"/>
+<area shape="rect" id="node5" href="$classPhpcraft_1_1Packet_1_1PluginMessage_1_1ClientboundBrandPluginMessagePacket.html" title="Phpcraft\\Packet\\PluginMessage\l\\ClientboundBrandPluginMessagePacket" alt="" coords="1115,5,1392,47"/>
+<area shape="rect" id="node7" href="$classPhpcraft_1_1Packet_1_1PluginMessage_1_1ServerboundStringPluginMessagePacket.html" title="Phpcraft\\Packet\\PluginMessage\l\\ServerboundStringPluginMessagePacket" alt="" coords="781,71,1064,112"/>
+<area shape="rect" id="node8" href="$classPhpcraft_1_1Packet_1_1PluginMessage_1_1ServerboundBrandPluginMessagePacket.html" title="Phpcraft\\Packet\\PluginMessage\l\\ServerboundBrandPluginMessagePacket" alt="" coords="1112,71,1395,112"/>
+</map>

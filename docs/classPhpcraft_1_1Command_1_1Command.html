@@ -64,6 +64,7 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="classPhpcraft_1_1Command_1_1Command-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -79,6 +80,13 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:aa0139d3b6a58328fff0418be3674294b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a963654f50fde111c5bd39379075d94ac"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Command_1_1Command.html#a963654f50fde111c5bd39379075d94ac">getSyntax</a> ()</td></tr>
 <tr class="separator:a963654f50fde111c5bd39379075d94ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a428d5074c835b391d742abd918c01354"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Command_1_1Command.html#a428d5074c835b391d742abd918c01354">call</a> (<a class="el" href="interfacePhpcraft_1_1Command_1_1CommandSender.html">CommandSender</a> &amp;$sender, array $args)</td></tr>
+<tr class="separator:a428d5074c835b391d742abd918c01354"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a6cd5003a69eb1d0a416ffcc649d8463a"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Command_1_1Command.html#a6cd5003a69eb1d0a416ffcc649d8463a">get</a> (string $name)</td></tr>
+<tr class="separator:a6cd5003a69eb1d0a416ffcc649d8463a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -127,6 +135,77 @@ Public Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a428d5074c835b391d742abd918c01354"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a428d5074c835b391d742abd918c01354">&#9670;&nbsp;</a></span>call()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Phpcraft\Command\Command::call </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="interfacePhpcraft_1_1Command_1_1CommandSender.html">CommandSender</a> &amp;&#160;</td>
+          <td class="paramname"><em>$sender</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">array&#160;</td>
+          <td class="paramname"><em>$args</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Calls the command using the given string arguments.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype"><a class="el" href="interfacePhpcraft_1_1Command_1_1CommandSender.html">CommandSender</a></td><td class="paramname">$sender</td><td></td></tr>
+    <tr><td class="paramtype"></td><td class="paramname">$args</td><td>string[] </td></tr>
+  </table>
+  </dd>
+</dl>
+<p>PhpDeprecationInspection </p>
+
+</div>
+</div>
+<a id="a6cd5003a69eb1d0a416ffcc649d8463a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6cd5003a69eb1d0a416ffcc649d8463a">&#9670;&nbsp;</a></span>get()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static Phpcraft\Command\Command::get </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>$name</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Returns a command using one of its names or null if not found.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$name</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Command|null </dd></dl>
+
+</div>
+</div>
 <a id="aa0139d3b6a58328fff0418be3674294b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa0139d3b6a58328fff0418be3674294b">&#9670;&nbsp;</a></span>getCanonicalName()</h2>
 

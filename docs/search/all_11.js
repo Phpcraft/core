@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['bossbar',['BossBar',['../namespacePhpcraft_1_1Packet_1_1BossBar.html',1,'Phpcraft::Packet']]],
   ['command',['Command',['../namespacePhpcraft_1_1Command.html',1,'Phpcraft']]],
   ['enum',['Enum',['../namespacePhpcraft_1_1Enum.html',1,'Phpcraft']]],
   ['event',['Event',['../namespacePhpcraft_1_1Event.html',1,'Phpcraft']]],
@@ -18,7 +19,8 @@ var searchData=
   ['plugin_2ephp',['Plugin.php',['../Plugin_8php.html',1,'']]],
   ['pluginmanager',['PluginManager',['../classPhpcraft_1_1Plugin_1_1PluginManager.html',1,'Phpcraft::Plugin']]],
   ['pluginmanager_2ephp',['PluginManager.php',['../PluginManager_8php.html',1,'']]],
-  ['pluginmessagepacket',['PluginMessagePacket',['../classPhpcraft_1_1Packet_1_1PluginMessagePacket.html',1,'Phpcraft::Packet']]],
+  ['pluginmessage',['PluginMessage',['../namespacePhpcraft_1_1Packet_1_1PluginMessage.html',1,'Phpcraft::Packet']]],
+  ['pluginmessagepacket',['PluginMessagePacket',['../classPhpcraft_1_1Packet_1_1PluginMessage_1_1PluginMessagePacket.html',1,'Phpcraft::Packet::PluginMessage']]],
   ['pluginmessagepacket_2ephp',['PluginMessagePacket.php',['../PluginMessagePacket_8php.html',1,'']]],
   ['populatecache',['populateCache',['../classPhpcraft_1_1Phpcraft.html#a19d93239a5fb95c71b5ba13c0e072cec',1,'Phpcraft::Phpcraft']]],
   ['position',['Position',['../classPhpcraft_1_1Position.html',1,'Phpcraft']]],
