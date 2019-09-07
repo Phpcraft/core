@@ -1,4 +1,4 @@
-<?php /** @noinspection PhpComposerExtensionStubsInspection */
+<?php /** @noinspection PhpUndefinedNamespaceInspection PhpUndefinedClassInspection PhpComposerExtensionStubsInspection PhpUndefinedMethodInspection */
 /**
  * Allows you to browse the internet... on a map.
  *
