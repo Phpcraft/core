@@ -1,5 +1,5 @@
 <?php
-namespace Phpcraft\Packet;
+namespace Phpcraft\Packet\PluginMessage;
 use Phpcraft\
 {Connection, Exception\IOException};
 /** A serverbound plugin message with only a string as data. */

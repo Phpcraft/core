@@ -1,7 +1,7 @@
 <?php
-namespace Phpcraft\Packet;
+namespace Phpcraft\Packet\PluginMessage;
 use Phpcraft\
-{Connection, Exception\IOException, Phpcraft};
+{Connection, Exception\IOException, Packet\Packet, Phpcraft};
 abstract class PluginMessagePacket extends Packet
 {
 	const CHANNEL_REGISTER = "minecraft:register";

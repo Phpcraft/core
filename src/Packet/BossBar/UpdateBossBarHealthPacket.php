@@ -1,5 +1,5 @@
 <?php
-namespace Phpcraft\Packet;
+namespace Phpcraft\Packet\BossBar;
 use hellsh\UUID;
 use Phpcraft\
 {Connection, EntityLiving, Exception\IOException};

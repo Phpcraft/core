@@ -1,6 +1,6 @@
 <?php
-namespace Phpcraft\Packet;
-class ServerboundPluginMessagePacket extends PluginMessagePacket
+namespace Phpcraft\Packet\PluginMessage;
+class ClientboundPluginMessagePacket extends PluginMessagePacket
 {
 	/**
 	 * @param string $channel The name of the plugin message's channel.
@@ -8,6 +8,6 @@ class ServerboundPluginMessagePacket extends PluginMessagePacket
 	 */
 	function __construct(string $channel = "", string $data = "")
 	{
-		parent::__construct("serverbound_plugin_message", $channel, $data);
+		parent::__construct("clientbound_plugin_message", $channel, $data);
 	}
 }

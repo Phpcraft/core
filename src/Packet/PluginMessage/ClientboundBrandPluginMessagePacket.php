@@ -1,6 +1,6 @@
 <?php
-namespace Phpcraft\Packet;
-class ServerboundBrandPluginMessagePacket extends ServerboundStringPluginMessagePacket
+namespace Phpcraft\Packet\PluginMessage;
+class ClientboundBrandPluginMessagePacket extends ClientboundStringPluginMessagePacket
 {
 	/**
 	 * @param string $data The brand.

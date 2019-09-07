@@ -1,7 +1,7 @@
 <?php
-namespace Phpcraft\Packet;
+namespace Phpcraft\Packet\BossBar;
 use Phpcraft\
-{Connection, Exception\IOException};
+{Connection, Exception\IOException, Packet\DestroyEntitiesPacket};
 class RemoveBossBarPacket extends BossBarPacket
 {
 	/**

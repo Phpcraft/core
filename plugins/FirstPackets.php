@@ -5,7 +5,7 @@
  * @var Plugin $this
  */
 use Phpcraft\
-{BlockState, ClientConnection, Command\CommandSender, Connection, Enum\Difficulty, Enum\Dimension, Enum\Gamemode, Event\Event, Event\ServerJoinEvent, Event\ServerLeaveEvent, Event\ServerTickEvent, Packet\ClientboundBrandPluginMessagePacket, Packet\JoinGamePacket, Plugin\Plugin, Position};
+{BlockState, ClientConnection, Command\CommandSender, Connection, Enum\Difficulty, Enum\Dimension, Enum\Gamemode, Event\Event, Event\ServerJoinEvent, Event\ServerLeaveEvent, Event\ServerTickEvent, Packet\JoinGamePacket, Packet\PluginMessage\ClientboundBrandPluginMessagePacket, Plugin\Plugin, Position};
 $WorldImitatorActive = false;
 $client_chunk_preferences = [];
 $this->on(function(ServerJoinEvent $event)

@@ -1,7 +1,7 @@
 <?php
 namespace Phpcraft\Packet;
 use Phpcraft\
-{Connection, Exception\IOException, PacketId};
+{Connection, Exception\IOException, Packet\BossBar\BossBarPacket, Packet\PluginMessage\ClientboundPluginMessagePacket, PacketId};
 /**
  * The class for the IDs of packets sent to the client.
  */

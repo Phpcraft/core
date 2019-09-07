@@ -1,8 +1,8 @@
 <?php /** @noinspection PhpUnused */
-namespace Phpcraft\Packet;
+namespace Phpcraft\Packet\BossBar;
 use hellsh\UUID;
 use Phpcraft\
-{Connection, Exception\IOException};
+{Connection, Exception\IOException, Packet\Packet};
 abstract class BossBarPacket extends Packet
 {
 	const COLOR_PINK = 0;
