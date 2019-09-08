@@ -14,6 +14,8 @@ var searchData=
   ['peaceful',['PEACEFUL',['../classPhpcraft_1_1Enum_1_1Difficulty.html#aae4c0f1646ee364479d6e154a111d4e6',1,'Phpcraft::Enum::Difficulty']]],
   ['phpcraft',['Phpcraft',['../classPhpcraft_1_1Phpcraft.html',1,'Phpcraft\Phpcraft'],['../namespacePhpcraft.html',1,'Phpcraft']]],
   ['phpcraft_2ephp',['Phpcraft.php',['../Phpcraft_8php.html',1,'']]],
+  ['plainuserinterface',['PlainUserInterface',['../classPhpcraft_1_1PlainUserInterface.html',1,'Phpcraft']]],
+  ['plainuserinterface_2ephp',['PlainUserInterface.php',['../PlainUserInterface_8php.html',1,'']]],
   ['player',['PLAYER',['../classPhpcraft_1_1Enum_1_1ChatPosition.html#ab22a422657b2999e7eb9460c731ec192',1,'Phpcraft::Enum::ChatPosition']]],
   ['plugin',['Plugin',['../classPhpcraft_1_1Plugin_1_1Plugin.html',1,'Phpcraft\Plugin\Plugin'],['../namespacePhpcraft_1_1Plugin.html',1,'Phpcraft\Plugin']]],
   ['plugin_2ephp',['Plugin.php',['../Plugin_8php.html',1,'']]],

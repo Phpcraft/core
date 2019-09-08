@@ -26,7 +26,7 @@ var searchData=
   ['releases',['releases',['../classPhpcraft_1_1Versions.html#a7dec6dde245708976d70b171f4c30ccc',1,'Phpcraft::Versions']]],
   ['removebossbarpacket',['RemoveBossBarPacket',['../classPhpcraft_1_1Packet_1_1BossBar_1_1RemoveBossBarPacket.html',1,'Phpcraft::Packet::BossBar']]],
   ['removebossbarpacket_2ephp',['RemoveBossBarPacket.php',['../RemoveBossBarPacket_8php.html',1,'']]],
-  ['render',['render',['../classPhpcraft_1_1FancyUserInterface.html#a743f30aeb5d1007ace49a0c8dfbf0946',1,'Phpcraft\FancyUserInterface\render()'],['../classPhpcraft_1_1UserInterface.html#ad80d10131ece8fa438e4bf526faf6234',1,'Phpcraft\UserInterface\render()']]],
+  ['render',['render',['../classPhpcraft_1_1PlainUserInterface.html#aba3b48a12123eb86d46eeaefd2072329',1,'Phpcraft\PlainUserInterface\render()'],['../classPhpcraft_1_1UserInterface.html#ad80d10131ece8fa438e4bf526faf6234',1,'Phpcraft\UserInterface\render()']]],
   ['resolve',['resolve',['../classPhpcraft_1_1Phpcraft.html#aa55d0acee3de518a9075d433d396c344',1,'Phpcraft::Phpcraft']]],
   ['rewind',['rewind',['../classPhpcraft_1_1Nbt_1_1NbtListTag.html#aefd53dc1baead1dba7d17e7bdd43fd41',1,'Phpcraft::Nbt::NbtListTag']]]
 ];
