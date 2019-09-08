@@ -329,21 +329,19 @@ class Connection
 					$this->writeByte($slot->count);
 				}
 			}
-			$nbt = $slot->getNBT();
-			if($this->protocol_version < 402 && $nbt instanceof NbtCompound)
+			if($this->protocol_version < 402 && $slot->nbt instanceof NbtCompound)
 			{
-				$display = $nbt->getChild("display");
+				$display = $slot->nbt->getChild("display");
 				if($display && $display instanceof NbtCompound)
 				{
 					$name = $display->getChild("Name");
 					if($name && $name instanceof NbtString)
 					{
 						$name->value = Phpcraft::chatToText(json_decode($name->value, true), 2);
-						$nbt->addChild($display->addChild($name));
 					}
 				}
 			}
-			$nbt->write($this);
+			$slot->nbt->write($this);
 		}
 		return $this;
 	}

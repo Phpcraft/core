@@ -1,8 +1,9 @@
 <?php
 namespace Phpcraft\Nbt;
+use ArrayAccess;
 use Countable;
 use Iterator;
-abstract class NbtListTag extends NbtTag implements Iterator, Countable
+abstract class NbtListTag extends NbtTag implements Iterator, Countable, ArrayAccess
 {
 	/**
 	 * The children of the list.
@@ -35,6 +36,33 @@ abstract class NbtListTag extends NbtTag implements Iterator, Countable
 	function rewind()
 	{
 		$this->current = 0;
+	}
+
+	function offsetExists($offset)
+	{
+		return array_key_exists($offset, $this->children);
+	}
+
+	function offsetGet($offset)
+	{
+		return @$this->children[$offset];
+	}
+
+	function offsetSet($offset, $value)
+	{
+		if($offset === null)
+		{
+			array_push($this->children, $value);
+		}
+		else
+		{
+			$this->children[$offset] = $value;
+		}
+	}
+
+	function offsetUnset($offset)
+	{
+		unset($this->children[$offset]);
 	}
 
 	function count()

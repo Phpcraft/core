@@ -14,11 +14,11 @@ class NBTTest
 		assert($list instanceof NbtList);
 		Nose::assertEquals("List", $list->name);
 		Nose::assertEquals(1, count($list->children));
-		$compound = $list->children[0];
+		$compound = $list[0];
 		Nose::assert($compound instanceof NbtCompound);
 		Nose::assertEquals("", $compound->name);
 		Nose::assertEquals(1, count($compound->children));
-		$int = $compound->children[0];
+		$int = $compound["Int"];
 		Nose::assert($int instanceof NbtInt);
 		Nose::assertEquals("Int", $int->name);
 		Nose::assert(gmp_cmp($int->value, -1) == 0);

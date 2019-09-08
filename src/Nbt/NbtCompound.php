@@ -1,13 +1,17 @@
 <?php
 namespace Phpcraft\Nbt;
+use ArrayAccess;
+use Countable;
+use Iterator;
 use Phpcraft\Connection;
-class NbtCompound extends NbtTag
+use SplObjectStorage;
+class NbtCompound extends NbtTag implements Iterator, Countable, ArrayAccess
 {
 	const ORD = 10;
 	/**
 	 * The child tags of the compound.
 	 *
-	 * @var array $children
+	 * @var SplObjectStorage $children
 	 */
 	public $children;
 
@@ -18,7 +22,11 @@ class NbtCompound extends NbtTag
 	function __construct(string $name, array $children = [])
 	{
 		$this->name = $name;
-		$this->children = $children;
+		$this->children = new SplObjectStorage();
+		foreach($children as $child)
+		{
+			$this->children->attach($child);
+		}
 	}
 
 	/**
@@ -31,6 +39,7 @@ class NbtCompound extends NbtTag
 	{
 		foreach($this->children as $child)
 		{
+			assert($child instanceof NbtTag);
 			if($child->name == $name)
 			{
 				return $child;
@@ -67,39 +76,21 @@ class NbtCompound extends NbtTag
 	{
 		if($tag instanceof NbtEnd)
 		{
-			trigger_error("Ignoring NbtEnd, as it is not a valid child");
+			trigger_error("I'm not adding NbtEnd as the child of an NbtCompound because it is not a real tag and should not be treated as such.");
 		}
 		else
 		{
-			$i = $this->getChildIndex($tag->name);
-			if($i > -1)
+			foreach($this->children as $child)
 			{
-				$this->children[$i] = $tag;
+				if($child->name == $tag->name)
+				{
+					$this->children->detach($child);
+					break;
+				}
 			}
-			else
-			{
-				array_push($this->children, $tag);
-			}
+			$this->children->attach($tag);
 		}
 		return $this;
-	}
-
-	/**
-	 * Gets the index of a child of the compound by its name or -1 if not found.
-	 *
-	 * @param string $name
-	 * @return integer
-	 */
-	function getChildIndex(string $name)
-	{
-		foreach($this->children as $i => $child)
-		{
-			if($child->name == $name)
-			{
-				return $i;
-			}
-		}
-		return -1;
 	}
 
 	/**
@@ -125,7 +116,9 @@ class NbtCompound extends NbtTag
 
 	function copy(): NbtTag
 	{
-		return new NbtCompound($this->name, $this->children);
+		$tag = new NbtCompound($this->name);
+		$tag->children->addAll($this->children);
+		return $tag;
 	}
 
 	function __toString(): string
@@ -151,18 +144,72 @@ class NbtCompound extends NbtTag
 		$c = count($this->children) - 1;
 		if($fancy)
 		{
-			for($i = 0; $i <= $c; $i++)
+			$i = 0;
+			foreach($this->children as $child)
 			{
-				$snbt .= self::indentString($this->children[$i]->toSNBT(true)).($i == $c ? "" : ",")."\n";
+				$snbt .= self::indentString($child->toSNBT(true)).($i++ == $c ? "" : ",")."\n";
 			}
 		}
 		else
 		{
-			for($i = 0; $i <= $c; $i++)
+			$i = 0;
+			foreach($this->children as $child)
 			{
-				$snbt .= $this->children[$i]->toSNBT().($i == $c ? "" : ",");
+				$snbt .= $child->toSNBT().($i++ == $c ? "" : ",");
 			}
 		}
 		return $snbt."}";
+	}
+
+	function current()
+	{
+		return $this->children->current();
+	}
+
+	function next()
+	{
+		$this->children->next();
+	}
+
+	function key()
+	{
+		return $this->children->current()->name;
+	}
+
+	function valid()
+	{
+		return $this->children->valid();
+	}
+
+	function rewind()
+	{
+		$this->children->rewind();
+	}
+
+	function offsetExists($offset)
+	{
+		return $this->offsetGet($offset) !== null;
+	}
+
+	function offsetGet($offset)
+	{
+		return $this->getChild($offset);
+	}
+
+	function offsetSet($offset, $value)
+	{
+		assert($value instanceof NbtTag);
+		assert($offset === null || $offset === $value->name);
+		$this->addChild($value);
+	}
+
+	function offsetUnset($offset)
+	{
+		$this->children->detach($this->getChild($offset));
+	}
+
+	function count()
+	{
+		return $this->children->count();
 	}
 }

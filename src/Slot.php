@@ -58,10 +58,9 @@ class Slot
 	 */
 	function getDisplayName()
 	{
-		$nbt = $this->getNBT();
-		if($nbt instanceof NbtCompound)
+		if($this->nbt instanceof NbtCompound)
 		{
-			$display = $nbt->getChild("display");
+			$display = $this->nbt->getChild("display");
 			if($display && $display instanceof NbtCompound)
 			{
 				$name = $display->getChild("Name");
@@ -72,11 +71,6 @@ class Slot
 			}
 		}
 		return null;
-	}
-
-	function getNBT(): NbtTag
-	{
-		return $this->nbt == null ? new NbtEnd() : $this->nbt;
 	}
 
 	/**
@@ -99,27 +93,24 @@ class Slot
 	 */
 	function setDisplayName(array $name): Slot
 	{
-		$name = json_encode($name);
-		$nbt = $this->getNBT();
-		if(!($nbt instanceof NbtCompound))
+		if(!$this->nbt instanceof NbtCompound)
 		{
-			$nbt = new NbtCompound("tag");
+			$this->nbt = new NbtCompound("tag");
 		}
-		$display = $nbt->getChild("display");
-		if(!$display || !($display instanceof NbtCompound))
+		$display = $this->nbt->getChild("display");
+		if(!$display instanceof NbtCompound)
 		{
-			array_push($nbt->children, $display = new NbtCompound("display"));
+			$this->nbt->addChild($display = new NbtCompound("display"));
 		}
 		$display_name = $display->getChild("Name");
-		if($display_name && $display_name instanceof NbtString)
+		if($display_name instanceof NbtString)
 		{
-			$display_name->value = $name;
+			$display_name->value = json_encode($name);
 		}
 		else
 		{
-			$display_name = new NbtString("Name", $name);
+			$display->addChild(new NbtString("Name", json_encode($name)));
 		}
-		$this->nbt = $nbt->addChild($display->addChild($display_name));
 		return $this;
 	}
 
