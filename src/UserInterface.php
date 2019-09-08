@@ -18,7 +18,6 @@ class UserInterface extends PlainUserInterface
 	private $chat_log = [];
 	private $chat_log_cap = 100;
 	private $next_render = 0;
-
 	/** @noinspection PhpMissingParentConstructorInspection */
 	/**
 	 * Note that from this point forward, STDIN and STDOUT are in the hands of the UI until it is destructed.
@@ -73,6 +72,18 @@ class UserInterface extends PlainUserInterface
 	}
 
 	/**
+	 * Adds a message to the chat log.
+	 *
+	 * @param string $message
+	 * @return $this
+	 */
+	function add(string $message)
+	{
+		array_push($this->chat_log, $message);
+		return $this;
+	}
+
+	/**
 	 * Sets the string displayed before the user's input
 	 *
 	 * @param string $input_prefix
@@ -86,18 +97,6 @@ class UserInterface extends PlainUserInterface
 			$this->ob_start();
 		}
 		$this->input_prefix = $input_prefix;
-	}
-
-	/**
-	 * Adds a message to the chat log.
-	 *
-	 * @param string $message
-	 * @return $this
-	 */
-	function add(string $message)
-	{
-		array_push($this->chat_log, $message);
-		return $this;
 	}
 
 	function __destruct()
