@@ -13,11 +13,11 @@ class Command
 {
 	static private $argument_providers;
 	/**
-	 * @var $last_declared_classes array
+	 * @var array $last_declared_classes
 	 */
 	static private $last_declared_classes = [];
 	/**
-	 * @var $plugin Plugin
+	 * @var Plugin $plugin
 	 */
 	public $plugin;
 	/**
@@ -25,7 +25,11 @@ class Command
 	 */
 	public $names;
 	/**
-	 * @var $functon callable
+	 * @var string|null $required_permission
+	 */
+	public $required_permission;
+	/**
+	 * @var callable $function
 	 */
 	private $function;
 	/**
@@ -33,10 +37,11 @@ class Command
 	 */
 	private $params;
 
-	function __construct(Plugin $plugin, array $names, callable $function)
+	function __construct(Plugin $plugin, array $names, $required_permission, callable $function)
 	{
 		$this->plugin = $plugin;
 		$this->names = $names;
+		$this->required_permission = $required_permission;
 		$this->function = $function;
 		try
 		{
@@ -94,7 +99,7 @@ class Command
 					$type_name = ($type instanceof ReflectionNamedType ? $type->getName() : $type->__toString());
 					if(!array_key_exists($type_name, self::$argument_providers))
 					{
-						throw new DomainException($this->getCanonicalName()."'s ".$param->getName()." argument requires a value of type {$type_name} but no provider for that type is registered");
+						throw new DomainException("/".$this->getCanonicalName()."'s \$".$param->getName()." argument requires a value of type {$type_name} but no provider for that type is registered");
 					}
 				}
 			}
@@ -150,6 +155,14 @@ class Command
 	 */
 	function call(CommandSender &$sender, array $args)
 	{
+		if($this->required_permission !== null && !$sender->hasPermission($this->required_permission))
+		{
+			$sender->sendMessage([
+				"text" => "You don't have the '{$this->required_permission}' permission required to use /".$this->getCanonicalName().".",
+				"color" => "red"
+			]);
+			return;
+		}
 		$args_ = [&$sender];
 		$i = 0;
 		$l = count($args);
@@ -167,7 +180,7 @@ class Command
 			$provider = self::$argument_providers[$param->getType() instanceof ReflectionNamedType ? $param->getType()
 																										   ->getName() : $param->getType()
 																															   ->__toString()];
-			$arg = new $provider($args[$i++]);
+			$arg = new $provider($sender, $args[$i++]);
 			assert($arg instanceof ArgumentProvider);
 			while(!$arg->isFinished())
 			{
@@ -183,6 +196,8 @@ class Command
 	}
 }
 
+ClientConfigurationArgumentProvider::noop();
+ClientConnectionArgumentProvider::noop();
 StringArgumentProvider::noop();
 IntegerArgumentProvider::noop();
 FloatArgumentProvider::noop();

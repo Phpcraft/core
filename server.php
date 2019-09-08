@@ -85,16 +85,34 @@ $ui->add("Binding to port ".$options["port"]."... ")
    ->render();
 $stream = stream_socket_server("tcp://0.0.0.0:".$options["port"], $errno, $errstr) or die(" {$errstr}\n");
 $server = new Server($stream, $private_key);
-if($ui instanceof UserInterface)
-{
-	$ui->setInputPrefix("[Server] ");
-}
 $ui->append("Success!")
    ->add("Preparing cache... ")
    ->render();
 Phpcraft::populateCache();
 $ui->append("Done.")
    ->render();
+if(!is_dir("config"))
+{
+	mkdir("config");
+}
+if(!is_file("config/groups.json"))
+{
+	file_put_contents("config/groups.json", json_encode([
+		"user" => [
+			"allow" => [
+				"use /gamemode"
+			]
+		],
+		"admin" => [
+			"allow" => "everything"
+		]
+	], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
+}
+$server->setGroups(json_decode(file_get_contents("config/groups.json"), true));
+if($ui instanceof UserInterface)
+{
+	$ui->setInputPrefix("[Server] ");
+}
 echo "Loading plugins...\n";
 PluginManager::loadPlugins();
 echo "Loaded ".PluginManager::$loaded_plugins->count()." plugin(s).\n";

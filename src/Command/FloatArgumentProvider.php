@@ -8,7 +8,7 @@ class FloatArgumentProvider extends ArgumentProvider
 	 */
 	private $value;
 
-	public function __construct(string $arg)
+	public function __construct(CommandSender &$sender, string $arg)
 	{
 		if(!is_numeric($arg))
 		{

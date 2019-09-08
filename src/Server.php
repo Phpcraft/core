@@ -2,7 +2,7 @@
 namespace Phpcraft;
 use hellsh\UUID;
 use Phpcraft\
-{Command\CommandSender, Enum\ChatPosition, Exception\IOException, Packet\KeepAliveRequestPacket, Packet\ServerboundPacket};
+{Command\CommandSender, Enum\ChatPosition, Exception\IOException, Packet\KeepAliveRequestPacket, Packet\ServerboundPacket, Permission\Group};
 use SplObjectStorage;
 class Server implements CommandSender
 {
@@ -31,6 +31,10 @@ class Server implements CommandSender
 	 * @var Counter $eidCounter
 	 */
 	public $eidCounter;
+	/**
+	 * @var array $groups
+	 */
+	public $groups = [];
 	/**
 	 * The function called when a client has entered state 3 (playing) with the ClientConnection as argument.
 	 *
@@ -107,6 +111,31 @@ class Server implements CommandSender
 		};
 	}
 
+	function setGroups(array $groups): Server
+	{
+		$this->groups = [];
+		foreach($groups as $name => $data)
+		{
+			$this->groups[$name] = new Group($this, $data);
+		}
+		if(!array_key_exists("default", $this->groups))
+		{
+			$this->groups["default"] = new Group($this, []);
+		}
+		return $this;
+	}
+
+	/**
+	 * Gets a group by its name.
+	 *
+	 * @param string $name
+	 * @return Group|null
+	 */
+	function getGroup(string $name)
+	{
+		return @$this->groups[$name];
+	}
+
 	/**
 	 * Returns whether the server socket is open or not.
 	 *
@@ -129,7 +158,7 @@ class Server implements CommandSender
 			$con = null;
 			try
 			{
-				$con = new ClientConnection($stream);
+				$con = new ClientConnection($stream, $this);
 				switch($con->handleInitialPacket())
 				{
 					case 1:
@@ -174,7 +203,7 @@ class Server implements CommandSender
 
 	/**
 	 * Deals with all connected clients.
-	 * This includes responding to status requests, dealing with keep alive packets, and closing dead connections.
+	 * This includes responding to status requests, dealing with keep alive packets, closing dead connections, and saving client configurations.
 	 * This does not include implementing an entire server; that is what the packet_function is for.
 	 *
 	 * @return Server $this
@@ -301,6 +330,7 @@ class Server implements CommandSender
 				$this->clients->detach($con);
 			}
 		}
+		Configuration::handleQueue(0.03);
 		return $this;
 	}
 
@@ -378,6 +408,29 @@ class Server implements CommandSender
 	}
 
 	/**
+	 * Gets the ClientConfiguration of a player who might be offline.
+	 *
+	 * @param string|UUID $name_or_uuid
+	 * @return ClientConfiguration|null
+	 */
+	function getOfflinePlayer(string $name_or_uuid)
+	{
+		if($name_or_uuid instanceof UUID)
+		{
+			return new ClientConfiguration($this, "config/player_data/".$name_or_uuid->toString(false).".json");
+		}
+		$name_or_uuid = strtolower($name_or_uuid);
+		foreach(Phpcraft::$user_cache as $uuid => $_name)
+		{
+			if(strtolower($_name) == $name_or_uuid)
+			{
+				return new ClientConfiguration($this, "config/player_data/{$uuid}.json");
+			}
+		}
+		return null;
+	}
+
+	/**
 	 * Prints a message to the console.
 	 * Available in accordance with the CommandSender interface.
 	 * If you want to print to console specifically, just use PHP's `echo`.
@@ -405,8 +458,18 @@ class Server implements CommandSender
 		}
 	}
 
-	function isOP(): bool
+	function hasPermission(string $permission): bool
 	{
 		return true;
+	}
+
+	function hasServer(): bool
+	{
+		return true;
+	}
+
+	function getServer(): Server
+	{
+		return $this;
 	}
 }

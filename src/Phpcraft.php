@@ -9,7 +9,14 @@ abstract class Phpcraft
 	const FORMAT_ANSI = 1;
 	const FORMAT_SILCROW = 2;
 	const FORMAT_AMPERSAND = 3;
-	private static $json_cache = [];
+	/**
+	 * @var Configuration $json_cache
+	 */
+	public static $json_cache;
+	/**
+	 * @var Configuration $user_cache
+	 */
+	public static $user_cache;
 
 	/**
 	 * Returns the contents of Minecraft's launcher_profiles.json with some values being set if they are unset.
@@ -111,50 +118,29 @@ abstract class Phpcraft
 	 * @param string $url The URL of the resource.
 	 * @param integer $caching_duration How long the resource should be kept in the cache, in seconds. (Default: 31 days)
 	 * @return array
-	 * @see getCachableResource
-	 * @see maintainCache
+	 * @see Phpcraft::maintainCache
 	 */
 	static function getCachableJson(string $url, int $caching_duration = 2678400)
 	{
-		if(!isset(self::$json_cache[$url]))
+		if(!self::$json_cache->data && is_file(self::$json_cache->file))
 		{
-			self::$json_cache[$url] = json_decode(self::getCachableResource($url, $caching_duration), true);
-		}
-		return self::$json_cache[$url];
-	}
-
-	/**
-	 * Returns the contents of a resource with an additional disk caching level.
-	 *
-	 * @param string $url The URL of the resource.
-	 * @param integer $caching_duration How long the resource should be kept in the cache, in seconds. (Default: 1 day)
-	 * @return string
-	 * @see getCachableJson
-	 * @see maintainCache
-	 */
-	static function getCachableResource(string $url, int $caching_duration = 86400)
-	{
-		$cache = [];
-		if(file_exists(__DIR__."/.cache"))
-		{
-			if(filemtime(__DIR__."/.cache") < time() - 86400)
+			if(filemtime(self::$json_cache->file) < time() - 86400)
 			{
 				self::maintainCache();
 			}
-			if(file_exists(__DIR__."/.cache"))
+			if(is_file(self::$json_cache->file))
 			{
-				$cache = json_decode(file_get_contents(__DIR__."/.cache"), true);
+				self::$json_cache->data = json_decode(file_get_contents(self::$json_cache->file), true);
 			}
 		}
-		if(empty($cache[$url]))
+		if(!self::$json_cache->has($url))
 		{
-			$cache[$url] = [
-				"contents" => file_get_contents($url),
+			self::$json_cache->set($url, [
+				"contents" => json_decode(file_get_contents($url), true),
 				"expiry" => time() + $caching_duration
-			];
-			file_put_contents(__DIR__."/.cache", json_encode($cache));
+			]);
 		}
-		return $cache[$url]["contents"];
+		return self::$json_cache->data[$url]["contents"];
 	}
 
 	/**
@@ -165,30 +151,17 @@ abstract class Phpcraft
 	 */
 	static function maintainCache()
 	{
-		if(!file_exists(__DIR__."/.cache"))
+		if(!is_file(self::$json_cache->file))
 		{
 			return;
 		}
-		$cache = json_decode(file_get_contents(__DIR__."/.cache"), true);
 		$time = time();
-		foreach($cache as $url => $entry)
+		foreach(self::$json_cache->data as $url => $entry)
 		{
 			if($entry["expiry"] < $time)
 			{
-				unset($cache[$url]);
-				if(isset(self::$json_cache[$url]))
-				{
-					unset(self::$json_cache[$url]);
-				}
+				self::$json_cache->unset($url);
 			}
-		}
-		if(empty($cache))
-		{
-			unlink(__DIR__."/.cache");
-		}
-		else
-		{
-			file_put_contents(__DIR__."/.cache", json_encode($cache));
 		}
 	}
 
@@ -812,3 +785,5 @@ abstract class Phpcraft
 		}
 	}
 }
+Phpcraft::$json_cache = new Configuration(__DIR__."/.json_cache");
+Phpcraft::$user_cache = new Configuration(__DIR__."/.user_cache");

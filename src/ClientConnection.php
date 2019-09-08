@@ -43,6 +43,10 @@ class ClientConnection extends Connection implements CommandSender
 	 */
 	public $uuid;
 	/**
+	 * @var ClientConfiguration $config
+	 */
+	public $config;
+	/**
 	 * This variable is for servers to keep track of when to send the next keep alive packet to clients.
 	 *
 	 * @var integer $next_heartbeat
@@ -128,10 +132,15 @@ class ClientConnection extends Connection implements CommandSender
 	 * After this, you should call ClientConnection::handleInitialPacket().
 	 *
 	 * @param resource $stream
+	 * @param Server|null $server
 	 */
-	function __construct($stream)
+	function __construct($stream, Server &$server = null)
 	{
 		parent::__construct(-1, $stream);
+		if($server)
+		{
+			$this->config = new ClientConfiguration($server);
+		}
 	}
 
 	/**
@@ -250,6 +259,7 @@ class ClientConnection extends Connection implements CommandSender
 
 	/**
 	 * Returns the host the client had connected to, e.g. localhost:25565.
+	 * Note that SRV records are pre-connection redirects, so if _minecraft._tcp.example.com points to mc.example.com which is an A (or AAAA) record, this will return mc.example.com:25565.
 	 *
 	 * @return string
 	 */
@@ -391,6 +401,11 @@ class ClientConnection extends Connection implements CommandSender
 			$this->send();
 			$this->eid = $eidCounter->next();
 			$this->state = 3;
+			if($this->config)
+			{
+				$this->config->setFile("config/player_data/".$this->uuid->toString(false).".json");
+			}
+			Phpcraft::$user_cache->set($this->uuid->toString(false), $this->username);
 		}
 		return $this;
 	}
@@ -490,8 +505,21 @@ class ClientConnection extends Connection implements CommandSender
 		return $this;
 	}
 
-	function isOP(): bool
+	function hasPermission(string $permission): bool
 	{
-		return false;
+		return $this->config->hasPermission($permission);
+	}
+
+	function hasServer(): bool
+	{
+		return $this->config->server !== null;
+	}
+
+	/**
+	 * @return Server|null
+	 */
+	function getServer()
+	{
+		return $this->config->server;
 	}
 }

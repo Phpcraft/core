@@ -1,7 +1,9 @@
 .idea/
+config/
 vendor/
+src/.json_cache
+src/.user_cache
 *.bin
-*.cache
 *.hex
 composer.lock
 sketch.php

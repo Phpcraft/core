@@ -8,7 +8,7 @@ cache:
   directories:
     - vendor
 script:
-  - if [[ -f "vendor/.cache" ]]; then mv vendor/.cache src/.cache; fi
+  - if [[ -f "vendor/.json_cache" ]]; then mv vendor/.json_cache src/.json_cache; fi
   - composer install
   - vendor/bin/nose
-  - if [[ -f "src/.cache" ]]; then mv src/.cache vendor/.cache; fi
+  - if [[ -f "src/.json_cache" ]]; then mv src/.json_cache vendor/.json_cache; fi

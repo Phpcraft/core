@@ -1,22 +1,23 @@
 <?php
+require "vendor/autoload.php";
+use Phpcraft\Phpcraft;
 echo "Phpcraft Cache Utility\n\n";
 if(empty($argv))
 {
 	die("This is for PHP-CLI. Connect to your server via SSH and use `php cache.php`.\n");
 }
-if(!file_exists("src/.cache"))
+if(!Phpcraft::$json_cache->data)
 {
 	die("Nothing's cached.\n");
 }
 switch(@$argv[1])
 {
 	case "list":
-		$cache = json_decode(file_get_contents("src/.cache"), true);
 		$has_expired = false;
-		echo count($cache)." cache entries:\n";
-		foreach($cache as $url => $entry)
+		echo count(Phpcraft::$json_cache->data)." cache entries:\n";
+		foreach(Phpcraft::$json_cache->data as $url => $entry)
 		{
-			echo $url." — ".strlen($entry["contents"])." B — ";
+			echo $url." — ";
 			$time_til_expire = $entry["expiry"] - time();
 			if($time_til_expire <= 0)
 			{
@@ -53,13 +54,11 @@ switch(@$argv[1])
 		}
 		break;
 	case "maintain":
-		require "vendor/autoload.php";
-		echo "Cache entries — before: ".count(json_decode(file_get_contents("src/.cache"), true))."\n";
-		/** @noinspection PhpFullyQualifiedNameUsageInspection */
-		\Phpcraft\Phpcraft::maintainCache();
-		if(file_exists("src/.cache"))
+		echo "Cache entries — before: ".count(Phpcraft::$json_cache->data)."\n";
+		Phpcraft::maintainCache();
+		if(file_exists("src/.json_cache"))
 		{
-			echo "Cache entries — after: ".count(json_decode(file_get_contents("src/.cache"), true))."\n";
+			echo "Cache entries — after: ".count(Phpcraft::$json_cache->data)."\n";
 		}
 		else
 		{
@@ -67,8 +66,9 @@ switch(@$argv[1])
 		}
 		break;
 	case "purge":
-		echo "Cache entries — before: ".count(json_decode(file_get_contents("src/.cache"), true))."\n";
-		unlink("src/.cache");
+		echo "Cache entries — before: ".count(Phpcraft::$json_cache->data)."\n";
+		Phpcraft::$json_cache->data = [];
+		Phpcraft::$json_cache->save();
 		echo "Cache entries — after: 0\n";
 		break;
 	default:

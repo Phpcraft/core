@@ -101,9 +101,10 @@ class Plugin
 	 *
 	 * @param $names string|string[] One or more names without the / prefix. So, if you want a "/gamemode" comand, you provide "gamemode", and if you want a "//wand" command, you provide "/wand".
 	 * @param callable $function The function called when the command is executed with the first argument being a CommandSender. Further arguments determine the command's arguments, e.g. <code>-&gt;registerCommand("gamemode", function(CommandSender &$sender, int $gamemode){...})</code> would result in the command <code>/gamemode &lt;gamemode&gt;</code> where the gamemode argument only allows integers.
+	 * @param string|null $required_permission The permission required to use this command or null if not applicable.
 	 * @return Plugin $this
 	 */
-	protected function registerCommand($names, callable $function): Plugin
+	protected function registerCommand($names, callable $function, $required_permission = null): Plugin
 	{
 		if(is_string($names))
 		{
@@ -119,7 +120,7 @@ class Plugin
 				}
 			}
 		}
-		PluginManager::$registered_commands->attach(new Command($this, $names, $function));
+		PluginManager::$registered_commands->attach(new Command($this, $names, $required_permission, $function));
 		return $this;
 	}
 

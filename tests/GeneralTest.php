@@ -1,7 +1,7 @@
 <?php /** @noinspection PhpUnused PhpUnhandledExceptionInspection */
-require __DIR__."/../vendor/autoload.php";
+require_once __DIR__."/../vendor/autoload.php";
 use Phpcraft\
-{BlockState, Connection, Counter, EntityBase, EntityLiving, Item, Phpcraft, Versions};
+{BlockState, Connection, Counter, EntityBase, EntityLiving, Item, Phpcraft, Server, Versions};
 class GeneralTest
 {
 	function testTextToChat()
@@ -143,7 +143,31 @@ class GeneralTest
 	function testBlockMaterial()
 	{
 		Nose::assertNotNull($grass = BlockState::get("grass_block"));
-		Nose::assertEquals(2 << 4, $grass->getId(47));
-		Nose::assertEquals(9, $grass->getId(404));
+		Nose::assertEquals($grass->getId(47), 2 << 4);
+		Nose::assertEquals($grass->getId(404), 9);
+	}
+
+	function testPermissions()
+	{
+		$server = new Server();
+		$server->setGroups([
+			"default" => [
+				"allow" => "use /help"
+			],
+			"user" => [
+				"inherit" => "default",
+				"allow" => "use /gamemode"
+			],
+			"admin" => [
+				"allow" => "everything"
+			]
+		]);
+		Nose::assertTrue($server->getGroup("default")->hasPermission("use /help"));
+		Nose::assertFalse($server->getGroup("default")->hasPermission("use /gamemode"));
+		Nose::assertFalse($server->getGroup("default")->hasPermission("use /something"));
+		Nose::assertTrue($server->getGroup("user")->hasPermission("use /help"));
+		Nose::assertTrue($server->getGroup("user")->hasPermission("use /gamemode"));
+		Nose::assertFalse($server->getGroup("user")->hasPermission("use /something"));
+		Nose::assertTrue($server->getGroup("admin")->hasPermission("use /something"));
 	}
 }

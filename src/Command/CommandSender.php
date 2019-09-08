@@ -1,5 +1,6 @@
 <?php
 namespace Phpcraft\Command;
+use Phpcraft\Server;
 interface CommandSender
 {
 	/**
@@ -7,5 +8,12 @@ interface CommandSender
 	 */
 	function sendMessage($message);
 
-	function isOP(): bool;
+	function hasPermission(string $permission): bool;
+
+	function hasServer(): bool;
+
+	/**
+	 * @return Server|null
+	 */
+	function getServer();
 }

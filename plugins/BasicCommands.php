@@ -5,7 +5,7 @@
  * @var Plugin $this
  */
 use Phpcraft\
-{ClientConnection, Command\ArgumentProvider, Command\Command, Command\CommandSender, Enum\Gamemode, Plugin\Plugin, Plugin\PluginManager};
+{ClientConfiguration, ClientConnection, Command\ArgumentProvider, Command\Command, Command\CommandSender, Enum\Gamemode, Plugin\Plugin, Plugin\PluginManager, Server};
 if(!class_exists("GamemodeArgument"))
 {
 	class GamemodeArgument
@@ -22,7 +22,7 @@ if(!class_exists("GamemodeArgument"))
 	{
 		private $value;
 
-		public function __construct(string $arg)
+		public function __construct(CommandSender &$sender, string $arg)
 		{
 			if(is_numeric($arg) && $arg >= 0 && $arg <= 4)
 			{
@@ -99,4 +99,28 @@ $this->registerCommand("help", function(CommandSender &$sender)
 		 $client->writeByte(hexdec($metadata));
 		 $client->writeByte(0xFF);
 		 $client->send();
-	 });
+	 })
+	->registerCommand("group", function(CommandSender &$sender, ClientConfiguration $player, string $group = "")
+	{
+		if($group == "")
+		{
+			$sender->sendMessage([
+				"text" => $player->getName()." is currently in group '".$player->getGroupName()."'."
+			]);
+		}
+		else if($sender->getServer()->getGroup($group) !== null)
+		{
+			$player->setGroup($group);
+			$sender->sendMessage([
+				"text" => $player->getName()." is now in group '".$player->getGroupName()."'.",
+				"color" => "green"
+			]);
+		}
+		else
+		{
+			$sender->sendMessage([
+				"text" => "Group '".$player->getGroupName()."' does not exist.",
+				"color" => "red"
+			]);
+		}
+	}, "use /group");
