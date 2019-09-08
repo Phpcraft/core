@@ -7,7 +7,7 @@ if(empty($argv))
 }
 require "vendor/autoload.php";
 use Phpcraft\
-{ClientConnection, Command\Command, Command\CommandSender, Event\ServerChatEvent, Event\ServerConsoleEvent, Event\ServerFlyingChangeEvent, Event\ServerJoinEvent, Event\ServerLeaveEvent, Event\ServerOnGroundChangeEvent, Event\ServerPacketEvent, Event\ServerTickEvent, FancyUserInterface, Phpcraft, Plugin\PluginManager, Server, UserInterface, Versions};
+{ClientConnection, Command\Command, Command\CommandSender, Event\ServerChatEvent, Event\ServerConsoleEvent, Event\ServerFlyingChangeEvent, Event\ServerJoinEvent, Event\ServerLeaveEvent, Event\ServerOnGroundChangeEvent, Event\ServerPacketEvent, Event\ServerTickEvent, PlainUserInterface, UserInterface, Phpcraft, Plugin\PluginManager, Server, Versions};
 $options = [
 	"offline" => false,
 	"port" => 25565,
@@ -46,18 +46,21 @@ for($i = 1; $i < count($argv); $i++)
 			echo "port=<port>  bind to port <port>\n";
 			echo "offline      disables online mode and allows cracked players\n";
 			echo "nocolor      disallows players to use '&' to write colorfully\n";
-			echo "plain        replaces the fancy user interface with a plain one\n";
+			echo "plain        uses the plain user interface e.g. for writing logs to a file\n";
 			exit;
 		default:
 			die("Unknown argument '{$n}' -- try 'help' for a list of arguments.\n");
 	}
 }
-if(Phpcraft::isWindows() && !$options["plain"])
+try
 {
-	echo "Because you're on Windows, the plain user interface was forcefully enabled.\n";
-	$options["plain"] = true;
+	$ui = ($options["plain"] ? new PlainUserInterface() : new UserInterface("PHP Minecraft Server"));
 }
-$ui = ($options["plain"] ? new UserInterface() : new FancyUserInterface("PHP Minecraft Server", "github.com/timmyrs/Phpcraft"));
+catch(RuntimeException $e)
+{
+	echo "Since you're on PHP <7.2.0 and Windows <10.0.10586, the plain user interface is forcefully enabled.\n";
+	$ui = new PlainUserInterface();
+}
 if($options["offline"])
 {
 	$private_key = null;
@@ -82,7 +85,10 @@ $ui->add("Binding to port ".$options["port"]."... ")
    ->render();
 $stream = stream_socket_server("tcp://0.0.0.0:".$options["port"], $errno, $errstr) or die(" {$errstr}\n");
 $server = new Server($stream, $private_key);
-$ui->input_prefix = "[Server] ";
+if($ui instanceof UserInterface)
+{
+	$ui->setInputPrefix("[Server] ");
+}
 $ui->append("Success!")
    ->add("Preparing cache... ")
    ->render();
@@ -407,7 +413,7 @@ do
 			]
 		];
 		$ui->add(Phpcraft::chatToText($msg, 1));
-		$server->broadcast(json_encode($msg));
+		$server->broadcast($msg);
 	}
 	PluginManager::fire(new ServerTickEvent($server));
 	if(($remaining = (0.050 - (microtime(true) - $start))) > 0)

@@ -7,7 +7,7 @@ if(empty($argv))
 }
 require "vendor/autoload.php";
 use Phpcraft\
-{Account, AssetsManager, Event\ClientConsoleEvent, Event\ClientJoinEvent, Event\ClientPacketEvent, FancyUserInterface, Packet\ClientboundPacket, Packet\KeepAliveRequestPacket, Packet\PluginMessage\ServerboundBrandPluginMessagePacket, Phpcraft, Plugin\PluginManager, Position, ServerConnection, UserInterface, Versions};
+{Account, AssetsManager, Event\ClientConsoleEvent, Event\ClientJoinEvent, Event\ClientPacketEvent, Packet\ClientboundPacket, Packet\KeepAliveRequestPacket, Packet\PluginMessage\ServerboundBrandPluginMessagePacket, Phpcraft, PlainUserInterface, Plugin\PluginManager, Position, ServerConnection, UserInterface, Versions};
 $options = [];
 for($i = 1; $i < count($argv); $i++)
 {
@@ -61,7 +61,7 @@ for($i = 1; $i < count($argv); $i++)
 			echo "lang=<lang>       use Minecraft language <lang>, default: en_GB\n";
 			echo "joinmsg=<msg>     as soon as connected, <msg> will be handled\n";
 			echo "version=<version> don't check server version, connect using <version>\n";
-			echo "plain             replaces the fancy user interface with a plain one\n";
+			echo "plain             uses the plain user interface e.g. for writing logs to a file\n";
 			echo "noreconnect       don't reconnect when server disconnects\n";
 			exit;
 		default:
@@ -155,12 +155,15 @@ if(!$server)
 	}
 }
 fclose($stdin);
-if(Phpcraft::isWindows() && !isset($options["plain"]))
+try
 {
-	echo "Because you're on Windows, the plain user interface was forcefully enabled.\n";
-	$options["plain"] = true;
+	$ui = (isset($options["plain"]) ? new PlainUserInterface() : new UserInterface("PHP Minecraft Client"));
 }
-$ui = (isset($options["plain"]) ? new UserInterface() : new FancyUserInterface("PHP Minecraft Client", "github.com/timmyrs/Phpcraft"));
+catch(RuntimeException $e)
+{
+	echo "Since you're on PHP <7.2.0 and Windows <10.0.10586, the plain user interface is forcefully enabled.\n";
+	$ui = new PlainUserInterface();
+}
 $ui->add("Resolving... ")
    ->render();
 $server = Phpcraft::resolve($server);
@@ -211,7 +214,6 @@ function loadPlugins()
 {
 	global $ui;
 	echo "Loading plugins...\n";
-	PluginManager::$loaded_plugins = [];
 	PluginManager::loadPlugins();
 	echo "Loaded ".PluginManager::$loaded_plugins->count()." plugin(s).\n";
 	$ui->render();
@@ -494,7 +496,10 @@ do
 		   ->render();
 		exit;
 	}
-	$ui->input_prefix = "<{$account->username}> ";
+	if($ui instanceof UserInterface)
+	{
+		$ui->setInputPrefix("<{$account->username}> ");
+	}
 	$ui->append("Success!")
 	   ->render();
 	PluginManager::fire(new ClientJoinEvent($con));
@@ -780,7 +785,7 @@ do
 			{
 				if($con->readFloat() < 1)
 				{
-					$con->startPacket("client_status");
+					$con->startPacket("client_command");
 					$con->writeVarInt(0); // Respawn
 					$con->send();
 				}
