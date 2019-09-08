@@ -6,13 +6,17 @@ var searchData=
   ['clientboundpacket',['ClientboundPacket',['../classPhpcraft_1_1Packet_1_1ClientboundPacket.html',1,'Phpcraft::Packet']]],
   ['clientboundpluginmessagepacket',['ClientboundPluginMessagePacket',['../classPhpcraft_1_1Packet_1_1PluginMessage_1_1ClientboundPluginMessagePacket.html',1,'Phpcraft::Packet::PluginMessage']]],
   ['clientboundstringpluginmessagepacket',['ClientboundStringPluginMessagePacket',['../classPhpcraft_1_1Packet_1_1PluginMessage_1_1ClientboundStringPluginMessagePacket.html',1,'Phpcraft::Packet::PluginMessage']]],
+  ['clientconfiguration',['ClientConfiguration',['../classPhpcraft_1_1ClientConfiguration.html',1,'Phpcraft']]],
+  ['clientconfigurationargumentprovider',['ClientConfigurationArgumentProvider',['../classPhpcraft_1_1Command_1_1ClientConfigurationArgumentProvider.html',1,'Phpcraft::Command']]],
   ['clientconnection',['ClientConnection',['../classPhpcraft_1_1ClientConnection.html',1,'Phpcraft']]],
+  ['clientconnectionargumentprovider',['ClientConnectionArgumentProvider',['../classPhpcraft_1_1Command_1_1ClientConnectionArgumentProvider.html',1,'Phpcraft::Command']]],
   ['clientconsoleevent',['ClientConsoleEvent',['../classPhpcraft_1_1Event_1_1ClientConsoleEvent.html',1,'Phpcraft::Event']]],
   ['clientevent',['ClientEvent',['../classPhpcraft_1_1Event_1_1ClientEvent.html',1,'Phpcraft::Event']]],
   ['clientjoinevent',['ClientJoinEvent',['../classPhpcraft_1_1Event_1_1ClientJoinEvent.html',1,'Phpcraft::Event']]],
   ['clientpacketevent',['ClientPacketEvent',['../classPhpcraft_1_1Event_1_1ClientPacketEvent.html',1,'Phpcraft::Event']]],
   ['command',['Command',['../classPhpcraft_1_1Command_1_1Command.html',1,'Phpcraft::Command']]],
   ['commandsender',['CommandSender',['../interfacePhpcraft_1_1Command_1_1CommandSender.html',1,'Phpcraft::Command']]],
+  ['configuration',['Configuration',['../classPhpcraft_1_1Configuration.html',1,'Phpcraft']]],
   ['connection',['Connection',['../classPhpcraft_1_1Connection.html',1,'Phpcraft']]],
   ['counter',['Counter',['../classPhpcraft_1_1Counter.html',1,'Phpcraft']]]
 ];

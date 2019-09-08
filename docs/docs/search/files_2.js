@@ -6,13 +6,17 @@ var searchData=
   ['clientboundpacket_2ephp',['ClientboundPacket.php',['../ClientboundPacket_8php.html',1,'']]],
   ['clientboundpluginmessagepacket_2ephp',['ClientboundPluginMessagePacket.php',['../ClientboundPluginMessagePacket_8php.html',1,'']]],
   ['clientboundstringpluginmessagepacket_2ephp',['ClientboundStringPluginMessagePacket.php',['../ClientboundStringPluginMessagePacket_8php.html',1,'']]],
+  ['clientconfiguration_2ephp',['ClientConfiguration.php',['../ClientConfiguration_8php.html',1,'']]],
+  ['clientconfigurationargumentprovider_2ephp',['ClientConfigurationArgumentProvider.php',['../ClientConfigurationArgumentProvider_8php.html',1,'']]],
   ['clientconnection_2ephp',['ClientConnection.php',['../ClientConnection_8php.html',1,'']]],
+  ['clientconnectionargumentprovider_2ephp',['ClientConnectionArgumentProvider.php',['../ClientConnectionArgumentProvider_8php.html',1,'']]],
   ['clientconsoleevent_2ephp',['ClientConsoleEvent.php',['../ClientConsoleEvent_8php.html',1,'']]],
   ['clientevent_2ephp',['ClientEvent.php',['../ClientEvent_8php.html',1,'']]],
   ['clientjoinevent_2ephp',['ClientJoinEvent.php',['../ClientJoinEvent_8php.html',1,'']]],
   ['clientpacketevent_2ephp',['ClientPacketEvent.php',['../ClientPacketEvent_8php.html',1,'']]],
   ['command_2ephp',['Command.php',['../Command_8php.html',1,'']]],
   ['commandsender_2ephp',['CommandSender.php',['../CommandSender_8php.html',1,'']]],
+  ['configuration_2ephp',['Configuration.php',['../Configuration_8php.html',1,'']]],
   ['connection_2ephp',['Connection.php',['../Connection_8php.html',1,'']]],
   ['counter_2ephp',['Counter.php',['../Counter_8php.html',1,'']]]
 ];

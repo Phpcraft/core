@@ -65,6 +65,7 @@ $(function() {
   <div class="summary">
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="classPhpcraft_1_1Phpcraft-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Phpcraft\Phpcraft Class Reference</div>  </div>
@@ -85,8 +86,6 @@ Static Public Member Functions</h2></td></tr>
 <tr class="separator:a502c22266c0ca5ae1ad8575aedb32fec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa5e513e38acb16348f5c86b7d66017ba"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Phpcraft.html#aa5e513e38acb16348f5c86b7d66017ba">getCachableJson</a> (string $url, int $caching_duration=2678400)</td></tr>
 <tr class="separator:aa5e513e38acb16348f5c86b7d66017ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa833e306b45d74cb51ca0a46f39e6cc9"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Phpcraft.html#aa833e306b45d74cb51ca0a46f39e6cc9">getCachableResource</a> (string $url, int $caching_duration=86400)</td></tr>
-<tr class="separator:aa833e306b45d74cb51ca0a46f39e6cc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aecb985bfa2ddbc754ddfd1b44229852a"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Phpcraft.html#aecb985bfa2ddbc754ddfd1b44229852a">maintainCache</a> ()</td></tr>
 <tr class="separator:aecb985bfa2ddbc754ddfd1b44229852a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a19d93239a5fb95c71b5ba13c0e072cec"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Phpcraft.html#a19d93239a5fb95c71b5ba13c0e072cec">populateCache</a> ()</td></tr>
@@ -122,6 +121,13 @@ Public Attributes</h2></td></tr>
 <tr class="separator:aadecd1d7bb833a1504b554eea41df74b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3f95aeb3ebd5b39428049147a1187a23"><td class="memItemLeft" align="right" valign="top">const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Phpcraft.html#a3f95aeb3ebd5b39428049147a1187a23">FORMAT_AMPERSAND</a> = 3</td></tr>
 <tr class="separator:a3f95aeb3ebd5b39428049147a1187a23"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:a3cb88eba07dc12a814b209df2873a600"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Phpcraft.html#a3cb88eba07dc12a814b209df2873a600">$json_cache</a></td></tr>
+<tr class="separator:a3cb88eba07dc12a814b209df2873a600"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a67f20171b2280e575dde030e68736d02"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Phpcraft.html#a67f20171b2280e575dde030e68736d02">$user_cache</a></td></tr>
+<tr class="separator:a67f20171b2280e575dde030e68736d02"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
 <a id="a31fe0ef2465673ad8f42f1c418ed1fe9"></a>
@@ -308,57 +314,7 @@ Public Attributes</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>array </dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="classPhpcraft_1_1Phpcraft.html#aa833e306b45d74cb51ca0a46f39e6cc9">getCachableResource</a> </dd>
-<dd>
-<a class="el" href="classPhpcraft_1_1Phpcraft.html#aecb985bfa2ddbc754ddfd1b44229852a">maintainCache</a> </dd></dl>
-
-</div>
-</div>
-<a id="aa833e306b45d74cb51ca0a46f39e6cc9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa833e306b45d74cb51ca0a46f39e6cc9">&#9670;&nbsp;</a></span>getCachableResource()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static Phpcraft\Phpcraft::getCachableResource </td>
-          <td>(</td>
-          <td class="paramtype">string&#160;</td>
-          <td class="paramname"><em>$url</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>$caching_duration</em> = <code>86400</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>Returns the contents of a resource with an additional disk caching level.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramtype">string</td><td class="paramname">$url</td><td>The URL of the resource. </td></tr>
-    <tr><td class="paramtype">integer</td><td class="paramname">$caching_duration</td><td>How long the resource should be kept in the cache, in seconds. (Default: 1 day) </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>string </dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="classPhpcraft_1_1Phpcraft.html#aa5e513e38acb16348f5c86b7d66017ba">getCachableJson</a> </dd>
-<dd>
-<a class="el" href="classPhpcraft_1_1Phpcraft.html#aecb985bfa2ddbc754ddfd1b44229852a">maintainCache</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd>Phpcraft::maintainCache </dd></dl>
 
 </div>
 </div>
@@ -628,7 +584,7 @@ Phpcraft::saveProfiles() </dd></dl>
 <p>Deletes expired cache entries.</p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classPhpcraft_1_1Phpcraft.html#aa5e513e38acb16348f5c86b7d66017ba">getCachableJson</a> </dd>
 <dd>
-<a class="el" href="classPhpcraft_1_1Phpcraft.html#aa833e306b45d74cb51ca0a46f39e6cc9">getCachableResource</a> </dd></dl>
+getCachableResource </dd></dl>
 
 </div>
 </div>
@@ -872,6 +828,50 @@ Phpcraft::saveProfiles() </dd></dl>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
+<a id="a3cb88eba07dc12a814b209df2873a600"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3cb88eba07dc12a814b209df2873a600">&#9670;&nbsp;</a></span>$json_cache</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classPhpcraft_1_1Configuration.html">Configuration</a> Phpcraft\Phpcraft::$json_cache</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a67f20171b2280e575dde030e68736d02"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a67f20171b2280e575dde030e68736d02">&#9670;&nbsp;</a></span>$user_cache</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classPhpcraft_1_1Configuration.html">Configuration</a> Phpcraft\Phpcraft::$user_cache</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a3f95aeb3ebd5b39428049147a1187a23"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3f95aeb3ebd5b39428049147a1187a23">&#9670;&nbsp;</a></span>FORMAT_AMPERSAND</h2>
 

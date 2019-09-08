@@ -74,8 +74,8 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ac3800e74906af06476f764a79c6d94e1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Command_1_1Command.html#ac3800e74906af06476f764a79c6d94e1">__construct</a> (<a class="el" href="classPhpcraft_1_1Plugin_1_1Plugin.html">Plugin</a> $plugin, array $names, callable $function)</td></tr>
-<tr class="separator:ac3800e74906af06476f764a79c6d94e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5eaa90e0b9e1a273ac59c9d38342e8a5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Command_1_1Command.html#a5eaa90e0b9e1a273ac59c9d38342e8a5">__construct</a> (<a class="el" href="classPhpcraft_1_1Plugin_1_1Plugin.html">Plugin</a> $plugin, array $names, $required_permission, callable $function)</td></tr>
+<tr class="separator:a5eaa90e0b9e1a273ac59c9d38342e8a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa0139d3b6a58328fff0418be3674294b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Command_1_1Command.html#aa0139d3b6a58328fff0418be3674294b">getCanonicalName</a> ()</td></tr>
 <tr class="separator:aa0139d3b6a58328fff0418be3674294b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a963654f50fde111c5bd39379075d94ac"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Command_1_1Command.html#a963654f50fde111c5bd39379075d94ac">getSyntax</a> ()</td></tr>
@@ -90,14 +90,16 @@ Static Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a18bbb14a2e76d9c2062e19c0bef76873"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Command_1_1Command.html#a18bbb14a2e76d9c2062e19c0bef76873">$plugin</a></td></tr>
-<tr class="separator:a18bbb14a2e76d9c2062e19c0bef76873"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6c0fff850e5a53585a96fad01544a93e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Command_1_1Command.html#a6c0fff850e5a53585a96fad01544a93e">$plugin</a></td></tr>
+<tr class="separator:a6c0fff850e5a53585a96fad01544a93e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a69d2213b27e7e578fae03f02638f660c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Command_1_1Command.html#a69d2213b27e7e578fae03f02638f660c">$names</a></td></tr>
 <tr class="separator:a69d2213b27e7e578fae03f02638f660c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa7223b1f14057cc3a1e182d44768d48b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Command_1_1Command.html#aa7223b1f14057cc3a1e182d44768d48b">$required_permission</a></td></tr>
+<tr class="separator:aa7223b1f14057cc3a1e182d44768d48b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ac3800e74906af06476f764a79c6d94e1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac3800e74906af06476f764a79c6d94e1">&#9670;&nbsp;</a></span>__construct()</h2>
+<a id="a5eaa90e0b9e1a273ac59c9d38342e8a5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5eaa90e0b9e1a273ac59c9d38342e8a5">&#9670;&nbsp;</a></span>__construct()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -113,6 +115,12 @@ Public Attributes</h2></td></tr>
           <td></td>
           <td class="paramtype">array&#160;</td>
           <td class="paramname"><em>$names</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$required_permission</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -255,14 +263,28 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a18bbb14a2e76d9c2062e19c0bef76873"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a18bbb14a2e76d9c2062e19c0bef76873">&#9670;&nbsp;</a></span>$plugin</h2>
+<a id="a6c0fff850e5a53585a96fad01544a93e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c0fff850e5a53585a96fad01544a93e">&#9670;&nbsp;</a></span>$plugin</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">Phpcraft\Command\Command::$plugin</td>
+          <td class="memname"><a class="el" href="classPhpcraft_1_1Plugin_1_1Plugin.html">Plugin</a> Phpcraft\Command\Command::$plugin</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa7223b1f14057cc3a1e182d44768d48b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa7223b1f14057cc3a1e182d44768d48b">&#9670;&nbsp;</a></span>$required_permission</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">string null Phpcraft\Command\Command::$required_permission</td>
         </tr>
       </table>
 </div><div class="memdoc">

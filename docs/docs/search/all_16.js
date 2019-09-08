@@ -1,8 +1,12 @@
 var searchData=
 [
-  ['valid',['valid',['../classPhpcraft_1_1Nbt_1_1NbtListTag.html#a177774dc837de4e6edf7af73a1319f09',1,'Phpcraft::Nbt::NbtListTag']]],
-  ['validatename',['validateName',['../classPhpcraft_1_1Phpcraft.html#a5b16cdfefc95ccd874685e5760e95158',1,'Phpcraft::Phpcraft']]],
-  ['varint',['varInt',['../classPhpcraft_1_1Connection.html#af2b764c00dea42bfc18f234dd61022a9',1,'Phpcraft::Connection']]],
-  ['versions',['Versions',['../classPhpcraft_1_1Versions.html',1,'Phpcraft']]],
-  ['versions_2ephp',['Versions.php',['../Versions_8php.html',1,'']]]
+  ['unloadallplugins',['unloadAllPlugins',['../classPhpcraft_1_1Plugin_1_1PluginManager.html#aef2efc977d7b873b93ff2fd986d78fe0',1,'Phpcraft::Plugin::PluginManager']]],
+  ['unregister',['unregister',['../classPhpcraft_1_1Plugin_1_1Plugin.html#a55e41bd45382d16ff113e415b5b83db2',1,'Phpcraft::Plugin::Plugin']]],
+  ['unset',['unset',['../classPhpcraft_1_1Configuration.html#a9606680b1a89aa42ddc3d32b61ed2e28',1,'Phpcraft::Configuration']]],
+  ['updatebossbarhealthpacket',['UpdateBossBarHealthPacket',['../classPhpcraft_1_1Packet_1_1BossBar_1_1UpdateBossBarHealthPacket.html',1,'Phpcraft::Packet::BossBar']]],
+  ['updatebossbarhealthpacket_2ephp',['UpdateBossBarHealthPacket.php',['../UpdateBossBarHealthPacket_8php.html',1,'']]],
+  ['updatebossbartitlepacket',['UpdateBossBarTitlePacket',['../classPhpcraft_1_1Packet_1_1BossBar_1_1UpdateBossBarTitlePacket.html',1,'Phpcraft::Packet::BossBar']]],
+  ['updatebossbartitlepacket_2ephp',['UpdateBossBarTitlePacket.php',['../UpdateBossBarTitlePacket_8php.html',1,'']]],
+  ['userinterface',['UserInterface',['../classPhpcraft_1_1UserInterface.html',1,'Phpcraft']]],
+  ['userinterface_2ephp',['UserInterface.php',['../UserInterface_8php.html',1,'']]]
 ];

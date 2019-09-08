@@ -83,18 +83,62 @@ Inheritance diagram for Phpcraft\Command\CommandSender:</div>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a9db2ce7b323f2042dfc6c5d729981d70"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfacePhpcraft_1_1Command_1_1CommandSender.html#a9db2ce7b323f2042dfc6c5d729981d70">sendMessage</a> ($message)</td></tr>
 <tr class="separator:a9db2ce7b323f2042dfc6c5d729981d70"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af3ceaa3606727f61f3d6954d93d0730d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfacePhpcraft_1_1Command_1_1CommandSender.html#af3ceaa3606727f61f3d6954d93d0730d">isOP</a> ()</td></tr>
-<tr class="separator:af3ceaa3606727f61f3d6954d93d0730d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aea988402e6264dd90d6599b6cdb1cc06"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfacePhpcraft_1_1Command_1_1CommandSender.html#aea988402e6264dd90d6599b6cdb1cc06">hasPermission</a> (string $permission)</td></tr>
+<tr class="separator:aea988402e6264dd90d6599b6cdb1cc06"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5463b5a15a4f237cb6435cfca7c7b225"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfacePhpcraft_1_1Command_1_1CommandSender.html#a5463b5a15a4f237cb6435cfca7c7b225">hasServer</a> ()</td></tr>
+<tr class="separator:a5463b5a15a4f237cb6435cfca7c7b225"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e784c680b4cce6ac0cf7304e73582f9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfacePhpcraft_1_1Command_1_1CommandSender.html#a4e784c680b4cce6ac0cf7304e73582f9">getServer</a> ()</td></tr>
+<tr class="separator:a4e784c680b4cce6ac0cf7304e73582f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="af3ceaa3606727f61f3d6954d93d0730d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af3ceaa3606727f61f3d6954d93d0730d">&#9670;&nbsp;</a></span>isOP()</h2>
+<a id="a4e784c680b4cce6ac0cf7304e73582f9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4e784c680b4cce6ac0cf7304e73582f9">&#9670;&nbsp;</a></span>getServer()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">Phpcraft\Command\CommandSender::isOP </td>
+          <td class="memname">Phpcraft\Command\CommandSender::getServer </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Server|null </dd></dl>
+
+<p>Implemented in <a class="el" href="classPhpcraft_1_1ClientConnection.html#aaf19ba5251d4c243030e4ea57b1e04e9">Phpcraft\ClientConnection</a>, and <a class="el" href="classPhpcraft_1_1Server.html#a651949f73a9efab50ab28347090174d2">Phpcraft\Server</a>.</p>
+
+</div>
+</div>
+<a id="aea988402e6264dd90d6599b6cdb1cc06"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aea988402e6264dd90d6599b6cdb1cc06">&#9670;&nbsp;</a></span>hasPermission()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Phpcraft\Command\CommandSender::hasPermission </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>$permission</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classPhpcraft_1_1ClientConnection.html#aa69108566360e397f65fb9033de94334">Phpcraft\ClientConnection</a>, and <a class="el" href="classPhpcraft_1_1Server.html#a1a71c3b8c60fb7bdad95064c6c5cb4e4">Phpcraft\Server</a>.</p>
+
+</div>
+</div>
+<a id="a5463b5a15a4f237cb6435cfca7c7b225"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5463b5a15a4f237cb6435cfca7c7b225">&#9670;&nbsp;</a></span>hasServer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Phpcraft\Command\CommandSender::hasServer </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -102,7 +146,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="classPhpcraft_1_1ClientConnection.html#a05667696a9b1559d7abd14212738db8a">Phpcraft\ClientConnection</a>, and <a class="el" href="classPhpcraft_1_1Server.html#a5be58c7d62ea737a039c58fcb212a09a">Phpcraft\Server</a>.</p>
+<p>Implemented in <a class="el" href="classPhpcraft_1_1ClientConnection.html#a09fd4b907aec11f618c60c43a2640b67">Phpcraft\ClientConnection</a>, and <a class="el" href="classPhpcraft_1_1Server.html#ab44f6c4eb6f22bdd5cf48ef7c0c7d2dc">Phpcraft\Server</a>.</p>
 
 </div>
 </div>

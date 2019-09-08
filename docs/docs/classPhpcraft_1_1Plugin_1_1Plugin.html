@@ -90,8 +90,8 @@ Public Attributes</h2></td></tr>
 Protected Member Functions</h2></td></tr>
 <tr class="memitem:a13c2fe0412b5cc45b36b737bb3cf35a9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Plugin_1_1Plugin.html#a13c2fe0412b5cc45b36b737bb3cf35a9">on</a> (callable $callable, int $priority=<a class="el" href="classPhpcraft_1_1Event_1_1Event.html#a97847933903973de3ef3d7be6c57b945">Event::PRIORITY_NORMAL</a>)</td></tr>
 <tr class="separator:a13c2fe0412b5cc45b36b737bb3cf35a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a24935295241c349dcf63622daa37d70d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Plugin_1_1Plugin.html#a24935295241c349dcf63622daa37d70d">registerCommand</a> ($names, callable $function)</td></tr>
-<tr class="separator:a24935295241c349dcf63622daa37d70d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a69dcded59a816810b47eea7d555de074"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Plugin_1_1Plugin.html#a69dcded59a816810b47eea7d555de074">registerCommand</a> ($names, callable $function, $required_permission=null)</td></tr>
+<tr class="separator:a69dcded59a816810b47eea7d555de074"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a55e41bd45382d16ff113e415b5b83db2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Plugin_1_1Plugin.html#a55e41bd45382d16ff113e415b5b83db2">unregister</a> ()</td></tr>
 <tr class="separator:a55e41bd45382d16ff113e415b5b83db2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -207,8 +207,8 @@ Protected Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a24935295241c349dcf63622daa37d70d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a24935295241c349dcf63622daa37d70d">&#9670;&nbsp;</a></span>registerCommand()</h2>
+<a id="a69dcded59a816810b47eea7d555de074"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a69dcded59a816810b47eea7d555de074">&#9670;&nbsp;</a></span>registerCommand()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -226,7 +226,13 @@ Protected Member Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">callable&#160;</td>
-          <td class="paramname"><em>$function</em>&#160;</td>
+          <td class="paramname"><em>$function</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$required_permission</em> = <code>null</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -245,6 +251,7 @@ Protected Member Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramtype"></td><td class="paramname">$names</td><td>string|string[] One or more names without the / prefix. So, if you want a "/gamemode" comand, you provide "gamemode", and if you want a "//wand" command, you provide "/wand". </td></tr>
     <tr><td class="paramtype">callable</td><td class="paramname">$function</td><td>The function called when the command is executed with the first argument being a CommandSender. Further arguments determine the command's arguments, e.g. <code>-&gt;registerCommand("gamemode", function(CommandSender &amp;$sender, int $gamemode){...})</code> would result in the command <code>/gamemode &lt;gamemode&gt;</code> where the gamemode argument only allows integers. </td></tr>
+    <tr><td class="paramtype">string&#160;|&#160;null</td><td class="paramname">$required_permission</td><td>The permission required to use this command or null if not applicable. </td></tr>
   </table>
   </dd>
 </dl>

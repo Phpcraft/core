@@ -1,5 +1,7 @@
 <map id="Phpcraft\Command\ArgumentProvider" name="Phpcraft\Command\ArgumentProvider">
-<area shape="rect" id="node2" href="$classPhpcraft_1_1Command_1_1FloatArgumentProvider.html" title="Phpcraft\\Command\\FloatArgument\lProvider" alt="" coords="271,5,517,47"/>
-<area shape="rect" id="node3" href="$classPhpcraft_1_1Command_1_1IntegerArgumentProvider.html" title="Phpcraft\\Command\\Integer\lArgumentProvider" alt="" coords="297,71,491,112"/>
-<area shape="rect" id="node4" href="$classPhpcraft_1_1Command_1_1StringArgumentProvider.html" title="Phpcraft\\Command\\StringArgument\lProvider" alt="" coords="268,136,520,177"/>
+<area shape="rect" id="node2" href="$classPhpcraft_1_1Command_1_1ClientConfigurationArgumentProvider.html" title="Phpcraft\\Command\\ClientConfiguration\lArgumentProvider" alt="" coords="268,5,539,47"/>
+<area shape="rect" id="node3" href="$classPhpcraft_1_1Command_1_1ClientConnectionArgumentProvider.html" title="Phpcraft\\Command\\ClientConnection\lArgumentProvider" alt="" coords="274,71,533,112"/>
+<area shape="rect" id="node4" href="$classPhpcraft_1_1Command_1_1FloatArgumentProvider.html" title="Phpcraft\\Command\\FloatArgument\lProvider" alt="" coords="281,136,526,177"/>
+<area shape="rect" id="node5" href="$classPhpcraft_1_1Command_1_1IntegerArgumentProvider.html" title="Phpcraft\\Command\\Integer\lArgumentProvider" alt="" coords="306,201,501,243"/>
+<area shape="rect" id="node6" href="$classPhpcraft_1_1Command_1_1StringArgumentProvider.html" title="Phpcraft\\Command\\StringArgument\lProvider" alt="" coords="277,267,529,308"/>
 </map>
