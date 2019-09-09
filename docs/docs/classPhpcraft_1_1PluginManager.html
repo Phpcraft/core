@@ -75,14 +75,16 @@ $(function() {
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a5a98b981fcd31665f1b590814a8964a6"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1PluginManager.html#a5a98b981fcd31665f1b590814a8964a6">loadPlugins</a> (string $plugins_folder=&quot;plugins&quot;)</td></tr>
 <tr class="separator:a5a98b981fcd31665f1b590814a8964a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a46c18a27049f37e4c612c1dfb545990a"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1PluginManager.html#a46c18a27049f37e4c612c1dfb545990a">unloadAllPlugins</a> ()</td></tr>
+<tr class="separator:a46c18a27049f37e4c612c1dfb545990a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad912f829d164fd31f61a4eee2da88804"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1PluginManager.html#ad912f829d164fd31f61a4eee2da88804">fire</a> (<a class="el" href="classPhpcraft_1_1Event_1_1Event.html">Event</a> $event)</td></tr>
 <tr class="separator:ad912f829d164fd31f61a4eee2da88804"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
-<tr class="memitem:a229377a05bf3b893acebc64467e53eeb"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1PluginManager.html#a229377a05bf3b893acebc64467e53eeb">$loaded_plugins</a> = []</td></tr>
+<tr class="memitem:a229377a05bf3b893acebc64467e53eeb"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1PluginManager.html#a229377a05bf3b893acebc64467e53eeb">$loaded_plugins</a></td></tr>
 <tr class="separator:a229377a05bf3b893acebc64467e53eeb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a32ea171df3a590c783dce44a2b906b28"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1PluginManager.html#a32ea171df3a590c783dce44a2b906b28">$registered_commands</a> = []</td></tr>
+<tr class="memitem:a32ea171df3a590c783dce44a2b906b28"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1PluginManager.html#a32ea171df3a590c783dce44a2b906b28">$registered_commands</a></td></tr>
 <tr class="separator:a32ea171df3a590c783dce44a2b906b28"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
@@ -153,6 +155,31 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a46c18a27049f37e4c612c1dfb545990a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a46c18a27049f37e4c612c1dfb545990a">&#9670;&nbsp;</a></span>unloadAllPlugins()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static Phpcraft\PluginManager::unloadAllPlugins </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <h2 class="groupheader">Member Data Documentation</h2>
 <a id="a229377a05bf3b893acebc64467e53eeb"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a229377a05bf3b893acebc64467e53eeb">&#9670;&nbsp;</a></span>$loaded_plugins</h2>
@@ -164,7 +191,7 @@ Static Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">Phpcraft\PluginManager::$loaded_plugins = []</td>
+          <td class="memname">Phpcraft\PluginManager::$loaded_plugins</td>
         </tr>
       </table>
   </td>
@@ -186,7 +213,7 @@ Static Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">Phpcraft\PluginManager::$registered_commands = []</td>
+          <td class="memname">Phpcraft\PluginManager::$registered_commands</td>
         </tr>
       </table>
   </td>

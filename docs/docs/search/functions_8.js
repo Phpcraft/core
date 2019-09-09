@@ -2,7 +2,7 @@ var searchData=
 [
   ['ignorebytes',['ignoreBytes',['../classPhpcraft_1_1Connection.html#a71e8f4620ff451e580d3a72c3beb5a8b',1,'Phpcraft::Connection']]],
   ['indentstring',['indentString',['../classPhpcraft_1_1Nbt_1_1NbtTag.html#a69380c3a35050c51b85c7e8fa3c5af02',1,'Phpcraft::Nbt::NbtTag']]],
-  ['init',['init',['../classPhpcraft_1_1Packet_1_1ClientboundPacket.html#a217d9764c466498b0af266a7d15cdbb5',1,'Phpcraft\Packet\ClientboundPacket\init()'],['../classPhpcraft_1_1Packet_1_1ServerboundPacket.html#ac877d29e88445146ab8e7e15e416544a',1,'Phpcraft\Packet\ServerboundPacket\init()'],['../classPhpcraft_1_1PacketId.html#abcdf0ac9edac2a40d1576fd4af609f9b',1,'Phpcraft\PacketId\init()']]],
+  ['init',['init',['../classPhpcraft_1_1PacketId.html#abcdf0ac9edac2a40d1576fd4af609f9b',1,'Phpcraft::PacketId']]],
   ['isauthenticationpending',['isAuthenticationPending',['../classPhpcraft_1_1ClientConnection.html#a6d87e1f33d819184fcb64f08652c4afc',1,'Phpcraft::ClientConnection']]],
   ['isempty',['isEmpty',['../classPhpcraft_1_1Slot.html#ab90ef5995ffeccc0be5a58fbb31337c3',1,'Phpcraft::Slot']]],
   ['isfinished',['isFinished',['../classPhpcraft_1_1Command_1_1ArgumentProvider.html#ac50f1c4d88e225a503e5f177aac7c8a5',1,'Phpcraft::Command::ArgumentProvider']]],

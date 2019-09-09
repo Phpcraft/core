@@ -9,6 +9,5 @@ var searchData=
   ['packet',['Packet',['../namespacePhpcraft_1_1Packet.html',1,'Phpcraft']]],
   ['permission',['Permission',['../namespacePhpcraft_1_1Permission.html',1,'Phpcraft']]],
   ['phpcraft',['Phpcraft',['../namespacePhpcraft.html',1,'']]],
-  ['plugin',['Plugin',['../namespacePhpcraft_1_1Plugin.html',1,'Phpcraft']]],
   ['pluginmessage',['PluginMessage',['../namespacePhpcraft_1_1Packet_1_1PluginMessage.html',1,'Phpcraft::Packet']]]
 ];

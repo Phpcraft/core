@@ -90,6 +90,8 @@ Public Attributes</h2></td></tr>
 Protected Member Functions</h2></td></tr>
 <tr class="memitem:a83856a2a2b1951a8573352b536578f96"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Plugin.html#a83856a2a2b1951a8573352b536578f96">on</a> (callable $callable, int $priority=<a class="el" href="classPhpcraft_1_1Event_1_1Event.html#a97847933903973de3ef3d7be6c57b945">Event::PRIORITY_NORMAL</a>)</td></tr>
 <tr class="separator:a83856a2a2b1951a8573352b536578f96"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0dc9f07da22c2bb504631bd74ad2510d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Plugin.html#a0dc9f07da22c2bb504631bd74ad2510d">registerCommand</a> ($names, callable $function, $required_permission=null)</td></tr>
+<tr class="separator:a0dc9f07da22c2bb504631bd74ad2510d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aae3ebad92fd03d0041aab886403a3e96"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Plugin.html#aae3ebad92fd03d0041aab886403a3e96">unregister</a> ()</td></tr>
 <tr class="separator:aae3ebad92fd03d0041aab886403a3e96"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -201,13 +203,59 @@ Protected Member Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="classPhpcraft_1_1Plugin.html">Plugin</a> $this </dd></dl>
-<dl class="exception"><dt>Exceptions</dt><dd>
-  <table class="exception">
-    <tr><td class="paramname">InvalidArgumentException</td><td></td></tr>
+<p>PhpDeprecationInspection </p>
+
+</div>
+</div>
+<a id="a0dc9f07da22c2bb504631bd74ad2510d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0dc9f07da22c2bb504631bd74ad2510d">&#9670;&nbsp;</a></span>registerCommand()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Phpcraft\Plugin::registerCommand </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$names</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">callable&#160;</td>
+          <td class="paramname"><em>$function</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$required_permission</em> = <code>null</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Registers a command.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype"></td><td class="paramname">$names</td><td>string|string[] One or more names without the / prefix. So, if you want a "/gamemode" comand, you provide "gamemode", and if you want a "//wand" command, you provide "/wand". </td></tr>
+    <tr><td class="paramtype">callable</td><td class="paramname">$function</td><td>The function called when the command is executed with the first argument being a CommandSender. Further arguments determine the command's arguments, e.g. <code>-&gt;registerCommand("gamemode", function(CommandSender &amp;$sender, int $gamemode){...})</code> would result in the command <code>/gamemode &lt;gamemode&gt;</code> where the gamemode argument only allows integers. </td></tr>
+    <tr><td class="paramtype">string&#160;|&#160;null</td><td class="paramname">$required_permission</td><td>The permission required to use this command or null if not applicable. </td></tr>
   </table>
   </dd>
 </dl>
-<p>PhpDeprecationInspection </p>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classPhpcraft_1_1Plugin.html">Plugin</a> $this </dd></dl>
 
 </div>
 </div>

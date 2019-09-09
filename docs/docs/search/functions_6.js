@@ -7,6 +7,7 @@ var searchData=
   ['getcachablejson',['getCachableJson',['../classPhpcraft_1_1Phpcraft.html#aa5e513e38acb16348f5c86b7d66017ba',1,'Phpcraft::Phpcraft']]],
   ['getcanonicalname',['getCanonicalName',['../classPhpcraft_1_1Command_1_1Command.html#aa0139d3b6a58328fff0418be3674294b',1,'Phpcraft::Command::Command']]],
   ['getchild',['getChild',['../classPhpcraft_1_1Nbt_1_1NbtCompound.html#a5a1ffcd1e5ba0185c67fe4b824e626a7',1,'Phpcraft::Nbt::NbtCompound']]],
+  ['getclass',['getClass',['../classPhpcraft_1_1Packet_1_1ClientboundPacket.html#aa596cf41704e1c5170158ed618bb1e0a',1,'Phpcraft\Packet\ClientboundPacket\getClass()'],['../classPhpcraft_1_1Packet_1_1ServerboundPacket.html#a41e59d4fafc17a899d04bb57db828ad5',1,'Phpcraft\Packet\ServerboundPacket\getClass()'],['../classPhpcraft_1_1PacketId.html#ab679d0dc5b9f257439ab695286e9f430',1,'Phpcraft\PacketId\getClass()']]],
   ['getcolorid',['getColorId',['../classPhpcraft_1_1Packet_1_1MapDataPacket.html#ae76ce5289b4dc3e6d921f1025dd2f32f',1,'Phpcraft::Packet::MapDataPacket']]],
   ['getdisplayname',['getDisplayName',['../classPhpcraft_1_1Slot.html#a1c809a50269c8c74cc8ac44d8a95bc56',1,'Phpcraft::Slot']]],
   ['getdrops',['getDrops',['../classPhpcraft_1_1BlockState.html#ac366e91c1c30a23aee7bd69fb593d7b8',1,'Phpcraft::BlockState']]],

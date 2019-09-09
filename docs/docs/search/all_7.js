@@ -3,7 +3,7 @@ var searchData=
   ['feet',['FEET',['../classPhpcraft_1_1Slot.html#a43d1ef95a8e832bdd8fa686905ec2c4f',1,'Phpcraft::Slot']]],
   ['finish',['finish',['../classPhpcraft_1_1EntityMetadata.html#af968a3239650be1b5c614167b1e6504e',1,'Phpcraft::EntityMetadata']]],
   ['finishlogin',['finishLogin',['../classPhpcraft_1_1ClientConnection.html#a891e459081509946f485e6253c18f168',1,'Phpcraft::ClientConnection']]],
-  ['fire',['fire',['../classPhpcraft_1_1Plugin_1_1Plugin.html#af167996571617e2366337abb91be02be',1,'Phpcraft\Plugin\Plugin\fire()'],['../classPhpcraft_1_1Plugin_1_1PluginManager.html#a158bac8802c00d3a1ffe92267291c601',1,'Phpcraft\Plugin\PluginManager\fire()']]],
+  ['fire',['fire',['../classPhpcraft_1_1Plugin.html#aba78b35a6a482731e1c166823bb17e49',1,'Phpcraft\Plugin\fire()'],['../classPhpcraft_1_1PluginManager.html#ad912f829d164fd31f61a4eee2da88804',1,'Phpcraft\PluginManager\fire()']]],
   ['floatargumentprovider',['FloatArgumentProvider',['../classPhpcraft_1_1Command_1_1FloatArgumentProvider.html',1,'Phpcraft::Command']]],
   ['floatargumentprovider_2ephp',['FloatArgumentProvider.php',['../FloatArgumentProvider_8php.html',1,'']]],
   ['format_5fampersand',['FORMAT_AMPERSAND',['../classPhpcraft_1_1Phpcraft.html#a3f95aeb3ebd5b39428049147a1187a23',1,'Phpcraft::Phpcraft']]],

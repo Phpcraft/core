@@ -91,16 +91,16 @@ Collaboration diagram for Phpcraft\Event\ClientPacketEvent:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a05e1528ba525d9e7c47c5f9a0422db40"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Event_1_1ClientPacketEvent.html#a05e1528ba525d9e7c47c5f9a0422db40">__construct</a> (<a class="el" href="classPhpcraft_1_1ServerConnection.html">ServerConnection</a> $server, string $packet_name)</td></tr>
-<tr class="separator:a05e1528ba525d9e7c47c5f9a0422db40"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3fe5d5964a3a5608c763a3e00b91a824"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Event_1_1ClientPacketEvent.html#a3fe5d5964a3a5608c763a3e00b91a824">__construct</a> (<a class="el" href="classPhpcraft_1_1ServerConnection.html">ServerConnection</a> $server, <a class="el" href="classPhpcraft_1_1Packet_1_1ClientboundPacket.html">ClientboundPacket</a> $packetId)</td></tr>
+<tr class="separator:a3fe5d5964a3a5608c763a3e00b91a824"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classPhpcraft_1_1Event_1_1ClientEvent"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classPhpcraft_1_1Event_1_1ClientEvent')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classPhpcraft_1_1Event_1_1ClientEvent.html">Phpcraft\Event\ClientEvent</a></td></tr>
 <tr class="memitem:a6cd7d7b99ae8dc26b8585e5ab7f99884 inherit pub_methods_classPhpcraft_1_1Event_1_1ClientEvent"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Event_1_1ClientEvent.html#a6cd7d7b99ae8dc26b8585e5ab7f99884">__construct</a> (<a class="el" href="classPhpcraft_1_1ServerConnection.html">ServerConnection</a> $server)</td></tr>
 <tr class="separator:a6cd7d7b99ae8dc26b8585e5ab7f99884 inherit pub_methods_classPhpcraft_1_1Event_1_1ClientEvent"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a3e0eef52305f9a644413f3958883e901"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Event_1_1ClientPacketEvent.html#a3e0eef52305f9a644413f3958883e901">$packet_name</a></td></tr>
-<tr class="separator:a3e0eef52305f9a644413f3958883e901"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7df1eae620c98038594efed304a77c22"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Event_1_1ClientPacketEvent.html#a7df1eae620c98038594efed304a77c22">$packetId</a></td></tr>
+<tr class="separator:a7df1eae620c98038594efed304a77c22"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_attribs_classPhpcraft_1_1Event_1_1ClientEvent"><td colspan="2" onclick="javascript:toggleInherit('pub_attribs_classPhpcraft_1_1Event_1_1ClientEvent')"><img src="closed.png" alt="-"/>&#160;Public Attributes inherited from <a class="el" href="classPhpcraft_1_1Event_1_1ClientEvent.html">Phpcraft\Event\ClientEvent</a></td></tr>
 <tr class="memitem:af49c87b80af71814afaec0dcccc94710 inherit pub_attribs_classPhpcraft_1_1Event_1_1ClientEvent"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Event_1_1ClientEvent.html#af49c87b80af71814afaec0dcccc94710">$server</a></td></tr>
 <tr class="separator:af49c87b80af71814afaec0dcccc94710 inherit pub_attribs_classPhpcraft_1_1Event_1_1ClientEvent"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -121,8 +121,8 @@ Public Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The event emitted by the client when the server has sent a packet. Cancellable. Cancelling the event tells the client to ignore the packet. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a05e1528ba525d9e7c47c5f9a0422db40"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a05e1528ba525d9e7c47c5f9a0422db40">&#9670;&nbsp;</a></span>__construct()</h2>
+<a id="a3fe5d5964a3a5608c763a3e00b91a824"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3fe5d5964a3a5608c763a3e00b91a824">&#9670;&nbsp;</a></span>__construct()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -136,8 +136,8 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">string&#160;</td>
-          <td class="paramname"><em>$packet_name</em>&#160;</td>
+          <td class="paramtype"><a class="el" href="classPhpcraft_1_1Packet_1_1ClientboundPacket.html">ClientboundPacket</a>&#160;</td>
+          <td class="paramname"><em>$packetId</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -149,7 +149,7 @@ Public Attributes</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramtype"><a class="el" href="classPhpcraft_1_1ServerConnection.html">ServerConnection</a></td><td class="paramname">$server</td><td>The client's server connection. </td></tr>
-    <tr><td class="paramtype">string</td><td class="paramname">$packet_name</td><td>The name of the packet that the server has sent. </td></tr>
+    <tr><td class="paramtype">ClientboundPacket</td><td class="paramname">$packetId</td><td>The ID of the packet that the server has sent. </td></tr>
   </table>
   </dd>
 </dl>
@@ -157,18 +157,18 @@ Public Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="a3e0eef52305f9a644413f3958883e901"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3e0eef52305f9a644413f3958883e901">&#9670;&nbsp;</a></span>$packet_name</h2>
+<a id="a7df1eae620c98038594efed304a77c22"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7df1eae620c98038594efed304a77c22">&#9670;&nbsp;</a></span>$packetId</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">string Phpcraft\Event\ClientPacketEvent::$packet_name</td>
+          <td class="memname"><a class="el" href="classPhpcraft_1_1Packet_1_1ClientboundPacket.html">ClientboundPacket</a> Phpcraft\Event\ClientPacketEvent::$packetId</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>The name of the packet that the server has sent. </p>
+<p>The ID of the packet that the server has sent. </p>
 
 </div>
 </div>

@@ -18,9 +18,9 @@ var searchData=
   ['plainuserinterface',['PlainUserInterface',['../classPhpcraft_1_1PlainUserInterface.html',1,'Phpcraft']]],
   ['plainuserinterface_2ephp',['PlainUserInterface.php',['../PlainUserInterface_8php.html',1,'']]],
   ['player',['PLAYER',['../classPhpcraft_1_1Enum_1_1ChatPosition.html#ab22a422657b2999e7eb9460c731ec192',1,'Phpcraft::Enum::ChatPosition']]],
-  ['plugin',['Plugin',['../classPhpcraft_1_1Plugin_1_1Plugin.html',1,'Phpcraft\Plugin\Plugin'],['../namespacePhpcraft_1_1Plugin.html',1,'Phpcraft\Plugin']]],
+  ['plugin',['Plugin',['../classPhpcraft_1_1Plugin.html',1,'Phpcraft']]],
   ['plugin_2ephp',['Plugin.php',['../Plugin_8php.html',1,'']]],
-  ['pluginmanager',['PluginManager',['../classPhpcraft_1_1Plugin_1_1PluginManager.html',1,'Phpcraft::Plugin']]],
+  ['pluginmanager',['PluginManager',['../classPhpcraft_1_1PluginManager.html',1,'Phpcraft']]],
   ['pluginmanager_2ephp',['PluginManager.php',['../PluginManager_8php.html',1,'']]],
   ['pluginmessage',['PluginMessage',['../namespacePhpcraft_1_1Packet_1_1PluginMessage.html',1,'Phpcraft::Packet']]],
   ['pluginmessagepacket',['PluginMessagePacket',['../classPhpcraft_1_1Packet_1_1PluginMessage_1_1PluginMessagePacket.html',1,'Phpcraft::Packet::PluginMessage']]],
@@ -36,5 +36,13 @@ var searchData=
   ['protocol',['protocol',['../classPhpcraft_1_1Versions.html#a73793df0732a6fa34de9d40ff508c63e',1,'Phpcraft::Versions']]],
   ['protocolsupported',['protocolSupported',['../classPhpcraft_1_1Versions.html#aa87888e8af901fb50fc99277b2142029',1,'Phpcraft::Versions']]],
   ['protocoltominecraft',['protocolToMinecraft',['../classPhpcraft_1_1Versions.html#a69d76a4e85df598f4fb2b74e2acdf4da',1,'Phpcraft::Versions']]],
-  ['protocoltorange',['protocolToRange',['../classPhpcraft_1_1Versions.html#affc3642cccf0684afbe1314e92e03890',1,'Phpcraft::Versions']]]
+  ['protocoltorange',['protocolToRange',['../classPhpcraft_1_1Versions.html#affc3642cccf0684afbe1314e92e03890',1,'Phpcraft::Versions']]],
+  ['proxyclientpacketevent',['ProxyClientPacketEvent',['../classPhpcraft_1_1Event_1_1ProxyClientPacketEvent.html',1,'Phpcraft::Event']]],
+  ['proxyclientpacketevent_2ephp',['ProxyClientPacketEvent.php',['../ProxyClientPacketEvent_8php.html',1,'']]],
+  ['proxyevent',['ProxyEvent',['../classPhpcraft_1_1Event_1_1ProxyEvent.html',1,'Phpcraft::Event']]],
+  ['proxyevent_2ephp',['ProxyEvent.php',['../ProxyEvent_8php.html',1,'']]],
+  ['proxypacketevent',['ProxyPacketEvent',['../classPhpcraft_1_1Event_1_1ProxyPacketEvent.html',1,'Phpcraft::Event']]],
+  ['proxypacketevent_2ephp',['ProxyPacketEvent.php',['../ProxyPacketEvent_8php.html',1,'']]],
+  ['proxyserverpacketevent',['ProxyServerPacketEvent',['../classPhpcraft_1_1Event_1_1ProxyServerPacketEvent.html',1,'Phpcraft::Event']]],
+  ['proxyserverpacketevent_2ephp',['ProxyServerPacketEvent.php',['../ProxyServerPacketEvent_8php.html',1,'']]]
 ];

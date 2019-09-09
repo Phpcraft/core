@@ -93,9 +93,11 @@ Collaboration diagram for Phpcraft\Packet\ServerboundPacket:</div>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a10c2a293dde386be541f6615e29b99d4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Packet_1_1ServerboundPacket.html#a10c2a293dde386be541f6615e29b99d4">getId</a> (int $protocol_version)</td></tr>
 <tr class="separator:a10c2a293dde386be541f6615e29b99d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac877d29e88445146ab8e7e15e416544a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Packet_1_1ServerboundPacket.html#ac877d29e88445146ab8e7e15e416544a">init</a> (<a class="el" href="classPhpcraft_1_1Connection.html">Connection</a> $con)</td></tr>
-<tr class="separator:ac877d29e88445146ab8e7e15e416544a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a41e59d4fafc17a899d04bb57db828ad5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Packet_1_1ServerboundPacket.html#a41e59d4fafc17a899d04bb57db828ad5">getClass</a> ()</td></tr>
+<tr class="separator:a41e59d4fafc17a899d04bb57db828ad5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classPhpcraft_1_1PacketId"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classPhpcraft_1_1PacketId')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classPhpcraft_1_1PacketId.html">Phpcraft\PacketId</a></td></tr>
+<tr class="memitem:ab679d0dc5b9f257439ab695286e9f430 inherit pub_methods_classPhpcraft_1_1PacketId"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1PacketId.html#ab679d0dc5b9f257439ab695286e9f430">getClass</a> ()</td></tr>
+<tr class="separator:ab679d0dc5b9f257439ab695286e9f430 inherit pub_methods_classPhpcraft_1_1PacketId"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abcdf0ac9edac2a40d1576fd4af609f9b inherit pub_methods_classPhpcraft_1_1PacketId"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1PacketId.html#abcdf0ac9edac2a40d1576fd4af609f9b">init</a> (<a class="el" href="classPhpcraft_1_1Connection.html">Connection</a> $con)</td></tr>
 <tr class="separator:abcdf0ac9edac2a40d1576fd4af609f9b inherit pub_methods_classPhpcraft_1_1PacketId"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classPhpcraft_1_1Identifier"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classPhpcraft_1_1Identifier')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classPhpcraft_1_1Identifier.html">Phpcraft\Identifier</a></td></tr>
@@ -164,6 +166,25 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
+<a id="a41e59d4fafc17a899d04bb57db828ad5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a41e59d4fafc17a899d04bb57db828ad5">&#9670;&nbsp;</a></span>getClass()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Phpcraft\Packet\ServerboundPacket::getClass </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Returns the packet's class or null if the packet does not have a class implementation yet.</p>
+<dl class="section return"><dt>Returns</dt><dd>string|null </dd></dl>
+
+</div>
+</div>
 <a id="a10c2a293dde386be541f6615e29b99d4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a10c2a293dde386be541f6615e29b99d4">&#9670;&nbsp;</a></span>getId()</h2>
 
@@ -187,38 +208,6 @@ Additional Inherited Members</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>integer|null </dd></dl>
-
-</div>
-</div>
-<a id="ac877d29e88445146ab8e7e15e416544a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac877d29e88445146ab8e7e15e416544a">&#9670;&nbsp;</a></span>init()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">Phpcraft\Packet\ServerboundPacket::init </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classPhpcraft_1_1Connection.html">Connection</a>&#160;</td>
-          <td class="paramname"><em>$con</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Initialises this packet's class by reading its payload from the given <a class="el" href="classPhpcraft_1_1Connection.html">Connection</a>. Returns null if the packet does not have a class implementation yet.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramtype"><a class="el" href="classPhpcraft_1_1Connection.html">Connection</a></td><td class="paramname">$con</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Packet|null </dd></dl>
-<dl class="exception"><dt>Exceptions</dt><dd>
-  <table class="exception">
-    <tr><td class="paramname">IOException</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
 
 </div>
 </div>
