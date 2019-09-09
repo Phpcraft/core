@@ -415,6 +415,11 @@ class Server implements CommandSender
 	 */
 	function getOfflinePlayer(string $name_or_uuid)
 	{
+		$player = $this->getPlayer($name_or_uuid);
+		if($player !== null)
+		{
+			return $player->config;
+		}
 		if($name_or_uuid instanceof UUID)
 		{
 			return new ClientConfiguration($this, "config/player_data/".$name_or_uuid->toString(false).".json");
