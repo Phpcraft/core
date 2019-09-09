@@ -1,5 +1,5 @@
 <?php
-namespace Phpcraft\Plugin;
+namespace Phpcraft;
 use Exception;
 use Phpcraft\Event\Event;
 use SplObjectStorage;

@@ -5,7 +5,7 @@
  * @var Plugin $this
  */
 use Phpcraft\
-{Enum\Gamemode, Event\ServerFlyingChangeEvent, Event\ServerOnGroundChangeEvent, Plugin\Plugin};
+{Enum\Gamemode, Event\ServerFlyingChangeEvent, Event\ServerOnGroundChangeEvent, Plugin};
 $this->on(function(ServerOnGroundChangeEvent $event)
 {
 	if($event->client->on_ground && !$event->client->can_fly)

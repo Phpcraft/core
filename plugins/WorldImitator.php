@@ -5,7 +5,7 @@
  * @var Plugin $this
  */
 use Phpcraft\
-{Connection, Event\Event, Event\ServerJoinEvent, Plugin\Plugin, Versions};
+{Connection, Event\Event, Event\ServerJoinEvent, Plugin, Versions};
 $this->on(function(ServerJoinEvent $event)
 {
 	if($event->cancelled || !file_exists("world.bin"))

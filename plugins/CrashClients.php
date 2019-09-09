@@ -5,7 +5,7 @@
  * @var Plugin $this
  */
 use Phpcraft\
-{ClientConnection, Event\ServerChatEvent, Packet\JoinGamePacket, Plugin\Plugin};
+{ClientConnection, Event\ServerChatEvent, Packet\JoinGamePacket, Plugin};
 $this->on(function(ServerChatEvent $event)
 {
 	if(!$event->cancelled && $event->message == "crash me")

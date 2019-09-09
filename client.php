@@ -7,7 +7,7 @@ if(empty($argv))
 }
 require "vendor/autoload.php";
 use Phpcraft\
-{Account, AssetsManager, Configuration, Event\ClientConsoleEvent, Event\ClientJoinEvent, Event\ClientPacketEvent, Packet\ClientboundPacket, Packet\KeepAliveRequestPacket, Packet\PluginMessage\ServerboundBrandPluginMessagePacket, Phpcraft, PlainUserInterface, Plugin\PluginManager, Position, ServerConnection, UserInterface, Versions};
+{Account, AssetsManager, Configuration, Event\ClientConsoleEvent, Event\ClientJoinEvent, Event\ClientPacketEvent, Packet\ClientboundPacket, Packet\KeepAliveRequestPacket, Packet\PluginMessage\ServerboundBrandPluginMessagePacket, Phpcraft, PlainUserInterface, PluginManager, Position, ServerConnection, UserInterface, Versions};
 $options = [];
 for($i = 1; $i < count($argv); $i++)
 {

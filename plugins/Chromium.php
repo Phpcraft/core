@@ -19,7 +19,7 @@ if(!extension_loaded("gd"))
 use pac\
 {Chromium, Page};
 use Phpcraft\
-{ClientConnection, Command\CommandSender, Event\ServerJoinEvent, Event\ServerLeaveEvent, Event\ServerTickEvent, Item, Nbt\NbtCompound, Nbt\NbtInt, Nbt\NbtString, Packet\MapDataPacket, Packet\SetSlotPacket, Plugin\Plugin, Slot};
+{ClientConnection, Command\CommandSender, Event\ServerJoinEvent, Event\ServerLeaveEvent, Event\ServerTickEvent, Item, Nbt\NbtCompound, Nbt\NbtInt, Nbt\NbtString, Packet\MapDataPacket, Packet\SetSlotPacket, Plugin, Slot};
 $c = new Chromium();
 if(!$c->isAvailable())
 {

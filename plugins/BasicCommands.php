@@ -5,7 +5,7 @@
  * @var Plugin $this
  */
 use Phpcraft\
-{ClientConfiguration, ClientConnection, Command\ArgumentProvider, Command\Command, Command\CommandSender, Enum\Gamemode, Plugin\Plugin, Plugin\PluginManager, Server};
+{ClientConfiguration, ClientConnection, Command\ArgumentProvider, Command\Command, Command\CommandSender, Enum\Gamemode, Plugin, PluginManager};
 if(!class_exists("GamemodeArgument"))
 {
 	class GamemodeArgument

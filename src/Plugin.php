@@ -1,5 +1,5 @@
 <?php
-namespace Phpcraft\Plugin;
+namespace Phpcraft;
 use DomainException;
 use InvalidArgumentException;
 use Phpcraft\Command\Command;

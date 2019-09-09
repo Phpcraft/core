@@ -5,7 +5,7 @@
  * @var Plugin $this
  */
 use Phpcraft\
-{Command\CommandSender, Plugin\Plugin, Plugin\PluginManager};
+{Command\CommandSender, Plugin, PluginManager};
 $this->registerCommand("reload", function(CommandSender &$sender)
 {
 	PluginManager::unloadAllPlugins();

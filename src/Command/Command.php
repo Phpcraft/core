@@ -2,7 +2,7 @@
 namespace Phpcraft\Command;
 use DomainException;
 use Phpcraft\
-{Plugin\Plugin, Plugin\PluginManager};
+{Plugin, PluginManager};
 use ReflectionClass;
 use ReflectionException;
 use ReflectionFunction;
