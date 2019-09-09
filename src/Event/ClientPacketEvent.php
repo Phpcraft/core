@@ -1,6 +1,7 @@
 <?php
 namespace Phpcraft\Event;
-use Phpcraft\ServerConnection;
+use Phpcraft\
+{Packet\ClientboundPacket, ServerConnection};
 /**
  * The event emitted by the client when the server has sent a packet. Cancellable.
  * Cancelling the event tells the client to ignore the packet.
@@ -8,19 +9,19 @@ use Phpcraft\ServerConnection;
 class ClientPacketEvent extends ClientEvent
 {
 	/**
-	 * The name of the packet that the server has sent.
+	 * The ID of the packet that the server has sent.
 	 *
-	 * @var string $packet_name
+	 * @var ClientboundPacket $packetId
 	 */
-	public $packet_name;
+	public $packetId;
 
 	/**
 	 * @param ServerConnection $server The client's server connection.
-	 * @param string $packet_name The name of the packet that the server has sent.
+	 * @param ClientboundPacket $packetId The ID of the packet that the server has sent.
 	 */
-	function __construct(ServerConnection $server, string $packet_name)
+	function __construct(ServerConnection $server, ClientboundPacket $packetId)
 	{
 		parent::__construct($server);
-		$this->packet_name = $packet_name;
+		$this->packetId = $packetId;
 	}
 }

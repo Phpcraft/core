@@ -9,10 +9,10 @@ abstract class Packet
 	 * Initialises the packet class by reading its payload from the given Connection.
 	 *
 	 * @param Connection $con
-	 * @return Packet
+	 * @return Packet|null
 	 * @throws IOException
 	 */
-	abstract static function read(Connection $con): Packet;
+	abstract static function read(Connection $con);
 
 	/**
 	 * Returns a binary string containing the payload of the packet.

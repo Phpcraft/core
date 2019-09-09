@@ -7,7 +7,7 @@ if(empty($argv))
 }
 require "vendor/autoload.php";
 use Phpcraft\
-{ClientConnection, Command\Command, Command\CommandSender, Event\ServerChatEvent, Event\ServerConsoleEvent, Event\ServerFlyingChangeEvent, Event\ServerJoinEvent, Event\ServerLeaveEvent, Event\ServerOnGroundChangeEvent, Event\ServerPacketEvent, Event\ServerTickEvent, PlainUserInterface, UserInterface, Phpcraft, PluginManager, Server, Versions};
+{ClientConnection, Command\Command, Command\CommandSender, Event\ServerChatEvent, Event\ServerConsoleEvent, Event\ServerFlyingChangeEvent, Event\ServerJoinEvent, Event\ServerLeaveEvent, Event\ServerOnGroundChangeEvent, Event\ServerPacketEvent, Event\ServerTickEvent, Packet\ServerboundPacket, PlainUserInterface, UserInterface, Phpcraft, PluginManager, Server, Versions};
 $options = [
 	"offline" => false,
 	"port" => 25565,
@@ -281,20 +281,20 @@ function handleCommand(CommandSender &$sender, string $msg): bool
 	return false;
 }
 
-$server->packet_function = function(ClientConnection $con, $packet_name)
+$server->packet_function = function(ClientConnection $con, ServerboundPacket $packetId)
 {
 	global $options, $ui, $server;
-	if(PluginManager::fire(new ServerPacketEvent($server, $con, $packet_name)))
+	if(PluginManager::fire(new ServerPacketEvent($server, $con, $packetId)))
 	{
 		return;
 	}
-	if($packet_name == "position" || $packet_name == "position_and_look" || $packet_name == "look" || $packet_name == "no_movement")
+	if($packetId->name == "position" || $packetId->name == "position_and_look" || $packetId->name == "look" || $packetId->name == "no_movement")
 	{
-		if($packet_name == "position" || $packet_name == "position_and_look")
+		if($packetId->name == "position" || $packetId->name == "position_and_look")
 		{
 			$con->pos = $con->readPrecisePosition();
 		}
-		if($packet_name == "position_and_look" || $packet_name == "look")
+		if($packetId->name == "position_and_look" || $packetId->name == "look")
 		{
 			$con->yaw = $con->readFloat();
 			$con->pitch = $con->readFloat();
@@ -306,7 +306,7 @@ $server->packet_function = function(ClientConnection $con, $packet_name)
 			PluginManager::fire(new ServerOnGroundChangeEvent($server, $con, $_on_ground));
 		}
 	}
-	else if($packet_name == "serverbound_abilities")
+	else if($packetId->name == "serverbound_abilities")
 	{
 		$flags = $con->readByte();
 		if($flags >= 0x08)
@@ -324,7 +324,7 @@ $server->packet_function = function(ClientConnection $con, $packet_name)
 			PluginManager::fire(new ServerFlyingChangeEvent($server, $con, $_flying));
 		}
 	}
-	else if($packet_name == "serverbound_chat_message")
+	else if($packetId->name == "serverbound_chat_message")
 	{
 		$msg = $con->readString($con->protocol_version < 314 ? 100 : 256);
 		if(handleCommand($con, $msg) || PluginManager::fire(new ServerChatEvent($server, $con, $msg)))

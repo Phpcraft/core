@@ -1,7 +1,6 @@
 <?php
 namespace Phpcraft\Packet\PluginMessage;
-use Phpcraft\
-{Connection, Exception\IOException};
+use Phpcraft\Connection;
 /** A serverbound plugin message with only a string as data. */
 class ServerboundStringPluginMessagePacket extends ServerboundPluginMessagePacket
 {
@@ -14,17 +13,13 @@ class ServerboundStringPluginMessagePacket extends ServerboundPluginMessagePacke
 		parent::__construct($channel, $data);
 	}
 
-	/**
-	 * @param Connection $con
-	 * @throws IOException
-	 */
-	protected function read_(Connection $con)
-	{
-		$this->data = $con->readString();
-	}
-
 	protected function send_(Connection $con)
 	{
 		$con->writeString($this->data);
+	}
+
+	function __toString()
+	{
+		return "{".substr(get_called_class(), 30).": \"{$this->channel}\": {$this->data}}";
 	}
 }

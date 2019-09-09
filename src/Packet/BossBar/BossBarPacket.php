@@ -36,11 +36,11 @@ abstract class BossBarPacket extends Packet
 	 * Initialises the packet class by reading its payload from the given Connection.
 	 *
 	 * @param Connection $con
-	 * @return BossBarPacket
+	 * @return BossBarPacket|null
 	 * @throws IOException
 	 * @todo Implement every subpacket.
 	 */
-	static function read(Connection $con): Packet
+	static function read(Connection $con)
 	{
 		$uuid = $con->readUuid();
 		$action = gmp_intval($con->readVarInt());

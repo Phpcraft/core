@@ -49,13 +49,24 @@ abstract class PacketId extends Identifier
 	}
 
 	/**
+	 * Returns the packet's class or null if the packet does not have a class implementation yet.
+	 *
+	 * @return string|null
+	 */
+	abstract function getClass();
+
+	/**
 	 * Initialises this packet's class by reading its payload from the given Connection.
 	 * Returns null if the packet does not have a class implementation yet.
 	 *
 	 * @param Connection $con
 	 * @return Packet|null
 	 */
-	abstract function init(Connection $con);
+	function init(Connection $con)
+	{
+		$class = $this->getClass();
+		return $class ? call_user_func($class."::read", $con) : null;
+	}
 
 	protected function _getId(int $protocol_version, string $key, array $name_map)
 	{

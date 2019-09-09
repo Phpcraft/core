@@ -62,37 +62,34 @@ class ClientboundPacket extends PacketId
 	}
 
 	/**
-	 * Initialises this packet's class by reading its payload from the given Connection.
-	 * Returns null if the packet does not have a class implementation yet.
+	 * Returns the packet's class or null if the packet does not have a class implementation yet.
 	 *
-	 * @param Connection $con
-	 * @return Packet|null
-	 * @throws IOException
+	 * @return string|null
 	 */
-	function init(Connection $con)
+	function getClass()
 	{
 		switch($this->name)
 		{
 			case "clientbound_abilities":
-				return ClientboundAbilitiesPacket::read($con);
+				return ClientboundAbilitiesPacket::class;
 			case "boss_bar":
-				return BossBarPacket::read($con);
+				return BossBarPacket::class;
 			case "destroy_entities":
-				return DestroyEntitiesPacket::read($con);
+				return DestroyEntitiesPacket::class;
 			case "join_game":
-				return JoinGamePacket::read($con);
+				return JoinGamePacket::class;
 			case "keep_alive_request":
-				return KeepAliveRequestPacket::read($con);
+				return KeepAliveRequestPacket::class;
 			case "map_data":
-				return MapDataPacket::read($con);
+				return MapDataPacket::class;
 			case "set_experience":
-				return SetExperiencePacket::read($con);
+				return SetExperiencePacket::class;
 			case "set_slot":
-				return SetSlotPacket::read($con);
+				return SetSlotPacket::class;
 			case "spawn_mob":
-				return SpawnMobPacket::read($con);
+				return SpawnMobPacket::class;
 			case "clientbound_plugin_message":
-				return ClientboundPluginMessagePacket::read($con);
+				return ClientboundPluginMessagePacket::class;
 		}
 		return null;
 	}

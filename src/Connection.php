@@ -410,12 +410,16 @@ class Connection
 	/**
 	 * Clears the write buffer and starts a new packet.
 	 *
-	 * @param string|integer $packet The name or ID of the new packet.
+	 * @param string|integer|PacketId $packet The name or ID of the new packet.
 	 * @return Connection $this
 	 */
 	function startPacket($packet): Connection
 	{
-		if(gettype($packet) == "string")
+		if($packet instanceof PacketId)
+		{
+			$packet = $packet->getId($this->protocol_version);
+		}
+		else if(gettype($packet) == "string")
 		{
 			$packetId = PacketId::get($packet);
 			if(!$packetId)
@@ -538,7 +542,7 @@ class Connection
 	 * Puts a new packet into the read buffer.
 	 *
 	 * @param float $timeout The amount of seconds to wait before read is aborted.
-	 * @return integer|boolean The packet's id or false if no packet was received within the time limit.
+	 * @return integer|boolean The packet's ID or false if no packet was received within the time limit.
 	 * @throws IOException When there are not enough bytes to read the packet ID.
 	 * @throws LengthException When the packet's length or ID VarInt is too big.
 	 * @see Connection::readRawPacket
@@ -562,17 +566,13 @@ class Connection
 				$byte = @fgetc($this->stream);
 			}
 			$byte = ord($byte);
-			$length |= (($byte & 0x7F) << ($read++ * 7));
-			if($read > 5)
+			$length  |= (($byte & 0b01111111) << (7 * $read++));
+			if($length > 2097152)
 			{
-				throw new LengthException("VarInt is too big");
-			}
-			if(($byte & 0x80) != 128)
-			{
-				break;
+				throw new LengthException("Length wider than 21-bit");
 			}
 		}
-		while(true);
+		while(($byte & 0b10000000) != 0);
 		// It's established that a packet is on the line, but it could take more than one read to get it into the read buffer, so some additional time is forcefully allocated.
 		$timeout += 0.1;
 		$this->read_buffer = fread($this->stream, $length);

@@ -31,37 +31,26 @@ abstract class PluginMessagePacket extends Packet
 
 	/**
 	 * @param Connection $con
-	 * @return Packet
+	 * @return string
 	 * @throws IOException
 	 */
-	static function read(Connection $con): Packet
+	protected static function readChannel(Connection $con): string
 	{
-		$class = get_called_class();
-		$ret = new $class();
-		assert($ret instanceof PluginMessagePacket);
 		if($con->protocol_version >= 385)
 		{
-			$ret->channel = $con->readString();
+			return $con->readString();
 		}
-		else
+		$legacy_channel = $con->readString();
+		$channel = array_search($legacy_channel, self::channelMap());
+		if($channel)
 		{
-			$legacy_channel = $con->readString();
-			$channel = array_search($legacy_channel, self::channelMap());
-			if($channel)
-			{
-				$ret->channel = $channel;
-			}
-			else
-			{
-				trigger_error("Unmapped legacy plugin message channel: ".$legacy_channel);
-				$ret->channel = $legacy_channel;
-			}
+			return $channel;
 		}
-		$ret->read_($con);
-		return $ret;
+		trigger_error("Unmapped legacy plugin message channel: ".$legacy_channel);
+		return $legacy_channel;
 	}
 
-	private static function channelMap()
+	private static function channelMap(): array
 	{
 		return [
 			"minecraft:register" => "REGISTER",
@@ -69,12 +58,6 @@ abstract class PluginMessagePacket extends Packet
 			"minecraft:brand" => "MC|Brand",
 			"bungeecord:main" => "BungeeCord"
 		];
-	}
-
-	protected function read_(Connection $con)
-	{
-		$this->data = $con->read_buffer;
-		$con->read_buffer = "";
 	}
 
 	/**
@@ -105,6 +88,6 @@ abstract class PluginMessagePacket extends Packet
 
 	function __toString()
 	{
-		return "{".substr(get_called_class(), 9).": \"".$this->channel."\": ".Phpcraft::binaryStringToHex($this->data)."}";
+		return "{".substr(get_called_class(), 29).": \"".$this->channel."\": ".Phpcraft::binaryStringToHex($this->data)."}";
 	}
 }

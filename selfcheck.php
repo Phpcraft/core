@@ -15,6 +15,7 @@ foreach([
 		die("The {$ext} extension is required.\n");
 	}
 }
+require __DIR__."/src/Configuration.php";
 require __DIR__."/src/Phpcraft.php";
 use Phpcraft\Phpcraft;
 if(file_exists(__DIR__."/src/.cache"))

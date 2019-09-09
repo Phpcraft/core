@@ -11,7 +11,7 @@ if(@$argv[1] == "help")
 }
 require "vendor/autoload.php";
 use Phpcraft\
-{Account, ClientConnection, Connection, Enum\Difficulty, Enum\Dimension, Enum\Gamemode, Packet\ClientboundPacket, Packet\JoinGamePacket, Packet\KeepAliveRequestPacket, Phpcraft, Position, Server, ServerConnection, Versions};
+{Account, ClientConnection, Connection, Enum\Difficulty, Enum\Dimension, Enum\Gamemode, Event\ProxyClientPacketEvent, Event\ProxyServerPacketEvent, Packet\ClientboundPacket, Packet\JoinGamePacket, Packet\KeepAliveRequestPacket, Packet\ServerboundPacket, Phpcraft, PluginManager, Position, Server, ServerConnection, Versions};
 $stdin = fopen("php://stdin", "r") or die("Failed to open php://stdin\n");
 stream_set_blocking($stdin, true);
 if(empty($argv[1]))
@@ -25,10 +25,9 @@ else
 	$account->cliLogin($stdin);
 	echo "Authenticated as ".$account->username."\n";
 }
-/*echo "Autoloading plugins...\n";
-\Phpcraft\PluginManager::$platform = "phpcraft:proxy";
-\Phpcraft\PluginManager::autoloadPlugins();
-echo "Loaded ".count(\Phpcraft\PluginManager::$loaded_plugins)." plugin(s).\n";*/
+echo "Autoloading plugins...\n";
+PluginManager::loadPlugins();
+echo "Loaded ".PluginManager::$loaded_plugins->count()." plugin(s).\n";
 $socket = stream_socket_server("tcp://0.0.0.0:25565", $errno, $errstr) or die($errstr."\n");
 $private_key = openssl_pkey_new([
 	"private_key_bits" => 1024,
@@ -99,11 +98,14 @@ $server->join_function = function(ClientConnection $con)
 	$con->writeByte(1);
 	$con->send();
 };
-$server->packet_function = function(ClientConnection $con, $packet_name, $packet_id)
+$server->packet_function = function(ClientConnection $con, ServerboundPacket $packetId)
 {
 	global $server_con;
-	//echo "> ".$packet_name." (".$packet_id.")\n";
-	if($packet_name == "serverbound_chat_message")
+	if(PluginManager::fire(new ProxyServerPacketEvent($con, $server_con, $packetId)))
+	{
+		return;
+	}
+	if($packetId->name == "serverbound_chat_message")
 	{
 		$msg = $con->readString(256);
 		if(substr($msg, 0, 1) == ".")
@@ -297,7 +299,7 @@ $server->packet_function = function(ClientConnection $con, $packet_name, $packet
 	}
 	else if($server_con instanceof ServerConnection)
 	{
-		$server_con->write_buffer = Connection::varInt($packet_id).$con->read_buffer;
+		$server_con->write_buffer = Connection::varInt($packetId->getId($server_con->protocol_version)).$con->read_buffer;
 		$server_con->send();
 	}
 };
@@ -329,28 +331,31 @@ do
 		{
 			while(($packet_id = $server_con->readPacket(0)) !== false)
 			{
-				$packet_name = ClientboundPacket::getById($packet_id, $server_con->protocol_version)->name;
-				//echo "< ".$packet_name." (".$packet_id.")\n";
-				if(in_array($packet_name, [
+				$packetId = ClientboundPacket::getById($packet_id, $server_con->protocol_version);
+				if(PluginManager::fire(new ProxyClientPacketEvent($client_con, $server_con, $packetId)))
+				{
+					continue;
+				}
+				if(in_array($packetId->name, [
 					"entity_animation",
 					"entity_effect",
 					"entity_metadata",
 					"entity_velocity"
 				]))
 				{
-					$client_con->startPacket($packet_name);
+					$client_con->startPacket($packetId->name);
 					$eid = $server_con->readVarInt();
 					$client_con->writeVarInt($eid == $server_eid ? $client_con->eid : $eid);
 					$client_con->write_buffer .= $server_con->read_buffer;
 					$client_con->send();
 				}
-				else if($packet_name == "keep_alive_request")
+				else if($packetId->name == "keep_alive_request")
 				{
 					KeepAliveRequestPacket::read($server_con)
 										  ->getResponse()
 										  ->send($server_con);
 				}
-				else if($packet_name == "disconnect")
+				else if($packetId->name == "disconnect")
 				{
 					$client_con->startPacket("clientbound_chat_message");
 					$client_con->writeString($server_con->readString());
@@ -360,7 +365,7 @@ do
 					$server_con = null;
 					break;
 				}
-				else if($packet_name == "join_game")
+				else if($packetId->name == "join_game")
 				{
 					$packet = JoinGamePacket::read($server_con);
 					$server_eid = $packet->eid;

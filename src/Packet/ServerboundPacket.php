@@ -2,9 +2,7 @@
 namespace Phpcraft\Packet;
 use Phpcraft\
 {Connection, Exception\IOException, Packet\PluginMessage\ServerboundPluginMessagePacket, PacketId};
-/**
- * The class for the IDs of packets sent to the server.
- */
+/** The class for the IDs of packets sent to the server. */
 class ServerboundPacket extends PacketId
 {
 	private static $all_cache;
@@ -51,21 +49,18 @@ class ServerboundPacket extends PacketId
 	}
 
 	/**
-	 * Initialises this packet's class by reading its payload from the given Connection.
-	 * Returns null if the packet does not have a class implementation yet.
+	 * Returns the packet's class or null if the packet does not have a class implementation yet.
 	 *
-	 * @param Connection $con
-	 * @return Packet|null
-	 * @throws IOException
+	 * @return string|null
 	 */
-	function init(Connection $con)
+	function getClass()
 	{
 		switch($this->name)
 		{
 			case "keep_alive_response":
-				return KeepAliveResponsePacket::read($con);
+				return KeepAliveResponsePacket::class;
 			case "serverbound_plugin_message":
-				return ServerboundPluginMessagePacket::read($con);
+				return ServerboundPluginMessagePacket::class;
 		}
 		return null;
 	}

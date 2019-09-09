@@ -43,7 +43,7 @@ class Server implements CommandSender
 	 */
 	public $join_function = null;
 	/**
-	 * The function called when the server receives a packet from a client in state 3 (playing) unless it's a keep alive response with the ClientConnection, packet name, and packet id as parameters.
+	 * The function called when the server receives a packet from a client in state 3 (playing) unless it's a keep alive response with the ClientConnection and ServerboundPacket as arguments.
 	 *
 	 * @see Server::handle()
 	 * @var callable $packet_function
@@ -221,15 +221,15 @@ class Server implements CommandSender
 					{
 						if($con->state == 3) // Playing
 						{
-							$packet_name = @ServerboundPacket::getById($packet_id, $con->protocol_version)->name;
-							if($packet_name == "keep_alive_response")
+							$packetId = ServerboundPacket::getById($packet_id, $con->protocol_version);
+							if($packetId->name == "keep_alive_response")
 							{
 								$con->next_heartbeat = microtime(true) + 15;
 								$con->disconnect_after = 0;
 							}
 							else if($this->packet_function)
 							{
-								($this->packet_function)($con, $packet_name, $packet_id);
+								($this->packet_function)($con, $packetId);
 							}
 						}
 						else if($con->state == 2) // Login

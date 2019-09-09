@@ -24,7 +24,7 @@ $this->on(function(ClientJoinEvent $event)
 });
 $this->on(function(ClientPacketEvent $event)
 {
-	if(!$event->cancelled && in_array($event->packet_name, [
+	if(!$event->cancelled && in_array($event->packetId->name, [
 			"spawn_object",
 			"spawn_experience_orb",
 			"spawn_global_entity",
@@ -93,7 +93,7 @@ $this->on(function(ClientPacketEvent $event)
 	{
 		global $WorldSaver_con;
 		assert($WorldSaver_con instanceof Connection);
-		$WorldSaver_con->startPacket($event->packet_name);
+		$WorldSaver_con->startPacket($event->packetId);
 		$WorldSaver_con->write_buffer .= $event->server->read_buffer;
 		$WorldSaver_con->send();
 	}

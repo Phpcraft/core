@@ -530,15 +530,15 @@ do
 		$start = microtime(true);
 		while(($packet_id = $con->readPacket(0)) !== false)
 		{
-			if(!($packet_name = @ClientboundPacket::getById($packet_id, $protocol_version)->name))
+			if(!($packetId = ClientboundPacket::getById($packet_id, $protocol_version)))
 			{
 				continue;
 			}
-			if(PluginManager::fire(new ClientPacketEvent($con, $packet_name)))
+			if(PluginManager::fire(new ClientPacketEvent($con, $packetId)))
 			{
 				continue;
 			}
-			if($packet_name == "clientbound_chat_message")
+			if($packetId->name == "clientbound_chat_message")
 			{
 				$message = $con->readString();
 				if($con->readByte() != 2)
@@ -546,7 +546,7 @@ do
 					$ui->add(Phpcraft::chatToText(json_decode($message, true), Phpcraft::FORMAT_ANSI, $translations));
 				}
 			}
-			else if($packet_name == "player_info")
+			else if($packetId->name == "player_info")
 			{
 				$action = gmp_intval($con->readVarInt());
 				$amount = gmp_intval($con->readVarInt());
@@ -595,7 +595,7 @@ do
 					}
 				}
 			}
-			else if($packet_name == "spawn_player")
+			else if($packetId->name == "spawn_player")
 			{
 				$eid = gmp_intval($con->readVarInt());
 				if($eid != $entityId)
@@ -626,7 +626,7 @@ do
 					}
 				}
 			}
-			else if($packet_name == "entity_look_and_relative_move")
+			else if($packetId->name == "entity_look_and_relative_move")
 			{
 				$eid = gmp_intval($con->readVarInt());
 				if(isset($entities[$eid]))
@@ -647,7 +647,7 @@ do
 					$entities[$eid]["pitch"] = $con->readByte();
 				}
 			}
-			else if($packet_name == "entity_relative_move")
+			else if($packetId->name == "entity_relative_move")
 			{
 				$eid = gmp_intval($con->readVarInt());
 				if(isset($entities[$eid]))
@@ -666,7 +666,7 @@ do
 					}
 				}
 			}
-			else if($packet_name == "entity_look")
+			else if($packetId->name == "entity_look")
 			{
 				$eid = gmp_intval($con->readVarInt());
 				if(isset($entities[$eid]))
@@ -675,7 +675,7 @@ do
 					$entities[$eid]["pitch"] = $con->readByte();
 				}
 			}
-			else if($packet_name == "entity_teleport")
+			else if($packetId->name == "entity_teleport")
 			{
 				$eid = gmp_intval($con->readVarInt());
 				if(isset($entities[$eid]))
@@ -699,7 +699,7 @@ do
 					}
 				}
 			}
-			else if($packet_name == "destroy_entites")
+			else if($packetId->name == "destroy_entites")
 			{
 				$count = gmp_intval($con->readVarInt());
 				for($i = 0; $i < $count; $i++)
@@ -716,13 +716,13 @@ do
 					}
 				}
 			}
-			else if($packet_name == "keep_alive_request")
+			else if($packetId->name == "keep_alive_request")
 			{
 				KeepAliveRequestPacket::read($con)
 									  ->getResponse()
 									  ->send($con);
 			}
-			else if($packet_name == "teleport")
+			else if($packetId->name == "teleport")
 			{
 				$x_ = $con->readDouble();
 				$y_ = $con->readDouble();
@@ -781,7 +781,7 @@ do
 					$con->send();
 				}
 			}
-			else if($packet_name == "update_health")
+			else if($packetId->name == "update_health")
 			{
 				if($con->readFloat() < 1)
 				{
@@ -790,13 +790,13 @@ do
 					$con->send();
 				}
 			}
-			else if($packet_name == "open_window")
+			else if($packetId->name == "open_window")
 			{
 				$con->startPacket("close_window");
 				$con->writeByte($con->readByte());
 				$con->send();
 			}
-			else if($packet_name == "join_game")
+			else if($packetId->name == "join_game")
 			{
 				$next_tick = microtime(true);
 				$entityId = gmp_intval($con->readInt());
@@ -826,7 +826,7 @@ do
 					handleConsoleMessage($options["joinmsg"]);
 				}
 			}
-			else if($packet_name == "respawn")
+			else if($packetId->name == "respawn")
 			{
 				if($protocol_version > 47)
 				{
@@ -837,7 +837,7 @@ do
 					$dimension = $con->readByte();
 				}
 			}
-			else if($packet_name == "change_game_state")
+			else if($packetId->name == "change_game_state")
 			{
 				if($con->readByte() == 7 && $con->readFloat() > 1)
 				{
@@ -845,7 +845,7 @@ do
 					   ->render();
 				}
 			}
-			else if($packet_name == "disconnect")
+			else if($packetId->name == "disconnect")
 			{
 				$ui->add("Server closed connection: ".Phpcraft::chatToText($con->readString(), Phpcraft::FORMAT_ANSI))
 				   ->render();
