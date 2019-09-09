@@ -30,25 +30,6 @@ class NbtCompound extends NbtTag implements Iterator, Countable, ArrayAccess
 	}
 
 	/**
-	 * Gets a child of the compound by its name or null if not found.
-	 *
-	 * @param string $name
-	 * @return NbtTag
-	 */
-	function getChild(string $name)
-	{
-		foreach($this->children as $child)
-		{
-			assert($child instanceof NbtTag);
-			if($child->name == $name)
-			{
-				return $child;
-			}
-		}
-		return null;
-	}
-
-	/**
 	 * Returns true if the compound has a child with the given name.
 	 *
 	 * @param string $name
@@ -64,33 +45,6 @@ class NbtCompound extends NbtTag implements Iterator, Countable, ArrayAccess
 			}
 		}
 		return false;
-	}
-
-	/**
-	 * Adds a child to the compound or replaces an existing one by the same name.
-	 *
-	 * @param NbtTag $tag
-	 * @return NbtCompound $this
-	 */
-	function addChild(NbtTag $tag)
-	{
-		if($tag instanceof NbtEnd)
-		{
-			trigger_error("I'm not adding NbtEnd as the child of an NbtCompound because it is not a real tag and should not be treated as such.");
-		}
-		else
-		{
-			foreach($this->children as $child)
-			{
-				if($child->name == $tag->name)
-				{
-					$this->children->detach($child);
-					break;
-				}
-			}
-			$this->children->attach($tag);
-		}
-		return $this;
 	}
 
 	/**
@@ -196,11 +150,57 @@ class NbtCompound extends NbtTag implements Iterator, Countable, ArrayAccess
 		return $this->getChild($offset);
 	}
 
+	/**
+	 * Gets a child of the compound by its name or null if not found.
+	 *
+	 * @param string $name
+	 * @return NbtTag
+	 */
+	function getChild(string $name)
+	{
+		foreach($this->children as $child)
+		{
+			assert($child instanceof NbtTag);
+			if($child->name == $name)
+			{
+				return $child;
+			}
+		}
+		return null;
+	}
+
 	function offsetSet($offset, $value)
 	{
 		assert($value instanceof NbtTag);
 		assert($offset === null || $offset === $value->name);
 		$this->addChild($value);
+	}
+
+	/**
+	 * Adds a child to the compound or replaces an existing one by the same name.
+	 *
+	 * @param NbtTag $tag
+	 * @return NbtCompound $this
+	 */
+	function addChild(NbtTag $tag)
+	{
+		if($tag instanceof NbtEnd)
+		{
+			trigger_error("I'm not adding NbtEnd as the child of an NbtCompound because it is not a real tag and should not be treated as such.");
+		}
+		else
+		{
+			foreach($this->children as $child)
+			{
+				if($child->name == $tag->name)
+				{
+					$this->children->detach($child);
+					break;
+				}
+			}
+			$this->children->attach($tag);
+		}
+		return $this;
 	}
 
 	function offsetUnset($offset)

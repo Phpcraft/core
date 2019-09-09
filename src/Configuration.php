@@ -72,6 +72,21 @@ class Configuration implements Iterator, Countable, ArrayAccess
 		$this->save();
 	}
 
+	/**
+	 * Forces a save, removing the configuration from the save queue.
+	 *
+	 * @return Configuration $this
+	 */
+	function save(): Configuration
+	{
+		if($this->file !== null)
+		{
+			file_put_contents($this->file, json_encode($this->data, JSON_UNESCAPED_SLASHES));
+		}
+		self::$save_queue->detach($this);
+		return $this;
+	}
+
 	function get(string $key, $default_value = null)
 	{
 		return @$this->data[$key] ?? $default_value;
@@ -80,18 +95,6 @@ class Configuration implements Iterator, Countable, ArrayAccess
 	function has(string $key): bool
 	{
 		return array_key_exists($key, $this->data);
-	}
-
-	function set(string $key, $value): Configuration
-	{
-		$this->data[$key] = $value;
-		return $this->queueSave();
-	}
-
-	function unset(string $key): Configuration
-	{
-		unset($this->data[$key]);
-		return $this->queueSave();
 	}
 
 	function setFile(string $file): Configuration
@@ -112,21 +115,6 @@ class Configuration implements Iterator, Countable, ArrayAccess
 				mkdir($dir);
 			}
 		}
-		return $this;
-	}
-
-	/**
-	 * Forces a save, removing the configuration from the save queue.
-	 *
-	 * @return Configuration $this
-	 */
-	function save(): Configuration
-	{
-		if($this->file !== null)
-		{
-			file_put_contents($this->file, json_encode($this->data, JSON_UNESCAPED_SLASHES));
-		}
-		self::$save_queue->detach($this);
 		return $this;
 	}
 
@@ -176,9 +164,21 @@ class Configuration implements Iterator, Countable, ArrayAccess
 		$this->set($offset, $value);
 	}
 
+	function set(string $key, $value): Configuration
+	{
+		$this->data[$key] = $value;
+		return $this->queueSave();
+	}
+
 	function offsetUnset($offset)
 	{
 		$this->unset($offset);
+	}
+
+	function unset(string $key): Configuration
+	{
+		unset($this->data[$key]);
+		return $this->queueSave();
 	}
 
 	function count()
@@ -186,4 +186,5 @@ class Configuration implements Iterator, Countable, ArrayAccess
 		return count($this->data);
 	}
 }
+
 Configuration::$save_queue = new SplObjectStorage();

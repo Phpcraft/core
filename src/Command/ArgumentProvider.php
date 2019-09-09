@@ -1,6 +1,5 @@
 <?php
 namespace Phpcraft\Command;
-use Phpcraft\Server;
 /**
  * Extend this class to create a custom argument provider for Commands.
  * All declared classes will automagically be scanned and if they extends this class, it will be registered as the provider of the type that their getValue function returns.

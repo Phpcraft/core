@@ -785,5 +785,6 @@ abstract class Phpcraft
 		}
 	}
 }
+
 Phpcraft::$json_cache = new Configuration(__DIR__."/.json_cache");
 Phpcraft::$user_cache = new Configuration(__DIR__."/.user_cache");

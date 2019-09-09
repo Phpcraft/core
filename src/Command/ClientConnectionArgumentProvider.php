@@ -1,8 +1,8 @@
 <?php
 namespace Phpcraft\Command;
-use Phpcraft\ClientConnection;
 use DomainException;
 use LogicException;
+use Phpcraft\ClientConnection;
 class ClientConnectionArgumentProvider extends ArgumentProvider
 {
 	private $value;
@@ -14,7 +14,8 @@ class ClientConnectionArgumentProvider extends ArgumentProvider
 		{
 			throw new LogicException("This command was only intended for servers");
 		}
-		foreach($sender->getServer()->getPlayers() as $player)
+		foreach($sender->getServer()
+					   ->getPlayers() as $player)
 		{
 			if(strtolower($player->username) == $arg)
 			{

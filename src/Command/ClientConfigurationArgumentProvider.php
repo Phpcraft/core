@@ -1,8 +1,8 @@
 <?php
 namespace Phpcraft\Command;
-use Phpcraft\ClientConfiguration;
 use DomainException;
 use LogicException;
+use Phpcraft\ClientConfiguration;
 class ClientConfigurationArgumentProvider extends ArgumentProvider
 {
 	private $value;
@@ -13,7 +13,8 @@ class ClientConfigurationArgumentProvider extends ArgumentProvider
 		{
 			throw new LogicException("This command was only intended for servers");
 		}
-		$this->value = $sender->getServer()->getOfflinePlayer($arg);
+		$this->value = $sender->getServer()
+							  ->getOfflinePlayer($arg);
 		if($this->value === null)
 		{
 			throw new DomainException("A player named $arg was never on this server");

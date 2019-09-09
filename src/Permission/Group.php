@@ -1,6 +1,5 @@
 <?php
 namespace Phpcraft\Permission;
-use LogicException;
 use Phpcraft\Server;
 class Group
 {
@@ -14,6 +13,11 @@ class Group
 		$this->data = $data;
 	}
 
+	function hasPermission(string $permission): bool
+	{
+		return in_array($permission, $this->getPermissions()) || in_array("everything", $this->permissions);
+	}
+
 	function getPermissions(): array
 	{
 		if($this->permissions === null)
@@ -23,7 +27,8 @@ class Group
 			{
 				if(is_string($this->data["inherit"]))
 				{
-					$this->permissions = $this->server->getGroup($this->data["inherit"])->getPermissions();
+					$this->permissions = $this->server->getGroup($this->data["inherit"])
+													  ->getPermissions();
 				}
 				else
 				{
@@ -48,10 +53,5 @@ class Group
 			$this->permissions = array_unique($this->permissions);
 		}
 		return $this->permissions;
-	}
-
-	function hasPermission(string $permission): bool
-	{
-		return in_array($permission, $this->getPermissions()) || in_array("everything", $this->permissions);
 	}
 }

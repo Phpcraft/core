@@ -12,9 +12,16 @@ class ClientConfiguration extends Configuration
 		$this->server = $server;
 	}
 
-	function getGroupName(): string
+	function setGroup(string $name): ClientConfiguration
 	{
-		return $this->get("group", "default");
+		$this->set("group", $name);
+		return $this;
+	}
+
+	function hasPermission(string $permission): bool
+	{
+		return $this->getGroup()
+					->hasPermission($permission);
 	}
 
 	function getGroup(): Group
@@ -28,15 +35,9 @@ class ClientConfiguration extends Configuration
 		return $this->server->getGroup("default");
 	}
 
-	function setGroup(string $name): ClientConfiguration
+	function getGroupName(): string
 	{
-		$this->set("group", $name);
-		return $this;
-	}
-
-	function hasPermission(string $permission): bool
-	{
-		return $this->getGroup()->hasPermission($permission);
+		return $this->get("group", "default");
 	}
 
 	function isOnline(): bool
@@ -65,6 +66,7 @@ class ClientConfiguration extends Configuration
 	 */
 	function getName()
 	{
-		return $this->file ? Phpcraft::$user_cache->get($this->getUUID()->toString(false)) : null;
+		return $this->file ? Phpcraft::$user_cache->get($this->getUUID()
+															 ->toString(false)) : null;
 	}
 }
