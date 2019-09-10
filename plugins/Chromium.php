@@ -145,7 +145,7 @@ $this->on(function(ServerTickEvent $event) use (&$i)
 });
 $this->registerCommand("close_chromium", function(CommandSender $sender) use (&$i)
 {
-	if(!$sender->isOP())
+	if(!$sender->hasPermission("use /close_chromium"))
 	{
 		$sender->sendMessage("This command is only for OPs.");
 		return;
