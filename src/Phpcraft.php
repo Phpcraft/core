@@ -9,6 +9,7 @@ abstract class Phpcraft
 	const FORMAT_ANSI = 1;
 	const FORMAT_SILCROW = 2;
 	const FORMAT_AMPERSAND = 3;
+	const FORMAT_HTML = 4;
 	/**
 	 * @var Configuration $json_cache
 	 */
@@ -347,7 +348,7 @@ abstract class Phpcraft
 		if($format > 0)
 		{
 			$ansi_modifiers = [];
-			if($format == 1)
+			if($format == self::FORMAT_ANSI)
 			{
 				$attributes = [
 					"reset" => "0",
@@ -358,7 +359,7 @@ abstract class Phpcraft
 					"strikethrough" => "9"
 				];
 			}
-			else if($format == 4)
+			else if($format == self::FORMAT_HTML)
 			{
 				$attributes = [
 					"bold" => "b",
@@ -394,15 +395,15 @@ abstract class Phpcraft
 				}
 				if($chat[$n] && $chat[$n] !== "false")
 				{
-					if($format == 1)
+					if($format == self::FORMAT_ANSI)
 					{
 						array_push($ansi_modifiers, $v);
 					}
-					else if($format == 2)
+					else if($format == self::FORMAT_SILCROW)
 					{
 						$text .= "§".$v;
 					}
-					else if($format == 3)
+					else if($format == self::FORMAT_SILCROW)
 					{
 						$text .= "&".$v;
 					}
@@ -422,7 +423,7 @@ abstract class Phpcraft
 			}
 			if(isset($chat["color"]))
 			{
-				if($format == 1)
+				if($format == self::FORMAT_ANSI)
 				{
 					$colors = [
 						"black" => "30",
@@ -448,7 +449,7 @@ abstract class Phpcraft
 					}
 					$text .= "\x1B[".join(";", $ansi_modifiers)."m";
 				}
-				else if($format == 4)
+				else if($format == self::FORMAT_HTML)
 				{
 					$colors = [
 						"black" => "000",
@@ -493,7 +494,7 @@ abstract class Phpcraft
 						"white"
 					])) !== false)
 				{
-					$text .= ($format == 2 ? "§" : "&").dechex(intval($i));
+					$text .= ($format == self::FORMAT_SILCROW ? "§" : "&").dechex(intval($i));
 				}
 			}
 		}
@@ -532,7 +533,7 @@ abstract class Phpcraft
 				$text .= Phpcraft::chatToText($extra, $format, $translations, $chat);
 			}
 		}
-		if($format == 4)
+		if($format == self::FORMAT_HTML)
 		{
 			$text .= $closing_tags;
 		}
