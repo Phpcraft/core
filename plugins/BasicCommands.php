@@ -71,7 +71,7 @@ $this->registerCommand("help", function(CommandSender &$sender)
 		 $client->writeUUID($client->uuid);
 		 $client->writeVarInt($gamemode->gamemode);
 		 $client->send();
-	 })
+	 }, "use /gamemode")
 	 ->registerCommand("abilities", function(CommandSender &$client, $abilities)
 	 {
 		 if(!$client instanceof ClientConnection)
@@ -84,7 +84,7 @@ $this->registerCommand("help", function(CommandSender &$sender)
 		 $client->writeFloat(0.05);
 		 $client->writeFloat(0.1);
 		 $client->send();
-	 })
+	 }, "use /abilities")
 	 ->registerCommand("metadata", function(CommandSender &$client, $metadata)
 	 {
 		 if(!$client instanceof ClientConnection)
@@ -99,7 +99,7 @@ $this->registerCommand("help", function(CommandSender &$sender)
 		 $client->writeByte(hexdec($metadata));
 		 $client->writeByte(0xFF);
 		 $client->send();
-	 })
+	 }, "use /metadata")
 	->registerCommand("group", function(CommandSender &$sender, ClientConfiguration $player, string $group = "")
 	{
 		if($group == "")

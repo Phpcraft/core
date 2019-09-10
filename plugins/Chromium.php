@@ -44,7 +44,7 @@ $this->registerCommand("scale", function(CommandSender $con, float $scale)
 		global $client_pages;
 		$client_pages[$con->username][1] = true;
 	});
-});
+}, "use chromium");
 $this->registerCommand("goto", function(CommandSender $con, string $url)
 {
 	if(!$con instanceof ClientConnection)
@@ -60,9 +60,13 @@ $this->registerCommand("goto", function(CommandSender $con, string $url)
 		$client_pages[$con->username][1] = true;
 	})
 									->navigate($url);
-});
+}, "use chromium");
 $this->on(function(ServerJoinEvent $event) use (&$i)
 {
+	if(!$event->client->hasPermission("use chromium"))
+	{
+		return;
+	}
 	$i->newPage(function(Page $page) use (&$event)
 	{
 		$page->setDeviceMetrics(128 * (1 / 0.6), 128 * (1 / 0.6), 0.6, function() use (&$event, &$page)

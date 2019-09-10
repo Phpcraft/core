@@ -41,7 +41,10 @@ $this->on(function(ServerJoinEvent $event)
 	$con->writeString('{"text":"github.com/timmyrs/Phpcraft"}');
 	$con->send();
 	$con->sendMessage("Welcome to this Phpcraft server.");
-	$con->sendMessage("Use /grass, /stone, and /grass_stone to §ochange the world§r.");
+	if($con->hasPermission("change the world"))
+	{
+		$con->sendMessage("Use /grass, /stone, and /grass_stone to §ochange the world§r.");
+	}
 	global $client_chunk_preferences;
 	$client_chunk_preferences[$con->username] = "\x00\x01";
 }, Event::PRIORITY_NORMAL)
@@ -55,7 +58,7 @@ $this->on(function(ServerJoinEvent $event)
 		 global $client_chunk_preferences;
 		 $client_chunk_preferences[$client->username] = "\x00\x00";
 		 $client->chunks = [];
-	 })
+	 }, "change the world")
 	 ->registerCommand("stone", function(CommandSender &$client)
 	 {
 		 if(!$client instanceof ClientConnection)
@@ -66,7 +69,7 @@ $this->on(function(ServerJoinEvent $event)
 		 global $client_chunk_preferences;
 		 $client_chunk_preferences[$client->username] = "\x01\x01";
 		 $client->chunks = [];
-	 })
+	 }, "change the world")
 	 ->registerCommand("grass_stone", function(CommandSender &$client)
 	 {
 		 if(!$client instanceof ClientConnection)
@@ -77,7 +80,7 @@ $this->on(function(ServerJoinEvent $event)
 		 global $client_chunk_preferences;
 		 $client_chunk_preferences[$client->username] = "\x00\x01";
 		 $client->chunks = [];
-	 })
+	 }, "change the world")
 	 ->on(function(ServerLeaveEvent $event)
 	 {
 		 global $client_chunk_preferences;

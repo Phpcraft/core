@@ -98,9 +98,18 @@ if(!is_dir("config"))
 if(!is_file("config/groups.json"))
 {
 	file_put_contents("config/groups.json", json_encode([
-		"user" => [
+		"default" => [
 			"allow" => [
-				"use /gamemode"
+				"use /gamemode",
+				"use /metadata",
+				"change the world"
+			]
+		],
+		"user" => [
+			"inherit" => "default",
+			"allow" => [
+				"use /abilities",
+				"use chromium"
 			]
 		],
 		"admin" => [
