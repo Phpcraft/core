@@ -405,7 +405,6 @@ class ClientConnection extends Connection implements CommandSender
 			{
 				$this->config->setFile("config/player_data/".$this->uuid->toString(false).".json");
 			}
-			Phpcraft::$user_cache->set($this->uuid->toString(false), $this->username);
 		}
 		return $this;
 	}

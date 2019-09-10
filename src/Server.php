@@ -303,6 +303,7 @@ class Server implements CommandSender
 						$res = $con->handleAuthentication();
 						if(is_array($res))
 						{
+							Phpcraft::$user_cache->set($res["id"], $con->username);
 							$con->finishLogin(new UUID($res["id"]), $this->eidCounter);
 							if($this->join_function)
 							{
