@@ -5,6 +5,7 @@ var searchData=
   ['enum',['Enum',['../namespacePhpcraft_1_1Enum.html',1,'Phpcraft']]],
   ['event',['Event',['../namespacePhpcraft_1_1Event.html',1,'Phpcraft']]],
   ['exception',['Exception',['../namespacePhpcraft_1_1Exception.html',1,'Phpcraft']]],
+  ['mapdata',['MapData',['../namespacePhpcraft_1_1Packet_1_1MapData.html',1,'Phpcraft::Packet']]],
   ['nbt',['Nbt',['../namespacePhpcraft_1_1Nbt.html',1,'Phpcraft']]],
   ['packet',['Packet',['../classPhpcraft_1_1Packet_1_1Packet.html',1,'Phpcraft\Packet\Packet'],['../namespacePhpcraft_1_1Packet.html',1,'Phpcraft\Packet']]],
   ['packet_2ephp',['Packet.php',['../Packet_8php.html',1,'']]],
