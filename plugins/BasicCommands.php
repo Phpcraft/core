@@ -50,9 +50,12 @@ $this->registerCommand("help", function(CommandSender &$sender)
 	foreach(PluginManager::$registered_commands as $command)
 	{
 		assert($command instanceof Command);
-		array_push($commands, $command->getSyntax());
+		if($command->hasPermission($sender))
+		{
+			array_push($commands, $command->getSyntax());
+		}
 	}
-	$sender->sendMessage(["text" => "I know the following commands:\n".join("\n", $commands)]);
+	$sender->sendMessage(["text" => "You have access to ".count($commands)." commands:\n".join("\n", $commands)]);
 })
 	 ->registerCommand([
 		 "gamemode",

@@ -155,7 +155,7 @@ class Command
 	 */
 	function call(CommandSender &$sender, array $args)
 	{
-		if($this->required_permission !== null && !$sender->hasPermission($this->required_permission))
+		if(!$this->hasPermission($sender))
 		{
 			$sender->sendMessage([
 				"text" => "You don't have the '{$this->required_permission}' permission required to use /".$this->getCanonicalName().".",
@@ -193,6 +193,11 @@ class Command
 			array_push($args_, $arg->getValue());
 		}
 		call_user_func_array($this->function, $args_);
+	}
+
+	function hasPermission(CommandSender &$sender): bool
+	{
+		return $this->required_permission === null || $sender->hasPermission($this->required_permission);
 	}
 }
 
