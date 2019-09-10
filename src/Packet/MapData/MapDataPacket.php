@@ -1,7 +1,7 @@
 <?php
 namespace Phpcraft\Packet\MapData;
 use Phpcraft\
-{Connection, Exception\IOException, Phpcraft};
+{Connection, Exception\IOException, Packet\Packet, Phpcraft};
 /** The packet sent to clients to update a map's contents and/or its markers. */
 class MapDataPacket extends Packet
 {
