@@ -18,7 +18,8 @@ $this->registerCommand("reload", function(CommandSender &$sender)
 		if(is_file("config/groups.json"))
 		{
 			$sender->sendAndPrintMessage("Reloading groups...");
-			$sender->getServer()->setGroups(json_decode(file_get_contents("config/groups.json"), true));
+			$sender->getServer()
+				   ->setGroups(json_decode(file_get_contents("config/groups.json"), true));
 			$sender->sendAndPrintMessage(count($sender->getServer()->groups)." groups loaded.");
 		}
 		else

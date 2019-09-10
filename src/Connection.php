@@ -566,7 +566,7 @@ class Connection
 				$byte = @fgetc($this->stream);
 			}
 			$byte = ord($byte);
-			$length  |= (($byte & 0b01111111) << (7 * $read++));
+			$length |= (($byte & 0b01111111) << (7 * $read++));
 			if($length > 2097152)
 			{
 				throw new LengthException("Length wider than 21-bit");

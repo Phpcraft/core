@@ -345,25 +345,6 @@ class Server implements CommandSender
 	}
 
 	/**
-	 * Returns a client in state 3 (playing) with the given name or UUID, or null if not found.
-	 *
-	 * @param string|UUID $name_or_uuid
-	 * @return ClientConnection|null
-	 */
-	function getPlayer($name_or_uuid)
-	{
-		foreach($this->clients as $client)
-		{
-			assert($client instanceof ClientConnection);
-			if($client->state == 3 && ($client->username == $name_or_uuid || $client->uuid == $name_or_uuid))
-			{
-				return $client;
-			}
-		}
-		return null;
-	}
-
-	/**
 	 * Sends a message to all players (clients in playing state).
 	 *
 	 * @param string|array $message
@@ -430,6 +411,25 @@ class Server implements CommandSender
 			if(strtolower($_name) == $name_or_uuid)
 			{
 				return new ClientConfiguration($this, "config/player_data/{$uuid}.json");
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * Returns a client in state 3 (playing) with the given name or UUID, or null if not found.
+	 *
+	 * @param string|UUID $name_or_uuid
+	 * @return ClientConnection|null
+	 */
+	function getPlayer($name_or_uuid)
+	{
+		foreach($this->clients as $client)
+		{
+			assert($client instanceof ClientConnection);
+			if($client->state == 3 && ($client->username == $name_or_uuid || $client->uuid == $name_or_uuid))
+			{
+				return $client;
 			}
 		}
 		return null;

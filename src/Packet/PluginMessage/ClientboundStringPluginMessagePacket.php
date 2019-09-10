@@ -13,13 +13,13 @@ class ClientboundStringPluginMessagePacket extends ClientboundPluginMessagePacke
 		parent::__construct($channel, $data);
 	}
 
-	protected function send_(Connection $con)
-	{
-		$con->writeString($this->data);
-	}
-
 	function __toString()
 	{
 		return "{".substr(get_called_class(), 30).": \"{$this->channel}\": {$this->data}}";
+	}
+
+	protected function send_(Connection $con)
+	{
+		$con->writeString($this->data);
 	}
 }
