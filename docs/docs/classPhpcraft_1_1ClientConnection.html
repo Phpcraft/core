@@ -111,6 +111,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a1863f864d45210aa52d15c75d959a135"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a891e459081509946f485e6253c18f168"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#a891e459081509946f485e6253c18f168">finishLogin</a> (UUID $uuid, <a class="el" href="classPhpcraft_1_1Counter.html">Counter</a> $eidCounter, int $compression_threshold=256)</td></tr>
 <tr class="separator:a891e459081509946f485e6253c18f168"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af97568a45469d5c2286710858ed00f10"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#af97568a45469d5c2286710858ed00f10">sendAndPrintMessage</a> ($message)</td></tr>
+<tr class="separator:af97568a45469d5c2286710858ed00f10"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9ed0586a5ca0d6898b7a547739296025"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#a9ed0586a5ca0d6898b7a547739296025">sendMessage</a> ($message, int $position=<a class="el" href="classPhpcraft_1_1Enum_1_1ChatPosition.html#ad83fa54b5869f3710e6d914766eaa069">ChatPosition::SYSTEM</a>)</td></tr>
 <tr class="separator:a9ed0586a5ca0d6898b7a547739296025"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab83bc7aa368b731af94813d74523886f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#ab83bc7aa368b731af94813d74523886f">setGamemode</a> (int $gamemode)</td></tr>
@@ -645,6 +647,39 @@ Additional Inherited Members</h2></td></tr>
 <a class="el" href="classPhpcraft_1_1ClientConnection.html#ac3745a28bb820f854aa4d946db85d427">ClientConnection::$fly_speed</a> </dd>
 <dd>
 <a class="el" href="classPhpcraft_1_1ClientConnection.html#a4c57a03af7d06c8759fbf3d41d47a4c4">ClientConnection::$walk_speed</a> </dd></dl>
+
+</div>
+</div>
+<a id="af97568a45469d5c2286710858ed00f10"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af97568a45469d5c2286710858ed00f10">&#9670;&nbsp;</a></span>sendAndPrintMessage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Phpcraft\ClientConnection::sendAndPrintMessage </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$message</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">array&#160;|&#160;string</td><td class="paramname">$message</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classPhpcraft_1_1ClientConnection.html">ClientConnection</a> $this </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">IOException</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implements <a class="el" href="interfacePhpcraft_1_1Command_1_1CommandSender.html#a91a52ac2d8b74c049501b1f9103760d6">Phpcraft\Command\CommandSender</a>.</p>
 
 </div>
 </div>

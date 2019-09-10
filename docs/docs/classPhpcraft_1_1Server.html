@@ -103,16 +103,18 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a4f4c7ec689744dd6eed990527a773f00"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a80c0df387dc345950a7599b800bf27c9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Server.html#a80c0df387dc345950a7599b800bf27c9">isOnlineMode</a> ()</td></tr>
 <tr class="separator:a80c0df387dc345950a7599b800bf27c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a70a90032d30059a1b5eb5a5cf64e82bf"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Server.html#a70a90032d30059a1b5eb5a5cf64e82bf">getPlayer</a> ($name_or_uuid)</td></tr>
-<tr class="separator:a70a90032d30059a1b5eb5a5cf64e82bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a599d09f219a491010b31072390556179"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Server.html#a599d09f219a491010b31072390556179">broadcast</a> ($message, int $position=<a class="el" href="classPhpcraft_1_1Enum_1_1ChatPosition.html#ad83fa54b5869f3710e6d914766eaa069">ChatPosition::SYSTEM</a>)</td></tr>
 <tr class="separator:a599d09f219a491010b31072390556179"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8eea4895410ef8bfda087f151cae491d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Server.html#a8eea4895410ef8bfda087f151cae491d">getPlayers</a> ()</td></tr>
 <tr class="separator:a8eea4895410ef8bfda087f151cae491d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1b5368af07295dd093223150eaf178ba"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Server.html#a1b5368af07295dd093223150eaf178ba">getOfflinePlayer</a> (string $name_or_uuid)</td></tr>
 <tr class="separator:a1b5368af07295dd093223150eaf178ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a70a90032d30059a1b5eb5a5cf64e82bf"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Server.html#a70a90032d30059a1b5eb5a5cf64e82bf">getPlayer</a> ($name_or_uuid)</td></tr>
+<tr class="separator:a70a90032d30059a1b5eb5a5cf64e82bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3dbcdf93f9f834134cea839460b5344e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Server.html#a3dbcdf93f9f834134cea839460b5344e">sendMessage</a> ($message)</td></tr>
 <tr class="separator:a3dbcdf93f9f834134cea839460b5344e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a11725d8cece11c76a857508120fe7a2a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Server.html#a11725d8cece11c76a857508120fe7a2a">sendAndPrintMessage</a> ($message)</td></tr>
+<tr class="separator:a11725d8cece11c76a857508120fe7a2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae5413fde7de5d2f804607b6c91859276"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Server.html#ae5413fde7de5d2f804607b6c91859276">close</a> ($reason=[])</td></tr>
 <tr class="separator:ae5413fde7de5d2f804607b6c91859276"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1a71c3b8c60fb7bdad95064c6c5cb4e4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Server.html#a1a71c3b8c60fb7bdad95064c6c5cb4e4">hasPermission</a> (string $permission)</td></tr>
@@ -514,6 +516,32 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Returns whether the server socket is open or not.</p>
 <dl class="section return"><dt>Returns</dt><dd>boolean </dd></dl>
+
+</div>
+</div>
+<a id="a11725d8cece11c76a857508120fe7a2a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a11725d8cece11c76a857508120fe7a2a">&#9670;&nbsp;</a></span>sendAndPrintMessage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Phpcraft\Server::sendAndPrintMessage </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$message</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">array&#160;|&#160;string</td><td class="paramname">$message</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implements <a class="el" href="interfacePhpcraft_1_1Command_1_1CommandSender.html#a91a52ac2d8b74c049501b1f9103760d6">Phpcraft\Command\CommandSender</a>.</p>
 
 </div>
 </div>
