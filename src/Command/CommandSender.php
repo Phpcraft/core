@@ -1,6 +1,7 @@
 <?php
 namespace Phpcraft\Command;
-use Phpcraft\Server;
+use Phpcraft\
+{Position, Server};
 interface CommandSender
 {
 	/**
@@ -16,4 +17,11 @@ interface CommandSender
 	 * @return Server|null
 	 */
 	function getServer();
+
+	function hasPosition(): bool;
+
+	/**
+	 * @return Position|null
+	 */
+	function getPosition();
 }

@@ -522,4 +522,17 @@ class ClientConnection extends Connection implements CommandSender
 	{
 		return $this->config->server;
 	}
+
+	function hasPosition(): bool
+	{
+		return $this->pos !== null;
+	}
+
+	/**
+	 * @return Position|null
+	 */
+	function getPosition()
+	{
+		return $this->pos;
+	}
 }

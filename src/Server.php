@@ -477,4 +477,17 @@ class Server implements CommandSender
 	{
 		return $this;
 	}
+
+	function hasPosition(): bool
+	{
+		return false;
+	}
+
+	/**
+	 * @return null
+	 */
+	function getPosition()
+	{
+		return null;
+	}
 }
