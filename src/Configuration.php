@@ -12,6 +12,7 @@ class Configuration implements Iterator, Countable, ArrayAccess
 	static $save_queue;
 	public $file;
 	public $data;
+	public $unsaved_changes = false;
 	private $current = 0;
 
 	function __construct($file = null, $default_data = null)
@@ -32,6 +33,7 @@ class Configuration implements Iterator, Countable, ArrayAccess
 			{
 				$this->data = $default_data;
 				$this->queueSave();
+				$this->unsaved_changes = false;
 			}
 			else
 			{
@@ -47,6 +49,7 @@ class Configuration implements Iterator, Countable, ArrayAccess
 	 */
 	function queueSave(): Configuration
 	{
+		$this->unsaved_changes = true;
 		if($this->file !== null)
 		{
 			self::$save_queue->attach($this);
@@ -69,7 +72,10 @@ class Configuration implements Iterator, Countable, ArrayAccess
 
 	function __destruct()
 	{
-		$this->save();
+		if($this->unsaved_changes)
+		{
+			$this->save();
+		}
 	}
 
 	/**
@@ -82,6 +88,7 @@ class Configuration implements Iterator, Countable, ArrayAccess
 		if($this->file !== null)
 		{
 			file_put_contents($this->file, json_encode($this->data, JSON_UNESCAPED_SLASHES));
+			$this->unsaved_changes = false;
 		}
 		self::$save_queue->detach($this);
 		return $this;
@@ -100,27 +107,24 @@ class Configuration implements Iterator, Countable, ArrayAccess
 	function setFile(string $file): Configuration
 	{
 		$this->file = $file;
-		if(!$this->data)
+		$dir = dirname($file);
+		if(is_dir($dir))
 		{
-			$dir = dirname($file);
-			if(is_dir($dir))
+			if(is_file($file))
 			{
-				if(is_file($file))
-				{
-					$this->data = json_decode(file_get_contents($file), true);
-				}
-			}
-			else
-			{
-				mkdir($dir);
+				$this->data = json_decode(file_get_contents($file), true);
+				$this->unsaved_changes = false;
 			}
 		}
+		else
+		{
+			mkdir($dir);
+		}
+		if($this->unsaved_changes)
+		{
+			$this->queueSave();
+		}
 		return $this;
-	}
-
-	function hasUnsavedChanges(): bool
-	{
-		return self::$save_queue->contains($this);
 	}
 
 	function current()
