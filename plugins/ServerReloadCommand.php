@@ -9,7 +9,21 @@ use Phpcraft\
 $this->registerCommand("reload", function(CommandSender &$sender)
 {
 	PluginManager::unloadAllPlugins();
-	echo "Unloaded all plugins.\nLoading plugins...\n";
+	$sender->sendAndPrintMessage("Unloaded all plugins.");
+	$sender->sendAndPrintMessage("Loading plugins...");
 	PluginManager::loadPlugins();
-	echo count(PluginManager::$loaded_plugins)." plugins loaded.\n";
+	$sender->sendAndPrintMessage(count(PluginManager::$loaded_plugins)." plugins loaded.");
+	if($sender->hasServer())
+	{
+		if(is_file("config/groups.json"))
+		{
+			$sender->sendAndPrintMessage("Reloading groups...");
+			$sender->getServer()->setGroups(json_decode(file_get_contents("config/groups.json"), true));
+			$sender->sendAndPrintMessage(count($sender->getServer()->groups)." groups loaded.");
+		}
+		else
+		{
+			$sender->sendAndPrintMessage("groups.json was deleted. keeping current groups. restart the server to apply defaults.");
+		}
+	}
 }, "use /reload");

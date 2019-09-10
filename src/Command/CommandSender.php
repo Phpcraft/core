@@ -9,6 +9,11 @@ interface CommandSender
 	 */
 	function sendMessage($message);
 
+	/**
+	 * @param array|string $message
+	 */
+	function sendAndPrintMessage($message);
+
 	function hasPermission(string $permission): bool;
 
 	function hasServer(): bool;

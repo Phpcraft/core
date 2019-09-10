@@ -411,6 +411,17 @@ class ClientConnection extends Connection implements CommandSender
 	}
 
 	/**
+	 * @param array|string $message
+	 * @return ClientConnection $this
+	 * @throws IOException
+	 */
+	function sendAndPrintMessage($message): ClientConnection
+	{
+		echo "[{$this->username}: ".Phpcraft::chatToText($message, Phpcraft::FORMAT_ANSI)."]\n\e[m";
+		return $this->sendMessage($message);
+	}
+
+	/**
 	 * Sends the client a chat message.
 	 *
 	 * @param array|string $message

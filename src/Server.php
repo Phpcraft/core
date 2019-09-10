@@ -450,6 +450,14 @@ class Server implements CommandSender
 	}
 
 	/**
+	 * @param array|string $message
+	 */
+	function sendAndPrintMessage($message)
+	{
+		echo Phpcraft::chatToText($message, Phpcraft::FORMAT_ANSI)."\n\e[m";
+	}
+
+	/**
 	 * Closes all client connections and the server socket.
 	 *
 	 * @param array|string $reason The reason for closing the server; chat object.
