@@ -61,7 +61,7 @@ class Command
 				if(self::$argument_providers === null)
 				{
 					self::$argument_providers = [
-						null => StringArgumentProvider::class
+						null => StringProvider::class
 					];
 				}
 				foreach($new_classes as $class)
@@ -182,7 +182,7 @@ class Command
 																															   ->__toString()];
 			$arg = new $provider($sender, $args[$i++]);
 			assert($arg instanceof ArgumentProvider);
-			while(!$arg->acceptsMore())
+			while($arg->acceptsMore())
 			{
 				if($i == $l)
 				{
