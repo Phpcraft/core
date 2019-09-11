@@ -255,7 +255,7 @@ class Server implements CommandSender
 								}
 								else
 								{
-									$con->disconnect_after = microtime(true);
+									$con->disconnect_after = 1;
 									break;
 								}
 							}
@@ -265,7 +265,7 @@ class Server implements CommandSender
 							}
 							else
 							{
-								$con->disconnect_after = microtime(true);
+								$con->disconnect_after = 1;
 								break;
 							}
 						}
@@ -282,7 +282,7 @@ class Server implements CommandSender
 								$con->writeVarInt(0x01);
 								$con->writeLong($con->readLong());
 								$con->send();
-								$con->disconnect_after = microtime(true);
+								$con->disconnect_after = 1;
 								break;
 							}
 						}
