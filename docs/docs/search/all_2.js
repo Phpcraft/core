@@ -2,7 +2,8 @@ var searchData=
 [
   ['above_5fhotbar',['ABOVE_HOTBAR',['../classPhpcraft_1_1Enum_1_1ChatPosition.html#a3af5611c11eebe06d22e9211806b1de3',1,'Phpcraft::Enum::ChatPosition']]],
   ['accept',['accept',['../classPhpcraft_1_1Server.html#a172423393c7cd2339523706457c05c37',1,'Phpcraft::Server']]],
-  ['acceptnext',['acceptNext',['../classPhpcraft_1_1Command_1_1ArgumentProvider.html#afc7fd31e062deb517e5bd234c4eb3309',1,'Phpcraft::Command::ArgumentProvider']]],
+  ['acceptnext',['acceptNext',['../classPhpcraft_1_1Command_1_1ArgumentProvider.html#afc7fd31e062deb517e5bd234c4eb3309',1,'Phpcraft\Command\ArgumentProvider\acceptNext()'],['../classPhpcraft_1_1Command_1_1GreedyStringProvider.html#ace44523f9279088124f2baaa99565c31',1,'Phpcraft\Command\GreedyStringProvider\acceptNext()'],['../classPhpcraft_1_1Command_1_1QuotedStringProvider.html#ac897842a7f4a11411e49209a9dce857f',1,'Phpcraft\Command\QuotedStringProvider\acceptNext()']]],
+  ['acceptsmore',['acceptsMore',['../classPhpcraft_1_1Command_1_1ArgumentProvider.html#aea35936ceaf37f9e25e0eb003b2b72ec',1,'Phpcraft\Command\ArgumentProvider\acceptsMore()'],['../classPhpcraft_1_1Command_1_1GreedyStringProvider.html#a26710cff668439e5ef87eebc4446e067',1,'Phpcraft\Command\GreedyStringProvider\acceptsMore()']]],
   ['account',['Account',['../classPhpcraft_1_1Account.html',1,'Phpcraft']]],
   ['account_2ephp',['Account.php',['../Account_8php.html',1,'']]],
   ['add',['add',['../classPhpcraft_1_1PlainUserInterface.html#a084f718094191d03675d7bc1177bbca1',1,'Phpcraft\PlainUserInterface\add()'],['../classPhpcraft_1_1UserInterface.html#a2fff23e3ac4cdd682844714fcbc077e7',1,'Phpcraft\UserInterface\add()']]],

@@ -1,6 +1,5 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node2" href="$classPhpcraft_1_1Enum_1_1ChatPosition.html" title="Phpcraft\\Enum\\ChatPosition" alt="" coords="112,5,312,32"/>
-<area shape="rect" id="node3" href="$classPhpcraft_1_1Enum_1_1Difficulty.html" title="Phpcraft\\Enum\\Difficulty" alt="" coords="125,56,299,83"/>
-<area shape="rect" id="node4" href="$classPhpcraft_1_1Enum_1_1Dimension.html" title="Phpcraft\\Enum\\Dimension" alt="" coords="118,107,306,133"/>
-<area shape="rect" id="node5" href="$classPhpcraft_1_1Enum_1_1Gamemode.html" title="Phpcraft\\Enum\\Gamemode" alt="" coords="114,157,310,184"/>
+<area shape="rect" id="node1" href="$classPhpcraft_1_1EntityMetadata.html" title="Phpcraft\\EntityMetadata" alt="" coords="5,5,181,32"/>
+<area shape="rect" id="node2" href="$classPhpcraft_1_1EntityBase.html" title="Phpcraft\\EntityBase" alt="" coords="229,5,376,32"/>
+<area shape="rect" id="node3" href="$classPhpcraft_1_1EntityLiving.html" title="Phpcraft\\EntityLiving" alt="" coords="424,5,575,32"/>
 </map>
