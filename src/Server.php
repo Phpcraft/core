@@ -59,6 +59,7 @@ class Server implements CommandSender
 	/**
 	 * The function called when to get the server's response to a list ping request with the ClientConnection as argument.
 	 * See Phpcraft::getServerStatus for an example of all the data a server may respond with (excluding "ping").
+	 * Additionally, if you set "no_ping", the client will show "(no connection)" where usually the ping in ms would be.
 	 *
 	 * @see Server::accept()
 	 * @see Server::handle()
@@ -273,9 +274,19 @@ class Server implements CommandSender
 						{
 							if($packet_id == 0x00)
 							{
+								$json = ($this->list_ping_function)($con);
+								if($no_ping = isset($json["no_ping"]))
+								{
+									unset($json["no_ping"]);
+								}
 								$con->writeVarInt(0x00);
-								$con->writeString(json_encode(($this->list_ping_function)($con)));
+								$con->writeString(json_encode($json));
 								$con->send();
+								if($no_ping)
+								{
+									$con->disconnect_after = 1;
+									break;
+								}
 							}
 							else if($packet_id == 0x01)
 							{
