@@ -7,7 +7,7 @@ if(empty($argv))
 }
 require "vendor/autoload.php";
 use Phpcraft\
-{ClientConnection, Command\Command, Command\CommandSender, Event\ServerChatEvent, Event\ServerConsoleEvent, Event\ServerFlyingChangeEvent, Event\ServerJoinEvent, Event\ServerLeaveEvent, Event\ServerOnGroundChangeEvent, Event\ServerPacketEvent, Event\ServerTickEvent, Packet\ServerboundPacket, PlainUserInterface, UserInterface, Phpcraft, PluginManager, Server, Versions};
+{ClientConnection, Command\Command, Command\CommandSender, Event\ServerChatEvent, Event\ServerConsoleEvent, Event\ServerFlyingChangeEvent, Event\ServerJoinEvent, Event\ServerLeaveEvent, Event\ServerOnGroundChangeEvent, Event\ServerPacketEvent, Event\ServerTickEvent, Packet\ServerboundPacket, Phpcraft, PlainUserInterface, PluginManager, Server, UserInterface, Versions};
 $options = [
 	"offline" => false,
 	"port" => 25565,
@@ -377,40 +377,37 @@ $server->packet_function = function(ClientConnection $con, ServerboundPacket $pa
 $server->disconnect_function = function(ClientConnection $con)
 {
 	global $ui, $server;
-	if($con->state == 3)
+	if($con->state == 3 && !PluginManager::fire(new ServerLeaveEvent($server, $con)) && $con->hasPosition())
 	{
-		if(!PluginManager::fire(new ServerLeaveEvent($server, $con)))
-		{
-			$msg = [
-				"color" => "yellow",
-				"translate" => "multiplayer.player.left",
-				"with" => [
-					[
-						"text" => $con->username
-					]
+		$msg = [
+			"color" => "yellow",
+			"translate" => "multiplayer.player.left",
+			"with" => [
+				[
+					"text" => $con->username
 				]
-			];
-			$ui->add(Phpcraft::chatToText($msg, 1));
-			$msg = json_encode($msg);
-			foreach($server->getPlayers() as $c)
+			]
+		];
+		$ui->add(Phpcraft::chatToText($msg, 1));
+		$msg = json_encode($msg);
+		foreach($server->getPlayers() as $c)
+		{
+			if($c !== $con)
 			{
-				if($c !== $con)
+				try
 				{
-					try
-					{
-						$c->startPacket("clientbound_chat_message");
-						$c->writeString($msg);
-						$c->writeByte(1);
-						$c->send();
-						$c->startPacket("player_info");
-						$c->writeVarInt(4);
-						$c->writeVarInt(1);
-						$c->writeUUID($con->uuid);
-						$c->send();
-					}
-					catch(Exception $ignored)
-					{
-					}
+					$c->startPacket("clientbound_chat_message");
+					$c->writeString($msg);
+					$c->writeByte(1);
+					$c->send();
+					$c->startPacket("player_info");
+					$c->writeVarInt(4);
+					$c->writeVarInt(1);
+					$c->writeUUID($con->uuid);
+					$c->send();
+				}
+				catch(Exception $ignored)
+				{
 				}
 			}
 		}
