@@ -416,7 +416,19 @@ class ClientConnection extends Connection implements CommandSender
 	 */
 	function sendAndPrintMessage($message): ClientConnection
 	{
-		echo "[{$this->username}: ".Phpcraft::chatToText($message, Phpcraft::FORMAT_ANSI)."]\n\e[m";
+		echo Phpcraft::chatToText([
+				"extra" => [
+					[
+						"text" => "[{$this->username}: ",
+						"color" => "gray"
+					],
+					$message,
+					[
+						"text" => "]",
+						"color" => "gray"
+					]
+				]
+			], Phpcraft::FORMAT_ANSI)."\n";
 		return $this->sendMessage($message);
 	}
 
