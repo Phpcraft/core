@@ -20,8 +20,6 @@ if(!class_exists("GamemodeArgument"))
 
 	class GamemodeArgumentProvider extends ArgumentProvider
 	{
-		private $value;
-
 		public function __construct(CommandSender &$sender, string $arg)
 		{
 			if(is_numeric($arg) && $arg >= 0 && $arg <= 4)

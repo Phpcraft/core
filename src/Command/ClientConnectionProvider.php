@@ -3,10 +3,8 @@ namespace Phpcraft\Command;
 use DomainException;
 use LogicException;
 use Phpcraft\ClientConnection;
-class ClientConnectionArgumentProvider extends ArgumentProvider
+class ClientConnectionProvider extends ArgumentProvider
 {
-	private $value;
-
 	public function __construct(CommandSender &$sender, string $arg)
 	{
 		$arg = strtolower($arg);

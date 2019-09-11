@@ -1,12 +1,10 @@
 <?php
 namespace Phpcraft\Command;
-class StringArgumentProvider extends ArgumentProvider
+/**
+ * Provides a SingleWordStringArgument as PHP's native string to commands.
+ */
+class StringProvider extends ArgumentProvider
 {
-	/**
-	 * @var $value string
-	 */
-	private $value;
-
 	public function __construct(CommandSender &$sender, string $arg)
 	{
 		$this->value = $arg;

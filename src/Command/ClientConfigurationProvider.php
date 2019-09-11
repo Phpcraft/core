@@ -3,10 +3,8 @@ namespace Phpcraft\Command;
 use DomainException;
 use LogicException;
 use Phpcraft\ClientConfiguration;
-class ClientConfigurationArgumentProvider extends ArgumentProvider
+class ClientConfigurationProvider extends ArgumentProvider
 {
-	private $value;
-
 	public function __construct(CommandSender &$sender, string $arg)
 	{
 		if(!$sender->hasServer())

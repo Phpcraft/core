@@ -182,10 +182,14 @@ class Command
 																															   ->__toString()];
 			$arg = new $provider($sender, $args[$i++]);
 			assert($arg instanceof ArgumentProvider);
-			while(!$arg->isFinished())
+			while(!$arg->acceptsMore())
 			{
 				if($i == $l)
 				{
+					if($arg->isFinished())
+					{
+						break;
+					}
 					throw new DomainException("Argument ".$param->getName()." was not finished");
 				}
 				$arg->acceptNext($args[$i++]);
@@ -201,8 +205,11 @@ class Command
 	}
 }
 
-ClientConfigurationArgumentProvider::noop();
-ClientConnectionArgumentProvider::noop();
-StringArgumentProvider::noop();
-IntegerArgumentProvider::noop();
-FloatArgumentProvider::noop();
+ClientConfigurationProvider::noop();
+ClientConnectionProvider::noop();
+FloatProvider::noop();
+GreedyStringProvider::noop();
+IntegerProvider::noop();
+QuotedStringProvider::noop();
+SingleWordStringProvider::noop();
+StringProvider::noop();

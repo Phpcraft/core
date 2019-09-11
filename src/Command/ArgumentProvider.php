@@ -8,6 +8,8 @@ namespace Phpcraft\Command;
  */
 abstract class ArgumentProvider
 {
+	protected $value;
+
 	abstract function __construct(CommandSender &$sender, string $arg);
 
 	/**
@@ -19,6 +21,11 @@ abstract class ArgumentProvider
 	}
 
 	abstract function getValue();
+
+	function acceptsMore(): bool
+	{
+		return false;
+	}
 
 	function isFinished(): bool
 	{

@@ -1,18 +1,13 @@
 <?php
 namespace Phpcraft\Command;
-use DomainException;
-class FloatArgumentProvider extends ArgumentProvider
+use InvalidArgumentException;
+class FloatProvider extends ArgumentProvider
 {
-	/**
-	 * @var integer $value
-	 */
-	private $value;
-
 	public function __construct(CommandSender &$sender, string $arg)
 	{
 		if(!is_numeric($arg))
 		{
-			throw new DomainException("{$arg} is not a valid float");
+			throw new InvalidArgumentException("{$arg} is not a valid float");
 		}
 		$this->value = floatval($arg);
 	}
