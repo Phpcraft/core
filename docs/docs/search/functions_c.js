@@ -1,5 +1,8 @@
 var searchData=
 [
-  ['next',['next',['../classPhpcraft_1_1Configuration.html#aeed74eea7d9705ddc0e01e0440e676bd',1,'Phpcraft\Configuration\next()'],['../classPhpcraft_1_1Counter.html#aed5594a217d12070396062b6e3914edb',1,'Phpcraft\Counter\next()'],['../classPhpcraft_1_1Nbt_1_1NbtCompound.html#a080cafb7a583b72949c7ffaf8eff5677',1,'Phpcraft\Nbt\NbtCompound\next()'],['../classPhpcraft_1_1Nbt_1_1NbtListTag.html#a4277260fcb7ad091fa55b1890856d222',1,'Phpcraft\Nbt\NbtListTag\next()']]],
-  ['noop',['noop',['../classPhpcraft_1_1Command_1_1ArgumentProvider.html#a8b3bcbe86e306e0b19ea8e7bca7553d5',1,'Phpcraft::Command::ArgumentProvider']]]
+  ['maintaincache',['maintainCache',['../classPhpcraft_1_1Phpcraft.html#aecb985bfa2ddbc754ddfd1b44229852a',1,'Phpcraft::Phpcraft']]],
+  ['minecraft',['minecraft',['../classPhpcraft_1_1Versions.html#aa31f8f10a3fb2e69957f2991c2424280',1,'Phpcraft::Versions']]],
+  ['minecraftreleases',['minecraftReleases',['../classPhpcraft_1_1Versions.html#a14670ab1a1408affc965ef1568393584',1,'Phpcraft::Versions']]],
+  ['minecraftsupported',['minecraftSupported',['../classPhpcraft_1_1Versions.html#a2178e98d67933760999588a28a2ed9f5',1,'Phpcraft::Versions']]],
+  ['minecrafttoprotocol',['minecraftToProtocol',['../classPhpcraft_1_1Versions.html#a0d0c85c2da51d46138bf75b04c7cb1bd',1,'Phpcraft::Versions']]]
 ];

@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['server_2ephp',['Server.php',['../Server_8php.html',1,'']]],
+  ['server_2ephp',['Server.php',['../Realms_2Server_8php.html',1,'(Global Namespace)'],['../Server_8php.html',1,'(Global Namespace)']]],
   ['serverboundbrandpluginmessagepacket_2ephp',['ServerboundBrandPluginMessagePacket.php',['../ServerboundBrandPluginMessagePacket_8php.html',1,'']]],
   ['serverboundpacket_2ephp',['ServerboundPacket.php',['../ServerboundPacket_8php.html',1,'']]],
   ['serverboundpluginmessagepacket_2ephp',['ServerboundPluginMessagePacket.php',['../ServerboundPluginMessagePacket_8php.html',1,'']]],

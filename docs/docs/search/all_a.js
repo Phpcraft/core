@@ -7,6 +7,8 @@ var searchData=
   ['init',['init',['../classPhpcraft_1_1PacketId.html#abcdf0ac9edac2a40d1576fd4af609f9b',1,'Phpcraft::PacketId']]],
   ['integerprovider',['IntegerProvider',['../classPhpcraft_1_1Command_1_1IntegerProvider.html',1,'Phpcraft::Command']]],
   ['integerprovider_2ephp',['IntegerProvider.php',['../IntegerProvider_8php.html',1,'']]],
+  ['invite',['Invite',['../classPhpcraft_1_1Realms_1_1Invite.html',1,'Phpcraft::Realms']]],
+  ['invite_2ephp',['Invite.php',['../Invite_8php.html',1,'']]],
   ['ioexception',['IOException',['../classPhpcraft_1_1Exception_1_1IOException.html',1,'Phpcraft::Exception']]],
   ['ioexception_2ephp',['IOException.php',['../IOException_8php.html',1,'']]],
   ['isauthenticationpending',['isAuthenticationPending',['../classPhpcraft_1_1ClientConnection.html#a6d87e1f33d819184fcb64f08652c4afc',1,'Phpcraft::ClientConnection']]],
