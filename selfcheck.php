@@ -64,7 +64,16 @@ else
 	echo "X";
 	array_push($apt, "php-gmp");
 }
-echo " GMP\n\n";
+echo " GMP\n";
+if(extension_loaded("sockets"))
+{
+	echo "./";
+}
+else
+{
+	echo "X";
+}
+echo " Sockets extension (required only for LanInterface)\n\n";
 if(extension_loaded("openssl") && extension_loaded("curl") && extension_loaded("mcrypt"))
 {
 	echo "./";
