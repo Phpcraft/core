@@ -1,5 +1,7 @@
 var searchData=
 [
+  ['laninterface',['LanInterface',['../classPhpcraft_1_1LanInterface.html',1,'Phpcraft']]],
+  ['laninterface_2ephp',['LanInterface.php',['../LanInterface_8php.html',1,'']]],
   ['legs',['LEGS',['../classPhpcraft_1_1Slot.html#afe67b4af70a563cc0c3de3b0b3e9c929',1,'Phpcraft::Slot']]],
   ['list',['list',['../classPhpcraft_1_1Versions.html#ae69464352174adfb31e654c9c3d18c63',1,'Phpcraft::Versions']]],
   ['loadplugins',['loadPlugins',['../classPhpcraft_1_1PluginManager.html#a5a98b981fcd31665f1b590814a8964a6',1,'Phpcraft::PluginManager']]],

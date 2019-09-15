@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['versions_2ephp',['Versions.php',['../Versions_8php.html',1,'']]]
+  ['updatebossbarhealthpacket_2ephp',['UpdateBossBarHealthPacket.php',['../UpdateBossBarHealthPacket_8php.html',1,'']]],
+  ['updatebossbartitlepacket_2ephp',['UpdateBossBarTitlePacket.php',['../UpdateBossBarTitlePacket_8php.html',1,'']]],
+  ['userinterface_2ephp',['UserInterface.php',['../UserInterface_8php.html',1,'']]]
 ];

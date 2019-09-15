@@ -1,15 +1,18 @@
 var searchData=
 [
-  ['packet',['Packet',['../classPhpcraft_1_1Packet_1_1Packet.html',1,'Phpcraft::Packet']]],
-  ['packetid',['PacketId',['../classPhpcraft_1_1PacketId.html',1,'Phpcraft']]],
-  ['phpcraft',['Phpcraft',['../classPhpcraft_1_1Phpcraft.html',1,'Phpcraft']]],
-  ['plainuserinterface',['PlainUserInterface',['../classPhpcraft_1_1PlainUserInterface.html',1,'Phpcraft']]],
-  ['plugin',['Plugin',['../classPhpcraft_1_1Plugin.html',1,'Phpcraft']]],
-  ['pluginmanager',['PluginManager',['../classPhpcraft_1_1PluginManager.html',1,'Phpcraft']]],
-  ['pluginmessagepacket',['PluginMessagePacket',['../classPhpcraft_1_1Packet_1_1PluginMessage_1_1PluginMessagePacket.html',1,'Phpcraft::Packet::PluginMessage']]],
-  ['position',['Position',['../classPhpcraft_1_1Position.html',1,'Phpcraft']]],
-  ['proxyclientpacketevent',['ProxyClientPacketEvent',['../classPhpcraft_1_1Event_1_1ProxyClientPacketEvent.html',1,'Phpcraft::Event']]],
-  ['proxyevent',['ProxyEvent',['../classPhpcraft_1_1Event_1_1ProxyEvent.html',1,'Phpcraft::Event']]],
-  ['proxypacketevent',['ProxyPacketEvent',['../classPhpcraft_1_1Event_1_1ProxyPacketEvent.html',1,'Phpcraft::Event']]],
-  ['proxyserverpacketevent',['ProxyServerPacketEvent',['../classPhpcraft_1_1Event_1_1ProxyServerPacketEvent.html',1,'Phpcraft::Event']]]
+  ['nbtbyte',['NbtByte',['../classPhpcraft_1_1Nbt_1_1NbtByte.html',1,'Phpcraft::Nbt']]],
+  ['nbtbytearray',['NbtByteArray',['../classPhpcraft_1_1Nbt_1_1NbtByteArray.html',1,'Phpcraft::Nbt']]],
+  ['nbtcompound',['NbtCompound',['../classPhpcraft_1_1Nbt_1_1NbtCompound.html',1,'Phpcraft::Nbt']]],
+  ['nbtdouble',['NbtDouble',['../classPhpcraft_1_1Nbt_1_1NbtDouble.html',1,'Phpcraft::Nbt']]],
+  ['nbtend',['NbtEnd',['../classPhpcraft_1_1Nbt_1_1NbtEnd.html',1,'Phpcraft::Nbt']]],
+  ['nbtfloat',['NbtFloat',['../classPhpcraft_1_1Nbt_1_1NbtFloat.html',1,'Phpcraft::Nbt']]],
+  ['nbtint',['NbtInt',['../classPhpcraft_1_1Nbt_1_1NbtInt.html',1,'Phpcraft::Nbt']]],
+  ['nbtintarray',['NbtIntArray',['../classPhpcraft_1_1Nbt_1_1NbtIntArray.html',1,'Phpcraft::Nbt']]],
+  ['nbtlist',['NbtList',['../classPhpcraft_1_1Nbt_1_1NbtList.html',1,'Phpcraft::Nbt']]],
+  ['nbtlisttag',['NbtListTag',['../classPhpcraft_1_1Nbt_1_1NbtListTag.html',1,'Phpcraft::Nbt']]],
+  ['nbtlong',['NbtLong',['../classPhpcraft_1_1Nbt_1_1NbtLong.html',1,'Phpcraft::Nbt']]],
+  ['nbtlongarray',['NbtLongArray',['../classPhpcraft_1_1Nbt_1_1NbtLongArray.html',1,'Phpcraft::Nbt']]],
+  ['nbtshort',['NbtShort',['../classPhpcraft_1_1Nbt_1_1NbtShort.html',1,'Phpcraft::Nbt']]],
+  ['nbtstring',['NbtString',['../classPhpcraft_1_1Nbt_1_1NbtString.html',1,'Phpcraft::Nbt']]],
+  ['nbttag',['NbtTag',['../classPhpcraft_1_1Nbt_1_1NbtTag.html',1,'Phpcraft::Nbt']]]
 ];

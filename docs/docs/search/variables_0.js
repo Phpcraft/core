@@ -83,6 +83,7 @@ var searchData=
   ['_24save_5fqueue',['$save_queue',['../classPhpcraft_1_1Configuration.html#af4a400c86fad804a33be66b52a64f5d0',1,'Phpcraft::Configuration']]],
   ['_24scale',['$scale',['../classPhpcraft_1_1Packet_1_1MapData_1_1MapDataPacket.html#a56f56689005eac4c0b2fe25e5558b292',1,'Phpcraft::Packet::MapData::MapDataPacket']]],
   ['_24server',['$server',['../classPhpcraft_1_1ClientConfiguration.html#ac63a4954142e4490fcad1ceb6fd9427f',1,'Phpcraft\ClientConfiguration\$server()'],['../classPhpcraft_1_1Event_1_1ClientEvent.html#af49c87b80af71814afaec0dcccc94710',1,'Phpcraft\Event\ClientEvent\$server()'],['../classPhpcraft_1_1Event_1_1ProxyEvent.html#ad19927719d5283c96b805403cdf802ad',1,'Phpcraft\Event\ProxyEvent\$server()'],['../classPhpcraft_1_1Event_1_1ServerEvent.html#ada3f2ee887a953a1c40d8200c61bcb9b',1,'Phpcraft\Event\ServerEvent\$server()']]],
+  ['_24servers',['$servers',['../classPhpcraft_1_1LanInterface.html#a888c7ad2f5df0e5a31743645c32a8294',1,'Phpcraft::LanInterface']]],
   ['_24silent',['$silent',['../classPhpcraft_1_1EntityBase.html#aca4d7226b33e6706bfb42343eac0087f',1,'Phpcraft::EntityBase']]],
   ['_24since_5fprotocol_5fversion',['$since_protocol_version',['../classPhpcraft_1_1Identifier.html#a464dc569c4af0c25e0a78f38fcc344a7',1,'Phpcraft::Identifier']]],
   ['_24slot',['$slot',['../classPhpcraft_1_1Packet_1_1SetSlotPacket.html#af138a1ebe973a93a3baccb118c6fc626',1,'Phpcraft::Packet::SetSlotPacket']]],

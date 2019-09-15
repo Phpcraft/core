@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['removebossbarpacket_2ephp',['RemoveBossBarPacket.php',['../RemoveBossBarPacket_8php.html',1,'']]]
+  ['quotedstring_2ephp',['QuotedString.php',['../QuotedString_8php.html',1,'']]],
+  ['quotedstringprovider_2ephp',['QuotedStringProvider.php',['../QuotedStringProvider_8php.html',1,'']]]
 ];

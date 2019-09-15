@@ -10,5 +10,6 @@ var searchData=
   ['minecraftsupported',['minecraftSupported',['../classPhpcraft_1_1Versions.html#a2178e98d67933760999588a28a2ed9f5',1,'Phpcraft::Versions']]],
   ['minecrafttoprotocol',['minecraftToProtocol',['../classPhpcraft_1_1Versions.html#a0d0c85c2da51d46138bf75b04c7cb1bd',1,'Phpcraft::Versions']]],
   ['missingmetadataexception',['MissingMetadataException',['../classPhpcraft_1_1Exception_1_1MissingMetadataException.html',1,'Phpcraft::Exception']]],
-  ['missingmetadataexception_2ephp',['MissingMetadataException.php',['../MissingMetadataException_8php.html',1,'']]]
+  ['missingmetadataexception_2ephp',['MissingMetadataException.php',['../MissingMetadataException_8php.html',1,'']]],
+  ['msg_5fregex',['MSG_REGEX',['../classPhpcraft_1_1LanInterface.html#a6ec2ae43b2668c5d018bbeedacaec101',1,'Phpcraft::LanInterface']]]
 ];
