@@ -38,6 +38,12 @@ class Server implements CommandSender
 	 */
 	public $persist_configs = false;
 	/**
+	 * The amount of bytes at which a packet will be compressed. This applies bi-directionally, but the server decides on the value. Use -1 to disable compression.
+	 *
+	 * @var int $compression_threshold
+	 */
+	public $compression_threshold = 256;
+	/**
 	 * @var array $groups
 	 */
 	public $groups = [];
@@ -252,7 +258,7 @@ class Server implements CommandSender
 									}
 									else
 									{
-										$con->finishLogin(UUID::v5("OfflinePlayer:".$con->username), $this->eidCounter);
+										$con->finishLogin(UUID::v5("OfflinePlayer:".$con->username), $this->eidCounter, $this->compression_threshold);
 										if($this->join_function)
 										{
 											($this->join_function)($con);
@@ -321,7 +327,7 @@ class Server implements CommandSender
 						if(is_array($res))
 						{
 							Phpcraft::$user_cache->set($res["id"], $con->username);
-							$con->finishLogin(new UUID($res["id"]), $this->eidCounter);
+							$con->finishLogin(new UUID($res["id"]), $this->eidCounter, $this->compression_threshold);
 							if($this->join_function)
 							{
 								($this->join_function)($con);

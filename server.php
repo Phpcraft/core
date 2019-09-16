@@ -95,29 +95,49 @@ if(!is_dir("config"))
 {
 	mkdir("config");
 }
-if(!is_file("config/groups.json"))
+if(!is_file("config/server.json"))
 {
-	file_put_contents("config/groups.json", json_encode([
-		"default" => [
-			"allow" => [
-				"use /gamemode",
-				"use /metadata",
-				"change the world"
+	file_put_contents("config/server.json", json_encode([
+		"groups" => [
+			"default" => [
+				"allow" => [
+					"use /gamemode",
+					"use /metadata",
+					"change the world"
+				]
+			],
+			"user" => [
+				"inherit" => "default",
+				"allow" => [
+					"use /abilities",
+					"use chromium"
+				]
+			],
+			"admin" => [
+				"allow" => "everything"
 			]
 		],
-		"user" => [
-			"inherit" => "default",
-			"allow" => [
-				"use /abilities",
-				"use chromium"
+		"motd" => [
+			[
+				"text" => "A ",
+				"extra" => [
+					[
+						"text" => "Phpcraft",
+						"color" => "red",
+						"italic" => true
+					],
+					[
+						"text" => " Server\n§aNow with 100% more §kmagic§r§a!"
+					]
+				]
 			]
 		],
-		"admin" => [
-			"allow" => "everything"
-		]
+		"compression_threshold" => 256
 	], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
 }
-$server->setGroups(json_decode(file_get_contents("config/groups.json"), true));
+$config = json_decode(file_get_contents("config/server.json"), true);
+$server->compression_threshold = $config["compression_threshold"];
+$server->setGroups($config["groups"]);
 if($ui instanceof UserInterface)
 {
 	$ui->setInputPrefix("[Server] ");
@@ -142,14 +162,15 @@ $ui->tabcomplete_function = function(string $word)
 	return $completions;
 };
 $default_list_ping_function = $server->list_ping_function;
-$server->list_ping_function = function(ClientConnection $con) use (&$default_list_ping_function)
+$server->list_ping_function = function(ClientConnection $con) use (&$config, &$default_list_ping_function)
 {
-	return $default_list_ping_function($con) + [
-			"modinfo" => [
-				"type" => "FML",
-				"modList" => []
-			]
-		];
+	$data = $default_list_ping_function($con);
+	$data["description"] = $config["motd"];
+	$data["modinfo"] = [
+		"type" => "FML",
+		"modList" => []
+	];
+	return $data;
 };
 $server->join_function = function(ClientConnection $con)
 {
