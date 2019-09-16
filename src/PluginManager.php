@@ -10,6 +10,10 @@ abstract class PluginManager
 	 */
 	public static $loaded_plugins;
 	/**
+	 * @var string $command_prefix
+	 */
+	public static $command_prefix = "/";
+	/**
 	 * @var $registered_commands SplObjectStorage
 	 */
 	public static $registered_commands;

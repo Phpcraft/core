@@ -116,7 +116,7 @@ class Plugin
 			{
 				if(in_array($name, $command->names))
 				{
-					throw new DomainException("/{$name} is already registered");
+					throw new DomainException(PluginManager::$command_prefix.$name." is already registered");
 				}
 			}
 		}

@@ -7,7 +7,7 @@ if(empty($argv))
 }
 require "vendor/autoload.php";
 use Phpcraft\
-{ClientConnection, Command\Command, Command\CommandSender, Event\ServerChatEvent, Event\ServerConsoleEvent, Event\ServerFlyingChangeEvent, Event\ServerJoinEvent, Event\ServerLeaveEvent, Event\ServerOnGroundChangeEvent, Event\ServerPacketEvent, Event\ServerTickEvent, Packet\ServerboundPacket, Phpcraft, PlainUserInterface, PluginManager, Server, UserInterface, Versions};
+{ClientConnection, Command\Command, Event\ServerChatEvent, Event\ServerConsoleEvent, Event\ServerFlyingChangeEvent, Event\ServerJoinEvent, Event\ServerLeaveEvent, Event\ServerOnGroundChangeEvent, Event\ServerPacketEvent, Event\ServerTickEvent, Packet\ServerboundPacket, Phpcraft, PlainUserInterface, PluginManager, Server, UserInterface, Versions};
 $options = [
 	"offline" => false,
 	"port" => 25565,
@@ -248,48 +248,6 @@ $server->join_function = function(ClientConnection $con)
 		}
 	}
 };
-function handleCommand(CommandSender &$sender, string $msg): bool
-{
-	if(substr($msg, 0, 1) == "/")
-	{
-		$args = explode(" ", $msg);
-		$cmd = Command::get(substr($args[0], 1));
-		if($cmd === null)
-		{
-			if(substr($msg, 1, 4) == "help" || Command::get("help") === null)
-			{
-				$sender->sendMessage([
-					"text" => "Unknown command. I would suggest using /help, but that's also not a known command on this shitty server.",
-					"color" => "red"
-				]);
-			}
-			else
-			{
-				$sender->sendMessage([
-					"text" => "Unknown command. Use /help to get a list of commands.",
-					"color" => "red"
-				]);
-			}
-		}
-		else
-		{
-			try
-			{
-				$cmd->call($sender, array_slice($args, 1));
-			}
-			catch(Exception $e)
-			{
-				$sender->sendMessage([
-					"text" => $e->getMessage(),
-					"color" => "red"
-				]);
-			}
-		}
-		return true;
-	}
-	return false;
-}
-
 $server->packet_function = function(ClientConnection $con, ServerboundPacket $packetId)
 {
 	global $options, $ui, $server;
@@ -336,7 +294,7 @@ $server->packet_function = function(ClientConnection $con, ServerboundPacket $pa
 	else if($packetId->name == "serverbound_chat_message")
 	{
 		$msg = $con->readString($con->protocol_version < 314 ? 100 : 256);
-		if(handleCommand($con, $msg) || PluginManager::fire(new ServerChatEvent($server, $con, $msg)))
+		if(Command::handleMessage($con, $msg) || PluginManager::fire(new ServerChatEvent($server, $con, $msg)))
 		{
 			return;
 		}
@@ -413,6 +371,7 @@ $server->disconnect_function = function(ClientConnection $con)
 		}
 	}
 };
+$server->persist_configs = true;
 $next_tick = microtime(true) + 0.05;
 do
 {
@@ -421,7 +380,7 @@ do
 	$server->handle();
 	while($msg = $ui->render(true))
 	{
-		if(handleCommand($server, $msg) || PluginManager::fire(new ServerConsoleEvent($server, $msg)))
+		if(Command::handleMessage($server, $msg) || PluginManager::fire(new ServerConsoleEvent($server, $msg)))
 		{
 			continue;
 		}

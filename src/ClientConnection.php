@@ -139,7 +139,7 @@ class ClientConnection extends Connection implements CommandSender
 		parent::__construct(-1, $stream);
 		if($server)
 		{
-			$this->config = new ClientConfiguration($server);
+			$this->config = new ClientConfiguration($server, $this);
 		}
 	}
 
@@ -401,7 +401,7 @@ class ClientConnection extends Connection implements CommandSender
 			$this->send();
 			$this->eid = $eidCounter->next();
 			$this->state = 3;
-			if($this->config)
+			if($this->config && $this->config->server->persist_configs)
 			{
 				$this->config->setFile("config/player_data/".$this->uuid->toString(false).".json");
 			}

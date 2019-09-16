@@ -32,6 +32,12 @@ class Server implements CommandSender
 	 */
 	public $eidCounter;
 	/**
+	 * Set to true if you'd like every client's config to be persisted across connections from the same client.
+	 *
+	 * @var bool $persist_configs
+	 */
+	public $persist_configs = false;
+	/**
 	 * @var array $groups
 	 */
 	public $groups = [];
@@ -415,14 +421,14 @@ class Server implements CommandSender
 		}
 		if($name_or_uuid instanceof UUID)
 		{
-			return new ClientConfiguration($this, "config/player_data/".$name_or_uuid->toString(false).".json");
+			return new ClientConfiguration($this, null, "config/player_data/".$name_or_uuid->toString(false).".json");
 		}
 		$name_or_uuid = strtolower($name_or_uuid);
 		foreach(Phpcraft::$user_cache as $uuid => $_name)
 		{
 			if(strtolower($_name) == $name_or_uuid)
 			{
-				return new ClientConfiguration($this, "config/player_data/{$uuid}.json");
+				return new ClientConfiguration($this, null, "config/player_data/{$uuid}.json");
 			}
 		}
 		return null;

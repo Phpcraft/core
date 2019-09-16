@@ -6,6 +6,11 @@
  */
 use Phpcraft\
 {Command\CommandSender, Plugin, PluginManager};
+if(PluginManager::$command_prefix == "/proxy:")
+{
+	$this->unregister();
+	return;
+}
 $this->registerCommand("reload", function(CommandSender &$sender)
 {
 	PluginManager::unloadAllPlugins();

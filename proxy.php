@@ -11,7 +11,7 @@ if(@$argv[1] == "help")
 }
 require "vendor/autoload.php";
 use Phpcraft\
-{Account, ClientConnection, Connection, Enum\Difficulty, Enum\Dimension, Enum\Gamemode, Event\ProxyClientPacketEvent, Event\ProxyServerPacketEvent, Event\ProxyTickEvent, Packet\ClientboundPacket, Packet\JoinGamePacket, Packet\KeepAliveRequestPacket, Packet\ServerboundPacket, Phpcraft, PluginManager, Position, Server, ServerConnection, Versions};
+{Account, ClientConnection, Command\Command, Connection, Enum\Difficulty, Enum\Dimension, Enum\Gamemode, Event\ProxyClientPacketEvent, Event\ProxyServerPacketEvent, Event\ProxyTickEvent, Packet\ClientboundPacket, Packet\JoinGamePacket, Packet\KeepAliveRequestPacket, Packet\ServerboundPacket, PluginManager, Position, Server, ServerConnection, Versions};
 $stdin = fopen("php://stdin", "r") or die("Failed to open php://stdin\n");
 stream_set_blocking($stdin, true);
 if(empty($argv[1]))
@@ -26,6 +26,7 @@ else
 	echo "Authenticated as ".$account->username."\n";
 }
 echo "Autoloading plugins...\n";
+PluginManager::$command_prefix = "/proxy:";
 PluginManager::loadPlugins();
 echo "Loaded ".PluginManager::$loaded_plugins->count()." plugin(s).\n";
 $socket = stream_socket_server("tcp://0.0.0.0:25565", $errno, $errstr) or die($errstr."\n");
@@ -49,6 +50,11 @@ $server->list_ping_function = function(ClientConnection $con)
 		]
 	];
 };
+$server->setGroups([
+	"default" => [
+		"allow" => "everything"
+	]
+]);
 $server->join_function = function(ClientConnection $con)
 {
 	if(!Versions::protocolSupported($con->protocol_version))
@@ -89,11 +95,11 @@ $server->join_function = function(ClientConnection $con)
 	$con->startPacket("clientbound_chat_message");
 	if($account != null)
 	{
-		$con->writeString('{"text":"Welcome to this Phpcraft proxy, '.$con->username.'. This proxy is authenticated as '.$account->username.'. Use .connect <ip> to connect to a Minecraft server."}');
+		$con->writeString('{"text":"Welcome to this Phpcraft proxy, '.$con->username.'. This proxy is authenticated as '.$account->username.'. Use /proxy:connect <ip> to connect to a Minecraft server."}');
 	}
 	else
 	{
-		$con->writeString('{"text":"Welcome to this Phpcraft proxy, '.$con->username.'. Use .connect <ip> <username> to connect to a BungeeCord-compatible server."}');
+		$con->writeString('{"text":"Welcome to this Phpcraft proxy, '.$con->username.'. Use /proxy:connect <ip> <username> to connect to a BungeeCord-compatible server."}');
 	}
 	$con->writeByte(1);
 	$con->send();
@@ -107,190 +113,8 @@ $server->packet_function = function(ClientConnection $con, ServerboundPacket $pa
 	}
 	if($packetId->name == "serverbound_chat_message")
 	{
-		$msg = $con->readString(256);
-		if(substr($msg, 0, 1) == ".")
-		{
-			$arr = explode(" ", $msg);
-			switch($arr[0])
-			{
-				case ".?":
-				case ".help":
-					$con->startPacket("clientbound_chat_message");
-					$con->writeString(json_encode([
-						"text" => ".abilities <0-F> -- set your abilities\n".".connect <ip> -- connect to a server\n".".disconnect -- disconnect from the server\n".".gamemode <0-3> -- set your gamemode\n".".metadata <0-FF> -- set your metadata\n".".say <msg> -- sends a chat message"
-					]));
-					$con->writeByte(1);
-					$con->send();
-					break;
-				case ".abilities":
-					if(count($arr) < 2)
-					{
-						$con->startPacket("clientbound_chat_message");
-						$con->writeString('{"text":"Syntax: .abilities <0-F>","color":"red"}');
-						$con->writeByte(1);
-						$con->send();
-						break;
-					}
-					$con->startPacket("clientbound_abilities");
-					$con->writeByte(hexdec($arr[1]));
-					$con->writeFloat(0.05);
-					$con->writeFloat(0.1);
-					$con->send();
-					break;
-				case ".connect":
-					$join_specs = [];
-					if(count($arr) < 2)
-					{
-						$con->startPacket("clientbound_chat_message");
-						$con->writeString('{"text":"Syntax: .connect <ip> [username]","color":"red"}');
-						$con->writeByte(1);
-						$con->send();
-						break;
-					}
-					else if(count($arr) > 2)
-					{
-						$con->startPacket("clientbound_chat_message");
-						$con->writeString('{"text":"Resolving username..."}');
-						$con->writeByte(1);
-						$con->send();
-						$json = json_decode(file_get_contents("https://apimon.de/mcuser/".$arr[2]), true);
-						if(!$json || !$json["id"])
-						{
-							$con->startPacket("clientbound_chat_message");
-							$con->writeString('{"text":"Error: Minecraft account not found.","color":"red"}');
-							$con->writeByte(1);
-							$con->send();
-							break;
-						}
-						$account = new Account($arr[2]);
-						$join_specs = [
-							"1.1.1.1",
-							$json["id"]
-						];
-					}
-					else
-					{
-						global $account;
-						if(!$account)
-						{
-							$con->startPacket("clientbound_chat_message");
-							$con->writeString('{"text":"Syntax: .connect <ip> <username>","color":"red"}');
-							$con->writeByte(1);
-							$con->send();
-							break;
-						}
-					}
-					if($server_con instanceof ServerConnection)
-					{
-						$server_con->close();
-						$server_con = null;
-						$con->startPacket("clientbound_chat_message");
-						$con->writeString('{"text":"Disconnected."}');
-						$con->writeByte(1);
-						$con->send();
-					}
-					$con->startPacket("clientbound_chat_message");
-					$con->writeString('{"text":"Resolving hostname..."}');
-					$con->writeByte(1);
-					$con->send();
-					$server = Phpcraft::resolve($arr[1]);
-					$serverarr = explode(":", $server);
-					if(count($serverarr) != 2)
-					{
-						$con->startPacket("clientbound_chat_message");
-						$con->writeString('{"text":"Error: Got '.$server.'","color":"red"}');
-						$con->writeByte(1);
-						$con->send();
-						break;
-					}
-					$con->startPacket("clientbound_chat_message");
-					$con->writeString('{"text":"Connecting to '.$server.'..."}');
-					$con->writeByte(1);
-					$con->send();
-					$stream = fsockopen($serverarr[0], intval($serverarr[1]), $errno, $errstr, 3);
-					if(!$stream)
-					{
-						$con->startPacket("clientbound_chat_message");
-						$con->writeString('{"text":"'.$errstr.'","color":"red"}');
-						$con->writeByte(1);
-						$con->send();
-						break;
-					}
-					$con->startPacket("clientbound_chat_message");
-					$con->writeString('{"text":"Logging in..."}');
-					$con->writeByte(1);
-					$con->send();
-					$server_con = new ServerConnection($stream, $con->protocol_version);
-					$server_con->sendHandshake($serverarr[0], intval($serverarr[1]), 2, $join_specs);
-					if($error = $server_con->login($account))
-					{
-						$con->startPacket("clientbound_chat_message");
-						$con->writeString('{"text":"'.$error.'","color":"red"}');
-						$con->writeByte(1);
-						$con->send();
-						$server_con = null;
-						break;
-					}
-					$con->startPacket("clientbound_chat_message");
-					$con->writeString('{"text":"Connected and logged in."}');
-					$con->writeByte(1);
-					$con->send();
-					break;
-				case ".disconnect":
-					if($server_con instanceof ServerConnection)
-					{
-						$server_con->close();
-						$server_con = null;
-					}
-					$con->startPacket("clientbound_chat_message");
-					$con->writeString('{"text":"Disconnected."}');
-					$con->writeByte(1);
-					$con->send();
-					break;
-				case ".gamemode":
-					if(count($arr) < 2)
-					{
-						$con->startPacket("clientbound_chat_message");
-						$con->writeString('{"text":"Syntax: .gamemode <0-3>","color":"red"}');
-						$con->writeByte(1);
-						$con->send();
-						break;
-					}
-					$con->setGamemode(intval($arr[1]));
-					break;
-				case ".metadata":
-					if(count($arr) < 2)
-					{
-						$con->startPacket("clientbound_chat_message");
-						$con->writeString('{"text":"Syntax: .metadata <0-FF>","color":"red"}');
-						$con->writeByte(1);
-						$con->send();
-						break;
-					}
-					$con->startPacket("entity_metadata");
-					$con->writeVarInt(-1);
-					$con->writeByte(0);
-					$con->writeVarInt(0);
-					$con->writeByte(hexdec($arr[1]));
-					$con->writeByte(0xFF);
-					$con->send();
-					break;
-				case ".say":
-					if($server_con instanceof ServerConnection)
-					{
-						$server_con->startPacket("serverbound_chat_message");
-						$server_con->writeString(substr($msg, 4));
-						$server_con->send();
-					}
-					break;
-				default:
-					$con->startPacket("clientbound_chat_message");
-					$con->writeString('{"text":"Unknown command. Use .help for a list of commands."}');
-					$con->writeByte(1);
-					$con->send();
-			}
-		}
-		else if($server_con instanceof ServerConnection)
+		$msg = $con->readString($con->protocol_version < 314 ? 100 : 256);
+		if(!Command::handleMessage($con, $msg) && $server_con instanceof ServerConnection)
 		{
 			$server_con->startPacket("serverbound_chat_message");
 			$server_con->writeString($msg);

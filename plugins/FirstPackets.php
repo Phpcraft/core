@@ -5,7 +5,12 @@
  * @var Plugin $this
  */
 use Phpcraft\
-{BlockState, ClientConnection, Command\CommandSender, Connection, Enum\Difficulty, Enum\Dimension, Enum\Gamemode, Event\Event, Event\ServerJoinEvent, Event\ServerLeaveEvent, Event\ServerTickEvent, Packet\JoinGamePacket, Packet\PluginMessage\ClientboundBrandPluginMessagePacket, Plugin, Position};
+{BlockState, ClientConnection, Command\CommandSender, Connection, Enum\Difficulty, Enum\Dimension, Enum\Gamemode, Event\Event, Event\ServerJoinEvent, Event\ServerLeaveEvent, Event\ServerTickEvent, Packet\JoinGamePacket, Packet\PluginMessage\ClientboundBrandPluginMessagePacket, Plugin, PluginManager, Position};
+if(PluginManager::$command_prefix == "/proxy:")
+{
+	$this->unregister();
+	return;
+}
 $WorldImitatorActive = false;
 $client_chunk_preferences = [];
 $this->on(function(ServerJoinEvent $event)

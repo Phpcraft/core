@@ -4,12 +4,22 @@ use hellsh\UUID;
 use Phpcraft\Permission\Group;
 class ClientConfiguration extends Configuration
 {
+	/**
+	 * @var Server $server
+	 */
 	public $server;
+	/**
+	 * The client's active connnection, if applicable.
+	 *
+	 * @var ClientConnection|null $con
+	 */
+	public $con;
 
-	function __construct(Server &$server, $file = null)
+	function __construct(Server &$server, ClientConnection $con = null, $file = null)
 	{
 		parent::__construct($file);
 		$this->server = $server;
+		$this->con = $con;
 	}
 
 	function setGroup(string $name): ClientConfiguration
@@ -50,7 +60,7 @@ class ClientConfiguration extends Configuration
 	 */
 	function getPlayer()
 	{
-		return $this->file ? $this->server->getPlayer($this->getUUID()) : null;
+		return $this->con ?? ($this->file ? $this->server->getPlayer($this->getUUID()) : null);
 	}
 
 	/**
@@ -58,7 +68,7 @@ class ClientConfiguration extends Configuration
 	 */
 	function getUUID()
 	{
-		return $this->file ? new UUID(substr($this->file, -37, 32)) : null;
+		return $this->con ? $this->con->uuid : ($this->file ? new UUID(substr($this->file, -37, 32)) : null);
 	}
 
 	/**
@@ -66,7 +76,7 @@ class ClientConfiguration extends Configuration
 	 */
 	function getName()
 	{
-		return $this->file ? Phpcraft::$user_cache->get($this->getUUID()
-															 ->toString(false)) : null;
+		return $this->con ? $this->con->username : ($this->file ? Phpcraft::$user_cache->get($this->getUUID()
+																								  ->toString(false)) : null);
 	}
 }

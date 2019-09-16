@@ -1,6 +1,7 @@
 <?php
 namespace Phpcraft\Command;
 use DomainException;
+use Exception;
 use Phpcraft\
 {Plugin, PluginManager};
 use ReflectionClass;
@@ -52,7 +53,7 @@ class Command
 				/** @noinspection PhpDeprecationInspection */
 				if($type !== null && ($type->isBuiltin() || ($type instanceof ReflectionNamedType ? $type->getName() : $type->__toString()) != CommandSender::class))
 				{
-					throw new DomainException("/".$this->getCanonicalName()."'s first parameter's type should be ".CommandSender::class." or not restricted at all");
+					throw new DomainException(PluginManager::$command_prefix.$this->getCanonicalName()."'s first parameter's type should be ".CommandSender::class." or not restricted at all");
 				}
 			}
 			$classes = get_declared_classes();
@@ -99,7 +100,7 @@ class Command
 					$type_name = ($type instanceof ReflectionNamedType ? $type->getName() : $type->__toString());
 					if(!array_key_exists($type_name, self::$argument_providers))
 					{
-						throw new DomainException("/".$this->getCanonicalName()."'s \$".$param->getName()." argument requires a value of type {$type_name} but no provider for that type is registered");
+						throw new DomainException(PluginManager::$command_prefix.$this->getCanonicalName()."'s \$".$param->getName()." argument requires a value of type {$type_name} but no provider for that type is registered");
 					}
 				}
 			}
@@ -113,6 +114,56 @@ class Command
 	function getCanonicalName(): string
 	{
 		return $this->names[0];
+	}
+
+	/**
+	 * Handles a message, which may be a command, in which case it will be executed.
+	 *
+	 * @param CommandSender $sender
+	 * @param string $msg
+	 * @return bool If the message was a command.
+	 */
+	static function handleMessage(CommandSender &$sender, string $msg): bool
+	{
+		$prefix_len = strlen(PluginManager::$command_prefix);
+		if(substr($msg, 0, $prefix_len) == PluginManager::$command_prefix)
+		{
+			$args = explode(" ", $msg);
+			$cmd = Command::get(substr($args[0], $prefix_len));
+			if($cmd === null)
+			{
+				if(substr($msg, 1, 4) == "help" || Command::get("help") === null)
+				{
+					$sender->sendMessage([
+						"text" => "Unknown command. I would suggest using ".PluginManager::$command_prefix."help, but that's also not a known command on this shitty server.",
+						"color" => "red"
+					]);
+				}
+				else
+				{
+					$sender->sendMessage([
+						"text" => "Unknown command. Use ".PluginManager::$command_prefix."help to get a list of commands.",
+						"color" => "red"
+					]);
+				}
+			}
+			else
+			{
+				try
+				{
+					$cmd->call($sender, array_slice($args, 1));
+				}
+				catch(Exception $e)
+				{
+					$sender->sendMessage([
+						"text" => $e->getMessage(),
+						"color" => "red"
+					]);
+				}
+			}
+			return true;
+		}
+		return false;
 	}
 
 	/**
@@ -137,16 +188,6 @@ class Command
 		return null;
 	}
 
-	function getSyntax()
-	{
-		$syntax = "/".$this->getCanonicalName();
-		foreach($this->params as $param)
-		{
-			$syntax .= " ".($param->isDefaultValueAvailable() ? "[" : "<").$param->getName().($param->isDefaultValueAvailable() ? "]" : ">");
-		}
-		return $syntax;
-	}
-
 	/**
 	 * Calls the command using the given string arguments.
 	 *
@@ -158,7 +199,7 @@ class Command
 		if(!$this->hasPermission($sender))
 		{
 			$sender->sendMessage([
-				"text" => "You don't have the '{$this->required_permission}' permission required to use /".$this->getCanonicalName().".",
+				"text" => "You don't have the '{$this->required_permission}' permission required to use ".PluginManager::$command_prefix.$this->getCanonicalName().".",
 				"color" => "red"
 			]);
 			return;
@@ -202,6 +243,16 @@ class Command
 	function hasPermission(CommandSender &$sender): bool
 	{
 		return $this->required_permission === null || $sender->hasPermission($this->required_permission);
+	}
+
+	function getSyntax()
+	{
+		$syntax = PluginManager::$command_prefix.$this->getCanonicalName();
+		foreach($this->params as $param)
+		{
+			$syntax .= " ".($param->isDefaultValueAvailable() ? "[" : "<").$param->getName().($param->isDefaultValueAvailable() ? "]" : ">");
+		}
+		return $syntax;
 	}
 }
 

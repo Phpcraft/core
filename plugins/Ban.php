@@ -7,7 +7,12 @@
  * @var Plugin $this
  */
 use Phpcraft\
-{ClientConfiguration, ClientConnection, Command\CommandSender, Command\GreedyString, Event\ServerJoinEvent, Plugin};
+{ClientConfiguration, ClientConnection, Command\CommandSender, Command\GreedyString, Event\ServerJoinEvent, Plugin, PluginManager};
+if(PluginManager::$command_prefix == "/proxy:")
+{
+	$this->unregister();
+	return;
+}
 $this->on(function(ServerJoinEvent $e)
 {
 	$ban_reason = $e->client->config->get("ban");
