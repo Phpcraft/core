@@ -11,5 +11,6 @@ var searchData=
   ['proxyclientpacketevent',['ProxyClientPacketEvent',['../classPhpcraft_1_1Event_1_1ProxyClientPacketEvent.html',1,'Phpcraft::Event']]],
   ['proxyevent',['ProxyEvent',['../classPhpcraft_1_1Event_1_1ProxyEvent.html',1,'Phpcraft::Event']]],
   ['proxypacketevent',['ProxyPacketEvent',['../classPhpcraft_1_1Event_1_1ProxyPacketEvent.html',1,'Phpcraft::Event']]],
-  ['proxyserverpacketevent',['ProxyServerPacketEvent',['../classPhpcraft_1_1Event_1_1ProxyServerPacketEvent.html',1,'Phpcraft::Event']]]
+  ['proxyserverpacketevent',['ProxyServerPacketEvent',['../classPhpcraft_1_1Event_1_1ProxyServerPacketEvent.html',1,'Phpcraft::Event']]],
+  ['proxytickevent',['ProxyTickEvent',['../classPhpcraft_1_1Event_1_1ProxyTickEvent.html',1,'Phpcraft::Event']]]
 ];

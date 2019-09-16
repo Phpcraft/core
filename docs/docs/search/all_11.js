@@ -46,5 +46,7 @@ var searchData=
   ['proxypacketevent_2ephp',['ProxyPacketEvent.php',['../ProxyPacketEvent_8php.html',1,'']]],
   ['proxyserverpacketevent',['ProxyServerPacketEvent',['../classPhpcraft_1_1Event_1_1ProxyServerPacketEvent.html',1,'Phpcraft::Event']]],
   ['proxyserverpacketevent_2ephp',['ProxyServerPacketEvent.php',['../ProxyServerPacketEvent_8php.html',1,'']]],
+  ['proxytickevent',['ProxyTickEvent',['../classPhpcraft_1_1Event_1_1ProxyTickEvent.html',1,'Phpcraft::Event']]],
+  ['proxytickevent_2ephp',['ProxyTickEvent.php',['../ProxyTickEvent_8php.html',1,'']]],
   ['realms',['Realms',['../namespacePhpcraft_1_1Realms.html',1,'Phpcraft']]]
 ];

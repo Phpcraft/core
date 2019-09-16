@@ -11,5 +11,6 @@ var searchData=
   ['proxyclientpacketevent_2ephp',['ProxyClientPacketEvent.php',['../ProxyClientPacketEvent_8php.html',1,'']]],
   ['proxyevent_2ephp',['ProxyEvent.php',['../ProxyEvent_8php.html',1,'']]],
   ['proxypacketevent_2ephp',['ProxyPacketEvent.php',['../ProxyPacketEvent_8php.html',1,'']]],
-  ['proxyserverpacketevent_2ephp',['ProxyServerPacketEvent.php',['../ProxyServerPacketEvent_8php.html',1,'']]]
+  ['proxyserverpacketevent_2ephp',['ProxyServerPacketEvent.php',['../ProxyServerPacketEvent_8php.html',1,'']]],
+  ['proxytickevent_2ephp',['ProxyTickEvent.php',['../ProxyTickEvent_8php.html',1,'']]]
 ];
