@@ -50,7 +50,7 @@ class Plugin
 		$type = get_class($event);
 		if(isset($this->event_handlers[$type]))
 		{
-			($this->event_handlers[$type])($event);
+			($this->event_handlers[$type]["function"])($event);
 		}
 		return $event->cancelled;
 	}
