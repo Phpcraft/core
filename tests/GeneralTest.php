@@ -162,12 +162,19 @@ class GeneralTest
 				"allow" => "everything"
 			]
 		]);
-		Nose::assertTrue($server->getGroup("default")->hasPermission("use /help"));
-		Nose::assertFalse($server->getGroup("default")->hasPermission("use /gamemode"));
-		Nose::assertFalse($server->getGroup("default")->hasPermission("use /something"));
-		Nose::assertTrue($server->getGroup("user")->hasPermission("use /help"));
-		Nose::assertTrue($server->getGroup("user")->hasPermission("use /gamemode"));
-		Nose::assertFalse($server->getGroup("user")->hasPermission("use /something"));
-		Nose::assertTrue($server->getGroup("admin")->hasPermission("use /something"));
+		Nose::assertTrue($server->getGroup("default")
+								->hasPermission("use /help"));
+		Nose::assertFalse($server->getGroup("default")
+								 ->hasPermission("use /gamemode"));
+		Nose::assertFalse($server->getGroup("default")
+								 ->hasPermission("use /something"));
+		Nose::assertTrue($server->getGroup("user")
+								->hasPermission("use /help"));
+		Nose::assertTrue($server->getGroup("user")
+								->hasPermission("use /gamemode"));
+		Nose::assertFalse($server->getGroup("user")
+								 ->hasPermission("use /something"));
+		Nose::assertTrue($server->getGroup("admin")
+								->hasPermission("use /something"));
 	}
 }

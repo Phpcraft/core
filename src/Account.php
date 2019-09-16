@@ -1,6 +1,7 @@
 <?php
 namespace Phpcraft;
-use Phpcraft\Realms\{Invite, Server};
+use Phpcraft\Realms\
+{Invite, Server};
 /** A Mojang or Minecraft account. */
 class Account
 {
@@ -230,6 +231,21 @@ class Account
 	}
 
 	/**
+	 * Returns all realms invites this account currently has pending.
+	 *
+	 * @return Invite[]
+	 */
+	function getRealmsInvites()
+	{
+		$invites = [];
+		foreach(json_decode($this->sendRealmsRequest("GET", "/invites/pending"), true)["invites"] as $invite)
+		{
+			array_push($invites, new Invite($this, $invite));
+		}
+		return $invites;
+	}
+
+	/**
 	 * Sends an HTTP request to the realms server.
 	 *
 	 * @param string $method The request method.
@@ -258,21 +274,6 @@ class Account
 		echo " ".curl_getinfo($ch, CURLINFO_HTTP_CODE)."\n< $res\n";
 		curl_close($ch);
 		return $res;
-	}
-
-	/**
-	 * Returns all realms invites this account currently has pending.
-	 *
-	 * @return Invite[]
-	 */
-	function getRealmsInvites()
-	{
-		$invites = [];
-		foreach(json_decode($this->sendRealmsRequest("GET", "/invites/pending"), true)["invites"] as $invite)
-		{
-			array_push($invites, new Invite($this, $invite));
-		}
-		return $invites;
 	}
 
 	/**

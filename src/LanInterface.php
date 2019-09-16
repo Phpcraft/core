@@ -3,9 +3,9 @@ namespace Phpcraft;
 use Phpcraft\Exception\IOException;
 class LanInterface
 {
-	private $socket;
-	public $servers = [];
 	const MSG_REGEX = '/^\[MOTD\]([^\[\]]+)\[\/MOTD\]\[AD\]([0-9]{4,5})\[\/AD\]$/';
+	public $servers = [];
+	private $socket;
 
 	/**
 	 * @throws IOException
@@ -27,6 +27,26 @@ class LanInterface
 			"interface" => 0
 		]);
 		socket_set_nonblock($this->socket);
+	}
+
+	/**
+	 * Announces a world/server to the local network.
+	 * Minecraft does this every 1.5 seconds and once a host:port has been sent, it is added to the server list until the server list is refreshed, and can't be updated.
+	 *
+	 * @param string $motd Supports § format for colour.
+	 * @param int|string $port Although this is supposed to be an integer, Minecraft accepts and displays any string but connects to :25565. Do with that as you wish.
+	 * @throws IOException
+	 */
+	static function announce(string $motd, $port)
+	{
+		$socket = socket_create(AF_INET, SOCK_DGRAM, SOL_UDP);
+		if(!$socket)
+		{
+			throw new IOException("Failed to open socket");
+		}
+		$msg = "[MOTD]{$motd}[/MOTD][AD]{$port}[/AD]";
+		socket_sendto($socket, $msg, strlen($msg), 0, "224.0.2.60", 4445);
+		socket_close($socket);
 	}
 
 	/**
@@ -62,25 +82,5 @@ class LanInterface
 				unset($this->servers[$addr]);
 			}
 		}
-	}
-
-	/**
-	 * Announces a world/server to the local network.
-	 * Minecraft does this every 1.5 seconds and once a host:port has been sent, it is added to the server list until the server list is refreshed, and can't be updated.
-	 *
-	 * @param string $motd Supports § format for colour.
-	 * @param int|string $port Although this is supposed to be an integer, Minecraft accepts and displays any string but connects to :25565. Do with that as you wish.
-	 * @throws IOException
-	 */
-	static function announce(string $motd, $port)
-	{
-		$socket = socket_create(AF_INET, SOCK_DGRAM, SOL_UDP);
-		if(!$socket)
-		{
-			throw new IOException("Failed to open socket");
-		}
-		$msg = "[MOTD]{$motd}[/MOTD][AD]{$port}[/AD]";
-		socket_sendto($socket, $msg, strlen($msg), 0, "224.0.2.60", 4445);
-		socket_close($socket);
 	}
 }
