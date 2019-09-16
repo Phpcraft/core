@@ -11,7 +11,7 @@ if(@$argv[1] == "help")
 }
 require "vendor/autoload.php";
 use Phpcraft\
-{Account, ClientConnection, Connection, Enum\Difficulty, Enum\Dimension, Enum\Gamemode, Event\ProxyClientPacketEvent, Event\ProxyServerPacketEvent, Packet\ClientboundPacket, Packet\JoinGamePacket, Packet\KeepAliveRequestPacket, Packet\ServerboundPacket, Phpcraft, PluginManager, Position, Server, ServerConnection, Versions};
+{Account, ClientConnection, Connection, Enum\Difficulty, Enum\Dimension, Enum\Gamemode, Event\ProxyClientPacketEvent, Event\ProxyServerPacketEvent, Event\ProxyTickEvent, Packet\ClientboundPacket, Packet\JoinGamePacket, Packet\KeepAliveRequestPacket, Packet\ServerboundPacket, Phpcraft, PluginManager, Position, Server, ServerConnection, Versions};
 $stdin = fopen("php://stdin", "r") or die("Failed to open php://stdin\n");
 stream_set_blocking($stdin, true);
 if(empty($argv[1]))
@@ -391,10 +391,7 @@ do
 		$server_con = null;
 	}
 	$time = microtime(true);
-	/*\Phpcraft\PluginManager::fire(new \Phpcraft\Event("tick", [
-		"client_con" => $client_con,
-		"server_con" => $server_con,
-	]));*/
+	PluginManager::fire(new ProxyTickEvent($client_con, $server_con));
 	if(($remaining = (0.050 - ($time - $start))) > 0)
 	{
 		time_nanosleep(0, $remaining * 1000000000);
