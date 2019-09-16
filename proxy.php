@@ -11,7 +11,7 @@ if(@$argv[1] == "help")
 }
 require "vendor/autoload.php";
 use Phpcraft\
-{Account, ClientConnection, Command\Command, Connection, Enum\Difficulty, Enum\Dimension, Enum\Gamemode, Event\ProxyClientPacketEvent, Event\ProxyServerPacketEvent, Event\ProxyTickEvent, Packet\ClientboundPacket, Packet\JoinGamePacket, Packet\KeepAliveRequestPacket, Packet\ServerboundPacket, PluginManager, Position, Server, ServerConnection, Versions};
+{Account, ClientConnection, Command\Command, Connection, Enum\Difficulty, Enum\Dimension, Enum\Gamemode, Event\ProxyClientPacketEvent, Event\ProxyJoinEvent, Event\ProxyServerPacketEvent, Event\ProxyTickEvent, Packet\ClientboundPacket, Packet\JoinGamePacket, Packet\KeepAliveRequestPacket, Packet\ServerboundPacket, PluginManager, Position, Server, ServerConnection, Versions};
 $stdin = fopen("php://stdin", "r") or die("Failed to open php://stdin\n");
 stream_set_blocking($stdin, true);
 if(empty($argv[1]))
@@ -67,6 +67,11 @@ $server->join_function = function(ClientConnection $con)
 	{
 		echo $con->username." tried to join.\n";
 		$con->disconnect(["text" => "Someone else is already using the proxy."]);
+		return;
+	}
+	if(PluginManager::fire(new ProxyJoinEvent($con)))
+	{
+		$con->close();
 		return;
 	}
 	$client_con = $con;

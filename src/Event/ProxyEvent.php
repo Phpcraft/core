@@ -21,7 +21,7 @@ class ProxyEvent extends Event
 	 * @param ClientConnection|null $client The client connection.
 	 * @param ServerConnection|null $server The server connection.
 	 */
-	function __construct($client, $server)
+	function __construct($client, $server = null)
 	{
 		$this->client = $client;
 		$this->server = $server;

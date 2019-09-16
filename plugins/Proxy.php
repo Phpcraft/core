@@ -5,7 +5,7 @@
  * @var Plugin $this
  */
 use Phpcraft\
-{Account, ClientConnection, Command\CommandSender, Phpcraft, Plugin, PluginManager, ServerConnection};
+{Account, ClientConnection, Command\CommandSender, Event\ProxyConnectEvent, Phpcraft, Plugin, PluginManager, ServerConnection};
 if(PluginManager::$command_prefix != "/proxy:")
 {
 	$this->unregister();
@@ -91,6 +91,7 @@ $this->registerCommand("connect", function(CommandSender $sender, string $addres
 		return;
 	}
 	$sender->sendMessage("Connected and logged in.");
+	PluginManager::fire(new ProxyConnectEvent($sender, $server_con));
 })
 	 ->registerCommand("disconnect", function(CommandSender $sender)
 	 {
