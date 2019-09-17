@@ -1,7 +1,7 @@
 <?php
 namespace Phpcraft\Packet;
 use Phpcraft\
-{Packet\BossBar\BossBarPacket, Packet\MapData\MapDataPacket, Packet\PluginMessage\ClientboundPluginMessagePacket, PacketId};
+{Packet\BossBar\BossBarPacket, Packet\DeclareCommands\DeclareCommandsPacket, Packet\MapData\MapDataPacket, Packet\PluginMessage\ClientboundPluginMessagePacket, PacketId};
 /**
  * The class for the IDs of packets sent to the client.
  */
@@ -70,12 +70,14 @@ class ClientboundPacket extends PacketId
 	{
 		switch($this->name)
 		{
-			case "clientbound_abilities":
-				return ClientboundAbilitiesPacket::class;
 			case "boss_bar":
 				return BossBarPacket::class;
+			case "declare_commands":
+				return DeclareCommandsPacket::class;
 			case "destroy_entities":
 				return DestroyEntitiesPacket::class;
+			case "clientbound_abilities":
+				return ClientboundAbilitiesPacket::class;
 			case "join_game":
 				return JoinGamePacket::class;
 			case "keep_alive_request":

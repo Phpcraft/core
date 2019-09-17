@@ -9,6 +9,7 @@ use ReflectionException;
 use ReflectionFunction;
 use ReflectionNamedType;
 use ReflectionParameter;
+use ReflectionType;
 use RuntimeException;
 class Command
 {
@@ -30,13 +31,13 @@ class Command
 	 */
 	public $required_permission;
 	/**
+	 * @var $params ReflectionParameter[]
+	 */
+	public $params;
+	/**
 	 * @var callable $function
 	 */
 	private $function;
-	/**
-	 * @var $params ReflectionParameter[]
-	 */
-	private $params;
 
 	function __construct(Plugin $plugin, array $names, $required_permission, callable $function)
 	{
@@ -61,9 +62,7 @@ class Command
 			{
 				if(self::$argument_providers === null)
 				{
-					self::$argument_providers = [
-						null => StringProvider::class
-					];
+					self::$argument_providers = [];
 				}
 				foreach($new_classes as $class)
 				{
@@ -217,10 +216,7 @@ class Command
 				}
 				break;
 			}
-			/** @noinspection PhpDeprecationInspection */
-			$provider = self::$argument_providers[$param->getType() instanceof ReflectionNamedType ? $param->getType()
-																										   ->getName() : $param->getType()
-																															   ->__toString()];
+			$provider = self::getProvider($param->getType());
 			$arg = new $provider($sender, $args[$i++]);
 			assert($arg instanceof ArgumentProvider);
 			while($arg->acceptsMore())
@@ -243,6 +239,16 @@ class Command
 	function hasPermission(CommandSender &$sender): bool
 	{
 		return $this->required_permission === null || $sender->hasPermission($this->required_permission);
+	}
+
+	/**
+	 * @param ReflectionType|null $type
+	 * @return string
+	 */
+	static function getProvider($type): string
+	{
+		/** @noinspection PhpDeprecationInspection */
+		return $type ? (self::$argument_providers[$type instanceof ReflectionNamedType ? $type->getName() : $type->__toString()]) : StringProvider::class;
 	}
 
 	function getSyntax()

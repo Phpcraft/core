@@ -1,6 +1,7 @@
 <?php
 namespace Phpcraft\Command;
 use InvalidArgumentException;
+use Phpcraft\Connection;
 class QuotedStringProvider extends ArgumentProvider
 {
 	private $finished = false;
@@ -18,6 +19,12 @@ class QuotedStringProvider extends ArgumentProvider
 	private static function hasMore(string $arg): bool
 	{
 		return substr($arg, -1) == "\"" && substr($arg, -2) != "\\\"";
+	}
+
+	static function write(Connection $con)
+	{
+		$con->writeString("brigadier:string");
+		$con->writeVarInt(1); // QUOTABLE_PHRASE
 	}
 
 	function getValue(): QuotedString
