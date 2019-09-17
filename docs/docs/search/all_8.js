@@ -28,6 +28,7 @@ var searchData=
   ['getposition',['getPosition',['../classPhpcraft_1_1ClientConnection.html#a7bd3a155c1bf9f41efc852e2d2d4fda0',1,'Phpcraft\ClientConnection\getPosition()'],['../interfacePhpcraft_1_1Command_1_1CommandSender.html#a17cccb8a6b42344825522596fbd4d96c',1,'Phpcraft\Command\CommandSender\getPosition()'],['../classPhpcraft_1_1Server.html#aa04f77bf09780756252ec5757f847605',1,'Phpcraft\Server\getPosition()']]],
   ['getprofiles',['getProfiles',['../classPhpcraft_1_1Phpcraft.html#a4e54addd39ce8665ec5e1ee73b00be13',1,'Phpcraft::Phpcraft']]],
   ['getprofilesfile',['getProfilesFile',['../classPhpcraft_1_1Phpcraft.html#a738a4fbf79ff882e42fc90007ad4b83b',1,'Phpcraft::Phpcraft']]],
+  ['getprovider',['getProvider',['../classPhpcraft_1_1Command_1_1Command.html#a2403039951c3ccec192630e09f511bba',1,'Phpcraft::Command::Command']]],
   ['getrealmsinvites',['getRealmsInvites',['../classPhpcraft_1_1Account.html#a6570cfe49fac3702b6333ae82798f427',1,'Phpcraft::Account']]],
   ['getrealmsservers',['getRealmsServers',['../classPhpcraft_1_1Account.html#abb21cba06e07fcf1232cbd09f7d57bfc',1,'Phpcraft::Account']]],
   ['getresponse',['getResponse',['../classPhpcraft_1_1Packet_1_1KeepAliveRequestPacket.html#ad1a0f33dab49ea04408ea74c5d17b263',1,'Phpcraft::Packet::KeepAliveRequestPacket']]],

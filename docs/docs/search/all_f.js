@@ -32,6 +32,8 @@ var searchData=
   ['nbttag_2ephp',['NbtTag.php',['../NbtTag_8php.html',1,'']]],
   ['nether',['NETHER',['../classPhpcraft_1_1Enum_1_1Dimension.html#a0f28bc92ade3c7e5cc7bc35e9c80f1d5',1,'Phpcraft::Enum::Dimension']]],
   ['next',['next',['../classPhpcraft_1_1Configuration.html#aeed74eea7d9705ddc0e01e0440e676bd',1,'Phpcraft\Configuration\next()'],['../classPhpcraft_1_1Counter.html#aed5594a217d12070396062b6e3914edb',1,'Phpcraft\Counter\next()'],['../classPhpcraft_1_1Nbt_1_1NbtCompound.html#a080cafb7a583b72949c7ffaf8eff5677',1,'Phpcraft\Nbt\NbtCompound\next()'],['../classPhpcraft_1_1Nbt_1_1NbtListTag.html#a4277260fcb7ad091fa55b1890856d222',1,'Phpcraft\Nbt\NbtListTag\next()']]],
+  ['node',['Node',['../classPhpcraft_1_1Packet_1_1DeclareCommands_1_1Node.html',1,'Phpcraft::Packet::DeclareCommands']]],
+  ['node_2ephp',['Node.php',['../Node_8php.html',1,'']]],
   ['noop',['noop',['../classPhpcraft_1_1Command_1_1ArgumentProvider.html#a8b3bcbe86e306e0b19ea8e7bca7553d5',1,'Phpcraft::Command::ArgumentProvider']]],
   ['normal',['NORMAL',['../classPhpcraft_1_1Enum_1_1Difficulty.html#a1a47fc18a184563563ab8e52ff6d8e58',1,'Phpcraft::Enum::Difficulty']]]
 ];

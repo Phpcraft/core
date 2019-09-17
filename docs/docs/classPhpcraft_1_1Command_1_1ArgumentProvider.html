@@ -104,6 +104,10 @@ Public Member Functions</h2></td></tr>
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a8b3bcbe86e306e0b19ea8e7bca7553d5"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Command_1_1ArgumentProvider.html#a8b3bcbe86e306e0b19ea8e7bca7553d5">noop</a> ()</td></tr>
 <tr class="separator:a8b3bcbe86e306e0b19ea8e7bca7553d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afb4d3820a9d5f5cac12887191df7c9d7"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Command_1_1ArgumentProvider.html#afb4d3820a9d5f5cac12887191df7c9d7">write</a> (<a class="el" href="classPhpcraft_1_1Connection.html">Connection</a> $con)</td></tr>
+<tr class="separator:afb4d3820a9d5f5cac12887191df7c9d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade0b4927447099f3583d7abd46ff4859"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Command_1_1ArgumentProvider.html#ade0b4927447099f3583d7abd46ff4859">read</a> (<a class="el" href="classPhpcraft_1_1Connection.html">Connection</a> $con)</td></tr>
+<tr class="separator:ade0b4927447099f3583d7abd46ff4859"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
@@ -250,6 +254,71 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <p>Does nothing and shouldn't do anything. This function is called on "native" argument providers by <a class="el" href="classPhpcraft_1_1Command_1_1Command.html">Command</a> so they are forced into existence. </p>
+
+</div>
+</div>
+<a id="ade0b4927447099f3583d7abd46ff4859"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade0b4927447099f3583d7abd46ff4859">&#9670;&nbsp;</a></span>read()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static Phpcraft\Command\ArgumentProvider::read </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classPhpcraft_1_1Connection.html">Connection</a>&#160;</td>
+          <td class="paramname"><em>$con</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype"><a class="el" href="classPhpcraft_1_1Connection.html">Connection</a></td><td class="paramname">$con</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>string </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">IOException</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="afb4d3820a9d5f5cac12887191df7c9d7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afb4d3820a9d5f5cac12887191df7c9d7">&#9670;&nbsp;</a></span>write()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static Phpcraft\Command\ArgumentProvider::write </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classPhpcraft_1_1Connection.html">Connection</a>&#160;</td>
+          <td class="paramname"><em>$con</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>

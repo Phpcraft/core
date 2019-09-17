@@ -1,7 +1,9 @@
 <map id="Phpcraft\Event\ProxyEvent" name="Phpcraft\Event\ProxyEvent">
-<area shape="rect" id="node3" href="$classPhpcraft_1_1Event_1_1ProxyPacketEvent.html" title="Phpcraft\\Event\\ProxyPacket\lEvent" alt="" coords="111,155,307,196"/>
-<area shape="rect" id="node6" href="$classPhpcraft_1_1Event_1_1ProxyTickEvent.html" title="Phpcraft\\Event\\ProxyTick\lEvent" alt="" coords="331,155,510,196"/>
-<area shape="rect" id="node2" href="$classPhpcraft_1_1Event_1_1Event.html" title="Phpcraft\\Event\\Event" alt="" coords="237,5,391,32"/>
-<area shape="rect" id="node4" href="$classPhpcraft_1_1Event_1_1ProxyClientPacketEvent.html" title="Phpcraft\\Event\\ProxyClient\lPacketEvent" alt="" coords="5,244,196,285"/>
-<area shape="rect" id="node5" href="$classPhpcraft_1_1Event_1_1ProxyServerPacketEvent.html" title="Phpcraft\\Event\\ProxyServer\lPacketEvent" alt="" coords="220,244,416,285"/>
+<area shape="rect" id="node3" href="$classPhpcraft_1_1Event_1_1ProxyConnectEvent.html" title="Phpcraft\\Event\\ProxyConnect\lEvent" alt="" coords="447,5,653,47"/>
+<area shape="rect" id="node4" href="$classPhpcraft_1_1Event_1_1ProxyJoinEvent.html" title="Phpcraft\\Event\\ProxyJoin\lEvent" alt="" coords="462,71,638,112"/>
+<area shape="rect" id="node5" href="$classPhpcraft_1_1Event_1_1ProxyPacketEvent.html" title="Phpcraft\\Event\\ProxyPacket\lEvent" alt="" coords="452,136,648,177"/>
+<area shape="rect" id="node8" href="$classPhpcraft_1_1Event_1_1ProxyTickEvent.html" title="Phpcraft\\Event\\ProxyTick\lEvent" alt="" coords="461,201,639,243"/>
+<area shape="rect" id="node2" href="$classPhpcraft_1_1Event_1_1Event.html" title="Phpcraft\\Event\\Event" alt="" coords="5,111,160,138"/>
+<area shape="rect" id="node6" href="$classPhpcraft_1_1Event_1_1ProxyClientPacketEvent.html" title="Phpcraft\\Event\\ProxyClient\lPacketEvent" alt="" coords="704,104,895,145"/>
+<area shape="rect" id="node7" href="$classPhpcraft_1_1Event_1_1ProxyServerPacketEvent.html" title="Phpcraft\\Event\\ProxyServer\lPacketEvent" alt="" coords="701,169,897,211"/>
 </map>

@@ -2,6 +2,7 @@ var searchData=
 [
   ['bossbar',['BossBar',['../namespacePhpcraft_1_1Packet_1_1BossBar.html',1,'Phpcraft::Packet']]],
   ['command',['Command',['../namespacePhpcraft_1_1Command.html',1,'Phpcraft']]],
+  ['declarecommands',['DeclareCommands',['../namespacePhpcraft_1_1Packet_1_1DeclareCommands.html',1,'Phpcraft::Packet']]],
   ['enum',['Enum',['../namespacePhpcraft_1_1Enum.html',1,'Phpcraft']]],
   ['event',['Event',['../namespacePhpcraft_1_1Event.html',1,'Phpcraft']]],
   ['exception',['Exception',['../namespacePhpcraft_1_1Exception.html',1,'Phpcraft']]],

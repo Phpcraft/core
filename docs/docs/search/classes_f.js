@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['removebossbarpacket',['RemoveBossBarPacket',['../classPhpcraft_1_1Packet_1_1BossBar_1_1RemoveBossBarPacket.html',1,'Phpcraft::Packet::BossBar']]]
+  ['removebossbarpacket',['RemoveBossBarPacket',['../classPhpcraft_1_1Packet_1_1BossBar_1_1RemoveBossBarPacket.html',1,'Phpcraft::Packet::BossBar']]],
+  ['rootnode',['RootNode',['../classPhpcraft_1_1Packet_1_1DeclareCommands_1_1RootNode.html',1,'Phpcraft::Packet::DeclareCommands']]]
 ];

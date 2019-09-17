@@ -9,7 +9,9 @@ var searchData=
   ['pluginmessagepacket',['PluginMessagePacket',['../classPhpcraft_1_1Packet_1_1PluginMessage_1_1PluginMessagePacket.html',1,'Phpcraft::Packet::PluginMessage']]],
   ['position',['Position',['../classPhpcraft_1_1Position.html',1,'Phpcraft']]],
   ['proxyclientpacketevent',['ProxyClientPacketEvent',['../classPhpcraft_1_1Event_1_1ProxyClientPacketEvent.html',1,'Phpcraft::Event']]],
+  ['proxyconnectevent',['ProxyConnectEvent',['../classPhpcraft_1_1Event_1_1ProxyConnectEvent.html',1,'Phpcraft::Event']]],
   ['proxyevent',['ProxyEvent',['../classPhpcraft_1_1Event_1_1ProxyEvent.html',1,'Phpcraft::Event']]],
+  ['proxyjoinevent',['ProxyJoinEvent',['../classPhpcraft_1_1Event_1_1ProxyJoinEvent.html',1,'Phpcraft::Event']]],
   ['proxypacketevent',['ProxyPacketEvent',['../classPhpcraft_1_1Event_1_1ProxyPacketEvent.html',1,'Phpcraft::Event']]],
   ['proxyserverpacketevent',['ProxyServerPacketEvent',['../classPhpcraft_1_1Event_1_1ProxyServerPacketEvent.html',1,'Phpcraft::Event']]],
   ['proxytickevent',['ProxyTickEvent',['../classPhpcraft_1_1Event_1_1ProxyTickEvent.html',1,'Phpcraft::Event']]]

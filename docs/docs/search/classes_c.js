@@ -14,5 +14,6 @@ var searchData=
   ['nbtlongarray',['NbtLongArray',['../classPhpcraft_1_1Nbt_1_1NbtLongArray.html',1,'Phpcraft::Nbt']]],
   ['nbtshort',['NbtShort',['../classPhpcraft_1_1Nbt_1_1NbtShort.html',1,'Phpcraft::Nbt']]],
   ['nbtstring',['NbtString',['../classPhpcraft_1_1Nbt_1_1NbtString.html',1,'Phpcraft::Nbt']]],
-  ['nbttag',['NbtTag',['../classPhpcraft_1_1Nbt_1_1NbtTag.html',1,'Phpcraft::Nbt']]]
+  ['nbttag',['NbtTag',['../classPhpcraft_1_1Nbt_1_1NbtTag.html',1,'Phpcraft::Nbt']]],
+  ['node',['Node',['../classPhpcraft_1_1Packet_1_1DeclareCommands_1_1Node.html',1,'Phpcraft::Packet::DeclareCommands']]]
 ];

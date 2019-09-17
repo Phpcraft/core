@@ -1,0 +1,5 @@
+<map id="Phpcraft\Packet\DeclareCommands\Node" name="Phpcraft\Packet\DeclareCommands\Node">
+<area shape="rect" id="node2" href="$classPhpcraft_1_1Packet_1_1DeclareCommands_1_1ArgumentNode.html" title="Phpcraft\\Packet\\DeclareCommands\l\\ArgumentNode" alt="" coords="340,5,588,47"/>
+<area shape="rect" id="node3" href="$classPhpcraft_1_1Packet_1_1DeclareCommands_1_1LiteralNode.html" title="Phpcraft\\Packet\\DeclareCommands\l\\LiteralNode" alt="" coords="340,71,588,112"/>
+<area shape="rect" id="node4" href="$classPhpcraft_1_1Packet_1_1DeclareCommands_1_1RootNode.html" title="Phpcraft\\Packet\\DeclareCommands\l\\RootNode" alt="" coords="340,136,588,177"/>
+</map>

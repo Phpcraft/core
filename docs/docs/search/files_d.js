@@ -9,7 +9,9 @@ var searchData=
   ['pluginmessagepacket_2ephp',['PluginMessagePacket.php',['../PluginMessagePacket_8php.html',1,'']]],
   ['position_2ephp',['Position.php',['../Position_8php.html',1,'']]],
   ['proxyclientpacketevent_2ephp',['ProxyClientPacketEvent.php',['../ProxyClientPacketEvent_8php.html',1,'']]],
+  ['proxyconnectevent_2ephp',['ProxyConnectEvent.php',['../ProxyConnectEvent_8php.html',1,'']]],
   ['proxyevent_2ephp',['ProxyEvent.php',['../ProxyEvent_8php.html',1,'']]],
+  ['proxyjoinevent_2ephp',['ProxyJoinEvent.php',['../ProxyJoinEvent_8php.html',1,'']]],
   ['proxypacketevent_2ephp',['ProxyPacketEvent.php',['../ProxyPacketEvent_8php.html',1,'']]],
   ['proxyserverpacketevent_2ephp',['ProxyServerPacketEvent.php',['../ProxyServerPacketEvent_8php.html',1,'']]],
   ['proxytickevent_2ephp',['ProxyTickEvent.php',['../ProxyTickEvent_8php.html',1,'']]]

@@ -140,6 +140,8 @@ Public Attributes</h2></td></tr>
 <tr class="separator:af01b1599a936bc839de74e4927d94205"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac69eda9c1b98232b9879b837a47a0f2b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Server.html#ac69eda9c1b98232b9879b837a47a0f2b">$persist_configs</a> = false</td></tr>
 <tr class="separator:ac69eda9c1b98232b9879b837a47a0f2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab54eee07fc77581b8091404b7a380967"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Server.html#ab54eee07fc77581b8091404b7a380967">$compression_threshold</a> = 256</td></tr>
+<tr class="separator:ab54eee07fc77581b8091404b7a380967"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a091f9f5ca59516e8a332f3be6e182e26"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Server.html#a091f9f5ca59516e8a332f3be6e182e26">$groups</a> = []</td></tr>
 <tr class="separator:a091f9f5ca59516e8a332f3be6e182e26"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a442a0d8f5948c01f6c512c9aa78ed83e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Server.html#a442a0d8f5948c01f6c512c9aa78ed83e">$join_function</a> = null</td></tr>
@@ -607,6 +609,21 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>A <a class="el" href="classPhpcraft_1_1ClientConnection.html">ClientConnection</a> array of all clients that are connected to the server.</p>
 <dl class="section see"><dt>See also</dt><dd>Server::getPlayers() </dd></dl>
+
+</div>
+</div>
+<a id="ab54eee07fc77581b8091404b7a380967"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab54eee07fc77581b8091404b7a380967">&#9670;&nbsp;</a></span>$compression_threshold</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Phpcraft\Server::$compression_threshold = 256</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The amount of bytes at which a packet will be compressed. This applies bi-directionally, but the server decides on the value. Use -1 to disable compression. </p>
 
 </div>
 </div>
