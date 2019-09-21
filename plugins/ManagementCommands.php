@@ -20,16 +20,18 @@ $this->registerCommand("reload", function(CommandSender &$sender)
 	$sender->sendAndPrintMessage(count(PluginManager::$loaded_plugins)." plugins loaded.");
 	if($sender->hasServer())
 	{
-		if(is_file("config/groups.json"))
+		if(is_file("config/server.json"))
 		{
-			$sender->sendAndPrintMessage("Reloading groups...");
-			$sender->getServer()
-				   ->setGroups(json_decode(file_get_contents("config/groups.json"), true));
-			$sender->sendAndPrintMessage(count($sender->getServer()->groups)." groups loaded.");
+			$sender->sendAndPrintMessage("Reloading server config...");
+			global $config, $server;
+			$config = json_decode(file_get_contents("config/server.json"), true);
+			$server->compression_threshold = $config["compression_threshold"];
+			$server->setGroups($config["groups"]);
+			$sender->sendAndPrintMessage("Done. ".count($sender->getServer()->groups)." groups loaded.");
 		}
 		else
 		{
-			$sender->sendAndPrintMessage("groups.json was deleted. keeping current groups. restart the server to apply defaults.");
+			$sender->sendAndPrintMessage("server.json was deleted. keeping current config. restart the server to apply defaults.");
 		}
 	}
 }, "use /reload");
