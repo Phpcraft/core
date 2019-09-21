@@ -5,7 +5,7 @@
  * @var Plugin $this
  */
 use Phpcraft\
-{Command\CommandSender, Plugin, PluginManager};
+{Command\CommandSender, Plugin, PluginManager, Server};
 if(PluginManager::$command_prefix == "/proxy:")
 {
 	$this->unregister();
@@ -39,6 +39,7 @@ $this->registerCommand("stop", function(CommandSender &$sender)
 {
 	if($sender->hasServer())
 	{
+		$sender->sendAndPrintMessage("Stopping server...");
 		$sender->getServer()
 			   ->close(["text" => "/stop has been issued by ".$sender->getName()]);
 	}
