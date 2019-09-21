@@ -527,6 +527,11 @@ class ClientConnection extends Connection implements CommandSender
 		return $this;
 	}
 
+	function getName(): string
+	{
+		return $this->username;
+	}
+
 	function hasPermission(string $permission): bool
 	{
 		return $this->config->hasPermission($permission);

@@ -156,7 +156,7 @@ class Server implements CommandSender
 	 */
 	function isOpen(): bool
 	{
-		return $this->stream != null && @feof($this->stream) === false;
+		return $this->stream !== null;
 	}
 
 	/**
@@ -459,6 +459,11 @@ class Server implements CommandSender
 		return null;
 	}
 
+	function getName(): string
+	{
+		return "Server";
+	}
+
 	/**
 	 * Prints a message to the console.
 	 * Available in accordance with the CommandSender interface.
@@ -489,6 +494,7 @@ class Server implements CommandSender
 	function close($reason = [])
 	{
 		fclose($this->stream);
+		$this->stream = null;
 		foreach($this->clients as $client)
 		{
 			$client->disconnect($reason);

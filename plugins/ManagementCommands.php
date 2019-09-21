@@ -1,6 +1,6 @@
 <?php
 /**
- * This plugin provides the "/reload" command to the server console.
+ * Provides the management commands "/reload" and "/stop".
  *
  * @var Plugin $this
  */
@@ -33,3 +33,18 @@ $this->registerCommand("reload", function(CommandSender &$sender)
 		}
 	}
 }, "use /reload");
+$this->registerCommand("stop", function(CommandSender &$sender)
+{
+	if($sender->hasServer())
+	{
+		$sender->getServer()
+			   ->close(["text" => "/stop has been issued by ".$sender->getName()]);
+	}
+	else
+	{
+		$sender->sendMessage([
+			"text" => "This command only works for servers.",
+			"color" => "red"
+		]);
+	}
+}, "use /stop");

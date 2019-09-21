@@ -4,6 +4,8 @@ use Phpcraft\
 {Position, Server};
 interface CommandSender
 {
+	function getName(): string;
+
 	/**
 	 * @param array|string $message
 	 */
