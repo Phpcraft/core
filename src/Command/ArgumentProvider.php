@@ -48,7 +48,6 @@ abstract class ArgumentProvider
 					$con->readDouble();
 				}
 				return FloatProvider::class;
-
 			case "brigadier:float":
 				$flags = $con->readByte();
 				if($flags & 0x01)
@@ -60,7 +59,6 @@ abstract class ArgumentProvider
 					$con->readFloat();
 				}
 				return FloatProvider::class;
-
 			case "brigadier:integer":
 				$flags = $con->readByte();
 				if($flags & 0x01)
@@ -72,16 +70,13 @@ abstract class ArgumentProvider
 					$con->readInt();
 				}
 				return IntegerProvider::class;
-
 			case "brigadier:string":
 				switch($type = $con->readByte())
 				{
 					case 0:
 						return SingleWordStringProvider::class;
-
 					case 1:
 						return QuotedStringProvider::class;
-
 					case 2:
 						return GreedyStringProvider::class;
 				}

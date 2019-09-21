@@ -5,7 +5,6 @@ use ReflectionException;
 class ArgumentNode extends Node
 {
 	const TYPE_ID = 2;
-
 	public $name;
 	public $provider;
 
