@@ -72,8 +72,8 @@ class ClientSettingsPacket extends Packet
 	{
 		$packet = new ClientSettingsPacket();
 		$packet->locale = $con->readString();
-		$packet->render_distance = $con->readVarInt();
-		$packet->chat_mode = $con->readVarInt();
+		$packet->render_distance = gmp_intval($con->readVarInt());
+		$packet->chat_mode = gmp_intval($con->readVarInt());
 		$packet->chat_colors_enabled = $con->readBoolean();
 		$skin_flags = $con->readByte();
 		if($skin_flags >= 0x40)

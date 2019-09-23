@@ -5,7 +5,7 @@
  * @var Plugin $this
  */
 use Phpcraft\
-{BlockState, ClientConnection, Command\CommandSender, Connection, Enum\Gamemode, Event\Event, Event\ServerJoinEvent, Event\ServerLeaveEvent, Event\ServerTickEvent, Nbt\NbtCompound, Nbt\NbtLongArray, Packet\JoinGamePacket, Packet\PluginMessage\ClientboundBrandPluginMessagePacket, Plugin, PluginManager, Position};
+{BlockState, ClientConnection, Command\CommandSender, Connection, Enum\Gamemode, Event\Event, Event\ServerClientSettingsEvent, Event\ServerJoinEvent, Event\ServerLeaveEvent, Event\ServerTickEvent, Nbt\NbtCompound, Nbt\NbtLongArray, Packet\JoinGamePacket, Packet\PluginMessage\ClientboundBrandPluginMessagePacket, Plugin, PluginManager, Position};
 if(PluginManager::$command_prefix == "/proxy:")
 {
 	$this->unregister();
@@ -28,7 +28,7 @@ $this->on(function(ServerJoinEvent $event)
 	$packet = new JoinGamePacket();
 	$packet->eid = $con->eid;
 	$packet->gamemode = $con->gamemode = Gamemode::CREATIVE;
-	$packet->render_distance = $con->render_distance = 16;
+	$packet->render_distance = 32;
 	$packet->send($con);
 	(new ClientboundBrandPluginMessagePacket("Phpcraft"))->send($con);
 	$con->setAbilities($con->gamemode);
@@ -111,9 +111,9 @@ $this->on(function(ServerJoinEvent $event)
 				 continue;
 			 }
 			 $chunk_preference = $client_chunk_preferences[$con->username];
-			 for($x = round(($con->pos->x - ($con->render_distance * 16)) / 16); $x <= round(($con->pos->x + ($con->render_distance * 16)) / 16); $x++)
+			 for($x = $con->chunk_x - $con->render_distance; $x <= $con->chunk_x + $con->render_distance; $x++)
 			 {
-				 for($z = round(($con->pos->z - ($con->render_distance * 16)) / 16); $z <= round(($con->pos->z + ($con->render_distance * 16)) / 16); $z++)
+				 for($z = $con->chunk_z - $con->render_distance; $z <= $con->chunk_z + $con->render_distance; $z++)
 				 {
 					 if(in_array("$x:$z", $con->chunks))
 					 {
