@@ -111,6 +111,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a1863f864d45210aa52d15c75d959a135"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a891e459081509946f485e6253c18f168"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#a891e459081509946f485e6253c18f168">finishLogin</a> (UUID $uuid, <a class="el" href="classPhpcraft_1_1Counter.html">Counter</a> $eidCounter, int $compression_threshold=256)</td></tr>
 <tr class="separator:a891e459081509946f485e6253c18f168"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aabc6ff2ed434c8c127f1a07a38d1147d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#aabc6ff2ed434c8c127f1a07a38d1147d">teleport</a> (<a class="el" href="classPhpcraft_1_1Position.html">Position</a> $pos, $yaw=null, $pitch=null)</td></tr>
+<tr class="separator:aabc6ff2ed434c8c127f1a07a38d1147d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af97568a45469d5c2286710858ed00f10"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#af97568a45469d5c2286710858ed00f10">sendAndPrintMessage</a> ($message)</td></tr>
 <tr class="separator:af97568a45469d5c2286710858ed00f10"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9ed0586a5ca0d6898b7a547739296025"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#a9ed0586a5ca0d6898b7a547739296025">sendMessage</a> ($message, int $position=<a class="el" href="classPhpcraft_1_1Enum_1_1ChatPosition.html#ad83fa54b5869f3710e6d914766eaa069">ChatPosition::SYSTEM</a>)</td></tr>
@@ -242,12 +244,18 @@ Public Attributes</h2></td></tr>
 <tr class="separator:a23c43c5b0a59c890b256703996c8d375"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a85139019bb38231405f57b353e76c4fb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#a85139019bb38231405f57b353e76c4fb">$pos</a></td></tr>
 <tr class="separator:a85139019bb38231405f57b353e76c4fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8bd5859467c47a8a82f07750bad64f63"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#a8bd5859467c47a8a82f07750bad64f63">$yaw</a></td></tr>
+<tr class="memitem:aa9c8db156fd8491e2fa8b0b27a9423ae"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#aa9c8db156fd8491e2fa8b0b27a9423ae">$chunk_x</a></td></tr>
+<tr class="separator:aa9c8db156fd8491e2fa8b0b27a9423ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9f135f8059950e42ae0ba7e6ae096430"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#a9f135f8059950e42ae0ba7e6ae096430">$chunk_z</a></td></tr>
+<tr class="separator:a9f135f8059950e42ae0ba7e6ae096430"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8bd5859467c47a8a82f07750bad64f63"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#a8bd5859467c47a8a82f07750bad64f63">$yaw</a> = 0</td></tr>
 <tr class="separator:a8bd5859467c47a8a82f07750bad64f63"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adc03049696872cf9cca8a914321dbc20"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#adc03049696872cf9cca8a914321dbc20">$pitch</a></td></tr>
+<tr class="memitem:adc03049696872cf9cca8a914321dbc20"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#adc03049696872cf9cca8a914321dbc20">$pitch</a> = 0</td></tr>
 <tr class="separator:adc03049696872cf9cca8a914321dbc20"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac8f62fa4b98686ec93819b3ab4622e04"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#ac8f62fa4b98686ec93819b3ab4622e04">$on_ground</a> = false</td></tr>
 <tr class="separator:ac8f62fa4b98686ec93819b3ab4622e04"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a061dafd52fc48b51e61b5c7e98b51d12"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#a061dafd52fc48b51e61b5c7e98b51d12">$render_distance</a> = 8</td></tr>
+<tr class="separator:a061dafd52fc48b51e61b5c7e98b51d12"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abb7300801f9bf088fa43f2be7029ca5a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#abb7300801f9bf088fa43f2be7029ca5a">$chunks</a> = []</td></tr>
 <tr class="separator:abb7300801f9bf088fa43f2be7029ca5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0c1d5ce40488c34bb2ac1de30d4a6c0a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#a0c1d5ce40488c34bb2ac1de30d4a6c0a">$gamemode</a> = <a class="el" href="classPhpcraft_1_1Enum_1_1Gamemode.html#afe2e359b750e356c9a19c6fea3b30858">Gamemode::SURVIVAL</a></td></tr>
@@ -867,6 +875,56 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
+<a id="aabc6ff2ed434c8c127f1a07a38d1147d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aabc6ff2ed434c8c127f1a07a38d1147d">&#9670;&nbsp;</a></span>teleport()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Phpcraft\ClientConnection::teleport </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classPhpcraft_1_1Position.html">Position</a>&#160;</td>
+          <td class="paramname"><em>$pos</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$yaw</em> = <code>null</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$pitch</em> = <code>null</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Teleports the client to the given position, and optionally, changes their rotation.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype"><a class="el" href="classPhpcraft_1_1Position.html">Position</a></td><td class="paramname">$pos</td><td></td></tr>
+    <tr><td class="paramtype">integer&#160;|&#160;null</td><td class="paramname">$yaw</td><td></td></tr>
+    <tr><td class="paramtype">integer&#160;|&#160;null</td><td class="paramname">$pitch</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classPhpcraft_1_1ClientConnection.html">ClientConnection</a> $this </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">IOException</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <h2 class="groupheader">Member Data Documentation</h2>
 <a id="a7d3c5e03d26e88f7314430379ce0ed01"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7d3c5e03d26e88f7314430379ce0ed01">&#9670;&nbsp;</a></span>$can_fly</h2>
@@ -880,6 +938,34 @@ Additional Inherited Members</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classPhpcraft_1_1ClientConnection.html#a33e24346731d452a1a83fc3e2d8e63db">ClientConnection::sendAbilities</a> </dd></dl>
+
+</div>
+</div>
+<a id="aa9c8db156fd8491e2fa8b0b27a9423ae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa9c8db156fd8491e2fa8b0b27a9423ae">&#9670;&nbsp;</a></span>$chunk_x</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">integer null Phpcraft\ClientConnection::$chunk_x</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9f135f8059950e42ae0ba7e6ae096430"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9f135f8059950e42ae0ba7e6ae096430">&#9670;&nbsp;</a></span>$chunk_z</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">integer null Phpcraft\ClientConnection::$chunk_z</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -1107,7 +1193,7 @@ ServerFlyChangeEvent </dd></dl>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">float Phpcraft\ClientConnection::$pitch</td>
+          <td class="memname">float Phpcraft\ClientConnection::$pitch = 0</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1126,6 +1212,20 @@ ServerFlyChangeEvent </dd></dl>
       </table>
 </div><div class="memdoc">
 <p>The client's position. </p>
+
+</div>
+</div>
+<a id="a061dafd52fc48b51e61b5c7e98b51d12"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a061dafd52fc48b51e61b5c7e98b51d12">&#9670;&nbsp;</a></span>$render_distance</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">integer Phpcraft\ClientConnection::$render_distance = 8</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -1181,7 +1281,7 @@ ServerFlyChangeEvent </dd></dl>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">float Phpcraft\ClientConnection::$yaw</td>
+          <td class="memname">float Phpcraft\ClientConnection::$yaw = 0</td>
         </tr>
       </table>
 </div><div class="memdoc">
