@@ -5,7 +5,7 @@
  * @var Plugin $this
  */
 use Phpcraft\
-{BlockState, ClientConnection, Command\CommandSender, Connection, Enum\Gamemode, Event\Event, Event\ServerClientSettingsEvent, Event\ServerJoinEvent, Event\ServerLeaveEvent, Event\ServerTickEvent, Nbt\NbtCompound, Nbt\NbtLongArray, Packet\JoinGamePacket, Packet\PluginMessage\ClientboundBrandPluginMessagePacket, Plugin, PluginManager, Position};
+{BlockState, ClientConnection, Command\CommandSender, Connection, Enum\Gamemode, Event\Event, Event\ServerJoinEvent, Event\ServerLeaveEvent, Event\ServerTickEvent, Nbt\NbtCompound, Nbt\NbtLongArray, Packet\JoinGamePacket, Packet\PluginMessage\ClientboundBrandPluginMessagePacket, Plugin, PluginManager, Position};
 if(PluginManager::$command_prefix == "/proxy:")
 {
 	$this->unregister();
