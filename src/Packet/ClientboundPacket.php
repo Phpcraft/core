@@ -68,7 +68,7 @@ class ClientboundPacket extends PacketId
 	 */
 	function getClass()
 	{
-		switch($this->name)
+		switch($this->name) // Ordered alphabetically
 		{
 			case "boss_bar":
 				return BossBarPacket::class;

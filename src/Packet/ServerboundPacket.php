@@ -55,8 +55,10 @@ class ServerboundPacket extends PacketId
 	 */
 	function getClass()
 	{
-		switch($this->name)
+		switch($this->name) // Ordered alphabetically
 		{
+			case "client_settings":
+				return ClientSettingsPacket::class;
 			case "keep_alive_response":
 				return KeepAliveResponsePacket::class;
 			case "serverbound_plugin_message":
