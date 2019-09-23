@@ -449,8 +449,12 @@ do
 		$ui->add(Phpcraft::chatToText($msg, 1));
 		$server->broadcast($msg);
 	}
-	PluginManager::fire(new ServerTickEvent($server));
-	if(($remaining = (0.050 - (microtime(true) - $start))) > 0)
+	if($next_tick < microtime(true))
+	{
+		$next_tick += 0.05;
+		PluginManager::fire(new ServerTickEvent($server, $next_tick < microtime(true)));
+	}
+	if(($remaining = (0.001 - (microtime(true) - $start))) > 0)
 	{
 		time_nanosleep(0, $remaining * 1000000000);
 	}

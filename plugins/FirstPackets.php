@@ -92,6 +92,10 @@ $this->on(function(ServerJoinEvent $event)
 	 }, Event::PRIORITY_HIGH)
 	 ->on(function(ServerTickEvent $event)
 	 {
+		 if($event->lagging)
+		 {
+			 return;
+		 }
 		 global $WorldImitatorActive;
 		 if($WorldImitatorActive)
 		 {
