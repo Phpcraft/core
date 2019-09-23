@@ -26,6 +26,8 @@ var searchData=
   ['serverchunkborderevent_2ephp',['ServerChunkBorderEvent.php',['../ServerChunkBorderEvent_8php.html',1,'']]],
   ['serverclientevent',['ServerClientEvent',['../classPhpcraft_1_1Event_1_1ServerClientEvent.html',1,'Phpcraft::Event']]],
   ['serverclientevent_2ephp',['ServerClientEvent.php',['../ServerClientEvent_8php.html',1,'']]],
+  ['serverclientsettingsevent',['ServerClientSettingsEvent',['../classPhpcraft_1_1Event_1_1ServerClientSettingsEvent.html',1,'Phpcraft::Event']]],
+  ['serverclientsettingsevent_2ephp',['ServerClientSettingsEvent.php',['../ServerClientSettingsEvent_8php.html',1,'']]],
   ['serverconnection',['ServerConnection',['../classPhpcraft_1_1ServerConnection.html',1,'Phpcraft']]],
   ['serverconnection_2ephp',['ServerConnection.php',['../ServerConnection_8php.html',1,'']]],
   ['serverconsoleevent',['ServerConsoleEvent',['../classPhpcraft_1_1Event_1_1ServerConsoleEvent.html',1,'Phpcraft::Event']]],

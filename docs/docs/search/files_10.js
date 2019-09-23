@@ -8,6 +8,7 @@ var searchData=
   ['serverchatevent_2ephp',['ServerChatEvent.php',['../ServerChatEvent_8php.html',1,'']]],
   ['serverchunkborderevent_2ephp',['ServerChunkBorderEvent.php',['../ServerChunkBorderEvent_8php.html',1,'']]],
   ['serverclientevent_2ephp',['ServerClientEvent.php',['../ServerClientEvent_8php.html',1,'']]],
+  ['serverclientsettingsevent_2ephp',['ServerClientSettingsEvent.php',['../ServerClientSettingsEvent_8php.html',1,'']]],
   ['serverconnection_2ephp',['ServerConnection.php',['../ServerConnection_8php.html',1,'']]],
   ['serverconsoleevent_2ephp',['ServerConsoleEvent.php',['../ServerConsoleEvent_8php.html',1,'']]],
   ['serverevent_2ephp',['ServerEvent.php',['../ServerEvent_8php.html',1,'']]],

@@ -94,6 +94,7 @@ var searchData=
   ['_24on_5fground',['$on_ground',['../classPhpcraft_1_1ClientConnection.html#ac8f62fa4b98686ec93819b3ab4622e04',1,'Phpcraft::ClientConnection']]],
   ['_24owner_5fname',['$owner_name',['../classPhpcraft_1_1Realms_1_1Server.html#a7dd33a9f708c5b5ff57608fa667a956b',1,'Phpcraft::Realms::Server']]],
   ['_24owner_5fuuid',['$owner_uuid',['../classPhpcraft_1_1Realms_1_1Server.html#ac4d7509f826b2ab302b86db4d3807801',1,'Phpcraft::Realms::Server']]],
+  ['_24packet',['$packet',['../classPhpcraft_1_1Event_1_1ServerClientSettingsEvent.html#a11c4c83a82e356ff863b911a28746a27',1,'Phpcraft::Event::ServerClientSettingsEvent']]],
   ['_24packet_5ffunction',['$packet_function',['../classPhpcraft_1_1Server.html#a7394e8c821ca847c19498a593254c89e',1,'Phpcraft::Server']]],
   ['_24packetid',['$packetId',['../classPhpcraft_1_1Event_1_1ClientPacketEvent.html#a7df1eae620c98038594efed304a77c22',1,'Phpcraft\Event\ClientPacketEvent\$packetId()'],['../classPhpcraft_1_1Event_1_1ProxyPacketEvent.html#a4bd63680cf78283abc86061b379315b0',1,'Phpcraft\Event\ProxyPacketEvent\$packetId()'],['../classPhpcraft_1_1Event_1_1ServerPacketEvent.html#a799546b9f792ad1893607a65c917f382',1,'Phpcraft\Event\ServerPacketEvent\$packetId()']]],
   ['_24params',['$params',['../classPhpcraft_1_1Command_1_1Command.html#a29c62e98a54b6df5cf49f3e1a2915fc0',1,'Phpcraft::Command::Command']]],
