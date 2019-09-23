@@ -168,48 +168,9 @@ class Server implements CommandSender
 	{
 		while(($stream = @stream_socket_accept($this->stream, 0)) !== false)
 		{
-			$con = null;
-			try
-			{
-				$con = new ClientConnection($stream, $this);
-				switch($con->handleInitialPacket())
-				{
-					case 1:
-						if($con->state == 1)
-						{
-							$con->disconnect_after = microtime(true) + 10;
-						}
-						$this->clients->attach($con);
-						break;
-					case 2: // Legacy List Ping
-						$json = ($this->list_ping_function)($con);
-						if(!isset($json["players"]))
-						{
-							$json["players"] = [];
-						}
-						if(!isset($json["players"]["online"]))
-						{
-							$json["players"]["online"] = 0;
-						}
-						if(!isset($json["players"]["max"]))
-						{
-							$json["players"]["max"] = 0;
-						}
-						$data = "§1\x00127\x00".@$json["version"]["name"]."\x00".Phpcraft::chatToText(@$json["description"], 2)."\x00".$json["players"]["online"]."\x00".$json["players"]["max"];
-						$con->writeByte(0xFF);
-						$con->writeShort(mb_strlen($data));
-						$con->writeRaw(mb_convert_encoding($data, "utf-16be"));
-						$con->send(true);
-						$con->close();
-				}
-			}
-			catch(IOException $ignored)
-			{
-				if($con != null)
-				{
-					$con->close();
-				}
-			}
+			$con = new ClientConnection($stream, $this);
+			$con->disconnect_after = microtime(true) + 3;
+			$this->clients->attach($con);
 		}
 		return $this;
 	}
@@ -230,41 +191,85 @@ class Server implements CommandSender
 			{
 				try
 				{
-					while(($packet_id = $con->readPacket(0)) !== false)
+					if($con->state == 0) // Handshaking
 					{
-						if($con->state == 3) // Playing
+						switch($con->handleInitialPacket())
 						{
-							$packetId = ServerboundPacket::getById($packet_id, $con->protocol_version);
-							if($packetId->name == "keep_alive_response")
-							{
-								$con->next_heartbeat = microtime(true) + 15;
-								$con->disconnect_after = 0;
-							}
-							else if($this->packet_function)
-							{
-								($this->packet_function)($con, $packetId);
-							}
-						}
-						else if($con->state == 2) // Login
-						{
-							if($packet_id == 0x00) // Login Start
-							{
-								$con->username = $con->readString();
-								if(Phpcraft::validateName($con->username))
+							case 1:
+								$con->disconnect_after = microtime(true) + 3;
+								break;
+							case 2: // Legacy List Ping
+								$json = ($this->list_ping_function)($con);
+								if(!isset($json["players"]))
 								{
-									if($this->private_key)
+									$json["players"] = [];
+								}
+								if(!isset($json["players"]["online"]))
+								{
+									$json["players"]["online"] = 0;
+								}
+								if(!isset($json["players"]["max"]))
+								{
+									$json["players"]["max"] = 0;
+								}
+								$data = "§1\x00127\x00".@$json["version"]["name"]."\x00".Phpcraft::chatToText(@$json["description"], 2)."\x00".$json["players"]["online"]."\x00".$json["players"]["max"];
+								$con->writeByte(0xFF);
+								$con->writeShort(mb_strlen($data));
+								$con->writeRaw(mb_convert_encoding($data, "utf-16be"));
+								$con->send(true);
+								$con->close();
+						}
+					}
+					else
+					{
+						while(($packet_id = $con->readPacket(0)) !== false)
+						{
+							if($con->state == 3) // Playing
+							{
+								$packetId = ServerboundPacket::getById($packet_id, $con->protocol_version);
+								if($packetId->name == "keep_alive_response")
+								{
+									$con->next_heartbeat = microtime(true) + 15;
+									$con->disconnect_after = 0;
+								}
+								else if($this->packet_function)
+								{
+									($this->packet_function)($con, $packetId);
+								}
+							}
+							else if($con->state == 2) // Login
+							{
+								if($packet_id == 0x00) // Login Start
+								{
+									$con->username = $con->readString();
+									if(Phpcraft::validateName($con->username))
 									{
-										$con->sendEncryptionRequest($this->private_key);
+										if($this->private_key)
+										{
+											$con->disconnect_after = microtime(true) + 10;
+											$con->sendEncryptionRequest($this->private_key);
+										}
+										else
+										{
+											$con->disconnect_after = 0;
+											$con->finishLogin(UUID::v5("OfflinePlayer:".$con->username), $this->eidCounter, $this->compression_threshold);
+											if($this->join_function)
+											{
+												($this->join_function)($con);
+											}
+											$con->next_heartbeat = microtime(true) + 15;
+										}
 									}
 									else
 									{
-										$con->finishLogin(UUID::v5("OfflinePlayer:".$con->username), $this->eidCounter, $this->compression_threshold);
-										if($this->join_function)
-										{
-											($this->join_function)($con);
-										}
-										$con->next_heartbeat = microtime(true) + 15;
+										$con->disconnect_after = 1;
+										break;
 									}
+								}
+								else if($packet_id == 0x01 && isset($con->username)) // Encryption Response
+								{
+									$con->disconnect_after = 0;
+									$con->handleEncryptionResponse($this->private_key);
 								}
 								else
 								{
@@ -272,41 +277,32 @@ class Server implements CommandSender
 									break;
 								}
 							}
-							else if($packet_id == 0x01 && isset($con->username)) // Encryption Response
+							else // Can only be 1; Status
 							{
-								$con->handleEncryptionResponse($this->private_key);
-							}
-							else
-							{
-								$con->disconnect_after = 1;
-								break;
-							}
-						}
-						else // Can only be 1; Status
-						{
-							if($packet_id == 0x00)
-							{
-								$json = ($this->list_ping_function)($con);
-								if($no_ping = isset($json["no_ping"]))
+								if($packet_id == 0x00)
 								{
-									unset($json["no_ping"]);
+									$json = ($this->list_ping_function)($con);
+									if($no_ping = isset($json["no_ping"]))
+									{
+										unset($json["no_ping"]);
+									}
+									$con->writeVarInt(0x00);
+									$con->writeString(json_encode($json));
+									$con->send();
+									if($no_ping)
+									{
+										$con->disconnect_after = 1;
+										break;
+									}
 								}
-								$con->writeVarInt(0x00);
-								$con->writeString(json_encode($json));
-								$con->send();
-								if($no_ping)
+								else if($packet_id == 0x01)
 								{
+									$con->writeVarInt(0x01);
+									$con->writeLong($con->readLong());
+									$con->send();
 									$con->disconnect_after = 1;
 									break;
 								}
-							}
-							else if($packet_id == 0x01)
-							{
-								$con->writeVarInt(0x01);
-								$con->writeLong($con->readLong());
-								$con->send();
-								$con->disconnect_after = 1;
-								break;
 							}
 						}
 					}

@@ -160,7 +160,7 @@ class ClientConnection extends Connection implements CommandSender
 	 * This function deals with the handshake or legacy list ping packet.
 	 * Errors will cause the connection to be closed.
 	 *
-	 * @return integer Status: 0 = An error occured and the connection has been closed. 1 = Handshake was successfully read; use Connection::$state to see if the client wants to get the status (1) or login to play (2). 2 = A legacy list ping packet has been received.
+	 * @return int Status: 0 = The client is yet to present an initial packet. 1 = Handshake was successfully read; use Connection::$state to see if the client wants to get the status (1) or login to play (2). 2 = A legacy list ping packet has been received. 3 = An error occured and the connection has been closed.
 	 */
 	function handleInitialPacket(): int
 	{
@@ -189,27 +189,20 @@ class ClientConnection extends Connection implements CommandSender
 						$this->setHostname($this->readString());
 						$this->hostport = gmp_intval($this->readShort());
 						$this->state = gmp_intval($this->readVarInt());
-						if($this->state == 1)
-						{
-							$this->disconnect_after = microtime(true) + 10;
-							return 1;
-						}
-						else if($this->state == 2)
+						if($this->state == 1 || $this->state == 2)
 						{
 							return 1;
 						}
-						else
-						{
-							$this->disconnect(["text" => "Invalid state: ".$this->state]);
-						}
+						throw new IOException("Invalid state: ".$this->state);
 					}
 				}
 			}
 		}
-		catch(IOException $ignored)
+		catch(IOException $e)
 		{
+			$this->disconnect($e->getMessage());
+			return 3;
 		}
-		$this->close();
 		return 0;
 	}
 
