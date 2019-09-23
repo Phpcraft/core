@@ -7,7 +7,7 @@ if(empty($argv))
 }
 require "vendor/autoload.php";
 use Phpcraft\
-{ClientConnection, Command\Command, Event\ServerChatEvent, Event\ServerConsoleEvent, Event\ServerFlyingChangeEvent, Event\ServerJoinEvent, Event\ServerLeaveEvent, Event\ServerOnGroundChangeEvent, Event\ServerPacketEvent, Event\ServerTickEvent, Packet\ServerboundPacket, Phpcraft, PlainUserInterface, PluginManager, Server, UserInterface, Versions};
+{ClientConnection, Command\Command, Event\ServerChatEvent, Event\ServerChunkBorderEvent, Event\ServerConsoleEvent, Event\ServerFlyingChangeEvent, Event\ServerJoinEvent, Event\ServerLeaveEvent, Event\ServerMovementEvent, Event\ServerOnGroundChangeEvent, Event\ServerPacketEvent, Event\ServerTickEvent, Packet\ServerboundPacket, Phpcraft, PlainUserInterface, PluginManager, Server, UserInterface, Versions};
 $options = [
 	"offline" => false,
 	"port" => 25565,
@@ -296,15 +296,28 @@ $server->packet_function = function(ClientConnection $con, ServerboundPacket $pa
 	{
 		if($packetId->name == "position" || $packetId->name == "position_and_look")
 		{
+			$prev_pos = $con->pos;
 			$con->pos = $con->readPrecisePosition();
-			if($con->protocol_version >= 472)
+			if(PluginManager::fire(new ServerMovementEvent($server, $con, $prev_pos)))
 			{
-				$chunk_x = round($con->pos->x / 16);
-				$chunk_z = round($con->pos->z / 16);
-				if($chunk_x != $con->chunk_x || $chunk_z != $con->chunk_z)
+				$con->teleport($prev_pos);
+				return;
+			}
+			$chunk_x = round($con->pos->x / 16);
+			$chunk_z = round($con->pos->z / 16);
+			if($chunk_x != $con->chunk_x || $chunk_z != $con->chunk_z)
+			{
+				$prev_chunk_x = $con->chunk_x;
+				$prev_chunk_z = $con->chunk_z;
+				$con->chunk_x = $chunk_x;
+				$con->chunk_z = $chunk_z;
+				if(PluginManager::fire(new ServerChunkBorderEvent($server, $con, $prev_pos, $prev_chunk_x, $prev_chunk_z)))
 				{
-					$con->chunk_x = $chunk_x;
-					$con->chunk_z = $chunk_z;
+					$con->teleport($prev_pos);
+					return;
+				}
+				if($con->protocol_version >= 472)
+				{
 					$con->startPacket("update_view_position");
 					$con->writeVarInt($con->chunk_x);
 					$con->writeVarInt($con->chunk_z);
