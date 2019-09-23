@@ -65,6 +65,7 @@ var searchData=
   ['_24join_5fspecs',['$join_specs',['../classPhpcraft_1_1ClientConnection.html#a606a1819b4fe196b8e73a98403f81ab3',1,'Phpcraft::ClientConnection']]],
   ['_24json_5fcache',['$json_cache',['../classPhpcraft_1_1Phpcraft.html#a3cb88eba07dc12a814b209df2873a600',1,'Phpcraft::Phpcraft']]],
   ['_24keepaliveid',['$keepAliveId',['../classPhpcraft_1_1Packet_1_1KeepAliveRequestPacket.html#a4afc7d5b34f65785f377ce1990c587d4',1,'Phpcraft\Packet\KeepAliveRequestPacket\$keepAliveId()'],['../classPhpcraft_1_1Packet_1_1KeepAliveResponsePacket.html#aa9902070b1102bf21d3dbbe9d9266d29',1,'Phpcraft\Packet\KeepAliveResponsePacket\$keepAliveId()']]],
+  ['_24lagging',['$lagging',['../classPhpcraft_1_1Event_1_1ServerTickEvent.html#a82f608dc5537892e21962236171d39fe',1,'Phpcraft::Event::ServerTickEvent']]],
   ['_24level',['$level',['../classPhpcraft_1_1Packet_1_1SetExperiencePacket.html#a109f8ce55e8d041b25b25e5e23f7fb05',1,'Phpcraft::Packet::SetExperiencePacket']]],
   ['_24list_5fping_5ffunction',['$list_ping_function',['../classPhpcraft_1_1Server.html#a27aba103cfdd78a7e96f3da8e6d8af06',1,'Phpcraft::Server']]],
   ['_24loaded_5fplugins',['$loaded_plugins',['../classPhpcraft_1_1PluginManager.html#a229377a05bf3b893acebc64467e53eeb',1,'Phpcraft::PluginManager']]],
