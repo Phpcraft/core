@@ -37,7 +37,7 @@ class NbtLongArray extends NbtListTag
 		return $con;
 	}
 
-	function __toString(): string
+	function __toString()
 	{
 		$str = "{LongArray \"".$this->name."\":";
 		foreach($this->children as $child)

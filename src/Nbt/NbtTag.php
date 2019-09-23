@@ -392,7 +392,7 @@ abstract class NbtTag
 
 	abstract function copy(): NbtTag;
 
-	abstract function __toString(): string;
+	abstract function __toString();
 
 	/**
 	 * Returns the NBT tag in SNBT (stringified NBT) format, as used in commands.

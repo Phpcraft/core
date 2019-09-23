@@ -42,7 +42,7 @@ class NbtIntArray extends NbtListTag
 		return new NbtIntArray($this->name, $this->children);
 	}
 
-	function __toString(): string
+	function __toString()
 	{
 		$str = "{IntArray \"".$this->name."\":";
 		foreach($this->children as $child)

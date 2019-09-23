@@ -43,7 +43,7 @@ class NbtDouble extends NbtTag
 		return new NbtDouble($this->name, $this->value);
 	}
 
-	function __toString(): string
+	function __toString()
 	{
 		return "{Double \"".$this->name."\": ".$this->value."}";
 	}

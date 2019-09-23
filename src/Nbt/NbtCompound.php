@@ -75,7 +75,7 @@ class NbtCompound extends NbtTag implements Iterator, Countable, ArrayAccess
 		return $tag;
 	}
 
-	function __toString(): string
+	function __toString()
 	{
 		$str = "{Compound \"".$this->name."\":";
 		foreach($this->children as $child)

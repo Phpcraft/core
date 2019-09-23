@@ -44,7 +44,7 @@ class NbtString extends NbtTag
 		return new NbtString($this->name, $this->value);
 	}
 
-	function __toString(): string
+	function __toString()
 	{
 		return "{String \"".$this->name."\": ".$this->value."}";
 	}

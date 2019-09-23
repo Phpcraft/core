@@ -24,7 +24,7 @@ class NbtEnd extends NbtTag
 		return new NbtEnd();
 	}
 
-	function __toString(): string
+	function __toString()
 	{
 		trigger_error("I'm begrudgingly allowing your call to NbtEnd::__toString but please note that NbtEnd is not a real tag and should not be treated as such.");
 		return "{End}";
