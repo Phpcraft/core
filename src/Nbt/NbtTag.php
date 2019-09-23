@@ -405,7 +405,7 @@ abstract class NbtTag
 
 	protected function _write(Connection $con)
 	{
-		assert(static::ORD != -1);
+		assert(static::ORD !== null);
 		$con->writeByte(static::ORD);
 		$con->writeShort(strlen($this->name));
 		$con->writeRaw($this->name);

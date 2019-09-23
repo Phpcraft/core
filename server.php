@@ -210,7 +210,23 @@ $server->join_function = function(ClientConnection $con)
 				}
 				if(!$solved)
 				{
-					$con->disconnect(["text" => "You're already on this server, and I have found no reasonable solution"]);
+					$con->disconnect([
+						"text" => "",
+						"extra" => [
+							[
+								"text" => "You",
+								"italic" => true
+							],
+							[
+								"text" => "'re already on this server, and the best solution I have is kicking "
+							],
+							[
+								"text" => "you.",
+								"bold" => true
+							]
+						]
+					]);
+					$con->state = 2; // prevent ServerLeaveEvent being fired
 					return;
 				}
 			}
@@ -281,6 +297,20 @@ $server->packet_function = function(ClientConnection $con, ServerboundPacket $pa
 		if($packetId->name == "position" || $packetId->name == "position_and_look")
 		{
 			$con->pos = $con->readPrecisePosition();
+			if($con->protocol_version >= 472)
+			{
+				$chunk_x = round($con->pos->x / 16);
+				$chunk_z = round($con->pos->z / 16);
+				if($chunk_x != $con->chunk_x || $chunk_z != $con->chunk_z)
+				{
+					$con->chunk_x = $chunk_x;
+					$con->chunk_z = $chunk_z;
+					$con->startPacket("update_view_position");
+					$con->writeVarInt($con->chunk_x);
+					$con->writeVarInt($con->chunk_z);
+					$con->send();
+				}
+			}
 		}
 		if($packetId->name == "position_and_look" || $packetId->name == "look")
 		{

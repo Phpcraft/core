@@ -122,6 +122,10 @@ class Connection
 	 */
 	static function varInt($value): string
 	{
+		if(is_float($value))
+		{
+			$value = intval($value);
+		}
 		$value = self::complimentNumber($value, 32);
 		$bytes = "";
 		do
@@ -179,7 +183,11 @@ class Connection
 	 */
 	function writePosition(Position $pos): Connection
 	{
-		return $this->writeLong((($pos->x & 0x3FFFFFF) << 38) | (($pos->y & 0xFFF) << 26) | ($pos->z & 0x3FFFFFF));
+		if($this->protocol_version < 472)
+		{
+			return $this->writeLong((($pos->x & 0x3FFFFFF) << 38) | (($pos->y & 0xFFF) << 26) | ($pos->z & 0x3FFFFFF));
+		}
+		return $this->writeLong((($pos->x & 0x3FFFFFF) << 38) | (($pos->z & 0x3FFFFFF) << 21) | ($pos->y & 0xFFF));
 	}
 
 	/**
@@ -700,9 +708,16 @@ class Connection
 	{
 		$val = $this->readLong();
 		$pow_2_38 = gmp_pow(2, 38);
+		if($this->protocol_version < 472)
+		{
+			return new Position(gmp_intval(gmp_div($val, $pow_2_38)), // $val >> 38
+				gmp_intval(gmp_and(gmp_div($val, gmp_pow(2, 26)), 0xFFF)), // ($val >> 26) & 0xFFF
+				gmp_intval(gmp_div(gmp_mul($val, $pow_2_38), $pow_2_38)) // $val << 38 >> 38;
+			);
+		}
 		return new Position(gmp_intval(gmp_div($val, $pow_2_38)), // $val >> 38
-			gmp_intval(gmp_and(gmp_div($val, gmp_pow(2, 26)), 0xFFF)), // ($val >> 26) & 0xFFF
-			gmp_intval(gmp_div(gmp_mul($val, $pow_2_38), $pow_2_38)) // $val << 38 >> 38;
+			gmp_intval(gmp_and($val, 0xFFF)), // $val & 0xFFF
+			gmp_intval(gmp_div(gmp_mul($val, gmp_pow(2, 26)), $pow_2_38)) // $val << 26 >> 38;
 		);
 	}
 

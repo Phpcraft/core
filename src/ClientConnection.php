@@ -71,18 +71,30 @@ class ClientConnection extends Connection implements CommandSender
 	 */
 	public $pos;
 	/**
+	 * @var integer|null $chunk_x
+	 */
+	public $chunk_x;
+	/**
+	 * @var integer|null $chunk_z
+	 */
+	public $chunk_z;
+	/**
 	 * @var float $yaw
 	 */
-	public $yaw;
+	public $yaw = 0;
 	/**
 	 * @var float $pitch
 	 */
-	public $pitch;
+	public $pitch = 0;
 	/**
 	 * @var boolean $on_ground
 	 * @see ServerOnGroundChangeEvent
 	 */
 	public $on_ground = false;
+	/**
+	 * @var integer $render_distance
+	 */
+	public $render_distance = 8;
 	/**
 	 * A string array of chunks the client has received.
 	 *
@@ -406,6 +418,41 @@ class ClientConnection extends Connection implements CommandSender
 				$this->config->setFile("config/player_data/".$this->uuid->toString(false).".json");
 			}
 		}
+		return $this;
+	}
+
+	/**
+	 * Teleports the client to the given position, and optionally, changes their rotation.
+	 *
+	 * @param Position $pos
+	 * @param integer|null $yaw
+	 * @param integer|null $pitch
+	 * @return ClientConnection $this
+	 * @throws IOException
+	 */
+	function teleport(Position $pos, $yaw = null, $pitch = null): ClientConnection
+	{
+		$this->pos = $pos;
+		$this->chunk_x = round($pos->x / 16);
+		$this->chunk_z = round($pos->x / 16);
+		if($yaw !== null)
+		{
+			$this->yaw = $yaw;
+		}
+		if($pitch !== null)
+		{
+			$this->pitch = $pitch;
+		}
+		$this->startPacket("teleport");
+		$this->writePrecisePosition($this->pos);
+		$this->writeFloat($this->yaw);
+		$this->writeFloat($this->pitch);
+		$this->writeByte(0);
+		if($this->protocol_version > 47)
+		{
+			$this->writeVarInt(0); // Teleport ID
+		}
+		$this->send();
 		return $this;
 	}
 

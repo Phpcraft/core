@@ -126,7 +126,7 @@ abstract class EntityMetadata
 					{
 						if($con->protocol_version >= $pv)
 						{
-							$type = Phpcraft::getCachableJson("https://raw.githubusercontent.com/PrismarineJS/minecraft-data/master/data/pc/{$v}/protocol.json")["types"]["entityMetadataItem"][1]["fields"][$type];
+							$type = Phpcraft::getCachableJson("https://raw.githubusercontent.com/PrismarineJS/minecraft-data/master/data/pc/{$v}/protocol.json")["types"]["entityMetadataItem"][1]["fields"][strval($type)];
 							if(gettype($type) == "array")
 							{
 								switch($type[0])

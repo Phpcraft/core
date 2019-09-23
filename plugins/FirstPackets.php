@@ -5,7 +5,7 @@
  * @var Plugin $this
  */
 use Phpcraft\
-{BlockState, ClientConnection, Command\CommandSender, Connection, Enum\Difficulty, Enum\Dimension, Enum\Gamemode, Event\Event, Event\ServerJoinEvent, Event\ServerLeaveEvent, Event\ServerTickEvent, Packet\JoinGamePacket, Packet\PluginMessage\ClientboundBrandPluginMessagePacket, Plugin, PluginManager, Position};
+{BlockState, ClientConnection, Command\CommandSender, Connection, Enum\Gamemode, Event\Event, Event\ServerJoinEvent, Event\ServerLeaveEvent, Event\ServerTickEvent, Nbt\NbtCompound, Nbt\NbtLongArray, Packet\JoinGamePacket, Packet\PluginMessage\ClientboundBrandPluginMessagePacket, Plugin, PluginManager, Position};
 if(PluginManager::$command_prefix == "/proxy:")
 {
 	$this->unregister();
@@ -20,7 +20,6 @@ $this->on(function(ServerJoinEvent $event)
 		return;
 	}
 	$con = $event->client;
-	(new ClientboundBrandPluginMessagePacket("Phpcraft"))->send($con);
 	global $WorldImitatorActive;
 	if($WorldImitatorActive)
 	{
@@ -29,9 +28,9 @@ $this->on(function(ServerJoinEvent $event)
 	$packet = new JoinGamePacket();
 	$packet->eid = $con->eid;
 	$packet->gamemode = $con->gamemode = Gamemode::CREATIVE;
-	$packet->dimension = Dimension::OVERWORLD;
-	$packet->difficulty = Difficulty::PEACEFUL;
+	$packet->render_distance = $con->render_distance = 16;
 	$packet->send($con);
+	(new ClientboundBrandPluginMessagePacket("Phpcraft"))->send($con);
 	$con->setAbilities($con->gamemode);
 	$con->sendAbilities();
 	$con->startPacket("spawn_position");
@@ -98,87 +97,107 @@ $this->on(function(ServerJoinEvent $event)
 		 {
 			 return;
 		 }
-		 $chunks_limit = 2; // chunks/tick limit
-		 for($render_distance = 4; $render_distance <= 8; $render_distance += 2)
+		 $chunks_limit = 20; // chunks/tick limit
+		 global $client_chunk_preferences;
+		 foreach($event->server->clients as $con)
 		 {
-			 global $client_chunk_preferences;
-			 foreach($event->server->clients as $con)
+			 assert($con instanceof ClientConnection);
+			 if($con->state != 3)
 			 {
-				 assert($con instanceof ClientConnection);
-				 if($con->state != 3)
+				 continue;
+			 }
+			 $chunk_preference = $client_chunk_preferences[$con->username];
+			 for($x = round(($con->pos->x - ($con->render_distance * 16)) / 16); $x <= round(($con->pos->x + ($con->render_distance * 16)) / 16); $x++)
+			 {
+				 for($z = round(($con->pos->z - ($con->render_distance * 16)) / 16); $z <= round(($con->pos->z + ($con->render_distance * 16)) / 16); $z++)
 				 {
-					 continue;
-				 }
-				 $chunk_preference = $client_chunk_preferences[$con->username];
-				 for($x = round(($con->pos->x - ($render_distance * 16)) / 16); $x <= round(($con->pos->x + ($render_distance * 16)) / 16); $x++)
-				 {
-					 for($z = round(($con->pos->z - ($render_distance * 16)) / 16); $z <= round(($con->pos->z + ($render_distance * 16)) / 16); $z++)
+					 if(in_array("$x:$z", $con->chunks))
 					 {
-						 if(in_array("$x:$z", $con->chunks))
+						 continue;
+					 }
+					 $con->startPacket("chunk_data");
+					 $con->writeInt($x, true); // Chunk X
+					 $con->writeInt($z, true); // Chunk Z
+					 $con->writeBoolean(true); // Is New Chunk
+					 if($con->protocol_version >= 70) // Sections Bit Mask
+					 {
+						 $con->writeVarInt(0b00000001);
+					 }
+					 else if($con->protocol_version >= 60)
+					 {
+						 $con->writeInt(0b00000001);
+					 }
+					 else
+					 {
+						 $con->writeShort(0b00000001);
+					 }
+					 if($con->protocol_version >= 472) // Height map
+					 {
+						 $bits = str_repeat("000001111", 256);
+						 $motion_blocking = new NbtLongArray("MOTION_BLOCKING");
+						 for($i = 0; $i < 36; $i++)
 						 {
-							 continue;
+							 array_push($motion_blocking->children, gmp_init(substr($bits, $i * 64, 64), 2));
 						 }
-						 // TODO: 1.14 Support
+						 (new NbtCompound("", [
+							 $motion_blocking,
+							 //new NbtLongArray("WORLD_SURFACE", $motion_blocking->children)
+						 ]))->write($con);
+					 }
+					 // Data Size + Data:
+					 $data = new Connection();
+					 //for($i = 0; $i < 1; $i++)
+					 {
+						 if($con->protocol_version >= 472)
+						 {
+							 $data->writeShort(4096); // Block count
+						 }
+						 $data->writeByte(8); // Bits per Block
+						 $data->writeVarInt(2); // Palette Size
+						 $data->writeVarInt(BlockState::get("grass_block")
+													  ->getId($con->protocol_version));
+						 $data->writeVarInt(BlockState::get("stone")
+													  ->getId($con->protocol_version));
+						 $data->writeVarInt(512); // (4096 / (64 / Bits per Block))
+						 $data->write_buffer .= str_repeat($chunk_preference, 2048); // Blocks
 						 if($con->protocol_version < 472)
 						 {
-							 $con->startPacket("chunk_data");
-							 $con->writeInt($x, true); // Chunk X
-							 $con->writeInt($z, true); // Chunk Z
-							 $con->writeBoolean(true); // Is New Chunk
-							 if($con->protocol_version >= 70) // Sections Bit Mask
-							 {
-								 $con->writeVarInt(0b00000001);
-							 }
-							 else if($con->protocol_version >= 60)
-							 {
-								 $con->writeInt(0b00000001);
-							 }
-							 else
-							 {
-								 $con->writeShort(0b00000001);
-							 }
-							 // Data Size + Data:
-							 $data = new Connection();
-							 for($i = 0; $i < 1; $i++)
-							 {
-								 $data->writeByte(8); // Bits per Block
-								 $data->writeVarInt(2); // Palette Size
-								 $data->writeVarInt(BlockState::get("grass_block")
-															  ->getId($con->protocol_version));
-								 $data->writeVarInt(BlockState::get("stone")
-															  ->getId($con->protocol_version));
-								 $data->writeVarInt(512); // (4096 / (64 / Bits per Block))
-								 $data->write_buffer .= str_repeat($chunk_preference, 2048); // Blocks
-								 $data->write_buffer .= str_repeat("\x00", 2048); // Block Light
-								 $data->write_buffer .= str_repeat("\xFF", 2048); // Sky Light
-							 }
-							 $data->write_buffer .= str_repeat($con->protocol_version >= 357 ? "\x00\x00\x00\x7F" : "\x00", 256); // Biomes
-							 $con->writeVarInt(strlen($data->write_buffer));
-							 $con->write_buffer .= $data->write_buffer;
-							 if($con->protocol_version >= 110)
-							 {
-								 $con->writeVarInt(0); // Number of block entities
-							 }
-							 $con->send();
+							 $data->write_buffer .= str_repeat("\x00", 2048); // Block Light
+							 $data->write_buffer .= str_repeat("\xFF", 2048); // Sky Light
 						 }
-						 if(count($con->chunks) == 0)
+					 }
+					 $data->write_buffer .= str_repeat($con->protocol_version >= 357 ? "\x00\x00\x00\x7F" : "\x00", 256); // Biomes
+					 $con->writeVarInt(strlen($data->write_buffer));
+					 $con->write_buffer .= $data->write_buffer;
+					 if($con->protocol_version >= 110)
+					 {
+						 $con->writeVarInt(0); // Number of block entities
+					 }
+					 $con->send();
+					 /*if($con->protocol_version >= 472)
+					 {
+						 $con->startPacket("update_light");
+						 $con->writeVarInt($x);
+						 $con->writeVarInt($z);
+						 $con->writeVarInt(0b111111111111111100);
+						 $con->writeVarInt(0);
+						 $con->writeVarInt(0b11);
+						 $con->writeVarInt(0b111111111111111111);
+						 for($i = 0; $i < 16; $i++)
 						 {
-							 $con->startPacket("teleport");
-							 $con->writePrecisePosition($con->pos);
-							 $con->writeFloat(0);
-							 $con->writeFloat(0);
-							 $con->writeByte(0);
-							 if($con->protocol_version > 47)
-							 {
-								 $con->writeVarInt(0); // Teleport ID
-							 }
-							 $con->send();
+							 $con->writeVarInt(2048);
+							 $con->write_buffer .= str_repeat("\xFF", 2048);
 						 }
-						 array_push($con->chunks, "$x:$z");
-						 if(--$chunks_limit == 0)
-						 {
-							 return;
-						 }
+						 $con->send();
+					 }*/
+					 if(count($con->chunks) == 0)
+					 {
+						 $con->teleport($con->pos);
+					 }
+					 array_push($con->chunks, "$x:$z");
+					 if(--$chunks_limit == 0)
+					 {
+						 return;
 					 }
 				 }
 			 }

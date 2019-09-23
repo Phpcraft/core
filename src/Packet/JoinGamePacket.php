@@ -1,15 +1,16 @@
 <?php
 namespace Phpcraft\Packet;
 use Phpcraft\
-{Connection, Exception\IOException};
+{Connection, Enum\Difficulty, Enum\Dimension, Enum\Gamemode, Exception\IOException};
 /** The first packet sent to the client after they've logged in. */
 class JoinGamePacket extends Packet
 {
 	public $eid = 0;
-	public $gamemode = 0;
+	public $gamemode = Gamemode::SURVIVAL;
 	public $hardcore = false;
-	public $dimension = 0;
-	public $difficulty = 0;
+	public $dimension = Dimension::OVERWORLD;
+	public $difficulty = Difficulty::PEACEFUL;
+	public $render_distance = 8;
 
 	/**
 	 * Initialises the packet class by reading its payload from the given Connection.
@@ -37,7 +38,7 @@ class JoinGamePacket extends Packet
 		$con->ignoreBytes(gmp_intval($con->readVarInt())); // Level Type (String)
 		if($con->protocol_version >= 472)
 		{
-			gmp_intval($con->readVarInt()); // View Distance
+			$packet->render_distance = gmp_intval($con->readVarInt()); // Render Distance
 		}
 		$con->ignoreBytes(1); // Reduced Debug Info (Boolean)
 		return $packet;
@@ -75,7 +76,7 @@ class JoinGamePacket extends Packet
 		$con->writeString(""); // Level Type
 		if($con->protocol_version >= 472)
 		{
-			$con->writeVarInt(8); // View Distance
+			$con->writeVarInt($this->render_distance); // Render Distance
 		}
 		$con->writeBoolean(false); // Reduced Debug Info
 		$con->send();

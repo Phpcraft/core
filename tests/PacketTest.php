@@ -13,7 +13,8 @@ class PacketTest
 		$gamemode->children = [$arg];
 		$gm = new LiteralNode("gm", $gamemode);
 		$packet->root_node->children = [
-			$gamemode, $gm
+			$gamemode,
+			$gm
 		];
 		$con = new Connection(404);
 		$packet->send($con);
