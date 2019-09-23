@@ -561,7 +561,7 @@ Additional Inherited Members</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Deals with the first packet the client has sent. This function deals with the handshake or legacy list ping packet. Errors will cause the connection to be closed.</p>
-<dl class="section return"><dt>Returns</dt><dd>integer Status: 0 = An error occured and the connection has been closed. 1 = Handshake was successfully read; use <a class="el" href="classPhpcraft_1_1Connection.html#a22835d4eefaa059692c254456864a405">Connection::$state</a> to see if the client wants to get the status (1) or login to play (2). 2 = A legacy list ping packet has been received. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>int Status: 0 = The client is yet to present an initial packet. 1 = Handshake was successfully read; use <a class="el" href="classPhpcraft_1_1Connection.html#a22835d4eefaa059692c254456864a405">Connection::$state</a> to see if the client wants to get the status (1) or login to play (2). 2 = A legacy list ping packet has been received. 3 = An error occured and the connection has been closed. </dd></dl>
 
 </div>
 </div>
