@@ -23,17 +23,17 @@ If any dependencies are missing, run the given command(s), and then run the self
 
 Finally, you can use the Phpcraft CLI utilities:
 
-- `php client.php help` — A chat client with plugin support and built-in commands; type `.help` for more information.
-- `php server.php help` — A chat server with plugin support.
-- `php proxy.php help` — A proxy allowing you to play as another account.
+- `php client.php help` — A chat client with basic plugin support and built-in commands; type `.help` for more information.
+- `php server.php help` — A server with plugin support, including a plugin that provides a boring world.
+- `php proxy.php help` — A proxy with plugin support allowing you to play as another account.
 - `php listping.php` — A listping utility.
-- `php cache.php` — An interface to manage Phpcraft's resource cache.
-- `php packets.php` — A tool to print packets from a binary file, e.g. recorded by WorldSaver.
-- `php uuid.php` — A tool to convert UUIDs.
 - `php snbt.php` — A tool to convert SNBT.
 - `php nbt.php` — A tool to read binary NBT files.
 - `php hex2bin.php` — A tool to convert hexadecimal strings and files to their binary representation.
 - `php bin2hex.php` — A tool to convert binary strings and files to their hexadecimal representation.
+- `php uuid.php` — A tool to convert UUIDs.
+- `php packets.php` — A tool to print packets from a binary file, e.g. recorded by WorldSaver.
+- `php cache.php` — An interface to manage Phpcraft's resource cache.
 
 Here's an example chain to convert SNBT to a binary NBT file:
 
