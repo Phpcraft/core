@@ -97,6 +97,10 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:aab6fe1f0ea5be4e48c239c9ec872fe62"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a75d9cf1effa434c6ec3f967eb97c6254"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Server.html#a75d9cf1effa434c6ec3f967eb97c6254">isOpen</a> ()</td></tr>
 <tr class="separator:a75d9cf1effa434c6ec3f967eb97c6254"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a30389c3da45ce8a32b83d35a6adddbde"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Server.html#a30389c3da45ce8a32b83d35a6adddbde">getPort</a> ()</td></tr>
+<tr class="separator:a30389c3da45ce8a32b83d35a6adddbde"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6d7f36c01ffa4b3f9e48e91eea2ed135"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Server.html#a6d7f36c01ffa4b3f9e48e91eea2ed135">getMotd</a> ()</td></tr>
+<tr class="separator:a6d7f36c01ffa4b3f9e48e91eea2ed135"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a172423393c7cd2339523706457c05c37"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Server.html#a172423393c7cd2339523706457c05c37">accept</a> ()</td></tr>
 <tr class="separator:a172423393c7cd2339523706457c05c37"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4f4c7ec689744dd6eed990527a773f00"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Server.html#a4f4c7ec689744dd6eed990527a773f00">handle</a> ()</td></tr>
@@ -299,6 +303,26 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a6d7f36c01ffa4b3f9e48e91eea2ed135"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6d7f36c01ffa4b3f9e48e91eea2ed135">&#9670;&nbsp;</a></span>getMotd()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Phpcraft\Server::getMotd </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Returns the "description" key from $this-&gt;list_ping_function's return array.</p>
+<dl class="section return"><dt>Returns</dt><dd>array|string </dd></dl>
+<dl class="section see"><dt>See also</dt><dd>Server::$list_ping_function </dd></dl>
+
+</div>
+</div>
 <a id="ae201e2be3f543267a12ac834289d8efc"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae201e2be3f543267a12ac834289d8efc">&#9670;&nbsp;</a></span>getName()</h2>
 
@@ -386,6 +410,25 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Returns all clients in state 3 (playing).</p>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="classPhpcraft_1_1ClientConnection.html">ClientConnection</a>[] </dd></dl>
+
+</div>
+</div>
+<a id="a30389c3da45ce8a32b83d35a6adddbde"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a30389c3da45ce8a32b83d35a6adddbde">&#9670;&nbsp;</a></span>getPort()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Phpcraft\Server::getPort </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Returns the port the server is listening on or -1 if it isn't.</p>
+<dl class="section return"><dt>Returns</dt><dd>int </dd></dl>
 
 </div>
 </div>
@@ -720,7 +763,7 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>The function called when to get the server's response to a list ping request with the <a class="el" href="classPhpcraft_1_1ClientConnection.html">ClientConnection</a> as argument. See <a class="el" href="classPhpcraft_1_1Phpcraft.html#a7f54ec4ed3668e9bd54e8426199af170">Phpcraft::getServerStatus</a> for an example of all the data a server may respond with (excluding "ping"). Additionally, if you set "no_ping", the client will show "(no connection)" where usually the ping in ms would be.</p>
+<p>The function called when to get the server's response to a list ping request with the <a class="el" href="classPhpcraft_1_1ClientConnection.html">ClientConnection</a> as argument or null if called internally to get list ping information, e.g. in a plugin. See <a class="el" href="classPhpcraft_1_1Phpcraft.html#a7f54ec4ed3668e9bd54e8426199af170">Phpcraft::getServerStatus</a> for an example of all the data a server may respond with (excluding "ping"). Additionally, if you set "no_ping", the client will show "(no connection)" where usually the ping in ms would be.</p>
 <dl class="section see"><dt>See also</dt><dd>Server::accept() </dd>
 <dd>
 Server::handle() </dd></dl>
