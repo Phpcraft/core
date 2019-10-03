@@ -36,35 +36,35 @@ else
 }
 if(isset($info["version"]))
 {
+	if(isset($info["version"]["name"]))
+	{
+		echo "This server is running ".$info["version"]["name"].".";
+	}
+	else
+	{
+		echo "The server did not provide a version name.";
+	}
 	if(isset($info["version"]["protocol"]))
 	{
-		if($minecraft_versions = Versions::protocolToMinecraft($info["version"]["protocol"]))
+		echo " The protocol version (".$info["version"]["protocol"].") ";
+		if($minecraft_version = Versions::protocolToRange($info["version"]["protocol"]))
 		{
-			if(isset($info["version"]["name"]))
+			echo "suggests ".$minecraft_version.", which Phpcraft ";
+			if(Versions::protocolSupported($info["version"]["protocol"]))
 			{
-				echo "This server is running a Phpcraft-compatible ".$info["version"]["name"]." (".$minecraft_versions[0].") server.\n";
+				echo "supports.";
 			}
 			else
 			{
-				echo "This server is running a Phpcraft-compatible ".$minecraft_versions[0]." server.\n";
+				echo "doesn't support.";
 			}
 		}
 		else
 		{
-			if(isset($info["version"]["name"]))
-			{
-				echo "This server is running a Phpcraft-incompatible ".$info["version"]["name"]." server.\n";
-			}
-			else
-			{
-				echo "This server is running a Phpcraft-incompatible version.\n";
-			}
+			echo "is invalid.";
 		}
 	}
-	else if(isset($info["version"]["name"]))
-	{
-		echo "This server is running a ".$info["version"]["name"]." server.\n";
-	}
+	echo "\n";
 }
 if(isset($info["players"]))
 {
@@ -75,10 +75,17 @@ if(isset($info["players"]))
 		{
 			if(isset($player["name"]))
 			{
-				$sample .= "- ".$player["name"]."\n";
+				if($sample == "")
+				{
+					$sample = $player["name"];
+				}
+				else
+				{
+					$sample .= ", ".$player["name"];
+				}
 			}
 		}
 	}
-	echo "There are ".(isset($info["players"]["online"]) ? $info["players"]["online"] : "???")."/".(isset($info["players"]["max"]) ? $info["players"]["max"] : "???")." players online".(($sample == "") ? ".\n" : ":\n".$sample);
+	echo "There are ".($info["players"]["online"] ?? "???")."/".($info["players"]["max"] ?? "???")." players online".(($sample == "") ? "." : ": ".$sample)."\n";
 }
 echo "The server answered the status request within ".round($info["ping"] * 1000)." ms.\n";
