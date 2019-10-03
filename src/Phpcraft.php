@@ -370,10 +370,7 @@ abstract class Phpcraft
 			}
 			else
 			{
-				if($parent === [])
-				{
-					$text = ($format == 2 ? "§" : "&")."r";
-				}
+				$text = ($format == 2 ? "§" : "&")."r";
 				$attributes = [
 					"obfuscated" => "k",
 					"bold" => "l",
@@ -382,37 +379,6 @@ abstract class Phpcraft
 					"italic" => "o",
 					"reset" => "r"
 				];
-			}
-			foreach($attributes as $n => $v)
-			{
-				if(!isset($chat[$n]))
-				{
-					if(!isset($parent[$n]))
-					{
-						continue;
-					}
-					$chat[$n] = $parent[$n];
-				}
-				if($chat[$n] && $chat[$n] !== "false")
-				{
-					if($format == self::FORMAT_ANSI)
-					{
-						array_push($ansi_modifiers, $v);
-					}
-					else if($format == self::FORMAT_SILCROW)
-					{
-						$text .= "§".$v;
-					}
-					else if($format == self::FORMAT_SILCROW)
-					{
-						$text .= "&".$v;
-					}
-					else
-					{
-						$text .= "<{$v}>";
-						$closing_tags .= "</".explode(" ", $v)[0].">";
-					}
-				}
 			}
 			if(!isset($chat["color"]))
 			{
@@ -495,6 +461,37 @@ abstract class Phpcraft
 					])) !== false)
 				{
 					$text .= ($format == self::FORMAT_SILCROW ? "§" : "&").dechex(intval($i));
+				}
+			}
+			foreach($attributes as $n => $v)
+			{
+				if(!isset($chat[$n]))
+				{
+					if(!isset($parent[$n]))
+					{
+						continue;
+					}
+					$chat[$n] = $parent[$n];
+				}
+				if($chat[$n] && $chat[$n] !== "false")
+				{
+					if($format == self::FORMAT_ANSI)
+					{
+						array_push($ansi_modifiers, $v);
+					}
+					else if($format == self::FORMAT_SILCROW)
+					{
+						$text .= "§".$v;
+					}
+					else if($format == self::FORMAT_AMPERSAND)
+					{
+						$text .= "&".$v;
+					}
+					else
+					{
+						$text .= "<{$v}>";
+						$closing_tags .= "</".explode(" ", $v)[0].">";
+					}
 				}
 			}
 		}

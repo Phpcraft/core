@@ -69,7 +69,7 @@ class Server implements CommandSender
 	 */
 	public $disconnect_function = null;
 	/**
-	 * The function called when to get the server's response to a list ping request with the ClientConnection as argument.
+	 * The function called when to get the server's response to a list ping request with the ClientConnection as argument or null if called internally to get list ping information, e.g. in a plugin.
 	 * See Phpcraft::getServerStatus for an example of all the data a server may respond with (excluding "ping").
 	 * Additionally, if you set "no_ping", the client will show "(no connection)" where usually the ping in ms would be.
 	 *
@@ -93,34 +93,38 @@ class Server implements CommandSender
 		$this->private_key = $private_key;
 		$this->clients = new SplObjectStorage();
 		$this->eidCounter = new Counter();
-		$this->list_ping_function = function(ClientConnection $con)
+		$this->list_ping_function = function(ClientConnection $con = null)
 		{
-			$players = [];
-			foreach($this->clients as $client)
-			{
-				if($client->state == 3)
-				{
-					array_push($players, [
-						"name" => $client->username,
-						"id" => $client->uuid->toString(true)
-					]);
-				}
-			}
-			$versions = Versions::minecraftReleases(false);
-			return [
-				"version" => [
-					"name" => "Phpcraft ".$versions[count($versions) - 1]." - ".$versions[0],
-					"protocol" => (Versions::protocolSupported($con->protocol_version) ? $con->protocol_version : Versions::protocol(false)[0])
-				],
-				"players" => [
-					"online" => count($players),
-					"max" => count($players) + 1,
-					"sample" => $players
-				],
+			$data = [
 				"description" => [
 					"text" => "A \\Phpcraft\\Server"
 				]
 			];
+			if($con !== null)
+			{
+				$players = [];
+				foreach($this->clients as $client)
+				{
+					if($client->state == 3)
+					{
+						array_push($players, [
+							"name" => $client->username,
+							"id" => $client->uuid->toString(true)
+						]);
+					}
+				}
+				$data["players"] = [
+					"online" => count($players),
+					"max" => count($players) + 1,
+					"sample" => $players
+				];
+				$versions = Versions::minecraftReleases(false);
+				$data["version"] = [
+					"name" => "Phpcraft ".$versions[count($versions) - 1]." - ".$versions[0],
+					"protocol" => (Versions::protocolSupported($con->protocol_version) ? $con->protocol_version : Versions::protocol(false)[0])
+				];
+			}
+			return $data;
 		};
 	}
 
@@ -157,6 +161,32 @@ class Server implements CommandSender
 	function isOpen(): bool
 	{
 		return $this->stream !== null;
+	}
+
+	/**
+	 * Returns the port the server is listening on or -1 if it isn't.
+	 *
+	 * @return int
+	 */
+	function getPort(): int
+	{
+		if($this->stream === null)
+		{
+			return -1;
+		}
+		$name = stream_socket_get_name($this->stream, false);
+		return intval(substr($name, strpos($name, ":") + 1));
+	}
+
+	/**
+	 * Returns the "description" key from $this->list_ping_function's return array.
+	 *
+	 * @return array|string
+	 * @see Server::$list_ping_function
+	 */
+	function getMotd()
+	{
+		return ($this->list_ping_function)()["description"];
 	}
 
 	/**

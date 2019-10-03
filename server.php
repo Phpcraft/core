@@ -118,17 +118,15 @@ if(!is_file("config/server.json"))
 			]
 		],
 		"motd" => [
-			[
-				"text" => "A ",
-				"extra" => [
-					[
-						"text" => "Phpcraft",
-						"color" => "red",
-						"italic" => true
-					],
-					[
-						"text" => " Server\n§aNow with 100% more §kmagic§r§a!"
-					]
+			"text" => "A ",
+			"extra" => [
+				[
+					"text" => "Phpcraft",
+					"color" => "red",
+					"italic" => true
+				],
+				[
+					"text" => " Server\n§aNow with 100% more §kmagic§r§a!"
 				]
 			]
 		],
@@ -162,7 +160,7 @@ $ui->tabcomplete_function = function(string $word)
 	return $completions;
 };
 $default_list_ping_function = $server->list_ping_function;
-$server->list_ping_function = function(ClientConnection $con) use (&$config, &$default_list_ping_function)
+$server->list_ping_function = function(ClientConnection $con = null) use (&$config, &$default_list_ping_function)
 {
 	$data = $default_list_ping_function($con);
 	$data["description"] = $config["motd"];
