@@ -482,9 +482,9 @@ class ClientConnection extends Connection implements CommandSender
 	 */
 	function sendMessage($message, int $position = ChatPosition::SYSTEM): ClientConnection
 	{
-		if(is_string($message))
+		if(!is_array($message))
 		{
-			$message = Phpcraft::textToChat($message);
+			$message = Phpcraft::textToChat((string) $message);
 		}
 		$this->startPacket("clientbound_chat_message");
 		$this->writeString(json_encode($message));

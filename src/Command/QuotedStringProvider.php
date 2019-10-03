@@ -4,7 +4,7 @@ use InvalidArgumentException;
 use Phpcraft\Connection;
 class QuotedStringProvider extends ArgumentProvider
 {
-	private $finished = false;
+	private $has_more = false;
 
 	public function __construct(CommandSender &$sender, string $arg)
 	{
@@ -13,12 +13,12 @@ class QuotedStringProvider extends ArgumentProvider
 			throw new InvalidArgumentException("Quotable string has to start with \"");
 		}
 		$this->value = $arg;
-		$this->finished = self::hasMore($arg);
+		$this->has_more = self::hasMore($arg);
 	}
 
 	private static function hasMore(string $arg): bool
 	{
-		return substr($arg, -1) == "\"" && substr($arg, -2) != "\\\"";
+		return substr($arg, -1) != "\"" || substr($arg, -2) == "\\\"";
 	}
 
 	static function write(Connection $con)
@@ -29,17 +29,22 @@ class QuotedStringProvider extends ArgumentProvider
 
 	function getValue(): QuotedString
 	{
-		return new QuotedString(str_replace("\\\\", "\\", str_replace("\\\"", "\"", $this->value)));
+		return new QuotedString(substr(str_replace("\\\\", "\\", str_replace("\\\"", "\"", $this->value)), 1, -1));
 	}
 
 	function acceptNext(string $arg)
 	{
 		$this->value .= " ".$arg;
-		$this->finished = self::hasMore($arg);
+		$this->has_more = self::hasMore($arg);
+	}
+
+	function acceptsMore(): bool
+	{
+		return $this->has_more;
 	}
 
 	function isFinished(): bool
 	{
-		return $this->finished;
+		return !$this->has_more;
 	}
 }

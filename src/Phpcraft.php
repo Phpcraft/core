@@ -335,8 +335,9 @@ abstract class Phpcraft
 				];
 			}
 		}
-		if(gettype($chat) == "string")
+		if(!is_array($chat))
 		{
+			$chat = (string) $chat;
 			if(strpos($chat, "§") === false)
 			{
 				return $chat;
