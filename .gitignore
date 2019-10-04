@@ -6,4 +6,4 @@ src/.user_cache
 *.bin
 *.hex
 composer.lock
-sketch.php
+*sketch.php
