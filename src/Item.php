@@ -49,14 +49,14 @@ class Item extends Identifier
 		{
 			self::$all_cache = [];
 			foreach([
-				477 => "1.14",
-				404 => "1.13.2",
-				393 => "1.13"
+				393 => "1.13",
+				397 => "1.13.2",
+				477 => "1.14"
 			] as $pv => $v)
 			{
 				foreach(Phpcraft::getCachableJson("https://raw.githubusercontent.com/PrismarineJS/minecraft-data/master/data/pc/{$v}/items.json") as $item)
 				{
-					if($pv == 477 || !array_key_exists($item["name"], self::$all_cache))
+					if($pv == 393 || !array_key_exists($item["name"], self::$all_cache))
 					{
 						$since_pv = $pv;
 						$legacy_id = null;
