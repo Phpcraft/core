@@ -113,6 +113,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a891e459081509946f485e6253c18f168"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afc03aa2834f88be8be986158f84cd3ad"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#afc03aa2834f88be8be986158f84cd3ad">teleport</a> (<a class="el" href="classPhpcraft_1_1Point3D.html">Point3D</a> $pos, $yaw=null, $pitch=null)</td></tr>
 <tr class="separator:afc03aa2834f88be8be986158f84cd3ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf2cdf1ffca54c2d675e502226d204c0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#abf2cdf1ffca54c2d675e502226d204c0">rotate</a> (int $yaw, int $pitch)</td></tr>
+<tr class="separator:abf2cdf1ffca54c2d675e502226d204c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af97568a45469d5c2286710858ed00f10"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#af97568a45469d5c2286710858ed00f10">sendAndPrintMessage</a> ($message)</td></tr>
 <tr class="separator:af97568a45469d5c2286710858ed00f10"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9ed0586a5ca0d6898b7a547739296025"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#a9ed0586a5ca0d6898b7a547739296025">sendMessage</a> ($message, int $position=<a class="el" href="classPhpcraft_1_1Enum_1_1ChatPosition.html#ad83fa54b5869f3710e6d914766eaa069">ChatPosition::SYSTEM</a>)</td></tr>
@@ -643,6 +645,49 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
+<a id="abf2cdf1ffca54c2d675e502226d204c0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abf2cdf1ffca54c2d675e502226d204c0">&#9670;&nbsp;</a></span>rotate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Phpcraft\ClientConnection::rotate </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>$yaw</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>$pitch</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Changes the client's rotation.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">int</td><td class="paramname">$yaw</td><td></td></tr>
+    <tr><td class="paramtype">int</td><td class="paramname">$pitch</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classPhpcraft_1_1ClientConnection.html">ClientConnection</a> $this </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">IOException</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a33e24346731d452a1a83fc3e2d8e63db"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a33e24346731d452a1a83fc3e2d8e63db">&#9670;&nbsp;</a></span>sendAbilities()</h2>
 
@@ -910,8 +955,8 @@ Additional Inherited Members</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramtype"><a class="el" href="classPhpcraft_1_1Point3D.html">Point3D</a></td><td class="paramname">$pos</td><td></td></tr>
-    <tr><td class="paramtype">integer&#160;|&#160;null</td><td class="paramname">$yaw</td><td></td></tr>
-    <tr><td class="paramtype">integer&#160;|&#160;null</td><td class="paramname">$pitch</td><td></td></tr>
+    <tr><td class="paramtype">int&#160;|&#160;null</td><td class="paramname">$yaw</td><td></td></tr>
+    <tr><td class="paramtype">int&#160;|&#160;null</td><td class="paramname">$pitch</td><td></td></tr>
   </table>
   </dd>
 </dl>
@@ -1197,6 +1242,7 @@ ServerFlyChangeEvent </dd></dl>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>The client's rotation on the Y axis, -90 to 90. </p>
 
 </div>
 </div>
@@ -1285,6 +1331,7 @@ ServerFlyChangeEvent </dd></dl>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>The client's rotation on the X axis, 0 to 359.9. </p>
 
 </div>
 </div>
