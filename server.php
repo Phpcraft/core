@@ -91,45 +91,57 @@ if(!is_dir("config"))
 {
 	mkdir("config");
 }
-if(!is_file("config/server.json"))
+if(is_file("config/server.json"))
 {
-	file_put_contents("config/server.json", json_encode([
-		"groups" => [
-			"default" => [
-				"allow" => [
-					"use /gamemode",
-					"use /metadata",
-					"change the world"
-				]
-			],
-			"user" => [
-				"inherit" => "default",
-				"allow" => [
-					"use /abilities",
-					"use chromium"
-				]
-			],
-			"admin" => [
-				"allow" => "everything"
-			]
-		],
-		"motd" => [
-			"text" => "A ",
-			"extra" => [
-				[
-					"text" => "Phpcraft",
-					"color" => "red",
-					"italic" => true
-				],
-				[
-					"text" => " Server\n§aNow with 100% more §kmagic§r§a!"
-				]
-			]
-		],
-		"compression_threshold" => 256
-	], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
+	$config = json_decode(file_get_contents("config/server.json"), true);
 }
-$config = json_decode(file_get_contents("config/server.json"), true);
+else
+{
+	$config = [];
+}
+if(!array_key_exists("groups", $config))
+{
+	$config["groups"] = [
+		"default" => [
+			"allow" => [
+				"use /gamemode",
+				"use /metadata",
+				"change the world"
+			]
+		],
+		"user" => [
+			"inherit" => "default",
+			"allow" => [
+				"use /abilities",
+				"use chromium"
+			]
+		],
+		"admin" => [
+			"allow" => "everything"
+		]
+	];
+}
+if(!array_key_exists("motd", $config))
+{
+	$config["motd"] = [
+		"text" => "A ",
+		"extra" => [
+			[
+				"text" => "Phpcraft",
+				"color" => "red",
+				"italic" => true
+			],
+			[
+				"text" => " Server\n§aNow with 100% more §kmagic§r§a!"
+			]
+		]
+	];
+}
+if(!array_key_exists("compression_threshold", $config))
+{
+	$config["compression_threshold"] = 256;
+}
+file_put_contents("config/server.json", json_encode($config, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
 $server->compression_threshold = $config["compression_threshold"];
 $server->setGroups($config["groups"]);
 if($ui instanceof UserInterface)
