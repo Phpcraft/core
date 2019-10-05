@@ -19,7 +19,7 @@ Next, we'll run a self check:
 
     php selfcheck.php
 
-If any dependencies are missing, run the given command(s), and then run the self check again.
+If any dependencies are missing, follow the instructions, and then run the self check again.
 
 Finally, you can use the Phpcraft CLI utilities:
 
@@ -45,13 +45,13 @@ php snbt.php "{Level: 9001}" | tail -n 1 | php hex2bin.php > nbt.bin
 
 Thanks to Composer, using Phpcraft as a library is really easy. Just head into your project folder and run:
 
-    composer require timmyrs/phpcraft:dev-master --ignore-platform-reqs
+    composer require timmyrs/phpcraft:dev-master --no-suggest --ignore-platform-reqs
 
 Next, we'll run a self check:
 
     php vendor/timmyrs/phpcraft/selfcheck.php
 
-If any dependencies are missing, run the given command(s), and then run the self check again.
+If any dependencies are missing, follow the instructions, and then run the self check again.
 
 Finally, you can `require "vendor/autoload.php";` to use Phpcraft's many APIs.
 
