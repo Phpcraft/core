@@ -20,7 +20,7 @@ var searchData=
   ['pluginmanager',['PluginManager',['../classPhpcraft_1_1PluginManager.html',1,'Phpcraft']]],
   ['pluginmessage',['PluginMessage',['../namespacePhpcraft_1_1Packet_1_1PluginMessage.html',1,'Phpcraft::Packet']]],
   ['pluginmessagepacket',['PluginMessagePacket',['../classPhpcraft_1_1Packet_1_1PluginMessage_1_1PluginMessagePacket.html',1,'Phpcraft::Packet::PluginMessage']]],
-  ['position',['Position',['../classPhpcraft_1_1Position.html',1,'Phpcraft']]],
+  ['point3d',['Point3D',['../classPhpcraft_1_1Point3D.html',1,'Phpcraft']]],
   ['priority_5fhigh',['PRIORITY_HIGH',['../classPhpcraft_1_1Event_1_1Event.html#aaf518624e565f35c65fb1b3e306744b8',1,'Phpcraft::Event::Event']]],
   ['priority_5fhighest',['PRIORITY_HIGHEST',['../classPhpcraft_1_1Event_1_1Event.html#a162497e7413a443a4a11191008cdcd08',1,'Phpcraft::Event::Event']]],
   ['priority_5flow',['PRIORITY_LOW',['../classPhpcraft_1_1Event_1_1Event.html#a46ed1eac47fcdf0324c00fc98f74c5c8',1,'Phpcraft::Event::Event']]],

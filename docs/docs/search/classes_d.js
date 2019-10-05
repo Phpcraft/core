@@ -7,7 +7,7 @@ var searchData=
   ['plugin',['Plugin',['../classPhpcraft_1_1Plugin.html',1,'Phpcraft']]],
   ['pluginmanager',['PluginManager',['../classPhpcraft_1_1PluginManager.html',1,'Phpcraft']]],
   ['pluginmessagepacket',['PluginMessagePacket',['../classPhpcraft_1_1Packet_1_1PluginMessage_1_1PluginMessagePacket.html',1,'Phpcraft::Packet::PluginMessage']]],
-  ['position',['Position',['../classPhpcraft_1_1Position.html',1,'Phpcraft']]],
+  ['point3d',['Point3D',['../classPhpcraft_1_1Point3D.html',1,'Phpcraft']]],
   ['proxyclientpacketevent',['ProxyClientPacketEvent',['../classPhpcraft_1_1Event_1_1ProxyClientPacketEvent.html',1,'Phpcraft::Event']]],
   ['proxyconnectevent',['ProxyConnectEvent',['../classPhpcraft_1_1Event_1_1ProxyConnectEvent.html',1,'Phpcraft::Event']]],
   ['proxyevent',['ProxyEvent',['../classPhpcraft_1_1Event_1_1ProxyEvent.html',1,'Phpcraft::Event']]],

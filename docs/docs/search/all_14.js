@@ -52,6 +52,7 @@ var searchData=
   ['stringfromsnbt',['stringFromSNBT',['../classPhpcraft_1_1Nbt_1_1NbtTag.html#a850d31f9c178799059cbd8ba388c7231',1,'Phpcraft::Nbt::NbtTag']]],
   ['stringprovider',['StringProvider',['../classPhpcraft_1_1Command_1_1StringProvider.html',1,'Phpcraft::Command']]],
   ['stringtosnbt',['stringToSNBT',['../classPhpcraft_1_1Nbt_1_1NbtTag.html#a30395be113f593156d7fdad87881970f',1,'Phpcraft::Nbt::NbtTag']]],
+  ['subtract',['subtract',['../classPhpcraft_1_1Point3D.html#aca5be928f7e72272408734e4771dfdd3',1,'Phpcraft::Point3D']]],
   ['survival',['SURVIVAL',['../classPhpcraft_1_1Enum_1_1Gamemode.html#afe2e359b750e356c9a19c6fea3b30858',1,'Phpcraft::Enum::Gamemode']]],
   ['system',['SYSTEM',['../classPhpcraft_1_1Enum_1_1ChatPosition.html#ad83fa54b5869f3710e6d914766eaa069',1,'Phpcraft::Enum::ChatPosition']]]
 ];

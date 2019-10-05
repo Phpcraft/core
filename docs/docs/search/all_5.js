@@ -7,6 +7,7 @@ var searchData=
   ['dimension',['Dimension',['../classPhpcraft_1_1Enum_1_1Dimension.html',1,'Phpcraft::Enum']]],
   ['disconnect',['disconnect',['../classPhpcraft_1_1ClientConnection.html#a410c3fa10c71478d496aeff58db135f1',1,'Phpcraft::ClientConnection']]],
   ['discover',['discover',['../classPhpcraft_1_1LanInterface.html#ad9129da7ad7a3ebf0fa1098965b0f220',1,'Phpcraft::LanInterface']]],
+  ['distance',['distance',['../classPhpcraft_1_1Point3D.html#a847b6006f01cabcfeb49016597c40757',1,'Phpcraft::Point3D']]],
   ['division_5f0',['DIVISION_0',['../classPhpcraft_1_1Packet_1_1BossBar_1_1BossBarPacket.html#ad52a75f8132d42a7d823438ee35461e3',1,'Phpcraft::Packet::BossBar::BossBarPacket']]],
   ['division_5f10',['DIVISION_10',['../classPhpcraft_1_1Packet_1_1BossBar_1_1BossBarPacket.html#a224b8d430f250a5038f94a1474c1afbb',1,'Phpcraft::Packet::BossBar::BossBarPacket']]],
   ['division_5f12',['DIVISION_12',['../classPhpcraft_1_1Packet_1_1BossBar_1_1BossBarPacket.html#abeb7ee56ce5e2dc6cfae6ef38c57aca2',1,'Phpcraft::Packet::BossBar::BossBarPacket']]],

@@ -107,10 +107,10 @@ var searchData=
   ['_24play_5fend_5fmusic',['$play_end_music',['../classPhpcraft_1_1Packet_1_1BossBar_1_1AddBossBarPacket.html#a8c661628462245263252e70f9b44e9af',1,'Phpcraft::Packet::BossBar::AddBossBarPacket']]],
   ['_24players',['$players',['../classPhpcraft_1_1Realms_1_1Server.html#a78b7fc8cc672d5bb0f94c8f27ed1323c',1,'Phpcraft::Realms::Server']]],
   ['_24plugin',['$plugin',['../classPhpcraft_1_1Command_1_1Command.html#a6c0fff850e5a53585a96fad01544a93e',1,'Phpcraft::Command::Command']]],
-  ['_24pos',['$pos',['../classPhpcraft_1_1ClientConnection.html#a85139019bb38231405f57b353e76c4fb',1,'Phpcraft\ClientConnection\$pos()'],['../classPhpcraft_1_1Packet_1_1SpawnMobPacket.html#ac6884d74ca4c289ae3fdc4a92ccb5322',1,'Phpcraft\Packet\SpawnMobPacket\$pos()']]],
+  ['_24pos',['$pos',['../classPhpcraft_1_1ClientConnection.html#a96b1c680181bfa94b1057fd44319c832',1,'Phpcraft\ClientConnection\$pos()'],['../classPhpcraft_1_1Packet_1_1SpawnMobPacket.html#a498a20185eab03b89377b9b8d3a7bb96',1,'Phpcraft\Packet\SpawnMobPacket\$pos()']]],
   ['_24prev_5fchunk_5fx',['$prev_chunk_x',['../classPhpcraft_1_1Event_1_1ServerChunkBorderEvent.html#ac781dd0bf20fab6740e364ced0e04042',1,'Phpcraft::Event::ServerChunkBorderEvent']]],
   ['_24prev_5fchunk_5fz',['$prev_chunk_z',['../classPhpcraft_1_1Event_1_1ServerChunkBorderEvent.html#a82c6f2aaa4603f1dc37291fc55edf6ac',1,'Phpcraft::Event::ServerChunkBorderEvent']]],
-  ['_24prev_5fpos',['$prev_pos',['../classPhpcraft_1_1Event_1_1ServerMovementEvent.html#a924ceb09cb00ed6f0cf78696ffd27ebc',1,'Phpcraft::Event::ServerMovementEvent']]],
+  ['_24prev_5fpos',['$prev_pos',['../classPhpcraft_1_1Event_1_1ServerMovementEvent.html#a291071238d49c246223d99a7ffcaf864',1,'Phpcraft::Event::ServerMovementEvent']]],
   ['_24private_5fkey',['$private_key',['../classPhpcraft_1_1Server.html#ab5129d24aa1f235130bc8132be0a417a',1,'Phpcraft::Server']]],
   ['_24profileid',['$profileId',['../classPhpcraft_1_1Account.html#a0b8bad14a934a9eedf49a9ffe6f349f6',1,'Phpcraft::Account']]],
   ['_24properties',['$properties',['../classPhpcraft_1_1Block.html#a3ab7dc3c82ef09223ad2912cc2463463',1,'Phpcraft\Block\$properties()'],['../classPhpcraft_1_1BlockState.html#a8620903be080c2deb2a62d3b31dec00d',1,'Phpcraft\BlockState\$properties()']]],
@@ -157,8 +157,8 @@ var searchData=
   ['_24window',['$window',['../classPhpcraft_1_1Packet_1_1SetSlotPacket.html#af48628cabc092c2d3f724fbcf602a2be',1,'Phpcraft::Packet::SetSlotPacket']]],
   ['_24world_5ftype',['$world_type',['../classPhpcraft_1_1Realms_1_1Server.html#a9707de9b3c927424bb1cf12124553201',1,'Phpcraft::Realms::Server']]],
   ['_24write_5fbuffer',['$write_buffer',['../classPhpcraft_1_1Connection.html#a3084eed19e1ce7d3f53d50cc26aaf767',1,'Phpcraft::Connection']]],
-  ['_24x',['$x',['../classPhpcraft_1_1Packet_1_1MapData_1_1MapDataPacket.html#acae43f32899be11a291db4c08062a03b',1,'Phpcraft\Packet\MapData\MapDataPacket\$x()'],['../classPhpcraft_1_1Packet_1_1MapData_1_1MapMarker.html#a7195ccdbf4f0de5d3c11648992337466',1,'Phpcraft\Packet\MapData\MapMarker\$x()'],['../classPhpcraft_1_1Position.html#a2d593bb3084dfc02d3033f8dda2bf330',1,'Phpcraft\Position\$x()']]],
-  ['_24y',['$y',['../classPhpcraft_1_1Position.html#ae6cb19cec03198034542d79b3dcacb69',1,'Phpcraft::Position']]],
+  ['_24x',['$x',['../classPhpcraft_1_1Packet_1_1MapData_1_1MapDataPacket.html#acae43f32899be11a291db4c08062a03b',1,'Phpcraft\Packet\MapData\MapDataPacket\$x()'],['../classPhpcraft_1_1Packet_1_1MapData_1_1MapMarker.html#a7195ccdbf4f0de5d3c11648992337466',1,'Phpcraft\Packet\MapData\MapMarker\$x()'],['../classPhpcraft_1_1Point3D.html#aa97738318eda7b426e01f653950d7e65',1,'Phpcraft\Point3D\$x()']]],
+  ['_24y',['$y',['../classPhpcraft_1_1Point3D.html#ade7c853275da07754eba996786c5a0a2',1,'Phpcraft::Point3D']]],
   ['_24yaw',['$yaw',['../classPhpcraft_1_1ClientConnection.html#a8bd5859467c47a8a82f07750bad64f63',1,'Phpcraft::ClientConnection']]],
-  ['_24z',['$z',['../classPhpcraft_1_1Packet_1_1MapData_1_1MapDataPacket.html#af79328a4ff399c946b6457ba60f5ca89',1,'Phpcraft\Packet\MapData\MapDataPacket\$z()'],['../classPhpcraft_1_1Packet_1_1MapData_1_1MapMarker.html#aa8e915732cf4fd62f8519e3e401ae3de',1,'Phpcraft\Packet\MapData\MapMarker\$z()'],['../classPhpcraft_1_1Position.html#aba7ad2c16cba1423ec3976527c9ffd4f',1,'Phpcraft\Position\$z()']]]
+  ['_24z',['$z',['../classPhpcraft_1_1Packet_1_1MapData_1_1MapDataPacket.html#af79328a4ff399c946b6457ba60f5ca89',1,'Phpcraft\Packet\MapData\MapDataPacket\$z()'],['../classPhpcraft_1_1Packet_1_1MapData_1_1MapMarker.html#aa8e915732cf4fd62f8519e3e401ae3de',1,'Phpcraft\Packet\MapData\MapMarker\$z()'],['../classPhpcraft_1_1Point3D.html#aa00cc35d49bccdc1c60b415bb76db1b7',1,'Phpcraft\Point3D\$z()']]]
 ];
