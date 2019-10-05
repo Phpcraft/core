@@ -214,7 +214,7 @@ do
 	catch(Exception $e)
 	{
 		echo "Closing all connections: ".get_class($e)." ".$e->getMessage()."\n".$e->getTraceAsString()."\n";
-		$client_con->disconnect(get_class($e).": ".$e->getMessage()."\n".$e->getTraceAsString());
+		$client_con->disconnect(get_class($e).": ".$e->getMessage());
 		$client_con = null;
 		$server_con->close();
 		$server_con = null;

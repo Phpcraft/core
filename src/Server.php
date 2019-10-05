@@ -368,7 +368,7 @@ class Server implements CommandSender
 					{
 						echo "Disconnected ".$con->username.": ".get_class($e).": ".$e->getMessage()."\n".$e->getTraceAsString()."\n";
 					}
-					$con->disconnect(get_class($e).": ".$e->getMessage()."\n".$e->getTraceAsString());
+					$con->disconnect(get_class($e).": ".$e->getMessage());
 				}
 			}
 			if(!$con->isOpen())
