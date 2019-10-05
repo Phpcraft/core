@@ -137,6 +137,10 @@ if(!array_key_exists("motd", $config))
 		]
 	];
 }
+if(!array_key_exists("show_no_connection_instead_of_ping_in_server_list", $config))
+{
+	$config["show_no_connection_instead_of_ping_in_server_list"] = false;
+}
 if(!array_key_exists("compression_threshold", $config))
 {
 	$config["compression_threshold"] = 256;
@@ -176,6 +180,10 @@ $server->list_ping_function = function(ClientConnection $con = null) use (&$conf
 		"type" => "FML",
 		"modList" => []
 	];
+	if($config["show_no_connection_instead_of_ping_in_server_list"])
+	{
+		$data["no_ping"] = true;
+	}
 	return $data;
 };
 $server->join_function = function(ClientConnection $con)
