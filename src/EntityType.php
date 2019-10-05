@@ -2,14 +2,12 @@
 namespace Phpcraft;
 class EntityType extends Identifier
 {
-	private static $json_cache;
+	private static $json_cache = [];
 	private static $all_cache;
-	private $legacy_id;
 
-	protected function __construct(string $name, int $legacy_id, int $since_protocol_version = 0)
+	protected function __construct(string $name, int $since_protocol_version = 0)
 	{
 		parent::__construct($name, $since_protocol_version);
-		$this->legacy_id = $legacy_id;
 	}
 
 	/**
@@ -22,101 +20,101 @@ class EntityType extends Identifier
 		if(self::$all_cache === null)
 		{
 			self::$all_cache = [
-				new EntityType("area_effect_cloud", 0),
-				new EntityType("armor_stand", 1),
-				new EntityType("arrow", 2),
-				new EntityType("bat", 3),
-				new EntityType("blaze", 4),
-				new EntityType("boat", 5),
-				new EntityType("cave_spider", 6),
-				new EntityType("chicken", 7),
-				new EntityType("cod", 8),
-				new EntityType("cow", 9),
-				new EntityType("creeper", 10),
-				new EntityType("donkey", 11),
-				new EntityType("dolphin", 12),
-				new EntityType("dragon_fireball", 13),
-				new EntityType("drowned", 14),
-				new EntityType("elder_guardian", 15),
-				new EntityType("end_crystal", 16),
-				new EntityType("ender_dragon", 17),
-				new EntityType("enderman", 18),
-				new EntityType("endermite", 19),
-				new EntityType("evoker_fangs", 20, 307),
-				new EntityType("evoker", 21, 307),
-				new EntityType("experience_orb", 22),
-				new EntityType("eye_of_ender", 23),
-				new EntityType("falling_block", 24),
-				new EntityType("firework_rocket", 25),
-				new EntityType("ghast", 26),
-				new EntityType("giant", 27),
-				new EntityType("guardian", 28),
-				new EntityType("horse", 29),
-				new EntityType("husk", 30),
-				new EntityType("illusioner", 31),
-				new EntityType("item", 32),
-				new EntityType("item_frame", 33),
-				new EntityType("fireball", 34),
-				new EntityType("leash_knot", 35),
-				new EntityType("llama", 36, 307),
-				new EntityType("llama_spit", 37, 311),
-				new EntityType("magma_cube", 38),
-				new EntityType("minecart", 39),
-				new EntityType("chest_minecart", 40),
-				new EntityType("command_block_minecart", 41),
-				new EntityType("furnace_minecart", 42),
-				new EntityType("hopper_minecart", 43),
-				new EntityType("spawner_minecart", 44),
-				new EntityType("tnt_minecart", 45),
-				new EntityType("mule", 46, 301),
-				new EntityType("mooshroom", 47),
-				new EntityType("ocelot", 48),
-				new EntityType("painting", 49),
-				new EntityType("parrot", 50, 318),
-				new EntityType("pig", 51),
-				new EntityType("pufferfish", 52, 362),
-				new EntityType("zombie_pigman", 53),
-				new EntityType("polar_bear", 54),
-				new EntityType("tnt", 55),
-				new EntityType("rabbit", 56),
-				new EntityType("salmon", 57),
-				new EntityType("sheep", 58),
-				new EntityType("shulker", 59, 49),
-				new EntityType("shulker_bullet", 60, 49),
-				new EntityType("silverfish", 61),
-				new EntityType("skeleton", 62),
-				new EntityType("skeleton_horse", 63, 301),
-				new EntityType("slime", 64),
-				new EntityType("small_fireball", 65),
-				new EntityType("snow_golem", 66),
-				new EntityType("snowball", 67),
-				new EntityType("spectral_arrow", 68),
-				new EntityType("spider", 69),
-				new EntityType("squid", 70),
-				new EntityType("stray", 71),
-				new EntityType("tropical_fish", 72, 364),
-				new EntityType("turtle", 73),
-				new EntityType("egg", 74),
-				new EntityType("ender_pearl", 75),
-				new EntityType("experience_bottle", 76),
-				new EntityType("potion", 77),
-				new EntityType("vex", 78, 307),
-				new EntityType("villager", 79),
-				new EntityType("iron_golem", 80),
-				new EntityType("vindicator", 81),
-				new EntityType("witch", 82),
-				new EntityType("wither", 83),
-				new EntityType("wither_skeleton", 84, 301),
-				new EntityType("wither_skull", 85),
-				new EntityType("wolf", 86),
-				new EntityType("zombie", 87),
-				new EntityType("zombie_horse", 88, 301),
-				new EntityType("zombie_villager", 89, 301),
-				new EntityType("phantom", 90, 358),
-				new EntityType("lightning_bolt", 91),
-				new EntityType("player", 92),
-				new EntityType("fishing_bobber", 93),
-				new EntityType("trident", 94, 358)
+				new EntityType("area_effect_cloud"),
+				new EntityType("armor_stand"),
+				new EntityType("arrow"),
+				new EntityType("bat"),
+				new EntityType("blaze"),
+				new EntityType("boat"),
+				new EntityType("cave_spider"),
+				new EntityType("chicken"),
+				new EntityType("cod"),
+				new EntityType("cow"),
+				new EntityType("creeper"),
+				new EntityType("donkey"),
+				new EntityType("dolphin"),
+				new EntityType("dragon_fireball"),
+				new EntityType("drowned"),
+				new EntityType("elder_guardian"),
+				new EntityType("end_crystal"),
+				new EntityType("ender_dragon"),
+				new EntityType("enderman"),
+				new EntityType("endermite"),
+				new EntityType("evoker_fangs", 307),
+				new EntityType("evoker", 307),
+				new EntityType("experience_orb"),
+				new EntityType("eye_of_ender"),
+				new EntityType("falling_block"),
+				new EntityType("firework_rocket"),
+				new EntityType("ghast"),
+				new EntityType("giant"),
+				new EntityType("guardian"),
+				new EntityType("horse"),
+				new EntityType("husk"),
+				new EntityType("illusioner"),
+				new EntityType("item"),
+				new EntityType("item_frame"),
+				new EntityType("fireball"),
+				new EntityType("leash_knot"),
+				new EntityType("llama", 307),
+				new EntityType("llama_spit", 311),
+				new EntityType("magma_cube"),
+				new EntityType("minecart"),
+				new EntityType("chest_minecart"),
+				new EntityType("command_block_minecart"),
+				new EntityType("furnace_minecart"),
+				new EntityType("hopper_minecart"),
+				new EntityType("spawner_minecart"),
+				new EntityType("tnt_minecart"),
+				new EntityType("mule", 301),
+				new EntityType("mooshroom"),
+				new EntityType("ocelot"),
+				new EntityType("painting"),
+				new EntityType("parrot", 318),
+				new EntityType("pig"),
+				new EntityType("pufferfish", 362),
+				new EntityType("zombie_pigman"),
+				new EntityType("polar_bear"),
+				new EntityType("tnt"),
+				new EntityType("rabbit"),
+				new EntityType("salmon"),
+				new EntityType("sheep"),
+				new EntityType("shulker", 49),
+				new EntityType("shulker_bullet", 49),
+				new EntityType("silverfish"),
+				new EntityType("skeleton"),
+				new EntityType("skeleton_horse", 301),
+				new EntityType("slime"),
+				new EntityType("small_fireball"),
+				new EntityType("snow_golem"),
+				new EntityType("snowball"),
+				new EntityType("spectral_arrow"),
+				new EntityType("spider"),
+				new EntityType("squid"),
+				new EntityType("stray"),
+				new EntityType("tropical_fish", 364),
+				new EntityType("turtle"),
+				new EntityType("egg"),
+				new EntityType("ender_pearl"),
+				new EntityType("experience_bottle"),
+				new EntityType("potion"),
+				new EntityType("vex", 307),
+				new EntityType("villager"),
+				new EntityType("iron_golem"),
+				new EntityType("vindicator"),
+				new EntityType("witch"),
+				new EntityType("wither"),
+				new EntityType("wither_skeleton", 301),
+				new EntityType("wither_skull"),
+				new EntityType("wolf"),
+				new EntityType("zombie"),
+				new EntityType("zombie_horse", 301),
+				new EntityType("zombie_villager", 301),
+				new EntityType("phantom", 358),
+				new EntityType("lightning_bolt"),
+				new EntityType("player"),
+				new EntityType("fishing_bobber"),
+				new EntityType("trident", 358)
 			];
 		}
 		return self::$all_cache;
@@ -132,23 +130,27 @@ class EntityType extends Identifier
 	{
 		if($protocol_version >= $this->since_protocol_version)
 		{
-			if($protocol_version >= 353)
+			foreach([
+				477 => "1.14",
+				393 => "1.13",
+				0 => "1.12"
+			] as $pv => $v)
 			{
-				if(self::$json_cache === null)
+				if($protocol_version < $pv)
 				{
-					self::$json_cache = json_decode(file_get_contents(Phpcraft::DATA_DIR.'/minecraft-data/1.13/entities.json'), true);
+					continue;
 				}
-				foreach(self::$json_cache as $entity)
+				if(!array_key_exists($v, self::$json_cache))
+				{
+					self::$json_cache[$v] = json_decode(file_get_contents(Phpcraft::DATA_DIR."/minecraft-data/{$v}/entities.json"), true);
+				}
+				foreach(self::$json_cache[$v] as $entity)
 				{
 					if($entity["name"] == $this->name)
 					{
 						return $entity["id"];
 					}
 				}
-			}
-			else
-			{
-				return $this->legacy_id;
 			}
 		}
 		return null;
