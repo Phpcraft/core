@@ -12,12 +12,12 @@ class Item extends Identifier
 	 * @var string $display_name
 	 */
 	public $display_name;
-	private $legacy_id;
+	private $ids;
 
-	protected function __construct(string $name, int $since_protocol_version, $legacy_id, int $stack_size, string $display_name)
+	protected function __construct(string $name, int $since_protocol_version, array $ids, int $stack_size, string $display_name)
 	{
 		parent::__construct($name, $since_protocol_version);
-		$this->legacy_id = $legacy_id;
+		$this->ids = $ids;
 		$this->stack_size = $stack_size;
 		$this->display_name = $display_name;
 	}
@@ -48,18 +48,25 @@ class Item extends Identifier
 		if(self::$all_cache === null)
 		{
 			self::$all_cache = [];
+			$json_cache = [];
 			foreach([
 				393 => "1.13",
 				397 => "1.13.2",
 				477 => "1.14"
 			] as $pv => $v)
 			{
-				foreach(Phpcraft::getCachableJson("https://raw.githubusercontent.com/PrismarineJS/minecraft-data/master/data/pc/{$v}/items.json") as $item)
+				foreach(json_decode(file_get_contents(Phpcraft::DATA_DIR."/minecraft-data/{$v}/items.json"), true) as $item)
 				{
 					if($pv == 393 || !array_key_exists($item["name"], self::$all_cache))
 					{
 						$since_pv = $pv;
-						$legacy_id = null;
+						$ids = [
+							477 => null,
+							397 => null,
+							393 => null,
+							0 => null
+						];
+						$ids[$pv] = $item["id"];
 						foreach([
 							47 => "1.8",
 							107 => "1.9",
@@ -73,7 +80,12 @@ class Item extends Identifier
 								"items"
 							] as $type)
 							{
-								foreach(Phpcraft::getCachableJson("https://raw.githubusercontent.com/PrismarineJS/minecraft-data/master/data/pc/{$_v}/{$type}.json") as $_item)
+								$file_name = "{$_v}/{$type}";
+								if(!array_key_exists($file_name, $json_cache))
+								{
+									$json_cache["{$_v}/{$type}"] = json_decode(file_get_contents(Phpcraft::DATA_DIR."/minecraft-data/{$_v}/{$type}.json"), true);
+								}
+								foreach($json_cache[$file_name] as $_item)
 								{
 									if(array_key_exists("variations", $_item))
 									{
@@ -81,7 +93,7 @@ class Item extends Identifier
 										{
 											if($variation["displayName"] == $item["displayName"])
 											{
-												$legacy_id = ($_item["id"] << 4) | $variation["metadata"];
+												$ids[0] = ($_item["id"] << 4) | $variation["metadata"];
 												$since_pv = $_pv;
 												break 4;
 											}
@@ -89,14 +101,18 @@ class Item extends Identifier
 									}
 									else if($_item["name"] == $item["name"])
 									{
-										$legacy_id = $_item["id"] << 4;
+										$ids[0] = $_item["id"] << 4;
 										$since_pv = $_pv;
 										break 3;
 									}
 								}
 							}
 						}
-						self::$all_cache[$item["name"]] = new Item($item["name"], $since_pv, $legacy_id, $item["stackSize"], $item["displayName"]);
+						self::$all_cache[$item["name"]] = new Item($item["name"], $since_pv, $ids, $item["stackSize"], $item["displayName"]);
+					}
+					else
+					{
+						self::$all_cache[$item["name"]]->ids[$pv] = $item["id"];
 					}
 				}
 			}
@@ -114,26 +130,11 @@ class Item extends Identifier
 	{
 		if($protocol_version >= $this->since_protocol_version)
 		{
-			if($protocol_version < 346)
+			foreach($this->ids as $pv => $id)
 			{
-				return $this->legacy_id;
-			}
-			foreach([
-				477 => "1.14",
-				404 => "1.13.2",
-				393 => "1.13"
-			] as $pv => $v)
-			{
-				if($protocol_version < $pv)
+				if($protocol_version >= $pv)
 				{
-					continue;
-				}
-				foreach(Phpcraft::getCachableJson("https://raw.githubusercontent.com/PrismarineJS/minecraft-data/master/data/pc/{$v}/items.json") as $item)
-				{
-					if($item["name"] == $this->name)
-					{
-						return $item["id"];
-					}
+					return $id;
 				}
 			}
 		}

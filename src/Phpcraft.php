@@ -5,9 +5,19 @@ use InvalidArgumentException;
 use Phpcraft\Exception\IOException;
 abstract class Phpcraft
 {
+	const SRC_DIR = __DIR__;
+	const INSTALL_DIR = self::SRC_DIR.'/..';
+	const BIN_DIR = self::INSTALL_DIR.'/bin';
+	const DATA_DIR = self::INSTALL_DIR.'/data';
 	const FORMAT_NONE = 0;
 	const FORMAT_ANSI = 1;
+	/**
+	 * §-format
+	 */
 	const FORMAT_SILCROW = 2;
+	/**
+	 * &-format
+	 */
 	const FORMAT_AMPERSAND = 3;
 	const FORMAT_HTML = 4;
 	/**
@@ -117,11 +127,10 @@ abstract class Phpcraft
 	 * Returns the contents of a JSON file as associative array with additional memory and disk caching levels.
 	 *
 	 * @param string $url The URL of the resource.
-	 * @param integer $caching_duration How long the resource should be kept in the cache, in seconds. (Default: 31 days)
 	 * @return array
 	 * @see Phpcraft::maintainCache
 	 */
-	static function getCachableJson(string $url, int $caching_duration = 2678400)
+	static function getCachableJson(string $url)
 	{
 		if(!self::$json_cache->data && is_file(self::$json_cache->file))
 		{
@@ -134,11 +143,11 @@ abstract class Phpcraft
 				self::$json_cache->data = json_decode(file_get_contents(self::$json_cache->file), true);
 			}
 		}
-		if(!self::$json_cache->has($url))
+		if(!self::$json_cache->has($url) || self::$json_cache->data[$url]["expiry"] < time())
 		{
 			self::$json_cache->set($url, [
 				"contents" => json_decode(file_get_contents($url), true),
-				"expiry" => time() + $caching_duration
+				"expiry" => time() + 86400
 			]);
 		}
 		return self::$json_cache->data[$url]["contents"];
@@ -164,18 +173,6 @@ abstract class Phpcraft
 				self::$json_cache->unset($url);
 			}
 		}
-	}
-
-	/**
-	 * Downloads various resources which might be needed during runtime but are not yet in the disk cache, and populates the memory cache.
-	 * This improves performance for BlockState, Item, PacketId, EntityType, and EntityMetadata::read.
-	 */
-	static function populateCache()
-	{
-		BlockState::all();
-		Item::all();
-		PacketId::all();
-		EntityType::all()[0]->getId(353);
 	}
 
 	/**

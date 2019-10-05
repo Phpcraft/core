@@ -205,11 +205,6 @@ else
 		exit;
 	}
 }
-$ui->add("Preparing cache... ")
-   ->render();
-Phpcraft::populateCache();
-$ui->append("Done.")
-   ->render();
 function loadPlugins()
 {
 	global $ui;

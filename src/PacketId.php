@@ -4,6 +4,8 @@ use Phpcraft\Packet\
 {ClientboundPacket, Packet, ServerboundPacket};
 abstract class PacketId extends Identifier
 {
+	private static $mappings = [];
+
 	/**
 	 * Returns every ClientboundPacket and ServerboundPacket.
 	 *
@@ -14,12 +16,16 @@ abstract class PacketId extends Identifier
 		return array_merge(ClientboundPacket::all(), ServerboundPacket::all());
 	}
 
-	protected static function _all(string $key, array $name_map, callable $func)
+	protected static function _all(string $key, array $name_map, callable $func): array
 	{
 		$packets = [];
 		foreach(array_reverse(self::versions(), true) as $pv => $v)
 		{
-			foreach(Phpcraft::getCachableJson("https://raw.githubusercontent.com/PrismarineJS/minecraft-data/master/data/pc/{$v}/protocol.json")["play"][$key]["types"]["packet"][1][0]["type"][1]["mappings"] as $name)
+			if(!array_key_exists($key.$v, self::$mappings))
+			{
+				self::$mappings[$key.$v] = json_decode(file_get_contents(Phpcraft::DATA_DIR."/minecraft-data/{$v}/protocol.json"), true)["play"][$key]["types"]["packet"][1][0]["type"][1]["mappings"];
+			}
+			foreach(self::$mappings[$key.$v] as $name)
 			{
 				if(isset($name_map[$name]))
 				{
@@ -74,7 +80,11 @@ abstract class PacketId extends Identifier
 		{
 			if($protocol_version >= $pv)
 			{
-				foreach(Phpcraft::getCachableJson("https://raw.githubusercontent.com/PrismarineJS/minecraft-data/master/data/pc/{$v}/protocol.json")["play"][$key]["types"]["packet"][1][0]["type"][1]["mappings"] as $id => $name)
+				if(!array_key_exists($key.$v, self::$mappings))
+				{
+					self::$mappings[$key.$v] = json_decode(file_get_contents(Phpcraft::DATA_DIR."/minecraft-data/{$v}/protocol.json"), true)["play"][$key]["types"]["packet"][1][0]["type"][1]["mappings"];
+				}
+				foreach(self::$mappings[$key.$v] as $id => $name)
 				{
 					if((isset($name_map[$name]) ? $name_map[$name] : $name) == $this->name)
 					{

@@ -10,6 +10,8 @@ use UnexpectedValueException;
  */
 abstract class EntityMetadata
 {
+	private static $fields = [];
+
 	static function writeByte(Connection $con, int $index, int $value)
 	{
 		$con->writeByte($index);
@@ -126,7 +128,11 @@ abstract class EntityMetadata
 					{
 						if($con->protocol_version >= $pv)
 						{
-							$type = Phpcraft::getCachableJson("https://raw.githubusercontent.com/PrismarineJS/minecraft-data/master/data/pc/{$v}/protocol.json")["types"]["entityMetadataItem"][1]["fields"][strval($type)];
+							if(!array_key_exists($v, self::$fields))
+							{
+								self::$fields[$v] = json_decode(file_get_contents(Phpcraft::DATA_DIR."/minecraft-data/{$v}/protocol.json"), true)["types"]["entityMetadataItem"][1]["fields"];
+							}
+							$type = self::$fields[$v][strval($type)];
 							if(gettype($type) == "array")
 							{
 								switch($type[0])

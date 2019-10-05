@@ -2,6 +2,7 @@
 namespace Phpcraft;
 class EntityType extends Identifier
 {
+	private static $json_cache;
 	private static $all_cache;
 	private $legacy_id;
 
@@ -133,7 +134,11 @@ class EntityType extends Identifier
 		{
 			if($protocol_version >= 353)
 			{
-				foreach(Phpcraft::getCachableJson("https://raw.githubusercontent.com/PrismarineJS/minecraft-data/master/data/pc/1.13/entities.json") as $entity)
+				if(self::$json_cache === null)
+				{
+					self::$json_cache = json_decode(file_get_contents(Phpcraft::DATA_DIR.'/minecraft-data/1.13/entities.json'), true);
+				}
+				foreach(self::$json_cache as $entity)
 				{
 					if($entity["name"] == $this->name)
 					{

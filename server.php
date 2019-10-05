@@ -86,10 +86,6 @@ $ui->add("Binding to port ".$options["port"]."... ")
 $stream = stream_socket_server("tcp://0.0.0.0:".$options["port"], $errno, $errstr) or die(" {$errstr}\n");
 $server = new Server($stream, $private_key);
 $ui->append("Success!")
-   ->add("Preparing cache... ")
-   ->render();
-Phpcraft::populateCache();
-$ui->append("Done.")
    ->render();
 if(!is_dir("config"))
 {
