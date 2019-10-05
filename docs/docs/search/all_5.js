@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['data_5fdir',['DATA_DIR',['../classPhpcraft_1_1Phpcraft.html#a3ba300e024282544eab0aca92f4912ca',1,'Phpcraft::Phpcraft']]],
   ['declarecommandspacket',['DeclareCommandsPacket',['../classPhpcraft_1_1Packet_1_1DeclareCommands_1_1DeclareCommandsPacket.html',1,'Phpcraft::Packet::DeclareCommands']]],
   ['declarecommandspacket_2ephp',['DeclareCommandsPacket.php',['../DeclareCommandsPacket_8php.html',1,'']]],
   ['destroyentitiespacket',['DestroyEntitiesPacket',['../classPhpcraft_1_1Packet_1_1DestroyEntitiesPacket.html',1,'Phpcraft::Packet']]],

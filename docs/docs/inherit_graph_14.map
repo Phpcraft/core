@@ -1,6 +1,8 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classPhpcraft_1_1Packet_1_1DeclareCommands_1_1Node.html" title="Phpcraft\\Packet\\DeclareCommands\\Node" alt="" coords="5,78,292,105"/>
-<area shape="rect" id="node2" href="$classPhpcraft_1_1Packet_1_1DeclareCommands_1_1ArgumentNode.html" title="Phpcraft\\Packet\\DeclareCommands\l\\ArgumentNode" alt="" coords="340,5,588,47"/>
-<area shape="rect" id="node3" href="$classPhpcraft_1_1Packet_1_1DeclareCommands_1_1LiteralNode.html" title="Phpcraft\\Packet\\DeclareCommands\l\\LiteralNode" alt="" coords="340,71,588,112"/>
-<area shape="rect" id="node4" href="$classPhpcraft_1_1Packet_1_1DeclareCommands_1_1RootNode.html" title="Phpcraft\\Packet\\DeclareCommands\l\\RootNode" alt="" coords="340,136,588,177"/>
+<area shape="rect" id="node1" href="$classPhpcraft_1_1Identifier.html" title="Phpcraft\\Identifier" alt="" coords="5,56,140,83"/>
+<area shape="rect" id="node2" href="$classPhpcraft_1_1EntityType.html" title="Phpcraft\\EntityType" alt="" coords="188,5,331,32"/>
+<area shape="rect" id="node3" href="$classPhpcraft_1_1Item.html" title="Phpcraft\\Item" alt="" coords="205,56,313,83"/>
+<area shape="rect" id="node4" href="$classPhpcraft_1_1PacketId.html" title="Phpcraft\\PacketId" alt="" coords="193,107,325,133"/>
+<area shape="rect" id="node5" href="$classPhpcraft_1_1Packet_1_1ClientboundPacket.html" title="Phpcraft\\Packet\\Clientbound\lPacket" alt="" coords="381,66,583,107"/>
+<area shape="rect" id="node6" href="$classPhpcraft_1_1Packet_1_1ServerboundPacket.html" title="Phpcraft\\Packet\\Serverbound\lPacket" alt="" coords="379,131,585,173"/>
 </map>

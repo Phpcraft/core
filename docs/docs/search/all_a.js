@@ -5,6 +5,7 @@ var searchData=
   ['ignorebytes',['ignoreBytes',['../classPhpcraft_1_1Connection.html#a71e8f4620ff451e580d3a72c3beb5a8b',1,'Phpcraft::Connection']]],
   ['indentstring',['indentString',['../classPhpcraft_1_1Nbt_1_1NbtTag.html#a69380c3a35050c51b85c7e8fa3c5af02',1,'Phpcraft::Nbt::NbtTag']]],
   ['init',['init',['../classPhpcraft_1_1PacketId.html#abcdf0ac9edac2a40d1576fd4af609f9b',1,'Phpcraft::PacketId']]],
+  ['install_5fdir',['INSTALL_DIR',['../classPhpcraft_1_1Phpcraft.html#a7bb388a3d99b1f94e130b8c18f669677',1,'Phpcraft::Phpcraft']]],
   ['integerprovider',['IntegerProvider',['../classPhpcraft_1_1Command_1_1IntegerProvider.html',1,'Phpcraft::Command']]],
   ['integerprovider_2ephp',['IntegerProvider.php',['../IntegerProvider_8php.html',1,'']]],
   ['invite',['Invite',['../classPhpcraft_1_1Realms_1_1Invite.html',1,'Phpcraft::Realms']]],

@@ -60,11 +60,13 @@ var menudata={children:[
 {text:"Variables",url:"functions_vars.html",children:[
 {text:"$",url:"functions_vars.html#index_0x24"},
 {text:"a",url:"functions_vars_a.html#index_a"},
+{text:"b",url:"functions_vars_b.html#index_b"},
 {text:"c",url:"functions_vars_c.html#index_c"},
 {text:"d",url:"functions_vars_d.html#index_d"},
 {text:"e",url:"functions_vars_e.html#index_e"},
 {text:"f",url:"functions_vars_f.html#index_f"},
 {text:"h",url:"functions_vars_h.html#index_h"},
+{text:"i",url:"functions_vars_i.html#index_i"},
 {text:"l",url:"functions_vars_l.html#index_l"},
 {text:"m",url:"functions_vars_m.html#index_m"},
 {text:"n",url:"functions_vars_n.html#index_n"},

@@ -71,6 +71,7 @@ var searchData=
   ['spawnmobpacket',['SpawnMobPacket',['../classPhpcraft_1_1Packet_1_1SpawnMobPacket.html',1,'Phpcraft::Packet']]],
   ['spawnmobpacket_2ephp',['SpawnMobPacket.php',['../SpawnMobPacket_8php.html',1,'']]],
   ['spectator',['SPECTATOR',['../classPhpcraft_1_1Enum_1_1Gamemode.html#ab71290bd4b4fd61744781ead60b25ada',1,'Phpcraft::Enum::Gamemode']]],
+  ['src_5fdir',['SRC_DIR',['../classPhpcraft_1_1Phpcraft.html#a8d0e79c434f9ec95d70169adc7a40e55',1,'Phpcraft::Phpcraft']]],
   ['startpacket',['startPacket',['../classPhpcraft_1_1ClientConnection.html#af43f7e5b67ffd1c48d283c33afc22a49',1,'Phpcraft\ClientConnection\startPacket()'],['../classPhpcraft_1_1Connection.html#ae75b93f971919d518998913181dec6da',1,'Phpcraft\Connection\startPacket()'],['../classPhpcraft_1_1ServerConnection.html#a446ce0b8432847cd35942905b4dbdc83',1,'Phpcraft\ServerConnection\startPacket()']]],
   ['stringargument',['StringArgument',['../classPhpcraft_1_1Command_1_1StringArgument.html',1,'Phpcraft::Command']]],
   ['stringargument_2ephp',['StringArgument.php',['../StringArgument_8php.html',1,'']]],

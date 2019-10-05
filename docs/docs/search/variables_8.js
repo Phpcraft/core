@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['msg_5fregex',['MSG_REGEX',['../classPhpcraft_1_1LanInterface.html#a6ec2ae43b2668c5d018bbeedacaec101',1,'Phpcraft::LanInterface']]]
+  ['install_5fdir',['INSTALL_DIR',['../classPhpcraft_1_1Phpcraft.html#a7bb388a3d99b1f94e130b8c18f669677',1,'Phpcraft::Phpcraft']]]
 ];

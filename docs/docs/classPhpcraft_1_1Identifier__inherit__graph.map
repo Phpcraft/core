@@ -1,8 +1,7 @@
 <map id="Phpcraft\Identifier" name="Phpcraft\Identifier">
-<area shape="rect" id="node2" href="$classPhpcraft_1_1BlockState.html" title="Phpcraft\\BlockState" alt="" coords="5,80,153,107"/>
-<area shape="rect" id="node3" href="$classPhpcraft_1_1EntityType.html" title="Phpcraft\\EntityType" alt="" coords="177,80,320,107"/>
-<area shape="rect" id="node4" href="$classPhpcraft_1_1Item.html" title="Phpcraft\\Item" alt="" coords="344,80,452,107"/>
-<area shape="rect" id="node5" href="$classPhpcraft_1_1PacketId.html" title="Phpcraft\\PacketId" alt="" coords="476,80,608,107"/>
-<area shape="rect" id="node6" href="$classPhpcraft_1_1Packet_1_1ClientboundPacket.html" title="Phpcraft\\Packet\\Clientbound\lPacket" alt="" coords="327,155,528,196"/>
-<area shape="rect" id="node7" href="$classPhpcraft_1_1Packet_1_1ServerboundPacket.html" title="Phpcraft\\Packet\\Serverbound\lPacket" alt="" coords="552,155,759,196"/>
+<area shape="rect" id="node2" href="$classPhpcraft_1_1EntityType.html" title="Phpcraft\\EntityType" alt="" coords="5,80,148,107"/>
+<area shape="rect" id="node3" href="$classPhpcraft_1_1Item.html" title="Phpcraft\\Item" alt="" coords="172,80,280,107"/>
+<area shape="rect" id="node4" href="$classPhpcraft_1_1PacketId.html" title="Phpcraft\\PacketId" alt="" coords="304,80,436,107"/>
+<area shape="rect" id="node5" href="$classPhpcraft_1_1Packet_1_1ClientboundPacket.html" title="Phpcraft\\Packet\\Clientbound\lPacket" alt="" coords="155,155,356,196"/>
+<area shape="rect" id="node6" href="$classPhpcraft_1_1Packet_1_1ServerboundPacket.html" title="Phpcraft\\Packet\\Serverbound\lPacket" alt="" coords="380,155,587,196"/>
 </map>

@@ -1,11 +1,3 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classPhpcraft_1_1Command_1_1ArgumentProvider.html" title="Phpcraft\\Command\\Argument\lProvider" alt="" coords="5,221,220,263"/>
-<area shape="rect" id="node2" href="$classPhpcraft_1_1Command_1_1ClientConfigurationProvider.html" title="Phpcraft\\Command\\ClientConfiguration\lProvider" alt="" coords="268,5,539,47"/>
-<area shape="rect" id="node3" href="$classPhpcraft_1_1Command_1_1ClientConnectionProvider.html" title="Phpcraft\\Command\\ClientConnection\lProvider" alt="" coords="274,71,533,112"/>
-<area shape="rect" id="node4" href="$classPhpcraft_1_1Command_1_1FloatProvider.html" title="Phpcraft\\Command\\FloatProvider" alt="" coords="287,137,520,163"/>
-<area shape="rect" id="node5" href="$classPhpcraft_1_1Command_1_1GreedyStringProvider.html" title="Phpcraft\\Command\\GreedyString\lProvider" alt="" coords="286,188,521,229"/>
-<area shape="rect" id="node6" href="$classPhpcraft_1_1Command_1_1IntegerProvider.html" title="Phpcraft\\Command\\Integer\lProvider" alt="" coords="306,253,501,295"/>
-<area shape="rect" id="node7" href="$classPhpcraft_1_1Command_1_1QuotedStringProvider.html" title="Phpcraft\\Command\\QuotedString\lProvider" alt="" coords="286,319,521,360"/>
-<area shape="rect" id="node8" href="$classPhpcraft_1_1Command_1_1SingleWordStringProvider.html" title="Phpcraft\\Command\\SingleWord\lStringProvider" alt="" coords="293,384,513,425"/>
-<area shape="rect" id="node9" href="$classPhpcraft_1_1Command_1_1StringProvider.html" title="Phpcraft\\Command\\StringProvider" alt="" coords="283,450,523,477"/>
+<area shape="rect" id="node1" href="$classPhpcraft_1_1Block.html" title="Phpcraft\\Block" alt="" coords="5,5,119,32"/>
 </map>
