@@ -404,6 +404,17 @@ class Connection
 	}
 
 	/**
+	 * Adds an angle to the write buffer.
+	 *
+	 * @param float $value
+	 * @return Connection $this
+	 */
+	function writeAngle(float $value): Connection
+	{
+		return $this->writeByte($value / 360 * 256);
+	}
+
+	/**
 	 * Adds a UUID to the write buffer.
 	 *
 	 * @param UUID $uuid
@@ -652,6 +663,17 @@ class Connection
 		$byte = unpack(($signed ? "c" : "C")."byte", substr($this->read_buffer, 0, 1))["byte"];
 		$this->read_buffer = substr($this->read_buffer, 1);
 		return $byte;
+	}
+
+	/**
+	 * Reads an angle from the read buffer.
+	 *
+	 * @return float
+	 * @throws IOException When there are not enough bytes to read an angle.
+	 */
+	function readAngle(): float
+	{
+		return $this->readByte() / 256 * 360;
 	}
 
 	/**

@@ -96,8 +96,8 @@ class SpawnMobPacket extends Packet
 		}
 		$packet = new SpawnMobPacket($eid, $type, $uuid);
 		$packet->pos = $con->protocol_version >= 100 ? $con->readPrecisePosition() : $con->readFixedPointPosition();
-		$packet->yaw = $con->readByte() / 256 * 360;
-		$packet->pitch = $con->readByte() / 256 * 360;
+		$packet->yaw = $con->readAngle();
+		$packet->pitch = $con->readAngle();
 		$con->ignoreBytes(7); // Head Pitch + Velocity
 		$packet->metadata->read($con);
 		return $packet;
@@ -133,9 +133,9 @@ class SpawnMobPacket extends Packet
 		{
 			$con->writeFixedPointPosition($this->pos);
 		}
-		$con->writeByte($this->yaw);
-		$con->writeByte($this->pitch);
-		$con->writeByte($this->pitch); // Head Pitch
+		$con->writeAngle($this->yaw);
+		$con->writeAngle($this->pitch);
+		$con->writeAngle($this->pitch); // Head Pitch
 		$con->writeShort(0); // Velocity X
 		$con->writeShort(0); // Velocity Y
 		$con->writeShort(0); // Velocity Z
