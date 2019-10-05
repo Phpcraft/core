@@ -5,10 +5,8 @@ var searchData=
   ['acceptnext',['acceptNext',['../classPhpcraft_1_1Command_1_1ArgumentProvider.html#afc7fd31e062deb517e5bd234c4eb3309',1,'Phpcraft\Command\ArgumentProvider\acceptNext()'],['../classPhpcraft_1_1Command_1_1GreedyStringProvider.html#ace44523f9279088124f2baaa99565c31',1,'Phpcraft\Command\GreedyStringProvider\acceptNext()'],['../classPhpcraft_1_1Command_1_1QuotedStringProvider.html#ac897842a7f4a11411e49209a9dce857f',1,'Phpcraft\Command\QuotedStringProvider\acceptNext()']]],
   ['acceptsmore',['acceptsMore',['../classPhpcraft_1_1Command_1_1ArgumentProvider.html#aea35936ceaf37f9e25e0eb003b2b72ec',1,'Phpcraft\Command\ArgumentProvider\acceptsMore()'],['../classPhpcraft_1_1Command_1_1GreedyStringProvider.html#a26710cff668439e5ef87eebc4446e067',1,'Phpcraft\Command\GreedyStringProvider\acceptsMore()'],['../classPhpcraft_1_1Command_1_1QuotedStringProvider.html#a46db5702ad67b94e93ceeb8843a773bf',1,'Phpcraft\Command\QuotedStringProvider\acceptsMore()']]],
   ['account',['Account',['../classPhpcraft_1_1Account.html',1,'Phpcraft']]],
-  ['account_2ephp',['Account.php',['../Account_8php.html',1,'']]],
   ['add',['add',['../classPhpcraft_1_1PlainUserInterface.html#a084f718094191d03675d7bc1177bbca1',1,'Phpcraft\PlainUserInterface\add()'],['../classPhpcraft_1_1UserInterface.html#a2fff23e3ac4cdd682844714fcbc077e7',1,'Phpcraft\UserInterface\add()']]],
   ['addbossbarpacket',['AddBossBarPacket',['../classPhpcraft_1_1Packet_1_1BossBar_1_1AddBossBarPacket.html',1,'Phpcraft::Packet::BossBar']]],
-  ['addbossbarpacket_2ephp',['AddBossBarPacket.php',['../AddBossBarPacket_8php.html',1,'']]],
   ['addchild',['addChild',['../classPhpcraft_1_1Nbt_1_1NbtCompound.html#ae74f3bf7fc1264b8895a72573eb1cda7',1,'Phpcraft::Nbt::NbtCompound']]],
   ['addcommand',['addCommand',['../classPhpcraft_1_1Packet_1_1DeclareCommands_1_1DeclareCommandsPacket.html#acc8908ca67819122d07c7c78e9c5f212',1,'Phpcraft::Packet::DeclareCommands::DeclareCommandsPacket']]],
   ['adventure',['ADVENTURE',['../classPhpcraft_1_1Enum_1_1Gamemode.html#aaacf695c1f68037da0c1f7743ae3bca0',1,'Phpcraft::Enum::Gamemode']]],
@@ -16,9 +14,6 @@ var searchData=
   ['announce',['announce',['../classPhpcraft_1_1LanInterface.html#ab7a2d429dbbf1f6c86a981c24ffe58aa',1,'Phpcraft::LanInterface']]],
   ['append',['append',['../classPhpcraft_1_1PlainUserInterface.html#ab595bb429496c044cad24d32902ced4e',1,'Phpcraft\PlainUserInterface\append()'],['../classPhpcraft_1_1UserInterface.html#a1f6537287aecffb166d778e2e5a738e8',1,'Phpcraft\UserInterface\append()']]],
   ['argumentnode',['ArgumentNode',['../classPhpcraft_1_1Packet_1_1DeclareCommands_1_1ArgumentNode.html',1,'Phpcraft::Packet::DeclareCommands']]],
-  ['argumentnode_2ephp',['ArgumentNode.php',['../ArgumentNode_8php.html',1,'']]],
   ['argumentprovider',['ArgumentProvider',['../classPhpcraft_1_1Command_1_1ArgumentProvider.html',1,'Phpcraft::Command']]],
-  ['argumentprovider_2ephp',['ArgumentProvider.php',['../ArgumentProvider_8php.html',1,'']]],
-  ['assetsmanager',['AssetsManager',['../classPhpcraft_1_1AssetsManager.html',1,'Phpcraft']]],
-  ['assetsmanager_2ephp',['AssetsManager.php',['../AssetsManager_8php.html',1,'']]]
+  ['assetsmanager',['AssetsManager',['../classPhpcraft_1_1AssetsManager.html',1,'Phpcraft']]]
 ];

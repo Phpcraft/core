@@ -1,7 +1,6 @@
 var searchData=
 [
   ['gamemode',['Gamemode',['../classPhpcraft_1_1Enum_1_1Gamemode.html',1,'Phpcraft::Enum']]],
-  ['gamemode_2ephp',['Gamemode.php',['../Gamemode_8php.html',1,'']]],
   ['get',['get',['../classPhpcraft_1_1Block.html#ae74bf7988b76ed17e5125a2d5b2e2bb7',1,'Phpcraft\Block\get()'],['../classPhpcraft_1_1BlockState.html#a09b31110c9cb6d964c9259d44c9141e4',1,'Phpcraft\BlockState\get()'],['../classPhpcraft_1_1Command_1_1Command.html#a6cd5003a69eb1d0a416ffcc649d8463a',1,'Phpcraft\Command\Command\get()'],['../classPhpcraft_1_1Configuration.html#a2f0a856511c0369fa9cdde5965da38c1',1,'Phpcraft\Configuration\get()'],['../classPhpcraft_1_1Identifier.html#a431a14cc7849a1307453e14548d5aa17',1,'Phpcraft\Identifier\get()'],['../classPhpcraft_1_1Item.html#a0897acdd8d9878b7259f60eb1e6a730e',1,'Phpcraft\Item\get()']]],
   ['getassetindex',['getAssetIndex',['../classPhpcraft_1_1AssetsManager.html#a870a5711a5403082daea74fb17a62cd9',1,'Phpcraft::AssetsManager']]],
   ['getblock',['getBlock',['../classPhpcraft_1_1Item.html#af7cccdb6dee7e09cd46d14011dac74b8',1,'Phpcraft::Item']]],
@@ -46,9 +45,6 @@ var searchData=
   ['getvalue',['getValue',['../classPhpcraft_1_1Command_1_1ArgumentProvider.html#aa61f94800d28d564d0abef9a20e51ed5',1,'Phpcraft\Command\ArgumentProvider\getValue()'],['../classPhpcraft_1_1Command_1_1ClientConfigurationProvider.html#a7586e4805755cf0632880e037531bf30',1,'Phpcraft\Command\ClientConfigurationProvider\getValue()'],['../classPhpcraft_1_1Command_1_1ClientConnectionProvider.html#a34f1b45c724a8c307b0719ac285cc9bb',1,'Phpcraft\Command\ClientConnectionProvider\getValue()'],['../classPhpcraft_1_1Command_1_1FloatProvider.html#a0f50fecebbcd7560fcf6dc29a4376a77',1,'Phpcraft\Command\FloatProvider\getValue()'],['../classPhpcraft_1_1Command_1_1GreedyStringProvider.html#a8f7f1391031ed52c8b1de8a34470c71c',1,'Phpcraft\Command\GreedyStringProvider\getValue()'],['../classPhpcraft_1_1Command_1_1IntegerProvider.html#a584c3d3bc44d3bcae28d772b2e731224',1,'Phpcraft\Command\IntegerProvider\getValue()'],['../classPhpcraft_1_1Command_1_1QuotedStringProvider.html#a2b74fffcc781acabe093367c5360efcf',1,'Phpcraft\Command\QuotedStringProvider\getValue()'],['../classPhpcraft_1_1Command_1_1SingleWordStringProvider.html#a0174afc561a8ab14a4b325a8d599c364',1,'Phpcraft\Command\SingleWordStringProvider\getValue()'],['../classPhpcraft_1_1Command_1_1StringProvider.html#a8d4dee132460a7c08ecd1bd008a4dd4f',1,'Phpcraft\Command\StringProvider\getValue()']]],
   ['gmplisttosnbt',['gmpListToSNBT',['../classPhpcraft_1_1Nbt_1_1NbtListTag.html#a59ce1be7a4dc2237b28b0d5fb05ee3e3',1,'Phpcraft::Nbt::NbtListTag']]],
   ['greedystring',['GreedyString',['../classPhpcraft_1_1Command_1_1GreedyString.html',1,'Phpcraft::Command']]],
-  ['greedystring_2ephp',['GreedyString.php',['../GreedyString_8php.html',1,'']]],
   ['greedystringprovider',['GreedyStringProvider',['../classPhpcraft_1_1Command_1_1GreedyStringProvider.html',1,'Phpcraft::Command']]],
-  ['greedystringprovider_2ephp',['GreedyStringProvider.php',['../GreedyStringProvider_8php.html',1,'']]],
-  ['group',['Group',['../classPhpcraft_1_1Permission_1_1Group.html',1,'Phpcraft::Permission']]],
-  ['group_2ephp',['Group.php',['../Group_8php.html',1,'']]]
+  ['group',['Group',['../classPhpcraft_1_1Permission_1_1Group.html',1,'Phpcraft::Permission']]]
 ];
