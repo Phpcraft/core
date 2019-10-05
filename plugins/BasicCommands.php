@@ -100,6 +100,21 @@ $this->registerCommand("help", function(CommandSender &$sender)
 		 $client->writeByte(hexdec($metadata));
 		 $client->writeByte(0xFF);
 		 $client->send();
+	 }, "use /metadata")
+	 ->registerCommand("elytra", function(CommandSender &$client)
+	 {
+		 if(!$client instanceof ClientConnection)
+		 {
+			 $client->sendMessage("This command is only for players.");
+			 return;
+		 }
+		 $client->startPacket("entity_metadata");
+		 $client->writeVarInt($client->eid);
+		 $client->writeByte(0);
+		 $client->writeVarInt(0);
+		 $client->writeByte(0x80);
+		 $client->writeByte(0xFF);
+		 $client->send();
 	 }, "use /metadata");
 if(PluginManager::$command_prefix != "/proxy:")
 {
