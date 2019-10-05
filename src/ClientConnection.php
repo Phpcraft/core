@@ -79,10 +79,14 @@ class ClientConnection extends Connection implements CommandSender
 	 */
 	public $chunk_z;
 	/**
+	 * The client's rotation on the X axis, 0 to 359.9.
+	 *
 	 * @var float $yaw
 	 */
 	public $yaw = 0;
 	/**
+	 * The client's rotation on the Y axis, -90 to 90.
+	 *
 	 * @var float $pitch
 	 */
 	public $pitch = 0;
@@ -418,8 +422,8 @@ class ClientConnection extends Connection implements CommandSender
 	 * Teleports the client to the given position, and optionally, changes their rotation.
 	 *
 	 * @param Point3D $pos
-	 * @param integer|null $yaw
-	 * @param integer|null $pitch
+	 * @param int|null $yaw
+	 * @param int|null $pitch
 	 * @return ClientConnection $this
 	 * @throws IOException
 	 */
@@ -428,19 +432,53 @@ class ClientConnection extends Connection implements CommandSender
 		$this->pos = $pos;
 		$this->chunk_x = ceil($pos->x / 16);
 		$this->chunk_z = ceil($pos->x / 16);
-		if($yaw !== null)
+		$flags = 0;
+		if($yaw === null)
+		{
+			$flags |= 0x10;
+		}
+		else
 		{
 			$this->yaw = $yaw;
 		}
-		if($pitch !== null)
+		if($pitch === null)
+		{
+			$flags |= 0x08;
+		}
+		else
 		{
 			$this->pitch = $pitch;
 		}
 		$this->startPacket("teleport");
 		$this->writePrecisePosition($this->pos);
-		$this->writeFloat($this->yaw);
-		$this->writeFloat($this->pitch);
-		$this->writeByte(0);
+		$this->writeFloat($yaw ?? 0);
+		$this->writeFloat($pitch ?? 0);
+		$this->writeByte($flags);
+		if($this->protocol_version > 47)
+		{
+			$this->writeVarInt(0); // Teleport ID
+		}
+		$this->send();
+		return $this;
+	}
+
+	/**
+	 * Changes the client's rotation.
+	 *
+	 * @param int $yaw
+	 * @param int $pitch
+	 * @return ClientConnection $this
+	 * @throws IOException
+	 */
+	function rotate(int $yaw, int $pitch): ClientConnection
+	{
+		$this->startPacket("teleport");
+		$this->writeDouble(0);
+		$this->writeDouble(0);
+		$this->writeDouble(0);
+		$this->writeFloat($this->yaw = $yaw);
+		$this->writeFloat($this->pitch = $pitch);
+		$this->writeByte(0b111);
 		if($this->protocol_version > 47)
 		{
 			$this->writeVarInt(0); // Teleport ID

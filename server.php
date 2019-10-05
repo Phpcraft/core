@@ -7,7 +7,7 @@ if(empty($argv))
 }
 require "vendor/autoload.php";
 use Phpcraft\
-{ClientConnection, Command\Command, Event\ServerChatEvent, Event\ServerChunkBorderEvent, Event\ServerClientSettingsEvent, Event\ServerConsoleEvent, Event\ServerFlyingChangeEvent, Event\ServerJoinEvent, Event\ServerLeaveEvent, Event\ServerMovementEvent, Event\ServerOnGroundChangeEvent, Event\ServerPacketEvent, Event\ServerTickEvent, Packet\ClientSettingsPacket, Packet\ServerboundPacket, Phpcraft, PlainUserInterface, PluginManager, Server, UserInterface, Versions};
+{ClientConnection, Command\Command, Event\ServerChatEvent, Event\ServerChunkBorderEvent, Event\ServerClientSettingsEvent, Event\ServerConsoleEvent, Event\ServerFlyingChangeEvent, Event\ServerJoinEvent, Event\ServerLeaveEvent, Event\ServerMovementEvent, Event\ServerOnGroundChangeEvent, Event\ServerPacketEvent, Event\ServerRotationEvent, Event\ServerTickEvent, Exception\IOException, Packet\ClientSettingsPacket, Packet\ServerboundPacket, Phpcraft, PlainUserInterface, PluginManager, Server, UserInterface, Versions};
 $options = [
 	"offline" => false,
 	"port" => 25565,
@@ -315,34 +315,49 @@ $server->packet_function = function(ClientConnection $con, ServerboundPacket $pa
 			if(PluginManager::fire(new ServerMovementEvent($server, $con, $prev_pos)))
 			{
 				$con->teleport($prev_pos);
-				return;
 			}
-			$chunk_x = ceil($con->pos->x / 16);
-			$chunk_z = ceil($con->pos->z / 16);
-			if($chunk_x != $con->chunk_x || $chunk_z != $con->chunk_z)
+			else
 			{
-				$prev_chunk_x = $con->chunk_x;
-				$prev_chunk_z = $con->chunk_z;
-				$con->chunk_x = $chunk_x;
-				$con->chunk_z = $chunk_z;
-				if(PluginManager::fire(new ServerChunkBorderEvent($server, $con, $prev_pos, $prev_chunk_x, $prev_chunk_z)))
+				$chunk_x = ceil($con->pos->x / 16);
+				$chunk_z = ceil($con->pos->z / 16);
+				if($chunk_x != $con->chunk_x || $chunk_z != $con->chunk_z)
 				{
-					$con->teleport($prev_pos);
-					return;
-				}
-				if($con->protocol_version >= 472)
-				{
-					$con->startPacket("update_view_position");
-					$con->writeVarInt($con->chunk_x);
-					$con->writeVarInt($con->chunk_z);
-					$con->send();
+					$prev_chunk_x = $con->chunk_x;
+					$prev_chunk_z = $con->chunk_z;
+					$con->chunk_x = $chunk_x;
+					$con->chunk_z = $chunk_z;
+					if(PluginManager::fire(new ServerChunkBorderEvent($server, $con, $prev_pos, $prev_chunk_x, $prev_chunk_z)))
+					{
+						$con->teleport($prev_pos);
+					}
+					else if($con->protocol_version >= 472)
+					{
+						$con->startPacket("update_view_position");
+						$con->writeVarInt($con->chunk_x);
+						$con->writeVarInt($con->chunk_z);
+						$con->send();
+					}
 				}
 			}
 		}
 		if($packetId->name == "position_and_look" || $packetId->name == "look")
 		{
+			$prev_yaw = $con->yaw;
+			$prev_pitch = $con->pitch;
 			$con->yaw = $con->readFloat();
+			if($con->yaw < 0 || $con->yaw > 360)
+			{
+				$con->yaw -= floor($con->yaw / 360) * 360;
+			}
 			$con->pitch = $con->readFloat();
+			if($con->pitch < -90 || $con->pitch > 90)
+			{
+				throw new IOException("Invalid Y rotation: ".$con->pitch);
+			}
+			if(PluginManager::fire(new ServerRotationEvent($server, $con, $prev_yaw, $prev_pitch)))
+			{
+				$con->rotate($prev_yaw, $prev_pitch);
+			}
 		}
 		$_on_ground = $con->on_ground;
 		$con->on_ground = $con->readBoolean();

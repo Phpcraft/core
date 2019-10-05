@@ -30,6 +30,18 @@ class SpawnMobPacket extends Packet
 	 */
 	public $pos;
 	/**
+	 * The mob's rotation on the X axis, 0 to 359.9.
+	 *
+	 * @var float $yaw
+	 */
+	public $yaw = 0;
+	/**
+	 * The mob's rotation on the Y axis, -90 to 90.
+	 *
+	 * @var float $pitch
+	 */
+	public $pitch = 0;
+	/**
 	 * The entity metadata of the mob.
 	 *
 	 * @var EntityMetadata $metadata
@@ -53,14 +65,7 @@ class SpawnMobPacket extends Packet
 		{
 			$this->metadata = new EntityBase();
 		}
-		if($uuid)
-		{
-			$this->uuid = $uuid;
-		}
-		else
-		{
-			$this->uuid = Uuid::v4();
-		}
+		$this->uuid = $uuid ?? Uuid::v4();
 	}
 
 	/**
@@ -91,7 +96,9 @@ class SpawnMobPacket extends Packet
 		}
 		$packet = new SpawnMobPacket($eid, $type, $uuid);
 		$packet->pos = $con->protocol_version >= 100 ? $con->readPrecisePosition() : $con->readFixedPointPosition();
-		$con->ignoreBytes(9); // Yaw, Pitch, Head Pitch & Velocity
+		$packet->yaw = $con->readByte() / 256 * 360;
+		$packet->pitch = $con->readByte() / 256 * 360;
+		$con->ignoreBytes(7); // Head Pitch + Velocity
 		$packet->metadata->read($con);
 		return $packet;
 	}
@@ -126,9 +133,9 @@ class SpawnMobPacket extends Packet
 		{
 			$con->writeFixedPointPosition($this->pos);
 		}
-		$con->writeByte(0); // Yaw
-		$con->writeByte(0); // Pitch
-		$con->writeByte(0); // Head Pitch
+		$con->writeByte($this->yaw);
+		$con->writeByte($this->pitch);
+		$con->writeByte($this->pitch); // Head Pitch
 		$con->writeShort(0); // Velocity X
 		$con->writeShort(0); // Velocity Y
 		$con->writeShort(0); // Velocity Z
