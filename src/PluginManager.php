@@ -25,20 +25,24 @@ abstract class PluginManager
 	 */
 	static function loadPlugins(string $plugins_folder = "plugins")
 	{
-		foreach(scandir($plugins_folder) as $file)
+		foreach(scandir($plugins_folder) as $name)
 		{
-			if(substr($file, -4) == ".php" && is_file($plugins_folder."/".$file))
+			if(substr($name, -4) == ".php" && is_file("$plugins_folder/$name"))
 			{
-				$name = substr($file, 0, -4);
-				try
-				{
-					$plugin = new Plugin($plugins_folder, $name);
-					self::$loaded_plugins->attach($plugin);
-				}
-				catch(Exception $e)
-				{
-					echo "Unhandled exception in plugin \"$name\": ".get_class($e).": ".$e->getMessage()."\n".$e->getTraceAsString()."\n";
-				}
+				$name = substr($name, 0, -4);
+			}
+			else if(!is_dir("$plugins_folder/$name") || !is_file("$plugins_folder/$name/$name.php"))
+			{
+				continue;
+			}
+			try
+			{
+				$plugin = new Plugin($plugins_folder, $name);
+				self::$loaded_plugins->attach($plugin);
+			}
+			catch(Exception $e)
+			{
+				echo "Unhandled exception in plugin \"$name\": ".get_class($e).": ".$e->getMessage()."\n".$e->getTraceAsString()."\n";
 			}
 		}
 	}

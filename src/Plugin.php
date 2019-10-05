@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PhpIncludeInspection */
 namespace Phpcraft;
 use DomainException;
 use InvalidArgumentException;
@@ -35,8 +35,18 @@ class Plugin
 	function __construct(string $folder, string $name)
 	{
 		$this->name = $name;
-		/** @noinspection PhpIncludeInspection */
-		require "$folder/$name.php";
+		if(is_file("$folder/$name.php"))
+		{
+			require "$folder/$name.php";
+		}
+		else if(is_file("$folder/$name/$name.php"))
+		{
+			require "$folder/$name/$name.php";
+		}
+		else
+		{
+			throw new RuntimeException("Couldn't find out how to load plugin \"$name\"");
+		}
 	}
 
 	/**

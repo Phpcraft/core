@@ -5,43 +5,9 @@
  * @var Plugin $this
  */
 use Phpcraft\
-{ClientConfiguration, ClientConnection, Command\ArgumentProvider, Command\Command, Command\CommandSender, Enum\Gamemode, Plugin, PluginManager};
-if(!class_exists("GamemodeArgument"))
-{
-	class GamemodeArgument
-	{
-		public $gamemode;
-
-		function __construct(int $gamemode)
-		{
-			$this->gamemode = $gamemode;
-		}
-	}
-
-	class GamemodeArgumentProvider extends ArgumentProvider
-	{
-		public function __construct(/** @noinspection PhpUnusedParameterInspection */ CommandSender &$sender, string $arg)
-		{
-			if(is_numeric($arg) && $arg >= 0 && $arg <= 4)
-			{
-				$this->value = $arg;
-			}
-			else if(Gamemode::validateName(strtoupper($arg)))
-			{
-				$this->value = Gamemode::valueOf(strtoupper($arg));
-			}
-			else
-			{
-				throw new DomainException("Invalid gamemode: ".$arg);
-			}
-		}
-
-		function getValue(): GamemodeArgument
-		{
-			return new GamemodeArgument($this->value);
-		}
-	}
-}
+{ClientConfiguration, ClientConnection, Command\Command, Command\CommandSender, Plugin, PluginManager};
+require "GamemodeArgument.php";
+require "GamemodeArgumentProvider.php";
 $this->registerCommand("help", function(CommandSender &$sender)
 {
 	$commands = [];
