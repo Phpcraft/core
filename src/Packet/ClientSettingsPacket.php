@@ -76,58 +76,13 @@ class ClientSettingsPacket extends Packet
 		$packet->chat_mode = gmp_intval($con->readVarInt());
 		$packet->chat_colors_enabled = $con->readBoolean();
 		$skin_flags = $con->readByte();
-		if($skin_flags >= 0x40)
-		{
-			$skin_flags -= 0x40;
-		}
-		else
-		{
-			$packet->hat_enabled = false;
-		}
-		if($skin_flags >= 0x20)
-		{
-			$skin_flags -= 0x20;
-		}
-		else
-		{
-			$packet->right_pants_leg_enabled = false;
-		}
-		if($skin_flags >= 0x10)
-		{
-			$skin_flags -= 0x10;
-		}
-		else
-		{
-			$packet->left_pants_leg_enabled = false;
-		}
-		if($skin_flags >= 0x08)
-		{
-			$skin_flags -= 0x08;
-		}
-		else
-		{
-			$packet->right_sleeve_enabled = false;
-		}
-		if($skin_flags >= 0x04)
-		{
-			$skin_flags -= 0x04;
-		}
-		else
-		{
-			$packet->left_sleeve_enabled = false;
-		}
-		if($skin_flags >= 0x02)
-		{
-			$skin_flags -= 0x02;
-		}
-		else
-		{
-			$packet->jacket_enabled = false;
-		}
-		if($skin_flags != 0x01)
-		{
-			$packet->cape_enabled = false;
-		}
+		$packet->hat_enabled = !($skin_flags & 0x40);
+		$packet->right_pants_leg_enabled = !($skin_flags & 0x20);
+		$packet->left_pants_leg_enabled = !($skin_flags & 0x10);
+		$packet->right_sleeve_enabled = !($skin_flags & 0x08);
+		$packet->left_sleeve_enabled = !($skin_flags & 0x04);
+		$packet->jacket_enabled = !($skin_flags & 0x02);
+		$packet->cape_enabled = !($skin_flags & 0x01);
 		if($con->protocol_version > 47)
 		{
 			$packet->left_handed = ($con->readVarInt() == 0);
@@ -151,31 +106,31 @@ class ClientSettingsPacket extends Packet
 		$skin_flags = 0;
 		if($this->cape_enabled)
 		{
-			$skin_flags += 0x01;
+			$skin_flags |= 0x01;
 		}
 		if($this->jacket_enabled)
 		{
-			$skin_flags += 0x02;
+			$skin_flags |= 0x02;
 		}
 		if($this->left_sleeve_enabled)
 		{
-			$skin_flags += 0x04;
+			$skin_flags |= 0x04;
 		}
 		if($this->right_sleeve_enabled)
 		{
-			$skin_flags += 0x08;
+			$skin_flags |= 0x08;
 		}
 		if($this->left_pants_leg_enabled)
 		{
-			$skin_flags += 0x10;
+			$skin_flags |= 0x10;
 		}
 		if($this->right_pants_leg_enabled)
 		{
-			$skin_flags += 0x20;
+			$skin_flags |= 0x20;
 		}
 		if($this->hat_enabled)
 		{
-			$skin_flags += 0x40;
+			$skin_flags |= 0x40;
 		}
 		$con->writeByte($skin_flags);
 		$con->writeVarInt($this->left_handed ? 0 : 1);

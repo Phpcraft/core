@@ -27,19 +27,10 @@ abstract class Node
 	static function read(Connection $con): Node
 	{
 		$flags = $con->readByte();
-		if($has_suggestions_type = ($flags >= 0x10))
-		{
-			$flags -= 0x10;
-		}
-		if($has_redirect = ($flags >= 0x08))
-		{
-			$flags -= 0x08;
-		}
-		if($executable = ($flags >= 0x04))
-		{
-			$flags -= 0x04;
-		}
-		switch($flags)
+		$has_suggestions_type = (($flags & 0x10) != 0);
+		$has_redirect = (($flags & 0x08) != 0);
+		$executable = (($flags & 0x04) != 0);
+		switch($flags & 0x03)
 		{
 			case 0:
 				$node = new RootNode();
@@ -51,7 +42,7 @@ abstract class Node
 				$node = new ArgumentNode();
 				break;
 			default:
-				throw new IOException("Invalid node type: $flags");
+				throw new IOException("Invalid node type: ".($flags & 0x03));
 		}
 		$children = gmp_intval($con->readVarInt());
 		for($i = 0; $i < $children; $i++)

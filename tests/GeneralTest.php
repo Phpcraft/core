@@ -133,7 +133,7 @@ class GeneralTest
 		$read_metadata = (new EntityBase())->read($con);
 		assert($read_metadata instanceof EntityLiving);
 		Nose::assertEquals("", $con->read_buffer);
-		Nose::assert($read_metadata->burning);
+		Nose::assertTrue($read_metadata->burning);
 		Nose::assertFalse($read_metadata->crouching);
 		Nose::assertFalse($read_metadata->elytraing);
 		Nose::assertEquals($metadata->custom_name, $read_metadata->custom_name);

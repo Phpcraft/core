@@ -70,24 +70,24 @@ class AddBossBarPacket extends BossBarPacket
 			$flags = 0;
 			if($this->darken_sky)
 			{
-				$flags += 0x1;
+				$flags |= 0x1;
 			}
 			if($con->protocol_version >= 395)
 			{
 				if($this->play_end_music)
 				{
-					$flags += 0x2;
+					$flags |= 0x2;
 				}
 				if($this->create_fog)
 				{
-					$flags += 0x4;
+					$flags |= 0x4;
 				}
 			}
 			else
 			{
 				if($this->play_end_music || $this->create_fog)
 				{
-					$flags += 0x2;
+					$flags |= 0x2;
 				}
 			}
 			$con->writeByte($flags);

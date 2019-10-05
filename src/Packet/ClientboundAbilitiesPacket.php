@@ -40,25 +40,10 @@ class ClientboundAbilitiesPacket extends Packet
 	{
 		$packet = new ClientboundAbilitiesPacket();
 		$flags = $con->readByte();
-		if($flags >= 0x08)
-		{
-			$packet->instant_breaking = true;
-			$flags -= 0x08;
-		}
-		if($flags >= 0x04)
-		{
-			$packet->can_fly = true;
-			$flags -= 0x04;
-		}
-		if($flags >= 0x02)
-		{
-			$packet->flying = true;
-			$flags -= 0x02;
-		}
-		if($flags >= 0x01)
-		{
-			$packet->invulnerable = true;
-		}
+		$packet->instant_breaking = (($flags & 0x08) != 0);
+		$packet->can_fly = (($flags & 0x04) != 0);
+		$packet->flying = (($flags & 0x02) != 0);
+		$packet->invulnerable = (($flags & 0x01) != 0);
 		$packet->fly_speed = $con->readFloat();
 		$packet->walk_speed = $con->readFloat();
 		return $packet;
@@ -76,19 +61,19 @@ class ClientboundAbilitiesPacket extends Packet
 		$flags = 0x00;
 		if($this->invulnerable)
 		{
-			$flags += 0x01;
+			$flags |= 0x01;
 		}
 		if($this->flying)
 		{
-			$flags += 0x02;
+			$flags |= 0x02;
 		}
 		if($this->can_fly)
 		{
-			$flags += 0x04;
+			$flags |= 0x04;
 		}
 		if($this->instant_breaking)
 		{
-			$flags += 0x08;
+			$flags |= 0x08;
 		}
 		$con->writeByte($flags);
 		$con->writeFloat($this->fly_speed);

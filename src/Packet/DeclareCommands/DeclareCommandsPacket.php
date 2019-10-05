@@ -18,7 +18,7 @@ class DeclareCommandsPacket extends Packet
 	 * Initialises the packet class by reading its payload from the given Connection.
 	 *
 	 * @param Connection $con
-	 * @return Packet|null
+	 * @return DeclareCommandsPacket|null
 	 * @throws IOException
 	 */
 	static function read(Connection $con): DeclareCommandsPacket

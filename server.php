@@ -354,16 +354,8 @@ $server->packet_function = function(ClientConnection $con, ServerboundPacket $pa
 	else if($packetId->name == "serverbound_abilities")
 	{
 		$flags = $con->readByte();
-		if($flags >= 0x08)
-		{
-			$flags -= 0x08;
-		}
-		if($flags >= 0x04)
-		{
-			$flags -= 0x04;
-		}
 		$_flying = $con->flying;
-		$con->flying = ($flags >= 0x02);
+		$con->flying = ($flags & 0x02);
 		if($_flying != $con->flying)
 		{
 			PluginManager::fire(new ServerFlyingChangeEvent($server, $con, $_flying));

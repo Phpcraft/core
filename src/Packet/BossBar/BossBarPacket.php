@@ -53,21 +53,19 @@ abstract class BossBarPacket extends Packet
 				$packet->color = gmp_intval($con->readVarInt());
 				$packet->division = gmp_intval($con->readVarInt());
 				$flags = $con->readByte();
-				if($flags >= 0x4)
+				if($flags & 0x04)
 				{
 					$packet->create_fog = true;
-					$flags -= 0x4;
 				}
-				if($flags >= 0x2)
+				if($flags & 0x02)
 				{
 					if($con->protocol_version < 395)
 					{
 						$packet->create_fog = true;
 					}
 					$packet->play_end_music = true;
-					$flags -= 0x2;
 				}
-				if($flags >= 0x1)
+				if($flags & 0x01)
 				{
 					$packet->darken_sky = true;
 				}

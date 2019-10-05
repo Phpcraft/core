@@ -54,31 +54,31 @@ class EntityBase extends EntityMetadata
 			$byte = 0;
 			if($this->burning)
 			{
-				$byte += 0x01;
+				$byte |= 0x01;
 			}
 			if($this->crouching)
 			{
-				$byte += 0x02;
+				$byte |= 0x02;
 			}
 			if($this->sprinting)
 			{
-				$byte += 0x08;
+				$byte |= 0x08;
 			}
 			if($this->swimming && $con->protocol_version >= 358)
 			{
-				$byte += 0x10;
+				$byte |= 0x10;
 			}
 			if($this->invisible)
 			{
-				$byte += 0x20;
+				$byte |= 0x20;
 			}
 			if($this->glowing && $con->protocol_version >= 49)
 			{
-				$byte += 0x40;
+				$byte |= 0x40;
 			}
 			if($this->elytraing && $con->protocol_version >= 77)
 			{
-				$byte += 0x80;
+				$byte |= 0x80;
 			}
 			self::writeByte($con, 0, $byte);
 		}
@@ -164,72 +164,13 @@ class EntityBase extends EntityMetadata
 		{
 			case 0:
 				$byte = $con->readByte();
-				$this->elytraing = false;
-				if($byte >= 0x80)
-				{
-					if($con->protocol_version >= 77)
-					{
-						$this->elytraing = true;
-					}
-					$byte -= 0x80;
-				}
-				$this->glowing = false;
-				if($byte >= 0x40)
-				{
-					if($con->protocol_version >= 49)
-					{
-						$this->glowing = false;
-					}
-					$byte -= 0x40;
-				}
-				if($byte >= 0x20)
-				{
-					$this->invisible = true;
-					$byte -= 0x20;
-				}
-				else
-				{
-					$this->invisible = false;
-				}
-				$this->swimming = false;
-				if($byte >= 0x10)
-				{
-					if($con->protocol_version >= 358)
-					{
-						$this->swimming = true;
-					}
-					$byte -= 0x10;
-				}
-				if($byte >= 0x08)
-				{
-					$this->sprinting = true;
-					$byte -= 0x08;
-				}
-				else
-				{
-					$this->sprinting = false;
-				}
-				if($byte >= 0x04)
-				{
-					$byte -= 0x04;
-				}
-				if($byte >= 0x02)
-				{
-					$this->crouching = true;
-					$byte -= 0x02;
-				}
-				else
-				{
-					$this->crouching = false;
-				}
-				if($byte >= 0x01)
-				{
-					$this->burning = true;
-				}
-				else
-				{
-					$this->burning = false;
-				}
+				$this->elytraing = (($byte & 0x80) != 0 && $con->protocol_version >= 77);
+				$this->glowing = (($byte & 0x40) != 0 && $con->protocol_version >= 49);
+				$this->invisible = (($byte & 0x20) != 0);
+				$this->swimming = (($byte & 0x10) != 0 && $con->protocol_version >= 358);
+				$this->sprinting = (($byte & 0x08) != 0);
+				$this->crouching = (($byte & 0x02) != 0);
+				$this->burning = (($byte & 0x01) != 0);
 				return true;
 			case 2:
 				if($con->protocol_version >= 57)
