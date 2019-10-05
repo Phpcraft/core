@@ -142,13 +142,13 @@ class Item extends Identifier
 	}
 
 	/**
-	 * Returns the related BlockState.
+	 * Returns the related Block.
 	 *
-	 * @return BlockState
+	 * @return Block
 	 */
-	function getBlock(): BlockState
+	function getBlock(): Block
 	{
-		return BlockState::get($this->name);
+		return Block::get($this->name);
 	}
 
 	/**

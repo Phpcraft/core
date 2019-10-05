@@ -140,9 +140,10 @@ class GeneralTest
 		Nose::assertNull($read_metadata->silent);
 	}
 
-	function testBlockMaterial()
+	function testBlockState()
 	{
 		Nose::assertNotNull($grass = BlockState::get("grass_block"));
+		Nose::assertEquals($grass, BlockState::get("grass_block[snowy=false]"));
 		Nose::assertEquals($grass->getId(47), 2 << 4);
 		Nose::assertEquals($grass->getId(404), 9);
 	}

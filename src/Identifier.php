@@ -56,7 +56,7 @@ abstract class Identifier
 	 *
 	 * @param integer $id
 	 * @param integer $protocol_version
-	 * @return static
+	 * @return static|null
 	 */
 	static function getById(int $id, int $protocol_version)
 	{

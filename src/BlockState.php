@@ -1,84 +1,129 @@
 <?php
 namespace Phpcraft;
-class BlockState extends Identifier
+class BlockState
 {
 	private static $all_cache;
 	/**
-	 * The name of each Item dropped when this block is destroyed.
-	 *
-	 * @var array $drops
+	 * @var Block $block
 	 */
-	public $drops;
-	private $legacy_id;
+	public $block;
+	/**
+	 * @var array $properties
+	 */
+	public $properties;
+	/**
+	 * @var array $ids
+	 */
+	public $ids;
+	private $state_i;
 
-	protected function __construct(string $name, int $legacy_id, int $since_protocol_version = 0, array $drops = [])
+	function __construct(Block &$block, int $state_i, array $properties, array $ids)
 	{
-		parent::__construct($name, $since_protocol_version);
-		$this->legacy_id = $legacy_id;
-		$this->drops = $drops;
+		$this->block = $block;
+		$this->state_i = $state_i;
+		$this->properties = $properties;
+		$this->ids = $ids;
 	}
 
 	/**
-	 * Returns every BlockState.
+	 * Returns a BlockState by its string representation, null if the block is not found, or throws an exception if an invalid state is given.
 	 *
-	 * @return BlockState[]
-	 * @todo Actually return *every* BlockState.
+	 * @param string $str A BlockState string representation, e.g. "grass_block[snowy=true]"
+	 * @return BlockState|null
 	 */
-	static function all(): array
+	static function get(string $str)
 	{
-		if(self::$all_cache === null)
-		{
-			self::$all_cache = [
-				new BlockState("air", 0),
-				new BlockState("stone", 1 << 4, 0, ["stone"]),
-				new BlockState("grass_block", 2 << 4, 0, ["grass_block"]),
-				new BlockState("dirt", 3 << 4, 0, ["dirt"])
-			];
-		}
-		return self::$all_cache;
+		$state_start = strpos($str, "[");
+		$block = Block::get($state_start ? substr($str, 0, $state_start) : $str);
+		return $block ? $block->getState($state_start ? substr($str, $state_start) : "") : null;
 	}
 
 	/**
-	 * Returns the ID of this Identifier for the given protocol version or null if not applicable.
+	 * Returns a BlockState by its ID in the given protocol version or null if not found.
 	 *
+	 * @param integer $id
 	 * @param integer $protocol_version
-	 * @return integer|null
+	 * @return BlockState|null
 	 */
-	function getId(int $protocol_version)
+	static function getById(int $id, int $protocol_version)
 	{
-		if($protocol_version >= $this->since_protocol_version)
+		foreach(BlockState::all() as $blockState)
 		{
-			if($protocol_version < 346)
+			if($blockState->getId($protocol_version) == $id)
 			{
-				return $this->legacy_id;
-			}
-			switch($this->name)
-			{
-				case "air":
-					return 0;
-				case "stone":
-					return 1;
-				case "grass_block":
-					return 9;
-				case "dirt":
-					return 10;
+				return $blockState;
 			}
 		}
 		return null;
 	}
 
 	/**
-	 * Returns each Item that are supposed to be dropped when this block is destroyed.
+	 * Returns everything of this type.
 	 *
-	 * @return Item[]
+	 * @return static[]
 	 */
-	function getDrops(): array
+	static function all()
 	{
-		$drops = [];
-		foreach($this->drops as $name)
+		if(self::$all_cache === null)
 		{
-			array_push($drops, Item::get($name));
+			self::$all_cache = [];
+			foreach(Block::all() as $block)
+			{
+				self::$all_cache = array_merge(self::$all_cache, $block->states);
+			}
 		}
-		return $drops;
+		return self::$all_cache;
+	}
+
+	function getLegacyMetadata(): int
+	{
+		switch($this->block->name)
+		{
+			case "grass_block":
+				return 0;
+
+			default:
+				return $this->state_i;
+		}
+	}
+
+	/**
+	 * Returns the ID of this BlockState for the given protocol version or null if not applicable.
+	 *
+	 * @param integer $protocol_version
+	 * @return integer|null
+	 */
+	function getId(int $protocol_version)
+	{
+		if($protocol_version >= $this->block->since_protocol_version)
+		{
+			if($protocol_version < 346)
+			{
+				return ($this->block->legacy_id << 4) | $this->getLegacyMetadata();
+			}
+			foreach($this->ids as $pv => $id)
+			{
+				if($protocol_version >= $pv)
+				{
+					return $id;
+				}
+			}
+		}
+		return null;
+	}
+
+	function __toString()
+	{
+		return $this->block->name.$this->getStateString();
+	}
+
+	function getStateString()
+	{
+		$str = "";
+		foreach($this->properties as $name => $value)
+		{
+			$str .= "[$name=$value]";
+		}
+		return $str;
 	}
 }
