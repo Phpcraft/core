@@ -15,34 +15,6 @@ foreach([
 		die("The {$ext} extension is required.\n");
 	}
 }
-require __DIR__."/src/Configuration.php";
-require __DIR__."/src/Phpcraft.php";
-use Phpcraft\Phpcraft;
-if(file_exists(__DIR__."/src/.cache"))
-{
-	$before = count(json_decode(file_get_contents(__DIR__."/src/.cache"), true));
-	Phpcraft::maintainCache();
-	if(file_exists(__DIR__."/src/.cache"))
-	{
-		$after = count(json_decode(file_get_contents(__DIR__."/src/.cache"), true));
-	}
-	else
-	{
-		$after = 0;
-	}
-	if($after == $before)
-	{
-		echo "(i) {$after} cache entries\n\n";
-	}
-	else
-	{
-		echo "(i) Removed ".($before - $after)." outdated cache entries; {$after} remain\n\n";
-	}
-}
-else
-{
-	echo "(i) 0 cache entries\n\n";
-}
 $apt = [];
 $pecl = [];
 if(extension_loaded("mbstring"))
@@ -132,7 +104,7 @@ else
 echo " mcrypt (optional for more performance)\n\n";
 if(!empty($apt) || !empty($pecl))
 {
-	if(Phpcraft::isWindows())
+	if(defined("PHP_WINDOWS_VERSION_MAJOR"))
 	{
 		echo "Check the extensions section of your php.ini.\n";
 	}
