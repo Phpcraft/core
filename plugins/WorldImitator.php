@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PhpUndefinedFieldInspection */
 /**
  * Provides clients connecting to the server with the packets captured by the WorldSaver plugin.
  *
@@ -12,8 +12,6 @@ $this->on(function(ServerJoinEvent $event)
 	{
 		return;
 	}
-	global $WorldImitatorActive;
-	$WorldImitatorActive = true;
 	$fh = fopen("world.bin", "r");
 	$con = new Connection(-1, $fh);
 	$version = $con->readPacket();
@@ -29,4 +27,5 @@ $this->on(function(ServerJoinEvent $event)
 		$event->client->send();
 	}
 	fclose($fh);
+	$event->client->received_imitated_world = true;
 }, Event::PRIORITY_HIGH);

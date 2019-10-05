@@ -17,7 +17,7 @@ class ServerMovementEvent extends ServerClientEvent
 	 * @param ClientConnection $client
 	 * @param Position|null $prev_pos
 	 */
-	function __construct(Server $server, ClientConnection $client, $prev_pos)
+	function __construct(Server $server, ClientConnection $client, $prev_pos = null)
 	{
 		parent::__construct($server, $client);
 		$this->prev_pos = $prev_pos;
