@@ -75,18 +75,6 @@ class BlockState
 		return self::$all_cache;
 	}
 
-	function getLegacyMetadata(): int
-	{
-		switch($this->block->name)
-		{
-			case "grass_block":
-				return 0;
-
-			default:
-				return $this->state_i;
-		}
-	}
-
 	/**
 	 * Returns the ID of this BlockState for the given protocol version or null if not applicable.
 	 *
@@ -110,6 +98,17 @@ class BlockState
 			}
 		}
 		return null;
+	}
+
+	function getLegacyMetadata(): int
+	{
+		switch($this->block->name)
+		{
+			case "grass_block":
+				return 0;
+			default:
+				return $this->state_i;
+		}
 	}
 
 	function __toString()
