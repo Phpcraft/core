@@ -7,7 +7,7 @@ if(empty($argv))
 }
 require "vendor/autoload.php";
 use Phpcraft\
-{Account, AssetsManager, Configuration, Event\ClientConsoleEvent, Event\ClientJoinEvent, Event\ClientPacketEvent, Packet\ClientboundPacket, Packet\KeepAliveRequestPacket, Packet\PluginMessage\ServerboundBrandPluginMessagePacket, Phpcraft, PlainUserInterface, PluginManager, Position, ServerConnection, UserInterface, Versions};
+{Account, AssetsManager, Configuration, Event\ClientConsoleEvent, Event\ClientJoinEvent, Event\ClientPacketEvent, Packet\ClientboundPacket, Packet\KeepAliveRequestPacket, Packet\PluginMessage\ServerboundBrandPluginMessagePacket, Phpcraft, PlainUserInterface, PluginManager, Point3D, ServerConnection, UserInterface, Versions};
 $options = [];
 for($i = 1; $i < count($argv); $i++)
 {
@@ -334,7 +334,7 @@ function handleConsoleMessage(string $msg)
 				else
 				{
 					$con->startPacket("player_block_placement");
-					$con->writePosition(new Position($x, $y, $z));
+					$con->writePosition(new Point3D($x, $y, $z));
 					$con->writeByte(-1); // Face
 					$con->writeShort(-1); // Slot
 					$con->writeByte(-1); // Cursor X

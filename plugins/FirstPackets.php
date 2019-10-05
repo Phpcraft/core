@@ -5,7 +5,7 @@
  * @var Plugin $this
  */
 use Phpcraft\
-{BlockState, ClientConnection, Command\CommandSender, Connection, Enum\Gamemode, Event\Event, Event\ServerChunkBorderEvent, Event\ServerJoinEvent, Event\ServerTickEvent, Nbt\NbtCompound, Nbt\NbtLongArray, Packet\JoinGamePacket, Packet\PluginMessage\ClientboundBrandPluginMessagePacket, Plugin, PluginManager, Position};
+{BlockState, ClientConnection, Command\CommandSender, Connection, Enum\Gamemode, Event\Event, Event\ServerChunkBorderEvent, Event\ServerJoinEvent, Event\ServerTickEvent, Nbt\NbtCompound, Nbt\NbtLongArray, Packet\JoinGamePacket, Packet\PluginMessage\ClientboundBrandPluginMessagePacket, Plugin, PluginManager, Point3D};
 if(PluginManager::$command_prefix == "/proxy:")
 {
 	$this->unregister();
@@ -33,7 +33,7 @@ $this->on(function(ServerJoinEvent $event) use (&$plugin)
 	$con->setAbilities($con->gamemode);
 	$con->sendAbilities();
 	$con->startPacket("spawn_position");
-	$con->writePosition($con->pos = new Position(0.0, 16.0, 0.0));
+	$con->writePosition($con->pos = new Point3D(0.0, 16.0, 0.0));
 	$con->send();
 	$con->teleport($con->pos);
 	$con->startPacket("update_time");

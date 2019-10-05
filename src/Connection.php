@@ -178,10 +178,10 @@ class Connection
 	/**
 	 * Adds a position encoded as one long to the write buffer.
 	 *
-	 * @param Position $pos
+	 * @param Point3D $pos
 	 * @return Connection $this
 	 */
-	function writePosition(Position $pos): Connection
+	function writePosition(Point3D $pos): Connection
 	{
 		if($this->protocol_version < 472)
 		{
@@ -236,10 +236,10 @@ class Connection
 	/**
 	 * Adds a position encoded as three double to the write buffer.
 	 *
-	 * @param Position $pos
+	 * @param Point3D $pos
 	 * @return Connection $this
 	 */
-	function writePrecisePosition(Position $pos): Connection
+	function writePrecisePosition(Point3D $pos): Connection
 	{
 		$this->writeDouble($pos->x);
 		$this->writeDouble($pos->y);
@@ -261,10 +261,10 @@ class Connection
 	/**
 	 * Adds a position encoded as three ints to the write buffer.
 	 *
-	 * @param Position $pos
+	 * @param Point3D $pos
 	 * @return Connection $this
 	 */
-	function writeFixedPointPosition(Position $pos): Connection
+	function writeFixedPointPosition(Point3D $pos): Connection
 	{
 		$this->writeInt(intval($pos->x * 32));
 		$this->writeInt(intval($pos->y * 32));
@@ -701,21 +701,21 @@ class Connection
 	/**
 	 * Reads a position encoded as one long from the read buffer.
 	 *
-	 * @return Position
+	 * @return Point3D
 	 * @throws IOException When there are not enough bytes to read a position.
 	 */
-	function readPosition(): Position
+	function readPosition(): Point3D
 	{
 		$val = $this->readLong();
 		$pow_2_38 = gmp_pow(2, 38);
 		if($this->protocol_version < 472)
 		{
-			return new Position(gmp_intval(gmp_div($val, $pow_2_38)), // $val >> 38
+			return new Point3D(gmp_intval(gmp_div($val, $pow_2_38)), // $val >> 38
 				gmp_intval(gmp_and(gmp_div($val, gmp_pow(2, 26)), 0xFFF)), // ($val >> 26) & 0xFFF
 				gmp_intval(gmp_div(gmp_mul($val, $pow_2_38), $pow_2_38)) // $val << 38 >> 38;
 			);
 		}
-		return new Position(gmp_intval(gmp_div($val, $pow_2_38)), // $val >> 38
+		return new Point3D(gmp_intval(gmp_div($val, $pow_2_38)), // $val >> 38
 			gmp_intval(gmp_and($val, 0xFFF)), // $val & 0xFFF
 			gmp_intval(gmp_div(gmp_mul($val, gmp_pow(2, 26)), $pow_2_38)) // $val << 26 >> 38;
 		);
@@ -758,12 +758,12 @@ class Connection
 	/**
 	 * Reads a position encoded as three doubles from the read buffer.
 	 *
-	 * @return Position
+	 * @return Point3D
 	 * @throws IOException When there are not enough bytes to read a position.
 	 */
-	function readPrecisePosition(): Position
+	function readPrecisePosition(): Point3D
 	{
-		return new Position($this->readDouble(), $this->readDouble(), $this->readDouble());
+		return new Point3D($this->readDouble(), $this->readDouble(), $this->readDouble());
 	}
 
 	/**
@@ -786,12 +786,12 @@ class Connection
 	/**
 	 * Reads a position encoded as three ints from the read buffer.
 	 *
-	 * @return Position
+	 * @return Point3D
 	 * @throws IOException When there are not enough bytes to read a position.
 	 */
-	function readFixedPointPosition(): Position
+	function readFixedPointPosition(): Point3D
 	{
-		return new Position(gmp_intval($this->readInt()) / 32, gmp_intval($this->readInt()) / 32, gmp_intval($this->readInt()) / 32);
+		return new Point3D(gmp_intval($this->readInt()) / 32, gmp_intval($this->readInt()) / 32, gmp_intval($this->readInt()) / 32);
 	}
 
 	/**

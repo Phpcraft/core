@@ -67,7 +67,7 @@ class ClientConnection extends Connection implements CommandSender
 	/**
 	 * The client's position.
 	 *
-	 * @var Position $pos
+	 * @var Point3D $pos
 	 */
 	public $pos;
 	/**
@@ -417,13 +417,13 @@ class ClientConnection extends Connection implements CommandSender
 	/**
 	 * Teleports the client to the given position, and optionally, changes their rotation.
 	 *
-	 * @param Position $pos
+	 * @param Point3D $pos
 	 * @param integer|null $yaw
 	 * @param integer|null $pitch
 	 * @return ClientConnection $this
 	 * @throws IOException
 	 */
-	function teleport(Position $pos, $yaw = null, $pitch = null): ClientConnection
+	function teleport(Point3D $pos, $yaw = null, $pitch = null): ClientConnection
 	{
 		$this->pos = $pos;
 		$this->chunk_x = ceil($pos->x / 16);
@@ -596,7 +596,7 @@ class ClientConnection extends Connection implements CommandSender
 	}
 
 	/**
-	 * @return Position|null
+	 * @return Point3D|null
 	 */
 	function getPosition()
 	{

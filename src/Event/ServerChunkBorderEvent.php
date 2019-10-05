@@ -1,8 +1,7 @@
 <?php
 namespace Phpcraft\Event;
-use Phpcraft\ClientConnection;
-use Phpcraft\Position;
-use Phpcraft\Server;
+use Phpcraft\
+{ClientConnection, Point3D, Server};
 /** Fired when a client crosses a chunk border. */
 class ServerChunkBorderEvent extends ServerMovementEvent
 {
@@ -22,7 +21,7 @@ class ServerChunkBorderEvent extends ServerMovementEvent
 	/**
 	 * @param Server $server
 	 * @param ClientConnection $client
-	 * @param Position|null $prev_pos
+	 * @param Point3D|null $prev_pos
 	 * @param int|null $prev_chunk_x
 	 * @param int|null $prev_chunk_z
 	 */

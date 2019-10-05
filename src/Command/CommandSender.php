@@ -1,7 +1,7 @@
 <?php
 namespace Phpcraft\Command;
 use Phpcraft\
-{Position, Server};
+{Point3D, Server};
 interface CommandSender
 {
 	function getName(): string;
@@ -28,7 +28,7 @@ interface CommandSender
 	function hasPosition(): bool;
 
 	/**
-	 * @return Position|null
+	 * @return Point3D|null
 	 */
 	function getPosition();
 }

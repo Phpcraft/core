@@ -2,7 +2,7 @@
 namespace Phpcraft\Packet;
 use hellsh\UUID;
 use Phpcraft\
-{Connection, EntityBase, EntityMetadata, EntityType, Exception\IOException, Position};
+{Connection, EntityBase, EntityMetadata, EntityType, Exception\IOException, Point3D};
 class SpawnMobPacket extends Packet
 {
 	/**
@@ -26,7 +26,7 @@ class SpawnMobPacket extends Packet
 	/**
 	 * The position of the mob.
 	 *
-	 * @var Position $pos
+	 * @var Point3D $pos
 	 */
 	public $pos;
 	/**

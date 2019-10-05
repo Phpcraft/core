@@ -11,7 +11,7 @@ if(@$argv[1] == "help")
 }
 require "vendor/autoload.php";
 use Phpcraft\
-{Account, ClientConnection, Command\Command, Connection, Enum\Difficulty, Enum\Dimension, Enum\Gamemode, Event\ProxyClientPacketEvent, Event\ProxyJoinEvent, Event\ProxyServerPacketEvent, Event\ProxyTickEvent, Packet\ClientboundPacket, Packet\JoinGamePacket, Packet\KeepAliveRequestPacket, Packet\ServerboundPacket, PluginManager, Position, Server, ServerConnection, Versions};
+{Account, ClientConnection, Command\Command, Connection, Enum\Difficulty, Enum\Dimension, Enum\Gamemode, Event\ProxyClientPacketEvent, Event\ProxyJoinEvent, Event\ProxyServerPacketEvent, Event\ProxyTickEvent, Packet\ClientboundPacket, Packet\JoinGamePacket, Packet\KeepAliveRequestPacket, Packet\ServerboundPacket, PluginManager, Point3D, Server, ServerConnection, Versions};
 $stdin = fopen("php://stdin", "r") or die("Failed to open php://stdin\n");
 stream_set_blocking($stdin, true);
 if(empty($argv[1]))
@@ -83,7 +83,7 @@ $server->join_function = function(ClientConnection $con)
 	$packet->difficulty = Difficulty::PEACEFUL;
 	$packet->send($con);
 	$con->startPacket("spawn_position");
-	$con->writePosition(new Position(0, 100, 0));
+	$con->writePosition(new Point3D(0, 100, 0));
 	$con->send();
 	$con->startPacket("teleport");
 	$con->writeDouble(0);
