@@ -301,8 +301,8 @@ $server->packet_function = function(ClientConnection $con, ServerboundPacket $pa
 				$con->teleport($prev_pos);
 				return;
 			}
-			$chunk_x = round($con->pos->x / 16);
-			$chunk_z = round($con->pos->z / 16);
+			$chunk_x = ceil($con->pos->x / 16);
+			$chunk_z = ceil($con->pos->z / 16);
 			if($chunk_x != $con->chunk_x || $chunk_z != $con->chunk_z)
 			{
 				$prev_chunk_x = $con->chunk_x;

@@ -426,8 +426,8 @@ class ClientConnection extends Connection implements CommandSender
 	function teleport(Position $pos, $yaw = null, $pitch = null): ClientConnection
 	{
 		$this->pos = $pos;
-		$this->chunk_x = round($pos->x / 16);
-		$this->chunk_z = round($pos->x / 16);
+		$this->chunk_x = ceil($pos->x / 16);
+		$this->chunk_z = ceil($pos->x / 16);
 		if($yaw !== null)
 		{
 			$this->yaw = $yaw;
