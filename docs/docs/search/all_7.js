@@ -10,6 +10,7 @@ var searchData=
   ['format_5fhtml',['FORMAT_HTML',['../classPhpcraft_1_1Phpcraft.html#a2fb3f363344ee5000add61bd17693771',1,'Phpcraft::Phpcraft']]],
   ['format_5fnone',['FORMAT_NONE',['../classPhpcraft_1_1Phpcraft.html#a711cebd92edfd78135b128d4585e178b',1,'Phpcraft::Phpcraft']]],
   ['format_5fsilcrow',['FORMAT_SILCROW',['../classPhpcraft_1_1Phpcraft.html#aadecd1d7bb833a1504b554eea41df74b',1,'Phpcraft::Phpcraft']]],
+  ['forward',['forward',['../classPhpcraft_1_1Point3D.html#a40003e3f1d665c1b820e2ea80803dc1e',1,'Phpcraft::Point3D']]],
   ['fromminecraftversion',['fromMinecraftVersion',['../classPhpcraft_1_1AssetsManager.html#a37b69586a1ec2cd6015d43f549ca4b40',1,'Phpcraft::AssetsManager']]],
   ['fromsnbt',['fromSNBT',['../classPhpcraft_1_1Nbt_1_1NbtTag.html#a249d8381b1a2ed853dbcf0153330789c',1,'Phpcraft::Nbt::NbtTag']]],
   ['fromstring',['fromString',['../classPhpcraft_1_1Nbt_1_1NbtTag.html#a5bf9ffca0ccb9061d01602ebbb7360ed',1,'Phpcraft::Nbt::NbtTag']]]
