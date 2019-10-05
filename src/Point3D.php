@@ -28,11 +28,6 @@ class Point3D
 		return new Point3D($this->x + $b->x, $this->y + $b->y, $this->z + $b->z);
 	}
 
-	function subtract(Point3D $b): Point3D
-	{
-		return new Point3D($this->x - $b->x, $this->y - $b->y, $this->z - $b->z);
-	}
-
 	function multiply(Point3D $b): Point3D
 	{
 		return new Point3D($this->x * $b->x, $this->y * $b->y, $this->z * $b->z);
@@ -41,6 +36,17 @@ class Point3D
 	function distance(Point3D $dest): float
 	{
 		return sqrt(pow($this->x - $dest->x, 2) + pow($this->y - $dest->y, 2) + pow($this->z - $dest->z, 2));
+	}
+
+	function forward(int $distance, float $yaw, float $pitch): Point3D
+	{
+		$y_perc = 100 / 90 * (90 - abs($pitch)) / 100;
+		return $this->subtract(new Point3D(cos((pi() / 180 * ($yaw - 90))) * $y_perc * $distance, 100 / 90 * $pitch / 100 * $distance, sin((pi() / 180 * ($yaw - 90))) * $y_perc * $distance));
+	}
+
+	function subtract(Point3D $b): Point3D
+	{
+		return new Point3D($this->x - $b->x, $this->y - $b->y, $this->z - $b->z);
 	}
 
 	function __toString()
