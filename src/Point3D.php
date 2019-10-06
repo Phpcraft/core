@@ -45,6 +45,27 @@ class Point3D
 		return new Point3D($this->x + $b->x, $this->y + $b->y, $this->z + $b->z);
 	}
 
+	/**
+	 * @param Point3D $b
+	 * @return float[] Yaw & pitch
+	 */
+	function lookAt(Point3D $b): array
+	{
+		$dx = $b->x - $this->x;
+		$dy = $b->y - $this->y;
+		$dz = $b->z - $this->z;
+		$yaw = -atan2($dx, $dz) / pi() * 180;
+		if($yaw < 0)
+		{
+			$yaw += 360;
+		}
+		$pitch = -asin($dy / sqrt($dx * $dx + $dy * $dy + $dz * $dz)) / pi() * 180;
+		return [
+			$yaw,
+			$pitch
+		];
+	}
+
 	function subtract(Point3D $b): Point3D
 	{
 		return new Point3D($this->x - $b->x, $this->y - $b->y, $this->z - $b->z);
