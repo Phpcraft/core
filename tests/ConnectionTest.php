@@ -1,6 +1,7 @@
 <?php /** @noinspection PhpUnused PhpUnhandledExceptionInspection */
 require_once __DIR__."/../vendor/autoload.php";
-use Phpcraft\Connection;
+use Phpcraft\
+{Connection, Point3D};
 class ConnectionTest
 {
 	function testReadAndWriteInts()
@@ -92,5 +93,29 @@ class ConnectionTest
 		Nose::assertEquals(["text" => "Hi"], $con->readChat());
 		Nose::assertEquals($chat, $con->readChat());
 		Nose::assertEquals("", $con->read_buffer);
+	}
+
+	function testReadAndWritePosition()
+	{
+		foreach([47, 472] as $pv)
+		{
+			$con = new Connection($pv);
+			for($x = -3; $x <= 3; $x++)
+			{
+				for($y = -3; $y <= 3; $y++)
+				{
+					for($z = -3; $z <= 3; $z++)
+					{
+						$pos = new Point3D($x, $y, $z);
+						$con->writePosition($pos);
+						$con->read_buffer = $con->write_buffer;
+						$con->write_buffer = "";
+						$pos_ = $con->readPosition();
+						Nose::assertEquals($con->read_buffer, "");
+						Nose::assertTrue($pos->equals($pos_));
+					}
+				}
+			}
+		}
 	}
 }

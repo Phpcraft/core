@@ -40,13 +40,44 @@ class Point3D
 
 	function forward(int $distance, float $yaw, float $pitch): Point3D
 	{
-		$y_perc = 100 / 90 * (90 - abs($pitch)) / 100;
-		return $this->subtract(new Point3D(cos((pi() / 180 * ($yaw - 90))) * $y_perc * $distance, 100 / 90 * $pitch / 100 * $distance, sin((pi() / 180 * ($yaw - 90))) * $y_perc * $distance));
+		$x = (pi() / 180 * ($yaw - 90));
+		$factor = 100 / 90 * (90 - abs($pitch)) / 100 * $distance;
+		return $this->subtract(new Point3D(cos($x) * $factor, 100 / 90 * $pitch / 100 * $distance, sin($x) * $factor));
 	}
 
 	function subtract(Point3D $b): Point3D
 	{
 		return new Point3D($this->x - $b->x, $this->y - $b->y, $this->z - $b->z);
+	}
+
+	function floor(): Point3D
+	{
+		return new Point3D(floor($this->x), floor($this->y), floor($this->z));
+	}
+
+	function round(): Point3D
+	{
+		return new Point3D(round($this->x), round($this->y), round($this->z));
+	}
+
+	function ceil(): Point3D
+	{
+		return new Point3D(ceil($this->x), ceil($this->y), ceil($this->z));
+	}
+
+	/**
+	 * Floors all axes and adds 0.5.
+	 *
+	 * @return Point3D
+	 */
+	function block(): Point3D
+	{
+		return new Point3D(floor($this->x), floor($this->y), floor($this->z));
+	}
+
+	function equals(Point3D $b): bool
+	{
+		return $this->x == $b->x && $this->y == $b->y && $this->z == $b->z;
 	}
 
 	function __toString()

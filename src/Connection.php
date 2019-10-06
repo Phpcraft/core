@@ -183,11 +183,18 @@ class Connection
 	 */
 	function writePosition(Point3D $pos): Connection
 	{
+		$long = gmp_mul(gmp_and(intval($pos->x), 0x3FFFFFF), gmp_pow(2, 38)); // $long = ($pos->x & 0x3FFFFFF) << 38;
 		if($this->protocol_version < 472)
 		{
-			return $this->writeLong((($pos->x & 0x3FFFFFF) << 38) | (($pos->y & 0xFFF) << 26) | ($pos->z & 0x3FFFFFF));
+			$long = gmp_or($long, gmp_mul(gmp_and(intval($pos->y), 0xFFF), gmp_pow(2, 26))); // $long |= ($pos->y & 0xFFF) << 26;
+			$long = gmp_or($long, gmp_and(intval($pos->z), 0x3FFFFFF)); // $long |= ($pos->z & 0x3FFFFFF);
 		}
-		return $this->writeLong((($pos->x & 0x3FFFFFF) << 38) | (($pos->z & 0x3FFFFFF) << 21) | ($pos->y & 0xFFF));
+		else
+		{
+			$long = gmp_or($long, gmp_mul(gmp_and(intval($pos->z), 0x3FFFFFF), gmp_pow(2, 12))); // $long |= ($pos->z & 0x3FFFFFF) << 12;
+			$long = gmp_or($long, gmp_and(intval($pos->y), 0xFFF)); // $long |= ($pos->y & 0xFFF);
+		}
+		return $this->writeLong($long);
 	}
 
 	/**
@@ -728,18 +735,22 @@ class Connection
 	 */
 	function readPosition(): Point3D
 	{
-		$val = $this->readLong();
-		$pow_2_38 = gmp_pow(2, 38);
+		$long = $this->readLong();
+		$x = gmp_div($long, gmp_pow(2, 38)); // $long >> 38
 		if($this->protocol_version < 472)
 		{
-			return new Point3D(gmp_intval(gmp_div($val, $pow_2_38)), // $val >> 38
-				gmp_intval(gmp_and(gmp_div($val, gmp_pow(2, 26)), 0xFFF)), // ($val >> 26) & 0xFFF
-				gmp_intval(gmp_div(gmp_mul($val, $pow_2_38), $pow_2_38)) // $val << 38 >> 38;
-			);
+			$y = gmp_and(gmp_div($long, gmp_pow(2, 26)), 0xFFF); // ($long >> 26) & 0xFFF
+			$z = gmp_and($long, 0x3FFFFFF);
 		}
-		return new Point3D(gmp_intval(gmp_div($val, $pow_2_38)), // $val >> 38
-			gmp_intval(gmp_and($val, 0xFFF)), // $val & 0xFFF
-			gmp_intval(gmp_div(gmp_mul($val, gmp_pow(2, 26)), $pow_2_38)) // $val << 26 >> 38;
+		else
+		{
+			$y = gmp_and($long, 0xFFF); // $long & 0xFFF
+			$z = gmp_and(gmp_div($long, gmp_pow(2, 12)), 0x3FFFFFF);
+		}
+		return new Point3D(
+			gmp_intval(self::signNumber($x, 26)),
+			gmp_intval(self::signNumber($y, 12)),
+			gmp_intval(self::signNumber($z, 26))
 		);
 	}
 
