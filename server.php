@@ -366,6 +366,31 @@ $server->packet_function = function(ClientConnection $con, ServerboundPacket $pa
 			PluginManager::fire(new ServerOnGroundChangeEvent($server, $con, $_on_ground));
 		}
 	}
+	else if($packetId->name == "entity_action")
+	{
+		if($con->readVarInt() != $con->eid)
+		{
+			throw new IOException("Entity ID mismatch in Entity Action packet");
+		}
+		switch($con->readByte())
+		{
+			case 0:
+				$con->entityMetadata->crouching = true;
+				break;
+
+			case 1:
+				$con->entityMetadata->crouching = false;
+				break;
+
+			case 3:
+				$con->entityMetadata->sprinting = true;
+				break;
+
+			case 4:
+				$con->entityMetadata->sprinting = false;
+				break;
+		}
+	}
 	else if($packetId->name == "serverbound_abilities")
 	{
 		$flags = $con->readByte();
