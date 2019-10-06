@@ -49,7 +49,7 @@ class EntityBase extends EntityMetadata
 	 */
 	function write(Connection $con)
 	{
-		if($this->burning !== null || $this->crouching !== null || $this->sprinting !== null || $this->invisible !== null)
+		if($this->burning !== null || $this->crouching !== null || $this->sprinting !== null || $this->swimming !== null || $this->invisible !== null || $this->glowing !== null || $this->elytraing !== null)
 		{
 			$byte = 0;
 			if($this->burning)

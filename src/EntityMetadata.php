@@ -17,7 +17,7 @@ abstract class EntityMetadata
 		$con->writeByte($index);
 		if($con->protocol_version >= 57)
 		{
-			$con->writeByte(1);
+			$con->writeByte(0);
 		}
 		$con->writeByte($value);
 	}
