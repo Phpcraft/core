@@ -101,6 +101,11 @@ class Point3D
 		return $this->x == $b->x && $this->y == $b->y && $this->z == $b->z;
 	}
 
+	function invert(): Point3D
+	{
+		return new Point3D($this->x * -1, $this->y * -1, $this->z * -1);
+	}
+
 	function __toString()
 	{
 		return "{Point3D: ".$this->x." ".$this->y." ".$this->z."}";
