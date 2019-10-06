@@ -11,8 +11,7 @@ if(PluginManager::$command_prefix == "/proxy:")
 	$this->unregister();
 	return;
 }
-$plugin = $this;
-$this->on(function(ServerJoinEvent $event) use (&$plugin)
+$this->on(function(ServerJoinEvent $event)
 {
 	if($event->cancelled)
 	{
@@ -50,7 +49,7 @@ $this->on(function(ServerJoinEvent $event) use (&$plugin)
 		$con->sendMessage("Use /grass, /stone, and /grass_stone to §ochange the world§r.");
 	}
 	$con->chunk_preference = "\x00\x01";
-	$plugin->fire(new ServerChunkBorderEvent($event->server, $con));
+	$this->fire(new ServerChunkBorderEvent($event->server, $con));
 }, Event::PRIORITY_NORMAL)
 	 ->registerCommand("grass", function(CommandSender &$client)
 	 {
@@ -60,6 +59,8 @@ $this->on(function(ServerJoinEvent $event) use (&$plugin)
 			 return;
 		 }
 		 $client->chunk_preference = "\x00\x00";
+		 $client->chunks = [];
+		 $this->fire(new ServerChunkBorderEvent($client->getServer(), $client));
 	 }, "change the world")
 	 ->registerCommand("stone", function(CommandSender &$client)
 	 {
@@ -69,6 +70,8 @@ $this->on(function(ServerJoinEvent $event) use (&$plugin)
 			 return;
 		 }
 		 $client->chunk_preference = "\x01\x01";
+		 $client->chunks = [];
+		 $this->fire(new ServerChunkBorderEvent($client->getServer(), $client));
 	 }, "change the world")
 	 ->registerCommand("grass_stone", function(CommandSender &$client)
 	 {
@@ -78,6 +81,8 @@ $this->on(function(ServerJoinEvent $event) use (&$plugin)
 			 return;
 		 }
 		 $client->chunk_preference = "\x00\x01";
+		 $client->chunks = [];
+		 $this->fire(new ServerChunkBorderEvent($client->getServer(), $client));
 	 }, "change the world")
 	 ->on(function(ServerChunkBorderEvent $event)
 	 {
