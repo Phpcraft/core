@@ -66,7 +66,7 @@ class Point3D
 	}
 
 	/**
-	 * Floors all axes and adds 0.5.
+	 * Floors all axes and adds 0.5 to the X & Z axes.
 	 *
 	 * @return Point3D
 	 */
