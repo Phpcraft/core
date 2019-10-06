@@ -747,11 +747,7 @@ class Connection
 			$y = gmp_and($long, 0xFFF); // $long & 0xFFF
 			$z = gmp_and(gmp_div($long, gmp_pow(2, 12)), 0x3FFFFFF);
 		}
-		return new Point3D(
-			gmp_intval(self::signNumber($x, 26)),
-			gmp_intval(self::signNumber($y, 12)),
-			gmp_intval(self::signNumber($z, 26))
-		);
+		return new Point3D(gmp_intval(self::signNumber($x, 26)), gmp_intval(self::signNumber($y, 12)), gmp_intval(self::signNumber($z, 26)));
 	}
 
 	/**

@@ -377,15 +377,12 @@ $server->packet_function = function(ClientConnection $con, ServerboundPacket $pa
 			case 0:
 				$con->entityMetadata->crouching = true;
 				break;
-
 			case 1:
 				$con->entityMetadata->crouching = false;
 				break;
-
 			case 3:
 				$con->entityMetadata->sprinting = true;
 				break;
-
 			case 4:
 				$con->entityMetadata->sprinting = false;
 				break;

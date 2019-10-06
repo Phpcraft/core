@@ -97,7 +97,10 @@ class ConnectionTest
 
 	function testReadAndWritePosition()
 	{
-		foreach([47, 472] as $pv)
+		foreach([
+			47,
+			472
+		] as $pv)
 		{
 			$con = new Connection($pv);
 			for($x = -3; $x <= 3; $x++)
