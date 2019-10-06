@@ -72,7 +72,7 @@ class Point3D
 	 */
 	function block(): Point3D
 	{
-		return new Point3D(floor($this->x) + 0.5, floor($this->y) + 0.5, floor($this->z) + 0.5);
+		return new Point3D(floor($this->x) + 0.5, floor($this->y), floor($this->z) + 0.5);
 	}
 
 	function equals(Point3D $b): bool
