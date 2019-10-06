@@ -1,8 +1,8 @@
 var searchData=
 [
-  ['parsesnbtarray',['parseSNBTArray',['../classPhpcraft_1_1Nbt_1_1NbtTag.html#ab930f3ac5d90def9d2d968e1dd5594a6',1,'Phpcraft::Nbt::NbtTag']]],
-  ['protocol',['protocol',['../classPhpcraft_1_1Versions.html#a73793df0732a6fa34de9d40ff508c63e',1,'Phpcraft::Versions']]],
-  ['protocolsupported',['protocolSupported',['../classPhpcraft_1_1Versions.html#aa87888e8af901fb50fc99277b2142029',1,'Phpcraft::Versions']]],
-  ['protocoltominecraft',['protocolToMinecraft',['../classPhpcraft_1_1Versions.html#a69d76a4e85df598f4fb2b74e2acdf4da',1,'Phpcraft::Versions']]],
-  ['protocoltorange',['protocolToRange',['../classPhpcraft_1_1Versions.html#affc3642cccf0684afbe1314e92e03890',1,'Phpcraft::Versions']]]
+  ['offsetexists',['offsetExists',['../classPhpcraft_1_1Configuration.html#aee8242262de6c426552c0b3fa5708406',1,'Phpcraft\Configuration\offsetExists()'],['../classPhpcraft_1_1Nbt_1_1NbtCompound.html#a2ab01693434ee39b3741d180f6eb9bdc',1,'Phpcraft\Nbt\NbtCompound\offsetExists()'],['../classPhpcraft_1_1Nbt_1_1NbtListTag.html#ae650de90eef32b831a294af7e1f76f6d',1,'Phpcraft\Nbt\NbtListTag\offsetExists()']]],
+  ['offsetget',['offsetGet',['../classPhpcraft_1_1Configuration.html#adba467a222e71a5e52e8ca6a5f6354fa',1,'Phpcraft\Configuration\offsetGet()'],['../classPhpcraft_1_1Nbt_1_1NbtCompound.html#a576c415376a5378e3f6471c0f1140b44',1,'Phpcraft\Nbt\NbtCompound\offsetGet()'],['../classPhpcraft_1_1Nbt_1_1NbtListTag.html#ac640d7197f39d9602907ee483ea9d7e1',1,'Phpcraft\Nbt\NbtListTag\offsetGet()']]],
+  ['offsetset',['offsetSet',['../classPhpcraft_1_1Configuration.html#a2d2264916460aa1c840f127f9d37a1c1',1,'Phpcraft\Configuration\offsetSet()'],['../classPhpcraft_1_1Nbt_1_1NbtCompound.html#a24c0c0cc63c25addd19ad2cee891dfa1',1,'Phpcraft\Nbt\NbtCompound\offsetSet()'],['../classPhpcraft_1_1Nbt_1_1NbtListTag.html#a6457d01539d654daf38178c30516c16d',1,'Phpcraft\Nbt\NbtListTag\offsetSet()']]],
+  ['offsetunset',['offsetUnset',['../classPhpcraft_1_1Configuration.html#af2617c0abca4b572a4178d6a6a000bc6',1,'Phpcraft\Configuration\offsetUnset()'],['../classPhpcraft_1_1Nbt_1_1NbtCompound.html#ab1a04542a2af09f515756463a1afb222',1,'Phpcraft\Nbt\NbtCompound\offsetUnset()'],['../classPhpcraft_1_1Nbt_1_1NbtListTag.html#a7e33a3a48ee629ae19fb2c272cb145b8',1,'Phpcraft\Nbt\NbtListTag\offsetUnset()']]],
+  ['on',['on',['../classPhpcraft_1_1Plugin.html#a83856a2a2b1951a8573352b536578f96',1,'Phpcraft::Plugin']]]
 ];

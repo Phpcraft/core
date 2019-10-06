@@ -12,6 +12,7 @@ var searchData=
   ['getcolorid',['getColorId',['../classPhpcraft_1_1Packet_1_1MapData_1_1MapDataPacket.html#adf6641a7880c0602cdd2a9e12f4e0c16',1,'Phpcraft::Packet::MapData::MapDataPacket']]],
   ['getdefaultvalue',['getDefaultValue',['../classPhpcraft_1_1BlockProperty.html#ae44405c02c5927dca3e313e4eee447b8',1,'Phpcraft::BlockProperty']]],
   ['getdisplayname',['getDisplayName',['../classPhpcraft_1_1Slot.html#a1c809a50269c8c74cc8ac44d8a95bc56',1,'Phpcraft::Slot']]],
+  ['geteyeposition',['getEyePosition',['../classPhpcraft_1_1ClientConnection.html#a607f23f9a785052d7b84f148ddf13e29',1,'Phpcraft::ClientConnection']]],
   ['getgroup',['getGroup',['../classPhpcraft_1_1ClientConfiguration.html#a110f1877912f3bfc314012021aa8b89c',1,'Phpcraft\ClientConfiguration\getGroup()'],['../classPhpcraft_1_1Server.html#aab6fe1f0ea5be4e48c239c9ec872fe62',1,'Phpcraft\Server\getGroup()']]],
   ['getgroupname',['getGroupName',['../classPhpcraft_1_1ClientConfiguration.html#ad70e5441f99a424abf0bac1ac432d86a',1,'Phpcraft::ClientConfiguration']]],
   ['gethost',['getHost',['../classPhpcraft_1_1ClientConnection.html#a0bc689bdd17c4aa9eba4721423645a74',1,'Phpcraft::ClientConnection']]],

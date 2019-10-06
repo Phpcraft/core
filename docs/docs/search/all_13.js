@@ -33,5 +33,6 @@ var searchData=
   ['resolve',['resolve',['../classPhpcraft_1_1Phpcraft.html#aa55d0acee3de518a9075d433d396c344',1,'Phpcraft::Phpcraft']]],
   ['rewind',['rewind',['../classPhpcraft_1_1Configuration.html#aca1478f7934ed0d462b17bf3d42500da',1,'Phpcraft\Configuration\rewind()'],['../classPhpcraft_1_1Nbt_1_1NbtCompound.html#a581113c0bac1af1f4543f9e26bc821f9',1,'Phpcraft\Nbt\NbtCompound\rewind()'],['../classPhpcraft_1_1Nbt_1_1NbtListTag.html#aefd53dc1baead1dba7d17e7bdd43fd41',1,'Phpcraft\Nbt\NbtListTag\rewind()']]],
   ['rootnode',['RootNode',['../classPhpcraft_1_1Packet_1_1DeclareCommands_1_1RootNode.html',1,'Phpcraft::Packet::DeclareCommands']]],
-  ['rotate',['rotate',['../classPhpcraft_1_1ClientConnection.html#abf2cdf1ffca54c2d675e502226d204c0',1,'Phpcraft::ClientConnection']]]
+  ['rotate',['rotate',['../classPhpcraft_1_1ClientConnection.html#abf2cdf1ffca54c2d675e502226d204c0',1,'Phpcraft::ClientConnection']]],
+  ['round',['round',['../classPhpcraft_1_1Point3D.html#acb372666519b1cf22b3ee03c27bc0f36',1,'Phpcraft::Point3D']]]
 ];

@@ -6,5 +6,6 @@ var searchData=
   ['entityliving',['EntityLiving',['../classPhpcraft_1_1EntityLiving.html',1,'Phpcraft']]],
   ['entitymetadata',['EntityMetadata',['../classPhpcraft_1_1EntityMetadata.html',1,'Phpcraft']]],
   ['entitytype',['EntityType',['../classPhpcraft_1_1EntityType.html',1,'Phpcraft']]],
+  ['equals',['equals',['../classPhpcraft_1_1Point3D.html#a66d84ec799a06d364c2461dec5ad5dff',1,'Phpcraft::Point3D']]],
   ['event',['Event',['../classPhpcraft_1_1Event_1_1Event.html',1,'Phpcraft::Event']]]
 ];

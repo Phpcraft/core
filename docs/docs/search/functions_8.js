@@ -1,14 +1,16 @@
 var searchData=
 [
-  ['ignorebytes',['ignoreBytes',['../classPhpcraft_1_1Connection.html#a71e8f4620ff451e580d3a72c3beb5a8b',1,'Phpcraft::Connection']]],
-  ['indentstring',['indentString',['../classPhpcraft_1_1Nbt_1_1NbtTag.html#a69380c3a35050c51b85c7e8fa3c5af02',1,'Phpcraft::Nbt::NbtTag']]],
-  ['init',['init',['../classPhpcraft_1_1PacketId.html#abcdf0ac9edac2a40d1576fd4af609f9b',1,'Phpcraft::PacketId']]],
-  ['isauthenticationpending',['isAuthenticationPending',['../classPhpcraft_1_1ClientConnection.html#a6d87e1f33d819184fcb64f08652c4afc',1,'Phpcraft::ClientConnection']]],
-  ['isempty',['isEmpty',['../classPhpcraft_1_1Slot.html#ab90ef5995ffeccc0be5a58fbb31337c3',1,'Phpcraft::Slot']]],
-  ['isfinished',['isFinished',['../classPhpcraft_1_1Command_1_1ArgumentProvider.html#ac50f1c4d88e225a503e5f177aac7c8a5',1,'Phpcraft\Command\ArgumentProvider\isFinished()'],['../classPhpcraft_1_1Command_1_1QuotedStringProvider.html#acaa10a6be1b968bfcbc1a113901624c9',1,'Phpcraft\Command\QuotedStringProvider\isFinished()']]],
-  ['isonline',['isOnline',['../classPhpcraft_1_1Account.html#a6f7df18e660e7643779a467352f3da56',1,'Phpcraft\Account\isOnline()'],['../classPhpcraft_1_1ClientConfiguration.html#a1759e6a48e6792e9e3559240951e98eb',1,'Phpcraft\ClientConfiguration\isOnline()']]],
-  ['isonlinemode',['isOnlineMode',['../classPhpcraft_1_1Server.html#a80c0df387dc345950a7599b800bf27c9',1,'Phpcraft::Server']]],
-  ['isopen',['isOpen',['../classPhpcraft_1_1Connection.html#a97d64586a07790901e0e9dc83a9cfd66',1,'Phpcraft\Connection\isOpen()'],['../classPhpcraft_1_1Server.html#a75d9cf1effa434c6ec3f967eb97c6254',1,'Phpcraft\Server\isOpen()']]],
-  ['isvalidbarestring',['isValidBareString',['../classPhpcraft_1_1Nbt_1_1NbtTag.html#af3d1fcbb33919d8dad434530d7d01875',1,'Phpcraft::Nbt::NbtTag']]],
-  ['iswindows',['isWindows',['../classPhpcraft_1_1Phpcraft.html#a5e7739b3a11a57b71a05ecb4b0648d31',1,'Phpcraft::Phpcraft']]]
+  ['handle',['handle',['../classPhpcraft_1_1Server.html#a4f4c7ec689744dd6eed990527a773f00',1,'Phpcraft::Server']]],
+  ['handleauthentication',['handleAuthentication',['../classPhpcraft_1_1ClientConnection.html#a1863f864d45210aa52d15c75d959a135',1,'Phpcraft::ClientConnection']]],
+  ['handleencryptionresponse',['handleEncryptionResponse',['../classPhpcraft_1_1ClientConnection.html#ab8e7b8f299956acff9deabdcaf3aa3f0',1,'Phpcraft::ClientConnection']]],
+  ['handleinitialpacket',['handleInitialPacket',['../classPhpcraft_1_1ClientConnection.html#add6f1a7c934ae44ebebb25baf52f843d',1,'Phpcraft::ClientConnection']]],
+  ['handlemessage',['handleMessage',['../classPhpcraft_1_1Command_1_1Command.html#afb8f5f4b00bf598d82029425e4569477',1,'Phpcraft::Command::Command']]],
+  ['handlequeue',['handleQueue',['../classPhpcraft_1_1Configuration.html#a3f14d042d62828918455f865bfc6da6a',1,'Phpcraft::Configuration']]],
+  ['has',['has',['../classPhpcraft_1_1Configuration.html#a2fd73ea0824eb0a4901e69417baecadb',1,'Phpcraft::Configuration']]],
+  ['haschild',['hasChild',['../classPhpcraft_1_1Nbt_1_1NbtCompound.html#a6cc099be8c284b7a52e20459ec233106',1,'Phpcraft::Nbt::NbtCompound']]],
+  ['hasnbt',['hasNBT',['../classPhpcraft_1_1Slot.html#acc9a6853269f721a82a0bbe53616526e',1,'Phpcraft::Slot']]],
+  ['haspermission',['hasPermission',['../classPhpcraft_1_1ClientConfiguration.html#a5b41ab3b3468d1da9d446521e62b2c3c',1,'Phpcraft\ClientConfiguration\hasPermission()'],['../classPhpcraft_1_1ClientConnection.html#aa69108566360e397f65fb9033de94334',1,'Phpcraft\ClientConnection\hasPermission()'],['../classPhpcraft_1_1Command_1_1Command.html#a67cc508ff1e2cd214b9efde7a53c415b',1,'Phpcraft\Command\Command\hasPermission()'],['../interfacePhpcraft_1_1Command_1_1CommandSender.html#aea988402e6264dd90d6599b6cdb1cc06',1,'Phpcraft\Command\CommandSender\hasPermission()'],['../classPhpcraft_1_1Permission_1_1Group.html#a96b5729b487458bd07bcfd0e048dcf89',1,'Phpcraft\Permission\Group\hasPermission()'],['../classPhpcraft_1_1Server.html#a1a71c3b8c60fb7bdad95064c6c5cb4e4',1,'Phpcraft\Server\hasPermission()']]],
+  ['hasposition',['hasPosition',['../classPhpcraft_1_1ClientConnection.html#a76acae8a44a1666c02a4ddfb99e7ba34',1,'Phpcraft\ClientConnection\hasPosition()'],['../interfacePhpcraft_1_1Command_1_1CommandSender.html#aa412560e3e2834f59f9b5a3487ec3f41',1,'Phpcraft\Command\CommandSender\hasPosition()'],['../classPhpcraft_1_1Server.html#a95af9271a7dfd899791149960fe2bf58',1,'Phpcraft\Server\hasPosition()']]],
+  ['hasserver',['hasServer',['../classPhpcraft_1_1ClientConnection.html#a09fd4b907aec11f618c60c43a2640b67',1,'Phpcraft\ClientConnection\hasServer()'],['../interfacePhpcraft_1_1Command_1_1CommandSender.html#a5463b5a15a4f237cb6435cfca7c7b225',1,'Phpcraft\Command\CommandSender\hasServer()'],['../classPhpcraft_1_1Server.html#ab44f6c4eb6f22bdd5cf48ef7c0c7d2dc',1,'Phpcraft\Server\hasServer()']]],
+  ['httppost',['httpPOST',['../classPhpcraft_1_1Phpcraft.html#aeac27389b5091470360b68defe25d305',1,'Phpcraft::Phpcraft']]]
 ];

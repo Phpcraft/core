@@ -42,6 +42,7 @@ var searchData=
   ['_24eidcounter',['$eidCounter',['../classPhpcraft_1_1Server.html#af01b1599a936bc839de74e4927d94205',1,'Phpcraft::Server']]],
   ['_24eids',['$eids',['../classPhpcraft_1_1Packet_1_1DestroyEntitiesPacket.html#acc7bda28d56da57b2c4b74f071602ea2',1,'Phpcraft::Packet::DestroyEntitiesPacket']]],
   ['_24elytraing',['$elytraing',['../classPhpcraft_1_1EntityBase.html#af02539329d6b59a6a22b322fd02986fe',1,'Phpcraft::EntityBase']]],
+  ['_24entitymetadata',['$entityMetadata',['../classPhpcraft_1_1ClientConnection.html#a66d5c43d8954c76c88f1fa56d23e8230',1,'Phpcraft::ClientConnection']]],
   ['_24event_5fhandlers',['$event_handlers',['../classPhpcraft_1_1Plugin.html#a96c8ce36340ba14a975f26cf98580c68',1,'Phpcraft::Plugin']]],
   ['_24executable',['$executable',['../classPhpcraft_1_1Packet_1_1DeclareCommands_1_1Node.html#a6d44274ec38714e9e5aed04df01627bc',1,'Phpcraft::Packet::DeclareCommands::Node']]],
   ['_24expired',['$expired',['../classPhpcraft_1_1Realms_1_1Server.html#a734b6619d4cafebb14b81e28935abcaf',1,'Phpcraft::Realms::Server']]],
