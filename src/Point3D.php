@@ -23,11 +23,6 @@ class Point3D
 		$this->z = $z;
 	}
 
-	function add(Point3D $b): Point3D
-	{
-		return new Point3D($this->x + $b->x, $this->y + $b->y, $this->z + $b->z);
-	}
-
 	function multiply(Point3D $b): Point3D
 	{
 		return new Point3D($this->x * $b->x, $this->y * $b->y, $this->z * $b->z);
@@ -40,9 +35,14 @@ class Point3D
 
 	function forward(int $distance, float $yaw, float $pitch): Point3D
 	{
-		$x = (pi() / 180 * ($yaw - 90));
-		$factor = 100 / 90 * (90 - abs($pitch)) / 100 * $distance;
-		return $this->subtract(new Point3D(cos($x) * $factor, 100 / 90 * $pitch / 100 * $distance, sin($x) * $factor));
+		$x = pi() / 180 * $yaw;
+		$y = pi() / 180 * $pitch;
+		return $this->add(new Point3D(-cos($y) * sin($x) * $distance, -sin($y) * $distance, cos($y) * cos($x) * $distance));
+	}
+
+	function add(Point3D $b): Point3D
+	{
+		return new Point3D($this->x + $b->x, $this->y + $b->y, $this->z + $b->z);
 	}
 
 	function subtract(Point3D $b): Point3D
