@@ -19,7 +19,10 @@ $this->on(function(ProxyJoinEvent $event)
 		foreach(PluginManager::$registered_commands as $command)
 		{
 			assert($command instanceof Command);
-			$packet->addCommand($command, $prefix);
+			if($command->isUsableBy($event->client))
+			{
+				$packet->addCommand($command, $prefix);
+			}
 		}
 		$packet->send($event->client);
 	}

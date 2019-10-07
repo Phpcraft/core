@@ -14,7 +14,7 @@ $this->registerCommand("help", function(CommandSender &$sender)
 	foreach(PluginManager::$registered_commands as $command)
 	{
 		assert($command instanceof Command);
-		if($command->hasPermission($sender))
+		if($command->isUsableBy($sender))
 		{
 			array_push($commands, $command->getSyntax());
 		}
@@ -24,13 +24,8 @@ $this->registerCommand("help", function(CommandSender &$sender)
 	 ->registerCommand([
 		 "gamemode",
 		 "gm"
-	 ], function(CommandSender &$client, GamemodeArgument $gamemode)
+	 ], function(ClientConnection &$client, GamemodeArgument $gamemode)
 	 {
-		 if(!$client instanceof ClientConnection)
-		 {
-			 $client->sendMessage("This command is only for players.");
-			 return;
-		 }
 		 $client->setGamemode($gamemode->gamemode);
 		 $client->startPacket("player_info");
 		 $client->writeVarInt(1);
@@ -39,26 +34,16 @@ $this->registerCommand("help", function(CommandSender &$sender)
 		 $client->writeVarInt($gamemode->gamemode);
 		 $client->send();
 	 }, "use /gamemode")
-	 ->registerCommand("abilities", function(CommandSender &$client, $abilities)
+	 ->registerCommand("abilities", function(ClientConnection &$client, $abilities)
 	 {
-		 if(!$client instanceof ClientConnection)
-		 {
-			 $client->sendMessage("This command is only for players.");
-			 return;
-		 }
 		 $client->startPacket("clientbound_abilities");
 		 $client->writeByte(hexdec($abilities));
 		 $client->writeFloat(0.05);
 		 $client->writeFloat(0.1);
 		 $client->send();
 	 }, "use /abilities")
-	 ->registerCommand("metadata", function(CommandSender &$client, $metadata)
+	 ->registerCommand("metadata", function(ClientConnection &$client, $metadata)
 	 {
-		 if(!$client instanceof ClientConnection)
-		 {
-			 $client->sendMessage("This command is only for players.");
-			 return;
-		 }
 		 $client->startPacket("entity_metadata");
 		 $client->writeVarInt($client->eid);
 		 $client->writeByte(0);
@@ -67,13 +52,8 @@ $this->registerCommand("help", function(CommandSender &$sender)
 		 $client->writeByte(0xFF);
 		 $client->send();
 	 }, "use /metadata")
-	 ->registerCommand("elytra", function(CommandSender &$client)
+	 ->registerCommand("elytra", function(ClientConnection &$client)
 	 {
-		 if(!$client instanceof ClientConnection)
-		 {
-			 $client->sendMessage("This command is only for players.");
-			 return;
-		 }
 		 $client->startPacket("entity_metadata");
 		 $client->writeVarInt($client->eid);
 		 $client->writeByte(0);

@@ -3,7 +3,7 @@ namespace Phpcraft\Command;
 use DomainException;
 use Exception;
 use Phpcraft\
-{Plugin, PluginManager};
+{ClientConnection, Plugin, PluginManager, Server};
 use ReflectionClass;
 use ReflectionException;
 use ReflectionFunction;
@@ -26,6 +26,10 @@ class Command
 	 * @var $names string[]
 	 */
 	public $names;
+	/**
+	 * @var string|null $required_sender_class
+	 */
+	public $required_sender_class;
 	/**
 	 * @var string|null $required_permission
 	 */
@@ -51,10 +55,18 @@ class Command
 			if(count($params) > 0)
 			{
 				$type = $params[0]->getType();
-				/** @noinspection PhpDeprecationInspection */
-				if($type !== null && ($type->isBuiltin() || ($type instanceof ReflectionNamedType ? $type->getName() : $type->__toString()) != CommandSender::class))
+				if($type !== null)
 				{
-					throw new DomainException(PluginManager::$command_prefix.$this->getCanonicalName()."'s first parameter's type should be ".CommandSender::class." or not restricted at all");
+					/** @noinspection PhpDeprecationInspection */
+					$type_name = $type->isBuiltin() ? "" : ($type instanceof ReflectionNamedType ? $type->getName() : $type->__toString());
+					if(!in_array($type_name, [CommandSender::class, ClientConnection::class, Server::class]))
+					{
+						throw new DomainException(PluginManager::$command_prefix.$this->getCanonicalName()."'s first parameter's type should be CommandSender, ClientConnection, Server, or not restricted");
+					}
+					if($type_name != CommandSender::class)
+					{
+						$this->required_sender_class = $type_name;
+					}
 				}
 			}
 			$classes = get_declared_classes();
@@ -195,7 +207,15 @@ class Command
 	 */
 	function call(CommandSender &$sender, array $args)
 	{
-		if(!$this->hasPermission($sender))
+		if($this->required_sender_class !== null && get_class($sender) !== $this->required_sender_class)
+		{
+			$sender->sendMessage([
+				"text" => "This command is only for ".($this->required_sender_class == Server::class ? "the server" : "players").".",
+				"color" => "red"
+			]);
+			return;
+		}
+		if($this->required_permission !== null && !$sender->hasPermission($this->required_permission))
 		{
 			$sender->sendMessage([
 				"text" => "You don't have the '{$this->required_permission}' permission required to use ".PluginManager::$command_prefix.$this->getCanonicalName().".",
@@ -236,9 +256,15 @@ class Command
 		call_user_func_array($this->function, $args_);
 	}
 
-	function hasPermission(CommandSender &$sender): bool
+	/**
+	 * Returns true if the given CommandSender fulfils the class & permission requirements.
+	 *
+	 * @param CommandSender $sender
+	 * @return bool
+	 */
+	function isUsableBy(CommandSender &$sender): bool
 	{
-		return $this->required_permission === null || $sender->hasPermission($this->required_permission);
+		return ($this->required_sender_class === null || get_class($sender) === $this->required_sender_class) && ($this->required_permission === null || $sender->hasPermission($this->required_permission));
 	}
 
 	/**

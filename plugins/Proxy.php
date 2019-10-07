@@ -11,15 +11,8 @@ if(PluginManager::$command_prefix != "/proxy:")
 	$this->unregister();
 	return;
 }
-$this->registerCommand("connect", function(CommandSender $sender, string $address, string $account = "")
+$this->registerCommand("connect", function(ClientConnection $sender, string $address, string $account = "")
 {
-	if(!$sender instanceof ClientConnection)
-	{
-		$sender->sendMessage([
-			"text" => "This command is only for players.",
-			"color" => "red"
-		]);
-	}
 	$join_specs = [];
 	if($account != "")
 	{

@@ -51,35 +51,20 @@ $this->on(function(ServerJoinEvent $event)
 	$con->chunk_preference = "\x00\x01";
 	$this->fire(new ServerChunkBorderEvent($event->server, $con));
 }, Event::PRIORITY_NORMAL)
-	 ->registerCommand("grass", function(CommandSender &$client)
+	 ->registerCommand("grass", function(ClientConnection &$client)
 	 {
-		 if(!$client instanceof ClientConnection)
-		 {
-			 $client->sendMessage("This command is only for players.");
-			 return;
-		 }
 		 $client->chunk_preference = "\x00\x00";
 		 $client->chunks = [];
 		 $this->fire(new ServerChunkBorderEvent($client->getServer(), $client));
 	 }, "change the world")
-	 ->registerCommand("stone", function(CommandSender &$client)
+	 ->registerCommand("stone", function(ClientConnection &$client)
 	 {
-		 if(!$client instanceof ClientConnection)
-		 {
-			 $client->sendMessage("This command is only for players.");
-			 return;
-		 }
 		 $client->chunk_preference = "\x01\x01";
 		 $client->chunks = [];
 		 $this->fire(new ServerChunkBorderEvent($client->getServer(), $client));
 	 }, "change the world")
-	 ->registerCommand("grass_stone", function(CommandSender &$client)
+	 ->registerCommand("grass_stone", function(ClientConnection &$client)
 	 {
-		 if(!$client instanceof ClientConnection)
-		 {
-			 $client->sendMessage("This command is only for players.");
-			 return;
-		 }
 		 $client->chunk_preference = "\x00\x01";
 		 $client->chunks = [];
 		 $this->fire(new ServerChunkBorderEvent($client->getServer(), $client));

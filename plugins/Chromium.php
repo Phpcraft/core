@@ -30,13 +30,8 @@ if(!$c->isAvailable())
 $client_pages = [];
 $i = $c->start(false);
 //$i->logging = true;
-$this->registerCommand("scale", function(CommandSender $con, float $scale)
+$this->registerCommand("scale", function(ClientConnection $con, float $scale)
 {
-	if(!$con instanceof ClientConnection)
-	{
-		$con->sendMessage("This command is only for players.");
-		return;
-	}
 	global $client_pages;
 	$client_pages[$con->username][1] = false;
 	$client_pages[$con->username][0]->setDeviceMetrics(128 * (1 / $scale), 128 * (1 / $scale), $scale, function() use (&$con)
@@ -45,13 +40,8 @@ $this->registerCommand("scale", function(CommandSender $con, float $scale)
 		$client_pages[$con->username][1] = true;
 	});
 }, "use chromium");
-$this->registerCommand("goto", function(CommandSender $con, string $url)
+$this->registerCommand("goto", function(ClientConnection $con, string $url)
 {
-	if(!$con instanceof ClientConnection)
-	{
-		$con->sendMessage("This command is only for players.");
-		return;
-	}
 	global $client_pages;
 	$client_pages[$con->username][1] = false;
 	$client_pages[$con->username][0]->once("Page.frameStoppedLoading", function() use (&$con)
@@ -147,12 +137,7 @@ $this->on(function(ServerTickEvent $event) use (&$i)
 	}
 	$i->handle();
 });
-$this->registerCommand("close_chromium", function(CommandSender $sender) use (&$i)
+$this->registerCommand("close_chromium", function(/** @noinspection PhpUnusedParameterInspection */ CommandSender &$sender) use (&$i)
 {
-	if(!$sender->hasPermission("use /close_chromium"))
-	{
-		$sender->sendMessage("This command is only for OPs.");
-		return;
-	}
 	$i->close();
-});
+}, "use /close_chromium");
