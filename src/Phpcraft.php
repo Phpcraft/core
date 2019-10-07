@@ -38,7 +38,7 @@ abstract class Phpcraft
 	 */
 	static function getProfiles()
 	{
-		$profiles_file = Phpcraft::getProfilesFile();
+		$profiles_file = self::getProfilesFile();
 		if(file_exists($profiles_file) && is_file($profiles_file))
 		{
 			$profiles = json_decode(file_get_contents($profiles_file), true);
@@ -70,7 +70,7 @@ abstract class Phpcraft
 	 */
 	static function getProfilesFile()
 	{
-		return Phpcraft::getMinecraftFolder()."/launcher_profiles.json";
+		return self::getMinecraftFolder()."/launcher_profiles.json";
 	}
 
 	/**
@@ -80,7 +80,7 @@ abstract class Phpcraft
 	 */
 	static function getMinecraftFolder()
 	{
-		if(Phpcraft::isWindows())
+		if(self::isWindows())
 		{
 			$minecraft_folder = getenv("APPDATA")."\\.minecraft";
 		}
@@ -120,7 +120,7 @@ abstract class Phpcraft
 	 */
 	static function saveProfiles(array $profiles)
 	{
-		file_put_contents(Phpcraft::getProfilesFile(), json_encode($profiles, JSON_PRETTY_PRINT));
+		file_put_contents(self::getProfilesFile(), json_encode($profiles, JSON_PRETTY_PRINT));
 	}
 
 	/**
@@ -258,9 +258,9 @@ abstract class Phpcraft
 		$arr = explode(":", $server);
 		if(count($arr) > 1)
 		{
-			return Phpcraft::resolveName($arr[0], false).":".$arr[1];
+			return self::resolveName($arr[0], false).":".$arr[1];
 		}
-		return Phpcraft::resolveName($server, true);
+		return self::resolveName($server, true);
 	}
 
 	private static function resolveName(string $server, bool $withPort = true)
@@ -268,7 +268,7 @@ abstract class Phpcraft
 		if(ip2long($server) === false && $res = @dns_get_record("_minecraft._tcp.{$server}", DNS_SRV))
 		{
 			$i = array_rand($res);
-			return Phpcraft::resolveName($res[$i]["target"], false).($withPort ? ":".$res[$i]["port"] : "");
+			return self::resolveName($res[$i]["target"], false).($withPort ? ":".$res[$i]["port"] : "");
 		}
 		return $server.($withPort ? ":25565" : "");
 	}
@@ -314,7 +314,7 @@ abstract class Phpcraft
 	 * @param array $parent Ignore this parameter.
 	 * @return string
 	 */
-	static function chatToText($chat, int $format = Phpcraft::FORMAT_NONE, array $translations = null, array $parent = [])
+	static function chatToText($chat, int $format = self::FORMAT_NONE, array $translations = null, array $parent = [])
 	{
 		if($parent === [])
 		{
@@ -339,7 +339,7 @@ abstract class Phpcraft
 			{
 				return $chat;
 			}
-			$chat = Phpcraft::textToChat($chat);
+			$chat = self::textToChat($chat);
 		}
 		$text = "";
 		$closing_tags = "";
@@ -508,7 +508,7 @@ abstract class Phpcraft
 				$with = [];
 				foreach($chat["with"] as $extra)
 				{
-					array_push($with, Phpcraft::chatToText($extra, $format, $translations, $chat));
+					array_push($with, self::chatToText($extra, $format, $translations, $chat));
 				}
 				if(($formatted = @vsprintf($raw, $with)) !== false)
 				{
@@ -525,7 +525,7 @@ abstract class Phpcraft
 		{
 			foreach($chat["extra"] as $extra)
 			{
-				$text .= Phpcraft::chatToText($extra, $format, $translations, $chat);
+				$text .= self::chatToText($extra, $format, $translations, $chat);
 			}
 		}
 		if($format == self::FORMAT_HTML)
@@ -770,7 +770,7 @@ abstract class Phpcraft
 					".."
 				]))
 				{
-					Phpcraft::recursivelyDelete($path."/".$file);
+					self::recursivelyDelete($path."/".$file);
 				}
 			}
 			rmdir($path);
