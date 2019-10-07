@@ -1,5 +1,6 @@
 <?php
 namespace Phpcraft;
+use InvalidArgumentException;
 /** A point in three-dimensional space, or a three-dimensional vector. Whatever you want it to be. */
 class Point3D
 {
@@ -23,9 +24,21 @@ class Point3D
 		$this->z = $z;
 	}
 
-	function multiply(Point3D $b): Point3D
+	/**
+	 * @param Point3D|int|float|string $arg Point3D or numeric
+	 * @return Point3D
+	 */
+	function multiply($arg): Point3D
 	{
-		return new Point3D($this->x * $b->x, $this->y * $b->y, $this->z * $b->z);
+		if($arg instanceof Point3D)
+		{
+			return new Point3D($this->x * $arg->x, $this->y * $arg->y, $this->z * $arg->z);
+		}
+		if(is_numeric($arg))
+		{
+			return new Point3D($this->x * $arg, $this->y * $arg, $this->z * $arg);
+		}
+		throw new InvalidArgumentException("Expected argument to Point3D::multiply to be numeric or an instance of Point3D");
 	}
 
 	function distance(Point3D $dest): float
@@ -55,14 +68,10 @@ class Point3D
 		$dy = $b->y - $this->y;
 		$dz = $b->z - $this->z;
 		$yaw = -atan2($dx, $dz) / pi() * 180;
-		if($yaw < 0)
-		{
-			$yaw += 360;
-		}
-		$pitch = -asin($dy / sqrt($dx * $dx + $dy * $dy + $dz * $dz)) / pi() * 180;
+		$pitch = @-asin($dy / sqrt($dx * $dx + $dy * $dy + $dz * $dz)) / pi() * 180;
 		return [
-			$yaw,
-			$pitch
+			$yaw < 0 ? $yaw + 360 : $yaw,
+			is_nan($pitch) ? 0 : $pitch
 		];
 	}
 
