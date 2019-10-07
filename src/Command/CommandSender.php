@@ -13,8 +13,9 @@ interface CommandSender
 
 	/**
 	 * @param array|string $message
+	 * @param string $permission
 	 */
-	function sendAndPrintMessage($message);
+	function sendAdminBroadcast($message, string $permission = "everything");
 
 	function hasPermission(string $permission): bool;
 

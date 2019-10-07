@@ -13,41 +13,37 @@ if(PluginManager::$command_prefix == "/proxy:")
 }
 $this->registerCommand("reload", function(CommandSender &$sender)
 {
-	PluginManager::unloadAllPlugins();
-	$sender->sendAndPrintMessage("Unloaded all plugins.");
-	$sender->sendAndPrintMessage("Loading plugins...");
-	PluginManager::loadPlugins();
-	$sender->sendAndPrintMessage(count(PluginManager::$loaded_plugins)." plugins loaded.");
-	if($sender->hasServer())
-	{
-		if(is_file("config/server.json"))
-		{
-			$sender->sendAndPrintMessage("Reloading server config...");
-			global $config, $server;
-			$config = json_decode(file_get_contents("config/server.json"), true);
-			$server->compression_threshold = $config["compression_threshold"];
-			$server->setGroups($config["groups"]);
-			$sender->sendAndPrintMessage("Done. ".count($sender->getServer()->groups)." groups loaded.");
-		}
-		else
-		{
-			$sender->sendAndPrintMessage("server.json was deleted. keeping current config. restart the server to apply defaults.");
-		}
-	}
-}, "use /reload");
-$this->registerCommand("stop", function(CommandSender &$sender)
-{
-	if($sender->hasServer())
-	{
-		$sender->sendAndPrintMessage("Stopping server...");
-		$sender->getServer()
-			   ->close(["text" => "/stop has been issued by ".$sender->getName()]);
-	}
-	else
+	if(!$sender->hasServer())
 	{
 		$sender->sendMessage([
 			"text" => "This command only works for servers.",
 			"color" => "red"
 		]);
+		return;
 	}
+	PluginManager::unloadAllPlugins();
+	$sender->sendAdminBroadcast("Unloaded all plugins.", "use /reload");
+	$sender->sendAdminBroadcast("Loading plugins...", "use /reload");
+	PluginManager::loadPlugins();
+	$sender->sendAdminBroadcast(count(PluginManager::$loaded_plugins)." plugins loaded.", "use /reload");
+	if($sender->hasServer())
+	{
+		$sender->sendAdminBroadcast("Reloading server config...", "use /reload");
+		reloadConfiguration();
+		$sender->sendAdminBroadcast("Done. ".count($sender->getServer()->groups)." groups loaded.", "use /reload");
+	}
+}, "use /reload");
+$this->registerCommand("stop", function(CommandSender &$sender)
+{
+	if(!$sender->hasServer())
+	{
+		$sender->sendMessage([
+			"text" => "This command only works for servers.",
+			"color" => "red"
+		]);
+		return;
+	}
+	$sender->sendAdminBroadcast("Stopping server...");
+	$sender->getServer()
+		   ->close(["text" => "/stop has been issued by ".$sender->getName()]);
 }, "use /stop");

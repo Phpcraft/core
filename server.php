@@ -1,5 +1,4 @@
-<?php
-/** @noinspection DuplicatedCode */
+<?php /** @noinspection DuplicatedCode */
 echo "Phpcraft PHP Minecraft Server\n\n";
 if(empty($argv))
 {
@@ -10,7 +9,6 @@ use Phpcraft\
 {ClientConnection, Command\Command, Event\ServerChatEvent, Event\ServerChunkBorderEvent, Event\ServerClientSettingsEvent, Event\ServerConsoleEvent, Event\ServerFlyingChangeEvent, Event\ServerJoinEvent, Event\ServerLeaveEvent, Event\ServerMovementEvent, Event\ServerOnGroundChangeEvent, Event\ServerPacketEvent, Event\ServerRotationEvent, Event\ServerTickEvent, Exception\IOException, Packet\ClientSettingsPacket, Packet\ServerboundPacket, Phpcraft, PlainUserInterface, PluginManager, Server, UserInterface, Versions};
 $options = [
 	"offline" => false,
-	"port" => 25565,
 	"nocolor" => false,
 	"plain" => false
 ];
@@ -33,9 +31,6 @@ for($i = 1; $i < count($argv); $i++)
 	}
 	switch($n)
 	{
-		case "port":
-			$options[$n] = $v;
-			break;
 		case "offline":
 		case "nocolor":
 		case "plain":
@@ -43,7 +38,6 @@ for($i = 1; $i < count($argv); $i++)
 			break;
 		case "?":
 		case "help":
-			echo "port=<port>  bind to port <port>\n";
 			echo "offline      disables online mode and allows cracked players\n";
 			echo "nocolor      disallows players to use '&' to write colorfully\n";
 			echo "plain        uses the plain user interface e.g. for writing logs to a file\n";
@@ -81,73 +75,101 @@ else
 	$ui->append("Done.")
 	   ->render();
 }
-$ui->add("Binding to port ".$options["port"]."... ")
-   ->render();
-$stream = stream_socket_server("tcp://0.0.0.0:".$options["port"], $errno, $errstr) or die(" {$errstr}\n");
-$server = new Server($stream, $private_key);
-$ui->append("Success!")
-   ->render();
-if(!is_dir("config"))
+$server = new Server([], $private_key);
+function reloadConfiguration()
 {
-	mkdir("config");
-}
-if(is_file("config/server.json"))
-{
-	$config = json_decode(file_get_contents("config/server.json"), true);
-}
-else
-{
-	$config = [];
-}
-if(!array_key_exists("groups", $config))
-{
-	$config["groups"] = [
-		"default" => [
-			"allow" => [
-				"use /gamemode",
-				"use /metadata",
-				"change the world"
-			]
-		],
-		"user" => [
-			"inherit" => "default",
-			"allow" => [
-				"use /abilities",
-				"use chromium"
-			]
-		],
-		"admin" => [
-			"allow" => "everything"
-		]
-	];
-}
-if(!array_key_exists("motd", $config))
-{
-	$config["motd"] = [
-		"text" => "A ",
-		"extra" => [
-			[
-				"text" => "Phpcraft",
-				"color" => "red",
-				"italic" => true
+	global $server, $config, $ui;
+	if(!is_dir("config"))
+	{
+		mkdir("config");
+	}
+	if(is_file("config/server.json"))
+	{
+		$config = json_decode(file_get_contents("config/server.json"), true);
+	}
+	else
+	{
+		$config = [];
+	}
+	if(!array_key_exists("groups", $config))
+	{
+		$config["groups"] = [
+			"default" => [
+				"allow" => [
+					"use /gamemode",
+					"use /metadata",
+					"change the world"
+				]
 			],
-			[
-				"text" => " Server\n§aNow with 100% more §kmagic§r§a!"
+			"user" => [
+				"inherit" => "default",
+				"allow" => [
+					"use /abilities",
+					"use chromium"
+				]
+			],
+			"admin" => [
+				"allow" => "everything"
 			]
-		]
-	];
+		];
+	}
+	if(!array_key_exists("ports", $config))
+	{
+		$config["ports"] = [25565];
+	}
+	if(!array_key_exists("motd", $config))
+	{
+		$config["motd"] = [
+			"text" => "A ",
+			"extra" => [
+				[
+					"text" => "Phpcraft",
+					"color" => "red",
+					"italic" => true
+				],
+				[
+					"text" => " Server\n§aNow with 100% more §kmagic§r§a!"
+				]
+			]
+		];
+	}
+	if(!array_key_exists("show_no_connection_instead_of_ping_in_server_list", $config))
+	{
+		$config["show_no_connection_instead_of_ping_in_server_list"] = false;
+	}
+	if(!array_key_exists("compression_threshold", $config))
+	{
+		$config["compression_threshold"] = 256;
+	}
+	file_put_contents("config/server.json", json_encode($config, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
+	$server->compression_threshold = $config["compression_threshold"];
+	$server->setGroups($config["groups"]);
+	foreach($server->streams as $stream)
+	{
+		fclose($stream);
+	}
+	$server->streams = [];
+	foreach($config["ports"] as $port)
+	{
+		$stream = stream_socket_server("tcp://0.0.0.0:".$port, $errno, $errstr);
+		if($stream)
+		{
+			stream_set_blocking($stream, false);
+			array_push($server->streams, $stream);
+			$server->adminBroadcast("Successfully bound to port $port.");
+		}
+		else
+		{
+			$server->adminBroadcast("Failed to bound to port $port.");
+		}
+	}
+	if($server->streams == [])
+	{
+		$server->adminBroadcast("The server is not listening on any ports. It will shutdown at the next opportunity.");
+	}
 }
-if(!array_key_exists("show_no_connection_instead_of_ping_in_server_list", $config))
-{
-	$config["show_no_connection_instead_of_ping_in_server_list"] = false;
-}
-if(!array_key_exists("compression_threshold", $config))
-{
-	$config["compression_threshold"] = 256;
-}
-file_put_contents("config/server.json", json_encode($config, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
-$server->compression_threshold = $config["compression_threshold"];
-$server->setGroups($config["groups"]);
+
+reloadConfiguration();
 if($ui instanceof UserInterface)
 {
 	$ui->setInputPrefix("[Server] ");

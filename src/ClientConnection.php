@@ -498,26 +498,47 @@ class ClientConnection extends Connection implements CommandSender
 	}
 
 	/**
+	 * Sends a message to the client and "[{$this-&gt;username}: $message]" to the server console and players with the given permission.
+	 *
 	 * @param array|string $message
+	 * @param string $permission
 	 * @return ClientConnection $this
 	 * @throws IOException
 	 */
-	function sendAndPrintMessage($message): ClientConnection
+	function sendAdminBroadcast($message, string $permission = "everything"): ClientConnection
 	{
-		echo Phpcraft::chatToText([
-				"extra" => [
-					[
-						"text" => "[{$this->username}: ",
-						"color" => "gray"
-					],
-					$message,
-					[
-						"text" => "]",
-						"color" => "gray"
-					]
+		if(!is_array($message))
+		{
+			$message = Phpcraft::textToChat($message);
+		}
+		$this->sendMessage($message);
+		$message = [
+			"color" => "gray",
+			"text" => "[{$this->username}: ",
+			"extra" => [
+				$message,
+				[
+					"color" => "gray",
+					"text" => "]"
 				]
-			], Phpcraft::FORMAT_ANSI)."\n";
-		return $this->sendMessage($message);
+			]
+		];
+		echo Phpcraft::chatToText($message, Phpcraft::FORMAT_ANSI)."\n";
+		foreach($this->getServer()->clients as $con)
+		{
+			assert($con instanceof ClientConnection);
+			try
+			{
+				if($con != $this && $con->state == 3 && $con->hasPermission($permission))
+				{
+					$con->sendMessage($message);
+				}
+			}
+			catch(IOException $e)
+			{
+			}
+		}
+		return $this;
 	}
 
 	/**
@@ -539,6 +560,19 @@ class ClientConnection extends Connection implements CommandSender
 		$this->writeByte($position);
 		$this->send();
 		return $this;
+	}
+
+	/**
+	 * @return Server|null
+	 */
+	function getServer()
+	{
+		return $this->config->server;
+	}
+
+	function hasPermission(string $permission): bool
+	{
+		return $this->config->hasPermission($permission);
 	}
 
 	/**
@@ -620,22 +654,9 @@ class ClientConnection extends Connection implements CommandSender
 		return $this->username;
 	}
 
-	function hasPermission(string $permission): bool
-	{
-		return $this->config->hasPermission($permission);
-	}
-
 	function hasServer(): bool
 	{
 		return $this->config->server !== null;
-	}
-
-	/**
-	 * @return Server|null
-	 */
-	function getServer()
-	{
-		return $this->config->server;
 	}
 
 	function hasPosition(): bool

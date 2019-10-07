@@ -7,11 +7,11 @@ use SplObjectStorage;
 class Server implements CommandSender
 {
 	/**
-	 * The stream the server listens for new connections on.
+	 * The streams the server listens for new connections on.
 	 *
-	 * @var resource $stream
+	 * @var $streams resource[]
 	 */
-	public $stream;
+	public $streams;
 	/**
 	 * A private key generated using openssl_pkey_new(["private_key_bits" => 1024, "private_key_type" => OPENSSL_KEYTYPE_RSA]) to use for online mode, or null to use offline mode.
 	 *
@@ -80,16 +80,16 @@ class Server implements CommandSender
 	public $list_ping_function = null;
 
 	/**
-	 * @param resource $stream A stream created by stream_socket_server.
+	 * @param $streams resource[] An array of streams created by stream_socket_server to listen for clients on.
 	 * @param resource $private_key A private key generated using openssl_pkey_new(["private_key_bits" => 1024, "private_key_type" => OPENSSL_KEYTYPE_RSA]) to use for online mode, or null to use offline mode.
 	 */
-	function __construct($stream = null, $private_key = null)
+	function __construct(array $streams = [], $private_key = null)
 	{
-		if($stream)
+		foreach($streams as $stream)
 		{
 			stream_set_blocking($stream, false);
-			$this->stream = $stream;
 		}
+		$this->streams = $streams;
 		$this->private_key = $private_key;
 		$this->clients = new SplObjectStorage();
 		$this->eidCounter = new Counter();
@@ -154,28 +154,29 @@ class Server implements CommandSender
 	}
 
 	/**
-	 * Returns whether the server socket is open or not.
+	 * Returns true if the server has at least one socket to listen for new connections on.
 	 *
 	 * @return boolean
 	 */
 	function isOpen(): bool
 	{
-		return $this->stream !== null;
+		return $this->streams !== [];
 	}
 
 	/**
-	 * Returns the port the server is listening on or -1 if it isn't.
+	 * Returns the ports the server is listening on.
 	 *
-	 * @return int
+	 * @return int[]
 	 */
-	function getPort(): int
+	function getPorts(): array
 	{
-		if($this->stream === null)
+		$ports = [];
+		foreach($this->streams as $stream)
 		{
-			return -1;
+			$name = stream_socket_get_name($stream, false);
+			array_push($ports, intval(substr($name, strpos($name, ":") + 1)));
 		}
-		$name = stream_socket_get_name($this->stream, false);
-		return intval(substr($name, strpos($name, ":") + 1));
+		return $ports;
 	}
 
 	/**
@@ -190,24 +191,27 @@ class Server implements CommandSender
 	}
 
 	/**
-	 * Accepts new clients and processes each client's first packet.
+	 * Accepts new clients.
 	 *
 	 * @return Server $this
 	 */
 	function accept(): Server
 	{
-		while(($stream = @stream_socket_accept($this->stream, 0)) !== false)
+		foreach($this->streams as $stream)
 		{
-			$con = new ClientConnection($stream, $this);
-			$con->disconnect_after = microtime(true) + 3;
-			$this->clients->attach($con);
+			while(($in = @stream_socket_accept($stream, 0)) !== false)
+			{
+				$con = new ClientConnection($in, $this);
+				$con->disconnect_after = microtime(true) + 3;
+				$this->clients->attach($con);
+			}
 		}
 		return $this;
 	}
 
 	/**
 	 * Deals with all connected clients.
-	 * This includes responding to status requests, dealing with keep alive packets, closing dead connections, and saving client configurations.
+	 * This includes dealing with handshakes, status requests, keep alive packets, closing dead connections, and saving client configurations.
 	 * This does not include implementing an entire server; that is what the packet_function is for.
 	 *
 	 * @return Server $this
@@ -397,13 +401,13 @@ class Server implements CommandSender
 	/**
 	 * Sends a message to all players (clients in playing state).
 	 *
-	 * @param string|array $message
+	 * @param array|string $message
 	 * @param int $position
 	 * @return Server $this
 	 */
 	function broadcast($message, int $position = ChatPosition::SYSTEM): Server
 	{
-		if(is_string($message))
+		if(!is_array($message))
 		{
 			$message = Phpcraft::textToChat($message);
 		}
@@ -436,6 +440,81 @@ class Server implements CommandSender
 			}
 		}
 		return $clients;
+	}
+
+	/**
+	 * Sends a message to the server console and all players with the given permission, e.g. "everything" for administrators.
+	 *
+	 * @param array|string $message
+	 * @param string $permission
+	 * @return Server
+	 */
+	function adminBroadcast($message, string $permission = "everything"): Server
+	{
+		if(!is_array($message))
+		{
+			$message = Phpcraft::textToChat($message);
+		}
+		echo Phpcraft::chatToText($message, Phpcraft::FORMAT_ANSI)."\n";
+		return $this->permissionBroadcast($permission, $message);
+	}
+
+	/**
+	 * Sends a message to all clients in playing state with the given permission.
+	 *
+	 * @param string $permission
+	 * @param array|string $message
+	 * @param int $position
+	 * @return Server $this
+	 */
+	function permissionBroadcast(string $permission, $message, int $position = ChatPosition::SYSTEM): Server
+	{
+		if(!is_array($message))
+		{
+			$message = Phpcraft::textToChat($message);
+		}
+		foreach($this->clients as $con)
+		{
+			assert($con instanceof ClientConnection);
+			try
+			{
+				if($con->state == 3 && $con->hasPermission($permission))
+				{
+					$con->sendMessage($message, $position);
+				}
+			}
+			catch(IOException $e)
+			{
+			}
+		}
+		return $this;
+	}
+
+	/**
+	 * Sends a message to the server console and "[Server: $message]" to all players with the given permission.
+	 *
+	 * @param array|string $message
+	 * @param string $permission
+	 * @return Server $this
+	 */
+	function sendAdminBroadcast($message, string $permission = "everything"): Server
+	{
+		if(!is_array($message))
+		{
+			$message = Phpcraft::textToChat($message);
+		}
+		echo Phpcraft::chatToText($message, Phpcraft::FORMAT_ANSI)."\n";
+		return $this->permissionBroadcast($permission, [
+			"color" => "gray",
+			"text" => "[Server: ",
+			"extra" => [
+				$message,
+				[
+					"color" => "gray",
+					"text" => "]"
+				]
+			]
+		]);
 	}
 
 	/**
@@ -505,22 +584,17 @@ class Server implements CommandSender
 	}
 
 	/**
-	 * @param array|string $message
-	 */
-	function sendAndPrintMessage($message)
-	{
-		echo Phpcraft::chatToText($message, Phpcraft::FORMAT_ANSI)."\n\e[m";
-	}
-
-	/**
-	 * Closes all client connections and the server socket.
+	 * Closes all client connections and server sockets.
 	 *
 	 * @param array|string $reason The reason for closing the server; chat object.
 	 */
 	function close($reason = [])
 	{
-		fclose($this->stream);
-		$this->stream = null;
+		foreach($this->streams as $stream)
+		{
+			fclose($stream);
+		}
+		$this->streams = [];
 		foreach($this->clients as $client)
 		{
 			$client->disconnect($reason);
