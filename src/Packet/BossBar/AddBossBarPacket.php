@@ -90,7 +90,7 @@ class AddBossBarPacket extends BossBarPacket
 					$flags |= 0x2;
 				}
 			}
-			$con->writeByte($flags);
+			$con->writeUnsignedByte($flags);
 			$con->send();
 		}
 		else

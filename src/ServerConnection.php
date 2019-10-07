@@ -39,7 +39,7 @@ class ServerConnection extends Connection
 			$server_name .= "\0".implode("\0", $join_specs);
 		}
 		$this->writeString($server_name);
-		$this->writeShort($server_port);
+		$this->writeUnsignedShort($server_port);
 		$this->writeVarInt($this->state = $next_state);
 		$this->send();
 		return $this;

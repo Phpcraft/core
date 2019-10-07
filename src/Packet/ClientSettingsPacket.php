@@ -75,7 +75,7 @@ class ClientSettingsPacket extends Packet
 		$packet->render_distance = gmp_intval($con->readVarInt());
 		$packet->chat_mode = gmp_intval($con->readVarInt());
 		$packet->chat_colors_enabled = $con->readBoolean();
-		$skin_flags = $con->readByte();
+		$skin_flags = $con->readUnsignedByte();
 		$packet->hat_enabled = !($skin_flags & 0x40);
 		$packet->right_pants_leg_enabled = !($skin_flags & 0x20);
 		$packet->left_pants_leg_enabled = !($skin_flags & 0x10);
@@ -132,7 +132,7 @@ class ClientSettingsPacket extends Packet
 		{
 			$skin_flags |= 0x40;
 		}
-		$con->writeByte($skin_flags);
+		$con->writeUnsignedByte($skin_flags);
 		$con->writeVarInt($this->left_handed ? 0 : 1);
 		$con->send();
 	}

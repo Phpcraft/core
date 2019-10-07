@@ -1,5 +1,6 @@
 <?php
 namespace Phpcraft;
+use Exception;
 use hellsh\UUID;
 use Phpcraft\
 {Command\CommandSender, Enum\ChatPosition, Exception\IOException, Packet\KeepAliveRequestPacket, Packet\ServerboundPacket, Permission\Group};
@@ -366,7 +367,7 @@ class Server implements CommandSender
 						}
 					}
 				}
-				catch(IOException $e)
+				catch(Exception $e)
 				{
 					if($con->username)
 					{

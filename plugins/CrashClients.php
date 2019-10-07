@@ -39,7 +39,7 @@ $this->on(function(ServerChatEvent $event)
 			$con->send();
 		}
 		$con->startPacket("change_game_state");
-		$con->writeByte(7);
+		$con->writeUnsignedByte(7);
 		$con->writeFloat(1337);
 		$con->send();
 		$packet = new JoinGamePacket();

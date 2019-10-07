@@ -23,7 +23,7 @@ class JoinGamePacket extends Packet
 	{
 		$packet = new JoinGamePacket();
 		$packet->eid = gmp_intval($con->readInt());
-		$packet->gamemode = $con->readByte(true);
+		$packet->gamemode = $con->readByte();
 		if($packet->gamemode >= 0x8)
 		{
 			$packet->gamemode -= 0x8;
@@ -32,7 +32,7 @@ class JoinGamePacket extends Packet
 		$packet->dimension = $con->protocol_version > 107 ? gmp_intval($con->readInt()) : $con->readByte();
 		if($con->protocol_version < 472)
 		{
-			$packet->difficulty = $con->readByte(true);
+			$packet->difficulty = $con->readByte();
 		}
 		$con->ignoreBytes(1); // Max Players (Byte)
 		$con->ignoreBytes(gmp_intval($con->readVarInt())); // Level Type (String)
@@ -59,7 +59,7 @@ class JoinGamePacket extends Packet
 		{
 			$gamemode += 0x8;
 		}
-		$con->writeByte($gamemode, true);
+		$con->writeByte($gamemode);
 		if($con->protocol_version >= 108)
 		{
 			$con->writeInt($this->dimension);
@@ -72,7 +72,7 @@ class JoinGamePacket extends Packet
 		{
 			$con->writeByte($this->difficulty);
 		}
-		$con->writeByte(100, true); // Max Players
+		$con->writeByte(100); // Max Players
 		$con->writeString(""); // Level Type
 		if($con->protocol_version >= 472)
 		{
@@ -83,7 +83,7 @@ class JoinGamePacket extends Packet
 		if($con->protocol_version >= 472)
 		{
 			$con->startPacket("difficulty");
-			$con->writeByte($this->difficulty);
+			$con->writeUnsignedByte($this->difficulty);
 			$con->writeBoolean(true); // Locked
 			$con->send();
 		}

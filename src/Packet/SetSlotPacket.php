@@ -46,7 +46,7 @@ class SetSlotPacket extends Packet
 	 */
 	static function read(Connection $con): Packet
 	{
-		return new SetSlotPacket($con->readByte(), gmp_intval($con->readShort()), $con->readSlot());
+		return new SetSlotPacket($con->readByte(), $con->readShort(), $con->readSlot());
 	}
 
 	/**

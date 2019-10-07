@@ -1947,8 +1947,8 @@ class MapDataPacket extends Packet
 		}
 		else
 		{
-			$con->writeByte($this->width);
-			$con->writeByte($this->height);
+			$con->writeUnsignedByte($this->width);
+			$con->writeUnsignedByte($this->height);
 			$con->writeByte($this->x);
 			$con->writeByte($this->z);
 			$con->writeVarInt(count($this->contents));
@@ -1956,7 +1956,7 @@ class MapDataPacket extends Packet
 			{
 				foreach($this->contents as $colorId)
 				{
-					$con->writeByte($colorId);
+					$con->writeUnsignedByte($colorId);
 				}
 			}
 			else
@@ -1964,7 +1964,7 @@ class MapDataPacket extends Packet
 				$colors = MapDataPacket::colors_1_12();
 				foreach($this->contents as $colorId)
 				{
-					$con->writeByte(MapDataPacket::getColorId($colors[$colorId], false));
+					$con->writeUnsignedByte(MapDataPacket::getColorId($colors[$colorId], false));
 				}
 			}
 		}

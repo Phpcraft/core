@@ -176,7 +176,7 @@ class Connection
 	}
 
 	/**
-	 * Adds a position encoded as one long to the write buffer.
+	 * Adds a position encoded as an unsigned long to the write buffer.
 	 *
 	 * @param Point3D $pos
 	 * @return Connection $this
@@ -194,19 +194,7 @@ class Connection
 			$long = gmp_or($long, gmp_mul(gmp_and(intval($pos->z), 0x3FFFFFF), gmp_pow(2, 12))); // $long |= ($pos->z & 0x3FFFFFF) << 12;
 			$long = gmp_or($long, gmp_and(intval($pos->y), 0xFFF)); // $long |= ($pos->y & 0xFFF);
 		}
-		return $this->writeLong($long);
-	}
-
-	/**
-	 * Adds a long to the write buffer.
-	 *
-	 * @param GMP|string|integer $value
-	 * @param boolean $signed
-	 * @return Connection $this
-	 */
-	function writeLong($value, bool $signed = false): Connection
-	{
-		return $this->writeGMP($value, 8, $signed);
+		return $this->writeGMP($long, 8, false);
 	}
 
 	private function writeGMP($value, int $bytes, bool $signed): Connection
@@ -238,6 +226,17 @@ class Connection
 			$value = gmp_sub($value, gmp_pow(2, $bits));
 		}
 		return $value;
+	}
+
+	/**
+	 * Adds a signed long to the write buffer.
+	 *
+	 * @param GMP|string|integer $value
+	 * @return Connection $this
+	 */
+	function writeLong($value): Connection
+	{
+		return $this->writeGMP($value, 8, true);
 	}
 
 	/**
@@ -279,15 +278,14 @@ class Connection
 	}
 
 	/**
-	 * Adds an integer to the write buffer.
+	 * Adds a signed integer to the write buffer.
 	 *
 	 * @param GMP|string|integer $value
-	 * @param boolean $signed
 	 * @return Connection $this
 	 */
-	function writeInt($value, bool $signed = false): Connection
+	function writeInt($value): Connection
 	{
-		return $this->writeGMP($value, 4, $signed);
+		return $this->writeGMP($value, 4, true);
 	}
 
 	/**
@@ -374,15 +372,14 @@ class Connection
 	}
 
 	/**
-	 * Adds a short to the write buffer.
+	 * Adds a signed short to the write buffer.
 	 *
 	 * @param GMP|string|integer $value
-	 * @param boolean $signed
 	 * @return Connection $this
 	 */
-	function writeShort($value, bool $signed = false): Connection
+	function writeShort($value): Connection
 	{
-		return $this->writeGMP($value, 2, $signed);
+		return $this->writeGMP($value, 2, true);
 	}
 
 	/**
@@ -398,15 +395,37 @@ class Connection
 	}
 
 	/**
-	 * Adds a byte to the write buffer.
+	 * Adds a signed byte to the write buffer.
 	 *
 	 * @param integer $value
-	 * @param boolean $signed
 	 * @return Connection $this
 	 */
-	function writeByte(int $value, bool $signed = false): Connection
+	function writeByte(int $value): Connection
 	{
-		$this->write_buffer .= pack(($signed ? "c" : "C"), $value);
+		$this->write_buffer .= pack("c", $value);
+		return $this;
+	}
+
+	/**
+	 * Adds an unsigned short to the write buffer.
+	 *
+	 * @param GMP|string|integer $value
+	 * @return Connection $this
+	 */
+	function writeUnsignedShort($value): Connection
+	{
+		return $this->writeGMP($value, 2, false);
+	}
+
+	/**
+	 * Adds an unsigned byte to the write buffer.
+	 *
+	 * @param integer $value
+	 * @return Connection $this
+	 */
+	function writeUnsignedByte(int $value): Connection
+	{
+		$this->write_buffer .= pack("C", $value);
 		return $this;
 	}
 
@@ -547,7 +566,7 @@ class Connection
 		}
 		else
 		{
-			$this->read_buffer = fread($this->stream, $bytes);
+			$this->read_buffer = @fread($this->stream, $bytes);
 			if(strlen($this->read_buffer) > 0)
 			{
 				$timeout += 0.1;
@@ -655,19 +674,35 @@ class Connection
 	}
 
 	/**
-	 * Reads a byte from the read buffer.
+	 * Reads a signed byte from the read buffer.
 	 *
-	 * @param boolean $signed
 	 * @return integer
 	 * @throws IOException When there are not enough bytes to read a byte.
 	 */
-	function readByte(bool $signed = false): int
+	function readByte(): int
 	{
 		if(strlen($this->read_buffer) < 1)
 		{
 			throw new IOException("There are not enough bytes to read a byte.");
 		}
-		$byte = unpack(($signed ? "c" : "C")."byte", substr($this->read_buffer, 0, 1))["byte"];
+		$byte = unpack("cbyte", substr($this->read_buffer, 0, 1))["byte"];
+		$this->read_buffer = substr($this->read_buffer, 1);
+		return $byte;
+	}
+
+	/**
+	 * Reads an unsigned byte from the read buffer.
+	 *
+	 * @return integer
+	 * @throws IOException When there are not enough bytes to read a byte.
+	 */
+	function readUnsignedByte(): int
+	{
+		if(strlen($this->read_buffer) < 1)
+		{
+			throw new IOException("There are not enough bytes to read a byte.");
+		}
+		$byte = unpack("Cbyte", substr($this->read_buffer, 0, 1))["byte"];
 		$this->read_buffer = substr($this->read_buffer, 1);
 		return $byte;
 	}
@@ -728,14 +763,14 @@ class Connection
 	}
 
 	/**
-	 * Reads a position encoded as one long from the read buffer.
+	 * Reads a position encoded as an unsigned long from the read buffer.
 	 *
 	 * @return Point3D
 	 * @throws IOException When there are not enough bytes to read a position.
 	 */
 	function readPosition(): Point3D
 	{
-		$long = $this->readLong();
+		$long = $this->readGMP(8, false);
 		$x = gmp_div($long, gmp_pow(2, 38)); // $long >> 38
 		if($this->protocol_version < 472)
 		{
@@ -748,18 +783,6 @@ class Connection
 			$z = gmp_and(gmp_div($long, gmp_pow(2, 12)), 0x3FFFFFF);
 		}
 		return new Point3D(gmp_intval(self::signNumber($x, 26)), gmp_intval(self::signNumber($y, 12)), gmp_intval(self::signNumber($z, 26)));
-	}
-
-	/**
-	 * Reads a long from the read buffer.
-	 *
-	 * @param boolean $signed
-	 * @return GMP
-	 * @throws IOException When there are not enough bytes to read a long.
-	 */
-	function readLong(bool $signed = false): GMP
-	{
-		return $this->readGMP(8, $signed);
 	}
 
 	/**
@@ -824,15 +847,14 @@ class Connection
 	}
 
 	/**
-	 * Reads an integer from the read buffer.
+	 * Reads a signed integer from the read buffer.
 	 *
-	 * @param boolean $signed
 	 * @return GMP
 	 * @throws IOException When there are not enough bytes to read an integer.
 	 */
-	function readInt(bool $signed = false): GMP
+	function readInt(): GMP
 	{
-		return $this->readGMP(4, $signed);
+		return $this->readGMP(4, true);
 	}
 
 	/**
@@ -873,7 +895,7 @@ class Connection
 		}
 		else
 		{
-			$id = gmp_intval($this->readShort());
+			$id = $this->readShort();
 			if($id <= 0)
 			{
 				return $slot;
@@ -885,7 +907,7 @@ class Connection
 			}
 			else
 			{
-				$metadata = gmp_intval($this->readShort());
+				$metadata = $this->readShort();
 				if($additional_processing && $metadata > 0)
 				{
 					switch($id)
@@ -967,15 +989,14 @@ class Connection
 	}
 
 	/**
-	 * Reads a short from the read buffer.
+	 * Reads a signed short from the read buffer.
 	 *
-	 * @param boolean $signed
-	 * @return GMP
+	 * @return int
 	 * @throws IOException When there are not enough bytes to read a short.
 	 */
-	function readShort(bool $signed = true): GMP
+	function readShort(): int
 	{
-		return $this->readGMP(2, $signed);
+		return gmp_intval($this->readGMP(2, true));
 	}
 
 	/**
@@ -992,25 +1013,25 @@ class Connection
 		{
 			$type = $this->readByte();
 		}
-		$name = ($type == 0 || $inList) ? "" : $this->readRaw(gmp_intval($this->readShort()));
+		$name = ($type == 0 || $inList) ? "" : $this->readRaw($this->readShort());
 		switch($type)
 		{
 			case NbtEnd::ORD:
 				return new NbtEnd();
 			case NbtByte::ORD:
-				return new NbtByte($name, $this->readByte(true));
+				return new NbtByte($name, $this->readByte());
 			case NbtShort::ORD:
-				return new NbtShort($name, gmp_intval($this->readShort(true)));
+				return new NbtShort($name, $this->readShort());
 			case NbtInt::ORD:
-				return new NbtInt($name, $this->readInt(true));
+				return new NbtInt($name, $this->readInt());
 			case NbtLong::ORD:
-				return new NbtLong($name, $this->readLong(true));
+				return new NbtLong($name, $this->readLong());
 			case NbtFloat::ORD:
 				return new NbtFloat($name, $this->readFloat());
 			case NbtDouble::ORD:
 				return new NbtDouble($name, $this->readDouble());
 			case NbtByteArray::ORD:
-				$children_i = gmp_intval($this->readInt(true));
+				$children_i = gmp_intval($this->readInt());
 				$children = [];
 				for($i = 0; $i < $children_i; $i++)
 				{
@@ -1018,10 +1039,10 @@ class Connection
 				}
 				return new NbtByteArray($name, $children);
 			case NbtString::ORD:
-				return new NbtString($name, $this->readRaw(gmp_intval($this->readShort())));
+				return new NbtString($name, $this->readRaw($this->readShort()));
 			case NbtList::ORD:
 				$childType = $this->readByte();
-				$children_i = gmp_intval($this->readInt(true));
+				$children_i = gmp_intval($this->readInt());
 				$children = [];
 				for($i = 0; $i < $children_i; $i++)
 				{
@@ -1036,15 +1057,15 @@ class Connection
 				}
 				return new NbtCompound($name, $children);
 			case NbtIntArray::ORD:
-				$children_i = gmp_intval($this->readInt(true));
+				$children_i = gmp_intval($this->readInt());
 				$children = [];
 				for($i = 0; $i < $children_i; $i++)
 				{
-					array_push($children, $this->readInt(true));
+					array_push($children, $this->readInt());
 				}
 				return new NbtIntArray($name, $children);
 			case NbtLongArray::ORD:
-				$children_i = gmp_intval($this->readInt(true));
+				$children_i = gmp_intval($this->readInt());
 				$children = [];
 				for($i = 0; $i < $children_i; $i++)
 				{
@@ -1070,6 +1091,17 @@ class Connection
 	}
 
 	/**
+	 * Reads a signed long from the read buffer.
+	 *
+	 * @return GMP
+	 * @throws IOException When there are not enough bytes to read a long.
+	 */
+	function readLong(): GMP
+	{
+		return $this->readGMP(8, true);
+	}
+
+	/**
 	 * Reads a float from the read buffer.
 	 *
 	 * @return float
@@ -1084,6 +1116,17 @@ class Connection
 		$float = unpack("Gfloat", substr($this->read_buffer, 0, 4))["float"];
 		$this->read_buffer = substr($this->read_buffer, 4);
 		return $float;
+	}
+
+	/**
+	 * Reads an unsigned short from the read buffer.
+	 *
+	 * @return int
+	 * @throws IOException When there are not enough bytes to read a short.
+	 */
+	function readUnsignedShort(): int
+	{
+		return gmp_intval($this->readGMP(2, false));
 	}
 
 	/**

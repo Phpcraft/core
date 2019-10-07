@@ -8,15 +8,11 @@ class ConnectionTest
 	{
 		$con = new Connection();
 		$con->writeInt(1);
-		$con->writeInt(-1);
 		$con->writeInt("3405691582");
-		$con->writeInt("3405691582", true);
-		Nose::assert($con->write_buffer === "\x00\x00\x00\x01\xFF\xFF\xFF\xFF\xCA\xFE\xBA\xBE\xCA\xFE\xBA\xBE");
+		Nose::assert($con->write_buffer === "\x00\x00\x00\x01\xCA\xFE\xBA\xBE");
 		$con->read_buffer = $con->write_buffer;
 		Nose::assert(gmp_cmp($con->readInt(), 1) == 0);
-		Nose::assert(gmp_cmp($con->readInt(true), -1) == 0);
-		Nose::assert(gmp_cmp($con->readInt(), "3405691582") == 0);
-		Nose::assert(gmp_cmp($con->readInt(true), "-889275714") == 0);
+		Nose::assert(gmp_cmp($con->readInt(), "-889275714") == 0);
 		Nose::assert($con->read_buffer === "");
 	}
 
@@ -46,18 +42,18 @@ class ConnectionTest
 		Nose::assertEquals("", $con->read_buffer);
 	}
 
-	function testWriteVarintAndReadBytes()
+	function testWriteVarIntAndReadUnsignedBytes()
 	{
 		$con = new Connection();
 		$con->writeVarInt(255);
 		Nose::assertEquals(2, strlen($con->write_buffer));
 		$con->read_buffer = $con->write_buffer;
-		Nose::assertEquals(0b11111111, $con->readByte());
-		Nose::assertEquals(0b00000001, $con->readByte());
+		Nose::assertEquals(0b11111111, $con->readUnsignedByte());
+		Nose::assertEquals(0b00000001, $con->readUnsignedByte());
 		Nose::assertEquals("", $con->read_buffer);
 	}
 
-	function testWriteBytesAndReadVarint()
+	function testWriteBytesAndReadVarInt()
 	{
 		$con = new Connection();
 		$con->writeByte(0b11111111);

@@ -52,7 +52,7 @@ abstract class BossBarPacket extends Packet
 				$packet->health = $con->readFloat();
 				$packet->color = gmp_intval($con->readVarInt());
 				$packet->division = gmp_intval($con->readVarInt());
-				$flags = $con->readByte();
+				$flags = $con->readUnsignedByte();
 				if($flags & 0x04)
 				{
 					$packet->create_fog = true;

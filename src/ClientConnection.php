@@ -176,14 +176,14 @@ class ClientConnection extends Connection implements CommandSender
 		{
 			if($this->readRawPacket(0, 1))
 			{
-				$packet_length = $this->readByte();
+				$packet_length = $this->readUnsignedByte();
 				if($packet_length == 0xFE)
 				{
-					if($this->readRawPacket(0) && $this->readByte() == 0x01 && $this->readByte() == 0xFA && gmp_intval($this->readShort()) == 11 && $this->readRaw(22) == mb_convert_encoding("MC|PingHost", "utf-16be"))
+					if($this->readRawPacket(0) && $this->readUnsignedByte() == 0x01 && $this->readUnsignedByte() == 0xFA && $this->readShort() == 11 && $this->readRaw(22) == mb_convert_encoding("MC|PingHost", "utf-16be"))
 					{
 						$this->ignoreBytes(2);
 						$this->protocol_version = $this->readByte();
-						$this->setHostname(mb_convert_encoding($this->readRaw(gmp_intval($this->readShort()) * 2), "utf-8", "utf-16be"));
+						$this->setHostname(mb_convert_encoding($this->readRaw($this->readShort() * 2), "utf-8", "utf-16be"));
 						$this->hostport = gmp_intval($this->readInt());
 						return 2;
 					}
@@ -195,7 +195,7 @@ class ClientConnection extends Connection implements CommandSender
 					{
 						$this->protocol_version = gmp_intval($this->readVarInt());
 						$this->setHostname($this->readString());
-						$this->hostport = gmp_intval($this->readShort());
+						$this->hostport = $this->readUnsignedShort();
 						$this->state = gmp_intval($this->readVarInt());
 						if($this->state == 1 || $this->state == 2)
 						{

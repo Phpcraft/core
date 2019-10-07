@@ -628,9 +628,9 @@ do
 				{
 					if($protocol_version > 47)
 					{
-						$entities[$eid]["x"] += (gmp_intval($con->readShort(true)) / 4096);
-						$entities[$eid]["y"] += (gmp_intval($con->readShort(true)) / 4096);
-						$entities[$eid]["z"] += (gmp_intval($con->readShort(true)) / 4096);
+						$entities[$eid]["x"] += ($con->readShort() / 4096);
+						$entities[$eid]["y"] += ($con->readShort() / 4096);
+						$entities[$eid]["z"] += ($con->readShort() / 4096);
 					}
 					else
 					{
@@ -649,9 +649,9 @@ do
 				{
 					if($protocol_version > 47)
 					{
-						$entities[$eid]["x"] += (gmp_intval($con->readShort(true)) / 4096);
-						$entities[$eid]["y"] += (gmp_intval($con->readShort(true)) / 4096);
-						$entities[$eid]["z"] += (gmp_intval($con->readShort(true)) / 4096);
+						$entities[$eid]["x"] += ($con->readShort() / 4096);
+						$entities[$eid]["y"] += ($con->readShort() / 4096);
+						$entities[$eid]["z"] += ($con->readShort() / 4096);
 					}
 					else
 					{
