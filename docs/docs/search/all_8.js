@@ -27,7 +27,7 @@ var searchData=
   ['getpermissions',['getPermissions',['../classPhpcraft_1_1Permission_1_1Group.html#aafa588ffbd4c3d97ac3bd194bdd694d7',1,'Phpcraft::Permission::Group']]],
   ['getplayer',['getPlayer',['../classPhpcraft_1_1ClientConfiguration.html#ab676887fc0a7ccd59a6e6a0210cbcb1d',1,'Phpcraft\ClientConfiguration\getPlayer()'],['../classPhpcraft_1_1Server.html#a70a90032d30059a1b5eb5a5cf64e82bf',1,'Phpcraft\Server\getPlayer()']]],
   ['getplayers',['getPlayers',['../classPhpcraft_1_1Server.html#a8eea4895410ef8bfda087f151cae491d',1,'Phpcraft::Server']]],
-  ['getport',['getPort',['../classPhpcraft_1_1Server.html#a30389c3da45ce8a32b83d35a6adddbde',1,'Phpcraft::Server']]],
+  ['getports',['getPorts',['../classPhpcraft_1_1Server.html#af547d6924f2abcd609b79ff1bb6a64be',1,'Phpcraft::Server']]],
   ['getposition',['getPosition',['../classPhpcraft_1_1ClientConnection.html#a7bd3a155c1bf9f41efc852e2d2d4fda0',1,'Phpcraft\ClientConnection\getPosition()'],['../interfacePhpcraft_1_1Command_1_1CommandSender.html#a17cccb8a6b42344825522596fbd4d96c',1,'Phpcraft\Command\CommandSender\getPosition()'],['../classPhpcraft_1_1Server.html#aa04f77bf09780756252ec5757f847605',1,'Phpcraft\Server\getPosition()']]],
   ['getprofiles',['getProfiles',['../classPhpcraft_1_1Phpcraft.html#a4e54addd39ce8665ec5e1ee73b00be13',1,'Phpcraft::Phpcraft']]],
   ['getprofilesfile',['getProfilesFile',['../classPhpcraft_1_1Phpcraft.html#a738a4fbf79ff882e42fc90007ad4b83b',1,'Phpcraft::Phpcraft']]],

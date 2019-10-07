@@ -13,6 +13,7 @@ var searchData=
   ['parsesnbtarray',['parseSNBTArray',['../classPhpcraft_1_1Nbt_1_1NbtTag.html#ab930f3ac5d90def9d2d968e1dd5594a6',1,'Phpcraft::Nbt::NbtTag']]],
   ['peaceful',['PEACEFUL',['../classPhpcraft_1_1Enum_1_1Difficulty.html#aae4c0f1646ee364479d6e154a111d4e6',1,'Phpcraft::Enum::Difficulty']]],
   ['permission',['Permission',['../namespacePhpcraft_1_1Permission.html',1,'Phpcraft']]],
+  ['permissionbroadcast',['permissionBroadcast',['../classPhpcraft_1_1Server.html#a14172aae708ccfd4e63bb796b4b8ced6',1,'Phpcraft::Server']]],
   ['phpcraft',['Phpcraft',['../classPhpcraft_1_1Phpcraft.html',1,'Phpcraft\Phpcraft'],['../namespacePhpcraft.html',1,'Phpcraft']]],
   ['plainuserinterface',['PlainUserInterface',['../classPhpcraft_1_1PlainUserInterface.html',1,'Phpcraft']]],
   ['player',['PLAYER',['../classPhpcraft_1_1Enum_1_1ChatPosition.html#ab22a422657b2999e7eb9460c731ec192',1,'Phpcraft::Enum::ChatPosition']]],
