@@ -59,7 +59,11 @@ class Command
 				{
 					/** @noinspection PhpDeprecationInspection */
 					$type_name = $type->isBuiltin() ? "" : ($type instanceof ReflectionNamedType ? $type->getName() : $type->__toString());
-					if(!in_array($type_name, [CommandSender::class, ClientConnection::class, Server::class]))
+					if(!in_array($type_name, [
+						CommandSender::class,
+						ClientConnection::class,
+						Server::class
+					]))
 					{
 						throw new DomainException(PluginManager::$command_prefix.$this->getCanonicalName()."'s first parameter's type should be CommandSender, ClientConnection, Server, or not restricted");
 					}
@@ -257,6 +261,16 @@ class Command
 	}
 
 	/**
+	 * @param ReflectionType|null $type
+	 * @return string
+	 */
+	static function getProvider($type): string
+	{
+		/** @noinspection PhpDeprecationInspection */
+		return $type ? (self::$argument_providers[$type instanceof ReflectionNamedType ? $type->getName() : $type->__toString()]) : StringProvider::class;
+	}
+
+	/**
 	 * Returns true if the given CommandSender fulfils the class & permission requirements.
 	 *
 	 * @param CommandSender $sender
@@ -265,16 +279,6 @@ class Command
 	function isUsableBy(CommandSender &$sender): bool
 	{
 		return ($this->required_sender_class === null || get_class($sender) === $this->required_sender_class) && ($this->required_permission === null || $sender->hasPermission($this->required_permission));
-	}
-
-	/**
-	 * @param ReflectionType|null $type
-	 * @return string
-	 */
-	static function getProvider($type): string
-	{
-		/** @noinspection PhpDeprecationInspection */
-		return $type ? (self::$argument_providers[$type instanceof ReflectionNamedType ? $type->getName() : $type->__toString()]) : StringProvider::class;
 	}
 
 	function getSyntax()
