@@ -45,10 +45,10 @@ $this->on(function(ServerJoinEvent $e)
 			 $victim->getPlayer()
 					->disconnect("You have been banned from this server".($reason ? ": ".$reason->value : "."));
 		 }
-		 $sender->sendAndPrintMessage([
+		 $sender->sendAdminBroadcast([
 			 "text" => $victim->getName()." has been banned.".($reason === null ? " And you didn't even need a reason, apparently." : ""),
 			 "color" => "yellow"
-		 ]);
+		 ], "use /ban");
 	 }, "use /ban")
 	 ->registerCommand([
 		 "unban",
@@ -58,10 +58,10 @@ $this->on(function(ServerJoinEvent $e)
 		 if($victim->has("ban"))
 		 {
 			 $victim->unset("ban");
-			 $sender->sendAndPrintMessage([
+			 $sender->sendAdminBroadcast([
 				 "text" => $victim->getName()." has been unbanned.",
 				 "color" => "green"
-			 ]);
+			 ], "use /unban");
 		 }
 		 else
 		 {
