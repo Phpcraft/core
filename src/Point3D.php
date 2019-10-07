@@ -46,11 +46,11 @@ class Point3D
 		return sqrt(pow($this->x - $dest->x, 2) + pow($this->y - $dest->y, 2) + pow($this->z - $dest->z, 2));
 	}
 
-	function forward(int $distance, float $yaw, float $pitch): Point3D
+	function getUnitVector(float $yaw, float $pitch): Point3D
 	{
 		$x = pi() / 180 * $yaw;
 		$y = pi() / 180 * $pitch;
-		return $this->add(new Point3D(-cos($y) * sin($x) * $distance, -sin($y) * $distance, cos($y) * cos($x) * $distance));
+		return new Point3D(-cos($y) * sin($x), -sin($y), cos($y) * cos($x));
 	}
 
 	function add(Point3D $b): Point3D
