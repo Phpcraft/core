@@ -411,7 +411,6 @@ abstract class Phpcraft
 					{
 						array_push($ansi_modifiers, $colors[$chat["color"]]);
 					}
-					$text .= "\x1B[".join(";", $ansi_modifiers)."m";
 				}
 				else if($format == self::FORMAT_HTML)
 				{
@@ -460,6 +459,10 @@ abstract class Phpcraft
 				{
 					$text .= ($format == self::FORMAT_SILCROW ? "§" : "&").dechex(intval($i));
 				}
+			}
+			if($format == self::FORMAT_ANSI)
+			{
+				$text .= "\x1B[".join(";", $ansi_modifiers)."m";
 			}
 			foreach($attributes as $n => $v)
 			{
@@ -519,7 +522,7 @@ abstract class Phpcraft
 		}
 		else if(isset($chat["text"]))
 		{
-			$text .= $chat["text"];
+			$text .= strpos($chat["text"], "§") === false ? $chat["text"] : self::chatToText($chat["text"], $format, $translations, $chat);
 		}
 		if(isset($chat["extra"]))
 		{
