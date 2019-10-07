@@ -4,7 +4,6 @@ var searchData=
   ['finishlogin',['finishLogin',['../classPhpcraft_1_1ClientConnection.html#a891e459081509946f485e6253c18f168',1,'Phpcraft::ClientConnection']]],
   ['fire',['fire',['../classPhpcraft_1_1Plugin.html#aba78b35a6a482731e1c166823bb17e49',1,'Phpcraft\Plugin\fire()'],['../classPhpcraft_1_1PluginManager.html#ad912f829d164fd31f61a4eee2da88804',1,'Phpcraft\PluginManager\fire()']]],
   ['floor',['floor',['../classPhpcraft_1_1Point3D.html#a2e0422ce5697ed2ef2327e50ed713889',1,'Phpcraft::Point3D']]],
-  ['forward',['forward',['../classPhpcraft_1_1Point3D.html#a40003e3f1d665c1b820e2ea80803dc1e',1,'Phpcraft::Point3D']]],
   ['fromminecraftversion',['fromMinecraftVersion',['../classPhpcraft_1_1AssetsManager.html#a37b69586a1ec2cd6015d43f549ca4b40',1,'Phpcraft::AssetsManager']]],
   ['fromsnbt',['fromSNBT',['../classPhpcraft_1_1Nbt_1_1NbtTag.html#a249d8381b1a2ed853dbcf0153330789c',1,'Phpcraft::Nbt::NbtTag']]],
   ['fromstring',['fromString',['../classPhpcraft_1_1Nbt_1_1NbtTag.html#a5bf9ffca0ccb9061d01602ebbb7360ed',1,'Phpcraft::Nbt::NbtTag']]]

@@ -75,12 +75,12 @@ $(function() {
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a9459e69ac3b830d322ef8291fdef7c2c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Point3D.html#a9459e69ac3b830d322ef8291fdef7c2c">__construct</a> (float $x=0, float $y=0, float $z=0)</td></tr>
 <tr class="separator:a9459e69ac3b830d322ef8291fdef7c2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a495a650967e057a67b4be28fbe1a7fdc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Point3D.html#a495a650967e057a67b4be28fbe1a7fdc">multiply</a> (<a class="el" href="classPhpcraft_1_1Point3D.html">Point3D</a> $b)</td></tr>
-<tr class="separator:a495a650967e057a67b4be28fbe1a7fdc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab25145bb95e593be74ebb269566e7129"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Point3D.html#ab25145bb95e593be74ebb269566e7129">multiply</a> ($arg)</td></tr>
+<tr class="separator:ab25145bb95e593be74ebb269566e7129"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a847b6006f01cabcfeb49016597c40757"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Point3D.html#a847b6006f01cabcfeb49016597c40757">distance</a> (<a class="el" href="classPhpcraft_1_1Point3D.html">Point3D</a> $dest)</td></tr>
 <tr class="separator:a847b6006f01cabcfeb49016597c40757"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a40003e3f1d665c1b820e2ea80803dc1e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Point3D.html#a40003e3f1d665c1b820e2ea80803dc1e">forward</a> (int $<a class="el" href="classPhpcraft_1_1Point3D.html#a847b6006f01cabcfeb49016597c40757">distance</a>, float $yaw, float $pitch)</td></tr>
-<tr class="separator:a40003e3f1d665c1b820e2ea80803dc1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a68f4a099c6a546a6518cd88e6f616125"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Point3D.html#a68f4a099c6a546a6518cd88e6f616125">getUnitVector</a> (float $yaw, float $pitch)</td></tr>
+<tr class="separator:a68f4a099c6a546a6518cd88e6f616125"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9c4980fe91f14495a9552ce49bde00b3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Point3D.html#a9c4980fe91f14495a9552ce49bde00b3">add</a> (<a class="el" href="classPhpcraft_1_1Point3D.html">Point3D</a> $b)</td></tr>
 <tr class="separator:a9c4980fe91f14495a9552ce49bde00b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af8376c92063e0ff7e27e6bfce01ddde3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Point3D.html#af8376c92063e0ff7e27e6bfce01ddde3">lookAt</a> (<a class="el" href="classPhpcraft_1_1Point3D.html">Point3D</a> $b)</td></tr>
@@ -273,21 +273,15 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a40003e3f1d665c1b820e2ea80803dc1e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a40003e3f1d665c1b820e2ea80803dc1e">&#9670;&nbsp;</a></span>forward()</h2>
+<a id="a68f4a099c6a546a6518cd88e6f616125"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a68f4a099c6a546a6518cd88e6f616125">&#9670;&nbsp;</a></span>getUnitVector()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">Phpcraft\Point3D::forward </td>
+          <td class="memname">Phpcraft\Point3D::getUnitVector </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>$distance</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
           <td class="paramtype">float&#160;</td>
           <td class="paramname"><em>$yaw</em>, </td>
         </tr>
@@ -349,8 +343,8 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a495a650967e057a67b4be28fbe1a7fdc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a495a650967e057a67b4be28fbe1a7fdc">&#9670;&nbsp;</a></span>multiply()</h2>
+<a id="ab25145bb95e593be74ebb269566e7129"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab25145bb95e593be74ebb269566e7129">&#9670;&nbsp;</a></span>multiply()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -358,12 +352,19 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="memname">Phpcraft\Point3D::multiply </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classPhpcraft_1_1Point3D.html">Point3D</a>&#160;</td>
-          <td class="paramname"><em>$b</em></td><td>)</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$arg</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype"><a class="el" href="classPhpcraft_1_1Point3D.html">Point3D</a>&#160;|&#160;int&#160;|&#160;float&#160;|&#160;string</td><td class="paramname">$arg</td><td><a class="el" href="classPhpcraft_1_1Point3D.html">Point3D</a> or numeric </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classPhpcraft_1_1Point3D.html">Point3D</a> </dd></dl>
 
 </div>
 </div>
