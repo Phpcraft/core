@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['false',['false',['../namespacePhpcraft_1_1Packet_1_1MapData.html#a128b1e614bd7d6db4d70a2245d5c1dc2',1,'Phpcraft::Packet::MapData']]],
   ['feet',['FEET',['../classPhpcraft_1_1Slot.html#a43d1ef95a8e832bdd8fa686905ec2c4f',1,'Phpcraft::Slot']]],
   ['format_5fampersand',['FORMAT_AMPERSAND',['../classPhpcraft_1_1Phpcraft.html#a3f95aeb3ebd5b39428049147a1187a23',1,'Phpcraft::Phpcraft']]],
   ['format_5fansi',['FORMAT_ANSI',['../classPhpcraft_1_1Phpcraft.html#a711c879e0827b293c55181dabd86f950',1,'Phpcraft::Phpcraft']]],

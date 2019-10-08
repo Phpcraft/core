@@ -18,6 +18,7 @@ var searchData=
   ['setgroup',['setGroup',['../classPhpcraft_1_1ClientConfiguration.html#a059365b21fdc1e69c14b798365df0151',1,'Phpcraft::ClientConfiguration']]],
   ['setgroups',['setGroups',['../classPhpcraft_1_1Server.html#a18a0b75bafa22447abed615ad5c297c5',1,'Phpcraft::Server']]],
   ['setinputprefix',['setInputPrefix',['../classPhpcraft_1_1UserInterface.html#aedaad0d0ebcb2f1f3f1cc3866091f73c',1,'Phpcraft::UserInterface']]],
+  ['setreadbuffer',['setReadBuffer',['../classPhpcraft_1_1Connection.html#a7c459cc8e8a68e1ccd99f7ee80a2794b',1,'Phpcraft::Connection']]],
   ['setsnbt',['setSNBT',['../classPhpcraft_1_1Slot.html#ad5c651ddbbeb7d3779bfdad63a1ff35b',1,'Phpcraft::Slot']]],
   ['sha1',['sha1',['../classPhpcraft_1_1Phpcraft.html#a81acb8558a1a03521ee54679e066a7bc',1,'Phpcraft::Phpcraft']]],
   ['slot',['slot',['../classPhpcraft_1_1Item.html#aa2098a1be1009e6eb43c14a016e38456',1,'Phpcraft::Item']]],
