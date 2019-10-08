@@ -20,6 +20,7 @@ use Phpcraft\Nbt\
  */
 class Connection
 {
+	static $pow2 = [];
 	/**
 	 * The protocol version that is used for this connection.
 	 *
@@ -55,8 +56,10 @@ class Connection
 	 * The read buffer binary string.
 	 *
 	 * @var string $read_buffer
+	 * @see Connection::setReadBuffer()
 	 */
 	public $read_buffer = "";
+	public $read_buffer_offset = 0;
 
 	/**
 	 * @param integer $protocol_version
@@ -80,6 +83,17 @@ class Connection
 	function isOpen(): bool
 	{
 		return $this->stream != null && @feof($this->stream) === false;
+	}
+
+	/**
+	 * Updates the read buffer correctly.
+	 *
+	 * @param string $buffer New read buffer binary string
+	 */
+	function setReadBuffer(string $buffer)
+	{
+		$this->read_buffer = $buffer;
+		$this->read_buffer_offset = 0;
 	}
 
 	/**
@@ -126,7 +140,11 @@ class Connection
 		{
 			$value = intval($value);
 		}
-		$value = self::complimentNumber($value, 32);
+		$value = gmp_init($value);
+		if(gmp_cmp($value, 0) < 0)
+		{
+			$value = gmp_sub("4294967296", gmp_abs($value));
+		}
 		$bytes = "";
 		do
 		{
@@ -140,15 +158,6 @@ class Connection
 		}
 		while($value != 0);
 		return $bytes;
-	}
-
-	private static function complimentNumber($value, int $bits)
-	{
-		if(gmp_cmp($value, 0) < 0)
-		{
-			$value = gmp_sub(gmp_pow(2, $bits), gmp_abs($value));
-		}
-		return $value;
 	}
 
 	/**
@@ -194,12 +203,12 @@ class Connection
 			$long = gmp_or($long, gmp_mul(gmp_and(intval($pos->z), 0x3FFFFFF), gmp_pow(2, 12))); // $long |= ($pos->z & 0x3FFFFFF) << 12;
 			$long = gmp_or($long, gmp_and(intval($pos->y), 0xFFF)); // $long |= ($pos->y & 0xFFF);
 		}
-		return $this->writeGMP($long, 8, false);
+		$this->writeGMP($long, 8, 64, false);
+		return $this;
 	}
 
-	private function writeGMP($value, int $bytes, bool $signed): Connection
+	private function writeGMP($value, int $bytes, int $bits, bool $signed)
 	{
-		$bits = $bytes * 8;
 		if(is_float($value))
 		{
 			$value = intval($value);
@@ -208,22 +217,26 @@ class Connection
 		{
 			$value = self::signNumber($value, $bits);
 		}
-		if(gmp_cmp($value, 0) == 0)
+		$cmp0 = gmp_cmp($value, 0);
+		if($cmp0 == 0)
 		{
 			$this->write_buffer .= str_repeat("\0", $bytes);
 		}
 		else
 		{
-			$this->write_buffer .= gmp_export(self::complimentNumber($value, $bits), $bytes, GMP_BIG_ENDIAN);
+			if($cmp0 < 0)
+			{
+				$value = gmp_sub(gmp_pow(2, $bits), gmp_abs($value));
+			}
+			$this->write_buffer .= gmp_export($value, $bytes, GMP_BIG_ENDIAN);
 		}
-		return $this;
 	}
 
 	private static function signNumber($value, int $bits)
 	{
-		if(gmp_cmp($value, gmp_pow(2, $bits - 1)) >= 0)
+		if(gmp_cmp($value, self::$pow2[$bits - 1]) >= 0)
 		{
-			$value = gmp_sub($value, gmp_pow(2, $bits));
+			$value = gmp_sub($value, self::$pow2[$bits]);
 		}
 		return $value;
 	}
@@ -236,7 +249,8 @@ class Connection
 	 */
 	function writeLong($value): Connection
 	{
-		return $this->writeGMP($value, 8, true);
+		$this->writeGMP($value, 8, 64, true);
+		return $this;
 	}
 
 	/**
@@ -285,7 +299,8 @@ class Connection
 	 */
 	function writeInt($value): Connection
 	{
-		return $this->writeGMP($value, 4, true);
+		$this->writeGMP($value, 4, 32, true);
+		return $this;
 	}
 
 	/**
@@ -328,7 +343,7 @@ class Connection
 						case "filled_map":
 							if(!($slot->nbt instanceof NbtCompound) || !$slot->nbt->hasChild("map"))
 							{
-								throw new MissingMetadataException("filled_map is missing ID.");
+								throw new MissingMetadataException("filled_map is missing ID");
 							}
 							$this->writeShort($slot->nbt->getChild("map")->value);
 							break;
@@ -379,7 +394,8 @@ class Connection
 	 */
 	function writeShort($value): Connection
 	{
-		return $this->writeGMP($value, 2, true);
+		$this->writeGMP($value, 2, 16, true);
+		return $this;
 	}
 
 	/**
@@ -414,7 +430,8 @@ class Connection
 	 */
 	function writeUnsignedShort($value): Connection
 	{
-		return $this->writeGMP($value, 2, false);
+		$this->writeGMP($value, 2, 16, false);
+		return $this;
 	}
 
 	/**
@@ -475,7 +492,7 @@ class Connection
 		}
 		else if(gettype($packet) != "integer")
 		{
-			throw new InvalidArgumentException("Packet has to be either string or integer.");
+			throw new InvalidArgumentException("Packet has to be either string or integer");
 		}
 		$this->write_buffer = self::varInt($packet);
 		return $this;
@@ -494,7 +511,7 @@ class Connection
 		{
 			if(@feof($this->stream) !== false)
 			{
-				throw new IOException("Can't send to connection that's not open.");
+				throw new IOException("Can't send to connection that's not open");
 			}
 			stream_set_blocking($this->stream, true);
 			if($raw)
@@ -580,6 +597,7 @@ class Connection
 				$this->read_buffer .= fread($this->stream, $bytes - strlen($this->read_buffer));
 			}
 		}
+		$this->read_buffer_offset = 0;
 		return strlen($this->read_buffer) > 0;
 	}
 
@@ -589,7 +607,6 @@ class Connection
 	 * @param float $timeout The amount of seconds to wait before read is aborted.
 	 * @return integer|boolean The packet's ID or false if no packet was received within the time limit.
 	 * @throws IOException When there are not enough bytes to read the packet ID.
-	 * @throws LengthException When the packet's length or ID VarInt is too big.
 	 * @see Connection::readRawPacket
 	 * @see Packet::clientboundPacketIdToName()
 	 * @see Packet::serverboundPacketIdToName()
@@ -614,7 +631,7 @@ class Connection
 			$length |= (($byte & 0b01111111) << (7 * $read++));
 			if($length > 2097152)
 			{
-				throw new LengthException("Length wider than 21-bit");
+				throw new IOException("Packet length wider than 21 bits");
 			}
 		}
 		while(($byte & 0b10000000) != 0);
@@ -641,6 +658,7 @@ class Connection
 				}
 			}
 		}
+		$this->read_buffer_offset = 0;
 		return gmp_intval($this->readVarInt());
 	}
 
@@ -648,8 +666,7 @@ class Connection
 	 * Reads an integer encoded as a VarInt from the read buffer.
 	 *
 	 * @return GMP
-	 * @throws LengthException When the VarInt is too big.
-	 * @throws IOException When there are not enough bytes to read or continue reading a VarInt.
+	 * @throws IOException When the VarInt is too big or there are not enough bytes to read or continue reading a VarInt
 	 */
 	function readVarInt(): GMP
 	{
@@ -657,16 +674,16 @@ class Connection
 		$read = 0;
 		do
 		{
-			if(strlen($this->read_buffer) == 0)
+			if($this->read_buffer_offset >= strlen($this->read_buffer))
 			{
-				throw new LengthException("There are not enough bytes to read a VarInt.");
+				throw new IOException("There are not enough bytes to read a VarInt");
 			}
-			$byte = $this->readByte();
+			$byte = unpack("Cbyte", substr($this->read_buffer, $this->read_buffer_offset++, 1))["byte"];
 			$value = gmp_or($value, gmp_mul(gmp_and($byte, 0b01111111), pow(2, 7 * $read)));
 			// $value |= (($byte & 0b01111111) << (7 * $read));
 			if(++$read > 5)
 			{
-				throw new LengthException("VarInt is too big");
+				throw new IOException("VarInt is too big");
 			}
 		}
 		while(($byte & 0b10000000) != 0);
@@ -681,13 +698,11 @@ class Connection
 	 */
 	function readByte(): int
 	{
-		if(strlen($this->read_buffer) < 1)
+		if($this->read_buffer_offset >= strlen($this->read_buffer))
 		{
-			throw new IOException("There are not enough bytes to read a byte.");
+			throw new IOException("There are not enough bytes to read a byte");
 		}
-		$byte = unpack("cbyte", substr($this->read_buffer, 0, 1))["byte"];
-		$this->read_buffer = substr($this->read_buffer, 1);
-		return $byte;
+		return unpack("cbyte", substr($this->read_buffer, $this->read_buffer_offset++, 1))["byte"];
 	}
 
 	/**
@@ -698,13 +713,11 @@ class Connection
 	 */
 	function readUnsignedByte(): int
 	{
-		if(strlen($this->read_buffer) < 1)
+		if($this->read_buffer_offset >= strlen($this->read_buffer))
 		{
-			throw new IOException("There are not enough bytes to read a byte.");
+			throw new IOException("There are not enough bytes to read a byte");
 		}
-		$byte = unpack("Cbyte", substr($this->read_buffer, 0, 1))["byte"];
-		$this->read_buffer = substr($this->read_buffer, 1);
-		return $byte;
+		return unpack("Cbyte", substr($this->read_buffer, $this->read_buffer_offset++, 1))["byte"];
 	}
 
 	/**
@@ -747,18 +760,18 @@ class Connection
 		}
 		if($length > $maxLength)
 		{
-			throw new IOException("The string on the wire apparently has {$length} bytes which exceeds {$maxLength}.");
+			throw new IOException("The string on the wire apparently has {$length} bytes which exceeds {$maxLength}");
 		}
 		if($length < $minLength)
 		{
-			throw new LengthException("This string on the wire apparently has {$length} bytes but at least {$minLength} are required.");
+			throw new LengthException("This string on the wire apparently has {$length} bytes but at least {$minLength} are required");
 		}
 		if($length > strlen($this->read_buffer))
 		{
-			throw new LengthException("String on the wire is apparently {$length} bytes long, but that exceeds the bytes in the read buffer.");
+			throw new LengthException("String on the wire is apparently {$length} bytes long, but that exceeds the bytes in the read buffer");
 		}
-		$str = substr($this->read_buffer, 0, $length);
-		$this->read_buffer = substr($this->read_buffer, $length);
+		$str = substr($this->read_buffer, $this->read_buffer_offset, $length);
+		$this->read_buffer_offset += $length;
 		return $str;
 	}
 
@@ -770,36 +783,36 @@ class Connection
 	 */
 	function readPosition(): Point3D
 	{
-		$long = $this->readGMP(8, false);
-		$x = gmp_div($long, gmp_pow(2, 38)); // $long >> 38
+		$long = $this->readGMP(8, 64, false);
+		$x = gmp_div($long, "274877906944"); // $long >> 38
 		if($this->protocol_version < 472)
 		{
-			$y = gmp_and(gmp_div($long, gmp_pow(2, 26)), 0xFFF); // ($long >> 26) & 0xFFF
+			$y = gmp_and(gmp_div($long, "67108864"), 0xFFF); // ($long >> 26) & 0xFFF
 			$z = gmp_and($long, 0x3FFFFFF);
 		}
 		else
 		{
 			$y = gmp_and($long, 0xFFF); // $long & 0xFFF
-			$z = gmp_and(gmp_div($long, gmp_pow(2, 12)), 0x3FFFFFF);
+			$z = gmp_and(gmp_div($long, "4096"), 0x3FFFFFF); // ($long >> 12) & 0x3FFFFFF
 		}
 		return new Point3D(gmp_intval(self::signNumber($x, 26)), gmp_intval(self::signNumber($y, 12)), gmp_intval(self::signNumber($z, 26)));
 	}
 
 	/**
-	 * @param integer $bytes
+	 * @param int $bytes
+	 * @param int $bits
 	 * @param bool $signed
 	 * @return GMP
 	 * @throws IOException
 	 */
-	private function readGMP(int $bytes, bool $signed): GMP
+	private function readGMP(int $bytes, int $bits, bool $signed): GMP
 	{
-		if(strlen($this->read_buffer) < $bytes)
+		if(strlen($this->read_buffer) - $this->read_buffer_offset < $bytes)
 		{
-			throw new IOException("There are not enough bytes to read a {$bytes}-byte number.");
+			throw new IOException("There are not enough bytes to read a {$bytes}-byte number");
 		}
-		$value = gmp_import(substr($this->read_buffer, 0, $bytes), $bytes, GMP_BIG_ENDIAN);
-		$this->read_buffer = substr($this->read_buffer, $bytes);
-		$bits = $bytes * 8;
+		$value = gmp_import(substr($this->read_buffer, $this->read_buffer_offset, $bytes), $bytes, GMP_BIG_ENDIAN);
+		$this->read_buffer_offset += $bytes;
 		if($signed)
 		{
 			$value = self::signNumber($value, $bits);
@@ -826,12 +839,12 @@ class Connection
 	 */
 	function readDouble(): float
 	{
-		if(strlen($this->read_buffer) < 8)
+		if(strlen($this->read_buffer) - $this->read_buffer_offset < 8)
 		{
-			throw new IOException("There are not enough bytes to read a double.");
+			throw new IOException("There are not enough bytes to read a double");
 		}
-		$double = unpack("Edouble", substr($this->read_buffer, 0, 8))["double"];
-		$this->read_buffer = substr($this->read_buffer, 8);
+		$double = unpack("Edouble", substr($this->read_buffer, $this->read_buffer_offset, 8))["double"];
+		$this->read_buffer_offset += 8;
 		return $double;
 	}
 
@@ -854,7 +867,7 @@ class Connection
 	 */
 	function readInt(): GMP
 	{
-		return $this->readGMP(4, true);
+		return $this->readGMP(4, 32, true);
 	}
 
 	/**
@@ -865,12 +878,12 @@ class Connection
 	 */
 	function readUUID(): UUID
 	{
-		if(strlen($this->read_buffer) < 16)
+		if(strlen($this->read_buffer) - $this->read_buffer_offset < 16)
 		{
-			throw new IOException("There are not enough bytes to read a UUID.");
+			throw new IOException("There are not enough bytes to read a UUID");
 		}
-		$uuid = new UUID(substr($this->read_buffer, 0, 16));
-		$this->read_buffer = substr($this->read_buffer, 16);
+		$uuid = new UUID(substr($this->read_buffer, $this->read_buffer_offset, 16));
+		$this->read_buffer_offset += 16;
 		return $uuid;
 	}
 
@@ -979,12 +992,15 @@ class Connection
 	 */
 	function readBoolean(): bool
 	{
-		if(strlen($this->read_buffer) < 1)
+		if($this->read_buffer_offset >= strlen($this->read_buffer))
 		{
-			throw new IOException("There are not enough bytes to read a boolean.");
+			throw new IOException("There are not enough bytes to read a boolean");
 		}
-		$byte = unpack("cbyte", substr($this->read_buffer, 0, 1))["byte"];
-		$this->read_buffer = substr($this->read_buffer, 1);
+		$byte = unpack("Cbyte", substr($this->read_buffer, $this->read_buffer_offset++, 1))["byte"];
+		if($byte > 1)
+		{
+			throw new IOException("Invalid boolean value: $byte");
+		}
 		return $byte != 0;
 	}
 
@@ -996,7 +1012,7 @@ class Connection
 	 */
 	function readShort(): int
 	{
-		return gmp_intval($this->readGMP(2, true));
+		return gmp_intval($this->readGMP(2, 16, true));
 	}
 
 	/**
@@ -1082,11 +1098,16 @@ class Connection
 	 *
 	 * @param integer $bytes
 	 * @return string
+	 * @throws IOException When there are not enough bytes in the buffer to read the given number.
 	 */
 	function readRaw(int $bytes): string
 	{
-		$str = substr($this->read_buffer, 0, $bytes);
-		$this->read_buffer = substr($this->read_buffer, $bytes);
+		if(strlen($this->read_buffer) - $this->read_buffer_offset < $bytes)
+		{
+			throw new IOException("There are less than $bytes bytes");
+		}
+		$str = substr($this->read_buffer, $this->read_buffer_offset, $bytes);
+		$this->read_buffer_offset += $bytes;
 		return $str;
 	}
 
@@ -1098,7 +1119,7 @@ class Connection
 	 */
 	function readLong(): GMP
 	{
-		return $this->readGMP(8, true);
+		return $this->readGMP(8, 64, true);
 	}
 
 	/**
@@ -1109,12 +1130,12 @@ class Connection
 	 */
 	function readFloat(): float
 	{
-		if(strlen($this->read_buffer) < 4)
+		if(strlen($this->read_buffer) - $this->read_buffer_offset < 4)
 		{
-			throw new IOException("There are not enough bytes to read a float.");
+			throw new IOException("There are not enough bytes to read a float");
 		}
-		$float = unpack("Gfloat", substr($this->read_buffer, 0, 4))["float"];
-		$this->read_buffer = substr($this->read_buffer, 4);
+		$float = unpack("Gfloat", substr($this->read_buffer, $this->read_buffer_offset, 4))["float"];
+		$this->read_buffer_offset += 4;
 		return $float;
 	}
 
@@ -1126,7 +1147,7 @@ class Connection
 	 */
 	function readUnsignedShort(): int
 	{
-		return gmp_intval($this->readGMP(2, false));
+		return gmp_intval($this->readGMP(2, 16, false));
 	}
 
 	/**
@@ -1138,11 +1159,15 @@ class Connection
 	 */
 	function ignoreBytes(int $bytes): Connection
 	{
-		if(strlen($this->read_buffer) < $bytes)
+		if(strlen($this->read_buffer) - $this->read_buffer_offset < $bytes)
 		{
 			throw new IOException("There are less than {$bytes} bytes");
 		}
-		$this->read_buffer = substr($this->read_buffer, $bytes);
+		$this->read_buffer_offset += $bytes;
 		return $this;
 	}
+}
+for($i = 2; $i <= 64; $i++)
+{
+	Connection::$pow2[$i] = gmp_pow(2, $i);
 }

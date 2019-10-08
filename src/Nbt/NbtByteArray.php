@@ -28,10 +28,10 @@ class NbtByteArray extends NbtListTag
 		{
 			$this->_write($con);
 		}
-		$con->writeInt(count($this->children), true);
+		$con->writeInt(count($this->children));
 		foreach($this->children as $child)
 		{
-			$con->writeByte($child);
+			$con->write_buffer .= pack("c", $child);
 		}
 		return $con;
 	}

@@ -5,6 +5,7 @@ use Phpcraft\
 /** The packet sent to clients to update a map's contents and/or its markers. */
 class MapDataPacket extends Packet
 {
+	static $color_id_cache = [];
 	/**
 	 * The map ID.
 	 * See https://minecraft.gamepedia.com/Map#Item_data for the NBT data the map needs.
@@ -849,6 +850,11 @@ class MapDataPacket extends Packet
 	 */
 	static function getColorId(array $rgb, bool $new_colors = true)
 	{
+		$index = join(" ",$rgb);
+		if(array_key_exists($index, self::$color_id_cache[$new_colors]))
+		{
+			return self::$color_id_cache[$new_colors][$index];
+		}
 		$best_color = $best_diff = 0;
 		foreach(($new_colors ? MapDataPacket::colors_1_12() : MapDataPacket::colors_1_8_1()) as $id => $rgb2)
 		{
@@ -859,6 +865,7 @@ class MapDataPacket extends Packet
 				$best_diff = $diff;
 			}
 		}
+		self::$color_id_cache[$new_colors][$index] = $best_color;
 		return $best_color;
 	}
 
@@ -1985,3 +1992,4 @@ class MapDataPacket extends Packet
 		return $str."}";
 	}
 }
+MapDataPacket::$color_id_cache = [true => [], false => []];

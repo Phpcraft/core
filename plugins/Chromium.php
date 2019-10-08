@@ -1,4 +1,4 @@
-<?php /** @noinspection PhpUndefinedNamespaceInspection PhpUndefinedClassInspection PhpComposerExtensionStubsInspection PhpUndefinedMethodInspection */
+<?php /** @noinspection PhpUndefinedNamespaceInspection PhpUndefinedClassInspection PhpComposerExtensionStubsInspection PhpUndefinedMethodInspection PhpUndefinedFieldInspection */
 /**
  * Allows you to browse the internet... on a map.
  *
@@ -27,27 +27,22 @@ if(!$c->isAvailable())
 	$c->download();
 	echo " Done.\n";
 }
-$client_pages = [];
 $i = $c->start(false);
 //$i->logging = true;
 $this->registerCommand("scale", function(ClientConnection $con, float $scale)
 {
-	global $client_pages;
-	$client_pages[$con->username][1] = false;
-	$client_pages[$con->username][0]->setDeviceMetrics(128 * (1 / $scale), 128 * (1 / $scale), $scale, function() use (&$con)
+	$con->render_chromium_tab = false;
+	$con->chromium_tab->setDeviceMetrics(128 * (1 / $scale), 128 * (1 / $scale), $scale, function() use (&$con)
 	{
-		global $client_pages;
-		$client_pages[$con->username][1] = true;
+		$con->render_chromium_tab = true;
 	});
 }, "use chromium");
 $this->registerCommand("goto", function(ClientConnection $con, string $url)
 {
-	global $client_pages;
-	$client_pages[$con->username][1] = false;
-	$client_pages[$con->username][0]->once("Page.frameStoppedLoading", function() use (&$con)
+	$con->render_chromium_tab = false;
+	$con->chromium_tab->once("Page.frameStoppedLoading", function() use (&$con)
 	{
-		global $client_pages;
-		$client_pages[$con->username][1] = true;
+		$con->render_chromium_tab = true;
 	})
 									->navigate($url);
 }, "use chromium");
@@ -63,11 +58,8 @@ $this->on(function(ServerJoinEvent $event) use (&$i)
 		{
 			$page->setDocumentContent("<body><h1>Welcome to Chromium on a Map!</h1><p>Use /scale 0.25 to continue.</p><p style='margin-top:50px;font-size:45px'>Well done, you're now seeing this page at 512x512 downscaled to 128x128.<br>Use /goto &lt;url&gt; to navigate somewhere on the interwebz.</p></body>", function() use (&$event, &$page)
 			{
-				global $client_pages;
-				$client_pages[$event->client->username] = [
-					$page,
-					true
-				];
+				$event->client->chromium_tab = $page;
+				$event->client->render_chromium_tab = true;
 				(new SetSlotPacket(0, Slot::HOTBAR_3, Item::get("filled_map")
 														  ->slot(1, new NbtCompound("tag", [
 															  new NbtCompound("display", [
@@ -81,34 +73,31 @@ $this->on(function(ServerJoinEvent $event) use (&$i)
 });
 $this->on(function(ServerLeaveEvent $event)
 {
-	global $client_pages;
-	if(@array_key_exists($event->client->username, $client_pages))
+	if(@$event->client->chromium_tab)
 	{
-		$client_pages[$event->client->username][0]->close();
-		unset($client_pages[$event->client->username]);
+		$event->client->chromium_tab->close();
 	}
 });
 $this->on(function(ServerTickEvent $event) use (&$i)
 {
+	if($event->lagging)
+	{
+		return;
+	}
 	if(!$i->isRunning())
 	{
 		echo "[Chromium] Chromium process is no longer running.\n";
 		$this->unregister();
 	}
 	$i->handle();
-	global $client_pages;
 	foreach($event->server->getPlayers() as $client)
 	{
-		if(!@array_key_exists($client->username, $client_pages))
+		if(@$client->render_chromium_tab !== true)
 		{
 			continue;
 		}
-		if(!$client_pages[$client->username][1])
-		{
-			continue;
-		}
-		$client_pages[$client->username][1] = false;
-		$client_pages[$client->username][0]->captureScreenshot("png", [], function($data) use (&$client)
+		$client->render_chromium_tab = false;
+		$client->chromium_tab->captureScreenshot("png", [], function($data) use (&$client)
 		{
 			$packet = new MapDataPacket();
 			$packet->mapId = 1338;
@@ -131,8 +120,7 @@ $this->on(function(ServerTickEvent $event) use (&$i)
 				}
 			}
 			$packet->send($client);
-			global $client_pages;
-			$client_pages[$client->username][1] = true;
+			$client->render_chromium_tab = true;
 		});
 	}
 	$i->handle();
@@ -140,4 +128,5 @@ $this->on(function(ServerTickEvent $event) use (&$i)
 $this->registerCommand("close_chromium", function(/** @noinspection PhpUnusedParameterInspection */ CommandSender &$sender) use (&$i)
 {
 	$i->close();
+	$this->unregister();
 }, "use /close_chromium");

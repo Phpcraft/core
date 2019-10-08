@@ -10,7 +10,7 @@ class NBTTest
 		$con = new Connection();
 		$con->read_buffer = $bin;
 		$list = $con->readNBT();
-		Nose::assertEquals("", $con->read_buffer);
+		Nose::assertEquals($con->read_buffer_offset, strlen($con->read_buffer));
 		assert($list instanceof NbtList);
 		Nose::assertEquals("List", $list->name);
 		Nose::assertEquals(1, count($list->children));
@@ -32,7 +32,7 @@ class NBTTest
 		$con = new Connection(-1);
 		$con->read_buffer = $bin;
 		$tag = $con->readNBT();
-		Nose::assertEquals("", $con->read_buffer);
+		Nose::assertEquals($con->read_buffer_offset, strlen($con->read_buffer));
 		Nose::assert($tag instanceof NbtCompound);
 		Nose::assertEquals("Level", $tag->name);
 		$tag->write($con);

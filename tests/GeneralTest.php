@@ -114,7 +114,7 @@ class GeneralTest
 		$con->read_buffer = $con->write_buffer;
 		Nose::assertEquals($name, $con->readSlot()
 									  ->getDisplayName());
-		Nose::assertEquals("", $con->read_buffer);
+		Nose::assertEquals($con->read_buffer_offset, strlen($con->read_buffer));
 	}
 
 	function testEntityMetadata()
@@ -132,7 +132,7 @@ class GeneralTest
 		$con->read_buffer = $con->write_buffer;
 		$read_metadata = (new EntityBase())->read($con);
 		assert($read_metadata instanceof EntityLiving);
-		Nose::assertEquals("", $con->read_buffer);
+		Nose::assertEquals($con->read_buffer_offset, strlen($con->read_buffer));
 		Nose::assertTrue($read_metadata->burning);
 		Nose::assertFalse($read_metadata->crouching);
 		Nose::assertFalse($read_metadata->elytraing);
