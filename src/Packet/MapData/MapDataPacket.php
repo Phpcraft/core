@@ -850,7 +850,7 @@ class MapDataPacket extends Packet
 	 */
 	static function getColorId(array $rgb, bool $new_colors = true)
 	{
-		$index = join(" ",$rgb);
+		$index = $rgb[0]." ".$rgb[1]." ".$rgb[2];
 		if(array_key_exists($index, self::$color_id_cache[$new_colors]))
 		{
 			return self::$color_id_cache[$new_colors][$index];
