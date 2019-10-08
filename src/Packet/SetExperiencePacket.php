@@ -11,13 +11,13 @@ class SetExperiencePacket extends Packet
 	 */
 	public $percent;
 	/**
-	 * @param integer $level
+	 * @param int $level
 	 */
 	public $level;
 
 	/**
 	 * @param float $percent How many percent the experience bar is filled from 0.00 to 1.00.
-	 * @param integer $level
+	 * @param int $level
 	 */
 	function __construct(float $percent = 0.00, int $level = 0)
 	{

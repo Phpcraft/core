@@ -20,14 +20,14 @@ class ClientConnection extends Connection implements CommandSender
 	 *
 	 * @see ClientConnection::handleInitialPacket
 	 * @see ClientConnection::getHost
-	 * @var number $hostport
+	 * @var int $hostport
 	 */
 	public $hostport;
 	/**
 	 * Additional data the client had provided in the handshake.
 	 * E.g., "FML" is in this array for Forge clients.
 	 *
-	 * @var $join_specs string[]
+	 * @var array<string> $join_specs
 	 */
 	public $join_specs = [];
 	/**
@@ -49,19 +49,19 @@ class ClientConnection extends Connection implements CommandSender
 	/**
 	 * This variable is for servers to keep track of when to send the next keep alive packet to clients.
 	 *
-	 * @var integer $next_heartbeat
+	 * @var float $next_heartbeat
 	 */
 	public $next_heartbeat = 0;
 	/**
 	 * This variable is for servers to keep track of how long clients have to answer keep alive packets.
 	 *
-	 * @var integer $disconnect_after
+	 * @var float $disconnect_after
 	 */
 	public $disconnect_after = 0;
 	/**
 	 * The client's entity ID.
 	 *
-	 * @var integer $eid
+	 * @var int $eid
 	 */
 	public $eid;
 	/**
@@ -71,11 +71,11 @@ class ClientConnection extends Connection implements CommandSender
 	 */
 	public $pos;
 	/**
-	 * @var integer|null $chunk_x
+	 * @var int|null $chunk_x
 	 */
 	public $chunk_x;
 	/**
-	 * @var integer|null $chunk_z
+	 * @var int|null $chunk_z
 	 */
 	public $chunk_z;
 	/**
@@ -96,17 +96,17 @@ class ClientConnection extends Connection implements CommandSender
 	 */
 	public $on_ground = false;
 	/**
-	 * @var integer $render_distance
+	 * @var int $render_distance
 	 */
 	public $render_distance = 8;
 	/**
 	 * A string array of chunks the client has received.
 	 *
-	 * @var array $chunks
+	 * @var array<string> $chunks
 	 */
 	public $chunks = [];
 	/**
-	 * @var integer $gamemode
+	 * @var int $gamemode
 	 */
 	public $gamemode = Gamemode::SURVIVAL;
 	/**
@@ -365,7 +365,7 @@ class ClientConnection extends Connection implements CommandSender
 	 *   ]
 	 * ]</pre>
 	 *
-	 * @return integer|array
+	 * @return int|array
 	 * @see ClientConnection::isAuthenticationPending
 	 */
 	function handleAuthentication()
@@ -393,7 +393,7 @@ class ClientConnection extends Connection implements CommandSender
 	 *
 	 * @param UUID $uuid The UUID of the client.
 	 * @param Counter $eidCounter The server's Counter to assign an entity ID to the client.
-	 * @param integer $compression_threshold Use -1 to disable compression.
+	 * @param int $compression_threshold Use -1 to disable compression.
 	 * @return ClientConnection $this
 	 * @throws IOException
 	 */
@@ -578,7 +578,7 @@ class ClientConnection extends Connection implements CommandSender
 	/**
 	 * Sets the client's gamemode and adjusts their abilities accordingly.
 	 *
-	 * @param integer $gamemode
+	 * @param int $gamemode
 	 * @return ClientConnection $this
 	 * @throws IOException
 	 * @see Gamemode
@@ -602,7 +602,7 @@ class ClientConnection extends Connection implements CommandSender
 	/**
 	 * Sets the client's abilities according to the given gamemode.
 	 *
-	 * @param integer $gamemode
+	 * @param int $gamemode
 	 * @return ClientConnection $this
 	 * @see ClientConnection::sendAbilities
 	 * @see ClientConnection::setGamemode

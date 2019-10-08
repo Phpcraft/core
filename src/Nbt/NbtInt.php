@@ -39,7 +39,7 @@ class NbtInt extends NbtTag
 		{
 			$this->_write($con);
 		}
-		$con->writeInt($this->value, true);
+		$con->writeInt($this->value);
 		return $con;
 	}
 
@@ -50,7 +50,7 @@ class NbtInt extends NbtTag
 
 	function __toString()
 	{
-		return "{Int \"".$this->name."\": ".$this->value."}";
+		return "{Int \"".$this->name."\": ".gmp_strval($this->value)."}";
 	}
 
 	/**

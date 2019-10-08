@@ -38,7 +38,7 @@ class EntityLiving extends EntityBase
 
 	/**
 	 * @param Connection $con
-	 * @param integer $index
+	 * @param int $index
 	 * @return boolean
 	 * @throws IOException
 	 */

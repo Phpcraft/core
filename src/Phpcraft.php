@@ -36,7 +36,7 @@ abstract class Phpcraft
 	 * @see Phpcraft::getProfilesFile()
 	 * @see Phpcraft::saveProfiles()
 	 */
-	static function getProfiles()
+	static function getProfiles(): array
 	{
 		$profiles_file = self::getProfilesFile();
 		if(file_exists($profiles_file) && is_file($profiles_file))
@@ -130,7 +130,7 @@ abstract class Phpcraft
 	 * @return array
 	 * @see Phpcraft::maintainCache
 	 */
-	static function getCachableJson(string $url)
+	static function getCachableJson(string $url): array
 	{
 		if(!self::$json_cache->data && is_file(self::$json_cache->file))
 		{
@@ -226,7 +226,7 @@ abstract class Phpcraft
 	 * @param array $data
 	 * @return array
 	 */
-	static function httpPOST(string $url, array $data)
+	static function httpPOST(string $url, array $data): array
 	{
 		$res = @file_get_contents($url, false, stream_context_create([
 			"http" => [
@@ -309,8 +309,8 @@ abstract class Phpcraft
 	 * Converts a chat object into text.
 	 *
 	 * @param array|string $chat The chat object as an array or string.
-	 * @param integer $format The formatting to convert to: <ul><li>0: None (drop colors and formatting)</li><li>1: ANSI escape codes (for compatible terminals)</li><li>2: Paragraph (§) format</li><li>3: Ampersand (&) format</li><li>4: HTML</li></ul>
-	 * @param array $translations The translations array so translated messages look proper.
+	 * @param int $format The formatting to convert to: <ul><li>0: None (drop colors and formatting)</li><li>1: ANSI escape codes (for compatible terminals)</li><li>2: Paragraph (§) format</li><li>3: Ampersand (&) format</li><li>4: HTML</li></ul>
+	 * @param array<string,string>|null $translations The translations array so translated messages look proper.
 	 * @param array $parent Ignore this parameter.
 	 * @return string
 	 */
@@ -545,7 +545,7 @@ abstract class Phpcraft
 	 * @param boolean $allowAmp If true, '&' will be handled like '§'.
 	 * @return array
 	 */
-	static function textToChat(string $text, bool $allowAmp = false)
+	static function textToChat(string $text, bool $allowAmp = false): array
 	{
 		if(strpos($text, "§") === false && (!$allowAmp || strpos($text, "&") === false))
 		{
@@ -670,13 +670,13 @@ abstract class Phpcraft
 	 * Also, the `description` is a chat object, so you can pass it to Phpcraft::chatToText().
 	 *
 	 * @param string $server_name
-	 * @param integer $server_port
+	 * @param int $server_port
 	 * @param float $timeout The amount of seconds to wait for a response with each method.
-	 * @param integer $method The method(s) used to get the status. 2 = legacy list ping, 1 = modern list ping, 0 = both.
+	 * @param int $method The method(s) used to get the status. 2 = legacy list ping, 1 = modern list ping, 0 = both.
 	 * @return array
 	 * @throws IOException
 	 */
-	static function getServerStatus(string $server_name, int $server_port = 25565, float $timeout = 3.000, int $method = 0)
+	static function getServerStatus(string $server_name, int $server_port = 25565, float $timeout = 3.000, int $method = 0): array
 	{
 		if($method != 2)
 		{
@@ -740,11 +740,11 @@ abstract class Phpcraft
 	/**
 	 * Calculates the "distance" between two RGB arrays (each 3 integers).
 	 *
-	 * @param $rgb1 integer[]
-	 * @param $rgb2 integer[]
-	 * @return integer
+	 * @param array{int,int,int} $rgb1
+	 * @param array{int,int,int} $rgb2
+	 * @return int
 	 */
-	static function colorDiff(array $rgb1, array $rgb2)
+	static function colorDiff(array $rgb1, array $rgb2): int
 	{
 		return abs($rgb1[0] - $rgb2[0]) + abs($rgb1[1] - $rgb2[1]) + abs($rgb1[2] - $rgb2[2]);
 	}

@@ -14,7 +14,7 @@ class UpdateBossBarHealthPacket extends BossBarPacket
 	public $health = 1.0;
 
 	/**
-	 * @param UUID $uuid The UUID of the boss bar.
+	 * @param UUID|null $uuid The UUID of the boss bar.
 	 * @param float $health The percentage the boss bar is filled, aka. the health of the boss.
 	 */
 	function __construct(UUID $uuid = null, float $health = 1.0)

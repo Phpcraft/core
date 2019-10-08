@@ -11,7 +11,7 @@ abstract class Identifier
 	/**
 	 * The protocol version at which this Identifier was introduced.
 	 *
-	 * @var integer $since_protocol_version
+	 * @var int $since_protocol_version
 	 */
 	public $since_protocol_version;
 
@@ -54,8 +54,8 @@ abstract class Identifier
 	/**
 	 * Returns an Identifier by its ID in the given protocol version or null if not found.
 	 *
-	 * @param integer $id
-	 * @param integer $protocol_version
+	 * @param int $id
+	 * @param int $protocol_version
 	 * @return static|null
 	 */
 	static function getById(int $id, int $protocol_version)
@@ -73,8 +73,8 @@ abstract class Identifier
 	/**
 	 * Returns the ID of this Identifier for the given protocol version or null if not applicable.
 	 *
-	 * @param integer $protocol_version
-	 * @return integer|null
+	 * @param int $protocol_version
+	 * @return int|null
 	 */
 	abstract function getId(int $protocol_version);
 }

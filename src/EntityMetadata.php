@@ -52,7 +52,7 @@ abstract class EntityMetadata
 
 	/**
 	 * @param Connection $con
-	 * @param integer $index
+	 * @param int $index
 	 * @param array|string $value
 	 * @throws LogicException
 	 */

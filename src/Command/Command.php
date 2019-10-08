@@ -14,16 +14,13 @@ use RuntimeException;
 class Command
 {
 	static private $argument_providers;
-	/**
-	 * @var array $last_declared_classes
-	 */
 	static private $last_declared_classes = [];
 	/**
 	 * @var Plugin $plugin
 	 */
 	public $plugin;
 	/**
-	 * @var $names string[]
+	 * @var array<string> $names
 	 */
 	public $names;
 	/**
@@ -35,7 +32,7 @@ class Command
 	 */
 	public $required_permission;
 	/**
-	 * @var $params ReflectionParameter[]
+	 * @var array<ReflectionParameter> $params
 	 */
 	public $params;
 	/**
@@ -207,7 +204,7 @@ class Command
 	 * Calls the command using the given string arguments.
 	 *
 	 * @param CommandSender $sender
-	 * @param $args string[]
+	 * @param array<string> $args
 	 */
 	function call(CommandSender &$sender, array $args)
 	{

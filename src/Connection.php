@@ -24,7 +24,7 @@ class Connection
 	/**
 	 * The protocol version that is used for this connection.
 	 *
-	 * @var integer $protocol_version
+	 * @var int $protocol_version
 	 */
 	public $protocol_version;
 	/**
@@ -36,14 +36,14 @@ class Connection
 	/**
 	 * The amount of bytes a packet needs for it to be compressed as an integer or -1 if disabled.
 	 *
-	 * @var integer $compression_threshold
+	 * @var int $compression_threshold
 	 */
 	public $compression_threshold = -1;
 	/**
 	 * The state of the connection.
 	 * 1 stands for status, 2 for logging in, and 3 for playing.
 	 *
-	 * @var integer $state
+	 * @var int $state
 	 */
 	public $state;
 	/**
@@ -62,7 +62,7 @@ class Connection
 	public $read_buffer_offset = 0;
 
 	/**
-	 * @param integer $protocol_version
+	 * @param int $protocol_version
 	 * @param resource $stream
 	 */
 	function __construct(int $protocol_version = -1, $stream = null)
@@ -140,7 +140,6 @@ class Connection
 		{
 			$value = intval($value);
 		}
-		$value = gmp_init($value);
 		if(gmp_cmp($value, 0) < 0)
 		{
 			$value = gmp_sub("4294967296", gmp_abs($value));
@@ -413,7 +412,7 @@ class Connection
 	/**
 	 * Adds a signed byte to the write buffer.
 	 *
-	 * @param integer $value
+	 * @param int $value
 	 * @return Connection $this
 	 */
 	function writeByte(int $value): Connection
@@ -437,7 +436,7 @@ class Connection
 	/**
 	 * Adds an unsigned byte to the write buffer.
 	 *
-	 * @param integer $value
+	 * @param int $value
 	 * @return Connection $this
 	 */
 	function writeUnsignedByte(int $value): Connection
@@ -562,7 +561,7 @@ class Connection
 	 * Puts raw bytes from the stream into the read buffer.
 	 *
 	 * @param float $timeout The amount of seconds to wait before the read is aborted.
-	 * @param integer $bytes The exact amount of bytes you would like to receive. 0 means read up to 8 KiB.
+	 * @param int $bytes The exact amount of bytes you would like to receive. 0 means read up to 8 KiB.
 	 * @return boolean True on success.
 	 * @see Connection::readPacket
 	 */
@@ -605,7 +604,7 @@ class Connection
 	 * Puts a new packet into the read buffer.
 	 *
 	 * @param float $timeout The amount of seconds to wait before read is aborted.
-	 * @return integer|boolean The packet's ID or false if no packet was received within the time limit.
+	 * @return int|boolean The packet's ID or false if no packet was received within the time limit.
 	 * @throws IOException When there are not enough bytes to read the packet ID.
 	 * @see Connection::readRawPacket
 	 * @see Packet::clientboundPacketIdToName()
@@ -693,7 +692,7 @@ class Connection
 	/**
 	 * Reads a signed byte from the read buffer.
 	 *
-	 * @return integer
+	 * @return int
 	 * @throws IOException When there are not enough bytes to read a byte.
 	 */
 	function readByte(): int
@@ -708,7 +707,7 @@ class Connection
 	/**
 	 * Reads an unsigned byte from the read buffer.
 	 *
-	 * @return integer
+	 * @return int
 	 * @throws IOException When there are not enough bytes to read a byte.
 	 */
 	function readUnsignedByte(): int
@@ -745,8 +744,8 @@ class Connection
 	/**
 	 * Reads a string from the read buffer.
 	 *
-	 * @param integer $maxLength The maxmium amount of bytes this string may use.
-	 * @param integer $minLength The minimum amount of bytes this string must use.
+	 * @param int $maxLength The maxmium amount of bytes this string may use.
+	 * @param int $minLength The minimum amount of bytes this string must use.
 	 * @return string
 	 * @throws LengthException When the string doesn't fit the length requirements.
 	 * @throws IOException When there are not enough bytes to read a string.
@@ -1096,7 +1095,7 @@ class Connection
 	/**
 	 * Read the specified amount of bytes from the read buffer.
 	 *
-	 * @param integer $bytes
+	 * @param int $bytes
 	 * @return string
 	 * @throws IOException When there are not enough bytes in the buffer to read the given number.
 	 */
@@ -1153,7 +1152,7 @@ class Connection
 	/**
 	 * Skips over the given amount of bytes in the read buffer.
 	 *
-	 * @param integer $bytes
+	 * @param int $bytes
 	 * @return Connection $this
 	 * @throws IOException When there are not enough bytes in the buffer to ignore the given number.
 	 */

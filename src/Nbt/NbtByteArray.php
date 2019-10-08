@@ -7,7 +7,7 @@ class NbtByteArray extends NbtListTag
 
 	/**
 	 * @param string $name The name of this tag.
-	 * @param $children integer[] The bytes in the array.
+	 * @param array<int> $children The bytes in the array.
 	 */
 	function __construct(string $name, array $children = [])
 	{

@@ -7,13 +7,13 @@ class SetSlotPacket extends Packet
 	/**
 	 * The ID of the window being updated. 0 for inventory.
 	 *
-	 * @var integer $window
+	 * @var int $window
 	 */
 	public $window;
 	/**
 	 * The ID of the slot being updated.
 	 *
-	 * @var integer $slotId
+	 * @var int $slotId
 	 * @see Slot
 	 * @see https://wiki.vg/Inventory
 	 */
@@ -21,14 +21,14 @@ class SetSlotPacket extends Packet
 	/**
 	 * The new value of the slot.
 	 *
-	 * @var Slot $slot
+	 * @var Slot|null $slot
 	 */
 	public $slot;
 
 	/**
-	 * @param integer $window The ID of the window being updated. 0 for inventory.
-	 * @param integer $slotId The ID of the slot being updated. See https://wiki.vg/Inventory and {@link Slot} constants.
-	 * @param Slot $slot The new value of the slot.
+	 * @param int $window The ID of the window being updated. 0 for inventory.
+	 * @param int $slotId The ID of the slot being updated. See https://wiki.vg/Inventory and {@link Slot} constants.
+	 * @param Slot|null $slot The new value of the slot.
 	 */
 	function __construct(int $window = 0, int $slotId = 0, Slot $slot = null)
 	{

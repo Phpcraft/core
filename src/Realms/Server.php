@@ -53,7 +53,7 @@ class Server
 	 */
 	public $world_type;
 	/**
-	 * @var $players string[]
+	 * @var array<string> $players
 	 */
 	public $players;
 	/**
@@ -101,7 +101,7 @@ class Server
 	 * Returns information required to join a realms server.
 	 *
 	 * @param bool $await_start
-	 * @return array|null An array containing "address" (in [host]:[port] format), "resourcePackUrl" (string|null), and "resourcePackHash" (string|null). If $await_start is false and the realms server is not online, null is returned.
+	 * @return array<string,string|null>|null An array containing "address" (in [host]:[port] format), "resourcePackUrl" (string|null), and "resourcePackHash" (string|null). If $await_start is false and the realms server is not online, null is returned.
 	 */
 	function join(bool $await_start = true)
 	{

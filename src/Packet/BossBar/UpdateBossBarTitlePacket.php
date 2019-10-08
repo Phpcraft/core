@@ -13,7 +13,7 @@ class UpdateBossBarTitlePacket extends BossBarPacket
 	public $title = ["text" => ""];
 
 	/**
-	 * @param UUID $uuid The UUID of the boss bar.
+	 * @param UUID|null $uuid The UUID of the boss bar.
 	 * @param array|string $title The "title" of the boss bar; chat object.
 	 */
 	function __construct(UUID $uuid = null, $title = ["text" => ""])

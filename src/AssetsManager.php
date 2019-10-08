@@ -20,7 +20,7 @@ class AssetsManager
 	 * @return AssetsManager
 	 * @throws Exception When the version manifest for the given version couldn't be fetched.
 	 */
-	static function fromMinecraftVersion(string $version)
+	static function fromMinecraftVersion(string $version): AssetsManager
 	{
 		$versions_folder = Phpcraft::getMinecraftFolder()."/versions";
 		if(!file_exists($versions_folder) || !is_dir($versions_folder))
@@ -67,7 +67,7 @@ class AssetsManager
 	 *
 	 * @return array
 	 */
-	function getAssetIndex()
+	function getAssetIndex(): array
 	{
 		$assets_dir = Phpcraft::getMinecraftFolder()."/assets";
 		if(!file_exists($assets_dir) || !is_dir($assets_dir))
@@ -102,7 +102,7 @@ class AssetsManager
 	 * Downloads an asset by name and returns the path to the downloaded file or null if the asset doesn't exist.
 	 *
 	 * @param string $name
-	 * @return string
+	 * @return string|null
 	 */
 	function downloadAsset(string $name)
 	{

@@ -12,7 +12,7 @@ class ServerConnection extends Connection
 
 	/**
 	 * @param resource $stream A stream created by fsockopen.
-	 * @param integer $protocol_version
+	 * @param int $protocol_version
 	 */
 	function __construct($stream, int $protocol_version)
 	{
@@ -24,9 +24,9 @@ class ServerConnection extends Connection
 	 * If $next_state is 2, you should call ServerConnection::login() after this, even when joining an offline mode server.
 	 *
 	 * @param string $server_name
-	 * @param integer $server_port
-	 * @param integer $next_state Use 1 for status, or 2 for login to play.
-	 * @param $join_specs string[] Additional data to provide, e.g. "FML" is in this array for Forge clients.
+	 * @param int $server_port
+	 * @param int $next_state Use 1 for status, or 2 for login to play.
+	 * @param array<string> $join_specs Additional data to provide, e.g. "FML" is in this array for Forge clients.
 	 * @return ServerConnection $this
 	 * @throws IOException
 	 */
@@ -50,7 +50,7 @@ class ServerConnection extends Connection
 	 * This has to be called even when joining an offline mode server.
 	 *
 	 * @param Account $account
-	 * @param array $translations The translations array so translated messages look proper.
+	 * @param array<string,string>|null $translations The translations array so translated messages look proper.
 	 * @return string Error message. Empty on success.
 	 * @throws IOException
 	 */

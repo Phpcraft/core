@@ -43,6 +43,10 @@ class DeclareCommandsPacket extends Packet
 			}
 		}
 		$root_node = $stack[gmp_intval($con->readVarInt())];
+		if(!$root_node instanceof RootNode)
+		{
+			throw new IOException("Root node index points to non-root node");
+		}
 		return new DeclareCommandsPacket($root_node);
 	}
 

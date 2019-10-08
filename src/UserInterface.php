@@ -113,7 +113,7 @@ class UserInterface extends PlainUserInterface
 	 * Renders the UI.
 	 *
 	 * @param boolean $accept_input Set to true if you are looking for a return value.
-	 * @return string If $accept_input is true and the user has submitted a line, the return will be that line. Otherwise, it will be null.
+	 * @return string|null If $accept_input is true and the user has submitted a line, the return will be that line. Otherwise, it will be null.
 	 */
 	function render(bool $accept_input = false)
 	{

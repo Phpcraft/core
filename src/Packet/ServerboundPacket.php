@@ -40,8 +40,8 @@ class ServerboundPacket extends PacketId
 	/**
 	 * Returns the ID of this Identifier for the given protocol version or null if not applicable.
 	 *
-	 * @param integer $protocol_version
-	 * @return integer|null
+	 * @param int $protocol_version
+	 * @return int|null
 	 */
 	function getId(int $protocol_version)
 	{

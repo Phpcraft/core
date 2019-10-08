@@ -7,12 +7,12 @@ class DestroyEntitiesPacket extends Packet
 	/**
 	 * An array of the IDs of the entities to be destroyed.
 	 *
-	 * @var array $eids
+	 * @var array<int> $eids
 	 */
 	public $eids = [];
 
 	/**
-	 * @param $eids integer[] An array of the IDs of the entities to be destroyed.
+	 * @param array<int> $eids An array of the IDs of the entities to be destroyed.
 	 */
 	function __construct(array $eids = [])
 	{

@@ -7,13 +7,13 @@ class NbtByte extends NbtTag
 	/**
 	 * The value of this tag.
 	 *
-	 * @var integer $value
+	 * @var int $value
 	 */
 	public $value;
 
 	/**
 	 * @param string $name The name of this tag.
-	 * @param integer $value The value of this tag.
+	 * @param int $value The value of this tag.
 	 */
 	function __construct(string $name, int $value = 0)
 	{

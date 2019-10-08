@@ -6,7 +6,7 @@ abstract class Versions
 	 * Returns a list of protocol versions; newest first.
 	 *
 	 * @param boolean $all true = all versions; false = only supported versions.
-	 * @return integer[]
+	 * @return array<int>
 	 */
 	static function protocol(bool $all = true)
 	{
@@ -17,9 +17,9 @@ abstract class Versions
 	 * Returns an associative array of Minecraft versions with their protocol version as value; newest first.
 	 *
 	 * @param boolean $all true = all versions; false = only supported versions.
-	 * @return array
+	 * @return array<string,int>
 	 */
-	static function list(bool $all = true)
+	static function list(bool $all = true): array
 	{
 		if(!$all)
 		{
@@ -119,7 +119,7 @@ abstract class Versions
 	/**
 	 * Returns true if the given protocol version is supported by Phpcraft.
 	 *
-	 * @param integer $protocol_version e.g., 340
+	 * @param int $protocol_version e.g., 340
 	 * @return boolean
 	 */
 	static function protocolSupported(int $protocol_version)
@@ -142,7 +142,7 @@ abstract class Versions
 	 * Returns the protocol version corresponding to the given Minecraft version; newest first.
 	 *
 	 * @param string $minecraft_version
-	 * @return integer The protocol version or NULL if the Minecraft version doesn't exist.
+	 * @return int The protocol version or NULL if the Minecraft version doesn't exist.
 	 */
 	static function minecraftToProtocol(string $minecraft_version)
 	{
@@ -153,7 +153,7 @@ abstract class Versions
 	 * Returns an array of Minecraft versions; newest first.
 	 *
 	 * @param boolean $all true = all versions; false = only supported versions.
-	 * @return string[]
+	 * @return array<string>
 	 */
 	static function minecraft(bool $all = true)
 	{
@@ -175,10 +175,10 @@ abstract class Versions
 	 * Returns an associative array of non-snapshot Minecraft versions with their protocol version as value; newest first.
 	 *
 	 * @param boolean $all true = all versions; false = only supported versions.
-	 * @return array
+	 * @return array<string,int>
 	 * @see Versions::list
 	 */
-	static function releases(bool $all = true)
+	static function releases(bool $all = true): array
 	{
 		$releases = [];
 		foreach(Versions::list($all) as $id => $pv)
@@ -194,7 +194,7 @@ abstract class Versions
 	/**
 	 * Returns a human-readable range of Minecraft versions corresponding to the given protocol version, e.g. 47 would return "1.8 - 1.8.9"
 	 *
-	 * @param integer $protocol_version
+	 * @param int $protocol_version
 	 * @return string The version range or an empty string if the given protocol version is not supported.
 	 */
 	static function protocolToRange(int $protocol_version)
@@ -215,7 +215,7 @@ abstract class Versions
 	/**
 	 * Returns an array of Minecraft versions corresponding to the given protocol version; newest first.
 	 *
-	 * @param integer $protocol_version
+	 * @param int $protocol_version
 	 * @return string[]
 	 */
 	static function protocolToMinecraft(int $protocol_version)

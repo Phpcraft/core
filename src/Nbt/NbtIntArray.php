@@ -8,7 +8,7 @@ class NbtIntArray extends NbtListTag
 
 	/**
 	 * @param string $name The name of this tag.
-	 * @param $children GMP[] The integers in the array.
+	 * @param array<GMP> $children The integers in the array.
 	 */
 	function __construct(string $name, array $children = [])
 	{
@@ -29,7 +29,7 @@ class NbtIntArray extends NbtListTag
 		{
 			$this->_write($con);
 		}
-		$con->writeInt(count($this->children), true);
+		$con->writeInt(count($this->children));
 		foreach($this->children as $child)
 		{
 			$con->writeInt($child);

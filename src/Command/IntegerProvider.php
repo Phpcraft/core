@@ -6,7 +6,7 @@ class IntegerProvider extends ArgumentProvider
 {
 	public function __construct(CommandSender &$sender, string $arg)
 	{
-		if(!is_numeric($arg) || floor($arg) != $arg)
+		if(!is_numeric($arg) || floor(floatval($arg)) != floatval($arg))
 		{
 			throw new InvalidArgumentException("{$arg} is not a valid integer");
 		}

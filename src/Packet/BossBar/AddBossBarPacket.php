@@ -21,14 +21,14 @@ class AddBossBarPacket extends BossBarPacket
 	 * The color of the boss bar.
 	 *
 	 * @see BossBarPacket
-	 * @var integer $color
+	 * @var int $color
 	 */
 	public $color = 0;
 	/**
 	 * The division of the boss bar.
 	 *
 	 * @see BossBarPacket
-	 * @var integer $division
+	 * @var int $division
 	 */
 	public $division = 0;
 	/**

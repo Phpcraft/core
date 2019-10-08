@@ -10,7 +10,7 @@ class Server implements CommandSender
 	/**
 	 * The streams the server listens for new connections on.
 	 *
-	 * @var $streams resource[]
+	 * @var array<resource> $streams
 	 */
 	public $streams;
 	/**
@@ -45,7 +45,7 @@ class Server implements CommandSender
 	 */
 	public $compression_threshold = 256;
 	/**
-	 * @var array $groups
+	 * @var array<Group> $groups
 	 */
 	public $groups = [];
 	/**
@@ -81,7 +81,7 @@ class Server implements CommandSender
 	public $list_ping_function = null;
 
 	/**
-	 * @param $streams resource[] An array of streams created by stream_socket_server to listen for clients on.
+	 * @param array<resource> $streams An array of streams created by stream_socket_server to listen for clients on.
 	 * @param resource $private_key A private key generated using openssl_pkey_new(["private_key_bits" => 1024, "private_key_type" => OPENSSL_KEYTYPE_RSA]) to use for online mode, or null to use offline mode.
 	 */
 	function __construct(array $streams = [], $private_key = null)

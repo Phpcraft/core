@@ -8,7 +8,7 @@ class SpawnMobPacket extends Packet
 	/**
 	 * The entity ID of the mob.
 	 *
-	 * @var integer $eid
+	 * @var int $eid
 	 */
 	public $eid;
 	/**
@@ -49,9 +49,9 @@ class SpawnMobPacket extends Packet
 	public $metadata;
 
 	/**
-	 * @param integer $eid The entity ID of the mob.
-	 * @param EntityType $type The type of mob.
-	 * @param UUID $uuid The UUID of the entity.
+	 * @param int $eid The entity ID of the mob.
+	 * @param EntityType|null $type The type of mob.
+	 * @param UUID|null $uuid The UUID of the entity.
 	 */
 	function __construct(int $eid = 0, EntityType $type = null, UUID $uuid = null)
 	{

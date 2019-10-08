@@ -3,7 +3,7 @@ namespace Phpcraft;
 class BlockProperty
 {
 	/**
-	 * @var $values string[] Array of possible values.
+	 * @var array<string> $values Array of possible values.
 	 */
 	public $values;
 	/**
@@ -12,7 +12,7 @@ class BlockProperty
 	public $default;
 
 	/**
-	 * @param $values string[] Array of possible values.
+	 * @param array<string> $values Array of possible values.
 	 */
 	function __construct(array $values)
 	{

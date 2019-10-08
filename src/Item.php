@@ -5,7 +5,7 @@ class Item extends Identifier
 {
 	private static $all_cache;
 	/**
-	 * @var integer $stack_size
+	 * @var int $stack_size
 	 */
 	public $stack_size;
 	/**
@@ -123,8 +123,8 @@ class Item extends Identifier
 	/**
 	 * Returns the ID of this Identifier for the given protocol version or null if not applicable.
 	 *
-	 * @param integer $protocol_version
-	 * @return integer|null
+	 * @param int $protocol_version
+	 * @return int|null
 	 */
 	function getId(int $protocol_version)
 	{
@@ -154,8 +154,8 @@ class Item extends Identifier
 	/**
 	 * Creates a slot containing this item.
 	 *
-	 * @param integer $count How many times this item is in the slot.
-	 * @param NbtTag $nbt The NBT data of this item in the slot.
+	 * @param int $count How many times this item is in the slot.
+	 * @param NbtTag|null $nbt The NBT data of this item in the slot.
 	 * @return Slot
 	 */
 	function slot(int $count = 1, NbtTag $nbt = null): Slot

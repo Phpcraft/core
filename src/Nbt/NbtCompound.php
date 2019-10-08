@@ -17,7 +17,7 @@ class NbtCompound extends NbtTag implements Iterator, Countable, ArrayAccess
 
 	/**
 	 * @param string $name The name of this tag.
-	 * @param $children NbtTag[] The child tags of the compound.
+	 * @param array<NbtTag> $children The child tags of the compound.
 	 */
 	function __construct(string $name, array $children = [])
 	{

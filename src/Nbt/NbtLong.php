@@ -39,13 +39,13 @@ class NbtLong extends NbtTag
 		{
 			$this->_write($con);
 		}
-		$con->writeLong($this->value, true);
+		$con->writeLong($this->value);
 		return $con;
 	}
 
 	function __toString()
 	{
-		return "{Long \"".$this->name."\": ".$this->value."}";
+		return "{Long \"".$this->name."\": ".gmp_strval($this->value)."}";
 	}
 
 	function copy(): NbtTag

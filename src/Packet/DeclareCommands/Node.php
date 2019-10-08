@@ -7,7 +7,7 @@ abstract class Node
 {
 	const TYPE_ID = 3;
 	/**
-	 * @var array $children
+	 * @var array<Node|int> $children
 	 */
 	public $children = [];
 	/**
@@ -15,7 +15,7 @@ abstract class Node
 	 */
 	public $executable = false;
 	/**
-	 * @var Node|null $redirect_to
+	 * @var Node|int|null $redirect_to
 	 */
 	public $redirect_to;
 

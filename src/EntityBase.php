@@ -34,7 +34,7 @@ class EntityBase extends EntityMetadata
 	/**
 	 * Custom name of the entity; chat object.
 	 *
-	 * @var array $custom_name
+	 * @var array|null $custom_name
 	 */
 	public $custom_name = null;
 	/**
@@ -154,7 +154,7 @@ class EntityBase extends EntityMetadata
 
 	/**
 	 * @param Connection $con
-	 * @param integer $index
+	 * @param int $index
 	 * @return boolean
 	 * @throws IOException
 	 */

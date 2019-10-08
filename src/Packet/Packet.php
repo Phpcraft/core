@@ -17,7 +17,7 @@ abstract class Packet
 	/**
 	 * Returns a binary string containing the payload of the packet.
 	 *
-	 * @param integer $protocol_version The protocol version you'd like to get the payload for.
+	 * @param int $protocol_version The protocol version you'd like to get the payload for.
 	 * @return string
 	 * @throws IOException
 	 */

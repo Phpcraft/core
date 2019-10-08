@@ -50,25 +50,25 @@ class MapMarker
 	/**
 	 * The type of the marker. >= 9 will be replaced with 7 for clients below 1.13.
 	 *
-	 * @var integer $type
+	 * @var int $type
 	 */
 	public $type;
 	/**
 	 * The x coordinate of the marker on the map from -127 to 128.
 	 *
-	 * @var integer $x
+	 * @var int $x
 	 */
 	public $x;
 	/**
 	 * The z coordinate of the marker on the map from -127 to 128.
 	 *
-	 * @var integer $z
+	 * @var int $z
 	 */
 	public $z;
 	/**
 	 * The rotation of the marker divided by 22.5°, so it has a value between 0 and 15.
 	 *
-	 * @var integer $rotation
+	 * @var int $rotation
 	 */
 	public $rotation;
 	/**
@@ -79,10 +79,10 @@ class MapMarker
 	public $name;
 
 	/**
-	 * @param integer $type The type of the marker. >= 9 will be replaced with 7 for clients below 1.13.
-	 * @param integer $x The x coordinate of the marker on the map from -127 to 128.
-	 * @param integer $z The z coordinate of the marker on the map from -127 to 128.
-	 * @param integer $rotation The rotation of the marker divided by 22.5°, so it has a value between 0 and 15.
+	 * @param int $type The type of the marker. >= 9 will be replaced with 7 for clients below 1.13.
+	 * @param int $x The x coordinate of the marker on the map from -127 to 128.
+	 * @param int $z The z coordinate of the marker on the map from -127 to 128.
+	 * @param int $rotation The rotation of the marker divided by 22.5°, so it has a value between 0 and 15.
 	 * @param array $name The display name of this marker; chat object. Only visible to 1.13+ clients.
 	 */
 	function __construct(int $type = MapMarker::TYPE_WHITE_ARROW, int $x = 0, int $z = 0, int $rotation = 0, array $name = [])

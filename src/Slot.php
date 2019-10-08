@@ -27,7 +27,7 @@ class Slot
 	/**
 	 * How many times the item is in this slot.
 	 *
-	 * @var integer $count
+	 * @var int $count
 	 */
 	public $count;
 	/**
@@ -40,9 +40,9 @@ class Slot
 	/**
 	 * The construct.
 	 *
-	 * @param Item $item The item in this slot.
-	 * @param integer $count How many times the item is in this slot.
-	 * @param NbtTag $nbt The NBT data of the item in this slot.
+	 * @param Item|null $item The item in this slot.
+	 * @param int $count How many times the item is in this slot.
+	 * @param NbtTag|null $nbt The NBT data of the item in this slot.
 	 */
 	function __construct(Item $item = null, int $count = 1, NbtTag $nbt = null)
 	{
@@ -88,10 +88,10 @@ class Slot
 	/**
 	 * Sets the display name of the item in this slot.
 	 *
-	 * @param array $name The new display name; chat object, or null to clear.
+	 * @param array|null $name The new display name; chat object, or null to clear.
 	 * @return Slot $this
 	 */
-	function setDisplayName(array $name): Slot
+	function setDisplayName($name): Slot
 	{
 		if(!$this->nbt instanceof NbtCompound)
 		{

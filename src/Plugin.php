@@ -1,5 +1,6 @@
 <?php /** @noinspection PhpIncludeInspection */
 namespace Phpcraft;
+use Closure;
 use DomainException;
 use InvalidArgumentException;
 use Phpcraft\Command\Command;
@@ -18,9 +19,7 @@ class Plugin
 	 */
 	public $name;
 	/**
-	 * An associative array of associative arrays with a 'function' and 'priority'.
-	 *
-	 * @var array $event_handlers
+	 * @var array<array{function:Closure,priority:int}> $event_handlers
 	 */
 	public $event_handlers = [];
 
@@ -68,15 +67,15 @@ class Plugin
 	/**
 	 * Defines a function to be called to handle the given event.
 	 *
-	 * @param callable $callable The function. The first parameter should explicitly declare its type to be a decendant of Event.
-	 * @param integer $priority The priority of the event handler. The higher the priority, the earlier it will be executed. Use a high value if you plan to cancel the event.
+	 * @param Closure $function The function. The first parameter should explicitly declare its type to be a decendant of Event.
+	 * @param int $priority The priority of the event handler. The higher the priority, the earlier it will be executed. Use a high value if you plan to cancel the event.
 	 * @return Plugin $this
 	 */
-	protected function on(callable $callable, int $priority = Event::PRIORITY_NORMAL): Plugin
+	protected function on(Closure $function, int $priority = Event::PRIORITY_NORMAL): Plugin
 	{
 		try
 		{
-			$params = (new ReflectionFunction($callable))->getParameters();
+			$params = (new ReflectionFunction($function))->getParameters();
 			if(count($params) != 1)
 			{
 				throw new InvalidArgumentException("Callable needs to have exactly one parameter.");
@@ -95,8 +94,8 @@ class Plugin
 				throw new InvalidArgumentException("Callable's parameter type needs to be a decendant of \\Phpcraft\\Event.");
 			}
 			$this->event_handlers[$type] = [
-				"priority" => $priority,
-				"function" => $callable
+				"function" => $function,
+				"priority" => $priority
 			];
 		}
 		catch(ReflectionException $e)
@@ -109,7 +108,7 @@ class Plugin
 	/**
 	 * Registers a command.
 	 *
-	 * @param $names string|string[] One or more names without the / prefix. So, if you want a "/gamemode" comand, you provide "gamemode", and if you want a "//wand" command, you provide "/wand".
+	 * @param string|array<string> $names One or more names without the / prefix. So, if you want a "/gamemode" comand, you provide "gamemode", and if you want a "//wand" command, you provide "/wand".
 	 * @param callable $function The function called when the command is executed. The first argument will be the CommandSender but if type-hinted to be ClientConnection or Server it will be exclusive to players or the server, respectively. Further arguments determine the command's arguments, e.g. <code>-&gt;registerCommand("gamemode", function(ClientConnection &$con, int $gamemode){...})</code> would result in the player-exclusive command <code>/gamemode &lt;gamemode&gt;</code> where the gamemode argument only allows integers.
 	 * @param string|null $required_permission The permission required to use this command or null if not applicable.
 	 * @return Plugin $this

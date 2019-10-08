@@ -8,11 +8,11 @@ class BlockState
 	 */
 	public $block;
 	/**
-	 * @var array $properties
+	 * @var array<BlockProperty> $properties
 	 */
 	public $properties;
 	/**
-	 * @var array $ids
+	 * @var array<int,int> $ids
 	 */
 	public $ids;
 	private $state_i;
@@ -41,8 +41,8 @@ class BlockState
 	/**
 	 * Returns a BlockState by its ID in the given protocol version or null if not found.
 	 *
-	 * @param integer $id
-	 * @param integer $protocol_version
+	 * @param int $id
+	 * @param int $protocol_version
 	 * @return BlockState|null
 	 */
 	static function getById(int $id, int $protocol_version)
@@ -78,8 +78,8 @@ class BlockState
 	/**
 	 * Returns the ID of this BlockState for the given protocol version or null if not applicable.
 	 *
-	 * @param integer $protocol_version
-	 * @return integer|null
+	 * @param int $protocol_version
+	 * @return int|null
 	 */
 	function getId(int $protocol_version)
 	{

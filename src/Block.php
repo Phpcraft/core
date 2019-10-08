@@ -17,7 +17,7 @@ class Block
 	 */
 	public $display_name;
 	/**
-	 * @var $properties BlockProperty[] Associative array of block properties.
+	 * @var array<BlockProperty> $properties Associative array of block properties.
 	 */
 	public $properties = [];
 	public $states = [];
@@ -175,11 +175,11 @@ class Block
 	/**
 	 * Gets a BlockState using the given associative string array.
 	 *
-	 * @param array $properties associative string array containing the properties of the state. Default values will be used for properties that are not given.
-	 * @return BlockState
+	 * @param array<string,string> $properties Associative array containing the properties of the state. Default values will be used for properties that are not given.
+	 * @return BlockState|null
 	 * @throws InvalidArgumentException If an invalid property name or value was given.
 	 */
-	function getStateFromArray(array $properties): BlockState
+	function getStateFromArray(array $properties)
 	{
 		$properties_ = [];
 		foreach($this->properties as $name => $property)
