@@ -83,13 +83,13 @@ Public Member Functions</h2></td></tr>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a8d7246cf3580e9800db208c71dc03222"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Plugin.html#a8d7246cf3580e9800db208c71dc03222">$name</a></td></tr>
 <tr class="separator:a8d7246cf3580e9800db208c71dc03222"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a96c8ce36340ba14a975f26cf98580c68"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Plugin.html#a96c8ce36340ba14a975f26cf98580c68">$event_handlers</a> = []</td></tr>
-<tr class="separator:a96c8ce36340ba14a975f26cf98580c68"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad28c2a70b0ef015257d0a59e62e1b7e4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Plugin.html#ad28c2a70b0ef015257d0a59e62e1b7e4">$event_handlers</a> = []</td></tr>
+<tr class="separator:ad28c2a70b0ef015257d0a59e62e1b7e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:a83856a2a2b1951a8573352b536578f96"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Plugin.html#a83856a2a2b1951a8573352b536578f96">on</a> (callable $callable, int $priority=<a class="el" href="classPhpcraft_1_1Event_1_1Event.html#a97847933903973de3ef3d7be6c57b945">Event::PRIORITY_NORMAL</a>)</td></tr>
-<tr class="separator:a83856a2a2b1951a8573352b536578f96"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8196f488b886504fd228ccf6b9303c57"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Plugin.html#a8196f488b886504fd228ccf6b9303c57">on</a> (Closure $function, int $priority=<a class="el" href="classPhpcraft_1_1Event_1_1Event.html#a97847933903973de3ef3d7be6c57b945">Event::PRIORITY_NORMAL</a>)</td></tr>
+<tr class="separator:a8196f488b886504fd228ccf6b9303c57"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0dc9f07da22c2bb504631bd74ad2510d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Plugin.html#a0dc9f07da22c2bb504631bd74ad2510d">registerCommand</a> ($names, callable $function, $required_permission=null)</td></tr>
 <tr class="separator:a0dc9f07da22c2bb504631bd74ad2510d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aae3ebad92fd03d0041aab886403a3e96"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Plugin.html#aae3ebad92fd03d0041aab886403a3e96">unregister</a> ()</td></tr>
@@ -160,8 +160,8 @@ Protected Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a83856a2a2b1951a8573352b536578f96"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a83856a2a2b1951a8573352b536578f96">&#9670;&nbsp;</a></span>on()</h2>
+<a id="a8196f488b886504fd228ccf6b9303c57"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8196f488b886504fd228ccf6b9303c57">&#9670;&nbsp;</a></span>on()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -172,8 +172,8 @@ Protected Member Functions</h2></td></tr>
         <tr>
           <td class="memname">Phpcraft\Plugin::on </td>
           <td>(</td>
-          <td class="paramtype">callable&#160;</td>
-          <td class="paramname"><em>$callable</em>, </td>
+          <td class="paramtype">Closure&#160;</td>
+          <td class="paramname"><em>$function</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -196,8 +196,8 @@ Protected Member Functions</h2></td></tr>
 <p>Defines a function to be called to handle the given event.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype">callable</td><td class="paramname">$callable</td><td>The function. The first parameter should explicitly declare its type to be a decendant of <a class="el" href="namespacePhpcraft_1_1Event.html">Event</a>. </td></tr>
-    <tr><td class="paramtype">integer</td><td class="paramname">$priority</td><td>The priority of the event handler. The higher the priority, the earlier it will be executed. Use a high value if you plan to cancel the event. </td></tr>
+    <tr><td class="paramtype">Closure</td><td class="paramname">$function</td><td>The function. The first parameter should explicitly declare its type to be a decendant of <a class="el" href="namespacePhpcraft_1_1Event.html">Event</a>. </td></tr>
+    <tr><td class="paramtype">int</td><td class="paramname">$priority</td><td>The priority of the event handler. The higher the priority, the earlier it will be executed. Use a high value if you plan to cancel the event. </td></tr>
   </table>
   </dd>
 </dl>
@@ -248,7 +248,7 @@ Protected Member Functions</h2></td></tr>
 <p>Registers a command.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype"></td><td class="paramname">$names</td><td>string|string[] One or more names without the / prefix. So, if you want a "/gamemode" comand, you provide "gamemode", and if you want a "//wand" command, you provide "/wand". </td></tr>
+    <tr><td class="paramtype"></td><td class="paramname">string|array&lt;string&gt;</td><td>$names One or more names without the / prefix. So, if you want a "/gamemode" comand, you provide "gamemode", and if you want a "//wand" command, you provide "/wand". </td></tr>
     <tr><td class="paramtype">callable</td><td class="paramname">$function</td><td>The function called when the command is executed. The first argument will be the CommandSender but if type-hinted to be <a class="el" href="classPhpcraft_1_1ClientConnection.html">ClientConnection</a> or <a class="el" href="classPhpcraft_1_1Server.html">Server</a> it will be exclusive to players or the server, respectively. Further arguments determine the command's arguments, e.g. <code>-&gt;registerCommand("gamemode", function(<a class="el" href="classPhpcraft_1_1ClientConnection.html">ClientConnection</a> &amp;$con, int $gamemode){...})</code> would result in the player-exclusive command <code>/gamemode &lt;gamemode&gt;</code> where the gamemode argument only allows integers. </td></tr>
     <tr><td class="paramtype">string&#160;|&#160;null</td><td class="paramname">$required_permission</td><td>The permission required to use this command or null if not applicable. </td></tr>
   </table>
@@ -285,18 +285,17 @@ Protected Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="a96c8ce36340ba14a975f26cf98580c68"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a96c8ce36340ba14a975f26cf98580c68">&#9670;&nbsp;</a></span>$event_handlers</h2>
+<a id="ad28c2a70b0ef015257d0a59e62e1b7e4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad28c2a70b0ef015257d0a59e62e1b7e4">&#9670;&nbsp;</a></span>$event_handlers</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">array Phpcraft\Plugin::$event_handlers = []</td>
+          <td class="memname">array&lt; array{function:Closure, priority:int}&gt; Phpcraft\Plugin::$event_handlers = []</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>An associative array of associative arrays with a 'function' and 'priority'. </p>
 
 </div>
 </div>

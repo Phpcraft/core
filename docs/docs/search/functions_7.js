@@ -8,7 +8,7 @@ var searchData=
   ['getcanonicalname',['getCanonicalName',['../classPhpcraft_1_1Command_1_1Command.html#aa0139d3b6a58328fff0418be3674294b',1,'Phpcraft::Command::Command']]],
   ['getchild',['getChild',['../classPhpcraft_1_1Nbt_1_1NbtCompound.html#a5a1ffcd1e5ba0185c67fe4b824e626a7',1,'Phpcraft::Nbt::NbtCompound']]],
   ['getclass',['getClass',['../classPhpcraft_1_1Packet_1_1ClientboundPacket.html#aa596cf41704e1c5170158ed618bb1e0a',1,'Phpcraft\Packet\ClientboundPacket\getClass()'],['../classPhpcraft_1_1Packet_1_1ServerboundPacket.html#a41e59d4fafc17a899d04bb57db828ad5',1,'Phpcraft\Packet\ServerboundPacket\getClass()'],['../classPhpcraft_1_1PacketId.html#ab679d0dc5b9f257439ab695286e9f430',1,'Phpcraft\PacketId\getClass()']]],
-  ['getcolorid',['getColorId',['../classPhpcraft_1_1Packet_1_1MapData_1_1MapDataPacket.html#adf6641a7880c0602cdd2a9e12f4e0c16',1,'Phpcraft::Packet::MapData::MapDataPacket']]],
+  ['getcolorid',['getColorId',['../classPhpcraft_1_1Packet_1_1MapData_1_1MapDataPacket.html#ae5ccbd272b32bdde91b8b8a37fc99fac',1,'Phpcraft::Packet::MapData::MapDataPacket']]],
   ['getdefaultvalue',['getDefaultValue',['../classPhpcraft_1_1BlockProperty.html#ae44405c02c5927dca3e313e4eee447b8',1,'Phpcraft::BlockProperty']]],
   ['getdisplayname',['getDisplayName',['../classPhpcraft_1_1Slot.html#a1c809a50269c8c74cc8ac44d8a95bc56',1,'Phpcraft::Slot']]],
   ['geteyeposition',['getEyePosition',['../classPhpcraft_1_1ClientConnection.html#a607f23f9a785052d7b84f148ddf13e29',1,'Phpcraft::ClientConnection']]],

@@ -12,7 +12,7 @@ var searchData=
   ['sendrealmsrequest',['sendRealmsRequest',['../classPhpcraft_1_1Account.html#a4fd30532181444e3498ad3de71047d33',1,'Phpcraft::Account']]],
   ['set',['set',['../classPhpcraft_1_1Configuration.html#a2c2a45a3feebf39716bde30b9508f56e',1,'Phpcraft::Configuration']]],
   ['setabilities',['setAbilities',['../classPhpcraft_1_1ClientConnection.html#a224b97346c4c3762b94192217f7b278d',1,'Phpcraft::ClientConnection']]],
-  ['setdisplayname',['setDisplayName',['../classPhpcraft_1_1Slot.html#a28ca230ae317e722863efbc9670d610d',1,'Phpcraft::Slot']]],
+  ['setdisplayname',['setDisplayName',['../classPhpcraft_1_1Slot.html#aaf7817d2495761702c50d5dc576bdb99',1,'Phpcraft::Slot']]],
   ['setfile',['setFile',['../classPhpcraft_1_1Configuration.html#afcbdb1061ac08f7a293728fa5065955d',1,'Phpcraft::Configuration']]],
   ['setgamemode',['setGamemode',['../classPhpcraft_1_1ClientConnection.html#ab83bc7aa368b731af94813d74523886f',1,'Phpcraft::ClientConnection']]],
   ['setgroup',['setGroup',['../classPhpcraft_1_1ClientConfiguration.html#a059365b21fdc1e69c14b798365df0151',1,'Phpcraft::ClientConfiguration']]],

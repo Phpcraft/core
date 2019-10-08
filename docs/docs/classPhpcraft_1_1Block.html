@@ -262,11 +262,11 @@ Protected Member Functions</h2></td></tr>
 <p>Gets a <a class="el" href="classPhpcraft_1_1BlockState.html">BlockState</a> using the given associative string array.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype">array</td><td class="paramname">$properties</td><td>associative string array containing the properties of the state. Default values will be used for properties that are not given. </td></tr>
+    <tr><td class="paramname">array&lt;string,string&gt;</td><td>$properties Associative array containing the properties of the state. Default values will be used for properties that are not given. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classPhpcraft_1_1BlockState.html">BlockState</a> </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>BlockState|null </dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
     <tr><td class="paramname">InvalidArgumentException</td><td>If an invalid property name or value was given. </td></tr>

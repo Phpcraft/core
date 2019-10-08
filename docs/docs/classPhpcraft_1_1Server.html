@@ -140,8 +140,8 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:ae43d03a112d0de46d6beb34aa6126c30"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Server.html#ae43d03a112d0de46d6beb34aa6126c30">$streams</a></td></tr>
-<tr class="separator:ae43d03a112d0de46d6beb34aa6126c30"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a410a9dbebe6d41abc67ebc7c73d2248f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Server.html#a410a9dbebe6d41abc67ebc7c73d2248f">$streams</a></td></tr>
+<tr class="separator:a410a9dbebe6d41abc67ebc7c73d2248f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab5129d24aa1f235130bc8132be0a417a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Server.html#ab5129d24aa1f235130bc8132be0a417a">$private_key</a></td></tr>
 <tr class="separator:ab5129d24aa1f235130bc8132be0a417a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af61ba1b0b5b8a2c44bd03afd1ca72edd"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Server.html#af61ba1b0b5b8a2c44bd03afd1ca72edd">$clients</a></td></tr>
@@ -152,8 +152,8 @@ Public Attributes</h2></td></tr>
 <tr class="separator:ac69eda9c1b98232b9879b837a47a0f2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab54eee07fc77581b8091404b7a380967"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Server.html#ab54eee07fc77581b8091404b7a380967">$compression_threshold</a> = 256</td></tr>
 <tr class="separator:ab54eee07fc77581b8091404b7a380967"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a091f9f5ca59516e8a332f3be6e182e26"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Server.html#a091f9f5ca59516e8a332f3be6e182e26">$groups</a> = []</td></tr>
-<tr class="separator:a091f9f5ca59516e8a332f3be6e182e26"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8535d65c61625af133f5fb584714f255"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Server.html#a8535d65c61625af133f5fb584714f255">$groups</a> = []</td></tr>
+<tr class="separator:a8535d65c61625af133f5fb584714f255"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a442a0d8f5948c01f6c512c9aa78ed83e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Server.html#a442a0d8f5948c01f6c512c9aa78ed83e">$join_function</a> = null</td></tr>
 <tr class="separator:a442a0d8f5948c01f6c512c9aa78ed83e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7394e8c821ca847c19498a593254c89e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Server.html#a7394e8c821ca847c19498a593254c89e">$packet_function</a> = null</td></tr>
@@ -191,7 +191,7 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype"></td><td class="paramname">$streams</td><td>resource[] An array of streams created by stream_socket_server to listen for clients on. </td></tr>
+    <tr><td class="paramtype"></td><td class="paramname">array&lt;resource&gt;</td><td>$streams An array of streams created by stream_socket_server to listen for clients on. </td></tr>
     <tr><td class="paramtype">resource</td><td class="paramname">$private_key</td><td>A private key generated using openssl_pkey_new(["private_key_bits" =&gt; 1024, "private_key_type" =&gt; OPENSSL_KEYTYPE_RSA]) to use for online mode, or null to use offline mode. </td></tr>
   </table>
   </dd>
@@ -820,14 +820,14 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a091f9f5ca59516e8a332f3be6e182e26"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a091f9f5ca59516e8a332f3be6e182e26">&#9670;&nbsp;</a></span>$groups</h2>
+<a id="a8535d65c61625af133f5fb584714f255"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8535d65c61625af133f5fb584714f255">&#9670;&nbsp;</a></span>$groups</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">array Phpcraft\Server::$groups = []</td>
+          <td class="memname">array&lt; <a class="el" href="classPhpcraft_1_1Permission_1_1Group.html">Group</a> &gt; Phpcraft\Server::$groups = []</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -914,17 +914,18 @@ Server::handle() </dd></dl>
 
 </div>
 </div>
-<a id="ae43d03a112d0de46d6beb34aa6126c30"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae43d03a112d0de46d6beb34aa6126c30">&#9670;&nbsp;</a></span>$streams</h2>
+<a id="a410a9dbebe6d41abc67ebc7c73d2248f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a410a9dbebe6d41abc67ebc7c73d2248f">&#9670;&nbsp;</a></span>$streams</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">Phpcraft\Server::$streams</td>
+          <td class="memname">array&lt; resource &gt; Phpcraft\Server::$streams</td>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>The streams the server listens for new connections on. </p>
 
 </div>
 </div>
