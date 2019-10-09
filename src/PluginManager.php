@@ -6,7 +6,7 @@ use SplObjectStorage;
 abstract class PluginManager
 {
 	/**
-	 * @var $loaded_plugins SplObjectStorage
+	 * @var SplObjectStorage $loaded_plugins
 	 */
 	public static $loaded_plugins;
 	/**
@@ -14,7 +14,7 @@ abstract class PluginManager
 	 */
 	public static $command_prefix = "/";
 	/**
-	 * @var $registered_commands SplObjectStorage
+	 * @var SplObjectStorage $registered_commands
 	 */
 	public static $registered_commands;
 
