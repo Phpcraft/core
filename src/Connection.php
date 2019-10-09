@@ -142,7 +142,7 @@ class Connection
 		}
 		if(gmp_cmp($value, 0) < 0)
 		{
-			$value = gmp_sub("4294967296", gmp_abs($value));
+			$value = gmp_sub(self::$pow2[32], gmp_abs($value));
 		}
 		$bytes = "";
 		do
@@ -191,15 +191,15 @@ class Connection
 	 */
 	function writePosition(Point3D $pos): Connection
 	{
-		$long = gmp_mul(gmp_and(intval($pos->x), 0x3FFFFFF), gmp_pow(2, 38)); // $long = ($pos->x & 0x3FFFFFF) << 38;
+		$long = gmp_mul(gmp_and(intval($pos->x), 0x3FFFFFF), self::$pow2[38]); // $long = ($pos->x & 0x3FFFFFF) << 38;
 		if($this->protocol_version < 472)
 		{
-			$long = gmp_or($long, gmp_mul(gmp_and(intval($pos->y), 0xFFF), gmp_pow(2, 26))); // $long |= ($pos->y & 0xFFF) << 26;
+			$long = gmp_or($long, gmp_mul(gmp_and(intval($pos->y), 0xFFF), self::$pow2[26])); // $long |= ($pos->y & 0xFFF) << 26;
 			$long = gmp_or($long, gmp_and(intval($pos->z), 0x3FFFFFF)); // $long |= ($pos->z & 0x3FFFFFF);
 		}
 		else
 		{
-			$long = gmp_or($long, gmp_mul(gmp_and(intval($pos->z), 0x3FFFFFF), gmp_pow(2, 12))); // $long |= ($pos->z & 0x3FFFFFF) << 12;
+			$long = gmp_or($long, gmp_mul(gmp_and(intval($pos->z), 0x3FFFFFF), self::$pow2[12])); // $long |= ($pos->z & 0x3FFFFFF) << 12;
 			$long = gmp_or($long, gmp_and(intval($pos->y), 0xFFF)); // $long |= ($pos->y & 0xFFF);
 		}
 		$this->writeGMP($long, 8, 64, false);
@@ -225,7 +225,7 @@ class Connection
 		{
 			if($cmp0 < 0)
 			{
-				$value = gmp_sub(gmp_pow(2, $bits), gmp_abs($value));
+				$value = gmp_sub(self::$pow2[$bits], gmp_abs($value));
 			}
 			$this->write_buffer .= gmp_export($value, $bytes, GMP_BIG_ENDIAN);
 		}
@@ -783,16 +783,16 @@ class Connection
 	function readPosition(): Point3D
 	{
 		$long = $this->readGMP(8, 64, false);
-		$x = gmp_div($long, "274877906944"); // $long >> 38
+		$x = gmp_div($long, self::$pow2[38]); // $long >> 38
 		if($this->protocol_version < 472)
 		{
-			$y = gmp_and(gmp_div($long, "67108864"), 0xFFF); // ($long >> 26) & 0xFFF
+			$y = gmp_and(gmp_div($long, self::$pow2[26]), 0xFFF); // ($long >> 26) & 0xFFF
 			$z = gmp_and($long, 0x3FFFFFF);
 		}
 		else
 		{
 			$y = gmp_and($long, 0xFFF); // $long & 0xFFF
-			$z = gmp_and(gmp_div($long, "4096"), 0x3FFFFFF); // ($long >> 12) & 0x3FFFFFF
+			$z = gmp_and(gmp_div($long, self::$pow2[12]), 0x3FFFFFF); // ($long >> 12) & 0x3FFFFFF
 		}
 		return new Point3D(gmp_intval(self::signNumber($x, 26)), gmp_intval(self::signNumber($y, 12)), gmp_intval(self::signNumber($z, 26)));
 	}
