@@ -8,6 +8,7 @@ var searchData=
   ['serverchatevent',['ServerChatEvent',['../classPhpcraft_1_1Event_1_1ServerChatEvent.html',1,'Phpcraft::Event']]],
   ['serverchunkborderevent',['ServerChunkBorderEvent',['../classPhpcraft_1_1Event_1_1ServerChunkBorderEvent.html',1,'Phpcraft::Event']]],
   ['serverclientevent',['ServerClientEvent',['../classPhpcraft_1_1Event_1_1ServerClientEvent.html',1,'Phpcraft::Event']]],
+  ['serverclientmetadataevent',['ServerClientMetadataEvent',['../classPhpcraft_1_1Event_1_1ServerClientMetadataEvent.html',1,'Phpcraft::Event']]],
   ['serverclientsettingsevent',['ServerClientSettingsEvent',['../classPhpcraft_1_1Event_1_1ServerClientSettingsEvent.html',1,'Phpcraft::Event']]],
   ['serverconnection',['ServerConnection',['../classPhpcraft_1_1ServerConnection.html',1,'Phpcraft']]],
   ['serverconsoleevent',['ServerConsoleEvent',['../classPhpcraft_1_1Event_1_1ServerConsoleEvent.html',1,'Phpcraft::Event']]],

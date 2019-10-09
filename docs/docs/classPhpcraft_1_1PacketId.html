@@ -64,9 +64,9 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="#pro-static-methods">Static Protected Member Functions</a> &#124;
+<a href="#pro-static-attribs">Static Protected Attributes</a> &#124;
 <a href="classPhpcraft_1_1PacketId-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Phpcraft\PacketId Class Reference</div>  </div>
@@ -101,18 +101,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ab7c56ce28434b745c06c2d6557358f62 inherit pub_methods_classPhpcraft_1_1Identifier"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Identifier.html#ab7c56ce28434b745c06c2d6557358f62">getId</a> (int $protocol_version)</td></tr>
 <tr class="separator:ab7c56ce28434b745c06c2d6557358f62 inherit pub_methods_classPhpcraft_1_1Identifier"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:affe7e07c302e3109bb3bd19ad0ada7d4"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1PacketId.html#affe7e07c302e3109bb3bd19ad0ada7d4">all</a> ()</td></tr>
-<tr class="separator:affe7e07c302e3109bb3bd19ad0ada7d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_static_methods_classPhpcraft_1_1Identifier"><td colspan="2" onclick="javascript:toggleInherit('pub_static_methods_classPhpcraft_1_1Identifier')"><img src="closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="classPhpcraft_1_1Identifier.html">Phpcraft\Identifier</a></td></tr>
-<tr class="memitem:a431a14cc7849a1307453e14548d5aa17 inherit pub_static_methods_classPhpcraft_1_1Identifier"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Identifier.html#a431a14cc7849a1307453e14548d5aa17">get</a> (string $name)</td></tr>
-<tr class="separator:a431a14cc7849a1307453e14548d5aa17 inherit pub_static_methods_classPhpcraft_1_1Identifier"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1a9e9908e80403509bff5838ca61d665 inherit pub_static_methods_classPhpcraft_1_1Identifier"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Identifier.html#a1a9e9908e80403509bff5838ca61d665">all</a> ()</td></tr>
-<tr class="separator:a1a9e9908e80403509bff5838ca61d665 inherit pub_static_methods_classPhpcraft_1_1Identifier"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1d52b958fa53b9d4a77740f42e03477b inherit pub_static_methods_classPhpcraft_1_1Identifier"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Identifier.html#a1d52b958fa53b9d4a77740f42e03477b">getById</a> (int $id, int $protocol_version)</td></tr>
-<tr class="separator:a1d52b958fa53b9d4a77740f42e03477b inherit pub_static_methods_classPhpcraft_1_1Identifier"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
 <tr class="memitem:a23261f8c84ecef3b2eb8fece604f02f3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1PacketId.html#a23261f8c84ecef3b2eb8fece604f02f3">_getId</a> (int $protocol_version, string $key, array $name_map)</td></tr>
@@ -123,11 +111,31 @@ Protected Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-static-methods"></a>
 Static Protected Member Functions</h2></td></tr>
-<tr class="memitem:a87b4bc910380a8175164ed73243cfb9e"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1PacketId.html#a87b4bc910380a8175164ed73243cfb9e">_all</a> (string $key, array $name_map, callable $func)</td></tr>
-<tr class="separator:a87b4bc910380a8175164ed73243cfb9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adc2dfaa847558f61457ea257636d9d93"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1PacketId.html#adc2dfaa847558f61457ea257636d9d93">populateAllCache</a> ()</td></tr>
+<tr class="separator:adc2dfaa847558f61457ea257636d9d93"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab90e22638144b43398d0479254b32e82"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1PacketId.html#ab90e22638144b43398d0479254b32e82">populateAllCache_</a> (string $key, array $name_map, callable $func)</td></tr>
+<tr class="separator:ab90e22638144b43398d0479254b32e82"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_static_methods_classPhpcraft_1_1Identifier"><td colspan="2" onclick="javascript:toggleInherit('pro_static_methods_classPhpcraft_1_1Identifier')"><img src="closed.png" alt="-"/>&#160;Static Protected Member Functions inherited from <a class="el" href="classPhpcraft_1_1Identifier.html">Phpcraft\Identifier</a></td></tr>
+<tr class="memitem:a4d03a63c3f9ff984b05dac3b2da97850 inherit pro_static_methods_classPhpcraft_1_1Identifier"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Identifier.html#a4d03a63c3f9ff984b05dac3b2da97850">populateAllCache</a> ()</td></tr>
+<tr class="separator:a4d03a63c3f9ff984b05dac3b2da97850 inherit pro_static_methods_classPhpcraft_1_1Identifier"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-static-attribs"></a>
+Static Protected Attributes</h2></td></tr>
+<tr class="memitem:ad7face3e071ff1a4ad6c5b320b11d2c0"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1PacketId.html#ad7face3e071ff1a4ad6c5b320b11d2c0">$all_cache</a></td></tr>
+<tr class="separator:ad7face3e071ff1a4ad6c5b320b11d2c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_static_attribs_classPhpcraft_1_1Identifier"><td colspan="2" onclick="javascript:toggleInherit('pro_static_attribs_classPhpcraft_1_1Identifier')"><img src="closed.png" alt="-"/>&#160;Static Protected Attributes inherited from <a class="el" href="classPhpcraft_1_1Identifier.html">Phpcraft\Identifier</a></td></tr>
+<tr class="memitem:aefd995164203db5171dd5527401d1d22 inherit pro_static_attribs_classPhpcraft_1_1Identifier"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Identifier.html#aefd995164203db5171dd5527401d1d22">$all_cache</a></td></tr>
+<tr class="separator:aefd995164203db5171dd5527401d1d22 inherit pro_static_attribs_classPhpcraft_1_1Identifier"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
+<tr class="inherit_header pub_static_methods_classPhpcraft_1_1Identifier"><td colspan="2" onclick="javascript:toggleInherit('pub_static_methods_classPhpcraft_1_1Identifier')"><img src="closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="classPhpcraft_1_1Identifier.html">Phpcraft\Identifier</a></td></tr>
+<tr class="memitem:a431a14cc7849a1307453e14548d5aa17 inherit pub_static_methods_classPhpcraft_1_1Identifier"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Identifier.html#a431a14cc7849a1307453e14548d5aa17">get</a> (string $name)</td></tr>
+<tr class="separator:a431a14cc7849a1307453e14548d5aa17 inherit pub_static_methods_classPhpcraft_1_1Identifier"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1a9e9908e80403509bff5838ca61d665 inherit pub_static_methods_classPhpcraft_1_1Identifier"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Identifier.html#a1a9e9908e80403509bff5838ca61d665">all</a> ()</td></tr>
+<tr class="separator:a1a9e9908e80403509bff5838ca61d665 inherit pub_static_methods_classPhpcraft_1_1Identifier"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d52b958fa53b9d4a77740f42e03477b inherit pub_static_methods_classPhpcraft_1_1Identifier"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Identifier.html#a1d52b958fa53b9d4a77740f42e03477b">getById</a> (int $id, int $protocol_version)</td></tr>
+<tr class="separator:a1d52b958fa53b9d4a77740f42e03477b inherit pub_static_methods_classPhpcraft_1_1Identifier"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_attribs_classPhpcraft_1_1Identifier"><td colspan="2" onclick="javascript:toggleInherit('pub_attribs_classPhpcraft_1_1Identifier')"><img src="closed.png" alt="-"/>&#160;Public Attributes inherited from <a class="el" href="classPhpcraft_1_1Identifier.html">Phpcraft\Identifier</a></td></tr>
 <tr class="memitem:a1850b132247b957f8deb3a4ebecc9715 inherit pub_attribs_classPhpcraft_1_1Identifier"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Identifier.html#a1850b132247b957f8deb3a4ebecc9715">$name</a></td></tr>
 <tr class="separator:a1850b132247b957f8deb3a4ebecc9715 inherit pub_attribs_classPhpcraft_1_1Identifier"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -135,48 +143,6 @@ Additional Inherited Members</h2></td></tr>
 <tr class="separator:a7c1c84c30a15cc69bea5a5651fbce5cd inherit pub_attribs_classPhpcraft_1_1Identifier"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a87b4bc910380a8175164ed73243cfb9e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a87b4bc910380a8175164ed73243cfb9e">&#9670;&nbsp;</a></span>_all()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static Phpcraft\PacketId::_all </td>
-          <td>(</td>
-          <td class="paramtype">string&#160;</td>
-          <td class="paramname"><em>$key</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">array&#160;</td>
-          <td class="paramname"><em>$name_map</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">callable&#160;</td>
-          <td class="paramname"><em>$func</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="a23261f8c84ecef3b2eb8fece604f02f3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a23261f8c84ecef3b2eb8fece604f02f3">&#9670;&nbsp;</a></span>_getId()</h2>
 
@@ -216,33 +182,6 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-
-</div>
-</div>
-<a id="affe7e07c302e3109bb3bd19ad0ada7d4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#affe7e07c302e3109bb3bd19ad0ada7d4">&#9670;&nbsp;</a></span>all()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static Phpcraft\PacketId::all </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>Returns every ClientboundPacket and ServerboundPacket.</p>
-<dl class="section return"><dt>Returns</dt><dd>static[] </dd></dl>
 
 </div>
 </div>
@@ -296,6 +235,96 @@ Additional Inherited Members</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Packet|null </dd></dl>
+
+</div>
+</div>
+<a id="adc2dfaa847558f61457ea257636d9d93"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adc2dfaa847558f61457ea257636d9d93">&#9670;&nbsp;</a></span>populateAllCache()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static Phpcraft\PacketId::populateAllCache </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab90e22638144b43398d0479254b32e82"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab90e22638144b43398d0479254b32e82">&#9670;&nbsp;</a></span>populateAllCache_()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static Phpcraft\PacketId::populateAllCache_ </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>$key</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">array&#160;</td>
+          <td class="paramname"><em>$name_map</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">callable&#160;</td>
+          <td class="paramname"><em>$func</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="ad7face3e071ff1a4ad6c5b320b11d2c0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad7face3e071ff1a4ad6c5b320b11d2c0">&#9670;&nbsp;</a></span>$all_cache</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Phpcraft\PacketId::$all_cache</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>
