@@ -165,6 +165,7 @@ class MapDataPacket extends Packet
 		self::$color_id_cache[$index] = $best_color;
 		return $best_color;
 	}
+
 	/**
 	 * Adds the packet's ID and payload to the Connection's write buffer and, if the connection has a stream, sends it over the wire.
 	 *
@@ -261,6 +262,7 @@ class MapDataPacket extends Packet
 		return $str."}";
 	}
 }
+
 MapDataPacket::$color_ids = [
 	4 => [
 		89,

@@ -44,7 +44,7 @@ $this->registerCommand("goto", function(ClientConnection $con, string $url)
 	{
 		$con->render_chromium_tab = true;
 	})
-									->navigate($url);
+					  ->navigate($url);
 }, "use chromium");
 $this->on(function(ServerJoinEvent $event) use (&$i)
 {

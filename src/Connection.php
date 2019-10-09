@@ -690,21 +690,6 @@ class Connection
 	}
 
 	/**
-	 * Reads a signed byte from the read buffer.
-	 *
-	 * @return int
-	 * @throws IOException When there are not enough bytes to read a byte.
-	 */
-	function readByte(): int
-	{
-		if($this->read_buffer_offset >= strlen($this->read_buffer))
-		{
-			throw new IOException("There are not enough bytes to read a byte");
-		}
-		return unpack("cbyte", substr($this->read_buffer, $this->read_buffer_offset++, 1))["byte"];
-	}
-
-	/**
 	 * Reads an unsigned byte from the read buffer.
 	 *
 	 * @return int
@@ -728,6 +713,21 @@ class Connection
 	function readAngle(): float
 	{
 		return $this->readByte() / 256 * 360;
+	}
+
+	/**
+	 * Reads a signed byte from the read buffer.
+	 *
+	 * @return int
+	 * @throws IOException When there are not enough bytes to read a byte.
+	 */
+	function readByte(): int
+	{
+		if($this->read_buffer_offset >= strlen($this->read_buffer))
+		{
+			throw new IOException("There are not enough bytes to read a byte");
+		}
+		return unpack("cbyte", substr($this->read_buffer, $this->read_buffer_offset++, 1))["byte"];
 	}
 
 	/**
@@ -1166,6 +1166,7 @@ class Connection
 		return $this;
 	}
 }
+
 for($i = 2; $i <= 64; $i++)
 {
 	Connection::$pow2[$i] = gmp_pow(2, $i);
