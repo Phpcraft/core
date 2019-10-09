@@ -6,7 +6,7 @@ if(empty($argv))
 }
 require "vendor/autoload.php";
 use Phpcraft\
-{ClientConnection, Command\Command, Event\ServerChatEvent, Event\ServerChunkBorderEvent, Event\ServerClientSettingsEvent, Event\ServerConsoleEvent, Event\ServerFlyingChangeEvent, Event\ServerJoinEvent, Event\ServerLeaveEvent, Event\ServerMovementEvent, Event\ServerOnGroundChangeEvent, Event\ServerPacketEvent, Event\ServerRotationEvent, Event\ServerTickEvent, Exception\IOException, Packet\ClientSettingsPacket, Packet\ServerboundPacket, Phpcraft, PlainUserInterface, PluginManager, Server, UserInterface, Versions};
+{ClientConnection, Command\Command, Event\ServerChatEvent, Event\ServerChunkBorderEvent, Event\ServerClientMetadataEvent, Event\ServerClientSettingsEvent, Event\ServerConsoleEvent, Event\ServerFlyingChangeEvent, Event\ServerJoinEvent, Event\ServerLeaveEvent, Event\ServerMovementEvent, Event\ServerOnGroundChangeEvent, Event\ServerPacketEvent, Event\ServerRotationEvent, Event\ServerTickEvent, Exception\IOException, Packet\ClientSettingsPacket, Packet\ServerboundPacket, Phpcraft, PlainUserInterface, PluginManager, Server, UserInterface, Versions};
 $options = [
 	"offline" => false,
 	"nocolor" => false,
@@ -78,7 +78,7 @@ else
 $server = new Server([], $private_key);
 function reloadConfiguration()
 {
-	global $server, $config, $ui;
+	global $server, $config;
 	if(!is_dir("config"))
 	{
 		mkdir("config");
@@ -394,6 +394,7 @@ $server->packet_function = function(ClientConnection $con, ServerboundPacket $pa
 		{
 			throw new IOException("Entity ID mismatch in Entity Action packet");
 		}
+		$prev_metadata = clone $con->entityMetadata;
 		switch($con->readByte())
 		{
 			case 0:
@@ -408,6 +409,13 @@ $server->packet_function = function(ClientConnection $con, ServerboundPacket $pa
 			case 4:
 				$con->entityMetadata->sprinting = false;
 				break;
+		}
+		if($con->entityMetadata->crouching !== $prev_metadata->crouching || $con->entityMetadata->sprinting !== $prev_metadata->sprinting)
+		{
+			if(PluginManager::fire(new ServerClientMetadataEvent($server, $con, $prev_metadata)))
+			{
+				// TODO: Revert metadata when cancelled.
+			}
 		}
 	}
 	else if($packetId->name == "serverbound_abilities")

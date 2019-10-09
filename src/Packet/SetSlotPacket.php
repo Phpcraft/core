@@ -44,7 +44,7 @@ class SetSlotPacket extends Packet
 	 * @return SetSlotPacket
 	 * @throws IOException
 	 */
-	static function read(Connection $con): Packet
+	static function read(Connection $con): SetSlotPacket
 	{
 		return new SetSlotPacket($con->readByte(), $con->readShort(), $con->readSlot());
 	}

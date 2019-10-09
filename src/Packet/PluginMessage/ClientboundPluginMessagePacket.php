@@ -1,7 +1,7 @@
 <?php
 namespace Phpcraft\Packet\PluginMessage;
 use Phpcraft\
-{Connection, Exception\IOException, Packet\Packet};
+{Connection, Exception\IOException};
 class ClientboundPluginMessagePacket extends PluginMessagePacket
 {
 	/**
@@ -17,10 +17,10 @@ class ClientboundPluginMessagePacket extends PluginMessagePacket
 	 * Initialises the packet class by reading its payload from the given Connection.
 	 *
 	 * @param Connection $con
-	 * @return Packet
+	 * @return ClientboundPluginMessagePacket
 	 * @throws IOException
 	 */
-	static function read(Connection $con): Packet
+	static function read(Connection $con): ClientboundPluginMessagePacket
 	{
 		$channel = self::readChannel($con);
 		switch($channel)

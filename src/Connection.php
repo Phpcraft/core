@@ -131,7 +131,7 @@ class Connection
 	/**
 	 * Converts a number to a VarInt binary string.
 	 *
-	 * @param GMP|string|integer $value
+	 * @param GMP|int|string $value
 	 * @return string
 	 */
 	static function varInt($value): string
@@ -243,7 +243,7 @@ class Connection
 	/**
 	 * Adds a signed long to the write buffer.
 	 *
-	 * @param GMP|string|integer $value
+	 * @param GMP|int|string $value
 	 * @return Connection $this
 	 */
 	function writeLong($value): Connection
@@ -293,7 +293,7 @@ class Connection
 	/**
 	 * Adds a signed integer to the write buffer.
 	 *
-	 * @param GMP|string|integer $value
+	 * @param GMP|int|string $value
 	 * @return Connection $this
 	 */
 	function writeInt($value): Connection
@@ -388,7 +388,7 @@ class Connection
 	/**
 	 * Adds a signed short to the write buffer.
 	 *
-	 * @param GMP|string|integer $value
+	 * @param GMP|int|string $value
 	 * @return Connection $this
 	 */
 	function writeShort($value): Connection
@@ -400,7 +400,7 @@ class Connection
 	/**
 	 * Adds a VarInt to the write buffer.
 	 *
-	 * @param GMP|string|integer $value
+	 * @param GMP|int|string $value
 	 * @return Connection $this
 	 */
 	function writeVarInt($value): Connection
@@ -424,7 +424,7 @@ class Connection
 	/**
 	 * Adds an unsigned short to the write buffer.
 	 *
-	 * @param GMP|string|integer $value
+	 * @param GMP|int|string $value
 	 * @return Connection $this
 	 */
 	function writeUnsignedShort($value): Connection

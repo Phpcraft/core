@@ -3,7 +3,7 @@ namespace Phpcraft;
 use Phpcraft\Nbt\NbtTag;
 class Item extends Identifier
 {
-	private static $all_cache;
+	protected static $all_cache;
 	/**
 	 * @var int $stack_size
 	 */
@@ -38,86 +38,77 @@ class Item extends Identifier
 		return @self::all()[$name];
 	}
 
-	/**
-	 * Returns every Item.
-	 *
-	 * @return Item[]
-	 */
-	static function all(): array
+	static protected function populateAllCache()
 	{
-		if(self::$all_cache === null)
+		self::$all_cache = [];
+		$json_cache = [];
+		foreach([
+			393 => "1.13",
+			397 => "1.13.2",
+			477 => "1.14"
+		] as $pv => $v)
 		{
-			self::$all_cache = [];
-			$json_cache = [];
-			foreach([
-				393 => "1.13",
-				397 => "1.13.2",
-				477 => "1.14"
-			] as $pv => $v)
+			foreach(json_decode(file_get_contents(Phpcraft::DATA_DIR."/minecraft-data/{$v}/items.json"), true) as $item)
 			{
-				foreach(json_decode(file_get_contents(Phpcraft::DATA_DIR."/minecraft-data/{$v}/items.json"), true) as $item)
+				if($pv == 393 || !array_key_exists($item["name"], self::$all_cache))
 				{
-					if($pv == 393 || !array_key_exists($item["name"], self::$all_cache))
+					$since_pv = $pv;
+					$ids = [
+						477 => null,
+						397 => null,
+						393 => null,
+						0 => null
+					];
+					$ids[$pv] = $item["id"];
+					foreach([
+						47 => "1.8",
+						107 => "1.9",
+						210 => "1.10",
+						314 => "1.11",
+						328 => "1.12"
+					] as $_pv => $_v)
 					{
-						$since_pv = $pv;
-						$ids = [
-							477 => null,
-							397 => null,
-							393 => null,
-							0 => null
-						];
-						$ids[$pv] = $item["id"];
 						foreach([
-							47 => "1.8",
-							107 => "1.9",
-							210 => "1.10",
-							314 => "1.11",
-							328 => "1.12"
-						] as $_pv => $_v)
+							"blocks",
+							"items"
+						] as $type)
 						{
-							foreach([
-								"blocks",
-								"items"
-							] as $type)
+							$file_name = "{$_v}/{$type}";
+							if(!array_key_exists($file_name, $json_cache))
 							{
-								$file_name = "{$_v}/{$type}";
-								if(!array_key_exists($file_name, $json_cache))
+								$json_cache["{$_v}/{$type}"] = json_decode(file_get_contents(Phpcraft::DATA_DIR."/minecraft-data/{$_v}/{$type}.json"), true);
+							}
+							foreach($json_cache[$file_name] as $_item)
+							{
+								if(array_key_exists("variations", $_item))
 								{
-									$json_cache["{$_v}/{$type}"] = json_decode(file_get_contents(Phpcraft::DATA_DIR."/minecraft-data/{$_v}/{$type}.json"), true);
-								}
-								foreach($json_cache[$file_name] as $_item)
-								{
-									if(array_key_exists("variations", $_item))
+									foreach($_item["variations"] as $variation)
 									{
-										foreach($_item["variations"] as $variation)
+										if($variation["displayName"] == $item["displayName"])
 										{
-											if($variation["displayName"] == $item["displayName"])
-											{
-												$ids[0] = ($_item["id"] << 4) | $variation["metadata"];
-												$since_pv = $_pv;
-												break 4;
-											}
+											$ids[0] = ($_item["id"] << 4) | $variation["metadata"];
+											$since_pv = $_pv;
+											break 4;
 										}
 									}
-									else if($_item["name"] == $item["name"])
-									{
-										$ids[0] = $_item["id"] << 4;
-										$since_pv = $_pv;
-										break 3;
-									}
+								}
+								else if($_item["name"] == $item["name"])
+								{
+									$ids[0] = $_item["id"] << 4;
+									$since_pv = $_pv;
+									break 3;
 								}
 							}
 						}
-						self::$all_cache[$item["name"]] = new Item($item["name"], $since_pv, $ids, $item["stackSize"], $item["displayName"]);
 					}
-					else
-					{
-						self::$all_cache[$item["name"]]->ids[$pv] = $item["id"];
-					}
+					self::$all_cache[$item["name"]] = new Item($item["name"], $since_pv, $ids, $item["stackSize"], $item["displayName"]);
+				}
+				else
+				{
+					self::$all_cache[$item["name"]]->ids[$pv] = $item["id"];
 				}
 			}
 		}
-		return self::$all_cache;
 	}
 
 	/**

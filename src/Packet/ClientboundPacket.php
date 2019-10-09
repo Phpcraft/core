@@ -2,28 +2,17 @@
 namespace Phpcraft\Packet;
 use Phpcraft\
 {Packet\BossBar\BossBarPacket, Packet\DeclareCommands\DeclareCommandsPacket, Packet\MapData\MapDataPacket, Packet\PluginMessage\ClientboundPluginMessagePacket, PacketId};
-/**
- * The class for the IDs of packets sent to the client.
- */
+/** The class for the IDs of packets sent to the client. */
 class ClientboundPacket extends PacketId
 {
-	private static $all_cache;
+	protected static $all_cache;
 
-	/**
-	 * Returns every ClientboundPacket.
-	 *
-	 * @return ClientboundPacket[]
-	 */
-	static function all(): array
+	static protected function populateAllCache()
 	{
-		if(self::$all_cache == null)
+		self::populateAllCache_("toClient", self::nameMap(), function(string $name, int $pv)
 		{
-			self::$all_cache = self::_all("toClient", self::nameMap(), function(string $name, int $pv)
-			{
-				return new ClientboundPacket($name, $pv);
-			});
-		}
-		return self::$all_cache;
+			return new ClientboundPacket($name, $pv);
+		});
 	}
 
 	private static function nameMap(): array

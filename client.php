@@ -1,5 +1,4 @@
-<?php
-/** @noinspection PhpUnhandledExceptionInspection DuplicatedCode */
+<?php /** @noinspection PhpUnhandledExceptionInspection DuplicatedCode */
 echo "Phpcraft PHP Minecraft Client\n\n";
 if(empty($argv))
 {
@@ -222,7 +221,9 @@ function handleConsoleMessage(string $msg)
 		return;
 	}
 	global $con;
-	assert($con instanceof ServerConnection);
+	/**
+	 * @var ServerConnection $con
+	 */
 	if(PluginManager::fire(new ClientConsoleEvent($con, $msg)))
 	{
 		return;
@@ -634,9 +635,9 @@ do
 					}
 					else
 					{
-						$entities[$eid]["x"] += ($con->readByte(true) / 32);
-						$entities[$eid]["y"] += ($con->readByte(true) / 32);
-						$entities[$eid]["z"] += ($con->readByte(true) / 32);
+						$entities[$eid]["x"] += ($con->readByte() / 32);
+						$entities[$eid]["y"] += ($con->readByte() / 32);
+						$entities[$eid]["z"] += ($con->readByte() / 32);
 					}
 					$entities[$eid]["yaw"] = $con->readByte();
 					$entities[$eid]["pitch"] = $con->readByte();
@@ -655,9 +656,9 @@ do
 					}
 					else
 					{
-						$entities[$eid]["x"] += ($con->readByte(true) / 32);
-						$entities[$eid]["y"] += ($con->readByte(true) / 32);
-						$entities[$eid]["z"] += ($con->readByte(true) / 32);
+						$entities[$eid]["x"] += ($con->readByte() / 32);
+						$entities[$eid]["y"] += ($con->readByte() / 32);
+						$entities[$eid]["z"] += ($con->readByte() / 32);
 					}
 				}
 			}

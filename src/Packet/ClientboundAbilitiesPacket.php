@@ -33,10 +33,10 @@ class ClientboundAbilitiesPacket extends Packet
 	 * Initialises the packet class by reading its payload from the given Connection.
 	 *
 	 * @param Connection $con
-	 * @return Packet
+	 * @return ClientboundAbilitiesPacket
 	 * @throws IOException
 	 */
-	static function read(Connection $con): Packet
+	static function read(Connection $con): ClientboundAbilitiesPacket
 	{
 		$packet = new ClientboundAbilitiesPacket();
 		$flags = $con->readByte();

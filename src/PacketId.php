@@ -4,21 +4,17 @@ use Phpcraft\Packet\
 {ClientboundPacket, Packet, ServerboundPacket};
 abstract class PacketId extends Identifier
 {
+	protected static $all_cache;
 	private static $mappings = [];
 
-	/**
-	 * Returns every ClientboundPacket and ServerboundPacket.
-	 *
-	 * @return static[]
-	 */
-	static function all(): array
+	static protected function populateAllCache()
 	{
-		return array_merge(ClientboundPacket::all(), ServerboundPacket::all());
+		self::$all_cache = ClientboundPacket::all() + ServerboundPacket::all();
 	}
 
-	protected static function _all(string $key, array $name_map, callable $func): array
+	protected static function populateAllCache_(string $key, array $name_map, callable $func)
 	{
-		$packets = [];
+		static::$all_cache = [];
 		foreach(array_reverse(self::versions(), true) as $pv => $v)
 		{
 			if(!array_key_exists($key.$v, self::$mappings))
@@ -31,13 +27,12 @@ abstract class PacketId extends Identifier
 				{
 					$name = $name_map[$name];
 				}
-				if(!isset($packets[$name]))
+				if(!isset(static::$all_cache[$name]))
 				{
-					$packets[$name] = $func($name, $pv);
+					static::$all_cache[$name] = $func($name, $pv);
 				}
 			}
 		}
-		return array_values($packets);
 	}
 
 	private static function versions(): array

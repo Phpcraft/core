@@ -32,7 +32,7 @@ class KeepAliveResponsePacket extends Packet
 	 * @return KeepAliveResponsePacket
 	 * @throws IOException
 	 */
-	static function read(Connection $con): Packet
+	static function read(Connection $con): KeepAliveResponsePacket
 	{
 		return new KeepAliveResponsePacket($con->protocol_version >= 339 ? $con->readLong() : $con->readVarInt());
 	}

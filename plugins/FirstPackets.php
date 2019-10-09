@@ -104,8 +104,8 @@ $this->on(function(ServerJoinEvent $event)
 			 foreach($con->chunk_queue as $chunk_name => $chunk_coords)
 			 {
 				 $con->startPacket("chunk_data");
-				 $con->writeInt($chunk_coords[0], true); // Chunk X
-				 $con->writeInt($chunk_coords[1], true); // Chunk Z
+				 $con->writeInt($chunk_coords[0]); // Chunk X
+				 $con->writeInt($chunk_coords[1]); // Chunk Z
 				 $con->writeBoolean(true); // Is New Chunk
 				 if($con->protocol_version >= 70) // Sections Bit Mask
 				 {

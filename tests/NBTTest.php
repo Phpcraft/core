@@ -11,7 +11,7 @@ class NBTTest
 		$con->read_buffer = $bin;
 		$list = $con->readNBT();
 		Nose::assertEquals($con->read_buffer_offset, strlen($con->read_buffer));
-		assert($list instanceof NbtList);
+		Nose::assert($list instanceof NbtList);
 		Nose::assertEquals("List", $list->name);
 		Nose::assertEquals(1, count($list->children));
 		$compound = $list[0];

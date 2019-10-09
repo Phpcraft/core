@@ -5,23 +5,14 @@ use Phpcraft\
 /** The class for the IDs of packets sent to the server. */
 class ServerboundPacket extends PacketId
 {
-	private static $all_cache;
+	protected static $all_cache;
 
-	/**
-	 * Returns every ServerboundPacket.
-	 *
-	 * @return ServerboundPacket[]
-	 */
-	static function all(): array
+	static protected function populateAllCache()
 	{
-		if(self::$all_cache == null)
+		self::populateAllCache_("toServer", self::nameMap(), function(string $name, int $pv)
 		{
-			self::$all_cache = self::_all("toServer", self::nameMap(), function(string $name, int $pv)
-			{
-				return new ServerboundPacket($name, $pv);
-			});
-		}
-		return self::$all_cache;
+			return new ServerboundPacket($name, $pv);
+		});
 	}
 
 	private static function nameMap(): array

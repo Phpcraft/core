@@ -2,6 +2,7 @@
 namespace Phpcraft;
 abstract class Identifier
 {
+	protected static $all_cache;
 	/**
 	 * The name of this Identifier.
 	 *
@@ -34,22 +35,28 @@ abstract class Identifier
 		{
 			$name = substr($name, 10);
 		}
-		foreach(static::all() as $thing)
+		if(static::$all_cache === null)
 		{
-			if($thing->name == $name)
-			{
-				return $thing;
-			}
+			static::populateAllCache();
 		}
-		return null;
+		return @static::$all_cache[$name];
 	}
 
 	/**
 	 * Returns everything of this type.
 	 *
-	 * @return static[]
+	 * @return array<static>
 	 */
-	abstract static function all();
+	static function all(): array
+	{
+		if(static::$all_cache === null)
+		{
+			static::populateAllCache();
+		}
+		return static::$all_cache;
+	}
+
+	abstract protected static function populateAllCache();
 
 	/**
 	 * Returns an Identifier by its ID in the given protocol version or null if not found.

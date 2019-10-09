@@ -111,6 +111,7 @@ class ClientConnection extends Connection implements CommandSender
 	public $gamemode = Gamemode::SURVIVAL;
 	/**
 	 * @var EntityLiving|null $entityMetadata
+	 * @todo Create sendMetadata method
 	 */
 	public $entityMetadata;
 	/**
