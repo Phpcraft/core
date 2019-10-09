@@ -105,6 +105,16 @@ class Point3D
 		return new Point3D(floor($this->x) + 0.5, floor($this->y), floor($this->z) + 0.5);
 	}
 
+	/**
+	 * Floors and adds 0.5 to all axes.
+	 *
+	 * @return Point3D
+	 */
+	function blockCenter(): Point3D
+	{
+		return new Point3D(floor($this->x) + 0.5, floor($this->y), floor($this->z) + 0.5);
+	}
+
 	function equals(Point3D $b): bool
 	{
 		return $this->x == $b->x && $this->y == $b->y && $this->z == $b->z;
