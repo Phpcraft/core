@@ -96,8 +96,7 @@ $this->on(function(ClientPacketEvent $event)
 	{
 		global $WorldSaver_con;
 		assert($WorldSaver_con instanceof Connection);
-		$WorldSaver_con->startPacket($event->packetId);
-		$WorldSaver_con->write_buffer .= $event->server->read_buffer;
+		$WorldSaver_con->write_buffer = $event->server->read_buffer;
 		$WorldSaver_con->send();
 	}
 });

@@ -14,8 +14,8 @@
 	},
 	"require": {
 		"php": "^7.0",
-		"ext-SPL": "*",
 		"ext-json": "^1.4",
+		"ext-SPL": "*",
 		"ext-zlib": "*",
 		"ext-mbstring": "*",
 		"ext-gmp": "*",

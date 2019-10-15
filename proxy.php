@@ -5,25 +5,16 @@ if(empty($argv))
 {
 	die("This is for PHP-CLI. Connect to your server via SSH and use `php proxy.php`.\n");
 }
-if(@$argv[1] == "help")
-{
-	die("Syntax: php proxy.php [account name]\n");
-}
 require "vendor/autoload.php";
 use Phpcraft\
-{Account, ClientConnection, Command\Command, Connection, Enum\Difficulty, Enum\Dimension, Enum\Gamemode, Event\ProxyClientPacketEvent, Event\ProxyJoinEvent, Event\ProxyServerPacketEvent, Event\ProxyTickEvent, Packet\ClientboundPacket, Packet\JoinGamePacket, Packet\KeepAliveRequestPacket, Packet\ServerboundPacket, PluginManager, Point3D, Server, ServerConnection, Versions};
+{Account, ClientConnection, Command\Command, Enum\Difficulty, Enum\Dimension, Enum\Gamemode, Event\ProxyClientPacketEvent, Event\ProxyJoinEvent, Event\ProxyServerPacketEvent, Event\ProxyTickEvent, Packet\ClientboundPacket, Packet\JoinGamePacket, Packet\KeepAliveRequestPacket, Packet\ServerboundPacket, PluginManager, Point3D, Server, ServerConnection, Versions};
 $stdin = fopen("php://stdin", "r") or die("Failed to open php://stdin\n");
 stream_set_blocking($stdin, true);
-if(empty($argv[1]))
+echo "Would you like to provide a Mojang/Minecraft account to be possesed? [y/N] ";
+if(trim(fgets($stdin)) == "y")
 {
-	$account = null;
-	echo "No account name was provided, which means you can only connect to BungeeCord-compatible servers.\n";
-}
-else
-{
-	$account = new Account($argv[1]);
-	$account->cliLogin($stdin);
-	echo "Authenticated as ".$account->username."\n";
+	$account = Account::cliLogin($stdin);
+	echo "Authenticated as {$account->username}.\n";
 }
 echo "Autoloading plugins...\n";
 PluginManager::$command_prefix = "/proxy:";
@@ -35,6 +26,7 @@ $private_key = openssl_pkey_new([
 	"private_key_type" => OPENSSL_KEYTYPE_RSA
 ]);
 $server = new Server([$socket], $private_key);
+$server->compression_threshold = -1;
 $client_con = null;
 $server_con = null;
 $server_eid = -1;
@@ -98,7 +90,7 @@ $server->join_function = function(ClientConnection $con)
 	}
 	$con->send();
 	$con->startPacket("clientbound_chat_message");
-	if($account != null)
+	if($account instanceof Account)
 	{
 		$con->writeString('{"text":"Welcome to this Phpcraft proxy, '.$con->username.'. This proxy is authenticated as '.$account->username.'. Use /proxy:connect <ip> to connect to a Minecraft server."}');
 	}
@@ -128,7 +120,7 @@ $server->packet_function = function(ClientConnection $con, ServerboundPacket $pa
 	}
 	else if($server_con instanceof ServerConnection)
 	{
-		$server_con->write_buffer = Connection::varInt($packetId->getId($server_con->protocol_version)).$con->read_buffer;
+		$server_con->write_buffer = $con->read_buffer;
 		$server_con->send();
 	}
 };
@@ -175,7 +167,7 @@ do
 					$client_con->startPacket($packetId->name);
 					$eid = $server_con->readVarInt();
 					$client_con->writeVarInt($eid == $server_eid ? $client_con->eid : $eid);
-					$client_con->write_buffer .= $server_con->read_buffer;
+					$client_con->write_buffer .= $server_con->getRemainingData();
 					$client_con->send();
 				}
 				else if($packetId->name == "keep_alive_request")
@@ -205,7 +197,7 @@ do
 				}
 				else
 				{
-					$client_con->write_buffer = Connection::varInt($packet_id).$server_con->read_buffer;
+					$client_con->write_buffer = $server_con->read_buffer;
 					$client_con->send();
 				}
 			}

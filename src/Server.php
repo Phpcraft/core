@@ -277,7 +277,7 @@ class Server implements CommandSender
 								if($packet_id == 0x00) // Login Start
 								{
 									$con->username = $con->readString();
-									if(Phpcraft::validateName($con->username))
+									if(Account::validateUsername($con->username))
 									{
 										if($this->private_key)
 										{

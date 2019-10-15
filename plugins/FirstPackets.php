@@ -18,8 +18,7 @@ $this->on(function(ServerJoinEvent $event)
 		return;
 	}
 	$con = $event->client;
-	global $WorldImitatorActive;
-	if($WorldImitatorActive)
+	if(@$con->received_imitated_world)
 	{
 		return;
 	}

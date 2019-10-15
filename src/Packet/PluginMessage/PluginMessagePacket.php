@@ -88,6 +88,6 @@ abstract class PluginMessagePacket extends Packet
 
 	function __toString()
 	{
-		return "{".substr(get_called_class(), 29).": \"".$this->channel."\": ".Phpcraft::binaryStringToHex($this->data)."}";
+		return "{".substr(get_called_class(), 30).": \"".$this->channel."\": ".Phpcraft::binaryStringToHex($this->data)."}";
 	}
 }

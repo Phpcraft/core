@@ -109,6 +109,7 @@ abstract class EntityMetadata
 		if($con->protocol_version >= 57)
 		{
 			$versions = [
+				472 => "1.14",
 				383 => "1.13",
 				328 => "1.12",
 				57 => "1.11"
@@ -232,7 +233,7 @@ abstract class EntityMetadata
 				$con->ignoreBytes(8);
 				break;
 			case "varint":
-				gmp_intval($con->readVarInt());
+				$con->readVarInt();
 				break;
 			case "string":
 				$con->ignoreBytes(gmp_intval($con->readVarInt()));

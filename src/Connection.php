@@ -20,6 +20,7 @@ use Phpcraft\Nbt\
  */
 class Connection
 {
+	static $zero;
 	static $pow2 = [];
 	/**
 	 * The protocol version that is used for this connection.
@@ -94,6 +95,16 @@ class Connection
 	{
 		$this->read_buffer = $buffer;
 		$this->read_buffer_offset = 0;
+	}
+
+	/**
+	 * Returns all the data in the read buffer that is yet to be read.
+	 *
+	 * @return string
+	 */
+	function getRemainingData(): string
+	{
+		return substr($this->read_buffer, $this->read_buffer_offset);
 	}
 
 	/**
@@ -605,7 +616,7 @@ class Connection
 	 *
 	 * @param float $timeout The amount of seconds to wait before read is aborted.
 	 * @return int|boolean The packet's ID or false if no packet was received within the time limit.
-	 * @throws IOException When there are not enough bytes to read the packet ID.
+	 * @throws IOException
 	 * @see Connection::readRawPacket
 	 * @see Packet::clientboundPacketIdToName()
 	 * @see Packet::serverboundPacketIdToName()
@@ -647,13 +658,25 @@ class Connection
 		}
 		if($this->compression_threshold > -1)
 		{
-			$uncompressed_length = gmp_intval($this->readVarInt());
+			$uncompressed_length = 0;
+			$offset = 0;
+			do
+			{
+				$byte = unpack("Cbyte", substr($this->read_buffer, $offset, 1))["byte"];
+				$uncompressed_length |= (($byte & 0b01111111) << (7 * $offset++));
+				if($uncompressed_length > 2097152)
+				{
+					throw new IOException("Uncompressed packet length wider than 21 bits");
+				}
+			}
+			while(($byte & 0b10000000) != 0);
+			$this->read_buffer = substr($this->read_buffer, $offset);
 			if($uncompressed_length > 0)
 			{
 				$this->read_buffer = @gzuncompress($this->read_buffer, $uncompressed_length);
 				if(!$this->read_buffer)
 				{
-					return false;
+					throw new IOException("Failed to decompress the packet data");
 				}
 			}
 		}
@@ -669,7 +692,7 @@ class Connection
 	 */
 	function readVarInt(): GMP
 	{
-		$value = gmp_init(0);
+		$value = self::$zero;
 		$read = 0;
 		do
 		{
@@ -1167,6 +1190,7 @@ class Connection
 	}
 }
 
+Connection::$zero = gmp_init(0);
 for($i = 2; $i <= 64; $i++)
 {
 	Connection::$pow2[$i] = gmp_pow(2, $i);

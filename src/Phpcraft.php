@@ -21,6 +21,12 @@ abstract class Phpcraft
 	const FORMAT_AMPERSAND = 3;
 	const FORMAT_HTML = 4;
 	/**
+	 * Modern list ping. Legacy if that fails.
+	 */
+	const METHOD_ALL = 0;
+	const METHOD_MODERN = 1;
+	const METHOD_LEGACY = 2;
+	/**
 	 * @var Configuration $json_cache
 	 */
 	public static $json_cache;
@@ -28,39 +34,40 @@ abstract class Phpcraft
 	 * @var Configuration $user_cache
 	 */
 	public static $user_cache;
+	private static $profiles;
 
 	/**
 	 * Returns the contents of Minecraft's launcher_profiles.json with some values being set if they are unset.
 	 *
+	 * @param bool $bypass_cache Set this to true if you anticipate external changes to the file.
 	 * @return array
 	 * @see Phpcraft::getProfilesFile()
 	 * @see Phpcraft::saveProfiles()
 	 */
-	static function getProfiles(): array
+	static function getProfiles(bool $bypass_cache = false): array
 	{
-		$profiles_file = self::getProfilesFile();
-		if(file_exists($profiles_file) && is_file($profiles_file))
+		if($bypass_cache || self::$profiles === null)
 		{
-			$profiles = json_decode(file_get_contents($profiles_file), true);
+			$profiles_file = self::getProfilesFile();
+			if(file_exists($profiles_file) && is_file($profiles_file))
+			{
+				self::$profiles = json_decode(file_get_contents($profiles_file), true);
+			}
+			else
+			{
+				self::$profiles = [];
+			}
+			if(empty(self::$profiles["clientToken"]))
+			{
+				self::$profiles["clientToken"] = UUID::v4()
+													 ->__toString();
+			}
+			if(!isset(self::$profiles["authenticationDatabase"]))
+			{
+				self::$profiles["authenticationDatabase"] = [];
+			}
 		}
-		else
-		{
-			$profiles = [];
-		}
-		if(empty($profiles["clientToken"]))
-		{
-			$profiles["clientToken"] = UUID::v4()
-										   ->__toString();
-		}
-		if(!isset($profiles["selectedUser"]))
-		{
-			$profiles["selectedUser"] = [];
-		}
-		if(!isset($profiles["authenticationDatabase"]))
-		{
-			$profiles["authenticationDatabase"] = [];
-		}
-		return $profiles;
+		return self::$profiles;
 	}
 
 	/**
@@ -120,7 +127,8 @@ abstract class Phpcraft
 	 */
 	static function saveProfiles(array $profiles)
 	{
-		file_put_contents(self::getProfilesFile(), json_encode($profiles, JSON_PRETTY_PRINT));
+		self::$profiles = $profiles;
+		file_put_contents(self::getProfilesFile(), json_encode(self::$profiles, JSON_PRETTY_PRINT));
 	}
 
 	/**
@@ -173,49 +181,6 @@ abstract class Phpcraft
 				self::$json_cache->unset($url);
 			}
 		}
-	}
-
-	/**
-	 * Validates an in-game name.
-	 *
-	 * @param string $name
-	 * @return boolean True if the name is valid.
-	 */
-	static function validateName(string $name)
-	{
-		if(strlen($name) < 3 || strlen($name) > 16)
-		{
-			return false;
-		}
-		$allowed_characters = [
-			"_",
-			"0",
-			"1",
-			"2",
-			"3",
-			"4",
-			"5",
-			"6",
-			"7",
-			"8",
-			"9"
-		];
-		foreach(range("a", "z") as $char)
-		{
-			array_push($allowed_characters, $char);
-		}
-		foreach(range("A", "Z") as $char)
-		{
-			array_push($allowed_characters, $char);
-		}
-		foreach(str_split($name) as $char)
-		{
-			if(!in_array($char, $allowed_characters))
-			{
-				return false;
-			}
-		}
-		return true;
 	}
 
 	/**
@@ -676,16 +641,16 @@ abstract class Phpcraft
 	 * @return array
 	 * @throws IOException
 	 */
-	static function getServerStatus(string $server_name, int $server_port = 25565, float $timeout = 3.000, int $method = 0): array
+	static function getServerStatus(string $server_name, int $server_port = 25565, float $timeout = 3.000, int $method = Phpcraft::METHOD_ALL): array
 	{
-		if($method != 2)
+		if($method != Phpcraft::METHOD_LEGACY)
 		{
 			if($stream = @fsockopen($server_name, $server_port, $errno, $errstr, $timeout))
 			{
 				$con = new ServerConnection($stream, Versions::protocol(false)[0]);
 				$start = microtime(true);
 				$con->sendHandshake($server_name, $server_port, 1);
-				$con->writeVarInt(0x00);
+				$con->writeVarInt(0x00); // Status Request
 				$con->send();
 				if($con->readPacket($timeout) === 0x00)
 				{
@@ -697,7 +662,7 @@ abstract class Phpcraft
 				$con->close();
 			}
 		}
-		if($method != 1)
+		if($method != Phpcraft::METHOD_MODERN)
 		{
 			if($stream = @fsockopen($server_name, $server_port, $errno, $errstr, $timeout))
 			{

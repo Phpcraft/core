@@ -6,16 +6,16 @@
  * @var Plugin $this
  */
 use Phpcraft\
-{Connection, Event\ProxyClientPacketEvent, Event\ProxyServerPacketEvent, Plugin};
+{Event\ProxyClientPacketEvent, Event\ProxyServerPacketEvent, Plugin};
 $this->on(function(ProxyClientPacketEvent &$e)
 {
 	$packet_class = $e->packetId->getClass();
 	if($packet_class)
 	{
-		$con = new Connection($e->client->protocol_version);
-		$con->read_buffer = $e->server->read_buffer;
-		$packet = call_user_func($packet_class."::read", $con);
+		$offset = $e->server->read_buffer_offset;
+		$packet = call_user_func($packet_class."::read", $e->server);
 		echo "S -> C: $packet\n";
+		$e->server->read_buffer_offset = $offset;
 	}
 	else
 	{
@@ -28,10 +28,10 @@ $this->on(function(ProxyClientPacketEvent &$e)
 		 $packet_class = $e->packetId->getClass();
 		 if($packet_class)
 		 {
-			 $con = new Connection($e->client->protocol_version);
-			 $con->read_buffer = $e->client->read_buffer;
-			 $packet = call_user_func($packet_class."::read", $con);
+			 $offset = $e->client->read_buffer_offset;
+			 $packet = call_user_func($packet_class."::read", $e->client);
 			 echo "C -> $recipient: $packet\n";
+			 $e->client->read_buffer_offset = $offset;
 		 }
 		 else
 		 {

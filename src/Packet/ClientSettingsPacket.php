@@ -71,7 +71,7 @@ class ClientSettingsPacket extends Packet
 	static function read(Connection $con): ClientSettingsPacket
 	{
 		$packet = new ClientSettingsPacket();
-		$packet->locale = $con->readString();
+		$packet->locale = $con->readString(16);
 		$packet->render_distance = gmp_intval($con->readVarInt());
 		$packet->chat_mode = gmp_intval($con->readVarInt());
 		$packet->chat_colors_enabled = $con->readBoolean();

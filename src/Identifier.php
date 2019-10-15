@@ -42,20 +42,6 @@ abstract class Identifier
 		return @static::$all_cache[$name];
 	}
 
-	/**
-	 * Returns everything of this type.
-	 *
-	 * @return array<static>
-	 */
-	static function all(): array
-	{
-		if(static::$all_cache === null)
-		{
-			static::populateAllCache();
-		}
-		return static::$all_cache;
-	}
-
 	abstract protected static function populateAllCache();
 
 	/**
@@ -75,6 +61,20 @@ abstract class Identifier
 			}
 		}
 		return null;
+	}
+
+	/**
+	 * Returns everything of this type.
+	 *
+	 * @return array<static>
+	 */
+	static function all(): array
+	{
+		if(static::$all_cache === null)
+		{
+			static::populateAllCache();
+		}
+		return static::$all_cache;
 	}
 
 	/**

@@ -107,37 +107,42 @@ else if(!isset($options["online"]))
 	}
 }
 $name = "";
+$account = null;
 if(isset($options["name"]))
 {
-	$name = $options["name"];
+	$account = new Account($options["name"]);
+	if($online && !$account->loginUsingProfiles())
+	{
+		$account = null;
+	}
 }
-while($name == "")
+if($account === null)
 {
 	if($online)
 	{
-		echo "What's your Mojang account email address? (username if unmigrated) ";
-		$name = trim(fgets($stdin));
+		$account = Account::cliLogin($stdin);
 	}
 	else
 	{
-		echo "How would you like to be called in-game? [PhpcraftUser] ";
-		$name = trim(fgets($stdin));
-		if($name == "")
+		do
 		{
-			$name = "PhpcraftUser";
-			break;
+			echo "How would you like to be called in-game? [PhpcraftUser] ";
+			$name = trim(fgets($stdin));
+			if($name == "")
+			{
+				$account = new Account("PhpcraftUser");
+			}
+			else if(Account::validateUsername($name))
+			{
+				$account = new Account($name);
+			}
+			else
+			{
+				echo "Invalid username.\n";
+			}
 		}
-		if(!Phpcraft::validateName($name))
-		{
-			echo "Invalid name.\n";
-			$name = "";
-		}
+		while($account === null);
 	}
-}
-$account = new Account($name);
-if($online)
-{
-	$account->cliLogin($stdin);
 }
 $server = "";
 if(isset($options["server"]))
@@ -177,7 +182,7 @@ $ui->append("Resolved to {$server}")
    ->render();
 if(empty($options["version"]))
 {
-	$info = Phpcraft::getServerStatus($serverarr[0], intval($serverarr[1]), 3, 1);
+	$info = Phpcraft::getServerStatus($serverarr[0], intval($serverarr[1]), 3, Phpcraft::METHOD_MODERN);
 	if(empty($info) || empty($info["version"]) || empty($info["version"]["protocol"]))
 	{
 		$ui->add("Invalid status: ".json_encode($info))
@@ -207,6 +212,12 @@ else
 function loadPlugins()
 {
 	global $ui;
+	if(PluginManager::$loaded_plugins)
+	{
+		PluginManager::unloadAllPlugins();
+		echo "Unloaded all plugins.\n";
+		$ui->render();
+	}
 	echo "Loading plugins...\n";
 	PluginManager::loadPlugins();
 	echo "Loaded ".PluginManager::$loaded_plugins->count()." plugin(s).\n";

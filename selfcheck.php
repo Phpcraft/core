@@ -37,6 +37,15 @@ else
 	array_push($apt, "php-gmp");
 }
 echo " GMP\n";
+if(extension_loaded("zlib"))
+{
+	echo "./";
+}
+else
+{
+	echo "X";
+}
+echo " zlib\n";
 if(extension_loaded("sockets"))
 {
 	echo "./";
@@ -102,15 +111,12 @@ else
 	echo "X";
 }
 echo " mcrypt (optional for more performance)\n\n";
-if(!empty($apt) || !empty($pecl))
+if(!empty($apt) || !empty($pecl) || !extension_loaded("zlib"))
 {
-	if(defined("PHP_WINDOWS_VERSION_MAJOR"))
+	echo "Check the extensions section of your php.ini.\n";
+	if(!defined("PHP_WINDOWS_VERSION_MAJOR"))
 	{
-		echo "Check the extensions section of your php.ini.\n";
-	}
-	else
-	{
-		echo "To install all missing dependencies, run:\n";
+		echo "You might be able to install all missing extensions by running:\n";
 		if(!empty($apt))
 		{
 			echo "sudo apt-get -y install ".join(" ", $apt)."\n";

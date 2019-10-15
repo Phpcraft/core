@@ -28,8 +28,8 @@ class ServerboundPluginMessagePacket extends PluginMessagePacket
 			case "minecraft:brand":
 				return new ServerboundBrandPluginMessagePacket($con->readString());
 		}
-		$packet = new ServerboundPluginMessagePacket($channel, $con->read_buffer);
-		$con->read_buffer = "";
+		$packet = new ServerboundPluginMessagePacket($channel, $con->getRemainingData());
+		$con->read_buffer_offset = strlen($con->read_buffer);
 		return $packet;
 	}
 }
