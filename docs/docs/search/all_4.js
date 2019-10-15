@@ -23,7 +23,7 @@ var searchData=
   ['clientjoinevent',['ClientJoinEvent',['../classPhpcraft_1_1Event_1_1ClientJoinEvent.html',1,'Phpcraft::Event']]],
   ['clientpacketevent',['ClientPacketEvent',['../classPhpcraft_1_1Event_1_1ClientPacketEvent.html',1,'Phpcraft::Event']]],
   ['clientsettingspacket',['ClientSettingsPacket',['../classPhpcraft_1_1Packet_1_1ClientSettingsPacket.html',1,'Phpcraft::Packet']]],
-  ['clilogin',['cliLogin',['../classPhpcraft_1_1Account.html#addfa33d29984df155361d2d7f960a46c',1,'Phpcraft::Account']]],
+  ['clilogin',['cliLogin',['../classPhpcraft_1_1Account.html#a99fb106a9336f45762a057d4ddc6dd46',1,'Phpcraft::Account']]],
   ['close',['close',['../classPhpcraft_1_1Connection.html#ae2c43093e8d0dc952337a0ce4ec9b341',1,'Phpcraft\Connection\close()'],['../classPhpcraft_1_1Server.html#ae5413fde7de5d2f804607b6c91859276',1,'Phpcraft\Server\close()']]],
   ['color_5fblue',['COLOR_BLUE',['../classPhpcraft_1_1Packet_1_1BossBar_1_1BossBarPacket.html#a287a1ecc091c9c54c6f7caf204b8e0bf',1,'Phpcraft::Packet::BossBar::BossBarPacket']]],
   ['color_5fgreen',['COLOR_GREEN',['../classPhpcraft_1_1Packet_1_1BossBar_1_1BossBarPacket.html#a3d07249bda8bac13b69d91a829c75658',1,'Phpcraft::Packet::BossBar::BossBarPacket']]],

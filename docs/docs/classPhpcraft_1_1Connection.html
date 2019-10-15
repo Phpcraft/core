@@ -90,6 +90,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a97d64586a07790901e0e9dc83a9cfd66"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7c459cc8e8a68e1ccd99f7ee80a2794b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#a7c459cc8e8a68e1ccd99f7ee80a2794b">setReadBuffer</a> (string $buffer)</td></tr>
 <tr class="separator:a7c459cc8e8a68e1ccd99f7ee80a2794b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a49683613fdd7852e22a0fea6436ae99a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#a49683613fdd7852e22a0fea6436ae99a">getRemainingData</a> ()</td></tr>
+<tr class="separator:a49683613fdd7852e22a0fea6436ae99a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af87354d640c41b05b46b2f6384151531"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#af87354d640c41b05b46b2f6384151531">writeChat</a> ($value)</td></tr>
 <tr class="separator:af87354d640c41b05b46b2f6384151531"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5bbf2b6797d4e27bd836051505a40705"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#a5bbf2b6797d4e27bd836051505a40705">writeString</a> (string $value)</td></tr>
@@ -205,6 +207,8 @@ Public Attributes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
+<tr class="memitem:a4edb89db01c6062f5ade3bd2f1aa5576"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#a4edb89db01c6062f5ade3bd2f1aa5576">$zero</a></td></tr>
+<tr class="separator:a4edb89db01c6062f5ade3bd2f1aa5576"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a016ccffcdfa6706f9497624b6b34bba2"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#a016ccffcdfa6706f9497624b6b34bba2">$pow2</a> = []</td></tr>
 <tr class="separator:a016ccffcdfa6706f9497624b6b34bba2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -265,6 +269,25 @@ echo \<a class="el" href="classPhpcraft_1_1Phpcraft.html">Phpcraft</a>\<a class=
       </table>
 </div><div class="memdoc">
 <p>Closes the stream. </p>
+
+</div>
+</div>
+<a id="a49683613fdd7852e22a0fea6436ae99a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a49683613fdd7852e22a0fea6436ae99a">&#9670;&nbsp;</a></span>getRemainingData()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Phpcraft\Connection::getRemainingData </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Returns all the data in the read buffer that is yet to be read.</p>
+<dl class="section return"><dt>Returns</dt><dd>string </dd></dl>
 
 </div>
 </div>
@@ -601,7 +624,7 @@ echo \<a class="el" href="classPhpcraft_1_1Phpcraft.html">Phpcraft</a>\<a class=
 <dl class="section return"><dt>Returns</dt><dd>int|boolean The packet's ID or false if no packet was received within the time limit. </dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">IOException</td><td>When there are not enough bytes to read the packet ID. </td></tr>
+    <tr><td class="paramname">IOException</td><td></td></tr>
   </table>
   </dd>
 </dl>
@@ -1676,6 +1699,28 @@ Packet::serverboundPacketIdToName() </dd></dl>
       </table>
 </div><div class="memdoc">
 <p>The write buffer binary string. </p>
+
+</div>
+</div>
+<a id="a4edb89db01c6062f5ade3bd2f1aa5576"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4edb89db01c6062f5ade3bd2f1aa5576">&#9670;&nbsp;</a></span>$zero</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Phpcraft\Connection::$zero</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>

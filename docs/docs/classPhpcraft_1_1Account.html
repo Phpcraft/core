@@ -64,7 +64,9 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="classPhpcraft_1_1Account-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Phpcraft\Account Class Reference</div>  </div>
@@ -73,16 +75,12 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a4b56a737f18b5c20a9a6559f94074490"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Account.html#a4b56a737f18b5c20a9a6559f94074490">__construct</a> (string $name)</td></tr>
-<tr class="separator:a4b56a737f18b5c20a9a6559f94074490"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6f7df18e660e7643779a467352f3da56"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Account.html#a6f7df18e660e7643779a467352f3da56">isOnline</a> ()</td></tr>
-<tr class="separator:a6f7df18e660e7643779a467352f3da56"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:addfa33d29984df155361d2d7f960a46c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Account.html#addfa33d29984df155361d2d7f960a46c">cliLogin</a> ($stdin=null)</td></tr>
-<tr class="separator:addfa33d29984df155361d2d7f960a46c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac9a03e4d8e5f5fb649a94629cf398897"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Account.html#ac9a03e4d8e5f5fb649a94629cf398897">__construct</a> (string $username)</td></tr>
+<tr class="separator:ac9a03e4d8e5f5fb649a94629cf398897"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a19ebead2106418d3667d3d87455c991c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Account.html#a19ebead2106418d3667d3d87455c991c">loginUsingProfiles</a> ()</td></tr>
 <tr class="separator:a19ebead2106418d3667d3d87455c991c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a76a469971949371af1725fc1420fd4b0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Account.html#a76a469971949371af1725fc1420fd4b0">login</a> (string $password)</td></tr>
-<tr class="separator:a76a469971949371af1725fc1420fd4b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f7df18e660e7643779a467352f3da56"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Account.html#a6f7df18e660e7643779a467352f3da56">isOnline</a> ()</td></tr>
+<tr class="separator:a6f7df18e660e7643779a467352f3da56"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6570cfe49fac3702b6333ae82798f427"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Account.html#a6570cfe49fac3702b6333ae82798f427">getRealmsInvites</a> ()</td></tr>
 <tr class="separator:a6570cfe49fac3702b6333ae82798f427"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4fd30532181444e3498ad3de71047d33"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Account.html#a4fd30532181444e3498ad3de71047d33">sendRealmsRequest</a> (string $method, string $path)</td></tr>
@@ -90,22 +88,36 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:abb21cba06e07fcf1232cbd09f7d57bfc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Account.html#abb21cba06e07fcf1232cbd09f7d57bfc">getRealmsServers</a> ()</td></tr>
 <tr class="separator:abb21cba06e07fcf1232cbd09f7d57bfc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a99fb106a9336f45762a057d4ddc6dd46"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Account.html#a99fb106a9336f45762a057d4ddc6dd46">cliLogin</a> ($stdin=null)</td></tr>
+<tr class="separator:a99fb106a9336f45762a057d4ddc6dd46"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3c2c42eadd5e7ba5ba6703fa97c5c593"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Account.html#a3c2c42eadd5e7ba5ba6703fa97c5c593">online</a> (string $name, string $password)</td></tr>
+<tr class="separator:a3c2c42eadd5e7ba5ba6703fa97c5c593"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a243e8f125c3121e81a0404b459f4e0bd"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Account.html#a243e8f125c3121e81a0404b459f4e0bd">getAccountIdFromProfileName</a> (string $profile_name)</td></tr>
+<tr class="separator:a243e8f125c3121e81a0404b459f4e0bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aac51aa171363d834f5026a5b46363a88"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Account.html#aac51aa171363d834f5026a5b46363a88">validateUsername</a> (string $username)</td></tr>
+<tr class="separator:aac51aa171363d834f5026a5b46363a88"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a9efd6b6168660196eecf66105228c52e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Account.html#a9efd6b6168660196eecf66105228c52e">$name</a></td></tr>
-<tr class="separator:a9efd6b6168660196eecf66105228c52e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abed8828f37c92f209e47a375e2f0cff7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Account.html#abed8828f37c92f209e47a375e2f0cff7">$username</a></td></tr>
 <tr class="separator:abed8828f37c92f209e47a375e2f0cff7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0b8bad14a934a9eedf49a9ffe6f349f6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Account.html#a0b8bad14a934a9eedf49a9ffe6f349f6">$profileId</a> = null</td></tr>
-<tr class="separator:a0b8bad14a934a9eedf49a9ffe6f349f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8f979d899fd0c810b247cfd643336781"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Account.html#a8f979d899fd0c810b247cfd643336781">$accessToken</a> = null</td></tr>
-<tr class="separator:a8f979d899fd0c810b247cfd643336781"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abdc1f2a7b14ad76a94f44b05c3e894fc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Account.html#abdc1f2a7b14ad76a94f44b05c3e894fc">$profileId</a> = null</td></tr>
+<tr class="separator:abdc1f2a7b14ad76a94f44b05c3e894fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af07fd0b436e183e34d0422c554ab466b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Account.html#af07fd0b436e183e34d0422c554ab466b">$accessToken</a> = null</td></tr>
+<tr class="separator:af07fd0b436e183e34d0422c554ab466b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:a53ad1e0992d3bfd6dcc88aca2d9e8920"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Account.html#a53ad1e0992d3bfd6dcc88aca2d9e8920">$allowed_username_characters</a> = []</td></tr>
+<tr class="separator:a53ad1e0992d3bfd6dcc88aca2d9e8920"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A Mojang or Minecraft account. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a4b56a737f18b5c20a9a6559f94074490"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4b56a737f18b5c20a9a6559f94074490">&#9670;&nbsp;</a></span>__construct()</h2>
+<a id="ac9a03e4d8e5f5fb649a94629cf398897"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac9a03e4d8e5f5fb649a94629cf398897">&#9670;&nbsp;</a></span>__construct()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -114,14 +126,15 @@ Public Attributes</h2></td></tr>
           <td class="memname">Phpcraft\Account::__construct </td>
           <td>(</td>
           <td class="paramtype">string&#160;</td>
-          <td class="paramname"><em>$name</em></td><td>)</td>
+          <td class="paramname"><em>$username</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Contructs an <a class="el" href="classPhpcraft_1_1Account.html">Account</a> for "offline mode" usage. For online usage, use <a class="el" href="classPhpcraft_1_1Account.html#a3c2c42eadd5e7ba5ba6703fa97c5c593">Account::online</a> or <a class="el" href="classPhpcraft_1_1Account.html#a99fb106a9336f45762a057d4ddc6dd46">Account::cliLogin</a>. Okay, I lied, if you call <a class="el" href="classPhpcraft_1_1Account.html#a19ebead2106418d3667d3d87455c991c">Account::loginUsingProfiles</a> you <b><em>might</em></b> be able to convert such an instance into one for "online mode" usage.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype">string</td><td class="paramname">$name</td><td>The Mojang account email address or the in-game name if legacy or offline. </td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$username</td><td>The in-game name. </td></tr>
   </table>
   </dd>
 </dl>
@@ -129,30 +142,70 @@ Public Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="addfa33d29984df155361d2d7f960a46c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#addfa33d29984df155361d2d7f960a46c">&#9670;&nbsp;</a></span>cliLogin()</h2>
+<a id="a99fb106a9336f45762a057d4ddc6dd46"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a99fb106a9336f45762a057d4ddc6dd46">&#9670;&nbsp;</a></span>cliLogin()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">Phpcraft\Account::cliLogin </td>
+          <td class="memname">static Phpcraft\Account::cliLogin </td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname"><em>$stdin</em> = <code>null</code></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
-<p>Asks the user of the CLI application to log-in by providing the password via STDIN. This function will block until the login succeeded.</p>
+<p>Asks the user of the CLI application for a logged-in <a class="el" href="classPhpcraft_1_1Account.html">Account</a> for "online mode" usage.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype">resource&#160;|&#160;null</td><td class="paramname">$stdin</td><td>Your own STDIN stream, if you have already created one. </td></tr>
+    <tr><td class="paramtype">resource&#160;|&#160;null</td><td class="paramname">$stdin</td><td>Your own STDIN stream or null if don't have one. </td></tr>
   </table>
   </dd>
 </dl>
-<p>PhpComposerExtensionStubsInspection</p>
-<p>PhpComposerExtensionStubsInspection </p>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classPhpcraft_1_1Account.html">Account</a> </dd></dl>
+
+</div>
+</div>
+<a id="a243e8f125c3121e81a0404b459f4e0bd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a243e8f125c3121e81a0404b459f4e0bd">&#9670;&nbsp;</a></span>getAccountIdFromProfileName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static Phpcraft\Account::getAccountIdFromProfileName </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>$profile_name</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$profile_name</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>string|null </dd></dl>
 
 </div>
 </div>
@@ -213,32 +266,6 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a76a469971949371af1725fc1420fd4b0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a76a469971949371af1725fc1420fd4b0">&#9670;&nbsp;</a></span>login()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">Phpcraft\Account::login </td>
-          <td>(</td>
-          <td class="paramtype">string&#160;</td>
-          <td class="paramname"><em>$password</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Logs into Mojang or Minecraft account using password. This function will write the obtained access token into the .minecraft/launcher_profiles.json so you can avoid the password prompt in the future using <a class="el" href="classPhpcraft_1_1Account.html#a19ebead2106418d3667d3d87455c991c">Account::loginUsingProfiles()</a>.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramtype">string</td><td class="paramname">$password</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>string Error message. Empty on success. </dd></dl>
-
-</div>
-</div>
 <a id="a19ebead2106418d3667d3d87455c991c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a19ebead2106418d3667d3d87455c991c">&#9670;&nbsp;</a></span>loginUsingProfiles()</h2>
 
@@ -253,8 +280,53 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Logs in using .minecraft/launcher_profiles.json.</p>
-<dl class="section return"><dt>Returns</dt><dd>boolean True on success. </dd></dl>
+<p>Attempts to turns an "offline mode" instance into an "online mode" instance using .minecraft/launcher_profiles.json.</p>
+<dl class="section return"><dt>Returns</dt><dd>boolean Whether it was successful. </dd></dl>
+
+</div>
+</div>
+<a id="a3c2c42eadd5e7ba5ba6703fa97c5c593"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3c2c42eadd5e7ba5ba6703fa97c5c593">&#9670;&nbsp;</a></span>online()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static Phpcraft\Account::online </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>$name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>$password</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Creates a logged-in <a class="el" href="classPhpcraft_1_1Account.html">Account</a> instance for "online mode" usage.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$name</td><td>The Mojang account email address or in-game name if unmigrated. </td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$password</td><td>The account's password. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Account|null </dd></dl>
 
 </div>
 </div>
@@ -295,15 +367,49 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="aac51aa171363d834f5026a5b46363a88"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aac51aa171363d834f5026a5b46363a88">&#9670;&nbsp;</a></span>validateUsername()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static Phpcraft\Account::validateUsername </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>$username</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Returns true if the given username is valid.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$username</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>bool </dd></dl>
+
+</div>
+</div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="a8f979d899fd0c810b247cfd643336781"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8f979d899fd0c810b247cfd643336781">&#9670;&nbsp;</a></span>$accessToken</h2>
+<a id="af07fd0b436e183e34d0422c554ab466b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af07fd0b436e183e34d0422c554ab466b">&#9670;&nbsp;</a></span>$accessToken</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">string Phpcraft\Account::$accessToken = null</td>
+          <td class="memname">string null Phpcraft\Account::$accessToken = null</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -311,29 +417,36 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a9efd6b6168660196eecf66105228c52e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9efd6b6168660196eecf66105228c52e">&#9670;&nbsp;</a></span>$name</h2>
+<a id="a53ad1e0992d3bfd6dcc88aca2d9e8920"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a53ad1e0992d3bfd6dcc88aca2d9e8920">&#9670;&nbsp;</a></span>$allowed_username_characters</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">string Phpcraft\Account::$name</td>
+          <td class="memname">Phpcraft\Account::$allowed_username_characters = []</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
-<p>The email address of the Mojang account or the in-game name if legacy. </p>
 
 </div>
 </div>
-<a id="a0b8bad14a934a9eedf49a9ffe6f349f6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0b8bad14a934a9eedf49a9ffe6f349f6">&#9670;&nbsp;</a></span>$profileId</h2>
+<a id="abdc1f2a7b14ad76a94f44b05c3e894fc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abdc1f2a7b14ad76a94f44b05c3e894fc">&#9670;&nbsp;</a></span>$profileId</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">string Phpcraft\Account::$profileId = null</td>
+          <td class="memname">string null Phpcraft\Account::$profileId = null</td>
         </tr>
       </table>
 </div><div class="memdoc">
