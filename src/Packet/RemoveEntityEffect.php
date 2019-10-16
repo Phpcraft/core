@@ -2,27 +2,21 @@
 namespace Phpcraft\Packet;
 use Phpcraft\
 {Connection, EffectType, Exception\IOException};
-/** Sent by servers to clients to inform them about an entity losing a potion effect. */
-class RemoveEntityEffect extends Packet
+/** Sent by servers to clients to inform them about entities losing a potion effect. */
+class RemoveEntityEffect extends EntityPacket
 {
-	/**
-	 * The entity's ID.
-	 *
-	 * @var int $eid
-	 */
-	public $eid;
 	/**
 	 * @var EffectType $effect
 	 */
 	public $effect;
 
 	/**
-	 * @param int $eid The entity's ID.
+	 * @param array<int>|int $eids A single entity ID or an int array of entity IDs.
 	 * @param EffectType $effect
 	 */
-	function __construct(int $eid, EffectType $effect)
+	function __construct($eids, EffectType $effect)
 	{
-		$this->eid = $eid;
+		parent::__construct($eids);
 		$this->effect = $effect;
 	}
 
@@ -46,14 +40,17 @@ class RemoveEntityEffect extends Packet
 	 */
 	function send(Connection $con)
 	{
-		$con->startPacket("remove_entity_effect");
-		$con->writeVarInt($this->eid);
-		$con->writeByte($this->effect->getId($con->protocol_version));
-		$con->send();
+		foreach($this->eids as $eid)
+		{
+			$con->startPacket("remove_entity_effect");
+			$con->writeVarInt($eid);
+			$con->writeByte($this->effect->getId($con->protocol_version));
+			$con->send();
+		}
 	}
 
 	function __toString()
 	{
-		return "{RemoveEntityEffect: {$this->effect->name} from entity #{$this->eid}}";
+		return "{RemoveEntityEffect: Entities ".join(", ", $this->eids)." Effect {$this->effect->name}}";
 	}
 }

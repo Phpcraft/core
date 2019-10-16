@@ -1,7 +1,7 @@
 <?php /** @noinspection PhpUnused PhpUnhandledExceptionInspection */
 require_once __DIR__."/../vendor/autoload.php";
 use Phpcraft\
-{Command\SingleWordStringProvider, Connection, Packet\ClientboundPacket, Packet\DeclareCommands\ArgumentNode, Packet\DeclareCommands\DeclareCommandsPacket, Packet\DeclareCommands\LiteralNode};
+{Command\SingleWordStringProvider, Connection, Packet\ClientboundPacketId, Packet\DeclareCommands\ArgumentNode, Packet\DeclareCommands\DeclareCommandsPacket, Packet\DeclareCommands\LiteralNode};
 class PacketTest
 {
 	function testWriteAndReadDeclareCommandsPacket()
@@ -19,7 +19,7 @@ class PacketTest
 		$con = new Connection(404);
 		$packet->send($con);
 		$con->read_buffer = $con->write_buffer;
-		$packet_id = ClientboundPacket::getById(gmp_intval($con->readVarInt()), 404);
+		$packet_id = ClientboundPacketId::getById(gmp_intval($con->readVarInt()), 404);
 		Nose::assertEquals($packet_id->getClass(), DeclareCommandsPacket::class);
 		$packet = DeclareCommandsPacket::read($con);
 		Nose::assertEquals(count($packet->root_node->children), 2);

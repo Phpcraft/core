@@ -3,7 +3,7 @@ namespace Phpcraft;
 use Exception;
 use hellsh\UUID;
 use Phpcraft\
-{Command\CommandSender, Enum\ChatPosition, Exception\IOException, Packet\KeepAliveRequestPacket, Packet\ServerboundPacket, Permission\Group};
+{Command\CommandSender, Enum\ChatPosition, Exception\IOException, Packet\KeepAliveRequestPacket, Packet\ServerboundPacketId, Permission\Group};
 use SplObjectStorage;
 class Server implements CommandSender
 {
@@ -56,7 +56,7 @@ class Server implements CommandSender
 	 */
 	public $join_function = null;
 	/**
-	 * The function called when the server receives a packet from a client in state 3 (playing) unless it's a keep alive response with the ClientConnection and ServerboundPacket as arguments.
+	 * The function called when the server receives a packet from a client in state 3 (playing) unless it's a keep alive response with the ClientConnection and ServerboundPacketId as arguments.
 	 *
 	 * @see Server::handle()
 	 * @var callable $packet_function
@@ -261,7 +261,7 @@ class Server implements CommandSender
 						{
 							if($con->state == 3) // Playing
 							{
-								$packetId = ServerboundPacket::getById($packet_id, $con->protocol_version);
+								$packetId = ServerboundPacketId::getById($packet_id, $con->protocol_version);
 								if($packetId->name == "keep_alive_response")
 								{
 									$con->next_heartbeat = microtime(true) + 15;

@@ -6,7 +6,7 @@ if(empty($argv))
 }
 require "vendor/autoload.php";
 use Phpcraft\
-{ClientConnection, Command\Command, Event\ServerChatEvent, Event\ServerChunkBorderEvent, Event\ServerClientMetadataEvent, Event\ServerClientSettingsEvent, Event\ServerConsoleEvent, Event\ServerFlyingChangeEvent, Event\ServerJoinEvent, Event\ServerLeaveEvent, Event\ServerMovementEvent, Event\ServerOnGroundChangeEvent, Event\ServerPacketEvent, Event\ServerRotationEvent, Event\ServerTickEvent, Exception\IOException, Packet\ClientSettingsPacket, Packet\ServerboundPacket, Phpcraft, PlainUserInterface, PluginManager, Server, UserInterface, Versions};
+{ClientConnection, Command\Command, Event\ServerChatEvent, Event\ServerChunkBorderEvent, Event\ServerClientMetadataEvent, Event\ServerClientSettingsEvent, Event\ServerConsoleEvent, Event\ServerFlyingChangeEvent, Event\ServerJoinEvent, Event\ServerLeaveEvent, Event\ServerMovementEvent, Event\ServerOnGroundChangeEvent, Event\ServerPacketEvent, Event\ServerRotationEvent, Event\ServerTickEvent, Exception\IOException, Packet\ClientSettingsPacket, Packet\ServerboundPacketId, Phpcraft, PlainUserInterface, PluginManager, Server, UserInterface, Versions};
 $options = [
 	"offline" => false,
 	"nocolor" => false,
@@ -321,7 +321,7 @@ $server->join_function = function(ClientConnection $con)
 		}
 	}
 };
-$server->packet_function = function(ClientConnection $con, ServerboundPacket $packetId)
+$server->packet_function = function(ClientConnection $con, ServerboundPacketId $packetId)
 {
 	global $options, $ui, $server;
 	if(PluginManager::fire(new ServerPacketEvent($server, $con, $packetId)))

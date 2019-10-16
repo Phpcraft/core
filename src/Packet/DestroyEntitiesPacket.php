@@ -2,23 +2,8 @@
 namespace Phpcraft\Packet;
 use Phpcraft\
 {Connection, Exception\IOException};
-class DestroyEntitiesPacket extends Packet
+class DestroyEntitiesPacket extends EntityPacket
 {
-	/**
-	 * An array of the IDs of the entities to be destroyed.
-	 *
-	 * @var array<int> $eids
-	 */
-	public $eids = [];
-
-	/**
-	 * @param array<int> $eids An array of the IDs of the entities to be destroyed.
-	 */
-	function __construct(array $eids = [])
-	{
-		$this->eids = $eids;
-	}
-
 	/**
 	 * Initialises the packet class by reading its payload from the given Connection.
 	 *
@@ -55,11 +40,6 @@ class DestroyEntitiesPacket extends Packet
 
 	function __toString()
 	{
-		$str = "{DestroyEntitiesPacket:";
-		foreach($this->eids as $eid)
-		{
-			$str .= " ".$eid;
-		}
-		return $str."}";
+		return "{DestroyEntitiesPacket: ".join(", ", $this->eids)."}";
 	}
 }

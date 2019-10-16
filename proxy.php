@@ -7,7 +7,7 @@ if(empty($argv))
 }
 require "vendor/autoload.php";
 use Phpcraft\
-{Account, ClientConnection, Command\Command, Enum\Difficulty, Enum\Dimension, Enum\Gamemode, Event\ProxyClientPacketEvent, Event\ProxyJoinEvent, Event\ProxyServerPacketEvent, Event\ProxyTickEvent, Packet\ClientboundPacket, Packet\JoinGamePacket, Packet\KeepAliveRequestPacket, Packet\ServerboundPacket, PluginManager, Point3D, Server, ServerConnection, Versions};
+{Account, ClientConnection, Command\Command, Enum\Difficulty, Enum\Dimension, Enum\Gamemode, Event\ProxyClientPacketEvent, Event\ProxyJoinEvent, Event\ProxyServerPacketEvent, Event\ProxyTickEvent, Packet\ClientboundPacketId, Packet\JoinGamePacket, Packet\KeepAliveRequestPacket, Packet\ServerboundPacketId, PluginManager, Point3D, Server, ServerConnection, Versions};
 $stdin = fopen("php://stdin", "r") or die("Failed to open php://stdin\n");
 stream_set_blocking($stdin, true);
 echo "Would you like to provide a Mojang/Minecraft account to be possesed? [y/N] ";
@@ -101,7 +101,7 @@ $server->join_function = function(ClientConnection $con)
 	$con->writeByte(1);
 	$con->send();
 };
-$server->packet_function = function(ClientConnection $con, ServerboundPacket $packetId)
+$server->packet_function = function(ClientConnection $con, ServerboundPacketId $packetId)
 {
 	global $server_con;
 	if(PluginManager::fire(new ProxyServerPacketEvent($con, $server_con, $packetId)))
@@ -152,7 +152,7 @@ do
 		{
 			while(($packet_id = $server_con->readPacket(0)) !== false)
 			{
-				$packetId = ClientboundPacket::getById($packet_id, $server_con->protocol_version);
+				$packetId = ClientboundPacketId::getById($packet_id, $server_con->protocol_version);
 				if(PluginManager::fire(new ProxyClientPacketEvent($client_con, $server_con, $packetId)))
 				{
 					continue;

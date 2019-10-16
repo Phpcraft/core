@@ -3,7 +3,7 @@ namespace Phpcraft\Packet;
 use Phpcraft\
 {Packet\PluginMessage\ServerboundPluginMessagePacket, PacketId};
 /** The class for the IDs of packets sent to the server. */
-class ServerboundPacket extends PacketId
+class ServerboundPacketId extends PacketId
 {
 	protected static $all_cache;
 
@@ -11,7 +11,7 @@ class ServerboundPacket extends PacketId
 	{
 		self::populateAllCache_("toServer", self::nameMap(), function(string $name, int $pv)
 		{
-			return new ServerboundPacket($name, $pv);
+			return new ServerboundPacketId($name, $pv);
 		});
 	}
 

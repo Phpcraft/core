@@ -5,7 +5,7 @@
  * @var Plugin $this
  */
 use Phpcraft\
-{Connection, Event\Event, Event\ServerJoinEvent, Packet\ClientboundPacket, Plugin, Versions};
+{Connection, Event\Event, Event\ServerJoinEvent, Packet\ClientboundPacketId, Plugin, Versions};
 $this->on(function(ServerJoinEvent $event)
 {
 	if($event->cancelled || !file_exists("world.bin"))
@@ -14,8 +14,8 @@ $this->on(function(ServerJoinEvent $event)
 	}
 	$fh = fopen("world.bin", "r");
 	$con = new Connection(-1, $fh);
-	$join_game_packet_id = ClientboundPacket::get("join_game")
-											->getId($event->client->protocol_version);
+	$join_game_packet_id = ClientboundPacketId::get("join_game")
+											  ->getId($event->client->protocol_version);
 	$version = $con->readPacket();
 	if($event->client->protocol_version != $version)
 	{

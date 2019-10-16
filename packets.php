@@ -6,7 +6,7 @@ if(empty($argv))
 }
 require "vendor/autoload.php";
 use Phpcraft\
-{Connection, Packet\ClientboundPacket, Packet\ServerboundPacket, PacketId, Versions};
+{Connection, Packet\ClientboundPacketId, Packet\ServerboundPacketId, PacketId, Versions};
 echo "PHP Minecraft Packet Dump Reader\nhttps://github.com/timmyrs/Phpcraft\n";
 if(empty($argv[1]) || empty($argv[2]))
 {
@@ -68,11 +68,11 @@ while(($id = $con->readPacket()) !== false)
 	$size = strlen($con->read_buffer);
 	if($argv[1] == "client")
 	{
-		$packetId = ClientboundPacket::getById($id, $pv);
+		$packetId = ClientboundPacketId::getById($id, $pv);
 	}
 	else
 	{
-		$packetId = ServerboundPacket::getById($id, $pv);
+		$packetId = ServerboundPacketId::getById($id, $pv);
 	}
 	if($packetId)
 	{

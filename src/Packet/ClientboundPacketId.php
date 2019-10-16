@@ -3,7 +3,7 @@ namespace Phpcraft\Packet;
 use Phpcraft\
 {Packet\BossBar\BossBarPacket, Packet\DeclareCommands\DeclareCommandsPacket, Packet\MapData\MapDataPacket, Packet\PluginMessage\ClientboundPluginMessagePacket, PacketId};
 /** The class for the IDs of packets sent to the client. */
-class ClientboundPacket extends PacketId
+class ClientboundPacketId extends PacketId
 {
 	protected static $all_cache;
 
@@ -11,7 +11,7 @@ class ClientboundPacket extends PacketId
 	{
 		self::populateAllCache_("toClient", self::nameMap(), function(string $name, int $pv)
 		{
-			return new ClientboundPacket($name, $pv);
+			return new ClientboundPacketId($name, $pv);
 		});
 	}
 

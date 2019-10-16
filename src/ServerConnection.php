@@ -3,7 +3,7 @@ namespace Phpcraft;
 use DomainException;
 use hellsh\UUID;
 use Phpcraft\
-{Exception\IOException, Packet\ServerboundPacket};
+{Exception\IOException, Packet\ServerboundPacketId};
 /** A client-to-server connection. */
 class ServerConnection extends Connection
 {
@@ -146,7 +146,7 @@ class ServerConnection extends Connection
 	{
 		if(gettype($packet) == "string")
 		{
-			$packetId = ServerboundPacket::get($packet);
+			$packetId = ServerboundPacketId::get($packet);
 			if(!$packetId)
 			{
 				throw new DomainException("Unknown packet name: ".$packet);

@@ -1,7 +1,7 @@
 <?php
 namespace Phpcraft;
 use Phpcraft\Packet\
-{ClientboundPacket, Packet, ServerboundPacket};
+{ClientboundPacketId, Packet, ServerboundPacketId};
 abstract class PacketId extends Identifier
 {
 	protected static $all_cache;
@@ -9,7 +9,7 @@ abstract class PacketId extends Identifier
 
 	static protected function populateAllCache()
 	{
-		self::$all_cache = ClientboundPacket::all() + ServerboundPacket::all();
+		self::$all_cache = ClientboundPacketId::all() + ServerboundPacketId::all();
 	}
 
 	protected static function populateAllCache_(string $key, array $name_map, callable $func)

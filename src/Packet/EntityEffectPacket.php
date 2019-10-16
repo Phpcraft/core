@@ -3,14 +3,9 @@ namespace Phpcraft\Packet;
 use GMP;
 use Phpcraft\
 {Connection, EffectType, Exception\IOException};
-class EntityEffectPacket extends Packet
+/** Sent by servers to clients to inform them about entities gaining a potion effect. */
+class EntityEffectPacket extends EntityPacket
 {
-	/**
-	 * The entity's ID.
-	 *
-	 * @var int $eid
-	 */
-	public $eid;
 	/**
 	 * @var EffectType $effect
 	 */
@@ -33,15 +28,15 @@ class EntityEffectPacket extends Packet
 	public $particles;
 
 	/**
-	 * @param int $eid The entity's ID.
+	 * @param array<int>|int $eids A single entity ID or an int array of entity IDs.
 	 * @param EffectType $effect
 	 * @param int $amplifier The effect's amplifier = the effect's level - 1.
 	 * @param GMP|int|string $duration The effect's duration, in seconds.
 	 * @param bool $particles
 	 */
-	function __construct(int $eid, EffectType $effect, int $amplifier, $duration, bool $particles = true)
+	function __construct($eids, EffectType $effect, int $amplifier, $duration, bool $particles = true)
 	{
-		$this->eid = $eid;
+		parent::__construct($eids);
 		$this->effect = $effect;
 		$this->amplifier = $amplifier;
 		$this->duration = $duration;
@@ -77,24 +72,27 @@ class EntityEffectPacket extends Packet
 	 */
 	function send(Connection $con)
 	{
-		$con->startPacket("entity_effect")
-			->writeVarInt($this->eid)
-			->writeByte($this->effect->getId($con->protocol_version))
-			->writeByte($this->amplifier)
-			->writeVarInt($this->duration);
-		if($con->protocol_version > 110)
+		foreach($this->eids as $eid)
 		{
-			$con->writeByte($this->particles ? 0x00 : 0x02);
+			$con->startPacket("entity_effect")
+				->writeVarInt($eid)
+				->writeByte($this->effect->getId($con->protocol_version))
+				->writeByte($this->amplifier)
+				->writeVarInt($this->duration);
+			if($con->protocol_version > 110)
+			{
+				$con->writeByte($this->particles ? 0x00 : 0x02);
+			}
+			else
+			{
+				$con->writeBoolean(!$this->particles);
+			}
+			$con->send();
 		}
-		else
-		{
-			$con->writeBoolean(!$this->particles);
-		}
-		$con->send();
 	}
 
 	function __toString()
 	{
-		return "{EntityEffectPacket: Entity #{$this->eid} gets {$this->effect->name} level ".($this->amplifier - 1)." for ".gmp_strval($this->duration)." seconds with".($this->particles ? "" : "out")." particles}";
+		return "{EntityEffectPacket: Entities ".join(", ", $this->eids)." Effect {$this->effect->name} Level ".($this->amplifier - 1)." Seconds ".gmp_strval($this->duration)." ".($this->particles ? "With" : "No")." Particles}";
 	}
 }

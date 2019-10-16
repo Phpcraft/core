@@ -3,7 +3,7 @@ namespace Phpcraft;
 use DomainException;
 use hellsh\UUID;
 use Phpcraft\
-{Command\CommandSender, Enum\ChatPosition, Enum\Gamemode, Exception\IOException, Packet\ClientboundAbilitiesPacket, Packet\ClientboundPacket};
+{Command\CommandSender, Enum\ChatPosition, Enum\Gamemode, Exception\IOException, Packet\ClientboundAbilitiesPacket, Packet\ClientboundPacketId};
 /** A server-to-client connection. */
 class ClientConnection extends Connection implements CommandSender
 {
@@ -261,7 +261,7 @@ class ClientConnection extends Connection implements CommandSender
 	{
 		if(gettype($packet) == "string")
 		{
-			$packetId = ClientboundPacket::get($packet);
+			$packetId = ClientboundPacketId::get($packet);
 			if(!$packetId)
 			{
 				throw new DomainException("Unknown packet name: ".$packet);

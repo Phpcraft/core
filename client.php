@@ -6,7 +6,7 @@ if(empty($argv))
 }
 require "vendor/autoload.php";
 use Phpcraft\
-{Account, AssetsManager, Configuration, Event\ClientConsoleEvent, Event\ClientJoinEvent, Event\ClientPacketEvent, Packet\ClientboundPacket, Packet\KeepAliveRequestPacket, Packet\PluginMessage\ServerboundBrandPluginMessagePacket, Phpcraft, PlainUserInterface, PluginManager, Point3D, ServerConnection, UserInterface, Versions};
+{Account, AssetsManager, Configuration, Event\ClientConsoleEvent, Event\ClientJoinEvent, Event\ClientPacketEvent, Packet\ClientboundPacketId, Packet\KeepAliveRequestPacket, Packet\PluginMessage\ServerboundBrandPluginMessagePacket, Phpcraft, PlainUserInterface, PluginManager, Point3D, ServerConnection, UserInterface, Versions};
 $options = [];
 for($i = 1; $i < count($argv); $i++)
 {
@@ -537,7 +537,7 @@ do
 		$start = microtime(true);
 		while(($packet_id = $con->readPacket(0)) !== false)
 		{
-			if(!($packetId = ClientboundPacket::getById($packet_id, $protocol_version)))
+			if(!($packetId = ClientboundPacketId::getById($packet_id, $protocol_version)))
 			{
 				continue;
 			}
