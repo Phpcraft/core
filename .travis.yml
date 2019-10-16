@@ -4,9 +4,6 @@ php:
   - '7.1'
   - '7.2'
   - '7.3'
-arch:
-  - amd64
-  - arm64
 cache:
   directories:
     - vendor
