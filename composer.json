@@ -4,7 +4,7 @@
 	"keywords": [
 		"minecraft-api", "minecraft-library", "nbt-library", "minecraft-protocol", "mcje", "minecraft-java", "minecraft"
 	],
-	"homepage": "https://github.com/timmyrs/Phpcraft",
+	"homepage": "https://github.com/timmyRS/Phpcraft",
 	"type": "library",
 	"license": "MIT",
 	"autoload": {
