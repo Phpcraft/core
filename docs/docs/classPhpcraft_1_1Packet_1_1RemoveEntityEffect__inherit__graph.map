@@ -1,3 +1,4 @@
 <map id="Phpcraft\Packet\RemoveEntityEffect" name="Phpcraft\Packet\RemoveEntityEffect">
-<area shape="rect" id="node2" href="$classPhpcraft_1_1Packet_1_1Packet.html" title="Phpcraft\\Packet\\Packet" alt="" coords="28,5,195,32"/>
+<area shape="rect" id="node2" href="$classPhpcraft_1_1Packet_1_1EntityPacket.html" title="Phpcraft\\Packet\\EntityPacket" alt="" coords="10,80,213,107"/>
+<area shape="rect" id="node3" href="$classPhpcraft_1_1Packet_1_1Packet.html" title="Phpcraft\\Packet\\Packet" alt="" coords="28,5,195,32"/>
 </map>

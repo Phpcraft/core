@@ -2,7 +2,7 @@ var searchData=
 [
   ['server',['Server',['../classPhpcraft_1_1Realms_1_1Server.html',1,'Phpcraft\Realms\Server'],['../classPhpcraft_1_1Server.html',1,'Phpcraft\Server']]],
   ['serverboundbrandpluginmessagepacket',['ServerboundBrandPluginMessagePacket',['../classPhpcraft_1_1Packet_1_1PluginMessage_1_1ServerboundBrandPluginMessagePacket.html',1,'Phpcraft::Packet::PluginMessage']]],
-  ['serverboundpacket',['ServerboundPacket',['../classPhpcraft_1_1Packet_1_1ServerboundPacket.html',1,'Phpcraft::Packet']]],
+  ['serverboundpacketid',['ServerboundPacketId',['../classPhpcraft_1_1Packet_1_1ServerboundPacketId.html',1,'Phpcraft::Packet']]],
   ['serverboundpluginmessagepacket',['ServerboundPluginMessagePacket',['../classPhpcraft_1_1Packet_1_1PluginMessage_1_1ServerboundPluginMessagePacket.html',1,'Phpcraft::Packet::PluginMessage']]],
   ['serverboundstringpluginmessagepacket',['ServerboundStringPluginMessagePacket',['../classPhpcraft_1_1Packet_1_1PluginMessage_1_1ServerboundStringPluginMessagePacket.html',1,'Phpcraft::Packet::PluginMessage']]],
   ['serverchatevent',['ServerChatEvent',['../classPhpcraft_1_1Event_1_1ServerChatEvent.html',1,'Phpcraft::Event']]],

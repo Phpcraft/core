@@ -11,7 +11,7 @@ var searchData=
   ['chest',['CHEST',['../classPhpcraft_1_1Slot.html#adf4a3ccb88f926794eb34f01aceecaa2',1,'Phpcraft::Slot']]],
   ['clientboundabilitiespacket',['ClientboundAbilitiesPacket',['../classPhpcraft_1_1Packet_1_1ClientboundAbilitiesPacket.html',1,'Phpcraft::Packet']]],
   ['clientboundbrandpluginmessagepacket',['ClientboundBrandPluginMessagePacket',['../classPhpcraft_1_1Packet_1_1PluginMessage_1_1ClientboundBrandPluginMessagePacket.html',1,'Phpcraft::Packet::PluginMessage']]],
-  ['clientboundpacket',['ClientboundPacket',['../classPhpcraft_1_1Packet_1_1ClientboundPacket.html',1,'Phpcraft::Packet']]],
+  ['clientboundpacketid',['ClientboundPacketId',['../classPhpcraft_1_1Packet_1_1ClientboundPacketId.html',1,'Phpcraft::Packet']]],
   ['clientboundpluginmessagepacket',['ClientboundPluginMessagePacket',['../classPhpcraft_1_1Packet_1_1PluginMessage_1_1ClientboundPluginMessagePacket.html',1,'Phpcraft::Packet::PluginMessage']]],
   ['clientboundstringpluginmessagepacket',['ClientboundStringPluginMessagePacket',['../classPhpcraft_1_1Packet_1_1PluginMessage_1_1ClientboundStringPluginMessagePacket.html',1,'Phpcraft::Packet::PluginMessage']]],
   ['clientconfiguration',['ClientConfiguration',['../classPhpcraft_1_1ClientConfiguration.html',1,'Phpcraft']]],

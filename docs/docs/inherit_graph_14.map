@@ -4,6 +4,6 @@
 <area shape="rect" id="node3" href="$classPhpcraft_1_1EntityType.html" title="Phpcraft\\EntityType" alt="" coords="188,56,331,83"/>
 <area shape="rect" id="node4" href="$classPhpcraft_1_1Item.html" title="Phpcraft\\Item" alt="" coords="205,107,313,133"/>
 <area shape="rect" id="node5" href="$classPhpcraft_1_1PacketId.html" title="Phpcraft\\PacketId" alt="" coords="193,157,325,184"/>
-<area shape="rect" id="node6" href="$classPhpcraft_1_1Packet_1_1ClientboundPacket.html" title="Phpcraft\\Packet\\Clientbound\lPacket" alt="" coords="381,117,583,158"/>
-<area shape="rect" id="node7" href="$classPhpcraft_1_1Packet_1_1ServerboundPacket.html" title="Phpcraft\\Packet\\Serverbound\lPacket" alt="" coords="379,182,585,223"/>
+<area shape="rect" id="node6" href="$classPhpcraft_1_1Packet_1_1ClientboundPacketId.html" title="Phpcraft\\Packet\\Clientbound\lPacketId" alt="" coords="381,117,583,158"/>
+<area shape="rect" id="node7" href="$classPhpcraft_1_1Packet_1_1ServerboundPacketId.html" title="Phpcraft\\Packet\\Serverbound\lPacketId" alt="" coords="379,182,585,223"/>
 </map>
