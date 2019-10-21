@@ -1,5 +1,6 @@
 <?php
 namespace Phpcraft\Packet;
+use GMP;
 use hellsh\UUID;
 use Phpcraft\
 {Connection, EntityBase, EntityMetadata, EntityType, Exception\IOException, Point3D};
@@ -8,7 +9,7 @@ class SpawnMobPacket extends Packet
 	/**
 	 * The entity ID of the mob.
 	 *
-	 * @var int $eid
+	 * @var GMP $eid
 	 */
 	public $eid;
 	/**
@@ -49,13 +50,13 @@ class SpawnMobPacket extends Packet
 	public $metadata;
 
 	/**
-	 * @param int $eid The entity ID of the mob.
+	 * @param GMP|int|string $eid The entity ID of the mob.
 	 * @param EntityType|null $type The type of mob.
 	 * @param UUID|null $uuid The UUID of the entity.
 	 */
-	function __construct(int $eid = 0, EntityType $type = null, UUID $uuid = null)
+	function __construct($eid = 0, EntityType $type = null, UUID $uuid = null)
 	{
-		$this->eid = $eid;
+		$this->eid = $eid instanceof GMP ? $eid : gmp_init($eid);
 		if($type)
 		{
 			$this->type = $type;

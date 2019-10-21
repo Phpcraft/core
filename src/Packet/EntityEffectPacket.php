@@ -28,7 +28,7 @@ class EntityEffectPacket extends EntityPacket
 	public $particles;
 
 	/**
-	 * @param array<int>|int $eids A single entity ID or an int array of entity IDs.
+	 * @param array<GMP>|GMP|int|string $eids A single entity ID or an array of entity IDs.
 	 * @param EffectType $effect
 	 * @param int $amplifier The effect's amplifier = the effect's level - 1.
 	 * @param GMP|int|string $duration The effect's duration, in seconds.
@@ -52,7 +52,7 @@ class EntityEffectPacket extends EntityPacket
 	 */
 	static function read(Connection $con): EntityEffectPacket
 	{
-		$packet = new EntityEffectPacket(gmp_intval($con->readVarInt()), EffectType::getById($con->readByte(), $con->protocol_version), $con->readByte(), $con->readVarInt());
+		$packet = new EntityEffectPacket($con->readVarInt(), EffectType::getById($con->readByte(), $con->protocol_version), $con->readByte(), $con->readVarInt());
 		if($con->protocol_version > 110)
 		{
 			$packet->particles = $con->readByte() | 0x02;

@@ -2,6 +2,7 @@
 namespace Phpcraft\Packet;
 use Phpcraft\
 {Connection, EffectType, Exception\IOException};
+use GMP;
 /** Sent by servers to clients to inform them about entities losing a potion effect. */
 class RemoveEntityEffect extends EntityPacket
 {
@@ -11,7 +12,7 @@ class RemoveEntityEffect extends EntityPacket
 	public $effect;
 
 	/**
-	 * @param array<int>|int $eids A single entity ID or an int array of entity IDs.
+	 * @param array<GMP>|GMP|int|string $eids A single entity ID or an array of entity IDs.
 	 * @param EffectType $effect
 	 */
 	function __construct($eids, EffectType $effect)
@@ -29,7 +30,7 @@ class RemoveEntityEffect extends EntityPacket
 	 */
 	static function read(Connection $con): RemoveEntityEffect
 	{
-		return new RemoveEntityEffect(gmp_intval($con->readVarInt()), EffectType::getById($con->readByte(), $con->protocol_version));
+		return new RemoveEntityEffect($con->readVarInt(), EffectType::getById($con->readByte(), $con->protocol_version));
 	}
 
 	/**

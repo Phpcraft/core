@@ -1,16 +1,26 @@
 <?php
 namespace Phpcraft;
+use GMP;
 class Counter
 {
-	protected $i = -1;
+	/**
+	 * @var GMP $i
+	 */
+	protected $i;
 
-	function current(): int
+	function __construct()
+	{
+		$this->i = gmp_init(-1);
+	}
+
+	function current(): GMP
 	{
 		return $this->i;
 	}
 
-	function next(): int
+	function next(): GMP
 	{
-		return ++$this->i;
+		$this->i = gmp_add($this->i, 1);
+		return $this->i;
 	}
 }

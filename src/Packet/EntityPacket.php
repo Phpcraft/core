@@ -1,27 +1,32 @@
 <?php
 namespace Phpcraft\Packet;
+use GMP;
 /** A packet affecting one or more entities. */
 abstract class EntityPacket extends Packet
 {
 	/**
 	 * The entities' IDs.
 	 *
-	 * @var array<int> $eids
+	 * @var array<GMP> $eids
 	 */
 	public $eids;
 
 	/**
-	 * @param array<int>|int|null $eids A single entity ID, an int array of entity IDs, or null.
+	 * @param array<GMP>|GMP|int|string $eids A single entity ID or an array of entity IDs.
 	 */
-	function __construct($eids = null)
+	function __construct($eids = [])
 	{
 		if(is_array($eids))
 		{
 			$this->eids = $eids;
 		}
-		else if(is_int($eids))
+		else if($eids instanceof GMP)
 		{
 			$this->eids = [$eids];
+		}
+		else if(is_int($eids) || is_string($eids))
+		{
+			$this->eids = [gmp_init($eids)];
 		}
 		else
 		{
@@ -32,14 +37,14 @@ abstract class EntityPacket extends Packet
 	/**
 	 * Replaces an entity ID in the packet, e.g. for a proxy where the downstream and upstream entity IDs for the player differ.
 	 *
-	 * @param int $old_eid
-	 * @param int $new_eid
+	 * @param GMP $old_eid
+	 * @param GMP $new_eid
 	 */
-	function replaceEntity(int $old_eid, int $new_eid)
+	function replaceEntity(GMP $old_eid, GMP $new_eid)
 	{
 		foreach($this->eids as $i => $eid)
 		{
-			if($eid == $old_eid)
+			if(gmp_cmp($eid, $old_eid) == 0)
 			{
 				$this->eids[$i] = $new_eid;
 				break;

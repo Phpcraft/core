@@ -269,7 +269,7 @@ class Server implements CommandSender
 								}
 								else if($packetId->name == "teleport_confirm")
 								{
-									if(gmp_intval($con->readVarInt()) == $con->tpidCounter->current())
+									if(gmp_cmp($con->readVarInt(), $con->tpidCounter->current()) == 0)
 									{
 										$con->tp_confirm_deadline = 0;
 									}

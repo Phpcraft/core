@@ -1,6 +1,7 @@
 <?php
 namespace Phpcraft;
 use DomainException;
+use GMP;
 use hellsh\UUID;
 use Phpcraft\
 {Command\CommandSender, Enum\ChatPosition, Enum\Gamemode, Exception\IOException, Packet\ClientboundAbilitiesPacket, Packet\ClientboundPacketId};
@@ -61,7 +62,7 @@ class ClientConnection extends Connection implements CommandSender
 	/**
 	 * The client's entity ID.
 	 *
-	 * @var int $eid
+	 * @var GMP $eid
 	 */
 	public $eid;
 	/**
