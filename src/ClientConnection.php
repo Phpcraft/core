@@ -91,6 +91,14 @@ class ClientConnection extends Connection implements CommandSender
 	 */
 	public $pitch = 0;
 	/**
+	 * @var Counter $tpidCounter
+	 */
+	public $tpidCounter;
+	/**
+	 * @var float $tp_confirm_deadline
+	 */
+	public $tp_confirm_deadline = 0;
+	/**
 	 * @var boolean $on_ground
 	 * @see ServerOnGroundChangeEvent
 	 */
@@ -158,6 +166,7 @@ class ClientConnection extends Connection implements CommandSender
 	function __construct($stream, Server &$server = null)
 	{
 		parent::__construct(-1, $stream);
+		$this->tpidCounter = new Counter();
 		if($server)
 		{
 			$this->config = new ClientConfiguration($server, $this);
@@ -462,7 +471,8 @@ class ClientConnection extends Connection implements CommandSender
 		$this->writeByte($flags);
 		if($this->protocol_version > 47)
 		{
-			$this->writeVarInt(0); // Teleport ID
+			$this->writeVarInt($this->tpidCounter->next());
+			$this->tp_confirm_deadline = microtime(true) + 3;
 		}
 		$this->send();
 		return $this;
@@ -487,7 +497,8 @@ class ClientConnection extends Connection implements CommandSender
 		$this->writeByte(0b111);
 		if($this->protocol_version > 47)
 		{
-			$this->writeVarInt(0); // Teleport ID
+			$this->writeVarInt($this->tpidCounter->next());
+			$this->tp_confirm_deadline = microtime(true) + 3;
 		}
 		$this->send();
 		return $this;

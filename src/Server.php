@@ -212,7 +212,7 @@ class Server implements CommandSender
 
 	/**
 	 * Deals with all connected clients.
-	 * This includes dealing with handshakes, status requests, keep alive packets, closing dead connections, and saving client configurations.
+	 * This includes dealing with handshakes, status requests, keep alive packets, teleportation confirms, closing dead connections, and saving client configurations.
 	 * This does not include implementing an entire server; that is what the packet_function is for.
 	 *
 	 * @return Server $this
@@ -266,6 +266,13 @@ class Server implements CommandSender
 								{
 									$con->next_heartbeat = microtime(true) + 15;
 									$con->disconnect_after = 0;
+								}
+								else if($packetId->name == "teleport_confirm")
+								{
+									if(gmp_intval($con->readVarInt()) == $con->tpidCounter->current())
+									{
+										$con->tp_confirm_deadline = 0;
+									}
 								}
 								else if($this->packet_function)
 								{
@@ -343,7 +350,16 @@ class Server implements CommandSender
 					}
 					if($con->disconnect_after != 0 && $con->disconnect_after <= microtime(true))
 					{
-						$con->close();
+						$con->disconnect([
+							"text" => "Keep alive timeout"
+						]);
+						continue;
+					}
+					if($con->tp_confirm_deadline != 0 && $con->tp_confirm_deadline <= microtime(true))
+					{
+						$con->disconnect([
+							"text" => "Teleportation confirmation timeout"
+						]);
 						continue;
 					}
 					if($con->next_heartbeat != 0 && $con->next_heartbeat <= microtime(true))

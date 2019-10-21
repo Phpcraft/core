@@ -330,6 +330,10 @@ $server->packet_function = function(ClientConnection $con, ServerboundPacketId $
 	}
 	if($packetId->name == "position" || $packetId->name == "position_and_look" || $packetId->name == "look" || $packetId->name == "no_movement")
 	{
+		if($con->tp_confirm_deadline != 0)
+		{
+			return;
+		}
 		if($packetId->name == "position" || $packetId->name == "position_and_look")
 		{
 			$prev_pos = $con->pos;
