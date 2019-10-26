@@ -171,13 +171,7 @@ function reloadConfiguration()
 		}
 		foreach(["0.0.0.0:", "[::0]:"] as $prefix)
 		{
-			$stream = stream_socket_server("tcp://".$prefix.$port, $errno, $errstr, STREAM_SERVER_BIND | STREAM_SERVER_LISTEN, stream_context_create([
-				"socket" => [
-					"bindto" => $prefix.$port,
-					"so_reuseport" => true
-				]
-			]));
-			if($stream)
+			if($stream = @stream_socket_server("tcp://".$prefix.$port, $errno, $errstr, STREAM_SERVER_BIND | STREAM_SERVER_LISTEN))
 			{
 				stream_set_blocking($stream, false);
 				array_push($server->streams, $stream);
