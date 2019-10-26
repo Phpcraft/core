@@ -144,28 +144,54 @@ function reloadConfiguration()
 	file_put_contents("config/server.json", json_encode($config, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
 	$server->compression_threshold = $config["compression_threshold"];
 	$server->setGroups($config["groups"]);
+	$open_ports = [];
+	$streams_ = [];
 	foreach($server->streams as $stream)
 	{
-		fclose($stream);
-	}
-	$server->streams = [];
-	foreach($config["ports"] as $port)
-	{
-		$stream = stream_socket_server("tcp://0.0.0.0:".$port, $errno, $errstr);
-		if($stream)
+		$name = stream_socket_get_name($stream, false);
+		$port = intval(substr($name, strpos($name, ":", -6) + 1));
+		if(in_array($port, $config["ports"]))
 		{
-			stream_set_blocking($stream, false);
-			array_push($server->streams, $stream);
-			$server->adminBroadcast("Successfully bound to port $port.");
+			array_push($open_ports, $port);
+			array_push($streams_, $stream);
 		}
 		else
 		{
-			$server->adminBroadcast("Failed to bound to port $port.");
+			stream_socket_shutdown($stream, STREAM_SHUT_RDWR);
+			fclose($stream);
+			$server->adminBroadcast("Unbound from ".$name);
 		}
 	}
-	if($server->streams == [])
+	$server->streams = $streams_;
+	foreach($config["ports"] as $port)
 	{
-		$server->adminBroadcast("The server is not listening on any ports. It will shutdown at the next opportunity.");
+		if(in_array($port, $open_ports))
+		{
+			continue;
+		}
+		foreach(["0.0.0.0:", "[::0]:"] as $prefix)
+		{
+			$stream = stream_socket_server("tcp://".$prefix.$port, $errno, $errstr, STREAM_SERVER_BIND | STREAM_SERVER_LISTEN, stream_context_create([
+				"socket" => [
+					"bindto" => $prefix.$port,
+					"so_reuseport" => true
+				]
+			]));
+			if($stream)
+			{
+				stream_set_blocking($stream, false);
+				array_push($server->streams, $stream);
+				$server->adminBroadcast("Successfully bound to ".$prefix.$port);
+			}
+			else
+			{
+				$server->adminBroadcast("Failed to bind to ".$prefix.$port);
+			}
+		}
+	}
+	if(!$server->isListening())
+	{
+		$server->adminBroadcast("The server is not listening on any ports. It will shutdown ".($server->isOpen() ? "at the next opportunity." : "once empty."));
 	}
 }
 
@@ -394,7 +420,7 @@ $server->packet_function = function(ClientConnection $con, ServerboundPacketId $
 	}
 	else if($packetId->name == "entity_action")
 	{
-		if($con->readVarInt() != $con->eid)
+		if(gmp_cmp($con->readVarInt(), $con->eid) != 0)
 		{
 			throw new IOException("Entity ID mismatch in Entity Action packet");
 		}

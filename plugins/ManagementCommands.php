@@ -47,3 +47,17 @@ $this->registerCommand("stop", function(CommandSender &$sender)
 	$sender->getServer()
 		   ->close(["text" => "/stop has been issued by ".$sender->getName()]);
 }, "use /stop");
+$this->registerCommand("close", function(CommandSender &$sender)
+{
+	if(!$sender->hasServer())
+	{
+		$sender->sendMessage([
+			"text" => "This command only works for servers.",
+			"color" => "red"
+		]);
+		return;
+	}
+	$sender->sendAdminBroadcast("Closing server...");
+	$sender->getServer()->softClose();
+	$sender->sendAdminBroadcast("Done. The server will shutdown once empty. Use /reload to reopen listening sockets.");
+}, "use /stop");

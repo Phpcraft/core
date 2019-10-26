@@ -155,13 +155,23 @@ class Server implements CommandSender
 	}
 
 	/**
-	 * Returns true if the server has at least one socket to listen for new connections on.
+	 * Returns true if the server has at least one socket to listen for new connections on or at least one client.
 	 *
-	 * @return boolean
+	 * @return bool
 	 */
 	function isOpen(): bool
 	{
-		return $this->streams !== [];
+		return count($this->streams) > 0 || count($this->clients) > 0;
+	}
+
+	/**
+	 * Returns true if the server has at least one socket to listen for new connections.
+	 *
+	 * @return bool
+	 */
+	function isListening(): bool
+	{
+		return count($this->streams) > 0;
 	}
 
 	/**
@@ -175,7 +185,7 @@ class Server implements CommandSender
 		foreach($this->streams as $stream)
 		{
 			$name = stream_socket_get_name($stream, false);
-			array_push($ports, intval(substr($name, strpos($name, ":") + 1)));
+			array_push($ports, intval(substr($name, strpos($name, ":", -6) + 1)));
 		}
 		return $ports;
 	}
@@ -601,17 +611,26 @@ class Server implements CommandSender
 	}
 
 	/**
-	 * Closes all client connections and server sockets.
-	 *
-	 * @param array|string $reason The reason for closing the server; chat object.
+	 * Closes all server listen sockets but keeps connected clients.
 	 */
-	function close($reason = [])
+	function softClose()
 	{
 		foreach($this->streams as $stream)
 		{
+			stream_socket_shutdown($stream, STREAM_SHUT_RDWR);
 			fclose($stream);
 		}
 		$this->streams = [];
+	}
+
+	/**
+	 * Closes all server listen sockets and client connections.
+	 *
+	 * @param array|string $reason The reason for closing the server as a chat object, sent to all clients.
+	 */
+	function close($reason = [])
+	{
+		$this->softClose();
 		foreach($this->clients as $client)
 		{
 			$client->disconnect($reason);

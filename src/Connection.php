@@ -563,6 +563,7 @@ class Connection
 	{
 		if($this->stream != null)
 		{
+			stream_socket_shutdown($this->stream, STREAM_SHUT_RDWR);
 			fclose($this->stream);
 			$this->stream = null;
 		}
