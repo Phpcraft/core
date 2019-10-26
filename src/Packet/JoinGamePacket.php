@@ -2,9 +2,13 @@
 namespace Phpcraft\Packet;
 use Phpcraft\
 {Connection, Enum\Difficulty, Enum\Dimension, Enum\Gamemode, Exception\IOException};
+use GMP;
 /** The first packet sent to the client after they've logged in. */
 class JoinGamePacket extends Packet
 {
+	/**
+	 * @var GMP $eid
+	 */
 	public $eid = 0;
 	public $gamemode = Gamemode::SURVIVAL;
 	public $hardcore = false;
@@ -22,7 +26,7 @@ class JoinGamePacket extends Packet
 	static function read(Connection $con): JoinGamePacket
 	{
 		$packet = new JoinGamePacket();
-		$packet->eid = gmp_intval($con->readInt());
+		$packet->eid = $con->readInt();
 		$packet->gamemode = $con->readByte();
 		if($packet->gamemode >= 0x8)
 		{
