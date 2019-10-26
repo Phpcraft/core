@@ -37,9 +37,9 @@ class LanInterface
 	 * Minecraft does this every 1.5 seconds and once a host:port has been sent, it is added to the server list until the server list is refreshed, and can't be updated.
 	 *
 	 * @param string $motd Supports § format for colour.
-	 * @todo more research on § format looking weird in older versions
 	 * @param int|string $port Although this is supposed to be an integer, Minecraft accepts and displays any string but connects to :25565 if this is not a valid port. Do with that as you wish.
 	 * @throws IOException
+	 * @todo more research on § format looking weird in older versions
 	 */
 	static function announce(string $motd, $port)
 	{

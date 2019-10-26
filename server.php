@@ -169,7 +169,10 @@ function reloadConfiguration()
 		{
 			continue;
 		}
-		foreach(["0.0.0.0:", "[::0]:"] as $prefix)
+		foreach([
+			"0.0.0.0:",
+			"[::0]:"
+		] as $prefix)
 		{
 			if($stream = @stream_socket_server("tcp://".$prefix.$port, $errno, $errstr, STREAM_SERVER_BIND | STREAM_SERVER_LISTEN))
 			{

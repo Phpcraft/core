@@ -611,19 +611,6 @@ class Server implements CommandSender
 	}
 
 	/**
-	 * Closes all server listen sockets but keeps connected clients.
-	 */
-	function softClose()
-	{
-		foreach($this->streams as $stream)
-		{
-			stream_socket_shutdown($stream, STREAM_SHUT_RDWR);
-			fclose($stream);
-		}
-		$this->streams = [];
-	}
-
-	/**
 	 * Closes all server listen sockets and client connections.
 	 *
 	 * @param array|string $reason The reason for closing the server as a chat object, sent to all clients.
@@ -635,6 +622,19 @@ class Server implements CommandSender
 		{
 			$client->disconnect($reason);
 		}
+	}
+
+	/**
+	 * Closes all server listen sockets but keeps connected clients.
+	 */
+	function softClose()
+	{
+		foreach($this->streams as $stream)
+		{
+			stream_socket_shutdown($stream, STREAM_SHUT_RDWR);
+			fclose($stream);
+		}
+		$this->streams = [];
 	}
 
 	function hasPermission(string $permission): bool

@@ -58,6 +58,7 @@ $this->registerCommand("close", function(CommandSender &$sender)
 		return;
 	}
 	$sender->sendAdminBroadcast("Closing server...");
-	$sender->getServer()->softClose();
+	$sender->getServer()
+		   ->softClose();
 	$sender->sendAdminBroadcast("Done. The server will shutdown once empty. Use /reload to reopen listening sockets.");
 }, "use /stop");

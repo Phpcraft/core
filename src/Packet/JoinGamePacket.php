@@ -1,8 +1,8 @@
 <?php
 namespace Phpcraft\Packet;
+use GMP;
 use Phpcraft\
 {Connection, Enum\Difficulty, Enum\Dimension, Enum\Gamemode, Exception\IOException};
-use GMP;
 /** The first packet sent to the client after they've logged in. */
 class JoinGamePacket extends Packet
 {

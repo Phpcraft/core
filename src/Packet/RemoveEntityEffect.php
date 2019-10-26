@@ -1,8 +1,8 @@
 <?php
 namespace Phpcraft\Packet;
+use GMP;
 use Phpcraft\
 {Connection, EffectType, Exception\IOException};
-use GMP;
 /** Sent by servers to clients to inform them about entities losing a potion effect. */
 class RemoveEntityEffect extends EntityPacket
 {

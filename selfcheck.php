@@ -56,7 +56,7 @@ foreach([
 			{
 				$str .= "sudo apt-get -y install php-".$ext."\n";
 			}
- 		}
+		}
 	}
 	if($ok)
 	{
