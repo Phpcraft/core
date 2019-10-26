@@ -46,15 +46,6 @@ else
 	echo "X";
 }
 echo " zlib\n";
-if(extension_loaded("sockets"))
-{
-	echo "./";
-}
-else
-{
-	echo "X";
-}
-echo " Sockets extension (required only for LanInterface)\n\n";
 if(extension_loaded("openssl") && extension_loaded("curl") && extension_loaded("mcrypt"))
 {
 	echo "./";

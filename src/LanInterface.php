@@ -8,6 +8,9 @@ class LanInterface
 	private $socket;
 
 	/**
+	 * Constructs a LanInterface to -&gt;discover LAN servers.
+	 * Unlike LanInterface::announce, this requires the "sockets" extension.
+	 *
 	 * @throws IOException
 	 */
 	function __construct()
@@ -30,23 +33,28 @@ class LanInterface
 	}
 
 	/**
-	 * Announces a world/server to the local network.
+	 * Announces a LAN server.
 	 * Minecraft does this every 1.5 seconds and once a host:port has been sent, it is added to the server list until the server list is refreshed, and can't be updated.
 	 *
 	 * @param string $motd Supports § format for colour.
+	 * @todo more research on § format looking weird in older versions
 	 * @param int|string $port Although this is supposed to be an integer, Minecraft accepts and displays any string but connects to :25565 if this is not a valid port. Do with that as you wish.
 	 * @throws IOException
 	 */
 	static function announce(string $motd, $port)
 	{
-		$socket = socket_create(AF_INET, SOCK_DGRAM, SOL_UDP);
-		if(!$socket)
+		$stream = stream_socket_client("udp://224.0.2.60:4445", $errno, $errstr, 0, STREAM_CLIENT_CONNECT, stream_context_create([
+			"socket" => [
+				"so_reuseport" => true,
+				"so_broadcast" => true
+			]
+		]));
+		if(!$stream)
 		{
-			throw new IOException("Failed to open socket");
+			throw new IOException("Failed to open stream: $errstr ($errno)");
 		}
-		$msg = "[MOTD]{$motd}[/MOTD][AD]{$port}[/AD]";
-		socket_sendto($socket, $msg, strlen($msg), 0, "224.0.2.60", 4445);
-		socket_close($socket);
+		stream_socket_sendto($stream, "[MOTD]{$motd}[/MOTD][AD]{$port}[/AD]");
+		fclose($stream);
 	}
 
 	/**
