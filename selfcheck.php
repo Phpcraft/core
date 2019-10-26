@@ -1,120 +1,66 @@
 <?php
-echo "Phpcraft Self Check\nhttps://github.com/timmyrs/Phpcraft\n\n";
+echo "Phpcraft Self Check\n";
 if(version_compare(PHP_VERSION, "7.0", "<"))
 {
 	die("Phpcraft requires PHP 7.0 or above.\n");
 }
+if(!extension_loaded("SPL"))
+{
+	die("How is SPL not loaded?!\n");
+}
+$i = 0;
+$i_limit = 2;
 foreach([
-	"SPL",
-	"json",
-	"zlib"
-] as $ext)
+	"Basic" => [
+		"gmp" => false,
+		"json" => false,
+		"mbstring" => false,
+		"zlib" => false
+	],
+	'"Online mode"' => [
+		"openssl" => false,
+		"curl" => false,
+		"mcrypt" => "more performance"
+	]
+] as $feature => $exts)
 {
-	if(!extension_loaded($ext))
+	echo (++$i == $i_limit ? "└ " : "├ ").$feature." functionality ";
+	$ok = true;
+	$str = "";
+	$j = 0;
+	$j_limit = count($exts);
+	foreach($exts as $ext => $optional_for)
 	{
-		die("The {$ext} extension is required.\n");
-	}
-}
-$apt = [];
-$pecl = [];
-if(extension_loaded("mbstring"))
-{
-	echo "./";
-}
-else
-{
-	echo "X";
-	array_push($apt, "php-mbstring");
-}
-echo " mbstring\n";
-if(extension_loaded("gmp"))
-{
-	echo "./";
-}
-else
-{
-	echo "X";
-	array_push($apt, "php-gmp");
-}
-echo " GMP\n";
-if(extension_loaded("zlib"))
-{
-	echo "./";
-}
-else
-{
-	echo "X";
-}
-echo " zlib\n";
-if(extension_loaded("openssl") && extension_loaded("curl") && extension_loaded("mcrypt"))
-{
-	echo "./";
-}
-else
-{
-	echo "X";
-	if(!extension_loaded("openssl"))
-	{
-		array_push($apt, "openssl");
-	}
-	if(!extension_loaded("curl"))
-	{
-		array_push($apt, "php-curl");
-	}
-	if(!extension_loaded("mcrypt"))
-	{
-		if(version_compare(PHP_VERSION, "7.2", "<"))
+		$str .= ($i == $i_limit ? "  " : "│ ").(++$j == $j_limit ? "└" : "├")." ".$ext." ";
+		if($optional_for)
 		{
-			array_push($apt, "php-mcrypt");
+			$str .= "(optional for ".$optional_for.") ";
+		}
+		if(extension_loaded($ext))
+		{
+			$str .= "✓\n";
 		}
 		else
 		{
-			array_push($apt, "php-dev gcc make autoconf libc-dev pkg-config libmcrypt-dev php-pear");
-			array_push($pecl, "mcrypt-1.0.1");
-		}
+			$ok = false;
+			$str .= "\n".($i == $i_limit ? "  " : "│ ").($j == $j_limit ? " " : "│")." └ ";
+			if(defined("PHP_WINDOWS_VERSION_MAJOR"))
+			{
+				$str .= "Check the extensions section of your php.ini.\n";
+			}
+			else if($ext == "mcrypt" && version_compare(PHP_VERSION, "7.2") >= 0)
+			{
+				$str .= "sudo apt-get -y install php-dev gcc make autoconf libc-dev pkg-config libmcrypt-dev php-pear && sudo pecl install mcrypt-1.0.1\n";
+			}
+			else
+			{
+				$str .= "sudo apt-get -y install php-".$ext."\n";
+			}
+ 		}
 	}
-}
-echo " \"Online mode\" functionality\n  ";
-if(in_array("openssl", $apt))
-{
-	echo "X";
-}
-else
-{
-	echo "./";
-}
-echo " OpenSSL\n  ";
-if(in_array("php-curl", $apt))
-{
-	echo "X";
-}
-else
-{
-	echo "./";
-}
-echo " cURL\n  ";
-if(extension_loaded("mcrypt"))
-{
-	echo "./";
-}
-else
-{
-	echo "X";
-}
-echo " mcrypt (optional for more performance)\n\n";
-if(!empty($apt) || !empty($pecl) || !extension_loaded("zlib"))
-{
-	echo "Check the extensions section of your php.ini.\n";
-	if(!defined("PHP_WINDOWS_VERSION_MAJOR"))
+	if($ok)
 	{
-		echo "You might be able to install all missing extensions by running:\n";
-		if(!empty($apt))
-		{
-			echo "sudo apt-get -y install ".join(" ", $apt)."\n";
-		}
-		if(!empty($pecl))
-		{
-			echo "sudo pecl install ".join(" ", $pecl)."\n";
-		}
+		echo "✓";
 	}
+	echo "\n".$str;
 }
