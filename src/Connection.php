@@ -526,7 +526,7 @@ class Connection
 			stream_set_blocking($this->stream, true);
 			if($raw)
 			{
-				fwrite($this->stream, $this->write_buffer);
+				$w = @fwrite($this->stream, $this->write_buffer);
 			}
 			else
 			{
@@ -538,20 +538,24 @@ class Connection
 						$compressed = gzcompress($this->write_buffer, 1);
 						$compressed_length = strlen($compressed);
 						$length_varint = self::varInt($length);
-						fwrite($this->stream, self::varInt($compressed_length + strlen($length_varint)).$length_varint.$compressed) or $this->close();
+						$w = @fwrite($this->stream, self::varInt($compressed_length + strlen($length_varint)).$length_varint.$compressed) or $this->close();
 					}
 					else
 					{
-						fwrite($this->stream, self::varInt($length + 1)."\x00".$this->write_buffer) or $this->close();
+						$w = @fwrite($this->stream, self::varInt($length + 1)."\x00".$this->write_buffer) or $this->close();
 					}
 				}
 				else
 				{
-					fwrite($this->stream, self::varInt($length).$this->write_buffer) or $this->close();
+					$w = @fwrite($this->stream, self::varInt($length).$this->write_buffer) or $this->close();
 				}
 			}
 			stream_set_blocking($this->stream, false);
 			$this->write_buffer = "";
+			if(!$w)
+			{
+				$this->close();
+			}
 		}
 		return $this;
 	}
