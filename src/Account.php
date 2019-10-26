@@ -112,6 +112,7 @@ class Account
 				if(!Phpcraft::isWindows())
 				{
 					readline_callback_handler_remove();
+					echo "\n";
 				}
 				if(!$password)
 				{
@@ -229,7 +230,7 @@ class Account
 			$this->profileId = array_keys($profiles["authenticationDatabase"][$i]["profiles"])[0];
 			$profiles["authenticationDatabase"][$i]["accessToken"] = $this->accessToken;
 			Phpcraft::saveProfiles($profiles);
-			return true;
+			return false;
 		}
 		unset($profiles["authenticationDatabase"][$i]);
 		Phpcraft::saveProfiles($profiles);

@@ -547,6 +547,7 @@ do
 	$server->handle();
 	while($msg = $ui->render(true))
 	{
+		$ui->add($msg);
 		if(Command::handleMessage($server, $msg) || PluginManager::fire(new ServerConsoleEvent($server, $msg)))
 		{
 			continue;
