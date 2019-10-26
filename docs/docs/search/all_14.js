@@ -47,6 +47,7 @@ var searchData=
   ['singlewordstring',['SingleWordString',['../classPhpcraft_1_1Command_1_1SingleWordString.html',1,'Phpcraft::Command']]],
   ['singlewordstringprovider',['SingleWordStringProvider',['../classPhpcraft_1_1Command_1_1SingleWordStringProvider.html',1,'Phpcraft::Command']]],
   ['slot',['Slot',['../classPhpcraft_1_1Slot.html',1,'Phpcraft\Slot'],['../classPhpcraft_1_1Item.html#aa2098a1be1009e6eb43c14a016e38456',1,'Phpcraft\Item\slot()']]],
+  ['softclose',['softClose',['../classPhpcraft_1_1Server.html#aaa04e621d3d9b084ac96db0f116077ab',1,'Phpcraft::Server']]],
   ['spawnmobpacket',['SpawnMobPacket',['../classPhpcraft_1_1Packet_1_1SpawnMobPacket.html',1,'Phpcraft::Packet']]],
   ['spectator',['SPECTATOR',['../classPhpcraft_1_1Enum_1_1Gamemode.html#ab71290bd4b4fd61744781ead60b25ada',1,'Phpcraft::Enum::Gamemode']]],
   ['src_5fdir',['SRC_DIR',['../classPhpcraft_1_1Phpcraft.html#a8d0e79c434f9ec95d70169adc7a40e55',1,'Phpcraft::Phpcraft']]],

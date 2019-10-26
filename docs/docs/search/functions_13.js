@@ -22,6 +22,7 @@ var searchData=
   ['setsnbt',['setSNBT',['../classPhpcraft_1_1Slot.html#ad5c651ddbbeb7d3779bfdad63a1ff35b',1,'Phpcraft::Slot']]],
   ['sha1',['sha1',['../classPhpcraft_1_1Phpcraft.html#a81acb8558a1a03521ee54679e066a7bc',1,'Phpcraft::Phpcraft']]],
   ['slot',['slot',['../classPhpcraft_1_1Item.html#aa2098a1be1009e6eb43c14a016e38456',1,'Phpcraft::Item']]],
+  ['softclose',['softClose',['../classPhpcraft_1_1Server.html#aaa04e621d3d9b084ac96db0f116077ab',1,'Phpcraft::Server']]],
   ['startpacket',['startPacket',['../classPhpcraft_1_1ClientConnection.html#af43f7e5b67ffd1c48d283c33afc22a49',1,'Phpcraft\ClientConnection\startPacket()'],['../classPhpcraft_1_1Connection.html#ae75b93f971919d518998913181dec6da',1,'Phpcraft\Connection\startPacket()'],['../classPhpcraft_1_1ServerConnection.html#a446ce0b8432847cd35942905b4dbdc83',1,'Phpcraft\ServerConnection\startPacket()']]],
   ['stringfromsnbt',['stringFromSNBT',['../classPhpcraft_1_1Nbt_1_1NbtTag.html#a850d31f9c178799059cbd8ba388c7231',1,'Phpcraft::Nbt::NbtTag']]],
   ['stringtosnbt',['stringToSNBT',['../classPhpcraft_1_1Nbt_1_1NbtTag.html#a30395be113f593156d7fdad87881970f',1,'Phpcraft::Nbt::NbtTag']]],

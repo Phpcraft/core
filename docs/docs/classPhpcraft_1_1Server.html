@@ -97,6 +97,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:aab6fe1f0ea5be4e48c239c9ec872fe62"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a75d9cf1effa434c6ec3f967eb97c6254"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Server.html#a75d9cf1effa434c6ec3f967eb97c6254">isOpen</a> ()</td></tr>
 <tr class="separator:a75d9cf1effa434c6ec3f967eb97c6254"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a26f7ee9fb0f22248c2072ca6f115f3ff"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Server.html#a26f7ee9fb0f22248c2072ca6f115f3ff">isListening</a> ()</td></tr>
+<tr class="separator:a26f7ee9fb0f22248c2072ca6f115f3ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af547d6924f2abcd609b79ff1bb6a64be"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Server.html#af547d6924f2abcd609b79ff1bb6a64be">getPorts</a> ()</td></tr>
 <tr class="separator:af547d6924f2abcd609b79ff1bb6a64be"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6d7f36c01ffa4b3f9e48e91eea2ed135"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Server.html#a6d7f36c01ffa4b3f9e48e91eea2ed135">getMotd</a> ()</td></tr>
@@ -125,6 +127,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ae201e2be3f543267a12ac834289d8efc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3dbcdf93f9f834134cea839460b5344e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Server.html#a3dbcdf93f9f834134cea839460b5344e">sendMessage</a> ($message)</td></tr>
 <tr class="separator:a3dbcdf93f9f834134cea839460b5344e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaa04e621d3d9b084ac96db0f116077ab"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Server.html#aaa04e621d3d9b084ac96db0f116077ab">softClose</a> ()</td></tr>
+<tr class="separator:aaa04e621d3d9b084ac96db0f116077ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae5413fde7de5d2f804607b6c91859276"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Server.html#ae5413fde7de5d2f804607b6c91859276">close</a> ($reason=[])</td></tr>
 <tr class="separator:ae5413fde7de5d2f804607b6c91859276"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1a71c3b8c60fb7bdad95064c6c5cb4e4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Server.html#a1a71c3b8c60fb7bdad95064c6c5cb4e4">hasPermission</a> (string $permission)</td></tr>
@@ -308,10 +312,10 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Closes all client connections and server sockets.</p>
+<p>Closes all server listen sockets and client connections.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype">array&#160;|&#160;string</td><td class="paramname">$reason</td><td>The reason for closing the server; chat object. </td></tr>
+    <tr><td class="paramtype">array&#160;|&#160;string</td><td class="paramname">$reason</td><td>The reason for closing the server as a chat object, sent to all clients. </td></tr>
   </table>
   </dd>
 </dl>
@@ -590,6 +594,25 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a26f7ee9fb0f22248c2072ca6f115f3ff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a26f7ee9fb0f22248c2072ca6f115f3ff">&#9670;&nbsp;</a></span>isListening()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Phpcraft\Server::isListening </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Returns true if the server has at least one socket to listen for new connections.</p>
+<dl class="section return"><dt>Returns</dt><dd>bool </dd></dl>
+
+</div>
+</div>
 <a id="a80c0df387dc345950a7599b800bf27c9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a80c0df387dc345950a7599b800bf27c9">&#9670;&nbsp;</a></span>isOnlineMode()</h2>
 
@@ -623,8 +646,8 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Returns true if the server has at least one socket to listen for new connections on.</p>
-<dl class="section return"><dt>Returns</dt><dd>boolean </dd></dl>
+<p>Returns true if the server has at least one socket to listen for new connections on or at least one client.</p>
+<dl class="section return"><dt>Returns</dt><dd>bool </dd></dl>
 
 </div>
 </div>
@@ -754,6 +777,24 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="aaa04e621d3d9b084ac96db0f116077ab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaa04e621d3d9b084ac96db0f116077ab">&#9670;&nbsp;</a></span>softClose()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Phpcraft\Server::softClose </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Closes all server listen sockets but keeps connected clients. </p>
 
 </div>
 </div>
