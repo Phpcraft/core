@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['server',['Server',['../classPhpcraft_1_1Realms_1_1Server.html',1,'Phpcraft\Realms\Server'],['../classPhpcraft_1_1Server.html',1,'Phpcraft\Server']]],
+  ['server',['Server',['../classPhpcraft_1_1Server.html',1,'Phpcraft\Server'],['../classPhpcraft_1_1Realms_1_1Server.html',1,'Phpcraft\Realms\Server']]],
   ['serverboundbrandpluginmessagepacket',['ServerboundBrandPluginMessagePacket',['../classPhpcraft_1_1Packet_1_1PluginMessage_1_1ServerboundBrandPluginMessagePacket.html',1,'Phpcraft::Packet::PluginMessage']]],
   ['serverboundpacketid',['ServerboundPacketId',['../classPhpcraft_1_1Packet_1_1ServerboundPacketId.html',1,'Phpcraft::Packet']]],
   ['serverboundpluginmessagepacket',['ServerboundPluginMessagePacket',['../classPhpcraft_1_1Packet_1_1PluginMessage_1_1ServerboundPluginMessagePacket.html',1,'Phpcraft::Packet::PluginMessage']]],
@@ -10,6 +10,7 @@ var searchData=
   ['serverclientevent',['ServerClientEvent',['../classPhpcraft_1_1Event_1_1ServerClientEvent.html',1,'Phpcraft::Event']]],
   ['serverclientmetadataevent',['ServerClientMetadataEvent',['../classPhpcraft_1_1Event_1_1ServerClientMetadataEvent.html',1,'Phpcraft::Event']]],
   ['serverclientsettingsevent',['ServerClientSettingsEvent',['../classPhpcraft_1_1Event_1_1ServerClientSettingsEvent.html',1,'Phpcraft::Event']]],
+  ['servercommandsender',['ServerCommandSender',['../interfacePhpcraft_1_1Command_1_1ServerCommandSender.html',1,'Phpcraft::Command']]],
   ['serverconnection',['ServerConnection',['../classPhpcraft_1_1ServerConnection.html',1,'Phpcraft']]],
   ['serverconsoleevent',['ServerConsoleEvent',['../classPhpcraft_1_1Event_1_1ServerConsoleEvent.html',1,'Phpcraft::Event']]],
   ['serverevent',['ServerEvent',['../classPhpcraft_1_1Event_1_1ServerEvent.html',1,'Phpcraft::Event']]],

@@ -75,8 +75,9 @@ Inheritance diagram for Phpcraft\ClientConnection:</div>
 <div class="dyncontent">
 <div class="center"><img src="classPhpcraft_1_1ClientConnection__inherit__graph.png" border="0" usemap="#Phpcraft_0CClientConnection_inherit__map" alt="Inheritance graph"/></div>
 <map name="Phpcraft_0CClientConnection_inherit__map" id="Phpcraft_0CClientConnection_inherit__map">
-<area shape="rect" id="node2" href="classPhpcraft_1_1Connection.html" title="Phpcraft\\Connection" alt="" coords="5,13,156,39"/>
-<area shape="rect" id="node3" href="interfacePhpcraft_1_1Command_1_1CommandSender.html" title="Phpcraft\\Command\\Command\lSender" alt="" coords="180,5,397,47"/>
+<area shape="rect" id="node2" href="classPhpcraft_1_1Connection.html" title="Phpcraft\\Connection" alt="" coords="5,102,156,129"/>
+<area shape="rect" id="node3" href="interfacePhpcraft_1_1Command_1_1ServerCommandSender.html" title="Phpcraft\\Command\\ServerCommand\lSender" alt="" coords="181,95,439,136"/>
+<area shape="rect" id="node4" href="interfacePhpcraft_1_1Command_1_1CommandSender.html" title="Phpcraft\\Command\\Command\lSender" alt="" coords="201,5,419,47"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
@@ -84,8 +85,9 @@ Collaboration diagram for Phpcraft\ClientConnection:</div>
 <div class="dyncontent">
 <div class="center"><img src="classPhpcraft_1_1ClientConnection__coll__graph.png" border="0" usemap="#Phpcraft_0CClientConnection_coll__map" alt="Collaboration graph"/></div>
 <map name="Phpcraft_0CClientConnection_coll__map" id="Phpcraft_0CClientConnection_coll__map">
-<area shape="rect" id="node2" href="classPhpcraft_1_1Connection.html" title="Phpcraft\\Connection" alt="" coords="5,13,156,39"/>
-<area shape="rect" id="node3" href="interfacePhpcraft_1_1Command_1_1CommandSender.html" title="Phpcraft\\Command\\Command\lSender" alt="" coords="180,5,397,47"/>
+<area shape="rect" id="node2" href="classPhpcraft_1_1Connection.html" title="Phpcraft\\Connection" alt="" coords="5,102,156,129"/>
+<area shape="rect" id="node3" href="interfacePhpcraft_1_1Command_1_1ServerCommandSender.html" title="Phpcraft\\Command\\ServerCommand\lSender" alt="" coords="181,95,439,136"/>
+<area shape="rect" id="node4" href="interfacePhpcraft_1_1Command_1_1CommandSender.html" title="Phpcraft\\Command\\Command\lSender" alt="" coords="201,5,419,47"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -133,8 +135,6 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a33e24346731d452a1a83fc3e2d8e63db"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a750a27dcd8232e973c5c595f651920a2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#a750a27dcd8232e973c5c595f651920a2">getName</a> ()</td></tr>
 <tr class="separator:a750a27dcd8232e973c5c595f651920a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a09fd4b907aec11f618c60c43a2640b67"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#a09fd4b907aec11f618c60c43a2640b67">hasServer</a> ()</td></tr>
-<tr class="separator:a09fd4b907aec11f618c60c43a2640b67"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a76acae8a44a1666c02a4ddfb99e7ba34"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#a76acae8a44a1666c02a4ddfb99e7ba34">hasPosition</a> ()</td></tr>
 <tr class="separator:a76acae8a44a1666c02a4ddfb99e7ba34"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7bd3a155c1bf9f41efc852e2d2d4fda0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#a7bd3a155c1bf9f41efc852e2d2d4fda0">getPosition</a> ()</td></tr>
@@ -529,9 +529,8 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>Server|null </dd></dl>
 
-<p>Implements <a class="el" href="interfacePhpcraft_1_1Command_1_1CommandSender.html#a4e784c680b4cce6ac0cf7304e73582f9">Phpcraft\Command\CommandSender</a>.</p>
+<p>Implements <a class="el" href="interfacePhpcraft_1_1Command_1_1ServerCommandSender.html#add61ebf0441ecc1db677026c6e5a5ff5">Phpcraft\Command\ServerCommandSender</a>.</p>
 
 </div>
 </div>
@@ -651,25 +650,6 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Implements <a class="el" href="interfacePhpcraft_1_1Command_1_1CommandSender.html#aa412560e3e2834f59f9b5a3487ec3f41">Phpcraft\Command\CommandSender</a>.</p>
-
-</div>
-</div>
-<a id="a09fd4b907aec11f618c60c43a2640b67"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a09fd4b907aec11f618c60c43a2640b67">&#9670;&nbsp;</a></span>hasServer()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">Phpcraft\ClientConnection::hasServer </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Implements <a class="el" href="interfacePhpcraft_1_1Command_1_1CommandSender.html#a5463b5a15a4f237cb6435cfca7c7b225">Phpcraft\Command\CommandSender</a>.</p>
 
 </div>
 </div>

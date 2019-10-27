@@ -121,7 +121,7 @@ Protected Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>The constructor. Don't call this unless you know what you're doing.</p>
+<p>Don't call this unless you know what you're doing.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramtype">string</td><td class="paramname">$name</td><td>The name of the plugin. </td></tr>
@@ -280,7 +280,7 @@ Protected Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Unregisters the plugin. This is useful, for example, if your plugin had a fatal error. </p>
+<p>Unregisters the plugin, including its event handlers and its commands. Make sure your plugin has no statements other than <code>return;</code> after this. </p>
 
 </div>
 </div>

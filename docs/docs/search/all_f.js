@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['namemap',['nameMap',['../classPhpcraft_1_1Packet_1_1ClientboundPacketId.html#a7ac7754f6984adf464d176b7edb553d3',1,'Phpcraft\Packet\ClientboundPacketId\nameMap()'],['../classPhpcraft_1_1Packet_1_1ServerboundPacketId.html#a461879e1a26b6e5d119ab991d5801f86',1,'Phpcraft\Packet\ServerboundPacketId\nameMap()'],['../classPhpcraft_1_1PacketId.html#abd59d499c9590744849a390abde4a481',1,'Phpcraft\PacketId\nameMap()']]],
   ['nbtbyte',['NbtByte',['../classPhpcraft_1_1Nbt_1_1NbtByte.html',1,'Phpcraft::Nbt']]],
   ['nbtbytearray',['NbtByteArray',['../classPhpcraft_1_1Nbt_1_1NbtByteArray.html',1,'Phpcraft::Nbt']]],
   ['nbtcompound',['NbtCompound',['../classPhpcraft_1_1Nbt_1_1NbtCompound.html',1,'Phpcraft::Nbt']]],
