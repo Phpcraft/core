@@ -7,15 +7,33 @@ class ServerboundPacketId extends PacketId
 {
 	protected static $all_cache;
 
-	static protected function populateAllCache()
+	/**
+	 * Returns a ServerboundPacketId by its name or null if not found.
+	 * If you call ServerboundPacketId::get() instead of PacketId::get() you may drop the leading "serverbound_" from applicable packet ids.
+	 *
+	 * @param string $name
+	 * @return ServerboundPacketId|null
+	 */
+	static function get(string $name)
 	{
-		self::populateAllCache_("toServer", self::nameMap(), function(string $name, int $pv)
+		$name = strtolower($name);
+		if(substr($name, 0, 10) == "minecraft:")
 		{
-			return new ServerboundPacketId($name, $pv);
-		});
+			$name = substr($name, 10);
+		}
+		if(self::$all_cache === null)
+		{
+			self::populateAllCache();
+		}
+		return self::$all_cache[$name] ?? @self::$all_cache["serverbound_".$name];
 	}
 
-	private static function nameMap(): array
+	static protected function populateAllCache()
+	{
+		self::populateAllCache_("toServer");
+	}
+
+	protected static function nameMap(): array
 	{
 		return [
 			"position_look" => "position_and_look",
@@ -24,7 +42,8 @@ class ServerboundPacketId extends PacketId
 			"keep_alive" => "keep_alive_response",
 			"abilities" => "serverbound_abilities",
 			"chat" => "serverbound_chat_message",
-			"custom_payload" => "serverbound_plugin_message"
+			"custom_payload" => "serverbound_plugin_message",
+			"arm_animation" => "serverbound_animation"
 		];
 	}
 
@@ -36,7 +55,7 @@ class ServerboundPacketId extends PacketId
 	 */
 	function getId(int $protocol_version)
 	{
-		return $protocol_version >= $this->since_protocol_version ? $this->_getId($protocol_version, "toServer", self::nameMap()) : null;
+		return $protocol_version >= $this->since_protocol_version ? $this->_getId($protocol_version, "toServer") : null;
 	}
 
 	/**

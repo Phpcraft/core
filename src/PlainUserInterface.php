@@ -49,7 +49,7 @@ class PlainUserInterface
 	 */
 	function add(string $message)
 	{
-		echo "\x1B[m{$message}\n\e[m";
+		echo "\e[m{$message}\n\e[m";
 		return $this;
 	}
 }

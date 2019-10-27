@@ -7,15 +7,29 @@ class ClientboundPacketId extends PacketId
 {
 	protected static $all_cache;
 
-	static protected function populateAllCache()
+	/**
+	 * Returns a ClientboundPacketId by its name or null if not found.
+	 * If you call ClientboundPacketId::get() instead of PacketId::get() you may drop the leading "clientbound_" from applicable packet ids.
+	 *
+	 * @param string $name
+	 * @return ClientboundPacketId|null
+	 */
+	static function get(string $name)
 	{
-		self::populateAllCache_("toClient", self::nameMap(), function(string $name, int $pv)
+		$name = strtolower($name);
+		if(self::$all_cache === null)
 		{
-			return new ClientboundPacketId($name, $pv);
-		});
+			self::populateAllCache();
+		}
+		return self::$all_cache[$name] ?? @self::$all_cache["clientbound_".$name];
 	}
 
-	private static function nameMap(): array
+	static protected function populateAllCache()
+	{
+		self::populateAllCache_("toClient");
+	}
+
+	protected static function nameMap(): array
 	{
 		return [
 			"spawn_entity" => "spawn_object",
@@ -35,7 +49,8 @@ class ClientboundPacketId extends PacketId
 			"keep_alive" => "keep_alive_request",
 			"abilities" => "clientbound_abilities",
 			"chat" => "clientbound_chat_message",
-			"custom_payload" => "clientbound_plugin_message"
+			"custom_payload" => "clientbound_plugin_message",
+			"animation" => "clientbound_animation"
 		];
 	}
 
@@ -47,7 +62,7 @@ class ClientboundPacketId extends PacketId
 	 */
 	function getId(int $protocol_version)
 	{
-		return $protocol_version >= $this->since_protocol_version ? $this->_getId($protocol_version, "toClient", self::nameMap()) : null;
+		return $protocol_version >= $this->since_protocol_version ? $this->_getId($protocol_version, "toClient") : null;
 	}
 
 	/**

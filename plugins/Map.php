@@ -9,7 +9,7 @@ use Phpcraft\
 $WorldImitatorActive = false;
 if(!extension_loaded("gd"))
 {
-	echo "[Map] Please install the PHP gd extension.\n";
+	echo "[Map] Install the PHP gd extension if you want `map.png` as an in-game map.\n";
 	$this->unregister();
 	return;
 }

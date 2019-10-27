@@ -1,7 +1,6 @@
 <?php
 namespace Phpcraft\Command;
-use Phpcraft\
-{Point3D, Server};
+use Phpcraft\Point3D;
 interface CommandSender
 {
 	function getName(): string;
@@ -18,13 +17,6 @@ interface CommandSender
 	function sendAdminBroadcast($message, string $permission = "everything");
 
 	function hasPermission(string $permission): bool;
-
-	function hasServer(): bool;
-
-	/**
-	 * @return Server|null
-	 */
-	function getServer();
 
 	function hasPosition(): bool;
 

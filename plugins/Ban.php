@@ -7,8 +7,8 @@
  * @var Plugin $this
  */
 use Phpcraft\
-{ClientConfiguration, ClientConnection, Command\CommandSender, Command\GreedyString, Event\ServerJoinEvent, Plugin, PluginManager};
-if(PluginManager::$command_prefix == "/proxy:")
+{ClientConfiguration, ClientConnection, Command\CommandSender, Command\GreedyString, Event\Event, Event\ServerJoinEvent, Plugin, PluginManager};
+if(PluginManager::$command_prefix != "/")
 {
 	$this->unregister();
 	return;
@@ -23,7 +23,7 @@ $this->on(function(ServerJoinEvent $e)
 		]);
 		$e->cancelled = true;
 	}
-})
+}, Event::PRIORITY_HIGHEST)
 	 ->registerCommand("ban", function(CommandSender &$sender, ClientConfiguration $victim, GreedyString $reason = null)
 	 {
 		 if($sender instanceof ClientConnection && $sender->config === $victim)

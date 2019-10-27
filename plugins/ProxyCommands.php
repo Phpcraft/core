@@ -1,6 +1,6 @@
 <?php
 /**
- * The plugin providing the proxy's functionality.
+ * The plugin provides the /proxy:connect and /proxy:disconnect commands to the Phpcraft proxy.
  *
  * @var Plugin $this
  */
@@ -38,7 +38,7 @@ $this->registerCommand("connect", function(ClientConnection $sender, string $add
 		if(!$account)
 		{
 			$sender->sendMessage([
-				"text" => "The proxy is not logged in. Please provide an account name to connect to a BungeeCord-compatible server.",
+				"text" => "The proxy is not logged in. Please provide an account name to connect to an offline mode or BungeeCord-compatible server.",
 				"color" => "red"
 			]);
 			return;

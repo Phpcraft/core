@@ -6,7 +6,7 @@ if(empty($argv))
 }
 require "vendor/autoload.php";
 use Phpcraft\
-{Account, AssetsManager, Configuration, Event\ClientConsoleEvent, Event\ClientJoinEvent, Event\ClientPacketEvent, Packet\ClientboundPacketId, Packet\KeepAliveRequestPacket, Packet\PluginMessage\ServerboundBrandPluginMessagePacket, Phpcraft, PlainUserInterface, PluginManager, Point3D, ServerConnection, UserInterface, Versions};
+{Account, AssetsManager, Command\Command, Configuration, Event\ClientConsoleEvent, Event\ClientJoinEvent, Event\ClientPacketEvent, Packet\ClientboundPacketId, Packet\KeepAliveRequestPacket, Packet\PluginMessage\ServerboundBrandPluginMessagePacket, Phpcraft, PlainUserInterface, PluginManager, Point3D, ServerConnection, UserInterface, Versions};
 $options = [];
 for($i = 1; $i < count($argv); $i++)
 {
@@ -165,7 +165,7 @@ try
 }
 catch(RuntimeException $e)
 {
-	echo "Since you're on PHP <7.2.0 and Windows <10.0.10586, the plain user interface is forcefully enabled.\n";
+	echo "Since you're on PHP <7.2.0 or Windows <10.0.10586, the plain user interface is forcefully enabled.\n";
 	$ui = new PlainUserInterface();
 }
 $ui->add("Resolving... ")
@@ -183,7 +183,13 @@ $ui->append("Resolved to {$server}")
 if(empty($options["version"]))
 {
 	$info = Phpcraft::getServerStatus($serverarr[0], intval($serverarr[1]), 3, Phpcraft::METHOD_MODERN);
-	if(empty($info) || empty($info["version"]) || empty($info["version"]["protocol"]))
+	if(empty($info))
+	{
+		$ui->add("Failed to connect to server.")
+		   ->render();
+		exit;
+	}
+	if(empty($info["version"]) || empty($info["version"]["protocol"]))
 	{
 		$ui->add("Invalid status: ".json_encode($info))
 		   ->render();
@@ -224,6 +230,7 @@ function loadPlugins()
 	$ui->render();
 }
 
+PluginManager::$command_prefix = ".";
 loadPlugins();
 function handleConsoleMessage(string $msg)
 {
@@ -231,249 +238,27 @@ function handleConsoleMessage(string $msg)
 	{
 		return;
 	}
-	global $con;
 	/**
 	 * @var ServerConnection $con
-	 */
-	if(PluginManager::fire(new ClientConsoleEvent($con, $msg)))
-	{
-		return;
-	}
-	global $ui;
+	 */ global $ui, $con;
 	$ui->add($msg);
-	$send = true;
 	if(substr($msg, 0, 2) == "..")
 	{
 		$msg = substr($msg, 1);
 	}
-	else if(substr($msg, 0, 1) == ".")
+	else if(Command::handleMessage($con, $msg) || PluginManager::fire(new ClientConsoleEvent($con, $msg)))
 	{
-		$send = false;
-		$msg = substr($msg, 1);
-		$args = explode(" ", $msg);
-		switch($args[0])
-		{
-			case "?":
-			case "help":
-				$ui->add("Yay! You've found commands, which start with a period.");
-				$ui->add("If you want to send a message starting with a period, use two periods.");
-				$ui->add("?, help                    shows this help");
-				$ui->add("pos                        returns the current position");
-				$ui->add("move <y>, move <x> [y] <z> initates movement");
-				$ui->add("rot <yaw> <pitch>          change yaw and pitch degrees");
-				$ui->add("list                       lists all players in the player list");
-				$ui->add("entities                   lists all player entities");
-				$ui->add("follow <name>              follows <name>'s player entity");
-				$ui->add("unfollow                   stops following whoever is being followed");
-				$ui->add("slot <1-9>                 sets selected hotbar slot");
-				$ui->add("hit                        swings the main hand");
-				$ui->add("use                        uses the held item");
-				$ui->add("reload                     reloads all autoloaded plugins");
-				$ui->add("reconnect                  reconnects to the server");
-				$ui->add("quit, disconnect           disconnects from the server");
-				break;
-			case "pos":
-				global $x, $y, $z;
-				$ui->add("$x $y $z");
-				break;
-			case "move":
-				global $followEntity;
-				if($followEntity !== false)
-				{
-					$ui->add("I'm currently following someone.");
-				}
-				else
-				{
-					global $motion_x, $motion_y, $motion_z;
-					if(isset($args[1]) && isset($args[2]) && isset($args[3]))
-					{
-						$motion_x += doubleval($args[1]);
-						$motion_y += doubleval($args[2]);
-						$motion_z += doubleval($args[3]);
-						$ui->add("Understood.");
-					}
-					else if(isset($args[1]) && isset($args[2]))
-					{
-						$motion_x += doubleval($args[1]);
-						$motion_z += doubleval($args[2]);
-						$ui->add("Understood.");
-					}
-					else if(isset($args[1]))
-					{
-						$motion_y += doubleval($args[1]);
-						$ui->add("Understood.");
-					}
-					else
-					{
-						$ui->add("Syntax: .move <y>, .move <x> [y] <z>");
-					}
-				}
-				break;
-			case "rot":
-				global $followEntity;
-				if($followEntity !== false)
-				{
-					$ui->add("I'm currently following someone.");
-				}
-				else if(isset($args[1]) && isset($args[2]))
-				{
-					global $yaw, $pitch;
-					$yaw = floatval($args[1]);
-					$pitch = floatval($args[2]);
-					$ui->add("Understood.");
-				}
-				else
-				{
-					$ui->add("Syntax: .rot <yaw> <pitch>");
-				}
-				break;
-			case "hit":
-				$con->startPacket("animation");
-				if($con->protocol_version > 47)
-				{
-					$con->writeVarInt(0);
-				}
-				$con->send();
-				$ui->add("Done.");
-				break;
-			case "use":
-				global $x, $y, $z;
-				if($con->protocol_version > 47)
-				{
-					$con->startPacket("use_item");
-					$con->writeVarInt(0);
-				}
-				else
-				{
-					$con->startPacket("player_block_placement");
-					$con->writePosition(new Point3D($x, $y, $z));
-					$con->writeByte(-1); // Face
-					$con->writeShort(-1); // Slot
-					$con->writeByte(-1); // Cursor X
-					$con->writeByte(-1); // Cursor Y
-					$con->writeByte(-1); // Cursor Z
-				}
-				$con->send();
-				$ui->add("Done.");
-				break;
-			case "list":
-				$gamemodes = [
-					0 => "Survival",
-					1 => "Creative",
-					2 => "Adventure",
-					3 => "Spectator"
-				];
-				global $players;
-				foreach($players as $uuid => $player)
-				{
-					$ui->add($uuid."  ".$player["name"].str_repeat(" ", 17 - strlen($player["name"])).str_repeat(" ", 5 - strlen($player["ping"])).$player["ping"]." ms  ".(array_key_exists($player["gamemode"], $gamemodes) ? $gamemodes[$player["gamemode"]]." Mode" : "Gamemode ".$player["gamemode"]));
-				}
-				break;
-			case "entities":
-				global $entities;
-				foreach($entities as $eid => $entity)
-				{
-					$ui->add($eid." ".$entity["x"]." ".$entity["y"]." ".$entity["z"]);
-				}
-				break;
-			case "follow":
-				if(isset($args[1]))
-				{
-					$username = null;
-					$uuids = [];
-					global $players;
-					foreach($players as $uuid => $player)
-					{
-						if(stristr($player["name"], $args[1]))
-						{
-							$uuids[$player["name"]] = $uuid;
-							$username = $player["name"];
-						}
-					}
-					if($username == null)
-					{
-						$ui->add("Couldn't find ".$args[1]);
-					}
-					else if(count($uuids) > 1)
-					{
-						$ui->add("Ambiguous name; found: ".join(", ", array_keys($uuids)));
-					}
-					else
-					{
-						global $followEntity, $entities;
-						$followEntity = false;
-						$uuid = $uuids[$username];
-						foreach($entities as $eid => $entity)
-						{
-							if($entity["uuid"] == $uuid)
-							{
-								$followEntity = $eid;
-							}
-						}
-						if($followEntity === false)
-						{
-							$ui->add("Couldn't find {$username}'s entity");
-						}
-						else
-						{
-							$ui->add("Understood.");
-						}
-					}
-				}
-				else
-				{
-					$ui->add("Syntax: .follow <name>");
-				}
-				break;
-			case "unfollow":
-				global $followEntity;
-				$followEntity = false;
-				$ui->add("Done.");
-				break;
-			case "slot":
-				$slot = 0;
-				if(isset($args[1]))
-				{
-					$slot = intval($args[1]);
-				}
-				if($slot < 1 || $slot > 9)
-				{
-					$ui->add("Syntax: .slot <1-9>");
-					break;
-				}
-				$con->startPacket("held_item_change");
-				$con->writeShort($slot - 1);
-				$con->send();
-				$ui->add("Done.");
-				break;
-			case "reload":
-				loadPlugins();
-				break;
-			case "reconnect":
-				global $reconnect;
-				$reconnect = true;
-				break;
-			case "quit":
-			case "disconnect":
-				global $options;
-				$options["noreconnect"] = true;
-				$con->close();
-				break;
-			default:
-				$ui->add("Unknown command '.".$args[0]."' -- use '.help' for a list of commands.");
-		}
+		$ui->render();
+		return;
 	}
-	if($send)
-	{
-		global $con;
-		$con->startPacket("serverbound_chat_message");
-		$con->writeString($msg);
-		$con->send();
-	}
+	$con->startPacket("serverbound_chat_message");
+	$con->writeString($msg);
+	$con->send();
 }
 
 $ui->tabcomplete_function = function(string $word)
 {
+	// TODO: Tab-completion for commands
 	global $players;
 	$word = strtolower($word);
 	$completions = [];
@@ -513,9 +298,7 @@ do
 	$ui->add("");
 	$reconnect = false;
 	$players = [];
-	$x = 0;
-	$y = 0;
-	$z = 0;
+	$con->pos = new Point3D();
 	$yaw = 0;
 	$pitch = 0;
 	$_x = 0;
@@ -537,12 +320,14 @@ do
 		$start = microtime(true);
 		while(($packet_id = $con->readPacket(0)) !== false)
 		{
-			if(!($packetId = ClientboundPacketId::getById($packet_id, $protocol_version)))
+			$packetId = ClientboundPacketId::getById($packet_id, $protocol_version);
+			if($packetId === null)
 			{
-				continue;
+				die("Invalid packet ID: $packet_id\n");
 			}
 			if(PluginManager::fire(new ClientPacketEvent($con, $packetId)))
 			{
+				echo "Plugin cancelled ".$packetId->name."\n";
 				continue;
 			}
 			if($packetId->name == "clientbound_chat_message")
@@ -560,7 +345,7 @@ do
 				for($i = 0; $i < $amount; $i++)
 				{
 					$uuid = $con->readUuid()
-								->__toString();
+								->toString(false);
 					if($action == 0)
 					{
 						$username = $con->readString();
@@ -574,12 +359,10 @@ do
 								$con->readString();
 							}
 						}
-						$gamemode = gmp_intval($con->readVarInt());
-						$ping = gmp_intval($con->readVarInt());
 						$players[$uuid] = [
 							"name" => $username,
-							"gamemode" => $gamemode,
-							"ping" => $ping
+							"gamemode" => gmp_intval($con->readVarInt()),
+							"ping" => gmp_intval($con->readVarInt())
 						];
 					}
 					else if($action == 1)
@@ -611,7 +394,7 @@ do
 					{
 						$entities[$eid] = [
 							"uuid" => $con->readUuid()
-										  ->__toString(),
+										  ->toString(false),
 							"x" => $con->readDouble(),
 							"y" => $con->readDouble(),
 							"z" => $con->readDouble(),
@@ -623,7 +406,7 @@ do
 					{
 						$entities[$eid] = [
 							"uuid" => $con->readUuid()
-										  ->__toString(),
+										  ->toString(false),
 							"x" => gmp_intval($con->readInt()) / 32,
 							"y" => gmp_intval($con->readInt()) / 32,
 							"z" => gmp_intval($con->readInt()) / 32,
@@ -743,27 +526,27 @@ do
 				}
 				if(substr($flags, 0, 1) == "1")
 				{
-					$x += $x_;
+					$con->pos->x += $x_;
 				}
 				else
 				{
-					$x = $x_;
+					$con->pos->x = $x_;
 				}
 				if(substr($flags, 1, 1) == "1")
 				{
-					$y += $y_;
+					$con->pos->y += $y_;
 				}
 				else
 				{
-					$y = $y_;
+					$con->pos->y = $y_;
 				}
 				if(substr($flags, 2, 1) == "1")
 				{
-					$z += $z_;
+					$con->pos->z += $z_;
 				}
 				else
 				{
-					$z = $z_;
+					$con->pos->z = $z_;
 				}
 				if(substr($flags, 3, 1) == "1")
 				{
@@ -867,9 +650,9 @@ do
 		Configuration::handleQueue();
 		if($followEntity !== false)
 		{
-			$motion_x = ($entities[$followEntity]["x"] - $x);
-			$motion_y = ($entities[$followEntity]["y"] - $y);
-			$motion_z = ($entities[$followEntity]["z"] - $z);
+			$motion_x = ($entities[$followEntity]["x"] - $con->pos->x);
+			$motion_y = ($entities[$followEntity]["y"] - $con->pos->y);
+			$motion_z = ($entities[$followEntity]["z"] - $con->pos->z);
 			$yaw = $entities[$followEntity]["yaw"] / 256 * 360;
 			$pitch = $entities[$followEntity]["pitch"] / 256 * 360;
 		}
@@ -878,12 +661,12 @@ do
 		{
 			if($motion_x < $motion_speed)
 			{
-				$x += $motion_x;
+				$con->pos->x += $motion_x;
 				$motion_x = 0;
 			}
 			else
 			{
-				$x += $motion_speed;
+				$con->pos->x += $motion_speed;
 				$motion_x -= $motion_speed;
 			}
 		}
@@ -891,12 +674,12 @@ do
 		{
 			if($motion_x > -$motion_speed)
 			{
-				$x += $motion_x;
+				$con->pos->x += $motion_x;
 				$motion_x = 0;
 			}
 			else
 			{
-				$x -= $motion_speed;
+				$con->pos->x -= $motion_speed;
 				$motion_x += $motion_speed;
 			}
 		}
@@ -905,12 +688,12 @@ do
 			$onGround = false;
 			if($motion_y < $motion_speed)
 			{
-				$y += $motion_y;
+				$con->pos->y += $motion_y;
 				$motion_y = 0;
 			}
 			else
 			{
-				$y += $motion_speed;
+				$con->pos->y += $motion_speed;
 				$motion_y -= $motion_speed;
 			}
 			$onGround = false;
@@ -920,30 +703,30 @@ do
 			$onGround = false;
 			if($motion_y > -$motion_speed)
 			{
-				$y += $motion_y;
+				$con->pos->y += $motion_y;
 				$motion_y = 0;
 			}
 			else
 			{
-				$y -= $motion_speed;
+				$con->pos->y -= $motion_speed;
 				$motion_y += $motion_speed;
 			}
 			$onGround = false;
 		}
 		else
 		{
-			$onGround = fmod($y, 1) == 0;
+			$onGround = fmod($con->pos->y, 1) == 0;
 		}
 		if($motion_z > 0)
 		{
 			if($motion_z < $motion_speed)
 			{
-				$z += $motion_z;
+				$con->pos->z += $motion_z;
 				$motion_z = 0;
 			}
 			else
 			{
-				$z += $motion_speed;
+				$con->pos->z += $motion_speed;
 				$motion_z -= $motion_speed;
 			}
 		}
@@ -951,25 +734,25 @@ do
 		{
 			if($motion_z > -$motion_speed)
 			{
-				$z += $motion_z;
+				$con->pos->z += $motion_z;
 				$motion_z = 0;
 			}
 			else
 			{
-				$z -= $motion_speed;
+				$con->pos->z -= $motion_speed;
 				$motion_z += $motion_speed;
 			}
 		}
-		$poschange = ($x != $_x || $y != $_y || $z != $_z);
+		$poschange = ($con->pos->x != $_x || $con->pos->y != $_y || $con->pos->z != $_z);
 		$rotchange = ($yaw != $_yaw || $pitch != $_pitch);
 		if($poschange)
 		{
 			if($rotchange)
 			{
 				$con->startPacket("position_and_look");
-				$con->writeDouble($x);
-				$con->writeDouble($y);
-				$con->writeDouble($z);
+				$con->writeDouble($con->pos->x);
+				$con->writeDouble($con->pos->y);
+				$con->writeDouble($con->pos->z);
 				$con->writeFloat($yaw);
 				$con->writeFloat($pitch);
 				$con->writeBoolean($onGround);
@@ -980,15 +763,15 @@ do
 			else
 			{
 				$con->startPacket("position");
-				$con->writeDouble($x);
-				$con->writeDouble($y);
-				$con->writeDouble($z);
+				$con->writeDouble($con->pos->x);
+				$con->writeDouble($con->pos->y);
+				$con->writeDouble($con->pos->z);
 				$con->writeBoolean($onGround);
 				$con->send();
 			}
-			$_x = $x;
-			$_y = $y;
-			$_z = $z;
+			$_x = $con->pos->x;
+			$_y = $con->pos->y;
+			$_z = $con->pos->z;
 			if($posticks > 0)
 			{
 				$posticks = 0;

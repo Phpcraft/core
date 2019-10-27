@@ -5,22 +5,14 @@
  * @var Plugin $this
  */
 use Phpcraft\
-{Command\CommandSender, Plugin, PluginManager};
-if(PluginManager::$command_prefix == "/proxy:")
+{Command\ServerCommandSender, Plugin, PluginManager};
+if(PluginManager::$command_prefix != "/")
 {
 	$this->unregister();
 	return;
 }
-$this->registerCommand("reload", function(CommandSender &$sender)
+$this->registerCommand("reload", function(ServerCommandSender &$sender)
 {
-	if(!$sender->hasServer())
-	{
-		$sender->sendMessage([
-			"text" => "This command only works for servers.",
-			"color" => "red"
-		]);
-		return;
-	}
 	PluginManager::unloadAllPlugins();
 	$sender->sendAdminBroadcast("Unloaded all plugins.", "use /reload");
 	$sender->sendAdminBroadcast("Loading plugins...", "use /reload");
@@ -33,30 +25,14 @@ $this->registerCommand("reload", function(CommandSender &$sender)
 		$sender->sendAdminBroadcast("Done. ".count($sender->getServer()->groups)." groups loaded.", "use /reload");
 	}
 }, "use /reload");
-$this->registerCommand("stop", function(CommandSender &$sender)
+$this->registerCommand("stop", function(ServerCommandSender &$sender)
 {
-	if(!$sender->hasServer())
-	{
-		$sender->sendMessage([
-			"text" => "This command only works for servers.",
-			"color" => "red"
-		]);
-		return;
-	}
 	$sender->sendAdminBroadcast("Stopping server...");
 	$sender->getServer()
 		   ->close(["text" => "/stop has been issued by ".$sender->getName()]);
 }, "use /stop");
-$this->registerCommand("close", function(CommandSender &$sender)
+$this->registerCommand("close", function(ServerCommandSender &$sender)
 {
-	if(!$sender->hasServer())
-	{
-		$sender->sendMessage([
-			"text" => "This command only works for servers.",
-			"color" => "red"
-		]);
-		return;
-	}
 	$sender->sendAdminBroadcast("Closing server...");
 	$sender->getServer()
 		   ->softClose();

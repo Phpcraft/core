@@ -5,10 +5,18 @@
  * @var Plugin $this
  */
 use Phpcraft\
-{ClientConfiguration, ClientConnection, Command\Command, Command\CommandSender, Plugin, PluginManager};
+{ClientConfiguration, ClientConnection, Command\Command, Command\CommandSender, Command\GreedyString, Command\ServerCommandSender, Plugin, PluginManager};
 require "GamemodeArgument.php";
 require "GamemodeArgumentProvider.php";
-$this->registerCommand("help", function(CommandSender &$sender)
+if(PluginManager::$command_prefix != "/" && PluginManager::$command_prefix != "/proxy:")
+{
+	$this->unregister();
+	return;
+}
+$this->registerCommand([
+	"help",
+	"?"
+], function(CommandSender &$sender)
 {
 	$commands = [];
 	foreach(PluginManager::$registered_commands as $command)
@@ -21,6 +29,11 @@ $this->registerCommand("help", function(CommandSender &$sender)
 	}
 	$sender->sendMessage(["text" => "You have access to ".count($commands)." commands:\n".join("\n", $commands)]);
 })
+	 ->registerCommand("me", function(ServerCommandSender &$sender, GreedyString $action)
+	 {
+		 $sender->getServer()
+				->broadcast("* ".$sender->getName()." ".$action->value);
+	 }, "use /me")
 	 ->registerCommand([
 		 "gamemode",
 		 "gm"
@@ -62,7 +75,7 @@ $this->registerCommand("help", function(CommandSender &$sender)
 		 $client->writeByte(0xFF);
 		 $client->send();
 	 }, "use /metadata");
-if(PluginManager::$command_prefix != "/proxy:")
+if(PluginManager::$command_prefix == "/")
 {
 	$this->registerCommand("group", function(CommandSender &$sender, ClientConfiguration $player, string $group = "")
 	{

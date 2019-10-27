@@ -22,9 +22,9 @@ class Plugin
 	 * @var array<array{function:Closure,priority:int}> $event_handlers
 	 */
 	public $event_handlers = [];
+	private $unregistered = false;
 
 	/**
-	 * The constructor.
 	 * Don't call this unless you know what you're doing.
 	 *
 	 * @param string $name The name of the plugin.
@@ -56,6 +56,10 @@ class Plugin
 	 */
 	function fire(Event $event): bool
 	{
+		if($this->unregistered)
+		{
+			throw new RuntimeException("Call to Plugin::fire() after Plugin::unregister()");
+		}
 		$type = get_class($event);
 		if(isset($this->event_handlers[$type]))
 		{
@@ -73,6 +77,10 @@ class Plugin
 	 */
 	protected function on(Closure $function, int $priority = Event::PRIORITY_NORMAL): Plugin
 	{
+		if($this->unregistered)
+		{
+			throw new RuntimeException("Call to Plugin::on() after Plugin::unregister()");
+		}
 		try
 		{
 			$params = (new ReflectionFunction($function))->getParameters();
@@ -115,6 +123,10 @@ class Plugin
 	 */
 	protected function registerCommand($names, callable $function, $required_permission = null): Plugin
 	{
+		if($this->unregistered)
+		{
+			throw new RuntimeException("Call to Plugin::on() after Plugin::unregister()");
+		}
 		if(is_string($names))
 		{
 			$names = [$names];
@@ -134,12 +146,20 @@ class Plugin
 	}
 
 	/**
-	 * Unregisters the plugin.
-	 * This is useful, for example, if your plugin had a fatal error.
+	 * Unregisters the plugin, including its event handlers and its commands.
+	 * Make sure your plugin has no statements other than `return;` after this.
 	 */
 	protected function unregister()
 	{
 		PluginManager::$loaded_plugins->detach($this);
-		echo "Plugin \"".$this->name."\" has unregistered.\n";
+		foreach(PluginManager::$registered_commands as $command)
+		{
+			if($command->plugin == $this)
+			{
+				PluginManager::$registered_commands->detach($command);
+			}
+		}
+		$this->event_handlers = [];
+		$this->unregistered = true;
 	}
 }

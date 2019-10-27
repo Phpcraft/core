@@ -3,9 +3,9 @@ namespace Phpcraft;
 use Exception;
 use hellsh\UUID;
 use Phpcraft\
-{Command\CommandSender, Enum\ChatPosition, Exception\IOException, Packet\KeepAliveRequestPacket, Packet\ServerboundPacketId, Permission\Group};
+{Command\ServerCommandSender, Enum\ChatPosition, Exception\IOException, Packet\KeepAliveRequestPacket, Packet\ServerboundPacketId, Permission\Group};
 use SplObjectStorage;
-class Server implements CommandSender
+class Server implements ServerCommandSender
 {
 	/**
 	 * The streams the server listens for new connections on.
@@ -272,6 +272,11 @@ class Server implements CommandSender
 							if($con->state == 3) // Playing
 							{
 								$packetId = ServerboundPacketId::getById($packet_id, $con->protocol_version);
+								if($packetId === null)
+								{
+									$con->disconnect("Invalid packet ID: $packet_id");
+									break;
+								}
 								if($packetId->name == "keep_alive_response")
 								{
 									$con->next_heartbeat = microtime(true) + 15;
@@ -638,11 +643,6 @@ class Server implements CommandSender
 	}
 
 	function hasPermission(string $permission): bool
-	{
-		return true;
-	}
-
-	function hasServer(): bool
 	{
 		return true;
 	}

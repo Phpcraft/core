@@ -29,7 +29,7 @@ class UserInterface extends PlainUserInterface
 	{
 		if(Phpcraft::isWindows())
 		{
-			shell_exec("TITLE $title");
+			passthru("TITLE $title");
 			pai::init();
 			if(version_compare(PHP_VERSION, "7.2.0", "<") || php_uname("r") != "10.0" || explode(" ", php_uname("v"))[1] < 10586)
 			{
@@ -37,11 +37,11 @@ class UserInterface extends PlainUserInterface
 			}
 			/** @noinspection PhpUndefinedFunctionInspection */
 			sapi_windows_vt100_support(STDOUT, true);
-			echo "\e[2J";
+			echo "\e[2J\e[9999H";
 		}
 		else
 		{
-			echo "\e]0;$title\x03\e[2J";
+			echo "\e]0;$title\x03\e[2J\e[9999H";
 			readline_callback_handler_remove();
 			readline_callback_handler_install("", function()
 			{
@@ -64,6 +64,10 @@ class UserInterface extends PlainUserInterface
 			{
 				if($line = trim($line))
 				{
+					if(substr($line, 0, 2) == "\e[")
+					{
+						$line = substr($line, 2);
+					}
 					$this->add($line);
 				}
 			}

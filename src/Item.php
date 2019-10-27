@@ -22,22 +22,6 @@ class Item extends Identifier
 		$this->display_name = $display_name;
 	}
 
-	/**
-	 * Returns an Identifier by its name or null if not found.
-	 *
-	 * @param string $name
-	 * @return Item|null
-	 */
-	static function get(string $name)
-	{
-		$name = strtolower($name);
-		if(substr($name, 0, 10) == "minecraft:")
-		{
-			$name = substr($name, 10);
-		}
-		return @self::all()[$name];
-	}
-
 	static protected function populateAllCache()
 	{
 		self::$all_cache = [];

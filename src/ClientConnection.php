@@ -4,9 +4,9 @@ use DomainException;
 use GMP;
 use hellsh\UUID;
 use Phpcraft\
-{Command\CommandSender, Enum\ChatPosition, Enum\Gamemode, Exception\IOException, Packet\ClientboundAbilitiesPacket, Packet\ClientboundPacketId};
+{Command\ServerCommandSender, Enum\ChatPosition, Enum\Gamemode, Exception\IOException, Packet\ClientboundAbilitiesPacket, Packet\ClientboundPacketId};
 /** A server-to-client connection. */
-class ClientConnection extends Connection implements CommandSender
+class ClientConnection extends Connection implements ServerCommandSender
 {
 	/**
 	 * The hostname the client had connected to.
@@ -575,10 +575,7 @@ class ClientConnection extends Connection implements CommandSender
 		return $this;
 	}
 
-	/**
-	 * @return Server|null
-	 */
-	function getServer()
+	function getServer(): Server
 	{
 		return $this->config->server;
 	}
@@ -665,11 +662,6 @@ class ClientConnection extends Connection implements CommandSender
 	function getName(): string
 	{
 		return $this->username;
-	}
-
-	function hasServer(): bool
-	{
-		return $this->config->server !== null;
 	}
 
 	function hasPosition(): bool

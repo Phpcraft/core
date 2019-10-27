@@ -96,6 +96,7 @@ function reloadConfiguration()
 		$config["groups"] = [
 			"default" => [
 				"allow" => [
+					"use /me",
 					"use /gamemode",
 					"use /metadata",
 					"change the world"

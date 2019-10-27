@@ -12,8 +12,9 @@ abstract class PacketId extends Identifier
 		self::$all_cache = ClientboundPacketId::all() + ServerboundPacketId::all();
 	}
 
-	protected static function populateAllCache_(string $key, array $name_map, callable $func)
+	protected static function populateAllCache_(string $key)
 	{
+		$name_map = static::nameMap();
 		static::$all_cache = [];
 		foreach(array_reverse(self::versions(), true) as $pv => $v)
 		{
@@ -29,11 +30,13 @@ abstract class PacketId extends Identifier
 				}
 				if(!isset(static::$all_cache[$name]))
 				{
-					static::$all_cache[$name] = $func($name, $pv);
+					static::$all_cache[$name] = new static($name, $pv);
 				}
 			}
 		}
 	}
+
+	abstract static protected function nameMap(): array;
 
 	private static function versions(): array
 	{
@@ -69,8 +72,9 @@ abstract class PacketId extends Identifier
 	 */
 	abstract function getClass();
 
-	protected function _getId(int $protocol_version, string $key, array $name_map)
+	protected function _getId(int $protocol_version, string $key)
 	{
+		$name_map = static::nameMap();
 		foreach(self::versions() as $pv => $v)
 		{
 			if($protocol_version >= $pv)
@@ -81,11 +85,12 @@ abstract class PacketId extends Identifier
 				}
 				foreach(self::$mappings[$key.$v] as $id => $name)
 				{
-					if((isset($name_map[$name]) ? $name_map[$name] : $name) == $this->name)
+					if(($name_map[$name] ?? $name) == $this->name)
 					{
 						return hexdec(substr($id, 2));
 					}
 				}
+				break;
 			}
 		}
 		return null;

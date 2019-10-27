@@ -3,7 +3,7 @@ namespace Phpcraft\Command;
 use DomainException;
 use Exception;
 use Phpcraft\
-{ClientConnection, Plugin, PluginManager, Server};
+{ClientConnection, Plugin, PluginManager, Server, ServerConnection};
 use ReflectionClass;
 use ReflectionException;
 use ReflectionFunction;
@@ -58,11 +58,13 @@ class Command
 					$type_name = $type->isBuiltin() ? "" : ($type instanceof ReflectionNamedType ? $type->getName() : $type->__toString());
 					if(!in_array($type_name, [
 						CommandSender::class,
+						ServerCommandSender::class,
 						ClientConnection::class,
+						ServerConnection::class,
 						Server::class
 					]))
 					{
-						throw new DomainException(PluginManager::$command_prefix.$this->getCanonicalName()."'s first parameter's type should be CommandSender, ClientConnection, Server, or not restricted");
+						throw new DomainException(PluginManager::$command_prefix.$this->getCanonicalName()."'s first parameter's type should be CommandSender, ServerCommandSender, ClientConnection, ServerConnection, Server, or not restricted");
 					}
 					if($type_name != CommandSender::class)
 					{
@@ -147,7 +149,7 @@ class Command
 				if(substr($msg, 1, 4) == "help" || Command::get("help") === null)
 				{
 					$sender->sendMessage([
-						"text" => "Unknown command. I would suggest using ".PluginManager::$command_prefix."help, but that's also not a known command on this shitty server.",
+						"text" => "Unknown command. I would suggest using ".PluginManager::$command_prefix."help, but that's also not a known command.",
 						"color" => "red"
 					]);
 				}
@@ -210,10 +212,20 @@ class Command
 	{
 		if($this->required_sender_class !== null && get_class($sender) !== $this->required_sender_class)
 		{
-			$sender->sendMessage([
-				"text" => "This command is only for ".($this->required_sender_class == Server::class ? "the server" : "players").".",
-				"color" => "red"
-			]);
+			if($this->required_sender_class == ServerCommandSender::class && !is_subclass_of(get_class($sender), ServerCommandSender::class))
+			{
+				$sender->sendMessage([
+					"text" => "This command only for works on servers.",
+					"color" => "red"
+				]);
+			}
+			else
+			{
+				$sender->sendMessage([
+					"text" => "This command is only for ".($this->required_sender_class == Server::class ? "the server" : "players").".",
+					"color" => "red"
+				]);
+			}
 			return;
 		}
 		if($this->required_permission !== null && !$sender->hasPermission($this->required_permission))

@@ -3,12 +3,28 @@ namespace Phpcraft;
 use DomainException;
 use hellsh\UUID;
 use Phpcraft\
-{Exception\IOException, Packet\ServerboundPacketId};
+{Command\CommandSender, Exception\IOException, Packet\ServerboundPacketId};
 /** A client-to-server connection. */
-class ServerConnection extends Connection
+class ServerConnection extends Connection implements CommandSender
 {
+	/**
+	 * The username assigned to us by the server after login. Null before that.
+	 *
+	 * @var string|null $username
+	 */
 	public $username;
+	/**
+	 * The UUID assigned to us by the server after login. Null before that.
+	 *
+	 * @var UUID|null $uuid
+	 */
 	public $uuid;
+	/**
+	 * Our position on the server.
+	 *
+	 * @var Point3D $pos
+	 */
+	public $pos;
 
 	/**
 	 * @param resource $stream A stream created by fsockopen.
@@ -154,5 +170,44 @@ class ServerConnection extends Connection
 			$packet = $packetId->getId($this->protocol_version);
 		}
 		return parent::startPacket($packet);
+	}
+
+	function getName(): string
+	{
+		return $this->username ?? "Client";
+	}
+
+	/**
+	 * Prints a message to the console.
+	 * Available in accordance with the CommandSender interface.
+	 * If you want to print to console specifically, just use PHP's `echo`.
+	 *
+	 * @param array|string $message
+	 * @return ServerConnection $this
+	 */
+	function sendMessage($message): ServerConnection
+	{
+		echo Phpcraft::chatToText($message, Phpcraft::FORMAT_ANSI)."\n\e[m";
+		return $this;
+	}
+
+	function sendAdminBroadcast($message, string $permission = "everything")
+	{
+		echo Phpcraft::chatToText($message, Phpcraft::FORMAT_ANSI)."\n\e[m";
+	}
+
+	function hasPermission(string $permission): bool
+	{
+		return true;
+	}
+
+	function hasPosition(): bool
+	{
+		return true;
+	}
+
+	function getPosition(): Point3D
+	{
+		return $this->pos;
 	}
 }
