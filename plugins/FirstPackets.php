@@ -135,18 +135,32 @@ $this->on(function(ServerJoinEvent $event)
 				 $data = new Connection();
 				 //for($i = 0; $i < 1; $i++)
 				 {
-					 if($con->protocol_version >= 472)
+					 if($con->protocol_version > 47)
 					 {
-						 $data->writeShort(4096); // Block count
+						 if($con->protocol_version >= 472)
+						 {
+							 $data->writeShort(4096); // Block count
+						 }
+						 $data->writeByte(8); // Bits per Block
+						 $data->writeVarInt(2); // Palette Size
+						 $data->writeVarInt(BlockState::get("grass_block")
+													  ->getId($con->protocol_version));
+						 $data->writeVarInt(BlockState::get("stone")
+													  ->getId($con->protocol_version));
+						 $data->writeVarInt(512); // (4096 / (64 / Bits per Block))
+						 $data->write_buffer .= str_repeat($con->chunk_preference, 2048); // Blocks
 					 }
-					 $data->writeByte(8); // Bits per Block
-					 $data->writeVarInt(2); // Palette Size
-					 $data->writeVarInt(BlockState::get("grass_block")
-												  ->getId($con->protocol_version));
-					 $data->writeVarInt(BlockState::get("stone")
-												  ->getId($con->protocol_version));
-					 $data->writeVarInt(512); // (4096 / (64 / Bits per Block))
-					 $data->write_buffer .= str_repeat($con->chunk_preference, 2048); // Blocks
+					 else
+					 {
+						 $legacy_ids = "";
+						 for($i = 0; $i < 2; $i++)
+						 {
+							 $legacy_ids .= substr($con->chunk_preference, $i, 1) == "\x00" ? "\x20\x00" : "\x10\x00"; // For some reason the byte order is reversed
+						 }
+						 $data->write_buffer .= str_repeat($legacy_ids, 2048);
+						 $data->writeVarInt(16); // Bits of data per block: 4 for block light, 8 for block + sky light, 16 for both + biome.
+						 $data->writeVarInt(8192); // Number of elements in block + sky light arrays
+					 }
 					 if($con->protocol_version < 472)
 					 {
 						 $data->write_buffer .= str_repeat("\x00", 2048); // Block Light
