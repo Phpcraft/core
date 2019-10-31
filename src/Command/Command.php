@@ -210,9 +210,9 @@ class Command
 	 */
 	function call(CommandSender &$sender, array $args)
 	{
-		if($this->required_sender_class !== null && get_class($sender) !== $this->required_sender_class)
+		if($this->required_sender_class !== null && ((get_class($sender) != $this->required_sender_class && $this->required_sender_class != ServerCommandSender::class) || ($this->required_sender_class == ServerCommandSender::class && !is_subclass_of(get_class($sender), ServerCommandSender::class))))
 		{
-			if($this->required_sender_class == ServerCommandSender::class && !is_subclass_of(get_class($sender), ServerCommandSender::class))
+			if($this->required_sender_class == ServerCommandSender::class)
 			{
 				$sender->sendMessage([
 					"text" => "This command only for works on servers.",
@@ -287,7 +287,7 @@ class Command
 	 */
 	function isUsableBy(CommandSender &$sender): bool
 	{
-		return ($this->required_sender_class === null || get_class($sender) === $this->required_sender_class) && ($this->required_permission === null || $sender->hasPermission($this->required_permission));
+		return ($this->required_sender_class === null || get_class($sender) === $this->required_sender_class || is_subclass_of(get_class($sender), $this->required_sender_class)) && ($this->required_permission === null || $sender->hasPermission($this->required_permission));
 	}
 
 	function getSyntax()

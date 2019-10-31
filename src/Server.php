@@ -431,7 +431,7 @@ class Server implements ServerCommandSender
 	}
 
 	/**
-	 * Sends a message to all players (clients in playing state).
+	 * Sends a message to all players (clients in playing state) and prints it to the console.
 	 *
 	 * @param array|string $message
 	 * @param int $position
@@ -443,6 +443,7 @@ class Server implements ServerCommandSender
 		{
 			$message = Phpcraft::textToChat($message);
 		}
+		echo Phpcraft::chatToText($message, Phpcraft::FORMAT_ANSI)."\n";
 		foreach(self::getPlayers() as $con)
 		{
 			try

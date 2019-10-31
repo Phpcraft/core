@@ -187,9 +187,9 @@ function reloadConfiguration()
 			}
 		}
 	}
-	if(!$server->isListening())
+	if(!$server->isListening() && $server->isOpen())
 	{
-		$server->adminBroadcast("The server is not listening on any ports. It will shutdown ".($server->isOpen() ? "at the next opportunity." : "once empty."));
+		$server->adminBroadcast("The server is not listening on any ports. It will shutdown once empty.");
 	}
 }
 
@@ -551,7 +551,6 @@ do
 	$server->handle();
 	while($msg = $ui->render(true))
 	{
-		$ui->add($msg);
 		if(Command::handleMessage($server, $msg) || PluginManager::fire(new ServerConsoleEvent($server, $msg)))
 		{
 			continue;
@@ -567,7 +566,6 @@ do
 				]
 			]
 		];
-		$ui->add(Phpcraft::chatToText($msg, 1));
 		$server->broadcast($msg);
 	}
 	if($next_tick < microtime(true))
@@ -581,3 +579,5 @@ do
 	}
 }
 while($server->isOpen());
+$ui->add("Server is not listening on any ports and has no clients, so it's shutting down.");
+$ui->render();

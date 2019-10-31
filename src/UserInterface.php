@@ -64,9 +64,9 @@ class UserInterface extends PlainUserInterface
 			{
 				if($line = trim($line))
 				{
-					if(substr($line, 0, 2) == "\e[")
+					if(substr($line, 0, 3) == "\e[m")
 					{
-						$line = substr($line, 2);
+						$line = substr($line, 3);
 					}
 					$this->add($line);
 				}
@@ -320,7 +320,9 @@ class UserInterface extends PlainUserInterface
 		{
 			echo "\e[".strlen($this->input_prefix)."C";
 			$this->ob_start();
-			return pai::getLine();
+			$line = pai::getLine();
+			$this->add($line);
+			return $line;
 		}
 		if(!$accept_input || $this->next_render < microtime(true))
 		{
