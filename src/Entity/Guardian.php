@@ -3,7 +3,7 @@ namespace Phpcraft\Entity;
 use GMP;
 use Phpcraft\Connection;
 use Phpcraft\Exception\IOException;
-class Guardian extends Creature
+class Guardian extends Monster
 {
 	/**
 	 * @var bool|null $is_retracting_spikes
