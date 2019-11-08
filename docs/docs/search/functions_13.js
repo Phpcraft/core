@@ -26,5 +26,5 @@ var searchData=
   ['startpacket',['startPacket',['../classPhpcraft_1_1ClientConnection.html#af43f7e5b67ffd1c48d283c33afc22a49',1,'Phpcraft\ClientConnection\startPacket()'],['../classPhpcraft_1_1Connection.html#ae75b93f971919d518998913181dec6da',1,'Phpcraft\Connection\startPacket()'],['../classPhpcraft_1_1ServerConnection.html#a446ce0b8432847cd35942905b4dbdc83',1,'Phpcraft\ServerConnection\startPacket()']]],
   ['stringfromsnbt',['stringFromSNBT',['../classPhpcraft_1_1Nbt_1_1NbtTag.html#a850d31f9c178799059cbd8ba388c7231',1,'Phpcraft::Nbt::NbtTag']]],
   ['stringtosnbt',['stringToSNBT',['../classPhpcraft_1_1Nbt_1_1NbtTag.html#a30395be113f593156d7fdad87881970f',1,'Phpcraft::Nbt::NbtTag']]],
-  ['subtract',['subtract',['../classPhpcraft_1_1Point3D.html#aca5be928f7e72272408734e4771dfdd3',1,'Phpcraft::Point3D']]]
+  ['subtract',['subtract',['../classPhpcraft_1_1Point3D.html#a7ee6e6f7fb564e29773ab82e888159bd',1,'Phpcraft::Point3D']]]
 ];
