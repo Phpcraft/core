@@ -53,9 +53,23 @@ class Point3D
 		return new Point3D(-cos($y) * sin($x), -sin($y), cos($y) * cos($x));
 	}
 
-	function add(Point3D $b): Point3D
+	/**
+	 * @param Point3D|float $other_point3d_or_x
+	 * @param float $y
+	 * @param float $z
+	 * @return Point3D
+	 */
+	function add($other_point3d_or_x, float $y = null, float $z = null): Point3D
 	{
-		return new Point3D($this->x + $b->x, $this->y + $b->y, $this->z + $b->z);
+		if($other_point3d_or_x instanceof Point3D)
+		{
+			return new Point3D($this->x + $other_point3d_or_x->x, $this->y + $other_point3d_or_x->y, $this->z + $other_point3d_or_x->z);
+		}
+		if($z !== null && $y !== null)
+		{
+			return new Point3D($this->x + $other_point3d_or_x, $this->y + $y, $this->z + $z);
+		}
+		throw new InvalidArgumentException("add expects (Point3D) or (float, float, float)");
 	}
 
 	/**
@@ -75,9 +89,23 @@ class Point3D
 		];
 	}
 
-	function subtract(Point3D $b): Point3D
+	/**
+	 * @param Point3D|float $other_point3d_or_x
+	 * @param float $y
+	 * @param float $z
+	 * @return Point3D
+	 */
+	function subtract($other_point3d_or_x, float $y = null, float $z = null): Point3D
 	{
-		return new Point3D($this->x - $b->x, $this->y - $b->y, $this->z - $b->z);
+		if($other_point3d_or_x instanceof Point3D)
+		{
+			return new Point3D($this->x - $other_point3d_or_x->x, $this->y - $other_point3d_or_x->y, $this->z - $other_point3d_or_x->z);
+		}
+		if($z !== null && $y !== null)
+		{
+			return new Point3D($this->x - $other_point3d_or_x, $this->y - $y, $this->z - $z);
+		}
+		throw new InvalidArgumentException("add expects (Point3D) or (float, float, float)");
 	}
 
 	function floor(): Point3D

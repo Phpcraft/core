@@ -507,7 +507,7 @@ class ClientConnection extends Connection implements ServerCommandSender
 
 	function getEyePosition(): Point3D
 	{
-		return $this->pos->add(new Point3D(0, $this->entityMetadata->crouching ? 1.28 : 1.62, 0));
+		return $this->pos->add(0, $this->entityMetadata->crouching ? 1.28 : 1.62, 0);
 	}
 
 	/**
