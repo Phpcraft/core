@@ -1,14 +1,16 @@
 <?php
-namespace Phpcraft;
+namespace Phpcraft\Entity;
 use DomainException;
+use GMP;
 use LogicException;
-use Phpcraft\Exception\IOException;
+use Phpcraft\
+{Connection, Exception\IOException, Phpcraft};
 use UnexpectedValueException;
 /**
  * Entity metadata.
  * All values are "null" by default, meaning EntityMetadata::write won't write it.
  */
-abstract class EntityMetadata
+abstract class Metadata
 {
 	private static $fields = [];
 
@@ -53,18 +55,18 @@ abstract class EntityMetadata
 	/**
 	 * @param Connection $con
 	 * @param int $index
-	 * @param array|string $value
+	 * @param array|string|null $value
 	 * @throws LogicException
 	 */
 	static function writeOptChat(Connection $con, int $index, $value)
 	{
 		if($con->protocol_version < 57)
 		{
-			throw new LogicException("OptChat is not available at this protocol version.");
+			throw new LogicException("OptChat is not available at this protocol version");
 		}
 		$con->writeByte($index);
 		$con->writeByte(5);
-		if($value)
+		if($value !== null)
 		{
 			$con->writeBoolean(true);
 			$con->writeChat($value);
@@ -85,6 +87,26 @@ abstract class EntityMetadata
 		$con->writeBoolean($value);
 	}
 
+	/**
+	 * @param Connection $con
+	 * @param int $index
+	 * @param GMP|string|int $value
+	 */
+	static function writeInt(Connection $con, int $index, $value)
+	{
+		if($con->protocol_version >= 57)
+		{
+			$con->writeByte($index);
+			$con->writeByte(1);
+			$con->writeVarInt($value);
+		}
+		else
+		{
+			$con->writeByte(2 << 5 | $index & 0x1F);
+			$con->writeInt($value);
+		}
+	}
+
 	static function finish(Connection $con)
 	{
 		if($con->protocol_version >= 57)
@@ -101,7 +123,7 @@ abstract class EntityMetadata
 	 * Reads metadata values from the Connection.
 	 *
 	 * @param Connection $con
-	 * @return EntityMetadata $this
+	 * @return Metadata $this
 	 * @throws IOException
 	 */
 	function read(Connection $con)
@@ -250,7 +272,7 @@ abstract class EntityMetadata
 	}
 
 	/**
-	 * Writes this non-null metadata values to the Connection's write buffer.
+	 * Writes non-null metadata values to the Connection's write buffer.
 	 *
 	 * @param Connection $con
 	 */

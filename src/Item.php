@@ -1,6 +1,6 @@
 <?php
 namespace Phpcraft;
-use Phpcraft\Nbt\NbtTag;
+use Phpcraft\NBT\NBT;
 class Item extends Identifier
 {
 	protected static $all_cache;
@@ -130,10 +130,10 @@ class Item extends Identifier
 	 * Creates a slot containing this item.
 	 *
 	 * @param int $count How many times this item is in the slot.
-	 * @param NbtTag|null $nbt The NBT data of this item in the slot.
+	 * @param NBT|null $nbt The NBT data of this item in the slot.
 	 * @return Slot
 	 */
-	function slot(int $count = 1, NbtTag $nbt = null): Slot
+	function slot(int $count = 1, NBT $nbt = null): Slot
 	{
 		return new Slot($this, $count, $nbt);
 	}

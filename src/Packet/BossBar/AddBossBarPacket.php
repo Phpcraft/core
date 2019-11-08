@@ -1,7 +1,7 @@
 <?php
 namespace Phpcraft\Packet\BossBar;
 use Phpcraft\
-{ClientConnection, Connection, EntityLiving, EntityType, Exception\IOException, Packet\SpawnMobPacket, Phpcraft, Point3D};
+{ClientConnection, Connection, Entity\EntityType, Entity\Living, Exception\IOException, Packet\SpawnMobPacket, Phpcraft, Point3D};
 class AddBossBarPacket extends BossBarPacket
 {
 	/**
@@ -96,7 +96,7 @@ class AddBossBarPacket extends BossBarPacket
 		else
 		{
 			$packet = new SpawnMobPacket(abs($this->uuid->hashCode()) * -1, EntityType::get("ender_dragon"), $this->uuid);
-			assert($packet->metadata instanceof EntityLiving);
+			assert($packet->metadata instanceof Living);
 			if($con instanceof ClientConnection)
 			{
 				$packet->pos = new Point3D($con->pos->x, -10, $con->pos->z);

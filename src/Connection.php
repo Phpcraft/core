@@ -7,8 +7,8 @@ use InvalidArgumentException;
 use LengthException;
 use Phpcraft\Exception\
 {IOException, MissingMetadataException};
-use Phpcraft\Nbt\
-{NbtByte, NbtByteArray, NbtCompound, NbtDouble, NbtEnd, NbtFloat, NbtInt, NbtIntArray, NbtList, NbtLong, NbtLongArray, NbtShort, NbtString, NbtTag};
+use Phpcraft\NBT\
+{NBT, NbtByte, NbtByteArray, NbtCompound, NbtDouble, NbtEnd, NbtFloat, NbtInt, NbtIntArray, NbtList, NbtLong, NbtLongArray, NbtShort, NbtString};
 /**
  * A wrapper to read and write from streams.
  * The Connection object can also be utilized without a stream:
@@ -1043,13 +1043,13 @@ class Connection
 	}
 
 	/**
-	 * Reads an NbtTag.
+	 * Reads NBT data.
 	 *
 	 * @param int $type Ignore this parameter.
-	 * @return NbtTag
+	 * @return NBT
 	 * @throws IOException
 	 */
-	function readNBT(int $type = 0): NbtTag
+	function readNBT(int $type = 0): NBT
 	{
 		$inList = $type > 0;
 		if(!$inList)

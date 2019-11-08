@@ -1,5 +1,5 @@
 <?php
-namespace Phpcraft\Nbt;
+namespace Phpcraft\NBT;
 use Phpcraft\Connection;
 class NbtByteArray extends NbtListTag
 {
@@ -36,7 +36,7 @@ class NbtByteArray extends NbtListTag
 		return $con;
 	}
 
-	function copy(): NbtTag
+	function copy(): NBT
 	{
 		return new NbtByteArray($this->name, $this->children);
 	}

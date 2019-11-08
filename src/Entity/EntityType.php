@@ -1,5 +1,7 @@
 <?php
-namespace Phpcraft;
+namespace Phpcraft\Entity;
+use Phpcraft\
+{Identifier, Phpcraft};
 class EntityType extends Identifier
 {
 	protected static $all_cache;
@@ -28,7 +30,7 @@ class EntityType extends Identifier
 			"dolphin" => new EntityType("dolphin"),
 			"dragon_fireball" => new EntityType("dragon_fireball"),
 			"drowned" => new EntityType("drowned"),
-			"elder_guardian" => new EntityType("elder_guardian"),
+			"elder_guardian" => new EntityType("elder_guardian", 301),
 			"end_crystal" => new EntityType("end_crystal"),
 			"ender_dragon" => new EntityType("ender_dragon"),
 			"enderman" => new EntityType("enderman"),
@@ -41,7 +43,7 @@ class EntityType extends Identifier
 			"firework_rocket" => new EntityType("firework_rocket"),
 			"ghast" => new EntityType("ghast"),
 			"giant" => new EntityType("giant"),
-			"guardian" => new EntityType("guardian"),
+			"guardian" => new EntityType("guardian", 0),
 			"horse" => new EntityType("horse"),
 			"husk" => new EntityType("husk"),
 			"illusioner" => new EntityType("illusioner"),
@@ -150,10 +152,17 @@ class EntityType extends Identifier
 	/**
 	 * Returns the appropriate EntityMetadata class for this entity type.
 	 *
-	 * @return EntityMetadata
+	 * @return Metadata
 	 */
-	function getMetadata(): EntityMetadata
+	function getMetadata(): Metadata
 	{
-		return new EntityLiving();
+		switch($this->name)
+		{
+			case "guardian":
+				return new Guardian();
+			case "elder_guardian":
+				return new ElderGuardian();
+		}
+		return new Living();
 	}
 }

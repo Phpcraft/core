@@ -3,7 +3,7 @@ namespace Phpcraft\Packet;
 use GMP;
 use hellsh\UUID;
 use Phpcraft\
-{Connection, EntityBase, EntityMetadata, EntityType, Exception\IOException, Point3D};
+{Connection, Entity\Base, Entity\EntityType, Entity\Metadata, Exception\IOException, Point3D};
 class SpawnMobPacket extends Packet
 {
 	/**
@@ -45,7 +45,7 @@ class SpawnMobPacket extends Packet
 	/**
 	 * The entity metadata of the mob.
 	 *
-	 * @var EntityMetadata $metadata
+	 * @var Metadata $metadata
 	 */
 	public $metadata;
 
@@ -64,7 +64,7 @@ class SpawnMobPacket extends Packet
 		}
 		else
 		{
-			$this->metadata = new EntityBase();
+			$this->metadata = new Base();
 		}
 		$this->uuid = $uuid ?? Uuid::v4();
 	}

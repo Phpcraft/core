@@ -1,5 +1,5 @@
 <?php
-namespace Phpcraft\Nbt;
+namespace Phpcraft\NBT;
 use Phpcraft\Connection;
 class NbtList extends NbtListTag
 {
@@ -8,14 +8,14 @@ class NbtList extends NbtListTag
 	 * The NBT tag type ID of children.
 	 *
 	 * @var int $childType
-	 * @see NbtTag::ORD
+	 * @see NBT::ORD
 	 */
 	public $childType;
 
 	/**
 	 * @param string $name The name of this tag.
 	 * @param int $childType The NBT Tag Type of children.
-	 * @param array<NbtTag> $children The child tags of the list.
+	 * @param array<NBT> $children The child tags of the list.
 	 */
 	function __construct(string $name, int $childType, array $children = [])
 	{
@@ -46,7 +46,7 @@ class NbtList extends NbtListTag
 		return $con;
 	}
 
-	function copy(): NbtTag
+	function copy(): NBT
 	{
 		return new NbtList($this->name, $this->childType, $this->children);
 	}

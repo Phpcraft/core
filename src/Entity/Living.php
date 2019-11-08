@@ -1,7 +1,8 @@
 <?php
-namespace Phpcraft;
-use Phpcraft\Exception\IOException;
-class EntityLiving extends EntityBase
+namespace Phpcraft\Entity;
+use Phpcraft\
+{Connection, Exception\IOException};
+class Living extends Base
 {
 	/**
 	 * @var float $health
@@ -9,7 +10,7 @@ class EntityLiving extends EntityBase
 	public $health = null;
 
 	/**
-	 * Writes this non-null metadata values to the Connection's write buffer.
+	 * Writes non-null metadata values to the Connection's write buffer.
 	 *
 	 * @param Connection $con
 	 */
@@ -46,20 +47,9 @@ class EntityLiving extends EntityBase
 	{
 		switch($index)
 		{
-			case 6:
-				if($con->protocol_version < 57)
-				{
-					$this->health = $con->readFloat();
-					return true;
-				}
-				break;
-			case 7:
-				if($con->protocol_version >= 57)
-				{
-					$this->health = $con->readFloat();
-					return true;
-				}
-				break;
+			case ($con->protocol_version >= 57 ? 7 : 6):
+				$this->health = $con->readFloat();
+				return true;
 		}
 		return parent::read_($con, $index);
 	}

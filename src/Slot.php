@@ -1,7 +1,7 @@
 <?php
 namespace Phpcraft;
-use Phpcraft\Nbt\
-{NbtCompound, NbtEnd, NbtString, NbtTag};
+use Phpcraft\NBT\
+{NBT, NbtCompound, NbtEnd, NbtString};
 class Slot
 {
 	const HEAD = 5;
@@ -33,7 +33,7 @@ class Slot
 	/**
 	 * The NBT data of the item in this slot.
 	 *
-	 * @var NbtTag $nbt
+	 * @var NBT $nbt
 	 */
 	public $nbt;
 
@@ -42,9 +42,9 @@ class Slot
 	 *
 	 * @param Item|null $item The item in this slot.
 	 * @param int $count How many times the item is in this slot.
-	 * @param NbtTag|null $nbt The NBT data of the item in this slot.
+	 * @param NBT|null $nbt The NBT data of the item in this slot.
 	 */
-	function __construct(Item $item = null, int $count = 1, NbtTag $nbt = null)
+	function __construct(Item $item = null, int $count = 1, NBT $nbt = null)
 	{
 		$this->item = $item;
 		$this->count = $count;
@@ -81,7 +81,7 @@ class Slot
 	 */
 	function setSNBT(string $snbt): Slot
 	{
-		$this->nbt = NbtTag::fromSNBT($snbt);
+		$this->nbt = NBT::fromSNBT($snbt);
 		return $this;
 	}
 

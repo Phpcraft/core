@@ -1,14 +1,14 @@
 <?php
-namespace Phpcraft\Nbt;
+namespace Phpcraft\NBT;
 use DomainException;
 use Phpcraft\Connection;
 use Phpcraft\Exception\IOException;
 /**
- * The base class for NBT tags.
+ * The base class for NBT (named binary tag).
  *
  * @see Connection::readNBT
  */
-abstract class NbtTag
+abstract class NBT
 {
 	const ORD = null;
 	/**
@@ -19,13 +19,13 @@ abstract class NbtTag
 	public $name;
 
 	/**
-	 * Reads an NbtTag from a binary string.
+	 * Reads NBT data from a binary string.
 	 *
 	 * @param string $nbt
-	 * @return NbtTag
+	 * @return NBT
 	 * @throws IOException
 	 */
-	static function fromString(string $nbt): NbtTag
+	static function fromString(string $nbt): NBT
 	{
 		$con = new Connection();
 		$con->read_buffer = $nbt;
@@ -33,13 +33,13 @@ abstract class NbtTag
 	}
 
 	/**
-	 * Reads an NbtTag from an SNBT string.
+	 * Reads NBT data from an SNBT string.
 	 *
 	 * @param string $snbt
 	 * @param bool $inList Ignore this parameter.
-	 * @return NbtTag
+	 * @return NBT
 	 */
-	static function fromSNBT(string $snbt, bool $inList = false): NbtTag
+	static function fromSNBT(string $snbt, bool $inList = false): NBT
 	{
 		//$name_chars = array_merge(range("a", "z"), range("A", "Z"), range("0", "9"), ["-", "_"]);
 		$string_type = 0;
@@ -186,7 +186,7 @@ abstract class NbtTag
 			else
 			{
 				$children = self::parseSNBTArray(substr($value, 1, -1), true);
-				$type = NbtTag::ORD;
+				$type = NBT::ORD;
 				$c = count($children);
 				if($c > 0)
 				{
@@ -390,7 +390,7 @@ abstract class NbtTag
 	 */
 	abstract function write(Connection $con, bool $inList = false): Connection;
 
-	abstract function copy(): NbtTag;
+	abstract function copy(): NBT;
 
 	abstract function __toString();
 

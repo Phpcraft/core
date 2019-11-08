@@ -4,7 +4,7 @@ use DomainException;
 use GMP;
 use hellsh\UUID;
 use Phpcraft\
-{Command\ServerCommandSender, Enum\ChatPosition, Enum\Gamemode, Exception\IOException, Packet\ClientboundAbilitiesPacket, Packet\ClientboundPacketId};
+{Command\ServerCommandSender, Entity\Living, Enum\ChatPosition, Enum\Gamemode, Exception\IOException, Packet\ClientboundAbilitiesPacket, Packet\ClientboundPacketId};
 /** A server-to-client connection. */
 class ClientConnection extends Connection implements ServerCommandSender
 {
@@ -119,7 +119,7 @@ class ClientConnection extends Connection implements ServerCommandSender
 	 */
 	public $gamemode = Gamemode::SURVIVAL;
 	/**
-	 * @var EntityLiving|null $entityMetadata
+	 * @var Living|null $entityMetadata
 	 * @todo Create sendMetadata method
 	 */
 	public $entityMetadata;
@@ -424,7 +424,7 @@ class ClientConnection extends Connection implements ServerCommandSender
 			$this->writeString($this->username);
 			$this->send();
 			$this->eid = $eidCounter->next();
-			$this->entityMetadata = new EntityLiving();
+			$this->entityMetadata = new Living();
 			$this->state = 3;
 			if($this->config && $this->config->server->persist_configs)
 			{

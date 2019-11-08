@@ -1,7 +1,7 @@
 <?php
 require "vendor/autoload.php";
 use Phpcraft\
-{Connection, Nbt\NbtTag};
+{Connection, NBT\NBT};
 use Phpcraft\Phpcraft;
 if(empty($argv[1]))
 {
@@ -26,7 +26,7 @@ else
 {
 	$in = join(" ", array_slice($argv, 1));
 }
-$tag = NbtTag::fromSNBT($in);
+$tag = NBT::fromSNBT($in);
 echo "::: Pretty SNBT\n";
 echo $tag->toSNBT(true)."\n";
 echo "::: String Dump\n";

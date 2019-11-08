@@ -1,7 +1,8 @@
 <?php
-namespace Phpcraft;
-use Phpcraft\Exception\IOException;
-class EntityBase extends EntityMetadata
+namespace Phpcraft\Entity;
+use Phpcraft\
+{Connection, Exception\IOException, Phpcraft};
+class Base extends Metadata
 {
 	/**
 	 * @var boolean $burning
@@ -43,7 +44,7 @@ class EntityBase extends EntityMetadata
 	public $silent = null;
 
 	/**
-	 * Writes this non-null metadata values to the Connection's write buffer.
+	 * Writes non-null metadata values to the Connection's write buffer.
 	 *
 	 * @param Connection $con
 	 */

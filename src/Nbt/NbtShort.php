@@ -1,7 +1,7 @@
 <?php
-namespace Phpcraft\Nbt;
+namespace Phpcraft\NBT;
 use Phpcraft\Connection;
-class NbtShort extends NbtTag
+class NbtShort extends NBT
 {
 	const ORD = 2;
 	/**
@@ -43,7 +43,7 @@ class NbtShort extends NbtTag
 		return "{Short \"".$this->name."\": ".$this->value."}";
 	}
 
-	function copy(): NbtTag
+	function copy(): NBT
 	{
 		return new NbtShort($this->name, $this->value);
 	}

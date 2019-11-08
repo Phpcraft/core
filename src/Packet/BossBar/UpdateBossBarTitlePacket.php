@@ -2,7 +2,7 @@
 namespace Phpcraft\Packet\BossBar;
 use hellsh\UUID;
 use Phpcraft\
-{Connection, EntityLiving, Exception\IOException, Phpcraft};
+{Connection, Entity\Living, Exception\IOException, Phpcraft};
 class UpdateBossBarTitlePacket extends BossBarPacket
 {
 	/**
@@ -41,7 +41,7 @@ class UpdateBossBarTitlePacket extends BossBarPacket
 		{
 			$con->startPacket("entity_metadata");
 			$con->writeVarInt(abs($this->uuid->hashCode()) * -1);
-			$metadata = new EntityLiving();
+			$metadata = new Living();
 			$metadata->custom_name = $this->title;
 			$metadata->write($con);
 		}

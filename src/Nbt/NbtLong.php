@@ -1,8 +1,8 @@
 <?php
-namespace Phpcraft\Nbt;
+namespace Phpcraft\NBT;
 use GMP;
 use Phpcraft\Connection;
-class NbtLong extends NbtTag
+class NbtLong extends NBT
 {
 	const ORD = 4;
 	/**
@@ -48,7 +48,7 @@ class NbtLong extends NbtTag
 		return "{Long \"".$this->name."\": ".gmp_strval($this->value)."}";
 	}
 
-	function copy(): NbtTag
+	function copy(): NBT
 	{
 		return new NbtLong($this->name, $this->value);
 	}

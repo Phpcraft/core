@@ -1,5 +1,5 @@
 <?php
-namespace Phpcraft\Nbt;
+namespace Phpcraft\NBT;
 use GMP;
 use Phpcraft\Connection;
 class NbtIntArray extends NbtListTag
@@ -37,7 +37,7 @@ class NbtIntArray extends NbtListTag
 		return $con;
 	}
 
-	function copy(): NbtTag
+	function copy(): NBT
 	{
 		return new NbtIntArray($this->name, $this->children);
 	}

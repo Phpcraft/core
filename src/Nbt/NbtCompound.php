@@ -1,11 +1,11 @@
 <?php
-namespace Phpcraft\Nbt;
+namespace Phpcraft\NBT;
 use ArrayAccess;
 use Countable;
 use Iterator;
 use Phpcraft\Connection;
 use SplObjectStorage;
-class NbtCompound extends NbtTag implements Iterator, Countable, ArrayAccess
+class NbtCompound extends NBT implements Iterator, Countable, ArrayAccess
 {
 	const ORD = 10;
 	/**
@@ -17,7 +17,7 @@ class NbtCompound extends NbtTag implements Iterator, Countable, ArrayAccess
 
 	/**
 	 * @param string $name The name of this tag.
-	 * @param array<NbtTag> $children The child tags of the compound.
+	 * @param array<NBT> $children The child tags of the compound.
 	 */
 	function __construct(string $name, array $children = [])
 	{
@@ -68,7 +68,7 @@ class NbtCompound extends NbtTag implements Iterator, Countable, ArrayAccess
 		return $con;
 	}
 
-	function copy(): NbtTag
+	function copy(): NBT
 	{
 		$tag = new NbtCompound($this->name);
 		$tag->children->addAll($this->children);
@@ -154,13 +154,13 @@ class NbtCompound extends NbtTag implements Iterator, Countable, ArrayAccess
 	 * Gets a child of the compound by its name or null if not found.
 	 *
 	 * @param string $name
-	 * @return NbtTag
+	 * @return NBT
 	 */
 	function getChild(string $name)
 	{
 		foreach($this->children as $child)
 		{
-			assert($child instanceof NbtTag);
+			assert($child instanceof NBT);
 			if($child->name == $name)
 			{
 				return $child;
@@ -171,7 +171,7 @@ class NbtCompound extends NbtTag implements Iterator, Countable, ArrayAccess
 
 	function offsetSet($offset, $value)
 	{
-		assert($value instanceof NbtTag);
+		assert($value instanceof NBT);
 		assert($offset === null || $offset === $value->name);
 		$this->addChild($value);
 	}
@@ -179,10 +179,10 @@ class NbtCompound extends NbtTag implements Iterator, Countable, ArrayAccess
 	/**
 	 * Adds a child to the compound or replaces an existing one by the same name.
 	 *
-	 * @param NbtTag $tag
+	 * @param NBT $tag
 	 * @return NbtCompound $this
 	 */
-	function addChild(NbtTag $tag)
+	function addChild(NBT $tag)
 	{
 		if($tag instanceof NbtEnd)
 		{

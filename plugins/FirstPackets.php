@@ -5,7 +5,7 @@
  * @var Plugin $this
  */
 use Phpcraft\
-{BlockState, ClientConnection, Connection, Enum\Gamemode, Event\Event, Event\ServerChunkBorderEvent, Event\ServerJoinEvent, Event\ServerTickEvent, Nbt\NbtCompound, Nbt\NbtLongArray, Packet\JoinGamePacket, Packet\PluginMessage\ClientboundBrandPluginMessagePacket, Plugin, PluginManager, Point3D};
+{BlockState, ClientConnection, Connection, Enum\Gamemode, Event\Event, Event\ServerChunkBorderEvent, Event\ServerJoinEvent, Event\ServerTickEvent, NBT\NbtCompound, NBT\NbtLongArray, Packet\JoinGamePacket, Packet\PluginMessage\ClientboundBrandPluginMessagePacket, Plugin, PluginManager, Point3D};
 if(PluginManager::$command_prefix != "/")
 {
 	$this->unregister();

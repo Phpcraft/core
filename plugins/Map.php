@@ -5,7 +5,7 @@
  * @var Plugin $this
  */
 use Phpcraft\
-{Event\Event, Event\ServerJoinEvent, Item, Nbt\NbtCompound, Nbt\NbtInt, Nbt\NbtString, Packet\MapData\MapDataPacket, Packet\SetSlotPacket, Phpcraft, Plugin, Slot};
+{Event\Event, Event\ServerJoinEvent, Item, NBT\NbtCompound, NBT\NbtInt, NBT\NbtString, Packet\MapData\MapDataPacket, Packet\SetSlotPacket, Phpcraft, Plugin, Slot};
 $WorldImitatorActive = false;
 if(!extension_loaded("gd"))
 {

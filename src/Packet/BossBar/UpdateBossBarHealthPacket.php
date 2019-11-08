@@ -2,7 +2,7 @@
 namespace Phpcraft\Packet\BossBar;
 use hellsh\UUID;
 use Phpcraft\
-{Connection, EntityLiving, Exception\IOException};
+{Connection, Entity\Living, Exception\IOException};
 class UpdateBossBarHealthPacket extends BossBarPacket
 {
 	/**
@@ -42,7 +42,7 @@ class UpdateBossBarHealthPacket extends BossBarPacket
 		{
 			$con->startPacket("entity_metadata");
 			$con->writeVarInt(abs($this->uuid->hashCode()) * -1);
-			$metadata = new EntityLiving();
+			$metadata = new Living();
 			$metadata->health = ($this->health * 200);
 			if($metadata->health < 3)
 			{

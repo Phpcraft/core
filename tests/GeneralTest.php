@@ -1,7 +1,7 @@
 <?php /** @noinspection PhpUnused PhpUnhandledExceptionInspection */
 require_once __DIR__."/../vendor/autoload.php";
 use Phpcraft\
-{BlockState, Connection, Counter, EntityBase, EntityLiving, Item, Phpcraft, Server, Versions};
+{BlockState, Connection, Counter, Entity\Base, Entity\Living, Item, Phpcraft, Server, Versions};
 class GeneralTest
 {
 	function testTextToChat()
@@ -119,7 +119,7 @@ class GeneralTest
 
 	function testEntityMetadata()
 	{
-		$metadata = new EntityBase();
+		$metadata = new Base();
 		$metadata->burning = true;
 		$metadata->elytraing = true;
 		$metadata->custom_name = [
@@ -130,8 +130,8 @@ class GeneralTest
 		$metadata->write($con);
 		Nose::assert(strpos($con->write_buffer, "§eTest") !== false);
 		$con->read_buffer = $con->write_buffer;
-		$read_metadata = (new EntityBase())->read($con);
-		assert($read_metadata instanceof EntityLiving);
+		$read_metadata = (new Base())->read($con);
+		assert($read_metadata instanceof Living);
 		Nose::assertEquals($con->read_buffer_offset, strlen($con->read_buffer));
 		Nose::assertTrue($read_metadata->burning);
 		Nose::assertFalse($read_metadata->crouching);

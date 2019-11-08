@@ -7,7 +7,7 @@
 use pac\
 {Chromium, Page};
 use Phpcraft\
-{ClientConnection, Command\CommandSender, Event\ServerJoinEvent, Event\ServerLeaveEvent, Event\ServerTickEvent, Item, Nbt\NbtCompound, Nbt\NbtInt, Nbt\NbtString, Packet\MapData\MapDataPacket, Packet\SetSlotPacket, Plugin, PluginManager, Slot};
+{ClientConnection, Command\CommandSender, Event\ServerJoinEvent, Event\ServerLeaveEvent, Event\ServerTickEvent, Item, NBT\NbtCompound, NBT\NbtInt, NBT\NbtString, Packet\MapData\MapDataPacket, Packet\SetSlotPacket, Plugin, PluginManager, Slot};
 if(PluginManager::$command_prefix != "/")
 {
 	$this->unregister();
