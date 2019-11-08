@@ -7,7 +7,7 @@ var searchData=
   ['account',['Account',['../classPhpcraft_1_1Account.html',1,'Phpcraft']]],
   ['add',['add',['../classPhpcraft_1_1PlainUserInterface.html#a084f718094191d03675d7bc1177bbca1',1,'Phpcraft\PlainUserInterface\add()'],['../classPhpcraft_1_1Point3D.html#a4b4f009573eb035a46344d8c13b9a500',1,'Phpcraft\Point3D\add()'],['../classPhpcraft_1_1UserInterface.html#a2fff23e3ac4cdd682844714fcbc077e7',1,'Phpcraft\UserInterface\add()']]],
   ['addbossbarpacket',['AddBossBarPacket',['../classPhpcraft_1_1Packet_1_1BossBar_1_1AddBossBarPacket.html',1,'Phpcraft::Packet::BossBar']]],
-  ['addchild',['addChild',['../classPhpcraft_1_1Nbt_1_1NbtCompound.html#ae74f3bf7fc1264b8895a72573eb1cda7',1,'Phpcraft::Nbt::NbtCompound']]],
+  ['addchild',['addChild',['../classPhpcraft_1_1NBT_1_1NbtCompound.html#a5f1542dc14681cad1a2d97f390ad327d',1,'Phpcraft::NBT::NbtCompound']]],
   ['addcommand',['addCommand',['../classPhpcraft_1_1Packet_1_1DeclareCommands_1_1DeclareCommandsPacket.html#acc8908ca67819122d07c7c78e9c5f212',1,'Phpcraft::Packet::DeclareCommands::DeclareCommandsPacket']]],
   ['adminbroadcast',['adminBroadcast',['../classPhpcraft_1_1Server.html#a2c240ff3561c60a3881e3b05afcca6f5',1,'Phpcraft::Server']]],
   ['adventure',['ADVENTURE',['../classPhpcraft_1_1Enum_1_1Gamemode.html#aaacf695c1f68037da0c1f7743ae3bca0',1,'Phpcraft::Enum::Gamemode']]],

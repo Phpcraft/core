@@ -19,5 +19,6 @@ var searchData=
   ['commandsender',['CommandSender',['../interfacePhpcraft_1_1Command_1_1CommandSender.html',1,'Phpcraft::Command']]],
   ['configuration',['Configuration',['../classPhpcraft_1_1Configuration.html',1,'Phpcraft']]],
   ['connection',['Connection',['../classPhpcraft_1_1Connection.html',1,'Phpcraft']]],
-  ['counter',['Counter',['../classPhpcraft_1_1Counter.html',1,'Phpcraft']]]
+  ['counter',['Counter',['../classPhpcraft_1_1Counter.html',1,'Phpcraft']]],
+  ['creature',['Creature',['../classPhpcraft_1_1Entity_1_1Creature.html',1,'Phpcraft::Entity']]]
 ];

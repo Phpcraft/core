@@ -90,7 +90,7 @@ Collaboration diagram for Phpcraft\Packet\SpawnMobPacket:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a6f19f16c6e78b4dc10dcab0930805581"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Packet_1_1SpawnMobPacket.html#a6f19f16c6e78b4dc10dcab0930805581">__construct</a> ($eid=0, <a class="el" href="classPhpcraft_1_1EntityType.html">EntityType</a> $type=null, UUID $uuid=null)</td></tr>
+<tr class="memitem:a6f19f16c6e78b4dc10dcab0930805581"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Packet_1_1SpawnMobPacket.html#a6f19f16c6e78b4dc10dcab0930805581">__construct</a> ($eid=0, <a class="el" href="classPhpcraft_1_1Entity_1_1EntityType.html">EntityType</a> $type=null, UUID $uuid=null)</td></tr>
 <tr class="separator:a6f19f16c6e78b4dc10dcab0930805581"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a439b9df7c933d75b28c0bb6d77b1f8e9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Packet_1_1SpawnMobPacket.html#a439b9df7c933d75b28c0bb6d77b1f8e9">send</a> (<a class="el" href="classPhpcraft_1_1Connection.html">Connection</a> $con)</td></tr>
 <tr class="separator:a439b9df7c933d75b28c0bb6d77b1f8e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -126,8 +126,8 @@ Public Attributes</h2></td></tr>
 <tr class="separator:a61f9432b15bf43329edb41aaf6a56417"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeb9849e368f5754d3743b716bfde6dd8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Packet_1_1SpawnMobPacket.html#aeb9849e368f5754d3743b716bfde6dd8">$pitch</a> = 0</td></tr>
 <tr class="separator:aeb9849e368f5754d3743b716bfde6dd8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a652b7abe513ecd55ae70f11d0eec445c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Packet_1_1SpawnMobPacket.html#a652b7abe513ecd55ae70f11d0eec445c">$metadata</a></td></tr>
-<tr class="separator:a652b7abe513ecd55ae70f11d0eec445c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4f3edec2e88de1df58051997bce9f89b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Packet_1_1SpawnMobPacket.html#a4f3edec2e88de1df58051997bce9f89b">$metadata</a></td></tr>
+<tr class="separator:a4f3edec2e88de1df58051997bce9f89b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a6f19f16c6e78b4dc10dcab0930805581"></a>
@@ -145,7 +145,7 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classPhpcraft_1_1EntityType.html">EntityType</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="classPhpcraft_1_1Entity_1_1EntityType.html">EntityType</a>&#160;</td>
           <td class="paramname"><em>$type</em> = <code>null</code>, </td>
         </tr>
         <tr>
@@ -164,7 +164,7 @@ Public Attributes</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramtype">GMP&#160;|&#160;int&#160;|&#160;string</td><td class="paramname">$eid</td><td>The entity ID of the mob. </td></tr>
-    <tr><td class="paramtype"><a class="el" href="classPhpcraft_1_1EntityType.html">EntityType</a>&#160;|&#160;null</td><td class="paramname">$type</td><td>The type of mob. </td></tr>
+    <tr><td class="paramtype">EntityType&#160;|&#160;null</td><td class="paramname">$type</td><td>The type of mob. </td></tr>
     <tr><td class="paramtype">UUID&#160;|&#160;null</td><td class="paramname">$uuid</td><td>The UUID of the entity. </td></tr>
   </table>
   </dd>
@@ -277,14 +277,14 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a652b7abe513ecd55ae70f11d0eec445c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a652b7abe513ecd55ae70f11d0eec445c">&#9670;&nbsp;</a></span>$metadata</h2>
+<a id="a4f3edec2e88de1df58051997bce9f89b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4f3edec2e88de1df58051997bce9f89b">&#9670;&nbsp;</a></span>$metadata</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classPhpcraft_1_1EntityMetadata.html">EntityMetadata</a> Phpcraft\Packet\SpawnMobPacket::$metadata</td>
+          <td class="memname"><a class="el" href="classPhpcraft_1_1Entity_1_1Metadata.html">Metadata</a> Phpcraft\Packet\SpawnMobPacket::$metadata</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -329,7 +329,7 @@ Public Attributes</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classPhpcraft_1_1EntityType.html">EntityType</a> Phpcraft\Packet\SpawnMobPacket::$type</td>
+          <td class="memname"><a class="el" href="classPhpcraft_1_1Entity_1_1EntityType.html">EntityType</a> Phpcraft\Packet\SpawnMobPacket::$type</td>
         </tr>
       </table>
 </div><div class="memdoc">
