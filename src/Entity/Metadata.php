@@ -82,7 +82,7 @@ abstract class Metadata
 		$con->writeByte($index);
 		if($con->protocol_version >= 57)
 		{
-			$con->writeByte(5);
+			$con->writeByte(7);
 		}
 		$con->writeBoolean($value);
 	}

@@ -395,7 +395,7 @@ abstract class NBT
 	abstract function __toString();
 
 	/**
-	 * Returns the NBT tag in SNBT (stringified NBT) format, as used in commands.
+	 * Returns the NBT data in SNBT (stringified NBT) format, as used in commands.
 	 *
 	 * @param bool $fancy
 	 * @param boolean $inList Ignore this parameter.

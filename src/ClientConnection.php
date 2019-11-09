@@ -511,6 +511,16 @@ class ClientConnection extends Connection implements ServerCommandSender
 	}
 
 	/**
+	 * Returns a unit vector goin in the direction the client is looking.
+	 *
+	 * @return Point3D
+	 */
+	function getUnitVector(): Point3D
+	{
+		return $this->pos->getUnitVector($this->yaw, $this->pitch);
+	}
+
+	/**
 	 * Sends a message to the client and "[{$this-&gt;username}: $message]" to the server console and players with the given permission.
 	 *
 	 * @param array|string $message
