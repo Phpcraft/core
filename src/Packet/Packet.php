@@ -15,23 +15,8 @@ abstract class Packet
 	abstract static function read(Connection $con);
 
 	/**
-	 * Returns a binary string containing the payload of the packet.
-	 *
-	 * @param int $protocol_version The protocol version you'd like to get the payload for.
-	 * @return string
-	 * @throws IOException
-	 */
-	function getPayload(int $protocol_version = -1): string
-	{
-		$con = new Connection($protocol_version);
-		$this->send($con);
-		$con->read_buffer = $con->write_buffer;
-		$con->readVarInt();
-		return $con->getRemainingData();
-	}
-
-	/**
-	 * Adds the packet's ID and payload to the Connection's write buffer and, if the connection has a stream, sends it over the wire.
+	 * Adds the packet's ID and payload to the Connection's write buffer and sends it over the wire if the connection has a stream.
+	 * Note that in some cases this will produce multiple Minecraft packets, therefore you should only use this on connections without a stream if you know what you're doing.
 	 *
 	 * @param Connection $con
 	 * @throws IOException

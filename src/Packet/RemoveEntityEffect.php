@@ -34,7 +34,8 @@ class RemoveEntityEffect extends EntityPacket
 	}
 
 	/**
-	 * Adds the packet's ID and payload to the Connection's write buffer and, if the connection has a stream, sends it over the wire.
+	 * Adds the packet's ID and payload to the Connection's write buffer and sends it over the wire if the connection has a stream.
+	 * Note that in some cases this will produce multiple Minecraft packets, therefore you should only use this on connections without a stream if you know what you're doing.
 	 *
 	 * @param Connection $con
 	 * @throws IOException
@@ -52,6 +53,6 @@ class RemoveEntityEffect extends EntityPacket
 
 	function __toString()
 	{
-		return "{RemoveEntityEffect: Entities ".join(", ", $this->eids)." Effect {$this->effect->name}}";
+		return "{RemoveEntityEffect: Entit".(count($this->eids) == 1 ? "y" : "ies")." ".join(", ", $this->eids)." Effect {$this->effect->name}}";
 	}
 }

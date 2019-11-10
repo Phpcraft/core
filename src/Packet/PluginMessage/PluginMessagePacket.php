@@ -61,7 +61,8 @@ abstract class PluginMessagePacket extends Packet
 	}
 
 	/**
-	 * Adds the packet's ID and payload to the Connection's write buffer and, if the connection has a stream, sends it over the wire.
+	 * Adds the packet's ID and payload to the Connection's write buffer and sends it over the wire if the connection has a stream.
+	 * Note that in some cases this will produce multiple Minecraft packets, therefore you should only use this on connections without a stream if you know what you're doing.
 	 *
 	 * @param Connection $con
 	 * @throws IOException

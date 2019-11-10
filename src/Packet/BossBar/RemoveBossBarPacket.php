@@ -1,11 +1,12 @@
 <?php
 namespace Phpcraft\Packet\BossBar;
 use Phpcraft\
-{Connection, Exception\IOException, Packet\DestroyEntitiesPacket};
+{Connection, Exception\IOException, Packet\DestroyEntityPacket};
 class RemoveBossBarPacket extends BossBarPacket
 {
 	/**
-	 * Adds the packet's ID and payload to the Connection's write buffer and, if the connection has a stream, sends it over the wire.
+	 * Adds the packet's ID and payload to the Connection's write buffer and sends it over the wire if the connection has a stream.
+	 * Note that in some cases this will produce multiple Minecraft packets, therefore you should only use this on connections without a stream if you know what you're doing.
 	 *
 	 * @param Connection $con
 	 * @throws IOException
@@ -22,7 +23,7 @@ class RemoveBossBarPacket extends BossBarPacket
 		else
 		{
 			/** @noinspection PhpUndefinedMethodInspection */
-			(new DestroyEntitiesPacket([abs($this->uuid->hashCode()) * -1]))->send($con);
+			(new DestroyEntityPacket([abs($this->uuid->hashCode()) * -1]))->send($con);
 		}
 	}
 
