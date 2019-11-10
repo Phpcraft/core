@@ -5,7 +5,7 @@
  * @var Plugin $this
  */
 use Phpcraft\
-{Account, ClientConnection, Command\CommandSender, Connection, Event\ProxyConnectEvent, Phpcraft, Plugin, PluginManager, ServerConnection};
+{Account, ClientConnection, Command\CommandSender, Connection, Event\ProxyConnectEvent, Phpcraft, Plugin, PluginManager, ServerConnection, Versions};
 if(PluginManager::$command_prefix != "/proxy:")
 {
 	$this->unregister();
@@ -44,7 +44,7 @@ $this->registerCommand("connect", function(ClientConnection $sender, string $add
 			return;
 		}
 	}
-	global $server_con;
+	global $server_con, $transform_packets;
 	if($server_con instanceof ServerConnection)
 	{
 		$server_con->close();
@@ -63,7 +63,67 @@ $this->registerCommand("connect", function(ClientConnection $sender, string $add
 		return;
 	}
 	$sender->sendMessage("Connecting to {$server}...");
-	$stream = fsockopen($serverarr[0], intval($serverarr[1]), $errno, $errstr, 3);
+	$stream = @fsockopen($serverarr[0], intval($serverarr[1]), $errno, $errstr, 3);
+	if(!$stream)
+	{
+		$sender->sendMessage([
+			"text" => $errstr,
+			"color" => "red"
+		]);
+		return;
+	}
+	$sender->sendMessage("Getting version information from {$server}...");
+	$server_con = new ServerConnection($stream, $sender->protocol_version);
+	$server_con->sendHandshake($serverarr[0], intval($serverarr[1]), Connection::STATE_STATUS);
+	$server_con->writeVarInt(0x00); // Status Request
+	$server_con->send();
+	$packet_id = $server_con->readPacket();
+	if($packet_id !== 0x00)
+	{
+		$sender->sendMessage([
+			"text" => "Server answered status request with packet id ".$packet_id,
+			"color" => "red"
+		]);
+		$server_con->close();
+		return;
+	}
+	$json = json_decode($server_con->readString(), true);
+	$server_con->close();
+	if(empty($json) || empty($json["version"]) || empty($json["version"]["protocol"]))
+	{
+		$sender->sendMessage([
+			"text" => "Invalid status response: ".json_encode($json),
+			"color" => "red"
+		]);
+		return;
+	}
+	if($json["version"]["protocol"] == $sender->protocol_version)
+	{
+		$sender->sendMessage([
+			"text" => "Server supports ".Versions::protocolToRange($sender->protocol_version).".",
+			"color" => "green"
+		]);
+		$transform_packets = false;
+	}
+	else
+	{
+		$sender->sendMessage([
+			"text" => "Server doesn't support ".Versions::protocolToRange($sender->protocol_version).", suggests using ".Versions::protocolToRange($json["version"]["protocol"]).".",
+			"color" => "yellow"
+		]);
+		if(!Versions::protocolSupported($json["version"]["protocol"]))
+		{
+			$sender->sendMessage([
+				"text" => "Phpcraft will probably not be able to transform the server's packets for you.",
+				"color" => "red"
+			]);
+			return;
+		}
+		$sender->sendMessage("Phpcraft will transform supported packets for you.");
+		$transform_packets = true;
+	}
+	$sender->sendMessage("Connecting to {$server} (for real this time)...");
+	$stream = @fsockopen($serverarr[0], intval($serverarr[1]), $errno, $errstr, 3);
 	if(!$stream)
 	{
 		$sender->sendMessage([

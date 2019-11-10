@@ -7,7 +7,7 @@ if(empty($argv))
 }
 require "vendor/autoload.php";
 use Phpcraft\
-{Account, ClientConnection, Command\Command, Enum\Difficulty, Enum\Dimension, Enum\Gamemode, Event\ProxyClientPacketEvent, Event\ProxyJoinEvent, Event\ProxyServerPacketEvent, Event\ProxyTickEvent, Packet\ClientboundPacketId, Packet\JoinGamePacket, Packet\KeepAliveRequestPacket, Packet\ServerboundPacketId, PluginManager, Point3D, Server, ServerConnection, Versions};
+{Account, ClientConnection, Command\Command, Enum\Difficulty, Enum\Dimension, Enum\Gamemode, Event\ProxyClientPacketEvent, Event\ProxyJoinEvent, Event\ProxyServerPacketEvent, Event\ProxyTickEvent, Packet\ClientboundPacketId, Packet\EntityPacket, Packet\JoinGamePacket, Packet\KeepAliveRequestPacket, Packet\ServerboundPacketId, PluginManager, Point3D, Server, ServerConnection, Versions};
 $stdin = fopen("php://stdin", "r") or die("Failed to open php://stdin\n");
 stream_set_blocking($stdin, true);
 echo "Would you like to provide a Mojang/Minecraft account to be possesed? [y/N] ";
@@ -29,7 +29,8 @@ $server = new Server([$socket], $private_key);
 $server->compression_threshold = -1;
 $client_con = null;
 $server_con = null;
-$server_eid = -1;
+$server_eid = null;
+$transform_packets = false;
 $server->list_ping_function = function(ClientConnection $con)
 {
 	return [
@@ -103,7 +104,7 @@ $server->join_function = function(ClientConnection $con)
 };
 $server->packet_function = function(ClientConnection $con, ServerboundPacketId $packetId)
 {
-	global $server_con;
+	global $server_con, $transform_packets;
 	if(PluginManager::fire(new ProxyServerPacketEvent($con, $server_con, $packetId)))
 	{
 		return;
@@ -120,8 +121,20 @@ $server->packet_function = function(ClientConnection $con, ServerboundPacketId $
 	}
 	else if($server_con instanceof ServerConnection)
 	{
-		$server_con->write_buffer = $con->read_buffer;
-		$server_con->send();
+		$packet = null;
+		if($transform_packets)
+		{
+			$packet = $packetId->getInstance($con);
+		}
+		if($packet !== null)
+		{
+			$packet->send($server_con);
+		}
+		else
+		{
+			$server_con->write_buffer = $con->read_buffer;
+			$server_con->send();
+		}
 	}
 };
 $server->disconnect_function = function(ClientConnection $con)
@@ -199,8 +212,20 @@ do
 				}
 				else
 				{
-					$client_con->write_buffer = $server_con->read_buffer;
-					$client_con->send();
+					$packet = null;
+					if($transform_packets)
+					{
+						$packet = $packetId->getInstance($server_con);
+					}
+					if($packet !== null)
+					{
+						$packet->send($client_con);
+					}
+					else
+					{
+						$client_con->write_buffer = $server_con->read_buffer;
+						$client_con->send();
+					}
 				}
 			}
 		}
