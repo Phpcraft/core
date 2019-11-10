@@ -169,7 +169,7 @@ abstract class Metadata
 			];
 			do
 			{
-				$index = $con->readByte();
+				$index = $con->readUnsignedByte();
 				if($index == 0xFF)
 				{
 					break;
