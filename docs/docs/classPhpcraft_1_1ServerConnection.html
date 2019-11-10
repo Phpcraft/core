@@ -220,6 +220,14 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a9514c816f716bf7dd7c1fa9ea2a21c64"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ServerConnection.html#a9514c816f716bf7dd7c1fa9ea2a21c64">$pos</a></td></tr>
 <tr class="separator:a9514c816f716bf7dd7c1fa9ea2a21c64"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_attribs_classPhpcraft_1_1Connection"><td colspan="2" onclick="javascript:toggleInherit('pub_attribs_classPhpcraft_1_1Connection')"><img src="closed.png" alt="-"/>&#160;Public Attributes inherited from <a class="el" href="classPhpcraft_1_1Connection.html">Phpcraft\Connection</a></td></tr>
+<tr class="memitem:a6b3639559cb5e83a116035c849f79afc inherit pub_attribs_classPhpcraft_1_1Connection"><td class="memItemLeft" align="right" valign="top">const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#a6b3639559cb5e83a116035c849f79afc">STATE_HANDSHAKE</a> = 0</td></tr>
+<tr class="separator:a6b3639559cb5e83a116035c849f79afc inherit pub_attribs_classPhpcraft_1_1Connection"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aec4d03a99103d956cb2cd8f2d46ec434 inherit pub_attribs_classPhpcraft_1_1Connection"><td class="memItemLeft" align="right" valign="top">const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#aec4d03a99103d956cb2cd8f2d46ec434">STATE_STATUS</a> = 1</td></tr>
+<tr class="separator:aec4d03a99103d956cb2cd8f2d46ec434 inherit pub_attribs_classPhpcraft_1_1Connection"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf71c4ac9b13906a93b842200e584903 inherit pub_attribs_classPhpcraft_1_1Connection"><td class="memItemLeft" align="right" valign="top">const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#abf71c4ac9b13906a93b842200e584903">STATE_LOGIN</a> = 2</td></tr>
+<tr class="separator:abf71c4ac9b13906a93b842200e584903 inherit pub_attribs_classPhpcraft_1_1Connection"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa84f0cd6a52aec79e73ec8cfbe564c35 inherit pub_attribs_classPhpcraft_1_1Connection"><td class="memItemLeft" align="right" valign="top">const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#aa84f0cd6a52aec79e73ec8cfbe564c35">STATE_PLAY</a> = 3</td></tr>
+<tr class="separator:aa84f0cd6a52aec79e73ec8cfbe564c35 inherit pub_attribs_classPhpcraft_1_1Connection"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a34cb2151305f76007e8370bb90e719d8 inherit pub_attribs_classPhpcraft_1_1Connection"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#a34cb2151305f76007e8370bb90e719d8">$protocol_version</a></td></tr>
 <tr class="separator:a34cb2151305f76007e8370bb90e719d8 inherit pub_attribs_classPhpcraft_1_1Connection"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af1e92d8d3381fc0384e4c7c175cc10ed inherit pub_attribs_classPhpcraft_1_1Connection"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#af1e92d8d3381fc0384e4c7c175cc10ed">$stream</a></td></tr>
@@ -485,7 +493,7 @@ Additional Inherited Members</h2></td></tr>
   <table class="params">
     <tr><td class="paramtype">string</td><td class="paramname">$server_name</td><td></td></tr>
     <tr><td class="paramtype">int</td><td class="paramname">$server_port</td><td></td></tr>
-    <tr><td class="paramtype">int</td><td class="paramname">$next_state</td><td>Use 1 for status, or 2 for login to play. </td></tr>
+    <tr><td class="paramtype">int</td><td class="paramname">$next_state</td><td>May be <a class="el" href="classPhpcraft_1_1Connection.html#aec4d03a99103d956cb2cd8f2d46ec434">Connection::STATE_STATUS</a> (1) for list ping or <a class="el" href="classPhpcraft_1_1Connection.html#abf71c4ac9b13906a93b842200e584903">Connection::STATE_LOGIN</a> (2) for login to play. </td></tr>
     <tr><td class="paramtype"></td><td class="paramname">array&lt;string&gt;</td><td>$join_specs Additional data to provide, e.g. "FML" is in this array for Forge clients. </td></tr>
   </table>
   </dd>

@@ -190,6 +190,14 @@ Static Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
+<tr class="memitem:a6b3639559cb5e83a116035c849f79afc"><td class="memItemLeft" align="right" valign="top">const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#a6b3639559cb5e83a116035c849f79afc">STATE_HANDSHAKE</a> = 0</td></tr>
+<tr class="separator:a6b3639559cb5e83a116035c849f79afc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aec4d03a99103d956cb2cd8f2d46ec434"><td class="memItemLeft" align="right" valign="top">const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#aec4d03a99103d956cb2cd8f2d46ec434">STATE_STATUS</a> = 1</td></tr>
+<tr class="separator:aec4d03a99103d956cb2cd8f2d46ec434"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf71c4ac9b13906a93b842200e584903"><td class="memItemLeft" align="right" valign="top">const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#abf71c4ac9b13906a93b842200e584903">STATE_LOGIN</a> = 2</td></tr>
+<tr class="separator:abf71c4ac9b13906a93b842200e584903"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa84f0cd6a52aec79e73ec8cfbe564c35"><td class="memItemLeft" align="right" valign="top">const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#aa84f0cd6a52aec79e73ec8cfbe564c35">STATE_PLAY</a> = 3</td></tr>
+<tr class="separator:aa84f0cd6a52aec79e73ec8cfbe564c35"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a34cb2151305f76007e8370bb90e719d8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#a34cb2151305f76007e8370bb90e719d8">$protocol_version</a></td></tr>
 <tr class="separator:a34cb2151305f76007e8370bb90e719d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af1e92d8d3381fc0384e4c7c175cc10ed"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#af1e92d8d3381fc0384e4c7c175cc10ed">$stream</a></td></tr>
@@ -268,7 +276,7 @@ echo \<a class="el" href="classPhpcraft_1_1Phpcraft.html">Phpcraft</a>\<a class=
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Closes the stream. </p>
+<p>Closes the connection's stream, if it has one. </p>
 
 </div>
 </div>
@@ -1720,6 +1728,62 @@ Packet::serverboundPacketIdToName() </dd></dl>
 <span class="mlabels"><span class="mlabel">static</span></span>  </td>
   </tr>
 </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6b3639559cb5e83a116035c849f79afc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6b3639559cb5e83a116035c849f79afc">&#9670;&nbsp;</a></span>STATE_HANDSHAKE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const Phpcraft\Connection::STATE_HANDSHAKE = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="abf71c4ac9b13906a93b842200e584903"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abf71c4ac9b13906a93b842200e584903">&#9670;&nbsp;</a></span>STATE_LOGIN</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const Phpcraft\Connection::STATE_LOGIN = 2</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa84f0cd6a52aec79e73ec8cfbe564c35"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa84f0cd6a52aec79e73ec8cfbe564c35">&#9670;&nbsp;</a></span>STATE_PLAY</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const Phpcraft\Connection::STATE_PLAY = 3</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aec4d03a99103d956cb2cd8f2d46ec434"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aec4d03a99103d956cb2cd8f2d46ec434">&#9670;&nbsp;</a></span>STATE_STATUS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const Phpcraft\Connection::STATE_STATUS = 1</td>
+        </tr>
+      </table>
 </div><div class="memdoc">
 
 </div>

@@ -97,8 +97,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aec84af6886cfbf9f9a7321ef50bbe3f3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Packet_1_1SetExperiencePacket.html#aec84af6886cfbf9f9a7321ef50bbe3f3">__toString</a> ()</td></tr>
 <tr class="separator:aec84af6886cfbf9f9a7321ef50bbe3f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classPhpcraft_1_1Packet_1_1Packet"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classPhpcraft_1_1Packet_1_1Packet')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classPhpcraft_1_1Packet_1_1Packet.html">Phpcraft\Packet\Packet</a></td></tr>
-<tr class="memitem:a8e85cf6751b74f92bfca07071615e41b inherit pub_methods_classPhpcraft_1_1Packet_1_1Packet"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Packet_1_1Packet.html#a8e85cf6751b74f92bfca07071615e41b">getPayload</a> (int $protocol_version=-1)</td></tr>
-<tr class="separator:a8e85cf6751b74f92bfca07071615e41b inherit pub_methods_classPhpcraft_1_1Packet_1_1Packet"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae1e9146d7c2c52a5c3b738c8a6f63765 inherit pub_methods_classPhpcraft_1_1Packet_1_1Packet"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Packet_1_1Packet.html#ae1e9146d7c2c52a5c3b738c8a6f63765">send</a> (<a class="el" href="classPhpcraft_1_1Connection.html">Connection</a> $con)</td></tr>
 <tr class="separator:ae1e9146d7c2c52a5c3b738c8a6f63765 inherit pub_methods_classPhpcraft_1_1Packet_1_1Packet"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a240c288561603ab82275f94211c00982 inherit pub_methods_classPhpcraft_1_1Packet_1_1Packet"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Packet_1_1Packet.html#a240c288561603ab82275f94211c00982">__toString</a> ()</td></tr>
@@ -228,7 +226,7 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Adds the packet's ID and payload to the <a class="el" href="classPhpcraft_1_1Connection.html">Connection</a>'s write buffer and, if the connection has a stream, sends it over the wire.</p>
+<p>Adds the packet's ID and payload to the <a class="el" href="classPhpcraft_1_1Connection.html">Connection</a>'s write buffer and sends it over the wire if the connection has a stream. Note that in some cases this will produce multiple Minecraft packets, therefore you should only use this on connections without a stream if you know what you're doing.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramtype"><a class="el" href="classPhpcraft_1_1Connection.html">Connection</a></td><td class="paramname">$con</td><td></td></tr>

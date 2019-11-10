@@ -1,6 +1,9 @@
 <map id="Phpcraft\Packet\EntityPacket" name="Phpcraft\Packet\EntityPacket">
-<area shape="rect" id="node3" href="$classPhpcraft_1_1Packet_1_1DestroyEntitiesPacket.html" title="Phpcraft\\Packet\\DestroyEntities\lPacket" alt="" coords="480,5,707,47"/>
-<area shape="rect" id="node4" href="$classPhpcraft_1_1Packet_1_1EntityEffectPacket.html" title="Phpcraft\\Packet\\EntityEffect\lPacket" alt="" coords="492,71,695,112"/>
-<area shape="rect" id="node5" href="$classPhpcraft_1_1Packet_1_1RemoveEntityEffect.html" title="Phpcraft\\Packet\\RemoveEntity\lEffect" alt="" coords="484,136,703,177"/>
-<area shape="rect" id="node2" href="$classPhpcraft_1_1Packet_1_1Packet.html" title="Phpcraft\\Packet\\Packet" alt="" coords="5,78,176,105"/>
+<area shape="rect" id="node3" href="$classPhpcraft_1_1Packet_1_1DestroyEntityPacket.html" title="Phpcraft\\Packet\\DestroyEntity\lPacket" alt="" coords="488,5,704,47"/>
+<area shape="rect" id="node4" href="$classPhpcraft_1_1Packet_1_1EntityAnimationPacket.html" title="Phpcraft\\Packet\\EntityAnimation\lPacket" alt="" coords="480,71,712,112"/>
+<area shape="rect" id="node5" href="$classPhpcraft_1_1Packet_1_1EntityEffectPacket.html" title="Phpcraft\\Packet\\EntityEffect\lPacket" alt="" coords="495,136,697,177"/>
+<area shape="rect" id="node6" href="$classPhpcraft_1_1Packet_1_1EntityMetadataPacket.html" title="Phpcraft\\Packet\\EntityMetadata\lPacket" alt="" coords="483,201,709,243"/>
+<area shape="rect" id="node7" href="$classPhpcraft_1_1Packet_1_1EntityVelocityPacket.html" title="Phpcraft\\Packet\\EntityVelocity\lPacket" alt="" coords="487,267,705,308"/>
+<area shape="rect" id="node8" href="$classPhpcraft_1_1Packet_1_1RemoveEntityEffect.html" title="Phpcraft\\Packet\\RemoveEntity\lEffect" alt="" coords="487,332,705,373"/>
+<area shape="rect" id="node2" href="$classPhpcraft_1_1Packet_1_1Packet.html" title="Phpcraft\\Packet\\Packet" alt="" coords="5,177,176,203"/>
 </map>

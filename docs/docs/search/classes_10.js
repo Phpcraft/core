@@ -31,5 +31,6 @@ var searchData=
   ['spawnmobpacket',['SpawnMobPacket',['../classPhpcraft_1_1Packet_1_1SpawnMobPacket.html',1,'Phpcraft::Packet']]],
   ['stringargument',['StringArgument',['../classPhpcraft_1_1Command_1_1StringArgument.html',1,'Phpcraft::Command']]],
   ['stringprovider',['StringProvider',['../classPhpcraft_1_1Command_1_1StringProvider.html',1,'Phpcraft::Command']]],
-  ['stringtag',['StringTag',['../classPhpcraft_1_1NBT_1_1StringTag.html',1,'Phpcraft::NBT']]]
+  ['stringtag',['StringTag',['../classPhpcraft_1_1NBT_1_1StringTag.html',1,'Phpcraft::NBT']]],
+  ['swingarmpacket',['SwingArmPacket',['../classPhpcraft_1_1Packet_1_1SwingArmPacket.html',1,'Phpcraft::Packet']]]
 ];
