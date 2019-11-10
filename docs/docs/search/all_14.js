@@ -54,9 +54,9 @@ var searchData=
   ['src_5fdir',['SRC_DIR',['../classPhpcraft_1_1Phpcraft.html#a8d0e79c434f9ec95d70169adc7a40e55',1,'Phpcraft::Phpcraft']]],
   ['startpacket',['startPacket',['../classPhpcraft_1_1ClientConnection.html#af43f7e5b67ffd1c48d283c33afc22a49',1,'Phpcraft\ClientConnection\startPacket()'],['../classPhpcraft_1_1Connection.html#ae75b93f971919d518998913181dec6da',1,'Phpcraft\Connection\startPacket()'],['../classPhpcraft_1_1ServerConnection.html#a446ce0b8432847cd35942905b4dbdc83',1,'Phpcraft\ServerConnection\startPacket()']]],
   ['stringargument',['StringArgument',['../classPhpcraft_1_1Command_1_1StringArgument.html',1,'Phpcraft::Command']]],
-  ['stringfromsnbt',['stringFromSNBT',['../classPhpcraft_1_1NBT_1_1NBT.html#ad066ac47b85727cd369e1f32e7f299a1',1,'Phpcraft::NBT::NBT']]],
+  ['stringfromsnbt',['stringFromSNBT',['../classPhpcraft_1_1NBT_1_1NBT.html#ad066ac47b85727cd369e1f32e7f299a1',1,'Phpcraft\NBT\NBT\stringFromSNBT(string $snbt)'],['../classPhpcraft_1_1NBT_1_1NBT.html#ad066ac47b85727cd369e1f32e7f299a1',1,'Phpcraft\NBT\NBT\stringFromSNBT(string $snbt)']]],
   ['stringprovider',['StringProvider',['../classPhpcraft_1_1Command_1_1StringProvider.html',1,'Phpcraft::Command']]],
-  ['stringtosnbt',['stringToSNBT',['../classPhpcraft_1_1NBT_1_1NBT.html#af1e8ac898fdabd296b3110078513ccfc',1,'Phpcraft::NBT::NBT']]],
+  ['stringtosnbt',['stringToSNBT',['../classPhpcraft_1_1NBT_1_1NBT.html#af1e8ac898fdabd296b3110078513ccfc',1,'Phpcraft\NBT\NBT\stringToSNBT(string $string)'],['../classPhpcraft_1_1NBT_1_1NBT.html#af1e8ac898fdabd296b3110078513ccfc',1,'Phpcraft\NBT\NBT\stringToSNBT(string $string)']]],
   ['subtract',['subtract',['../classPhpcraft_1_1Point3D.html#a7ee6e6f7fb564e29773ab82e888159bd',1,'Phpcraft::Point3D']]],
   ['survival',['SURVIVAL',['../classPhpcraft_1_1Enum_1_1Gamemode.html#afe2e359b750e356c9a19c6fea3b30858',1,'Phpcraft::Enum::Gamemode']]],
   ['system',['SYSTEM',['../classPhpcraft_1_1Enum_1_1ChatPosition.html#ad83fa54b5869f3710e6d914766eaa069',1,'Phpcraft::Enum::ChatPosition']]]
