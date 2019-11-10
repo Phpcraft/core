@@ -78,6 +78,7 @@ abstract class BossBarPacket extends Packet
 				return new UpdateBossBarTitlePacket($uuid, $con->readChat());
 			default:
 				trigger_error("Unimplemented boss bar action: ".$action);
+				$con->read_buffer_offset = 0;
 		}
 		return null;
 	}
