@@ -5,7 +5,7 @@
  * @var Plugin $this
  */
 use Phpcraft\
-{BlockState, ClientConnection, Connection, Enum\Gamemode, Event\Event, Event\ServerChunkBorderEvent, Event\ServerJoinEvent, Event\ServerTickEvent, NBT\NbtCompound, NBT\NbtLongArray, Packet\JoinGamePacket, Packet\PluginMessage\ClientboundBrandPluginMessagePacket, Plugin, PluginManager, Point3D};
+{BlockState, ClientConnection, Connection, Enum\Gamemode, Event\Event, Event\ServerChunkBorderEvent, Event\ServerJoinEvent, Event\ServerTickEvent, NBT\CompoundTag, NBT\LongArrayTag, Packet\JoinGamePacket, Packet\PluginMessage\ClientboundBrandPluginMessagePacket, Plugin, PluginManager, Point3D};
 if(PluginManager::$command_prefix != "/")
 {
 	$this->unregister();
@@ -121,12 +121,12 @@ $this->on(function(ServerJoinEvent $event)
 				 if($con->protocol_version >= 472) // Height map
 				 {
 					 $bits = str_repeat("000001111", 256);
-					 $motion_blocking = new NbtLongArray("MOTION_BLOCKING");
+					 $motion_blocking = new LongArrayTag("MOTION_BLOCKING");
 					 for($i = 0; $i < 36; $i++)
 					 {
 						 array_push($motion_blocking->children, gmp_init(substr($bits, $i * 64, 64), 2));
 					 }
-					 (new NbtCompound("", [
+					 (new CompoundTag("", [
 						 $motion_blocking,
 						 //new NbtLongArray("WORLD_SURFACE", $motion_blocking->children)
 					 ]))->write($con);

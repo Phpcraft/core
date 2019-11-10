@@ -5,7 +5,7 @@ use Countable;
 use Iterator;
 use Phpcraft\Connection;
 use SplObjectStorage;
-class NbtCompound extends NBT implements Iterator, Countable, ArrayAccess
+class CompoundTag extends NBT implements Iterator, Countable, ArrayAccess
 {
 	const ORD = 10;
 	/**
@@ -70,7 +70,7 @@ class NbtCompound extends NBT implements Iterator, Countable, ArrayAccess
 
 	function copy(): NBT
 	{
-		$tag = new NbtCompound($this->name);
+		$tag = new CompoundTag($this->name);
 		$tag->children->addAll($this->children);
 		return $tag;
 	}
@@ -180,11 +180,11 @@ class NbtCompound extends NBT implements Iterator, Countable, ArrayAccess
 	 * Adds a child to the compound or replaces an existing one by the same name.
 	 *
 	 * @param NBT $tag
-	 * @return NbtCompound $this
+	 * @return CompoundTag $this
 	 */
 	function addChild(NBT $tag)
 	{
-		if($tag instanceof NbtEnd)
+		if($tag instanceof EndTag)
 		{
 			trigger_error("I'm not adding NbtEnd as the child of an NbtCompound because it is not a real tag and should not be treated as such.");
 		}

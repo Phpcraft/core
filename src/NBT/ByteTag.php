@@ -1,9 +1,25 @@
 <?php
 namespace Phpcraft\NBT;
 use Phpcraft\Connection;
-class NbtEnd extends NBT
+class ByteTag extends NBT
 {
-	const ORD = 0;
+	const ORD = 1;
+	/**
+	 * The value of this tag.
+	 *
+	 * @var int $value
+	 */
+	public $value;
+
+	/**
+	 * @param string $name The name of this tag.
+	 * @param int $value The value of this tag.
+	 */
+	function __construct(string $name, int $value = 0)
+	{
+		$this->name = $name;
+		$this->value = $value;
+	}
 
 	/**
 	 * Adds the NBT tag to the write buffer of the connection.
@@ -14,20 +30,22 @@ class NbtEnd extends NBT
 	 */
 	function write(Connection $con, bool $inList = false): Connection
 	{
-		trigger_error("I'm begrudgingly allowing your call to NbtEnd::write but please note that NbtEnd is not a real tag and should not be treated as such.");
-		$con->writeByte(0);
+		if(!$inList)
+		{
+			$this->_write($con);
+		}
+		$con->writeByte($this->value, true);
 		return $con;
 	}
 
 	function copy(): NBT
 	{
-		return new NbtEnd();
+		return new ByteTag($this->name, $this->value);
 	}
 
 	function __toString()
 	{
-		trigger_error("I'm begrudgingly allowing your call to NbtEnd::__toString but please note that NbtEnd is not a real tag and should not be treated as such.");
-		return "{End}";
+		return "{Byte \"".$this->name."\": ".$this->value."}";
 	}
 
 	/**
@@ -39,7 +57,6 @@ class NbtEnd extends NBT
 	 */
 	function toSNBT(bool $fancy = false, bool $inList = false): string
 	{
-		trigger_error("I'm begrudgingly allowing your call to NbtEnd::toSNBT but please note that NbtEnd is not a real tag and should not be treated as such.");
-		return "";
+		return ($inList || !$this->name ? "" : self::stringToSNBT($this->name).($fancy ? ": " : ":")).$this->value."b";
 	}
 }

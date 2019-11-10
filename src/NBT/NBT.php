@@ -112,7 +112,7 @@ abstract class NBT
 			{
 				throw new DomainException("Invalid SNBT Compound: ".$value);
 			}
-			return new NbtCompound($name, self::parseSNBTArray(substr($value, 1, -1), false));
+			return new CompoundTag($name, self::parseSNBTArray(substr($value, 1, -1), false));
 		}
 		else if(substr($value, 0, 1) == "[")
 		{
@@ -140,7 +140,7 @@ abstract class NBT
 							}
 							array_push($nums, $num);
 						}
-						return new NbtByteArray($name, $nums);
+						return new ByteArray($name, $nums);
 					case "i;":
 						$nums = [];
 						foreach(explode(",", substr($value, 3, -1)) as $num)
@@ -157,7 +157,7 @@ abstract class NBT
 							}
 							array_push($nums, $num);
 						}
-						return new NbtIntArray($name, $nums);
+						return new IntArrayTag($name, $nums);
 					case "l;":
 						$nums = [];
 						foreach(explode(",", substr($value, 3, -1)) as $num)
@@ -178,7 +178,7 @@ abstract class NBT
 							}
 							array_push($nums, $num);
 						}
-						return new NbtLongArray($name, $nums);
+						return new LongArrayTag($name, $nums);
 					default:
 						throw new DomainException("Invalid SNBT Array: ".$value);
 				}
@@ -199,34 +199,34 @@ abstract class NBT
 						}
 					}
 				}
-				return new NbtList($name, $type, $children);
+				return new ListTag($name, $type, $children);
 			}
 		}
 		else if(is_numeric($value))
 		{
-			return new NbtInt($name, gmp_init($value));
+			return new IntTag($name, gmp_init($value));
 		}
 		else if(strtolower(substr($value, -1)) == "b" && is_numeric(substr($value, 0, -1)))
 		{
-			return new NbtByte($name, intval(substr($value, 0, -1)));
+			return new ByteTag($name, intval(substr($value, 0, -1)));
 		}
 		else if(strtolower(substr($value, -1)) == "s" && is_numeric(substr($value, 0, -1)))
 		{
-			return new NbtShort($name, intval(substr($value, 0, -1)));
+			return new ShortTag($name, intval(substr($value, 0, -1)));
 		}
 		else if(strtolower(substr($value, -1)) == "l" && is_numeric(substr($value, 0, -1)))
 		{
-			return new NbtLong($name, gmp_init(substr($value, 0, -1)));
+			return new LongTag($name, gmp_init(substr($value, 0, -1)));
 		}
 		else if(strtolower(substr($value, -1)) == "f" && is_numeric(substr($value, 0, -1)))
 		{
-			return new NbtFloat($name, floatval(substr($value, 0, -1)));
+			return new FloatTag($name, floatval(substr($value, 0, -1)));
 		}
 		else if(strtolower(substr($value, -1)) == "d" && is_numeric(substr($value, 0, -1)))
 		{
-			return new NbtDouble($name, floatval(substr($value, 0, -1)));
+			return new DoubleTag($name, floatval(substr($value, 0, -1)));
 		}
-		return new NbtString($name, self::stringFromSNBT($value));
+		return new StringTag($name, self::stringFromSNBT($value));
 	}
 
 	static function stringFromSNBT(string $snbt): string

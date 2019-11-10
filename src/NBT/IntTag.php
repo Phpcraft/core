@@ -1,23 +1,28 @@
 <?php
 namespace Phpcraft\NBT;
+use GMP;
 use Phpcraft\Connection;
-class NbtShort extends NBT
+class IntTag extends NBT
 {
-	const ORD = 2;
+	const ORD = 3;
 	/**
 	 * The value of this tag.
 	 *
-	 * @var int $value
+	 * @var GMP $value
 	 */
 	public $value;
 
 	/**
 	 * @param string $name The name of this tag.
-	 * @param int $value The value of this tag.
+	 * @param GMP|string|integer $value The value of this tag.
 	 */
-	function __construct(string $name, int $value = 0)
+	function __construct(string $name, $value = 0)
 	{
 		$this->name = $name;
+		if(!$value instanceof GMP)
+		{
+			$value = gmp_init($value);
+		}
 		$this->value = $value;
 	}
 
@@ -34,18 +39,18 @@ class NbtShort extends NBT
 		{
 			$this->_write($con);
 		}
-		$con->writeShort($this->value);
+		$con->writeInt($this->value);
 		return $con;
-	}
-
-	function __toString()
-	{
-		return "{Short \"".$this->name."\": ".$this->value."}";
 	}
 
 	function copy(): NBT
 	{
-		return new NbtShort($this->name, $this->value);
+		return new IntTag($this->name, $this->value);
+	}
+
+	function __toString()
+	{
+		return "{Int \"".$this->name."\": ".gmp_strval($this->value)."}";
 	}
 
 	/**
@@ -57,6 +62,6 @@ class NbtShort extends NBT
 	 */
 	function toSNBT(bool $fancy = false, bool $inList = false): string
 	{
-		return ($inList || !$this->name ? "" : self::stringToSNBT($this->name).($fancy ? ": " : ":")).$this->value."s";
+		return ($inList || !$this->name ? "" : self::stringToSNBT($this->name).($fancy ? ": " : ":")).gmp_strval($this->value);
 	}
 }

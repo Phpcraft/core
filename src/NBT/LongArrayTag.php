@@ -1,24 +1,19 @@
 <?php
 namespace Phpcraft\NBT;
+use GMP;
 use Phpcraft\Connection;
-class NbtString extends NBT
+class LongArrayTag extends AbstractListTag
 {
-	const ORD = 8;
-	/**
-	 * The value of this tag.
-	 *
-	 * @var string $value
-	 */
-	public $value;
+	const ORD = 12;
 
 	/**
 	 * @param string $name The name of this tag.
-	 * @param string $value The value of this tag.
+	 * @param array<GMP> $children The longs in the array.
 	 */
-	function __construct(string $name, string $value = "")
+	function __construct(string $name, array $children = [])
 	{
 		$this->name = $name;
-		$this->value = $value;
+		$this->children = $children;
 	}
 
 	/**
@@ -34,19 +29,27 @@ class NbtString extends NBT
 		{
 			$this->_write($con);
 		}
-		$con->writeShort(strlen($this->value));
-		$con->writeRaw($this->value);
+		$con->writeInt(count($this->children));
+		foreach($this->children as $child)
+		{
+			$con->writeLong($child);
+		}
 		return $con;
-	}
-
-	function copy(): NBT
-	{
-		return new NbtString($this->name, $this->value);
 	}
 
 	function __toString()
 	{
-		return "{String \"".$this->name."\": ".$this->value."}";
+		$str = "{LongArray \"".$this->name."\":";
+		foreach($this->children as $child)
+		{
+			$str .= " ".$child;
+		}
+		return $str."}";
+	}
+
+	function copy(): NBT
+	{
+		return new IntArrayTag($this->name, $this->children);
 	}
 
 	/**
@@ -58,6 +61,6 @@ class NbtString extends NBT
 	 */
 	function toSNBT(bool $fancy = false, bool $inList = false): string
 	{
-		return ($inList || !$this->name ? "" : self::stringToSNBT($this->name).($fancy ? ": " : ":")).self::stringToSNBT($this->value);
+		return self::gmpListToSNBT($fancy, $inList, "L");
 	}
 }

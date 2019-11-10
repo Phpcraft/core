@@ -8,7 +8,7 @@ use LengthException;
 use Phpcraft\Exception\
 {IOException, MissingMetadataException};
 use Phpcraft\NBT\
-{NBT, NbtByte, NbtByteArray, NbtCompound, NbtDouble, NbtEnd, NbtFloat, NbtInt, NbtIntArray, NbtList, NbtLong, NbtLongArray, NbtShort, NbtString};
+{ByteArrayTag, ByteTag, CompoundTag, DoubleTag, EndTag, FloatTag, IntArrayTag, IntTag, ListTag, LongArrayTag, LongTag, NBT, ShortTag, StringTag};
 /**
  * A wrapper to read and write from streams.
  * The Connection object can also be utilized without a stream:
@@ -351,7 +351,7 @@ class Connection
 					switch($slot->item->name)
 					{
 						case "filled_map":
-							if(!($slot->nbt instanceof NbtCompound) || !$slot->nbt->hasChild("map"))
+							if(!($slot->nbt instanceof CompoundTag) || !$slot->nbt->hasChild("map"))
 							{
 								throw new MissingMetadataException("filled_map is missing ID");
 							}
@@ -367,13 +367,13 @@ class Connection
 					$this->writeByte($slot->count);
 				}
 			}
-			if($this->protocol_version < 402 && $slot->nbt instanceof NbtCompound)
+			if($this->protocol_version < 402 && $slot->nbt instanceof CompoundTag)
 			{
 				$display = $slot->nbt->getChild("display");
-				if($display && $display instanceof NbtCompound)
+				if($display && $display instanceof CompoundTag)
 				{
 					$name = $display->getChild("Name");
-					if($name && $name instanceof NbtString)
+					if($name && $name instanceof StringTag)
 					{
 						$name->value = Phpcraft::chatToText(json_decode($name->value, true), 2);
 					}
@@ -953,9 +953,9 @@ class Connection
 					switch($id)
 					{
 						case 358:
-							if(!($slot->nbt instanceof NbtCompound))
+							if(!($slot->nbt instanceof CompoundTag))
 							{
-								$slot->nbt = new NbtCompound("tag", []);
+								$slot->nbt = new CompoundTag("tag", []);
 							}
 							$addMap = true;
 							$children_ = [];
@@ -973,7 +973,7 @@ class Connection
 							}
 							if($addMap)
 							{
-								array_push($children_, new NbtInt("map", $metadata));
+								array_push($children_, new IntTag("map", $metadata));
 							}
 							$slot->nbt->children = $children_;
 							$metadata = 0;
@@ -994,13 +994,13 @@ class Connection
 		$slot->nbt = $this->readNBT();
 		if($additional_processing && $this->protocol_version < 402)
 		{
-			if($slot->nbt instanceof NbtCompound)
+			if($slot->nbt instanceof CompoundTag)
 			{
 				$display = $slot->nbt->getChild("display");
-				if($display && $display instanceof NbtCompound)
+				if($display && $display instanceof CompoundTag)
 				{
 					$name = $display->getChild("Name");
-					if($name && $name instanceof NbtString)
+					if($name && $name instanceof StringTag)
 					{
 						$name->value = json_encode(Phpcraft::textToChat($name->value));
 						$slot->nbt->addChild($display->addChild($name));
@@ -1059,31 +1059,31 @@ class Connection
 		$name = ($type == 0 || $inList) ? "" : $this->readRaw($this->readShort());
 		switch($type)
 		{
-			case NbtEnd::ORD:
-				return new NbtEnd();
-			case NbtByte::ORD:
-				return new NbtByte($name, $this->readByte());
-			case NbtShort::ORD:
-				return new NbtShort($name, $this->readShort());
-			case NbtInt::ORD:
-				return new NbtInt($name, $this->readInt());
-			case NbtLong::ORD:
-				return new NbtLong($name, $this->readLong());
-			case NbtFloat::ORD:
-				return new NbtFloat($name, $this->readFloat());
-			case NbtDouble::ORD:
-				return new NbtDouble($name, $this->readDouble());
-			case NbtByteArray::ORD:
+			case EndTag::ORD:
+				return new EndTag();
+			case ByteTag::ORD:
+				return new ByteTag($name, $this->readByte());
+			case ShortTag::ORD:
+				return new ShortTag($name, $this->readShort());
+			case IntTag::ORD:
+				return new IntTag($name, $this->readInt());
+			case LongTag::ORD:
+				return new LongTag($name, $this->readLong());
+			case FloatTag::ORD:
+				return new FloatTag($name, $this->readFloat());
+			case DoubleTag::ORD:
+				return new DoubleTag($name, $this->readDouble());
+			case ByteArrayTag::ORD:
 				$children_i = gmp_intval($this->readInt());
 				$children = [];
 				for($i = 0; $i < $children_i; $i++)
 				{
 					array_push($children, $this->readByte());
 				}
-				return new NbtByteArray($name, $children);
-			case NbtString::ORD:
-				return new NbtString($name, $this->readRaw($this->readShort()));
-			case NbtList::ORD:
+				return new ByteArrayTag($name, $children);
+			case StringTag::ORD:
+				return new StringTag($name, $this->readRaw($this->readShort()));
+			case ListTag::ORD:
 				$childType = $this->readByte();
 				$children_i = gmp_intval($this->readInt());
 				$children = [];
@@ -1091,30 +1091,30 @@ class Connection
 				{
 					array_push($children, $this->readNBT($childType));
 				}
-				return new NbtList($name, $childType, $children);
-			case NbtCompound::ORD:
+				return new ListTag($name, $childType, $children);
+			case CompoundTag::ORD:
 				$children = [];
-				while(!(($tag = $this->readNBT()) instanceof NbtEnd))
+				while(!(($tag = $this->readNBT()) instanceof EndTag))
 				{
 					array_push($children, $tag);
 				}
-				return new NbtCompound($name, $children);
-			case NbtIntArray::ORD:
+				return new CompoundTag($name, $children);
+			case IntArrayTag::ORD:
 				$children_i = gmp_intval($this->readInt());
 				$children = [];
 				for($i = 0; $i < $children_i; $i++)
 				{
 					array_push($children, $this->readInt());
 				}
-				return new NbtIntArray($name, $children);
-			case NbtLongArray::ORD:
+				return new IntArrayTag($name, $children);
+			case LongArrayTag::ORD:
 				$children_i = gmp_intval($this->readInt());
 				$children = [];
 				for($i = 0; $i < $children_i; $i++)
 				{
 					array_push($children, $this->readLong());
 				}
-				return new NbtLongArray($name, $children);
+				return new LongArrayTag($name, $children);
 			default:
 				throw new DomainException("Unsupported NBT Tag: {$type}");
 		}

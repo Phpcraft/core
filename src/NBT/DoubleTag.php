@@ -1,28 +1,23 @@
 <?php
 namespace Phpcraft\NBT;
-use GMP;
 use Phpcraft\Connection;
-class NbtInt extends NBT
+class DoubleTag extends NBT
 {
-	const ORD = 3;
+	const ORD = 6;
 	/**
 	 * The value of this tag.
 	 *
-	 * @var GMP $value
+	 * @var float $value
 	 */
 	public $value;
 
 	/**
 	 * @param string $name The name of this tag.
-	 * @param GMP|string|integer $value The value of this tag.
+	 * @param float $value The value of this tag.
 	 */
-	function __construct(string $name, $value = 0)
+	function __construct(string $name, float $value = 0)
 	{
 		$this->name = $name;
-		if(!$value instanceof GMP)
-		{
-			$value = gmp_init($value);
-		}
 		$this->value = $value;
 	}
 
@@ -39,18 +34,18 @@ class NbtInt extends NBT
 		{
 			$this->_write($con);
 		}
-		$con->writeInt($this->value);
+		$con->writeDouble($this->value);
 		return $con;
 	}
 
 	function copy(): NBT
 	{
-		return new NbtInt($this->name, $this->value);
+		return new DoubleTag($this->name, $this->value);
 	}
 
 	function __toString()
 	{
-		return "{Int \"".$this->name."\": ".gmp_strval($this->value)."}";
+		return "{Double \"".$this->name."\": ".$this->value."}";
 	}
 
 	/**
@@ -62,6 +57,6 @@ class NbtInt extends NBT
 	 */
 	function toSNBT(bool $fancy = false, bool $inList = false): string
 	{
-		return ($inList || !$this->name ? "" : self::stringToSNBT($this->name).($fancy ? ": " : ":")).gmp_strval($this->value);
+		return ($inList || !$this->name ? "" : self::stringToSNBT($this->name).($fancy ? ": " : ":")).$this->value."d";
 	}
 }

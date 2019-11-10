@@ -1,19 +1,24 @@
 <?php
 namespace Phpcraft\NBT;
-use GMP;
 use Phpcraft\Connection;
-class NbtIntArray extends NbtListTag
+class FloatTag extends NBT
 {
-	const ORD = 11;
+	const ORD = 5;
+	/**
+	 * The value of this tag.
+	 *
+	 * @var float $value
+	 */
+	public $value;
 
 	/**
 	 * @param string $name The name of this tag.
-	 * @param array<GMP> $children The integers in the array.
+	 * @param float $value The value of this tag.
 	 */
-	function __construct(string $name, array $children = [])
+	function __construct(string $name, float $value = 0)
 	{
 		$this->name = $name;
-		$this->children = $children;
+		$this->value = $value;
 	}
 
 	/**
@@ -29,27 +34,18 @@ class NbtIntArray extends NbtListTag
 		{
 			$this->_write($con);
 		}
-		$con->writeInt(count($this->children));
-		foreach($this->children as $child)
-		{
-			$con->writeInt($child);
-		}
+		$con->writeFloat($this->value);
 		return $con;
-	}
-
-	function copy(): NBT
-	{
-		return new NbtIntArray($this->name, $this->children);
 	}
 
 	function __toString()
 	{
-		$str = "{IntArray \"".$this->name."\":";
-		foreach($this->children as $child)
-		{
-			$str .= " ".$child;
-		}
-		return $str."}";
+		return "{Float \"".$this->name."\": ".$this->value."}";
+	}
+
+	function copy(): NBT
+	{
+		return new FloatTag($this->name, $this->value);
 	}
 
 	/**
@@ -61,6 +57,6 @@ class NbtIntArray extends NbtListTag
 	 */
 	function toSNBT(bool $fancy = false, bool $inList = false): string
 	{
-		return self::gmpListToSNBT($fancy, $inList, "I");
+		return ($inList || !$this->name ? "" : self::stringToSNBT($this->name).($fancy ? ": " : ":")).$this->value."f";
 	}
 }

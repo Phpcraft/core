@@ -7,7 +7,7 @@
 use pac\
 {Chromium, Page};
 use Phpcraft\
-{ClientConnection, Command\CommandSender, Event\ServerJoinEvent, Event\ServerLeaveEvent, Event\ServerTickEvent, Item, NBT\NbtCompound, NBT\NbtInt, NBT\NbtString, Packet\MapData\MapDataPacket, Packet\SetSlotPacket, Plugin, PluginManager, Slot};
+{ClientConnection, Command\CommandSender, Event\ServerJoinEvent, Event\ServerLeaveEvent, Event\ServerTickEvent, Item, NBT\CompoundTag, NBT\IntTag, NBT\StringTag, Packet\MapData\MapDataPacket, Packet\SetSlotPacket, Plugin, PluginManager, Slot};
 if(PluginManager::$command_prefix != "/")
 {
 	$this->unregister();
@@ -66,11 +66,11 @@ $this->on(function(ServerJoinEvent $event) use (&$i)
 				$event->client->chromium_tab = $page;
 				$event->client->render_chromium_tab = true;
 				(new SetSlotPacket(0, Slot::HOTBAR_3, Item::get("filled_map")
-														  ->slot(1, new NbtCompound("tag", [
-															  new NbtCompound("display", [
-																  new NbtString("Name", json_encode(["text" => "Chromium"]))
+														  ->slot(1, new CompoundTag("tag", [
+															  new CompoundTag("display", [
+																  new StringTag("Name", json_encode(["text" => "Chromium"]))
 															  ]),
-															  new NbtInt("map", 1338)
+															  new IntTag("map", 1338)
 														  ]))))->send($event->client);
 			});
 		});

@@ -2,7 +2,7 @@
 namespace Phpcraft\NBT;
 use GMP;
 use Phpcraft\Connection;
-class NbtLong extends NBT
+class LongTag extends NBT
 {
 	const ORD = 4;
 	/**
@@ -50,7 +50,7 @@ class NbtLong extends NBT
 
 	function copy(): NBT
 	{
-		return new NbtLong($this->name, $this->value);
+		return new LongTag($this->name, $this->value);
 	}
 
 	/**

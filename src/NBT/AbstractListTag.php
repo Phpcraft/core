@@ -3,7 +3,7 @@ namespace Phpcraft\NBT;
 use ArrayAccess;
 use Countable;
 use Iterator;
-abstract class NbtListTag extends NBT implements Iterator, Countable, ArrayAccess
+abstract class AbstractListTag extends NBT implements Iterator, Countable, ArrayAccess
 {
 	/**
 	 * The children of the list.

@@ -1,24 +1,19 @@
 <?php
 namespace Phpcraft\NBT;
+use GMP;
 use Phpcraft\Connection;
-class NbtByte extends NBT
+class IntArrayTag extends AbstractListTag
 {
-	const ORD = 1;
-	/**
-	 * The value of this tag.
-	 *
-	 * @var int $value
-	 */
-	public $value;
+	const ORD = 11;
 
 	/**
 	 * @param string $name The name of this tag.
-	 * @param int $value The value of this tag.
+	 * @param array<GMP> $children The integers in the array.
 	 */
-	function __construct(string $name, int $value = 0)
+	function __construct(string $name, array $children = [])
 	{
 		$this->name = $name;
-		$this->value = $value;
+		$this->children = $children;
 	}
 
 	/**
@@ -34,18 +29,27 @@ class NbtByte extends NBT
 		{
 			$this->_write($con);
 		}
-		$con->writeByte($this->value, true);
+		$con->writeInt(count($this->children));
+		foreach($this->children as $child)
+		{
+			$con->writeInt($child);
+		}
 		return $con;
 	}
 
 	function copy(): NBT
 	{
-		return new NbtByte($this->name, $this->value);
+		return new IntArrayTag($this->name, $this->children);
 	}
 
 	function __toString()
 	{
-		return "{Byte \"".$this->name."\": ".$this->value."}";
+		$str = "{IntArray \"".$this->name."\":";
+		foreach($this->children as $child)
+		{
+			$str .= " ".$child;
+		}
+		return $str."}";
 	}
 
 	/**
@@ -57,6 +61,6 @@ class NbtByte extends NBT
 	 */
 	function toSNBT(bool $fancy = false, bool $inList = false): string
 	{
-		return ($inList || !$this->name ? "" : self::stringToSNBT($this->name).($fancy ? ": " : ":")).$this->value."b";
+		return self::gmpListToSNBT($fancy, $inList, "I");
 	}
 }

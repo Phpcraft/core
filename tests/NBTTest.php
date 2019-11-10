@@ -1,7 +1,7 @@
 <?php /** @noinspection PhpUnused PhpUnhandledExceptionInspection */
 require_once __DIR__."/../vendor/autoload.php";
 use Phpcraft\
-{Connection, NBT\NbtCompound, NBT\NbtInt, NBT\NbtList};
+{Connection, NBT\CompoundTag, NBT\IntTag, NBT\ListTag};
 class NBTTest
 {
 	function testReadAndWriteListCompoundAndInt()
@@ -11,15 +11,15 @@ class NBTTest
 		$con->read_buffer = $bin;
 		$list = $con->readNBT();
 		Nose::assertEquals($con->read_buffer_offset, strlen($con->read_buffer));
-		Nose::assert($list instanceof NbtList);
+		Nose::assert($list instanceof ListTag);
 		Nose::assertEquals("List", $list->name);
 		Nose::assertEquals(1, count($list->children));
 		$compound = $list[0];
-		Nose::assert($compound instanceof NbtCompound);
+		Nose::assert($compound instanceof CompoundTag);
 		Nose::assertEquals("", $compound->name);
 		Nose::assertEquals(1, count($compound->children));
 		$int = $compound["Int"];
-		Nose::assert($int instanceof NbtInt);
+		Nose::assert($int instanceof IntTag);
 		Nose::assertEquals("Int", $int->name);
 		Nose::assert(gmp_cmp($int->value, -1) == 0);
 		$list->write($con);
@@ -33,7 +33,7 @@ class NBTTest
 		$con->read_buffer = $bin;
 		$tag = $con->readNBT();
 		Nose::assertEquals($con->read_buffer_offset, strlen($con->read_buffer));
-		Nose::assert($tag instanceof NbtCompound);
+		Nose::assert($tag instanceof CompoundTag);
 		Nose::assertEquals("Level", $tag->name);
 		$tag->write($con);
 		Nose::assertEquals($bin, $con->write_buffer);

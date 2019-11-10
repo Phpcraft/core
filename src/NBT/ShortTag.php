@@ -1,21 +1,21 @@
 <?php
 namespace Phpcraft\NBT;
 use Phpcraft\Connection;
-class NbtFloat extends NBT
+class ShortTag extends NBT
 {
-	const ORD = 5;
+	const ORD = 2;
 	/**
 	 * The value of this tag.
 	 *
-	 * @var float $value
+	 * @var int $value
 	 */
 	public $value;
 
 	/**
 	 * @param string $name The name of this tag.
-	 * @param float $value The value of this tag.
+	 * @param int $value The value of this tag.
 	 */
-	function __construct(string $name, float $value = 0)
+	function __construct(string $name, int $value = 0)
 	{
 		$this->name = $name;
 		$this->value = $value;
@@ -34,18 +34,18 @@ class NbtFloat extends NBT
 		{
 			$this->_write($con);
 		}
-		$con->writeFloat($this->value);
+		$con->writeShort($this->value);
 		return $con;
 	}
 
 	function __toString()
 	{
-		return "{Float \"".$this->name."\": ".$this->value."}";
+		return "{Short \"".$this->name."\": ".$this->value."}";
 	}
 
 	function copy(): NBT
 	{
-		return new NbtFloat($this->name, $this->value);
+		return new ShortTag($this->name, $this->value);
 	}
 
 	/**
@@ -57,6 +57,6 @@ class NbtFloat extends NBT
 	 */
 	function toSNBT(bool $fancy = false, bool $inList = false): string
 	{
-		return ($inList || !$this->name ? "" : self::stringToSNBT($this->name).($fancy ? ": " : ":")).$this->value."f";
+		return ($inList || !$this->name ? "" : self::stringToSNBT($this->name).($fancy ? ": " : ":")).$this->value."s";
 	}
 }

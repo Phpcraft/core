@@ -1,7 +1,7 @@
 <?php
 namespace Phpcraft;
 use Phpcraft\NBT\
-{NBT, NbtCompound, NbtEnd, NbtString};
+{CompoundTag, EndTag, NBT, StringTag};
 class Slot
 {
 	const HEAD = 5;
@@ -58,13 +58,13 @@ class Slot
 	 */
 	function getDisplayName()
 	{
-		if($this->nbt instanceof NbtCompound)
+		if($this->nbt instanceof CompoundTag)
 		{
 			$display = $this->nbt->getChild("display");
-			if($display && $display instanceof NbtCompound)
+			if($display && $display instanceof CompoundTag)
 			{
 				$name = $display->getChild("Name");
-				if($name && $name instanceof NbtString)
+				if($name && $name instanceof StringTag)
 				{
 					return json_decode($name->value, true);
 				}
@@ -93,23 +93,23 @@ class Slot
 	 */
 	function setDisplayName($name): Slot
 	{
-		if(!$this->nbt instanceof NbtCompound)
+		if(!$this->nbt instanceof CompoundTag)
 		{
-			$this->nbt = new NbtCompound("tag");
+			$this->nbt = new CompoundTag("tag");
 		}
 		$display = $this->nbt->getChild("display");
-		if(!$display instanceof NbtCompound)
+		if(!$display instanceof CompoundTag)
 		{
-			$this->nbt->addChild($display = new NbtCompound("display"));
+			$this->nbt->addChild($display = new CompoundTag("display"));
 		}
 		$display_name = $display->getChild("Name");
-		if($display_name instanceof NbtString)
+		if($display_name instanceof StringTag)
 		{
 			$display_name->value = json_encode($name);
 		}
 		else
 		{
-			$display->addChild(new NbtString("Name", json_encode($name)));
+			$display->addChild(new StringTag("Name", json_encode($name)));
 		}
 		return $this;
 	}
@@ -148,6 +148,6 @@ class Slot
 	 */
 	function hasNBT()
 	{
-		return $this->nbt != null && !($this->nbt instanceof NbtEnd);
+		return $this->nbt != null && !($this->nbt instanceof EndTag);
 	}
 }

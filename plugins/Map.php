@@ -5,7 +5,7 @@
  * @var Plugin $this
  */
 use Phpcraft\
-{Event\Event, Event\ServerJoinEvent, Item, NBT\NbtCompound, NBT\NbtInt, NBT\NbtString, Packet\MapData\MapDataPacket, Packet\SetSlotPacket, Phpcraft, Plugin, Slot};
+{Event\Event, Event\ServerJoinEvent, Item, NBT\CompoundTag, NBT\IntTag, NBT\StringTag, Packet\MapData\MapDataPacket, Packet\SetSlotPacket, Phpcraft, Plugin, Slot};
 $WorldImitatorActive = false;
 if(!extension_loaded("gd"))
 {
@@ -26,11 +26,11 @@ $this->on(function(ServerJoinEvent $event)
 	}
 	$con = $event->client;
 	(new SetSlotPacket(0, Slot::HOTBAR_2, Item::get("filled_map")
-											  ->slot(1, new NbtCompound("tag", [
-												  new NbtCompound("display", [
-													  new NbtString("Name", json_encode(Phpcraft::textToChat("§4§lMÄP")))
+											  ->slot(1, new CompoundTag("tag", [
+												  new CompoundTag("display", [
+													  new StringTag("Name", json_encode(Phpcraft::textToChat("§4§lMÄP")))
 												  ]),
-												  new NbtInt("map", 1337),
+												  new IntTag("map", 1337),
 											  ]))))->send($con);
 	$packet = new MapDataPacket();
 	$packet->mapId = 1337;

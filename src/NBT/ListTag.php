@@ -1,7 +1,7 @@
 <?php
 namespace Phpcraft\NBT;
 use Phpcraft\Connection;
-class NbtList extends NbtListTag
+class ListTag extends AbstractListTag
 {
 	const ORD = 9;
 	/**
@@ -48,7 +48,7 @@ class NbtList extends NbtListTag
 
 	function copy(): NBT
 	{
-		return new NbtList($this->name, $this->childType, $this->children);
+		return new ListTag($this->name, $this->childType, $this->children);
 	}
 
 	function __toString()
