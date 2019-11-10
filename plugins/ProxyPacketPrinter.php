@@ -13,9 +13,20 @@ $this->on(function(ProxyClientPacketEvent &$e)
 	if($packet_class)
 	{
 		$offset = $e->server->read_buffer_offset;
-		$packet = call_user_func($packet_class."::read", $e->server);
-		echo "S -> C: $packet\n";
-		$e->server->read_buffer_offset = $offset;
+		try
+		{
+			$packet = call_user_func($packet_class."::read", $e->server);
+			echo "S -> C: $packet\n";
+		}
+		catch(Exception $ex)
+		{
+			echo "S -> C: {$e->packetId->name}\n";
+			throw $ex;
+		}
+		finally
+		{
+			$e->server->read_buffer_offset = $offset;
+		}
 	}
 	else
 	{
@@ -29,9 +40,20 @@ $this->on(function(ProxyClientPacketEvent &$e)
 		 if($packet_class)
 		 {
 			 $offset = $e->client->read_buffer_offset;
-			 $packet = call_user_func($packet_class."::read", $e->client);
-			 echo "C -> $recipient: $packet\n";
-			 $e->client->read_buffer_offset = $offset;
+			 try
+			 {
+				 $packet = call_user_func($packet_class."::read", $e->client);
+				 echo "C -> $recipient: $packet\n";
+			 }
+			 catch(Exception $ex)
+			 {
+				 echo "C -> $recipient: {$e->packetId->name}\n";
+				 throw $ex;
+			 }
+			 finally
+			 {
+				 $e->client->read_buffer_offset = $offset;
+			 }
 		 }
 		 else
 		 {
