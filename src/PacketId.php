@@ -58,11 +58,11 @@ abstract class PacketId extends Identifier
 	 *
 	 * @param Connection $con
 	 * @return Packet|null
+	 * @deprecated Use PacketId::getInstance, instead.
 	 */
 	function init(Connection $con)
 	{
-		$class = $this->getClass();
-		return $class ? call_user_func($class."::read", $con) : null;
+		return $this->getInstance($con);
 	}
 
 	/**
@@ -71,6 +71,23 @@ abstract class PacketId extends Identifier
 	 * @return string|null
 	 */
 	abstract function getClass();
+
+	/**
+	 * Initialises this packet's class, optionally reading its payload from the given Connection.
+	 * Returns null if the packet does not have a class implementation yet.
+	 *
+	 * @param Connection|null $con
+	 * @return Packet|null
+	 */
+	function getInstance(Connection $con = null)
+	{
+		$class = $this->getClass();
+		if($class === null)
+		{
+			return null;
+		}
+		return $con === null ? new $class : call_user_func($class."::read", $con);
+	}
 
 	protected function _getId(int $protocol_version, string $key)
 	{

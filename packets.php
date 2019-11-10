@@ -86,7 +86,7 @@ while(($id = $con->readPacket()) !== false)
 	{
 		die(convertPacket($id, $name)." has no data.\n");
 	}
-	if($packetId instanceof PacketId && ($packet = $packetId->init($con)))
+	if($packetId instanceof PacketId && ($packet = $packetId->getInstance($con)))
 	{
 		if($last_id)
 		{
