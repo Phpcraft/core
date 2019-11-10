@@ -96,7 +96,7 @@ $this->on(function(ServerJoinEvent $event)
 		 foreach($event->server->clients as $con)
 		 {
 			 assert($con instanceof ClientConnection);
-			 if($con->state != 3 || @$con->received_imitated_world)
+			 if($con->state != Connection::STATE_PLAY || @$con->received_imitated_world)
 			 {
 				 continue;
 			 }

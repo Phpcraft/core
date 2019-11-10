@@ -5,7 +5,7 @@
  * @var Plugin $this
  */
 use Phpcraft\
-{Account, ClientConnection, Command\CommandSender, Event\ProxyConnectEvent, Phpcraft, Plugin, PluginManager, ServerConnection};
+{Account, ClientConnection, Command\CommandSender, Connection, Event\ProxyConnectEvent, Phpcraft, Plugin, PluginManager, ServerConnection};
 if(PluginManager::$command_prefix != "/proxy:")
 {
 	$this->unregister();
@@ -74,7 +74,7 @@ $this->registerCommand("connect", function(ClientConnection $sender, string $add
 	}
 	$sender->sendMessage("Logging in...");
 	$server_con = new ServerConnection($stream, $sender->protocol_version);
-	$server_con->sendHandshake($serverarr[0], intval($serverarr[1]), 2, $join_specs);
+	$server_con->sendHandshake($serverarr[0], intval($serverarr[1]), Connection::STATE_LOGIN, $join_specs);
 	if($error = $server_con->login($account))
 	{
 		$sender->sendMessage([

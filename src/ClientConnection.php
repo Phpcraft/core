@@ -208,7 +208,7 @@ class ClientConnection extends Connection implements ServerCommandSender
 						$this->setHostname($this->readString());
 						$this->hostport = $this->readUnsignedShort();
 						$this->state = gmp_intval($this->readVarInt());
-						if($this->state == 1 || $this->state == 2)
+						if($this->state == self::STATE_STATUS || $this->state == self::STATE_LOGIN)
 						{
 							return 1;
 						}
@@ -239,17 +239,17 @@ class ClientConnection extends Connection implements ServerCommandSender
 	 */
 	function disconnect($reason = [])
 	{
-		if($reason && $this->state > 1)
+		if($reason && ($this->state == self::STATE_PLAY || $this->state == self::STATE_LOGIN))
 		{
 			try
 			{
-				if($this->state == 2) // Login
-				{
-					$this->write_buffer = Connection::varInt(0x00);
-				}
-				else // Play
+				if($this->state == self::STATE_PLAY)
 				{
 					$this->startPacket("disconnect");
+				}
+				else // STATE_LOGIN
+				{
+					$this->write_buffer = Connection::varInt(0x00);
 				}
 				$this->writeChat($reason);
 				$this->send();
@@ -301,7 +301,7 @@ class ClientConnection extends Connection implements ServerCommandSender
 	 */
 	function sendEncryptionRequest($private_key): ClientConnection
 	{
-		if($this->state == 2)
+		if($this->state == self::STATE_LOGIN)
 		{
 			$this->write_buffer = Connection::varInt(0x01);
 			$this->writeString(""); // Server ID
@@ -410,7 +410,7 @@ class ClientConnection extends Connection implements ServerCommandSender
 	 */
 	function finishLogin(UUID $uuid, Counter $eidCounter, int $compression_threshold = 256): ClientConnection
 	{
-		if($this->state == 2)
+		if($this->state == self::STATE_LOGIN)
 		{
 			if($compression_threshold > -1 || $this->protocol_version < 48)
 			{
@@ -425,7 +425,7 @@ class ClientConnection extends Connection implements ServerCommandSender
 			$this->send();
 			$this->eid = $eidCounter->next();
 			$this->entityMetadata = new Living();
-			$this->state = 3;
+			$this->state = self::STATE_PLAY;
 			if($this->config && $this->config->server->persist_configs)
 			{
 				$this->config->setFile("config/player_data/".$this->uuid->toString(false).".json");
@@ -552,7 +552,7 @@ class ClientConnection extends Connection implements ServerCommandSender
 			assert($con instanceof ClientConnection);
 			try
 			{
-				if($con != $this && $con->state == 3 && $con->hasPermission($permission))
+				if($con != $this && $con->state == self::STATE_PLAY && $con->hasPermission($permission))
 				{
 					$con->sendMessage($message);
 				}

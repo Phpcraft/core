@@ -649,7 +649,7 @@ abstract class Phpcraft
 			{
 				$con = new ServerConnection($stream, Versions::protocol(false)[0]);
 				$start = microtime(true);
-				$con->sendHandshake($server_name, $server_port, 1);
+				$con->sendHandshake($server_name, $server_port, Connection::STATE_LOGIN);
 				$con->writeVarInt(0x00); // Status Request
 				$con->send();
 				if($con->readPacket($timeout) === 0x00)

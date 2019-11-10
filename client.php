@@ -6,7 +6,7 @@ if(empty($argv))
 }
 require "vendor/autoload.php";
 use Phpcraft\
-{Account, AssetsManager, Command\Command, Configuration, Event\ClientConsoleEvent, Event\ClientJoinEvent, Event\ClientPacketEvent, Packet\ClientboundPacketId, Packet\KeepAliveRequestPacket, Packet\PluginMessage\ServerboundBrandPluginMessagePacket, Phpcraft, PlainUserInterface, PluginManager, Point3D, ServerConnection, UserInterface, Versions};
+{Account, AssetsManager, Command\Command, Configuration, Connection, Event\ClientConsoleEvent, Event\ClientJoinEvent, Event\ClientPacketEvent, Packet\ClientboundPacketId, Packet\KeepAliveRequestPacket, Packet\PluginMessage\ServerboundBrandPluginMessagePacket, Phpcraft, PlainUserInterface, PluginManager, Point3D, ServerConnection, UserInterface, Versions};
 $options = [];
 for($i = 1; $i < count($argv); $i++)
 {
@@ -278,7 +278,7 @@ do
 	   ->render();
 	$stream = fsockopen($serverarr[0], intval($serverarr[1]), $errno, $errstr, 3) or die($errstr."\n");
 	$con = new ServerConnection($stream, $protocol_version);
-	$con->sendHandshake($serverarr[0], intval($serverarr[1]), 2);
+	$con->sendHandshake($serverarr[0], intval($serverarr[1]), Connection::STATE_LOGIN);
 	$ui->append("Connection established.")
 	   ->add("Logging in... ")
 	   ->render();

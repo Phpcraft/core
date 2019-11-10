@@ -106,7 +106,7 @@ class Server implements ServerCommandSender
 				$players = [];
 				foreach($this->clients as $client)
 				{
-					if($client->state == 3)
+					if($client->state == Connection::STATE_PLAY)
 					{
 						array_push($players, [
 							"name" => $client->username,
@@ -236,7 +236,7 @@ class Server implements ServerCommandSender
 			{
 				try
 				{
-					if($con->state == 0) // Handshaking
+					if($con->state == Connection::STATE_HANDSHAKE)
 					{
 						switch($con->handleInitialPacket())
 						{
@@ -269,7 +269,7 @@ class Server implements ServerCommandSender
 					{
 						while(($packet_id = $con->readPacket(0)) !== false)
 						{
-							if($con->state == 3) // Playing
+							if($con->state == Connection::STATE_PLAY) // Playing
 							{
 								$packetId = ServerboundPacketId::getById($packet_id, $con->protocol_version);
 								if($packetId === null)
@@ -294,7 +294,7 @@ class Server implements ServerCommandSender
 									($this->packet_function)($con, $packetId);
 								}
 							}
-							else if($con->state == 2) // Login
+							else if($con->state == Connection::STATE_LOGIN) // Login
 							{
 								if($packet_id == 0x00) // Login Start
 								{
@@ -383,7 +383,7 @@ class Server implements ServerCommandSender
 						$con->next_heartbeat = 0;
 						$con->disconnect_after = microtime(true) + 30;
 					}
-					if($con->state == 2 && $con->isAuthenticationPending())
+					if($con->state == Connection::STATE_LOGIN && $con->isAuthenticationPending())
 					{
 						$res = $con->handleAuthentication();
 						if(is_array($res))
@@ -467,7 +467,7 @@ class Server implements ServerCommandSender
 		$clients = [];
 		foreach($this->clients as $client)
 		{
-			if($client->state == 3)
+			if($client->state == Connection::STATE_PLAY)
 			{
 				array_push($clients, $client);
 			}
@@ -511,7 +511,7 @@ class Server implements ServerCommandSender
 			assert($con instanceof ClientConnection);
 			try
 			{
-				if($con->state == 3 && $con->hasPermission($permission))
+				if($con->state == Connection::STATE_PLAY && $con->hasPermission($permission))
 				{
 					$con->sendMessage($message, $position);
 				}
@@ -589,7 +589,7 @@ class Server implements ServerCommandSender
 		foreach($this->clients as $client)
 		{
 			assert($client instanceof ClientConnection);
-			if($client->state == 3 && ($client->username == $name_or_uuid || $client->uuid == $name_or_uuid))
+			if($client->state == Connection::STATE_PLAY && ($client->username == $name_or_uuid || $client->uuid == $name_or_uuid))
 			{
 				return $client;
 			}

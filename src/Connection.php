@@ -20,6 +20,10 @@ use Phpcraft\NBT\
  */
 class Connection
 {
+	const STATE_HANDSHAKE = 0;
+	const STATE_STATUS = 1;
+	const STATE_LOGIN = 2;
+	const STATE_PLAY = 3;
 	static $zero;
 	static $pow2 = [];
 	/**

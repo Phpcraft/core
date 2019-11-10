@@ -6,7 +6,7 @@ if(empty($argv))
 }
 require "vendor/autoload.php";
 use Phpcraft\
-{ClientConnection, Command\Command, Event\ServerChatEvent, Event\ServerChunkBorderEvent, Event\ServerClientMetadataEvent, Event\ServerClientSettingsEvent, Event\ServerConsoleEvent, Event\ServerFlyingChangeEvent, Event\ServerJoinEvent, Event\ServerLeaveEvent, Event\ServerMovementEvent, Event\ServerOnGroundChangeEvent, Event\ServerPacketEvent, Event\ServerRotationEvent, Event\ServerTickEvent, Exception\IOException, Packet\ClientSettingsPacket, Packet\ServerboundPacketId, Phpcraft, PlainUserInterface, PluginManager, Server, UserInterface, Versions};
+{ClientConnection, Command\Command, Connection, Event\ServerChatEvent, Event\ServerChunkBorderEvent, Event\ServerClientMetadataEvent, Event\ServerClientSettingsEvent, Event\ServerConsoleEvent, Event\ServerFlyingChangeEvent, Event\ServerJoinEvent, Event\ServerLeaveEvent, Event\ServerMovementEvent, Event\ServerOnGroundChangeEvent, Event\ServerPacketEvent, Event\ServerRotationEvent, Event\ServerTickEvent, Exception\IOException, Packet\ClientSettingsPacket, Packet\ServerboundPacketId, Phpcraft, PlainUserInterface, PluginManager, Server, UserInterface, Versions};
 $options = [
 	"offline" => false,
 	"nocolor" => false,
@@ -210,7 +210,7 @@ $ui->tabcomplete_function = function(string $word)
 	$len = strlen($word);
 	foreach($server->clients as $c)
 	{
-		if($c->state == 3 && strtolower(substr($c->username, 0, $len)) == $word)
+		if($c->state == Connection::STATE_PLAY && strtolower(substr($c->username, 0, $len)) == $word)
 		{
 			array_push($completions, $c->username);
 		}
@@ -242,7 +242,7 @@ $server->join_function = function(ClientConnection $con)
 	global $ui, $server;
 	foreach($server->clients as $client)
 	{
-		if($client !== $con && $client->state == 3 && $client->username == $con->username)
+		if($client !== $con && $client->state == Connection::STATE_PLAY && $client->username == $con->username)
 		{
 			if($server->isOnlineMode())
 			{
@@ -286,7 +286,7 @@ $server->join_function = function(ClientConnection $con)
 							]
 						]
 					]);
-					$con->state = 2; // prevent ServerLeaveEvent being fired
+					$con->state = Connection::STATE_LOGIN; // prevent ServerLeaveEvent being fired
 					return;
 				}
 			}
@@ -506,7 +506,7 @@ $server->packet_function = function(ClientConnection $con, ServerboundPacketId $
 $server->disconnect_function = function(ClientConnection $con)
 {
 	global $ui, $server;
-	if($con->state == 3 && !PluginManager::fire(new ServerLeaveEvent($server, $con)) && $con->hasPosition())
+	if($con->state == Connection::STATE_PLAY && !PluginManager::fire(new ServerLeaveEvent($server, $con)) && $con->hasPosition())
 	{
 		$msg = [
 			"color" => "yellow",

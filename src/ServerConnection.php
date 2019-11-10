@@ -41,7 +41,7 @@ class ServerConnection extends Connection implements CommandSender
 	 *
 	 * @param string $server_name
 	 * @param int $server_port
-	 * @param int $next_state Use 1 for status, or 2 for login to play.
+	 * @param int $next_state May be Connection::STATE_STATUS (1) for list ping or Connection::STATE_LOGIN (2) for login to play.
 	 * @param array<string> $join_specs Additional data to provide, e.g. "FML" is in this array for Forge clients.
 	 * @return ServerConnection $this
 	 * @throws IOException
@@ -98,7 +98,7 @@ class ServerConnection extends Connection implements CommandSender
 			{
 				$this->uuid = new UUID($this->readString(36, 36));
 				$this->username = $this->readString(16, 3);
-				$this->state = 3;
+				$this->state = self::STATE_PLAY;
 				break;
 			}
 			else if($id == 0x01) // Encryption Request
