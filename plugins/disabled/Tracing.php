@@ -3,7 +3,7 @@
  * @var Plugin $this
  */
 use Phpcraft\
-{ClientConnection, Entity\EntityType, Event\ServerJoinEvent, Event\ServerTickEvent, Packet\SpawnMobPacket, Plugin, PluginManager, Point3D};
+{ClientConnection, Entity\EntityType, Event\ServerJoinEvent, Event\ServerTickEvent, Packet\SpawnMobPacket, Plugin, PluginManager};
 if(PluginManager::$command_prefix != "/")
 {
 	$this->unregister();
