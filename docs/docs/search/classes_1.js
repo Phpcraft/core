@@ -4,5 +4,7 @@ var searchData=
   ['block',['Block',['../classPhpcraft_1_1Block.html',1,'Phpcraft']]],
   ['blockproperty',['BlockProperty',['../classPhpcraft_1_1BlockProperty.html',1,'Phpcraft']]],
   ['blockstate',['BlockState',['../classPhpcraft_1_1BlockState.html',1,'Phpcraft']]],
-  ['bossbarpacket',['BossBarPacket',['../classPhpcraft_1_1Packet_1_1BossBar_1_1BossBarPacket.html',1,'Phpcraft::Packet::BossBar']]]
+  ['bossbarpacket',['BossBarPacket',['../classPhpcraft_1_1Packet_1_1BossBar_1_1BossBarPacket.html',1,'Phpcraft::Packet::BossBar']]],
+  ['bytearraytag',['ByteArrayTag',['../classPhpcraft_1_1NBT_1_1ByteArrayTag.html',1,'Phpcraft::NBT']]],
+  ['bytetag',['ByteTag',['../classPhpcraft_1_1NBT_1_1ByteTag.html',1,'Phpcraft::NBT']]]
 ];

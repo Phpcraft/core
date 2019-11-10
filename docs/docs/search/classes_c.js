@@ -1,19 +1,5 @@
 var searchData=
 [
   ['nbt',['NBT',['../classPhpcraft_1_1NBT_1_1NBT.html',1,'Phpcraft::NBT']]],
-  ['nbtbyte',['NbtByte',['../classPhpcraft_1_1NBT_1_1NbtByte.html',1,'Phpcraft::NBT']]],
-  ['nbtbytearray',['NbtByteArray',['../classPhpcraft_1_1NBT_1_1NbtByteArray.html',1,'Phpcraft::NBT']]],
-  ['nbtcompound',['NbtCompound',['../classPhpcraft_1_1NBT_1_1NbtCompound.html',1,'Phpcraft::NBT']]],
-  ['nbtdouble',['NbtDouble',['../classPhpcraft_1_1NBT_1_1NbtDouble.html',1,'Phpcraft::NBT']]],
-  ['nbtend',['NbtEnd',['../classPhpcraft_1_1NBT_1_1NbtEnd.html',1,'Phpcraft::NBT']]],
-  ['nbtfloat',['NbtFloat',['../classPhpcraft_1_1NBT_1_1NbtFloat.html',1,'Phpcraft::NBT']]],
-  ['nbtint',['NbtInt',['../classPhpcraft_1_1NBT_1_1NbtInt.html',1,'Phpcraft::NBT']]],
-  ['nbtintarray',['NbtIntArray',['../classPhpcraft_1_1NBT_1_1NbtIntArray.html',1,'Phpcraft::NBT']]],
-  ['nbtlist',['NbtList',['../classPhpcraft_1_1NBT_1_1NbtList.html',1,'Phpcraft::NBT']]],
-  ['nbtlisttag',['NbtListTag',['../classPhpcraft_1_1NBT_1_1NbtListTag.html',1,'Phpcraft::NBT']]],
-  ['nbtlong',['NbtLong',['../classPhpcraft_1_1NBT_1_1NbtLong.html',1,'Phpcraft::NBT']]],
-  ['nbtlongarray',['NbtLongArray',['../classPhpcraft_1_1NBT_1_1NbtLongArray.html',1,'Phpcraft::NBT']]],
-  ['nbtshort',['NbtShort',['../classPhpcraft_1_1NBT_1_1NbtShort.html',1,'Phpcraft::NBT']]],
-  ['nbtstring',['NbtString',['../classPhpcraft_1_1NBT_1_1NbtString.html',1,'Phpcraft::NBT']]],
   ['node',['Node',['../classPhpcraft_1_1Packet_1_1DeclareCommands_1_1Node.html',1,'Phpcraft::Packet::DeclareCommands']]]
 ];

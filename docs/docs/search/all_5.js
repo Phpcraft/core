@@ -14,6 +14,7 @@ var searchData=
   ['division_5f20',['DIVISION_20',['../classPhpcraft_1_1Packet_1_1BossBar_1_1BossBarPacket.html#ae1fe28cf3ad24f312bbada634559f7cb',1,'Phpcraft::Packet::BossBar::BossBarPacket']]],
   ['division_5f6',['DIVISION_6',['../classPhpcraft_1_1Packet_1_1BossBar_1_1BossBarPacket.html#a4bfb55a8021dbd31bf5f75fb0c2b9a86',1,'Phpcraft::Packet::BossBar::BossBarPacket']]],
   ['doesassetexist',['doesAssetExist',['../classPhpcraft_1_1AssetsManager.html#a13a585f3fdb1caab24292cf9b43e9872',1,'Phpcraft::AssetsManager']]],
+  ['doubletag',['DoubleTag',['../classPhpcraft_1_1NBT_1_1DoubleTag.html',1,'Phpcraft::NBT']]],
   ['downloadallassets',['downloadAllAssets',['../classPhpcraft_1_1AssetsManager.html#a0acdd8f596c09d2bdffa6d6e0add69a9',1,'Phpcraft::AssetsManager']]],
   ['downloadasset',['downloadAsset',['../classPhpcraft_1_1AssetsManager.html#a55828e6fd7653132c68891dd925da18f',1,'Phpcraft::AssetsManager']]]
 ];

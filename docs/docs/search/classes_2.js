@@ -17,6 +17,7 @@ var searchData=
   ['clientsettingspacket',['ClientSettingsPacket',['../classPhpcraft_1_1Packet_1_1ClientSettingsPacket.html',1,'Phpcraft::Packet']]],
   ['command',['Command',['../classPhpcraft_1_1Command_1_1Command.html',1,'Phpcraft::Command']]],
   ['commandsender',['CommandSender',['../interfacePhpcraft_1_1Command_1_1CommandSender.html',1,'Phpcraft::Command']]],
+  ['compoundtag',['CompoundTag',['../classPhpcraft_1_1NBT_1_1CompoundTag.html',1,'Phpcraft::NBT']]],
   ['configuration',['Configuration',['../classPhpcraft_1_1Configuration.html',1,'Phpcraft']]],
   ['connection',['Connection',['../classPhpcraft_1_1Connection.html',1,'Phpcraft']]],
   ['counter',['Counter',['../classPhpcraft_1_1Counter.html',1,'Phpcraft']]],

@@ -24,10 +24,12 @@ var searchData=
   ['servertickevent',['ServerTickEvent',['../classPhpcraft_1_1Event_1_1ServerTickEvent.html',1,'Phpcraft::Event']]],
   ['setexperiencepacket',['SetExperiencePacket',['../classPhpcraft_1_1Packet_1_1SetExperiencePacket.html',1,'Phpcraft::Packet']]],
   ['setslotpacket',['SetSlotPacket',['../classPhpcraft_1_1Packet_1_1SetSlotPacket.html',1,'Phpcraft::Packet']]],
+  ['shorttag',['ShortTag',['../classPhpcraft_1_1NBT_1_1ShortTag.html',1,'Phpcraft::NBT']]],
   ['singlewordstring',['SingleWordString',['../classPhpcraft_1_1Command_1_1SingleWordString.html',1,'Phpcraft::Command']]],
   ['singlewordstringprovider',['SingleWordStringProvider',['../classPhpcraft_1_1Command_1_1SingleWordStringProvider.html',1,'Phpcraft::Command']]],
   ['slot',['Slot',['../classPhpcraft_1_1Slot.html',1,'Phpcraft']]],
   ['spawnmobpacket',['SpawnMobPacket',['../classPhpcraft_1_1Packet_1_1SpawnMobPacket.html',1,'Phpcraft::Packet']]],
   ['stringargument',['StringArgument',['../classPhpcraft_1_1Command_1_1StringArgument.html',1,'Phpcraft::Command']]],
-  ['stringprovider',['StringProvider',['../classPhpcraft_1_1Command_1_1StringProvider.html',1,'Phpcraft::Command']]]
+  ['stringprovider',['StringProvider',['../classPhpcraft_1_1Command_1_1StringProvider.html',1,'Phpcraft::Command']]],
+  ['stringtag',['StringTag',['../classPhpcraft_1_1NBT_1_1StringTag.html',1,'Phpcraft::NBT']]]
 ];

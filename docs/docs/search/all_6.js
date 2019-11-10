@@ -4,6 +4,7 @@ var searchData=
   ['effecttype',['EffectType',['../classPhpcraft_1_1EffectType.html',1,'Phpcraft']]],
   ['elderguardian',['ElderGuardian',['../classPhpcraft_1_1Entity_1_1ElderGuardian.html',1,'Phpcraft::Entity']]],
   ['end',['END',['../classPhpcraft_1_1Enum_1_1Dimension.html#af20cabba999a931986923a22c9fda566',1,'Phpcraft::Enum::Dimension']]],
+  ['endtag',['EndTag',['../classPhpcraft_1_1NBT_1_1EndTag.html',1,'Phpcraft::NBT']]],
   ['entityeffectpacket',['EntityEffectPacket',['../classPhpcraft_1_1Packet_1_1EntityEffectPacket.html',1,'Phpcraft::Packet']]],
   ['entitypacket',['EntityPacket',['../classPhpcraft_1_1Packet_1_1EntityPacket.html',1,'Phpcraft::Packet']]],
   ['entitytype',['EntityType',['../classPhpcraft_1_1Entity_1_1EntityType.html',1,'Phpcraft::Entity']]],

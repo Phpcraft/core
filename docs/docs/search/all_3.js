@@ -9,5 +9,7 @@ var searchData=
   ['blockstate',['BlockState',['../classPhpcraft_1_1BlockState.html',1,'Phpcraft']]],
   ['bossbarpacket',['BossBarPacket',['../classPhpcraft_1_1Packet_1_1BossBar_1_1BossBarPacket.html',1,'Phpcraft::Packet::BossBar']]],
   ['broadcast',['broadcast',['../classPhpcraft_1_1Server.html#a599d09f219a491010b31072390556179',1,'Phpcraft::Server']]],
-  ['buildlegacyassetsfolder',['buildLegacyAssetsFolder',['../classPhpcraft_1_1AssetsManager.html#aed92d67b2b8e22dac0c0a17456f09cea',1,'Phpcraft::AssetsManager']]]
+  ['buildlegacyassetsfolder',['buildLegacyAssetsFolder',['../classPhpcraft_1_1AssetsManager.html#aed92d67b2b8e22dac0c0a17456f09cea',1,'Phpcraft::AssetsManager']]],
+  ['bytearraytag',['ByteArrayTag',['../classPhpcraft_1_1NBT_1_1ByteArrayTag.html',1,'Phpcraft::NBT']]],
+  ['bytetag',['ByteTag',['../classPhpcraft_1_1NBT_1_1ByteTag.html',1,'Phpcraft::NBT']]]
 ];
