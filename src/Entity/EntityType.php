@@ -150,7 +150,7 @@ class EntityType extends Identifier
 	}
 
 	/**
-	 * Returns the appropriate EntityMetadata class for this entity type.
+	 * Returns an instance of the appropriate Entity\Metadata class for this entity type.
 	 *
 	 * @return Metadata
 	 */
@@ -158,6 +158,8 @@ class EntityType extends Identifier
 	{
 		switch($this->name)
 		{
+			case "creeper":
+				return new Creeper();
 			case "guardian":
 				return new Guardian();
 			case "elder_guardian":
