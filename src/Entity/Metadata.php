@@ -5,6 +5,7 @@ use GMP;
 use LogicException;
 use Phpcraft\
 {Connection, Exception\IOException, Phpcraft};
+use RuntimeException;
 use UnexpectedValueException;
 /**
  * Entity metadata.
@@ -82,9 +83,39 @@ abstract class Metadata
 		$con->writeByte($index);
 		if($con->protocol_version >= 57)
 		{
-			$con->writeByte(7);
+			self::writeType($con, "bool");
 		}
 		$con->writeBoolean($value);
+	}
+
+	private static function writeType(Connection $con, string $type)
+	{
+		$versions = [
+			472 => "1.14",
+			383 => "1.13",
+			328 => "1.12",
+			57 => "1.11"
+		];
+		foreach($versions as $pv => $v)
+		{
+			if($con->protocol_version >= $pv)
+			{
+				if(!array_key_exists($v, self::$fields))
+				{
+					self::$fields[$v] = json_decode(file_get_contents(Phpcraft::DATA_DIR."/minecraft-data/{$v}/protocol.json"), true)["types"]["entityMetadataItem"][1]["fields"];
+				}
+				foreach(self::$fields[$v] as $id => $_type)
+				{
+					if($_type == $type)
+					{
+						$con->writeByte($id);
+						return;
+					}
+				}
+				break;
+			}
+		}
+		throw new RuntimeException("Unable to write type id for type $type");
 	}
 
 	/**
