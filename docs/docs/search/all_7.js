@@ -12,6 +12,6 @@ var searchData=
   ['format_5fnone',['FORMAT_NONE',['../classPhpcraft_1_1Phpcraft.html#a711cebd92edfd78135b128d4585e178b',1,'Phpcraft::Phpcraft']]],
   ['format_5fsilcrow',['FORMAT_SILCROW',['../classPhpcraft_1_1Phpcraft.html#aadecd1d7bb833a1504b554eea41df74b',1,'Phpcraft::Phpcraft']]],
   ['fromminecraftversion',['fromMinecraftVersion',['../classPhpcraft_1_1AssetsManager.html#a37b69586a1ec2cd6015d43f549ca4b40',1,'Phpcraft::AssetsManager']]],
-  ['fromsnbt',['fromSNBT',['../classPhpcraft_1_1NBT_1_1NBT.html#ad891a9898c975de6c9eb6d7676b9a178',1,'Phpcraft\NBT\NBT\fromSNBT(string $snbt, bool $inList=false)'],['../classPhpcraft_1_1NBT_1_1NBT.html#ad891a9898c975de6c9eb6d7676b9a178',1,'Phpcraft\NBT\NBT\fromSNBT(string $snbt, bool $inList=false)']]],
-  ['fromstring',['fromString',['../classPhpcraft_1_1NBT_1_1NBT.html#a116cd35f7a6f2ade2cf94eda1f5afe2c',1,'Phpcraft\NBT\NBT\fromString(string $nbt)'],['../classPhpcraft_1_1NBT_1_1NBT.html#a116cd35f7a6f2ade2cf94eda1f5afe2c',1,'Phpcraft\NBT\NBT\fromString(string $nbt)']]]
+  ['fromsnbt',['fromSNBT',['../classPhpcraft_1_1NBT_1_1NBT.html#ad891a9898c975de6c9eb6d7676b9a178',1,'Phpcraft::NBT::NBT']]],
+  ['fromstring',['fromString',['../classPhpcraft_1_1NBT_1_1NBT.html#a116cd35f7a6f2ade2cf94eda1f5afe2c',1,'Phpcraft::NBT::NBT']]]
 ];

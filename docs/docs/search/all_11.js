@@ -11,7 +11,7 @@ var searchData=
   ['nbt',['NBT',['../namespacePhpcraft_1_1NBT.html',1,'Phpcraft']]],
   ['packet',['Packet',['../classPhpcraft_1_1Packet_1_1Packet.html',1,'Phpcraft\Packet\Packet'],['../namespacePhpcraft_1_1Packet.html',1,'Phpcraft\Packet']]],
   ['packetid',['PacketId',['../classPhpcraft_1_1PacketId.html',1,'Phpcraft']]],
-  ['parsesnbtarray',['parseSNBTArray',['../classPhpcraft_1_1NBT_1_1NBT.html#ab0a2127db6856717aa3f9af743ce3b83',1,'Phpcraft\NBT\NBT\parseSNBTArray(string $snbt, bool $list)'],['../classPhpcraft_1_1NBT_1_1NBT.html#ab0a2127db6856717aa3f9af743ce3b83',1,'Phpcraft\NBT\NBT\parseSNBTArray(string $snbt, bool $list)']]],
+  ['parsesnbtarray',['parseSNBTArray',['../classPhpcraft_1_1NBT_1_1NBT.html#ab0a2127db6856717aa3f9af743ce3b83',1,'Phpcraft::NBT::NBT']]],
   ['peaceful',['PEACEFUL',['../classPhpcraft_1_1Enum_1_1Difficulty.html#aae4c0f1646ee364479d6e154a111d4e6',1,'Phpcraft::Enum::Difficulty']]],
   ['permission',['Permission',['../namespacePhpcraft_1_1Permission.html',1,'Phpcraft']]],
   ['permissionbroadcast',['permissionBroadcast',['../classPhpcraft_1_1Server.html#a14172aae708ccfd4e63bb796b4b8ced6',1,'Phpcraft::Server']]],

@@ -5,6 +5,6 @@ var searchData=
   ['fire',['fire',['../classPhpcraft_1_1Plugin.html#aba78b35a6a482731e1c166823bb17e49',1,'Phpcraft\Plugin\fire()'],['../classPhpcraft_1_1PluginManager.html#ad912f829d164fd31f61a4eee2da88804',1,'Phpcraft\PluginManager\fire()']]],
   ['floor',['floor',['../classPhpcraft_1_1Point3D.html#a2e0422ce5697ed2ef2327e50ed713889',1,'Phpcraft::Point3D']]],
   ['fromminecraftversion',['fromMinecraftVersion',['../classPhpcraft_1_1AssetsManager.html#a37b69586a1ec2cd6015d43f549ca4b40',1,'Phpcraft::AssetsManager']]],
-  ['fromsnbt',['fromSNBT',['../classPhpcraft_1_1NBT_1_1NBT.html#ad891a9898c975de6c9eb6d7676b9a178',1,'Phpcraft\NBT\NBT\fromSNBT(string $snbt, bool $inList=false)'],['../classPhpcraft_1_1NBT_1_1NBT.html#ad891a9898c975de6c9eb6d7676b9a178',1,'Phpcraft\NBT\NBT\fromSNBT(string $snbt, bool $inList=false)']]],
-  ['fromstring',['fromString',['../classPhpcraft_1_1NBT_1_1NBT.html#a116cd35f7a6f2ade2cf94eda1f5afe2c',1,'Phpcraft\NBT\NBT\fromString(string $nbt)'],['../classPhpcraft_1_1NBT_1_1NBT.html#a116cd35f7a6f2ade2cf94eda1f5afe2c',1,'Phpcraft\NBT\NBT\fromString(string $nbt)']]]
+  ['fromsnbt',['fromSNBT',['../classPhpcraft_1_1NBT_1_1NBT.html#ad891a9898c975de6c9eb6d7676b9a178',1,'Phpcraft::NBT::NBT']]],
+  ['fromstring',['fromString',['../classPhpcraft_1_1NBT_1_1NBT.html#a116cd35f7a6f2ade2cf94eda1f5afe2c',1,'Phpcraft::NBT::NBT']]]
 ];
