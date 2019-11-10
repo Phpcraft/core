@@ -140,7 +140,7 @@ abstract class NBT
 							}
 							array_push($nums, $num);
 						}
-						return new ByteArray($name, $nums);
+						return new ByteArrayTag($name, $nums);
 					case "i;":
 						$nums = [];
 						foreach(explode(",", substr($value, 3, -1)) as $num)

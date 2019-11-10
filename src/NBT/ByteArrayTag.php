@@ -38,7 +38,7 @@ class ByteArrayTag extends AbstractListTag
 
 	function copy(): NBT
 	{
-		return new ByteArray($this->name, $this->children);
+		return new ByteArrayTag($this->name, $this->children);
 	}
 
 	function __toString()
