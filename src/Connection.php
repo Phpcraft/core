@@ -539,7 +539,7 @@ class Connection
 				{
 					if($length >= $this->compression_threshold)
 					{
-						$compressed = gzcompress($this->write_buffer, 1);
+						$compressed = zlib_encode($this->write_buffer, ZLIB_ENCODING_DEFLATE, 9);
 						$compressed_length = strlen($compressed);
 						$length_varint = self::varInt($length);
 						$w = @fwrite($this->stream, self::varInt($compressed_length + strlen($length_varint)).$length_varint.$compressed) or $this->close();
@@ -565,7 +565,7 @@ class Connection
 	}
 
 	/**
-	 * Closes the stream.
+	 * Closes the connection's stream, if it has one.
 	 */
 	function close()
 	{
@@ -637,6 +637,10 @@ class Connection
 		$read = 0;
 		do
 		{
+			if($read > 3)
+			{
+				throw new IOException("Packet length exceeds 2097152 bytes");
+			}
 			$byte = @fgetc($this->stream);
 			while($byte === false)
 			{
@@ -648,10 +652,6 @@ class Connection
 			}
 			$byte = ord($byte);
 			$length |= (($byte & 0b01111111) << (7 * $read++));
-			if($length > 2097152)
-			{
-				throw new IOException("Packet length wider than 21 bits");
-			}
 		}
 		while(($byte & 0b10000000) != 0);
 		// It's established that a packet is on the line, but it could take more than one read to get it into the read buffer, so some additional time is forcefully allocated.
@@ -671,21 +671,21 @@ class Connection
 			$offset = 0;
 			do
 			{
+				if($offset > 3)
+				{
+					throw new IOException("Uncompressed packet length exceeds 2097152 bytes");
+				}
 				$byte = unpack("Cbyte", substr($this->read_buffer, $offset, 1))["byte"];
 				$uncompressed_length |= (($byte & 0b01111111) << (7 * $offset++));
-				if($uncompressed_length > 2097152)
-				{
-					throw new IOException("Uncompressed packet length wider than 21 bits");
-				}
 			}
 			while(($byte & 0b10000000) != 0);
 			$this->read_buffer = substr($this->read_buffer, $offset);
 			if($uncompressed_length > 0)
 			{
-				$this->read_buffer = @gzuncompress($this->read_buffer, $uncompressed_length);
-				if(!$this->read_buffer)
+				$this->read_buffer = @zlib_decode($this->read_buffer, $uncompressed_length);
+				if($this->read_buffer === false)
 				{
-					throw new IOException("Failed to decompress the packet data");
+					throw new IOException("Failed to decompress packet data");
 				}
 			}
 		}
