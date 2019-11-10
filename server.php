@@ -118,9 +118,13 @@ function reloadConfiguration()
 	{
 		$config["ports"] = [25565];
 	}
-	if(!array_key_exists("motd", $config))
+	if(!array_key_exists("server_list_appearance", $config))
 	{
-		$config["motd"] = [
+		$config["server_list_appearance"] = [];
+	}
+	if(!array_key_exists("description", $config["server_list_appearance"]))
+	{
+		$config["server_list_appearance"]["description"] = [
 			"text" => "A ",
 			"extra" => [
 				[
@@ -134,9 +138,13 @@ function reloadConfiguration()
 			]
 		];
 	}
-	if(!array_key_exists("show_no_connection_instead_of_ping_in_server_list", $config))
+	if(!array_key_exists("show_question_marks_instead_of_player_count", $config["server_list_appearance"]))
 	{
-		$config["show_no_connection_instead_of_ping_in_server_list"] = false;
+		$config["server_list_appearance"]["show_question_marks_instead_of_player_count"] = false;
+	}
+	if(!array_key_exists("show_no_connection_instead_of_ping", $config["server_list_appearance"]))
+	{
+		$config["server_list_appearance"]["show_no_connection_instead_of_ping"] = false;
 	}
 	if(!array_key_exists("compression_threshold", $config))
 	{
@@ -221,12 +229,16 @@ $default_list_ping_function = $server->list_ping_function;
 $server->list_ping_function = function(ClientConnection $con = null) use (&$config, &$default_list_ping_function)
 {
 	$data = $default_list_ping_function($con);
-	$data["description"] = $config["motd"];
+	if($config["server_list_appearance"]["show_question_marks_instead_of_player_count"])
+	{
+		unset($data["players"]);
+	}
+	$data["description"] = $config["server_list_appearance"]["description"];
 	$data["modinfo"] = [
 		"type" => "FML",
 		"modList" => []
 	];
-	if($config["show_no_connection_instead_of_ping_in_server_list"])
+	if($config["server_list_appearance"]["show_no_connection_instead_of_ping"])
 	{
 		$data["no_ping"] = true;
 	}
