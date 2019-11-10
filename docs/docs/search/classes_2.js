@@ -20,5 +20,6 @@ var searchData=
   ['configuration',['Configuration',['../classPhpcraft_1_1Configuration.html',1,'Phpcraft']]],
   ['connection',['Connection',['../classPhpcraft_1_1Connection.html',1,'Phpcraft']]],
   ['counter',['Counter',['../classPhpcraft_1_1Counter.html',1,'Phpcraft']]],
-  ['creature',['Creature',['../classPhpcraft_1_1Entity_1_1Creature.html',1,'Phpcraft::Entity']]]
+  ['creature',['Creature',['../classPhpcraft_1_1Entity_1_1Creature.html',1,'Phpcraft::Entity']]],
+  ['creeper',['Creeper',['../classPhpcraft_1_1Entity_1_1Creeper.html',1,'Phpcraft::Entity']]]
 ];

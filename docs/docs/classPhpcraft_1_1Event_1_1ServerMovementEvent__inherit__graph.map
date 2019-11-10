@@ -1,6 +1,6 @@
 <map id="Phpcraft\Event\ServerMovementEvent" name="Phpcraft\Event\ServerMovementEvent">
-<area shape="rect" id="node5" href="$classPhpcraft_1_1Event_1_1ServerChunkBorderEvent.html" title="Phpcraft\\Event\\ServerChunk\lBorderEvent" alt="" coords="19,333,221,375"/>
-<area shape="rect" id="node2" href="$classPhpcraft_1_1Event_1_1ServerClientEvent.html" title="Phpcraft\\Event\\ServerClient\lEvent" alt="" coords="21,155,219,196"/>
-<area shape="rect" id="node3" href="$classPhpcraft_1_1Event_1_1ServerEvent.html" title="Phpcraft\\Event\\ServerEvent" alt="" coords="21,80,219,107"/>
-<area shape="rect" id="node4" href="$classPhpcraft_1_1Event_1_1Event.html" title="Phpcraft\\Event\\Event" alt="" coords="43,5,197,32"/>
+<area shape="rect" id="node5" href="$classPhpcraft_1_1Event_1_1ServerChunkBorderEvent.html" title="Phpcraft\\Event\\ServerChunk\lBorderEvent" alt="" coords="19,333,223,375"/>
+<area shape="rect" id="node2" href="$classPhpcraft_1_1Event_1_1ServerClientEvent.html" title="Phpcraft\\Event\\ServerClient\lEvent" alt="" coords="21,155,222,196"/>
+<area shape="rect" id="node3" href="$classPhpcraft_1_1Event_1_1ServerEvent.html" title="Phpcraft\\Event\\ServerEvent" alt="" coords="21,80,221,107"/>
+<area shape="rect" id="node4" href="$classPhpcraft_1_1Event_1_1Event.html" title="Phpcraft\\Event\\Event" alt="" coords="42,5,201,32"/>
 </map>

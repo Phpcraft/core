@@ -1,7 +1,7 @@
 <map id="Phpcraft\Packet\BossBar\BossBarPacket" name="Phpcraft\Packet\BossBar\BossBarPacket">
-<area shape="rect" id="node3" href="$classPhpcraft_1_1Packet_1_1BossBar_1_1AddBossBarPacket.html" title="Phpcraft\\Packet\\BossBar\l\\AddBossBarPacket" alt="" coords="463,5,641,47"/>
-<area shape="rect" id="node4" href="$classPhpcraft_1_1Packet_1_1BossBar_1_1RemoveBossBarPacket.html" title="Phpcraft\\Packet\\BossBar\l\\RemoveBossBarPacket" alt="" coords="463,71,641,112"/>
-<area shape="rect" id="node5" href="$classPhpcraft_1_1Packet_1_1BossBar_1_1UpdateBossBarHealthPacket.html" title="Phpcraft\\Packet\\BossBar\l\\UpdateBossBarHealthPacket" alt="" coords="447,136,657,177"/>
-<area shape="rect" id="node6" href="$classPhpcraft_1_1Packet_1_1BossBar_1_1UpdateBossBarTitlePacket.html" title="Phpcraft\\Packet\\BossBar\l\\UpdateBossBarTitlePacket" alt="" coords="455,201,649,243"/>
-<area shape="rect" id="node2" href="$classPhpcraft_1_1Packet_1_1Packet.html" title="Phpcraft\\Packet\\Packet" alt="" coords="5,111,172,138"/>
+<area shape="rect" id="node3" href="$classPhpcraft_1_1Packet_1_1BossBar_1_1AddBossBarPacket.html" title="Phpcraft\\Packet\\BossBar\l\\AddBossBarPacket" alt="" coords="468,5,648,47"/>
+<area shape="rect" id="node4" href="$classPhpcraft_1_1Packet_1_1BossBar_1_1RemoveBossBarPacket.html" title="Phpcraft\\Packet\\BossBar\l\\RemoveBossBarPacket" alt="" coords="468,71,648,112"/>
+<area shape="rect" id="node5" href="$classPhpcraft_1_1Packet_1_1BossBar_1_1UpdateBossBarHealthPacket.html" title="Phpcraft\\Packet\\BossBar\l\\UpdateBossBarHealthPacket" alt="" coords="452,136,664,177"/>
+<area shape="rect" id="node6" href="$classPhpcraft_1_1Packet_1_1BossBar_1_1UpdateBossBarTitlePacket.html" title="Phpcraft\\Packet\\BossBar\l\\UpdateBossBarTitlePacket" alt="" coords="459,201,657,243"/>
+<area shape="rect" id="node2" href="$classPhpcraft_1_1Packet_1_1Packet.html" title="Phpcraft\\Packet\\Packet" alt="" coords="5,111,176,138"/>
 </map>

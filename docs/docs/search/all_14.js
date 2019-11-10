@@ -10,7 +10,7 @@ var searchData=
   ['sendhandshake',['sendHandshake',['../classPhpcraft_1_1ServerConnection.html#a715fa437fb0161042ced88be985ade84',1,'Phpcraft::ServerConnection']]],
   ['sendmessage',['sendMessage',['../classPhpcraft_1_1ClientConnection.html#a9ed0586a5ca0d6898b7a547739296025',1,'Phpcraft\ClientConnection\sendMessage()'],['../interfacePhpcraft_1_1Command_1_1CommandSender.html#a9db2ce7b323f2042dfc6c5d729981d70',1,'Phpcraft\Command\CommandSender\sendMessage()'],['../classPhpcraft_1_1Server.html#a3dbcdf93f9f834134cea839460b5344e',1,'Phpcraft\Server\sendMessage()'],['../classPhpcraft_1_1ServerConnection.html#a2facb38c4c96f2e4c7305e7bc42fdfeb',1,'Phpcraft\ServerConnection\sendMessage()']]],
   ['sendrealmsrequest',['sendRealmsRequest',['../classPhpcraft_1_1Account.html#a4fd30532181444e3498ad3de71047d33',1,'Phpcraft::Account']]],
-  ['server',['Server',['../classPhpcraft_1_1Realms_1_1Server.html',1,'Phpcraft\Realms\Server'],['../classPhpcraft_1_1Server.html',1,'Phpcraft\Server']]],
+  ['server',['Server',['../classPhpcraft_1_1Server.html',1,'Phpcraft\Server'],['../classPhpcraft_1_1Realms_1_1Server.html',1,'Phpcraft\Realms\Server']]],
   ['serverboundbrandpluginmessagepacket',['ServerboundBrandPluginMessagePacket',['../classPhpcraft_1_1Packet_1_1PluginMessage_1_1ServerboundBrandPluginMessagePacket.html',1,'Phpcraft::Packet::PluginMessage']]],
   ['serverboundpacketid',['ServerboundPacketId',['../classPhpcraft_1_1Packet_1_1ServerboundPacketId.html',1,'Phpcraft::Packet']]],
   ['serverboundpluginmessagepacket',['ServerboundPluginMessagePacket',['../classPhpcraft_1_1Packet_1_1PluginMessage_1_1ServerboundPluginMessagePacket.html',1,'Phpcraft::Packet::PluginMessage']]],

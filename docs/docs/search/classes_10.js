@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['server',['Server',['../classPhpcraft_1_1Realms_1_1Server.html',1,'Phpcraft\Realms\Server'],['../classPhpcraft_1_1Server.html',1,'Phpcraft\Server']]],
+  ['server',['Server',['../classPhpcraft_1_1Server.html',1,'Phpcraft\Server'],['../classPhpcraft_1_1Realms_1_1Server.html',1,'Phpcraft\Realms\Server']]],
   ['serverboundbrandpluginmessagepacket',['ServerboundBrandPluginMessagePacket',['../classPhpcraft_1_1Packet_1_1PluginMessage_1_1ServerboundBrandPluginMessagePacket.html',1,'Phpcraft::Packet::PluginMessage']]],
   ['serverboundpacketid',['ServerboundPacketId',['../classPhpcraft_1_1Packet_1_1ServerboundPacketId.html',1,'Phpcraft::Packet']]],
   ['serverboundpluginmessagepacket',['ServerboundPluginMessagePacket',['../classPhpcraft_1_1Packet_1_1PluginMessage_1_1ServerboundPluginMessagePacket.html',1,'Phpcraft::Packet::PluginMessage']]],

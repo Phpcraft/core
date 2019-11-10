@@ -42,5 +42,6 @@ var searchData=
   ['counter',['Counter',['../classPhpcraft_1_1Counter.html',1,'Phpcraft']]],
   ['creative',['CREATIVE',['../classPhpcraft_1_1Enum_1_1Gamemode.html#a6f03d6f49f9d7242ffb016676a132d04',1,'Phpcraft::Enum::Gamemode']]],
   ['creature',['Creature',['../classPhpcraft_1_1Entity_1_1Creature.html',1,'Phpcraft::Entity']]],
+  ['creeper',['Creeper',['../classPhpcraft_1_1Entity_1_1Creeper.html',1,'Phpcraft::Entity']]],
   ['current',['current',['../classPhpcraft_1_1Configuration.html#a10b4937ed9cc32141d1496b79e5739ba',1,'Phpcraft\Configuration\current()'],['../classPhpcraft_1_1Counter.html#ad57037588e5fc769fa9a05de726029bd',1,'Phpcraft\Counter\current()'],['../classPhpcraft_1_1NBT_1_1NbtCompound.html#aa0d547a147303a9cb2b87399086961c0',1,'Phpcraft\NBT\NbtCompound\current()'],['../classPhpcraft_1_1NBT_1_1NbtListTag.html#aa9dff39aa3ae8596c106f925c612a631',1,'Phpcraft\NBT\NbtListTag\current()']]]
 ];

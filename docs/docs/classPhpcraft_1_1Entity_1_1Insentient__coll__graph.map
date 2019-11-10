@@ -1,5 +1,5 @@
 <map id="Phpcraft\Entity\Insentient" name="Phpcraft\Entity\Insentient">
-<area shape="rect" id="node2" href="$classPhpcraft_1_1Entity_1_1Living.html" title="Phpcraft\\Entity\\Living" alt="" coords="19,155,174,181"/>
-<area shape="rect" id="node3" href="$classPhpcraft_1_1Entity_1_1Base.html" title="Phpcraft\\Entity\\Base" alt="" coords="21,80,172,107"/>
-<area shape="rect" id="node4" href="$classPhpcraft_1_1Entity_1_1Metadata.html" title="Phpcraft\\Entity\\Metadata" alt="" coords="7,5,187,32"/>
+<area shape="rect" id="node2" href="$classPhpcraft_1_1Entity_1_1Living.html" title="Phpcraft\\Entity\\Living" alt="" coords="18,155,179,181"/>
+<area shape="rect" id="node3" href="$classPhpcraft_1_1Entity_1_1Base.html" title="Phpcraft\\Entity\\Base" alt="" coords="21,80,176,107"/>
+<area shape="rect" id="node4" href="$classPhpcraft_1_1Entity_1_1Metadata.html" title="Phpcraft\\Entity\\Metadata" alt="" coords="7,5,190,32"/>
 </map>
