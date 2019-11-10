@@ -164,11 +164,13 @@ do
 					"entity_velocity"
 				]))
 				{
-					$client_con->startPacket($packetId->name);
-					$eid = $server_con->readVarInt();
-					$client_con->writeVarInt($eid == $server_eid ? $client_con->eid : $eid);
-					$client_con->write_buffer .= $server_con->getRemainingData();
-					$client_con->send();
+					$packet = $packetId->getInstance($server_con);
+					assert($packet instanceof EntityPacket);
+					if(gmp_cmp($packet->eids[0], $server_eid) == 0)
+					{
+						$packet->eids[0] = $client_con->eid;
+					}
+					$packet->send($client_con);
 				}
 				else if($packetId->name == "keep_alive_request")
 				{

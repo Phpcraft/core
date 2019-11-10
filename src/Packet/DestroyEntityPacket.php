@@ -2,18 +2,18 @@
 namespace Phpcraft\Packet;
 use Phpcraft\
 {Connection, Exception\IOException};
-class DestroyEntitiesPacket extends EntityPacket
+class DestroyEntityPacket extends EntityPacket
 {
 	/**
 	 * Initialises the packet class by reading its payload from the given Connection.
 	 *
 	 * @param Connection $con
-	 * @return DestroyEntitiesPacket
+	 * @return DestroyEntityPacket
 	 * @throws IOException
 	 */
-	static function read(Connection $con): DestroyEntitiesPacket
+	static function read(Connection $con): DestroyEntityPacket
 	{
-		$packet = new DestroyEntitiesPacket();
+		$packet = new DestroyEntityPacket();
 		for($i = gmp_intval($con->readVarInt()); $i > 0; $i--)
 		{
 			array_push($packet->eids, gmp_intval($con->readVarInt()));
@@ -22,7 +22,8 @@ class DestroyEntitiesPacket extends EntityPacket
 	}
 
 	/**
-	 * Adds the packet's ID and payload to the Connection's write buffer and, if the connection has a stream, sends it over the wire.
+	 * Adds the packet's ID and payload to the Connection's write buffer and sends it over the wire if the connection has a stream.
+	 * Note that in some cases this will produce multiple Minecraft packets, therefore you should only use this on connections without a stream if you know what you're doing.
 	 *
 	 * @param Connection $con
 	 * @throws IOException
@@ -40,6 +41,6 @@ class DestroyEntitiesPacket extends EntityPacket
 
 	function __toString()
 	{
-		return "{DestroyEntitiesPacket: ".join(", ", $this->eids)."}";
+		return "{DestroyEntityPacket: Entit".(count($this->eids) == 1 ? "y" : "ies")." ".join(", ", $this->eids)."}";
 	}
 }

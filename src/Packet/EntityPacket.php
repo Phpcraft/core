@@ -1,11 +1,12 @@
 <?php
 namespace Phpcraft\Packet;
 use GMP;
-/** A packet affecting one or more entities. */
+/** A clientbound packet affecting one or more entities. */
 abstract class EntityPacket extends Packet
 {
 	/**
 	 * The entities' IDs.
+	 * When using Packet::read(), this will only ever have one entity ID, except for DestroyEntityPacket.
 	 *
 	 * @var array<GMP> $eids
 	 */

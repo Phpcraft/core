@@ -40,10 +40,10 @@ class ServerboundPacketId extends PacketId
 			"flying" => "no_movement",
 			"settings" => "client_settings",
 			"keep_alive" => "keep_alive_response",
+			"arm_animation" => "swing_arm",
 			"abilities" => "serverbound_abilities",
 			"chat" => "serverbound_chat_message",
-			"custom_payload" => "serverbound_plugin_message",
-			"arm_animation" => "serverbound_animation"
+			"custom_payload" => "serverbound_plugin_message"
 		];
 	}
 
@@ -73,6 +73,8 @@ class ServerboundPacketId extends PacketId
 				return KeepAliveResponsePacket::class;
 			case "serverbound_plugin_message":
 				return ServerboundPluginMessagePacket::class;
+			case "swing_arm":
+				return SwingArmPacket::class;
 		}
 		return null;
 	}

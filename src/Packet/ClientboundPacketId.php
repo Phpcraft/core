@@ -1,7 +1,8 @@
 <?php
 namespace Phpcraft\Packet;
-use Phpcraft\
-{Packet\BossBar\BossBarPacket, Packet\DeclareCommands\DeclareCommandsPacket, Packet\MapData\MapDataPacket, Packet\PluginMessage\ClientboundPluginMessagePacket, PacketId};
+use Phpcraft\Packet\
+{BossBar\BossBarPacket, DeclareCommands\DeclareCommandsPacket, MapData\MapDataPacket, PluginMessage\ClientboundPluginMessagePacket};
+use Phpcraft\PacketId;
 /** The class for the IDs of packets sent to the client. */
 class ClientboundPacketId extends PacketId
 {
@@ -47,10 +48,10 @@ class ClientboundPacketId extends PacketId
 			"experience" => "set_experience",
 			"kick_disconnect" => "disconnect",
 			"keep_alive" => "keep_alive_request",
+			"animation" => "entity_animation",
 			"abilities" => "clientbound_abilities",
 			"chat" => "clientbound_chat_message",
-			"custom_payload" => "clientbound_plugin_message",
-			"animation" => "clientbound_animation"
+			"custom_payload" => "clientbound_plugin_message"
 		];
 	}
 
@@ -79,15 +80,25 @@ class ClientboundPacketId extends PacketId
 			case "declare_commands":
 				return DeclareCommandsPacket::class;
 			case "destroy_entities":
-				return DestroyEntitiesPacket::class;
+				return DestroyEntityPacket::class;
 			case "clientbound_abilities":
 				return ClientboundAbilitiesPacket::class;
+			case "entity_animation":
+				return EntityAnimationPacket::class;
+			case "entity_effect":
+				return EntityEffectPacket::class;
+			case "entity_metadata":
+				return EntityMetadataPacket::class;
+			case "entity_velocity":
+				return EntityVelocityPacket::class;
 			case "join_game":
 				return JoinGamePacket::class;
 			case "keep_alive_request":
 				return KeepAliveRequestPacket::class;
 			case "map_data":
 				return MapDataPacket::class;
+			case "remove_entity_effect":
+				return RemoveEntityEffect::class;
 			case "set_experience":
 				return SetExperiencePacket::class;
 			case "set_slot":

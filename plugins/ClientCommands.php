@@ -92,7 +92,7 @@ $this->registerCommand([
 });
 $this->registerCommand("hit", function(ServerConnection &$con)
 {
-	$con->startPacket("serverbound_animation");
+	$con->startPacket("swing_arm");
 	if($con->protocol_version > 47)
 	{
 		$con->writeVarInt(0);
