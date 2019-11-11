@@ -439,7 +439,7 @@ Additional Inherited Members</h2></td></tr>
   <table class="params">
     <tr><td class="paramtype">UUID</td><td class="paramname">$uuid</td><td>The UUID of the client. </td></tr>
     <tr><td class="paramtype"><a class="el" href="classPhpcraft_1_1Counter.html">Counter</a></td><td class="paramname">$eidCounter</td><td>The server's <a class="el" href="classPhpcraft_1_1Counter.html">Counter</a> to assign an entity ID to the client. </td></tr>
-    <tr><td class="paramtype">int</td><td class="paramname">$compression_threshold</td><td>Use -1 to disable compression. </td></tr>
+    <tr><td class="paramtype">int</td><td class="paramname">$compression_threshold</td><td>The amount of bytes a packet needs to have before it is compressed. Use -1 to disable compression. Compression will always be disabled on loopback connections. </td></tr>
   </table>
   </dd>
 </dl>
@@ -503,6 +503,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>string </dd></dl>
 
 <p>Implements <a class="el" href="interfacePhpcraft_1_1Command_1_1CommandSender.html#a9176b5fe4925b82c2e1b92f965515274">Phpcraft\Command\CommandSender</a>.</p>
 
@@ -522,6 +523,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Point3D|null </dd></dl>
 
 <p>Implements <a class="el" href="interfacePhpcraft_1_1Command_1_1CommandSender.html#a17cccb8a6b42344825522596fbd4d96c">Phpcraft\Command\CommandSender</a>.</p>
 
@@ -541,6 +543,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classPhpcraft_1_1Server.html">Server</a> </dd></dl>
 
 <p>Implements <a class="el" href="interfacePhpcraft_1_1Command_1_1ServerCommandSender.html#add61ebf0441ecc1db677026c6e5a5ff5">Phpcraft\Command\ServerCommandSender</a>.</p>
 
@@ -660,6 +663,13 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$permission</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>bool </dd></dl>
 
 <p>Implements <a class="el" href="interfacePhpcraft_1_1Command_1_1CommandSender.html#aea988402e6264dd90d6599b6cdb1cc06">Phpcraft\Command\CommandSender</a>.</p>
 
@@ -679,6 +689,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>bool </dd></dl>
 
 <p>Implements <a class="el" href="interfacePhpcraft_1_1Command_1_1CommandSender.html#aa412560e3e2834f59f9b5a3487ec3f41">Phpcraft\Command\CommandSender</a>.</p>
 
