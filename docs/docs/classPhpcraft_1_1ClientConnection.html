@@ -93,8 +93,8 @@ Collaboration diagram for Phpcraft\ClientConnection:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a934d0bdc72589932c1d73ece10bfacee"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#a934d0bdc72589932c1d73ece10bfacee">__construct</a> ($stream, <a class="el" href="classPhpcraft_1_1Realms_1_1Server.html">Server</a> &amp;$server=null)</td></tr>
-<tr class="separator:a934d0bdc72589932c1d73ece10bfacee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a188bfc9062d5efce83620edbcc697f3d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#a188bfc9062d5efce83620edbcc697f3d">__construct</a> ($stream, ?<a class="el" href="classPhpcraft_1_1Realms_1_1Server.html">Server</a> &amp;$server=null)</td></tr>
+<tr class="separator:a188bfc9062d5efce83620edbcc697f3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:add6f1a7c934ae44ebebb25baf52f843d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#add6f1a7c934ae44ebebb25baf52f843d">handleInitialPacket</a> ()</td></tr>
 <tr class="separator:add6f1a7c934ae44ebebb25baf52f843d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a410c3fa10c71478d496aeff58db135f1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#a410c3fa10c71478d496aeff58db135f1">disconnect</a> ($reason=[])</td></tr>
@@ -113,8 +113,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a1863f864d45210aa52d15c75d959a135"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a891e459081509946f485e6253c18f168"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#a891e459081509946f485e6253c18f168">finishLogin</a> (UUID $uuid, <a class="el" href="classPhpcraft_1_1Counter.html">Counter</a> $eidCounter, int $compression_threshold=256)</td></tr>
 <tr class="separator:a891e459081509946f485e6253c18f168"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afc03aa2834f88be8be986158f84cd3ad"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#afc03aa2834f88be8be986158f84cd3ad">teleport</a> (<a class="el" href="classPhpcraft_1_1Point3D.html">Point3D</a> $pos, $yaw=null, $pitch=null)</td></tr>
-<tr class="separator:afc03aa2834f88be8be986158f84cd3ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7614b8e7ce2592d157114fcc5d3557ee"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#a7614b8e7ce2592d157114fcc5d3557ee">teleport</a> (<a class="el" href="classPhpcraft_1_1Point3D.html">Point3D</a> $pos, ?float $yaw=null, ?float $pitch=null)</td></tr>
+<tr class="separator:a7614b8e7ce2592d157114fcc5d3557ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abf2cdf1ffca54c2d675e502226d204c0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#abf2cdf1ffca54c2d675e502226d204c0">rotate</a> (int $yaw, int $pitch)</td></tr>
 <tr class="separator:abf2cdf1ffca54c2d675e502226d204c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a607f23f9a785052d7b84f148ddf13e29"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#a607f23f9a785052d7b84f148ddf13e29">getEyePosition</a> ()</td></tr>
@@ -340,8 +340,8 @@ Additional Inherited Members</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A server-to-client connection. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a934d0bdc72589932c1d73ece10bfacee"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a934d0bdc72589932c1d73ece10bfacee">&#9670;&nbsp;</a></span>__construct()</h2>
+<a id="a188bfc9062d5efce83620edbcc697f3d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a188bfc9062d5efce83620edbcc697f3d">&#9670;&nbsp;</a></span>__construct()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -355,7 +355,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classPhpcraft_1_1Realms_1_1Server.html">Server</a> &amp;&#160;</td>
+          <td class="paramtype">?<a class="el" href="classPhpcraft_1_1Realms_1_1Server.html">Server</a> &amp;&#160;</td>
           <td class="paramname"><em>$server</em> = <code>null</code>&#160;</td>
         </tr>
         <tr>
@@ -399,6 +399,7 @@ Additional Inherited Members</h2></td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
 
 </div>
 </div>
@@ -521,7 +522,6 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>Point3D|null </dd></dl>
 
 <p>Implements <a class="el" href="interfacePhpcraft_1_1Command_1_1CommandSender.html#a17cccb8a6b42344825522596fbd4d96c">Phpcraft\Command\CommandSender</a>.</p>
 
@@ -816,7 +816,7 @@ Additional Inherited Members</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classPhpcraft_1_1ClientConnection.html">ClientConnection</a> $this </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
     <tr><td class="paramname">IOException</td><td></td></tr>
@@ -893,7 +893,7 @@ Additional Inherited Members</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classPhpcraft_1_1ClientConnection.html">ClientConnection</a> $this </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
     <tr><td class="paramname">IOException</td><td></td></tr>
@@ -991,8 +991,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="afc03aa2834f88be8be986158f84cd3ad"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afc03aa2834f88be8be986158f84cd3ad">&#9670;&nbsp;</a></span>teleport()</h2>
+<a id="a7614b8e7ce2592d157114fcc5d3557ee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7614b8e7ce2592d157114fcc5d3557ee">&#9670;&nbsp;</a></span>teleport()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1006,13 +1006,13 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">&#160;</td>
+          <td class="paramtype">?float&#160;</td>
           <td class="paramname"><em>$yaw</em> = <code>null</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">&#160;</td>
+          <td class="paramtype">?float&#160;</td>
           <td class="paramname"><em>$pitch</em> = <code>null</code>&#160;</td>
         </tr>
         <tr>
@@ -1026,8 +1026,8 @@ Additional Inherited Members</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramtype"><a class="el" href="classPhpcraft_1_1Point3D.html">Point3D</a></td><td class="paramname">$pos</td><td></td></tr>
-    <tr><td class="paramtype">int&#160;|&#160;null</td><td class="paramname">$yaw</td><td></td></tr>
-    <tr><td class="paramtype">int&#160;|&#160;null</td><td class="paramname">$pitch</td><td></td></tr>
+    <tr><td class="paramtype">float&#160;|&#160;null</td><td class="paramname">$yaw</td><td></td></tr>
+    <tr><td class="paramtype">float&#160;|&#160;null</td><td class="paramname">$pitch</td><td></td></tr>
   </table>
   </dd>
 </dl>

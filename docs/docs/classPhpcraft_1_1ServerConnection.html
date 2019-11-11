@@ -95,8 +95,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a38521f035150bd4877d2dd74c233a162"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a715fa437fb0161042ced88be985ade84"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ServerConnection.html#a715fa437fb0161042ced88be985ade84">sendHandshake</a> (string $server_name, int $server_port, int $next_state, array $join_specs=[])</td></tr>
 <tr class="separator:a715fa437fb0161042ced88be985ade84"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2e3be991b472e6cf4d29eb944384eef7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ServerConnection.html#a2e3be991b472e6cf4d29eb944384eef7">login</a> (<a class="el" href="classPhpcraft_1_1Account.html">Account</a> $account, array $translations=null)</td></tr>
-<tr class="separator:a2e3be991b472e6cf4d29eb944384eef7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a180540d9353d923dacd4d8c057c6c660"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ServerConnection.html#a180540d9353d923dacd4d8c057c6c660">login</a> (<a class="el" href="classPhpcraft_1_1Account.html">Account</a> $account, ?array $translations=null)</td></tr>
+<tr class="separator:a180540d9353d923dacd4d8c057c6c660"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a446ce0b8432847cd35942905b4dbdc83"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ServerConnection.html#a446ce0b8432847cd35942905b4dbdc83">startPacket</a> ($packet)</td></tr>
 <tr class="separator:a446ce0b8432847cd35942905b4dbdc83"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af3eeed9d7cc1a5c526dea2326762c3f1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ServerConnection.html#af3eeed9d7cc1a5c526dea2326762c3f1">getName</a> ()</td></tr>
@@ -328,7 +328,6 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>Point3D|null </dd></dl>
 
 <p>Implements <a class="el" href="interfacePhpcraft_1_1Command_1_1CommandSender.html#a17cccb8a6b42344825522596fbd4d96c">Phpcraft\Command\CommandSender</a>.</p>
 
@@ -373,8 +372,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a2e3be991b472e6cf4d29eb944384eef7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2e3be991b472e6cf4d29eb944384eef7">&#9670;&nbsp;</a></span>login()</h2>
+<a id="a180540d9353d923dacd4d8c057c6c660"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a180540d9353d923dacd4d8c057c6c660">&#9670;&nbsp;</a></span>login()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -388,7 +387,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">array&#160;</td>
+          <td class="paramtype">?array&#160;</td>
           <td class="paramname"><em>$translations</em> = <code>null</code>&#160;</td>
         </tr>
         <tr>
@@ -406,7 +405,7 @@ Additional Inherited Members</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>string Error message. Empty on success. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>string|null The error message or null on success. </dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
     <tr><td class="paramname">IOException</td><td></td></tr>
@@ -490,7 +489,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Sends a handshake to the server. If $next_state is 2, you should call <a class="el" href="classPhpcraft_1_1ServerConnection.html#a2e3be991b472e6cf4d29eb944384eef7">ServerConnection::login()</a> after this, even when joining an offline mode server.</p>
+<p>Sends a handshake to the server. If $next_state is 2, you should call <a class="el" href="classPhpcraft_1_1ServerConnection.html#a180540d9353d923dacd4d8c057c6c660">ServerConnection::login()</a> after this, even when joining an offline mode server.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramtype">string</td><td class="paramname">$server_name</td><td></td></tr>
@@ -532,7 +531,7 @@ Additional Inherited Members</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classPhpcraft_1_1ServerConnection.html">ServerConnection</a> $this </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
 
 <p>Implements <a class="el" href="interfacePhpcraft_1_1Command_1_1CommandSender.html#a9db2ce7b323f2042dfc6c5d729981d70">Phpcraft\Command\CommandSender</a>.</p>
 

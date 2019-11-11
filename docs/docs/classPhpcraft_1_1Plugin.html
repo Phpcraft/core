@@ -90,8 +90,8 @@ Public Attributes</h2></td></tr>
 Protected Member Functions</h2></td></tr>
 <tr class="memitem:a8196f488b886504fd228ccf6b9303c57"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Plugin.html#a8196f488b886504fd228ccf6b9303c57">on</a> (Closure $function, int $priority=<a class="el" href="classPhpcraft_1_1Event_1_1Event.html#a97847933903973de3ef3d7be6c57b945">Event::PRIORITY_NORMAL</a>)</td></tr>
 <tr class="separator:a8196f488b886504fd228ccf6b9303c57"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0dc9f07da22c2bb504631bd74ad2510d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Plugin.html#a0dc9f07da22c2bb504631bd74ad2510d">registerCommand</a> ($names, callable $function, $required_permission=null)</td></tr>
-<tr class="separator:a0dc9f07da22c2bb504631bd74ad2510d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5be5f0aec268a19d0e9a6f5c5f2a5ac5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Plugin.html#a5be5f0aec268a19d0e9a6f5c5f2a5ac5">registerCommand</a> ($names, callable $function, ?string $required_permission=null)</td></tr>
+<tr class="separator:a5be5f0aec268a19d0e9a6f5c5f2a5ac5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aae3ebad92fd03d0041aab886403a3e96"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Plugin.html#aae3ebad92fd03d0041aab886403a3e96">unregister</a> ()</td></tr>
 <tr class="separator:aae3ebad92fd03d0041aab886403a3e96"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -206,8 +206,8 @@ Protected Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a0dc9f07da22c2bb504631bd74ad2510d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0dc9f07da22c2bb504631bd74ad2510d">&#9670;&nbsp;</a></span>registerCommand()</h2>
+<a id="a5be5f0aec268a19d0e9a6f5c5f2a5ac5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5be5f0aec268a19d0e9a6f5c5f2a5ac5">&#9670;&nbsp;</a></span>registerCommand()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -230,7 +230,7 @@ Protected Member Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">&#160;</td>
+          <td class="paramtype">?string&#160;</td>
           <td class="paramname"><em>$required_permission</em> = <code>null</code>&#160;</td>
         </tr>
         <tr>
@@ -280,7 +280,8 @@ Protected Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Unregisters the plugin, including its event handlers and its commands. Make sure your plugin has no statements other than <code>return;</code> after this. </p>
+<p>Unregisters the plugin, including its event handlers and its commands. Make sure your plugin has no statements other than <code>return;</code> after this.</p>
+<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
 
 </div>
 </div>

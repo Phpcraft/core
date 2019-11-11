@@ -23,7 +23,7 @@
 <area shape="rect" id="node13" href="$classPhpcraft_1_1Packet_1_1EntityEffectPacket.html" title="Phpcraft\\Packet\\EntityEffect\lPacket" alt="" coords="545,397,748,439"/>
 <area shape="rect" id="node14" href="$classPhpcraft_1_1Packet_1_1EntityMetadataPacket.html" title="Phpcraft\\Packet\\EntityMetadata\lPacket" alt="" coords="533,463,760,504"/>
 <area shape="rect" id="node15" href="$classPhpcraft_1_1Packet_1_1EntityVelocityPacket.html" title="Phpcraft\\Packet\\EntityVelocity\lPacket" alt="" coords="538,528,755,569"/>
-<area shape="rect" id="node16" href="$classPhpcraft_1_1Packet_1_1RemoveEntityEffect.html" title="Phpcraft\\Packet\\RemoveEntity\lEffect" alt="" coords="537,593,756,635"/>
+<area shape="rect" id="node16" href="$classPhpcraft_1_1Packet_1_1RemoveEntityEffectPacket.html" title="Phpcraft\\Packet\\RemoveEntity\lEffectPacket" alt="" coords="537,593,756,635"/>
 <area shape="rect" id="node22" href="$classPhpcraft_1_1Packet_1_1PluginMessage_1_1ClientboundPluginMessagePacket.html" title="Phpcraft\\Packet\\PluginMessage\l\\ClientboundPluginMessagePacket" alt="" coords="525,688,769,729"/>
 <area shape="rect" id="node25" href="$classPhpcraft_1_1Packet_1_1PluginMessage_1_1ServerboundPluginMessagePacket.html" title="Phpcraft\\Packet\\PluginMessage\l\\ServerboundPluginMessagePacket" alt="" coords="523,753,771,795"/>
 <area shape="rect" id="node23" href="$classPhpcraft_1_1Packet_1_1PluginMessage_1_1ClientboundStringPluginMessagePacket.html" title="Phpcraft\\Packet\\PluginMessage\l\\ClientboundStringPluginMessagePacket" alt="" coords="821,688,1103,729"/>
