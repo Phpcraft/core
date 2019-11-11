@@ -10,6 +10,9 @@ class StringProvider extends ArgumentProvider
 		$this->value = $arg;
 	}
 
+	/**
+	 * @return string
+	 */
 	function getValue(): string
 	{
 		return $this->value;

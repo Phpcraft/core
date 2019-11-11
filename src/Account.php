@@ -238,6 +238,10 @@ class Account
 		return true;
 	}
 
+	/**
+	 * @param string $profile_name
+	 * @return string|null
+	 */
 	static function getAccountIdFromProfileName(string $profile_name): ?string
 	{
 		$profiles = Phpcraft::getProfiles();

@@ -38,6 +38,9 @@ class ByteTag extends NBT
 		return $con;
 	}
 
+	/**
+	 * @return ByteTag
+	 */
 	function copy(): ByteTag
 	{
 		return new ByteTag($this->name, $this->value);

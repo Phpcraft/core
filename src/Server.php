@@ -129,6 +129,10 @@ class Server implements ServerCommandSender
 		};
 	}
 
+	/**
+	 * @param array<string,array<string,string|array<string>>> $groups
+	 * @return Server
+	 */
 	function setGroups(array $groups): Server
 	{
 		$this->groups = [];
@@ -177,7 +181,7 @@ class Server implements ServerCommandSender
 	/**
 	 * Returns the ports the server is listening on.
 	 *
-	 * @return int[]
+	 * @return array<int>
 	 */
 	function getPorts(): array
 	{

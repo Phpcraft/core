@@ -172,6 +172,9 @@ class ServerConnection extends Connection implements CommandSender
 		return parent::startPacket($packet);
 	}
 
+	/**
+	 * @return string
+	 */
 	function getName(): string
 	{
 		return $this->username ?? "Client";
@@ -190,21 +193,36 @@ class ServerConnection extends Connection implements CommandSender
 		echo Phpcraft::chatToText($message, Phpcraft::FORMAT_ANSI)."\n\e[m";
 	}
 
+	/**
+	 * @param array|string $message
+	 * @param string $permission
+	 * @return void
+	 */
 	function sendAdminBroadcast($message, string $permission = "everything"): void
 	{
 		echo Phpcraft::chatToText($message, Phpcraft::FORMAT_ANSI)."\n\e[m";
 	}
 
+	/**
+	 * @param string $permission
+	 * @return bool
+	 */
 	function hasPermission(string $permission): bool
 	{
 		return true;
 	}
 
+	/**
+	 * @return bool
+	 */
 	function hasPosition(): bool
 	{
 		return true;
 	}
 
+	/**
+	 * @return Point3D
+	 */
 	function getPosition(): Point3D
 	{
 		return $this->pos;

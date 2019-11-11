@@ -22,6 +22,9 @@ class Item extends Identifier
 		$this->display_name = $display_name;
 	}
 
+	/**
+	 * @return void
+	 */
 	static protected function populateAllCache(): void
 	{
 		self::$all_cache = [];

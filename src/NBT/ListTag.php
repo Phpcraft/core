@@ -46,6 +46,9 @@ class ListTag extends AbstractListTag
 		return $con;
 	}
 
+	/**
+	 * @return ListTag
+	 */
 	function copy(): ListTag
 	{
 		return new ListTag($this->name, $this->childType, $this->children);

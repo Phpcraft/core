@@ -22,18 +22,29 @@ class ClientConfiguration extends Configuration
 		$this->con = $con;
 	}
 
+	/**
+	 * @param string $name
+	 * @return ClientConfiguration
+	 */
 	function setGroup(string $name): ClientConfiguration
 	{
 		$this->set("group", $name);
 		return $this;
 	}
 
+	/**
+	 * @param string $permission
+	 * @return bool
+	 */
 	function hasPermission(string $permission): bool
 	{
 		return $this->getGroup()
 					->hasPermission($permission);
 	}
 
+	/**
+	 * @return Group
+	 */
 	function getGroup(): Group
 	{
 		$group = $this->server->getGroup($this->getGroupName());
@@ -45,26 +56,41 @@ class ClientConfiguration extends Configuration
 		return $this->server->getGroup("default");
 	}
 
+	/**
+	 * @return string
+	 */
 	function getGroupName(): string
 	{
 		return $this->get("group", "default");
 	}
 
+	/**
+	 * @return bool
+	 */
 	function isOnline(): bool
 	{
 		return $this->getPlayer() !== null;
 	}
 
+	/**
+	 * @return ClientConnection|null
+	 */
 	function getPlayer(): ?ClientConnection
 	{
 		return $this->con ?? ($this->file ? $this->server->getPlayer($this->getUUID()) : null);
 	}
 
+	/**
+	 * @return UUID|null
+	 */
 	function getUUID(): ?UUID
 	{
 		return $this->con ? $this->con->uuid : ($this->file ? new UUID(substr($this->file, -37, 32)) : null);
 	}
 
+	/**
+	 * @return string|null
+	 */
 	function getName(): ?string
 	{
 		return $this->con ? $this->con->username : ($this->file ? Phpcraft::$user_cache->get($this->getUUID()

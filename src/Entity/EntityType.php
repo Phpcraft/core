@@ -12,6 +12,9 @@ class EntityType extends Identifier
 		parent::__construct($name, $since_protocol_version);
 	}
 
+	/**
+	 * @return void
+	 */
 	static protected function populateAllCache(): void
 	{
 		self::$all_cache = [

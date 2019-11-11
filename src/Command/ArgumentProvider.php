@@ -17,11 +17,17 @@ abstract class ArgumentProvider
 	/**
 	 * Does nothing and shouldn't do anything.
 	 * This function is called on "native" argument providers by Command so they are forced into existence.
+	 *
+	 * @return void
 	 */
 	static function noop(): void
 	{
 	}
 
+	/**
+	 * @param Connection $con
+	 * @return void
+	 */
 	static function write(Connection $con): void
 	{
 		$con->writeString("brigadier:string");
@@ -85,18 +91,31 @@ abstract class ArgumentProvider
 		throw new IOException("Unimplemented parser: $parser");
 	}
 
+	/**
+	 * @return mixed
+	 */
 	abstract function getValue();
 
+	/**
+	 * @return bool
+	 */
 	function acceptsMore(): bool
 	{
 		return false;
 	}
 
+	/**
+	 * @return bool
+	 */
 	function isFinished(): bool
 	{
 		return true;
 	}
 
+	/**
+	 * @param string $arg
+	 * @return void
+	 */
 	function acceptNext(string $arg): void
 	{
 	}

@@ -36,6 +36,9 @@ class ByteArrayTag extends AbstractListTag
 		return $con;
 	}
 
+	/**
+	 * @return ByteArrayTag
+	 */
 	function copy(): ByteArrayTag
 	{
 		return new ByteArrayTag($this->name, $this->children);

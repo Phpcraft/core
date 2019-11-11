@@ -50,6 +50,11 @@ class DeclareCommandsPacket extends Packet
 		return new DeclareCommandsPacket($root_node);
 	}
 
+	/**
+	 * @param Command $command
+	 * @param string $prefix
+	 * @return DeclareCommandsPacket
+	 */
 	function addCommand(Command &$command, string $prefix = ""): DeclareCommandsPacket
 	{
 		$lit = new LiteralNode($prefix.$command->names[0]);

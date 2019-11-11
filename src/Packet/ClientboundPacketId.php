@@ -25,11 +25,17 @@ class ClientboundPacketId extends PacketId
 		return self::$all_cache[$name] ?? @self::$all_cache["clientbound_".$name];
 	}
 
+	/**
+	 * @return void
+	 */
 	static protected function populateAllCache(): void
 	{
 		self::populateAllCache_("toClient");
 	}
 
+	/**
+	 * @return array<string,string>
+	 */
 	protected static function nameMap(): array
 	{
 		return [

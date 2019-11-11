@@ -50,6 +50,9 @@ abstract class PluginMessagePacket extends Packet
 		return $legacy_channel;
 	}
 
+	/**
+	 * @return array<string,string>
+	 */
 	private static function channelMap(): array
 	{
 		return [
@@ -83,7 +86,11 @@ abstract class PluginMessagePacket extends Packet
 		$con->send();
 	}
 
-	protected function send_(Connection $con)
+	/**
+	 * @param Connection $con
+	 * @return void
+	 */
+	protected function send_(Connection $con): void
 	{
 		$con->writeRaw($this->data);
 	}

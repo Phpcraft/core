@@ -15,6 +15,12 @@ abstract class Metadata
 {
 	private static $fields = [];
 
+	/**
+	 * @param Connection $con
+	 * @param int $index
+	 * @param int $value
+	 * @return void
+	 */
 	static function writeByte(Connection $con, int $index, int $value): void
 	{
 		$con->writeByte($index);
@@ -25,6 +31,12 @@ abstract class Metadata
 		$con->writeByte($value);
 	}
 
+	/**
+	 * @param Connection $con
+	 * @param int $index
+	 * @param float $value
+	 * @return void
+	 */
 	static function writeFloat(Connection $con, int $index, float $value): void
 	{
 		if($con->protocol_version >= 57)
@@ -39,6 +51,12 @@ abstract class Metadata
 		$con->writeFloat($value);
 	}
 
+	/**
+	 * @param Connection $con
+	 * @param int $index
+	 * @param string $value
+	 * @return void
+	 */
 	static function writeString(Connection $con, int $index, string $value): void
 	{
 		if($con->protocol_version >= 57)
@@ -79,6 +97,12 @@ abstract class Metadata
 		}
 	}
 
+	/**
+	 * @param Connection $con
+	 * @param int $index
+	 * @param bool $value
+	 * @return void
+	 */
 	static function writeBoolean(Connection $con, int $index, bool $value): void
 	{
 		$con->writeByte($index);
@@ -89,6 +113,11 @@ abstract class Metadata
 		$con->writeBoolean($value);
 	}
 
+	/**
+	 * @param Connection $con
+	 * @param string $type
+	 * @return void
+	 */
 	private static function writeType(Connection $con, string $type): void
 	{
 		$versions = [
@@ -123,6 +152,7 @@ abstract class Metadata
 	 * @param Connection $con
 	 * @param int $index
 	 * @param GMP|string|int $value
+	 * @return void
 	 */
 	static function writeInt(Connection $con, int $index, $value): void
 	{
@@ -139,6 +169,10 @@ abstract class Metadata
 		}
 	}
 
+	/**
+	 * @param Connection $con
+	 * @return void
+	 */
 	static function finish(Connection $con): void
 	{
 		if($con->protocol_version >= 57)
@@ -265,6 +299,11 @@ abstract class Metadata
 		return $this;
 	}
 
+	/**
+	 * @param Connection $con
+	 * @param int $index
+	 * @return bool
+	 */
 	abstract protected function read_(Connection $con, int $index): bool;
 
 	/**

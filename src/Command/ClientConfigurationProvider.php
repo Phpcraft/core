@@ -19,6 +19,9 @@ class ClientConfigurationProvider extends ArgumentProvider
 		}
 	}
 
+	/**
+	 * @return ClientConfiguration
+	 */
 	function getValue(): ClientConfiguration
 	{
 		return $this->value;

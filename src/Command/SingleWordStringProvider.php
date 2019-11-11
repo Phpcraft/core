@@ -7,6 +7,9 @@ class SingleWordStringProvider extends ArgumentProvider
 		$this->value = $arg;
 	}
 
+	/**
+	 * @return SingleWordString
+	 */
 	function getValue(): SingleWordString
 	{
 		return new SingleWordString($this->value);

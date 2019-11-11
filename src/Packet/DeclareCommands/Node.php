@@ -73,6 +73,11 @@ abstract class Node
 		return $node;
 	}
 
+	/**
+	 * @param Connection $con
+	 * @param array $stack
+	 * @return Connection
+	 */
 	function write(Connection $con, array &$stack): Connection
 	{
 		$flags = static::TYPE_ID;

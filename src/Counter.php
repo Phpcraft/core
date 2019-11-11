@@ -13,11 +13,17 @@ class Counter
 		$this->i = gmp_init(-1);
 	}
 
+	/**
+	 * @return GMP
+	 */
 	function current(): GMP
 	{
 		return $this->i;
 	}
 
+	/**
+	 * @return GMP
+	 */
 	function next(): GMP
 	{
 		$this->i = gmp_add($this->i, 1);

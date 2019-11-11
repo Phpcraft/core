@@ -19,6 +19,9 @@ class BlockProperty
 		$this->values = $values;
 	}
 
+	/**
+	 * @return string
+	 */
 	function getDefaultValue(): string
 	{
 		return $this->values[$this->default];

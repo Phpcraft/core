@@ -16,6 +16,10 @@ class Group
 		$this->data = $data;
 	}
 
+	/**
+	 * @param string $permission
+	 * @return bool
+	 */
 	function hasPermission(string $permission): bool
 	{
 		return in_array($permission, $this->getPermissions()) || in_array("everything", $this->permissions);

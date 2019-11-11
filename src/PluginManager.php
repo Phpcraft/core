@@ -48,6 +48,9 @@ abstract class PluginManager
 		}
 	}
 
+	/**
+	 * @return void
+	 */
 	static function unloadAllPlugins(): void
 	{
 		PluginManager::$loaded_plugins = new SplObjectStorage();

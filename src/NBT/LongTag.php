@@ -48,6 +48,9 @@ class LongTag extends NBT
 		return "{Long \"".$this->name."\": ".gmp_strval($this->value)."}";
 	}
 
+	/**
+	 * @return LongTag
+	 */
 	function copy(): LongTag
 	{
 		return new LongTag($this->name, $this->value);

@@ -13,12 +13,19 @@ class IntegerProvider extends ArgumentProvider
 		$this->value = intval($arg);
 	}
 
+	/**
+	 * @param Connection $con
+	 * @return void
+	 */
 	static function write(Connection $con): void
 	{
 		$con->writeString("brigadier:integer");
 		$con->writeByte(0);
 	}
 
+	/**
+	 * @return int
+	 */
 	function getValue(): int
 	{
 		return $this->value;

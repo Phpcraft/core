@@ -21,6 +21,9 @@ if(!class_exists("GamemodeArgumentProvider"))
 			}
 		}
 
+		/**
+		 * @return GamemodeArgument
+		 */
 		function getValue(): GamemodeArgument
 		{
 			return new GamemodeArgument($this->value);

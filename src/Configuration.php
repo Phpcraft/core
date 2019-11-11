@@ -57,7 +57,11 @@ class Configuration implements Iterator, Countable, ArrayAccess
 		return $this;
 	}
 
-	static function handleQueue(float $time_limit = 0.0)
+	/**
+	 * @param float $time_limit
+	 * @return void
+	 */
+	static function handleQueue(float $time_limit = 0.0): void
 	{
 		$start = microtime(true);
 		foreach(Configuration::$save_queue as $config)
@@ -99,11 +103,19 @@ class Configuration implements Iterator, Countable, ArrayAccess
 		return @$this->data[$key] ?? $default_value;
 	}
 
+	/**
+	 * @param string $key
+	 * @return bool
+	 */
 	function has(string $key): bool
 	{
 		return array_key_exists($key, $this->data);
 	}
 
+	/**
+	 * @param string $file
+	 * @return Configuration
+	 */
 	function setFile(string $file): Configuration
 	{
 		$this->file = $file;

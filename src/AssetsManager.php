@@ -51,6 +51,10 @@ class AssetsManager
 		return new AssetsManager(json_decode(file_get_contents($version_manifest), true)["assetIndex"]["url"]);
 	}
 
+	/**
+	 * @param string $name
+	 * @return bool
+	 */
 	function doesAssetExist(string $name): bool
 	{
 		return isset($this->getAssetIndex()["objects"][$name]);

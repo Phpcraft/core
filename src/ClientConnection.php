@@ -406,7 +406,7 @@ class ClientConnection extends Connection implements ServerCommandSender
 	 *
 	 * @param UUID $uuid The UUID of the client.
 	 * @param Counter $eidCounter The server's Counter to assign an entity ID to the client.
-	 * @param int $compression_threshold Use -1 to disable compression.
+	 * @param int $compression_threshold The amount of bytes a packet needs to have before it is compressed. Use -1 to disable compression. Compression will always be disabled on loopback connections.
 	 * @return ClientConnection $this
 	 * @throws IOException
 	 */
@@ -421,7 +421,6 @@ class ClientConnection extends Connection implements ServerCommandSender
 				"::1"
 			]))
 		{
-			// No need to compress loopback traffic
 			$compression_threshold = -1;
 		}
 		if($compression_threshold > -1 || $this->protocol_version < 48)

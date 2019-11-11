@@ -125,6 +125,9 @@ class Command
 		}
 	}
 
+	/**
+	 * @return string
+	 */
 	function getCanonicalName(): string
 	{
 		return $this->names[0];
@@ -291,6 +294,9 @@ class Command
 		return ($this->required_sender_class === null || get_class($sender) === $this->required_sender_class || is_subclass_of(get_class($sender), $this->required_sender_class)) && ($this->required_permission === null || $sender->hasPermission($this->required_permission));
 	}
 
+	/**
+	 * @return string
+	 */
 	function getSyntax(): string
 	{
 		$syntax = PluginManager::$command_prefix.$this->getCanonicalName();

@@ -16,6 +16,9 @@ class EffectType extends Identifier
 		$this->id = $id;
 	}
 
+	/**
+	 * @return void
+	 */
 	protected static function populateAllCache(): void
 	{
 		self::$all_cache = [

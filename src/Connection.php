@@ -222,7 +222,7 @@ class Connection
 		return $this;
 	}
 
-	private function writeGMP($value, int $bytes, int $bits, bool $signed)
+	private function writeGMP($value, int $bytes, int $bits, bool $signed): void
 	{
 		if(is_float($value))
 		{

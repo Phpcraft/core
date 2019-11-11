@@ -13,12 +13,19 @@ class FloatProvider extends ArgumentProvider
 		$this->value = floatval($arg);
 	}
 
+	/**
+	 * @param Connection $con
+	 * @return void
+	 */
 	static function write(Connection $con): void
 	{
 		$con->writeString("brigadier:double");
 		$con->writeByte(0);
 	}
 
+	/**
+	 * @return float
+	 */
 	function getValue(): float
 	{
 		return $this->value;

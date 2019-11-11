@@ -70,6 +70,12 @@ abstract class AbstractListTag extends NBT implements Iterator, Countable, Array
 		return count($this->children);
 	}
 
+	/**
+	 * @param bool $fancy
+	 * @param bool $inList
+	 * @param string $type_char
+	 * @return string
+	 */
 	protected function gmpListToSNBT(bool $fancy, bool $inList, string $type_char): string
 	{
 		$snbt = ($inList || !$this->name ? "" : self::stringToSNBT($this->name).($fancy ? ": " : ":"))."[".$type_char.";".($fancy ? " " : "");

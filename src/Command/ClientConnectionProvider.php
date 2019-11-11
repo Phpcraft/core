@@ -24,6 +24,9 @@ class ClientConnectionProvider extends ArgumentProvider
 		throw new DomainException("Unable to find an online player named $arg");
 	}
 
+	/**
+	 * @return ClientConnection
+	 */
 	function getValue(): ClientConnection
 	{
 		return $this->value;

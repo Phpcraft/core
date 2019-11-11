@@ -229,6 +229,10 @@ abstract class NBT
 		return new StringTag($name, self::stringFromSNBT($value));
 	}
 
+	/**
+	 * @param string $snbt
+	 * @return string
+	 */
 	static function stringFromSNBT(string $snbt): string
 	{
 		if(substr($snbt, 0, 1) == "\"")
@@ -252,11 +256,20 @@ abstract class NBT
 		throw new DomainException("Invalid SNBT string: ".$snbt);
 	}
 
+	/**
+	 * @param string $string
+	 * @return bool
+	 */
 	static function isValidBareString(string $string): bool
 	{
 		return preg_match("/^[a-zA-Z0-9\-_]+$/m", $string) && !is_numeric($string);
 	}
 
+	/**
+	 * @param string $snbt
+	 * @param bool $list
+	 * @return array
+	 */
 	protected static function parseSNBTArray(string $snbt, bool $list): array
 	{
 		$items = [];
@@ -348,6 +361,10 @@ abstract class NBT
 		return $items;
 	}
 
+	/**
+	 * @param string $string
+	 * @return string
+	 */
 	static function stringToSNBT(string $string): string
 	{
 		if(self::isValidBareString($string))
@@ -368,6 +385,10 @@ abstract class NBT
 		}
 	}
 
+	/**
+	 * @param string $string
+	 * @return string
+	 */
 	protected static function indentString(string $string): string
 	{
 		$str = "";
