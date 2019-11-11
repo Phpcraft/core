@@ -415,7 +415,10 @@ class ClientConnection extends Connection implements ServerCommandSender
 		{
 			throw new BadMethodCallException("Call to finishLogin on Connection in state ".$this->state);
 		}
-		if($compression_threshold > -1 && in_array($this->getRemoteAddress(), ["127.0.0.1", "::1"]))
+		if($compression_threshold > -1 && in_array($this->getRemoteAddress(), [
+				"127.0.0.1",
+				"::1"
+			]))
 		{
 			// No need to compress loopback traffic
 			$compression_threshold = -1;
