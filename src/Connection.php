@@ -11,7 +11,7 @@ use Phpcraft\NBT\
 {ByteArrayTag, ByteTag, CompoundTag, DoubleTag, EndTag, FloatTag, IntArrayTag, IntTag, ListTag, LongArrayTag, LongTag, NBT, ShortTag, StringTag};
 /**
  * A wrapper to read and write from streams.
- * The Connection object can also be utilized without a stream:
+ * The Connection object can also be utilized without a stream, e.g.:
  * <pre>$con = new \\Phpcraft\\Connection($protocol_version);
  * $packet = new \\Phpcraft\\SpawnMobPacket();
  * // $packet->...
@@ -33,9 +33,9 @@ class Connection
 	 */
 	public $protocol_version;
 	/**
-	 * The stream of the connection of null.
+	 * The stream of the connection or null.
 	 *
-	 * @var resource $stream
+	 * @var resource|null $stream
 	 */
 	public $stream;
 	/**
@@ -68,12 +68,12 @@ class Connection
 
 	/**
 	 * @param int $protocol_version
-	 * @param resource $stream
+	 * @param resource|null $stream
 	 */
 	function __construct(int $protocol_version = -1, $stream = null)
 	{
 		$this->protocol_version = $protocol_version;
-		if($stream)
+		if($stream !== null)
 		{
 			stream_set_blocking($stream, false);
 			$this->stream = $stream;
@@ -81,13 +81,13 @@ class Connection
 	}
 
 	/**
-	 * Returns whether the stream is (still) open.
+	 * Returns true if this connection has an open stream.
 	 *
 	 * @return boolean
 	 */
 	function isOpen(): bool
 	{
-		return $this->stream != null && @feof($this->stream) === false;
+		return $this->stream !== null && @feof($this->stream) === false;
 	}
 
 	/**
@@ -513,7 +513,7 @@ class Connection
 	}
 
 	/**
-	 * Sends the contents of the write buffer over the stream and clears the write buffer or does nothing if there is no stream.
+	 * Sends the contents of the write buffer over the stream and clears the write buffer. Does nothing if the connection has no stream.
 	 *
 	 * @param boolean $raw When true, the write buffer is sent as-is, without length prefix or compression, which you probably don't want.
 	 * @throws IOException If the connection is not open.
@@ -539,7 +539,7 @@ class Connection
 				{
 					if($length >= $this->compression_threshold)
 					{
-						$compressed = zlib_encode($this->write_buffer, ZLIB_ENCODING_DEFLATE, 9);
+						$compressed = zlib_encode($this->write_buffer, ZLIB_ENCODING_DEFLATE, 6);
 						$compressed_length = strlen($compressed);
 						$length_varint = self::varInt($length);
 						$w = @fwrite($this->stream, self::varInt($compressed_length + strlen($length_varint)).$length_varint.$compressed) or $this->close();
@@ -618,6 +618,21 @@ class Connection
 		}
 		$this->read_buffer_offset = 0;
 		return strlen($this->read_buffer) > 0;
+	}
+
+	/**
+	 * The address of the connection's peer or null if the connection has no stream.
+	 *
+	 * @return string|null
+	 */
+	function getRemoteAddress()
+	{
+		if($this->stream === null)
+		{
+			return null;
+		}
+		$name = stream_socket_get_name($this->stream, true);
+		return substr($name, 0, strpos($name, ":", -6));
 	}
 
 	/**

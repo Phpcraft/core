@@ -1,5 +1,6 @@
 <?php
 namespace Phpcraft;
+use BadMethodCallException;
 use DomainException;
 use GMP;
 use hellsh\UUID;
@@ -337,7 +338,7 @@ class ClientConnection extends Connection implements ServerCommandSender
 		];
 		stream_filter_append($this->stream, "mcrypt.rijndael-128", STREAM_FILTER_WRITE, $opts);
 		stream_filter_append($this->stream, "mdecrypt.rijndael-128", STREAM_FILTER_READ, $opts);
-		$this->ch = curl_init("https://sessionserver.mojang.com/session/minecraft/hasJoined?username=".$this->username."&serverId=".Phpcraft::sha1($shared_secret.base64_decode(trim(substr(openssl_pkey_get_details($private_key)["key"], 26, -24)))));
+		$this->ch = curl_init("https://sessionserver.mojang.com/session/minecraft/hasJoined?username=".$this->username."&serverId=".Phpcraft::sha1($shared_secret.base64_decode(trim(substr(openssl_pkey_get_details($private_key)["key"], 26, -24))))."&ip=".$this->getRemoteAddress());
 		curl_setopt($this->ch, CURLOPT_RETURNTRANSFER, true);
 		if(Phpcraft::isWindows())
 		{
@@ -410,26 +411,32 @@ class ClientConnection extends Connection implements ServerCommandSender
 	 */
 	function finishLogin(UUID $uuid, Counter $eidCounter, int $compression_threshold = 256): ClientConnection
 	{
-		if($this->state == self::STATE_LOGIN)
+		if($this->state != self::STATE_LOGIN)
 		{
-			if($compression_threshold > -1 || $this->protocol_version < 48)
-			{
-				$this->write_buffer = Connection::varInt(0x03);
-				$this->writeVarInt($compression_threshold);
-				$this->send();
-			}
-			$this->compression_threshold = $compression_threshold;
-			$this->write_buffer = Connection::varInt(0x02); // Login Success
-			$this->writeString(($this->uuid = $uuid)->toString(true));
-			$this->writeString($this->username);
+			throw new BadMethodCallException("Call to finishLogin on Connection in state ".$this->state);
+		}
+		if($compression_threshold > -1 && in_array($this->getRemoteAddress(), ["127.0.0.1", "::1"]))
+		{
+			// No need to compress loopback traffic
+			$compression_threshold = -1;
+		}
+		if($compression_threshold > -1 || $this->protocol_version < 48)
+		{
+			$this->write_buffer = Connection::varInt(0x03);
+			$this->writeVarInt($compression_threshold);
 			$this->send();
-			$this->eid = $eidCounter->next();
-			$this->entityMetadata = new Living();
-			$this->state = self::STATE_PLAY;
-			if($this->config && $this->config->server->persist_configs)
-			{
-				$this->config->setFile("config/player_data/".$this->uuid->toString(false).".json");
-			}
+		}
+		$this->compression_threshold = $compression_threshold;
+		$this->write_buffer = Connection::varInt(0x02); // Login Success
+		$this->writeString(($this->uuid = $uuid)->toString(true));
+		$this->writeString($this->username);
+		$this->send();
+		$this->eid = $eidCounter->next();
+		$this->entityMetadata = new Living();
+		$this->state = self::STATE_PLAY;
+		if($this->config && $this->config->server->persist_configs)
+		{
+			$this->config->setFile("config/player_data/".$this->uuid->toString(false).".json");
 		}
 		return $this;
 	}
