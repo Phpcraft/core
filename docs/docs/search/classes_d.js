@@ -1,7 +1,7 @@
 var searchData=
 [
   ['packet',['Packet',['../classPhpcraft_1_1Packet_1_1Packet.html',1,'Phpcraft::Packet']]],
-  ['packetid',['PacketId',['../classPhpcraft_1_1PacketId.html',1,'Phpcraft']]],
+  ['packetid',['PacketId',['../classPhpcraft_1_1Packet_1_1PacketId.html',1,'Phpcraft::Packet']]],
   ['phpcraft',['Phpcraft',['../classPhpcraft_1_1Phpcraft.html',1,'Phpcraft']]],
   ['plainuserinterface',['PlainUserInterface',['../classPhpcraft_1_1PlainUserInterface.html',1,'Phpcraft']]],
   ['plugin',['Plugin',['../classPhpcraft_1_1Plugin.html',1,'Phpcraft']]],

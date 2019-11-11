@@ -2,7 +2,6 @@ var searchData=
 [
   ['ignorebytes',['ignoreBytes',['../classPhpcraft_1_1Connection.html#a71e8f4620ff451e580d3a72c3beb5a8b',1,'Phpcraft::Connection']]],
   ['indentstring',['indentString',['../classPhpcraft_1_1NBT_1_1NBT.html#a052a1bc35b658ca88df13b084b07a3ca',1,'Phpcraft::NBT::NBT']]],
-  ['init',['init',['../classPhpcraft_1_1PacketId.html#abcdf0ac9edac2a40d1576fd4af609f9b',1,'Phpcraft::PacketId']]],
   ['invert',['invert',['../classPhpcraft_1_1Point3D.html#a2cc375bee32edb0beefa3dfa9ebec094',1,'Phpcraft::Point3D']]],
   ['isauthenticationpending',['isAuthenticationPending',['../classPhpcraft_1_1ClientConnection.html#a6d87e1f33d819184fcb64f08652c4afc',1,'Phpcraft::ClientConnection']]],
   ['isempty',['isEmpty',['../classPhpcraft_1_1Slot.html#a0044426f524118c87fd794bb825fdc81',1,'Phpcraft::Slot']]],

@@ -3,7 +3,6 @@ var searchData=
   ['identifier',['Identifier',['../classPhpcraft_1_1Identifier.html',1,'Phpcraft']]],
   ['ignorebytes',['ignoreBytes',['../classPhpcraft_1_1Connection.html#a71e8f4620ff451e580d3a72c3beb5a8b',1,'Phpcraft::Connection']]],
   ['indentstring',['indentString',['../classPhpcraft_1_1NBT_1_1NBT.html#a052a1bc35b658ca88df13b084b07a3ca',1,'Phpcraft::NBT::NBT']]],
-  ['init',['init',['../classPhpcraft_1_1PacketId.html#abcdf0ac9edac2a40d1576fd4af609f9b',1,'Phpcraft::PacketId']]],
   ['insentient',['Insentient',['../classPhpcraft_1_1Entity_1_1Insentient.html',1,'Phpcraft::Entity']]],
   ['install_5fdir',['INSTALL_DIR',['../classPhpcraft_1_1Phpcraft.html#a7bb388a3d99b1f94e130b8c18f669677',1,'Phpcraft::Phpcraft']]],
   ['intarraytag',['IntArrayTag',['../classPhpcraft_1_1NBT_1_1IntArrayTag.html',1,'Phpcraft::NBT']]],

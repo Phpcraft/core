@@ -2,7 +2,6 @@ var searchData=
 [
   ['data_5fdir',['DATA_DIR',['../classPhpcraft_1_1Phpcraft.html#a3ba300e024282544eab0aca92f4912ca',1,'Phpcraft::Phpcraft']]],
   ['declarecommandspacket',['DeclareCommandsPacket',['../classPhpcraft_1_1Packet_1_1DeclareCommands_1_1DeclareCommandsPacket.html',1,'Phpcraft::Packet::DeclareCommands']]],
-  ['deprecated_20list',['Deprecated List',['../deprecated.html',1,'']]],
   ['destroyentitypacket',['DestroyEntityPacket',['../classPhpcraft_1_1Packet_1_1DestroyEntityPacket.html',1,'Phpcraft::Packet']]],
   ['difficulty',['Difficulty',['../classPhpcraft_1_1Enum_1_1Difficulty.html',1,'Phpcraft::Enum']]],
   ['dimension',['Dimension',['../classPhpcraft_1_1Enum_1_1Dimension.html',1,'Phpcraft::Enum']]],
