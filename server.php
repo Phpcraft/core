@@ -124,19 +124,27 @@ function reloadConfiguration()
 	}
 	if(!array_key_exists("description", $config["server_list_appearance"]))
 	{
-		$config["server_list_appearance"]["description"] = [
-			"text" => "A ",
-			"extra" => [
-				[
-					"text" => "Phpcraft",
-					"color" => "red",
-					"italic" => true
-				],
-				[
-					"text" => " Server\n§aNow with 100% more §kmagic§r§a!"
+		if(array_key_exists("motd", $config))
+		{
+			$config["server_list_appearance"]["description"] = $config["motd"];
+			unset($config["motd"]);
+		}
+		else
+		{
+			$config["server_list_appearance"]["description"] = [
+				"text" => "A ",
+				"extra" => [
+					[
+						"text" => "Phpcraft",
+						"color" => "red",
+						"italic" => true
+					],
+					[
+						"text" => " Server\n§aNow with 100% more §kmagic§r§a!"
+					]
 				]
-			]
-		];
+			];
+		}
 	}
 	if(!array_key_exists("show_question_marks_instead_of_player_count", $config["server_list_appearance"]))
 	{
@@ -144,7 +152,15 @@ function reloadConfiguration()
 	}
 	if(!array_key_exists("show_no_connection_instead_of_ping", $config["server_list_appearance"]))
 	{
-		$config["server_list_appearance"]["show_no_connection_instead_of_ping"] = false;
+		if(array_key_exists("show_no_connection_instead_of_ping_in_server_list", $config))
+		{
+			$config["server_list_appearance"]["show_no_connection_instead_of_ping"] = $config["show_no_connection_instead_of_ping_in_server_list"];
+			unset($config["show_no_connection_instead_of_ping_in_server_list"]);
+		}
+		else
+		{
+			$config["server_list_appearance"]["show_no_connection_instead_of_ping"] = false;
+		}
 	}
 	if(!array_key_exists("compression_threshold", $config))
 	{
