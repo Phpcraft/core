@@ -1,8 +1,8 @@
 <?php
 namespace Phpcraft\Packet;
+use GMP;
 use Phpcraft\
 {Connection, Entity\Base, Entity\Metadata, Exception\IOException};
-use GMP;
 /** Sent by the server to clients when entity metadata changes. */
 class EntityMetadataPacket extends EntityPacket
 {

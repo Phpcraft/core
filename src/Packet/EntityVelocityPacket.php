@@ -1,13 +1,12 @@
 <?php
 namespace Phpcraft\Packet;
+use GMP;
 use Phpcraft\
 {Connection, Exception\IOException};
-use GMP;
 class EntityVelocityPacket extends EntityPacket
 {
 	// TODO: Understand what exacly the velocity values mean.
 	// According to wiki.vg, the unit is 1 / 8000 blocks per tick, but that's only half the story, as the velocity decreases over time.
-
 	/**
 	 * @var int $x
 	 */
