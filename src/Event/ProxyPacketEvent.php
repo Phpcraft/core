@@ -1,7 +1,7 @@
 <?php
 namespace Phpcraft\Event;
 use Phpcraft\
-{ClientConnection, PacketId, ServerConnection};
+{ClientConnection, Packet\PacketId, ServerConnection};
 class ProxyPacketEvent extends ProxyEvent
 {
 	/**

@@ -1,7 +1,7 @@
 <?php
 namespace Phpcraft\Packet;
 use Phpcraft\
-{Packet\PluginMessage\ServerboundPluginMessagePacket, PacketId};
+{Packet\PluginMessage\ServerboundPluginMessagePacket};
 /** The class for the IDs of packets sent to the server. */
 class ServerboundPacketId extends PacketId
 {

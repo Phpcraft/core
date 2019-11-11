@@ -9,6 +9,7 @@ use Phpcraft\Exception\
 {IOException, MissingMetadataException};
 use Phpcraft\NBT\
 {ByteArrayTag, ByteTag, CompoundTag, DoubleTag, EndTag, FloatTag, IntArrayTag, IntTag, ListTag, LongArrayTag, LongTag, NBT, ShortTag, StringTag};
+use Phpcraft\Packet\PacketId;
 /**
  * A wrapper to read and write from streams.
  * The Connection object can also be utilized without a stream, e.g.:

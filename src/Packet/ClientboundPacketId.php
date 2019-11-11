@@ -2,7 +2,6 @@
 namespace Phpcraft\Packet;
 use Phpcraft\Packet\
 {BossBar\BossBarPacket, DeclareCommands\DeclareCommandsPacket, MapData\MapDataPacket, PluginMessage\ClientboundPluginMessagePacket};
-use Phpcraft\PacketId;
 /** The class for the IDs of packets sent to the client. */
 class ClientboundPacketId extends PacketId
 {

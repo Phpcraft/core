@@ -1,7 +1,7 @@
 <?php
-namespace Phpcraft;
-use Phpcraft\Packet\
-{ClientboundPacketId, Packet, ServerboundPacketId};
+namespace Phpcraft\Packet;
+use Phpcraft\
+{Connection, Exception\IOException, Identifier, Phpcraft};
 abstract class PacketId extends Identifier
 {
 	protected static $all_cache;
@@ -53,24 +53,12 @@ abstract class PacketId extends Identifier
 	}
 
 	/**
-	 * Initialises this packet's class by reading its payload from the given Connection.
-	 * Returns null if the packet does not have a class implementation yet.
-	 *
-	 * @param Connection $con
-	 * @return Packet|null
-	 * @deprecated Use PacketId::getInstance, instead.
-	 */
-	function init(Connection $con): ?Packet
-	{
-		return $this->getInstance($con);
-	}
-
-	/**
 	 * Initialises this packet's class, optionally reading its payload from the given Connection.
 	 * Returns null if the packet does not have a class implementation yet.
 	 *
 	 * @param Connection|null $con
 	 * @return Packet|null
+	 * @throws IOException
 	 */
 	function getInstance(?Connection $con = null): ?Packet
 	{
@@ -79,7 +67,16 @@ abstract class PacketId extends Identifier
 		{
 			return null;
 		}
-		return $con === null ? new $class() : call_user_func($class."::read", $con);
+		if($con === null)
+		{
+			return new $class();
+		}
+		$instance = call_user_func($class."::read", $con);
+		if($con->read_buffer_offset != strlen($con->read_buffer))
+		{
+			throw new IOException($this->name." had ".(strlen($con->read_buffer) - $con->read_buffer_offset)." more bytes than expected");
+		}
+		return $instance;
 	}
 
 	/**

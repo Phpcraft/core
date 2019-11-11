@@ -6,7 +6,7 @@ if(empty($argv))
 }
 require "vendor/autoload.php";
 use Phpcraft\
-{Connection, Packet\ClientboundPacketId, Packet\ServerboundPacketId, PacketId, Versions};
+{Connection, Packet\ClientboundPacketId, Packet\PacketId, Packet\ServerboundPacketId, Versions};
 echo "PHP Minecraft Packet Dump Reader\nhttps://github.com/timmyrs/Phpcraft\n";
 if(empty($argv[1]) || empty($argv[2]))
 {
