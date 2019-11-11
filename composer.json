@@ -23,7 +23,7 @@
 		"ext-SPL": "*",
 		"ext-zlib": "*",
 		"hell-sh/enum": "^1.1",
-		"hell-sh/uuid": "^1.1",
+		"hell-sh/uuid": "^1.2",
 		"hell-sh/pai": "^2.0",
 		"phpseclib/mcrypt_compat": "^1.0"
 	},
