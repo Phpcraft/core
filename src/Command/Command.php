@@ -186,7 +186,7 @@ class Command
 	 * @param string $name
 	 * @return Command|null
 	 */
-	static function get(string $name)
+	static function get(string $name): ?Command
 	{
 		foreach(PluginManager::$registered_commands as $command)
 		{
@@ -207,8 +207,9 @@ class Command
 	 *
 	 * @param CommandSender $sender
 	 * @param array<string> $args
+	 * @return void
 	 */
-	function call(CommandSender &$sender, array $args)
+	function call(CommandSender &$sender, array $args): void
 	{
 		if($this->required_sender_class !== null && ((get_class($sender) != $this->required_sender_class && $this->required_sender_class != ServerCommandSender::class) || ($this->required_sender_class == ServerCommandSender::class && !is_subclass_of(get_class($sender), ServerCommandSender::class))))
 		{
@@ -290,7 +291,7 @@ class Command
 		return ($this->required_sender_class === null || get_class($sender) === $this->required_sender_class || is_subclass_of(get_class($sender), $this->required_sender_class)) && ($this->required_permission === null || $sender->hasPermission($this->required_permission));
 	}
 
-	function getSyntax()
+	function getSyntax(): string
 	{
 		$syntax = PluginManager::$command_prefix.$this->getCanonicalName();
 		foreach($this->params as $param)

@@ -15,7 +15,7 @@ abstract class Metadata
 {
 	private static $fields = [];
 
-	static function writeByte(Connection $con, int $index, int $value)
+	static function writeByte(Connection $con, int $index, int $value): void
 	{
 		$con->writeByte($index);
 		if($con->protocol_version >= 57)
@@ -25,7 +25,7 @@ abstract class Metadata
 		$con->writeByte($value);
 	}
 
-	static function writeFloat(Connection $con, int $index, float $value)
+	static function writeFloat(Connection $con, int $index, float $value): void
 	{
 		if($con->protocol_version >= 57)
 		{
@@ -39,7 +39,7 @@ abstract class Metadata
 		$con->writeFloat($value);
 	}
 
-	static function writeString(Connection $con, int $index, string $value)
+	static function writeString(Connection $con, int $index, string $value): void
 	{
 		if($con->protocol_version >= 57)
 		{
@@ -57,9 +57,10 @@ abstract class Metadata
 	 * @param Connection $con
 	 * @param int $index
 	 * @param array|string|null $value
+	 * @return void
 	 * @throws LogicException
 	 */
-	static function writeOptChat(Connection $con, int $index, $value)
+	static function writeOptChat(Connection $con, int $index, $value): void
 	{
 		if($con->protocol_version < 57)
 		{
@@ -78,7 +79,7 @@ abstract class Metadata
 		}
 	}
 
-	static function writeBoolean(Connection $con, int $index, bool $value)
+	static function writeBoolean(Connection $con, int $index, bool $value): void
 	{
 		$con->writeByte($index);
 		if($con->protocol_version >= 57)
@@ -88,7 +89,7 @@ abstract class Metadata
 		$con->writeBoolean($value);
 	}
 
-	private static function writeType(Connection $con, string $type)
+	private static function writeType(Connection $con, string $type): void
 	{
 		$versions = [
 			472 => "1.14",
@@ -123,7 +124,7 @@ abstract class Metadata
 	 * @param int $index
 	 * @param GMP|string|int $value
 	 */
-	static function writeInt(Connection $con, int $index, $value)
+	static function writeInt(Connection $con, int $index, $value): void
 	{
 		if($con->protocol_version >= 57)
 		{
@@ -138,7 +139,7 @@ abstract class Metadata
 		}
 	}
 
-	static function finish(Connection $con)
+	static function finish(Connection $con): void
 	{
 		if($con->protocol_version >= 57)
 		{
@@ -157,7 +158,7 @@ abstract class Metadata
 	 * @return Metadata $this
 	 * @throws IOException
 	 */
-	function read(Connection $con)
+	function read(Connection $con): Metadata
 	{
 		if($con->protocol_version >= 57)
 		{
@@ -264,14 +265,14 @@ abstract class Metadata
 		return $this;
 	}
 
-	abstract protected function read_(Connection $con, int $index);
+	abstract protected function read_(Connection $con, int $index): bool;
 
 	/**
 	 * @param Connection $con
 	 * @param string $type
 	 * @throws IOException
 	 */
-	private static function ignoreType(Connection $con, string $type)
+	private static function ignoreType(Connection $con, string $type): void
 	{
 		switch($type)
 		{
@@ -306,8 +307,9 @@ abstract class Metadata
 	 * Writes non-null metadata values to the Connection's write buffer.
 	 *
 	 * @param Connection $con
+	 * @return void
 	 */
-	abstract function write(Connection $con);
+	abstract function write(Connection $con): void;
 
 	function __toString()
 	{
@@ -319,5 +321,8 @@ abstract class Metadata
 		return "{".substr(get_called_class(), 9)."}";
 	}
 
-	abstract function getStringAttributes();
+	/**
+	 * @return array<string>
+	 */
+	abstract function getStringAttributes(): array;
 }

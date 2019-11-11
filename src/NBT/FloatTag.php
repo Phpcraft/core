@@ -43,7 +43,7 @@ class FloatTag extends NBT
 		return "{Float \"".$this->name."\": ".$this->value."}";
 	}
 
-	function copy(): NBT
+	function copy(): FloatTag
 	{
 		return new FloatTag($this->name, $this->value);
 	}

@@ -18,7 +18,7 @@ class ClientboundStringPluginMessagePacket extends ClientboundPluginMessagePacke
 		return "{".substr(get_called_class(), 30).": \"{$this->channel}\": {$this->data}}";
 	}
 
-	protected function send_(Connection $con)
+	protected function send_(Connection $con): void
 	{
 		$con->writeString($this->data);
 	}

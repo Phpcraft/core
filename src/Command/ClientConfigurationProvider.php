@@ -7,7 +7,7 @@ class ClientConfigurationProvider extends ArgumentProvider
 {
 	public function __construct(CommandSender &$sender, string $arg)
 	{
-		if(!$sender->hasServer())
+		if(!$sender instanceof ServerCommandSender)
 		{
 			throw new LogicException("This command was only intended for servers");
 		}

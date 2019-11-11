@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PhpUnused */
 namespace Phpcraft\Packet\MapData;
 use Phpcraft\Phpcraft;
 /**

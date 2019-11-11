@@ -14,7 +14,7 @@ class ServerboundPacketId extends PacketId
 	 * @param string $name
 	 * @return ServerboundPacketId|null
 	 */
-	static function get(string $name)
+	static function get(string $name): ?ServerboundPacketId
 	{
 		$name = strtolower($name);
 		if(substr($name, 0, 10) == "minecraft:")
@@ -28,7 +28,7 @@ class ServerboundPacketId extends PacketId
 		return self::$all_cache[$name] ?? @self::$all_cache["serverbound_".$name];
 	}
 
-	static protected function populateAllCache()
+	static protected function populateAllCache(): void
 	{
 		self::populateAllCache_("toServer");
 	}
@@ -53,7 +53,7 @@ class ServerboundPacketId extends PacketId
 	 * @param int $protocol_version
 	 * @return int|null
 	 */
-	function getId(int $protocol_version)
+	function getId(int $protocol_version): ?int
 	{
 		return $protocol_version >= $this->since_protocol_version ? $this->_getId($protocol_version, "toServer") : null;
 	}
@@ -63,7 +63,7 @@ class ServerboundPacketId extends PacketId
 	 *
 	 * @return string|null
 	 */
-	function getClass()
+	function getClass(): ?string
 	{
 		switch($this->name) // Ordered alphabetically
 		{

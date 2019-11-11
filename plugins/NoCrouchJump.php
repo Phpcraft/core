@@ -5,7 +5,7 @@
  * @var Plugin $this
  */
 use Phpcraft\
-{Connection, EffectType, Event\ServerClientMetadataEvent, Packet\EntityEffectPacket, Packet\RemoveEntityEffect, Plugin};
+{Connection, EffectType, Event\ServerClientMetadataEvent, Packet\EntityEffectPacket, Packet\RemoveEntityEffectPacket, Plugin};
 $this->on(function(ServerClientMetadataEvent $event)
 {
 	if($event->client->entityMetadata->crouching)
@@ -14,6 +14,6 @@ $this->on(function(ServerClientMetadataEvent $event)
 	}
 	else if($event->prev_metadata->crouching && !$event->client->entityMetadata->crouching)
 	{
-		(new RemoveEntityEffect($event->client->eid, EffectType::get("jump_boost")))->send($event->client);
+		(new RemoveEntityEffectPacket($event->client->eid, EffectType::get("jump_boost")))->send($event->client);
 	}
 });

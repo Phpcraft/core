@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PhpUnusedParameterInspection */
 namespace Phpcraft\Command;
 /**
  * Provides a SingleWordStringArgument as PHP's native string to commands.

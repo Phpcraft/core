@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PhpUnusedParameterInspection */
 namespace Phpcraft\Command;
 use Phpcraft\Connection;
 class GreedyStringProvider extends ArgumentProvider
@@ -8,7 +8,7 @@ class GreedyStringProvider extends ArgumentProvider
 		$this->value = $arg;
 	}
 
-	static function write(Connection $con)
+	static function write(Connection $con): void
 	{
 		$con->writeString("brigadier:string");
 		$con->writeVarInt(2); // GREEDY_PHRASE
@@ -24,7 +24,7 @@ class GreedyStringProvider extends ArgumentProvider
 		return true;
 	}
 
-	function acceptNext(string $arg)
+	function acceptNext(string $arg): void
 	{
 		$this->value .= " ".$arg;
 	}

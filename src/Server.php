@@ -144,12 +144,12 @@ class Server implements ServerCommandSender
 	}
 
 	/**
-	 * Gets a group by its name.
+	 * Returns the group with the given name or null if not found.
 	 *
 	 * @param string $name
 	 * @return Group|null
 	 */
-	function getGroup(string $name)
+	function getGroup(string $name): ?Group
 	{
 		return @$this->groups[$name];
 	}
@@ -528,16 +528,16 @@ class Server implements ServerCommandSender
 	 *
 	 * @param array|string $message
 	 * @param string $permission
-	 * @return Server $this
+	 * @return void
 	 */
-	function sendAdminBroadcast($message, string $permission = "everything"): Server
+	function sendAdminBroadcast($message, string $permission = "everything"): void
 	{
 		if(!is_array($message))
 		{
 			$message = Phpcraft::textToChat($message);
 		}
 		echo Phpcraft::chatToText($message, Phpcraft::FORMAT_ANSI)."\n";
-		return $this->permissionBroadcast($permission, [
+		$this->permissionBroadcast($permission, [
 			"color" => "gray",
 			"text" => "[Server: ",
 			"extra" => [
@@ -556,7 +556,7 @@ class Server implements ServerCommandSender
 	 * @param string|UUID $name_or_uuid
 	 * @return ClientConfiguration|null
 	 */
-	function getOfflinePlayer(string $name_or_uuid)
+	function getOfflinePlayer(string $name_or_uuid): ?ClientConfiguration
 	{
 		$player = $this->getPlayer($name_or_uuid);
 		if($player !== null)
@@ -584,7 +584,7 @@ class Server implements ServerCommandSender
 	 * @param string|UUID $name_or_uuid
 	 * @return ClientConnection|null
 	 */
-	function getPlayer($name_or_uuid)
+	function getPlayer($name_or_uuid): ?ClientConnection
 	{
 		foreach($this->clients as $client)
 		{
@@ -608,20 +608,20 @@ class Server implements ServerCommandSender
 	 * If you want to print to console specifically, just use PHP's `echo`.
 	 *
 	 * @param array|string $message
-	 * @return Server $this
+	 * @return void
 	 */
-	function sendMessage($message): Server
+	function sendMessage($message): void
 	{
 		echo Phpcraft::chatToText($message, Phpcraft::FORMAT_ANSI)."\n\e[m";
-		return $this;
 	}
 
 	/**
 	 * Closes all server listen sockets and client connections.
 	 *
 	 * @param array|string $reason The reason for closing the server as a chat object, sent to all clients.
+	 * @return void
 	 */
-	function close($reason = [])
+	function close($reason = []): void
 	{
 		$this->softClose();
 		foreach($this->clients as $client)
@@ -632,8 +632,10 @@ class Server implements ServerCommandSender
 
 	/**
 	 * Closes all server listen sockets but keeps connected clients.
+	 *
+	 * @return void
 	 */
-	function softClose()
+	function softClose(): void
 	{
 		foreach($this->streams as $stream)
 		{
@@ -658,10 +660,7 @@ class Server implements ServerCommandSender
 		return false;
 	}
 
-	/**
-	 * @return null
-	 */
-	function getPosition()
+	function getPosition(): ?Point3D
 	{
 		return null;
 	}

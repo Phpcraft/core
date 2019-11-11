@@ -165,7 +165,7 @@ class ClientConnection extends Connection implements ServerCommandSender
 	 * @param resource $stream
 	 * @param Server|null $server
 	 */
-	function __construct($stream, Server &$server = null)
+	function __construct($stream, ?Server &$server = null)
 	{
 		parent::__construct(-1, $stream);
 		$this->tpidCounter = new Counter();
@@ -226,7 +226,7 @@ class ClientConnection extends Connection implements ServerCommandSender
 		return 0;
 	}
 
-	private function setHostname(string $hostname)
+	private function setHostname(string $hostname): void
 	{
 		$arr = explode("\0", $hostname);
 		$this->hostname = $arr[0];
@@ -237,8 +237,9 @@ class ClientConnection extends Connection implements ServerCommandSender
 	 * Disconnects the client with a reason.
 	 *
 	 * @param array|string $reason The reason of the disconnect; chat object.
+	 * @return void
 	 */
-	function disconnect($reason = [])
+	function disconnect($reason = []): void
 	{
 		if($reason && ($this->state == self::STATE_PLAY || $this->state == self::STATE_LOGIN))
 		{
@@ -448,12 +449,12 @@ class ClientConnection extends Connection implements ServerCommandSender
 	 * Teleports the client to the given position, and optionally, changes their rotation.
 	 *
 	 * @param Point3D $pos
-	 * @param int|null $yaw
-	 * @param int|null $pitch
+	 * @param float|null $yaw
+	 * @param float|null $pitch
 	 * @return ClientConnection $this
 	 * @throws IOException
 	 */
-	function teleport(Point3D $pos, $yaw = null, $pitch = null): ClientConnection
+	function teleport(Point3D $pos, ?float $yaw = null, ?float $pitch = null): ClientConnection
 	{
 		$this->pos = $pos;
 		$this->chunk_x = ceil($pos->x / 16);
@@ -535,10 +536,10 @@ class ClientConnection extends Connection implements ServerCommandSender
 	 *
 	 * @param array|string $message
 	 * @param string $permission
-	 * @return ClientConnection $this
+	 * @return void
 	 * @throws IOException
 	 */
-	function sendAdminBroadcast($message, string $permission = "everything"): ClientConnection
+	function sendAdminBroadcast($message, string $permission = "everything"): void
 	{
 		if(!is_array($message))
 		{
@@ -571,7 +572,6 @@ class ClientConnection extends Connection implements ServerCommandSender
 			{
 			}
 		}
-		return $this;
 	}
 
 	/**
@@ -579,10 +579,10 @@ class ClientConnection extends Connection implements ServerCommandSender
 	 *
 	 * @param array|string $message
 	 * @param int $position
-	 * @return ClientConnection $this
+	 * @return void
 	 * @throws IOException
 	 */
-	function sendMessage($message, int $position = ChatPosition::SYSTEM): ClientConnection
+	function sendMessage($message, int $position = ChatPosition::SYSTEM): void
 	{
 		if(!is_array($message))
 		{
@@ -592,7 +592,6 @@ class ClientConnection extends Connection implements ServerCommandSender
 		$this->writeString(json_encode($message));
 		$this->writeByte($position);
 		$this->send();
-		return $this;
 	}
 
 	function getServer(): Server
@@ -689,10 +688,7 @@ class ClientConnection extends Connection implements ServerCommandSender
 		return $this->pos !== null;
 	}
 
-	/**
-	 * @return Point3D|null
-	 */
-	function getPosition()
+	function getPosition(): ?Point3D
 	{
 		return $this->pos;
 	}

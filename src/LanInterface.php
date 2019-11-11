@@ -38,10 +38,11 @@ class LanInterface
 	 *
 	 * @param string $motd Supports § format for colour.
 	 * @param int|string $port Although this is supposed to be an integer, Minecraft accepts and displays any string but connects to :25565 if this is not a valid port. Do with that as you wish.
+	 * @return void
 	 * @throws IOException
 	 * @todo more research on § format looking weird in older versions
 	 */
-	static function announce(string $motd, $port)
+	static function announce(string $motd, $port): void
 	{
 		$stream = stream_socket_client("udp://224.0.2.60:4445", $errno, $errstr, 0, STREAM_CLIENT_CONNECT, stream_context_create([
 			"socket" => [
@@ -62,8 +63,10 @@ class LanInterface
 	 * Unlike Minecraft, Phpcraft dynamically updates the server list including MOTD changes and requires a server to be announced regularly, otherwise it will be removed.
 	 * This function only needs to be called every 1-2 seconds (optimally every 1.5 seconds).
 	 * If you want all servers at the time of execution, initiate a LanInterface instance, wait 1.5 to 2 seconds, then call discover, and finally access its -&gtservers.
+	 *
+	 * @return void
 	 */
-	function discover()
+	function discover(): void
 	{
 		do
 		{

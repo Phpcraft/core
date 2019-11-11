@@ -93,9 +93,10 @@ class Connection
 	/**
 	 * Updates the read buffer correctly.
 	 *
-	 * @param string $buffer New read buffer binary string
+	 * @param string $buffer The new read buffer binary string.
+	 * @return void
 	 */
-	function setReadBuffer(string $buffer)
+	function setReadBuffer(string $buffer): void
 	{
 		$this->read_buffer = $buffer;
 		$this->read_buffer_offset = 0;
@@ -566,8 +567,10 @@ class Connection
 
 	/**
 	 * Closes the connection's stream, if it has one.
+	 *
+	 * @return void
 	 */
-	function close()
+	function close(): void
 	{
 		if($this->stream != null)
 		{
@@ -625,7 +628,7 @@ class Connection
 	 *
 	 * @return string|null
 	 */
-	function getRemoteAddress()
+	function getRemoteAddress(): ?string
 	{
 		if($this->stream === null)
 		{

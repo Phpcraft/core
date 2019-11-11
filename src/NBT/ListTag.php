@@ -46,7 +46,7 @@ class ListTag extends AbstractListTag
 		return $con;
 	}
 
-	function copy(): NBT
+	function copy(): ListTag
 	{
 		return new ListTag($this->name, $this->childType, $this->children);
 	}

@@ -44,7 +44,7 @@ class Slot
 	 * @param int $count How many times the item is in this slot.
 	 * @param NBT|null $nbt The NBT data of the item in this slot.
 	 */
-	function __construct(Item $item = null, int $count = 1, NBT $nbt = null)
+	function __construct(?Item $item = null, int $count = 1, ?NBT $nbt = null)
 	{
 		$this->item = $item;
 		$this->count = $count;
@@ -56,7 +56,7 @@ class Slot
 	 *
 	 * @return array|null
 	 */
-	function getDisplayName()
+	function getDisplayName(): ?array
 	{
 		if($this->nbt instanceof CompoundTag)
 		{
@@ -91,7 +91,7 @@ class Slot
 	 * @param array|null $name The new display name; chat object, or null to clear.
 	 * @return Slot $this
 	 */
-	function setDisplayName($name): Slot
+	function setDisplayName(?array $name): Slot
 	{
 		if(!$this->nbt instanceof CompoundTag)
 		{
@@ -119,7 +119,7 @@ class Slot
 		return Slot::toString($this);
 	}
 
-	static function toString($slot)
+	static function toString(?Slot $slot): string
 	{
 		if(Slot::isEmpty($slot))
 		{
@@ -138,7 +138,7 @@ class Slot
 	 * @param Slot|null $slot
 	 * @return boolean
 	 */
-	static function isEmpty($slot)
+	static function isEmpty(?Slot $slot): bool
 	{
 		return $slot == null || $slot->item == null || $slot->count < 1 || $slot->count > 64;
 	}
@@ -146,7 +146,7 @@ class Slot
 	/**
 	 * @return boolean
 	 */
-	function hasNBT()
+	function hasNBT(): bool
 	{
 		return $this->nbt != null && !($this->nbt instanceof EndTag);
 	}

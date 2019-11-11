@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PhpUnusedParameterInspection */
 namespace Phpcraft\Command;
 class SingleWordStringProvider extends ArgumentProvider
 {

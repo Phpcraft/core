@@ -25,7 +25,7 @@ class ServerChunkBorderEvent extends ServerMovementEvent
 	 * @param int|null $prev_chunk_x
 	 * @param int|null $prev_chunk_z
 	 */
-	function __construct(Server $server, ClientConnection $client, $prev_pos = null, $prev_chunk_x = null, $prev_chunk_z = null)
+	function __construct(Server $server, ClientConnection $client, ?Point3D $prev_pos = null, $prev_chunk_x = null, $prev_chunk_z = null)
 	{
 		parent::__construct($server, $client, $prev_pos);
 		$this->prev_chunk_x = $prev_chunk_x;

@@ -53,9 +53,10 @@ class JoinGamePacket extends Packet
 	 * Note that in some cases this will produce multiple Minecraft packets, therefore you should only use this on connections without a stream if you know what you're doing.
 	 *
 	 * @param Connection $con
+	 * @return void
 	 * @throws IOException
 	 */
-	function send(Connection $con)
+	function send(Connection $con): void
 	{
 		$con->startPacket("join_game");
 		$con->writeInt($this->eid);
@@ -96,6 +97,6 @@ class JoinGamePacket extends Packet
 
 	function __toString()
 	{
-		return "{JoinGamePacket: Entity ID ".$this->eid.", Gamemode ".$this->gamemode.", ".($this->hardcore ? "Not " : "")."Hardcore Mode, Dimension ".$this->dimension.", Difficulty ".$this->difficulty."}";
+		return "{JoinGamePacket: Entity ID ".gmp_strval($this->eid).", Gamemode ".$this->gamemode.", ".($this->hardcore ? "Not " : "")."Hardcore Mode, Dimension ".$this->dimension.", Difficulty ".$this->difficulty."}";
 	}
 }

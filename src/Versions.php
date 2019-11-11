@@ -8,7 +8,7 @@ abstract class Versions
 	 * @param boolean $all true = all versions; false = only supported versions.
 	 * @return array<int>
 	 */
-	static function protocol(bool $all = true)
+	static function protocol(bool $all = true): array
 	{
 		return array_values(Versions::list($all));
 	}
@@ -122,7 +122,7 @@ abstract class Versions
 	 * @param int $protocol_version e.g., 340
 	 * @return boolean
 	 */
-	static function protocolSupported(int $protocol_version)
+	static function protocolSupported(int $protocol_version): bool
 	{
 		return in_array($protocol_version, Versions::list(false));
 	}
@@ -133,7 +133,7 @@ abstract class Versions
 	 * @param string $minecraft_version
 	 * @return boolean
 	 */
-	static function minecraftSupported(string $minecraft_version)
+	static function minecraftSupported(string $minecraft_version): bool
 	{
 		return array_key_exists($minecraft_version, Versions::list(false));
 	}
@@ -144,7 +144,7 @@ abstract class Versions
 	 * @param string $minecraft_version
 	 * @return int The protocol version or NULL if the Minecraft version doesn't exist.
 	 */
-	static function minecraftToProtocol(string $minecraft_version)
+	static function minecraftToProtocol(string $minecraft_version): int
 	{
 		return @Versions::list(true)[$minecraft_version];
 	}
@@ -155,7 +155,7 @@ abstract class Versions
 	 * @param boolean $all true = all versions; false = only supported versions.
 	 * @return array<string>
 	 */
-	static function minecraft(bool $all = true)
+	static function minecraft(bool $all = true): array
 	{
 		return array_keys(Versions::list($all));
 	}
@@ -164,9 +164,9 @@ abstract class Versions
 	 * Returns an array of non-snapshot Minecraft versions; newest first.
 	 *
 	 * @param boolean $all true = all versions; false = only supported versions.
-	 * @return string[]
+	 * @return array<string>
 	 */
-	static function minecraftReleases(bool $all = true)
+	static function minecraftReleases(bool $all = true): array
 	{
 		return array_keys(Versions::releases($all));
 	}
@@ -197,7 +197,7 @@ abstract class Versions
 	 * @param int $protocol_version
 	 * @return string The version range or an empty string if the given protocol version is not supported.
 	 */
-	static function protocolToRange(int $protocol_version)
+	static function protocolToRange(int $protocol_version): string
 	{
 		$minecraft_versions = Versions::protocolToMinecraft($protocol_version);
 		$count = count($minecraft_versions);
@@ -216,9 +216,9 @@ abstract class Versions
 	 * Returns an array of Minecraft versions corresponding to the given protocol version; newest first.
 	 *
 	 * @param int $protocol_version
-	 * @return string[]
+	 * @return array<string>
 	 */
-	static function protocolToMinecraft(int $protocol_version)
+	static function protocolToMinecraft(int $protocol_version): array
 	{
 		$minecraft_versions = [];
 		foreach(Versions::list(true) as $k => $v)

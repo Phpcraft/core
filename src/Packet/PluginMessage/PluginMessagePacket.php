@@ -65,9 +65,10 @@ abstract class PluginMessagePacket extends Packet
 	 * Note that in some cases this will produce multiple Minecraft packets, therefore you should only use this on connections without a stream if you know what you're doing.
 	 *
 	 * @param Connection $con
+	 * @return void
 	 * @throws IOException
 	 */
-	function send(Connection $con)
+	function send(Connection $con): void
 	{
 		$con->startPacket($this->packet_name);
 		if($con->protocol_version >= 385)

@@ -8,20 +8,17 @@ interface CommandSender
 	/**
 	 * @param array|string $message
 	 */
-	function sendMessage($message);
+	function sendMessage($message): void;
 
 	/**
 	 * @param array|string $message
 	 * @param string $permission
 	 */
-	function sendAdminBroadcast($message, string $permission = "everything");
+	function sendAdminBroadcast($message, string $permission = "everything"): void;
 
 	function hasPermission(string $permission): bool;
 
 	function hasPosition(): bool;
 
-	/**
-	 * @return Point3D|null
-	 */
-	function getPosition();
+	function getPosition(): ?Point3D;
 }

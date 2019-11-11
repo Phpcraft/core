@@ -179,10 +179,7 @@ do
 				{
 					$packet = $packetId->getInstance($server_con);
 					assert($packet instanceof EntityPacket);
-					if(gmp_cmp($packet->eids[0], $server_eid) == 0)
-					{
-						$packet->eids[0] = $client_con->eid;
-					}
+					$packet->replaceEntity($server_eid, $client_con->eid);
 					$packet->send($client_con);
 				}
 				else if($packetId->name == "keep_alive_request")

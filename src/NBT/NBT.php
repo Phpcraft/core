@@ -390,7 +390,10 @@ abstract class NBT
 	 */
 	abstract function write(Connection $con, bool $inList = false): Connection;
 
-	abstract function copy(): NBT;
+	/**
+	 * @return static
+	 */
+	abstract function copy();
 
 	abstract function __toString();
 

@@ -3,6 +3,9 @@ namespace Phpcraft\Permission;
 use Phpcraft\Server;
 class Group
 {
+	/**
+	 * @var array $data
+	 */
 	public $data;
 	private $server;
 	private $permissions;
@@ -18,6 +21,9 @@ class Group
 		return in_array($permission, $this->getPermissions()) || in_array("everything", $this->permissions);
 	}
 
+	/**
+	 * @return array<string>
+	 */
 	function getPermissions(): array
 	{
 		if($this->permissions === null)

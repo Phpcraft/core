@@ -17,7 +17,7 @@ class UpdateBossBarHealthPacket extends BossBarPacket
 	 * @param UUID|null $uuid The UUID of the boss bar.
 	 * @param float $health The percentage the boss bar is filled, aka. the health of the boss.
 	 */
-	function __construct(UUID $uuid = null, float $health = 1.0)
+	function __construct(?UUID $uuid = null, float $health = 1.0)
 	{
 		parent::__construct($uuid);
 		$this->health = $health;
@@ -28,9 +28,10 @@ class UpdateBossBarHealthPacket extends BossBarPacket
 	 * Note that in some cases this will produce multiple Minecraft packets, therefore you should only use this on connections without a stream if you know what you're doing.
 	 *
 	 * @param Connection $con
+	 * @return void
 	 * @throws IOException
 	 */
-	function send(Connection $con)
+	function send(Connection $con): void
 	{
 		if($con->protocol_version > 49)
 		{

@@ -75,7 +75,7 @@ abstract class Phpcraft
 	 *
 	 * @return string
 	 */
-	static function getProfilesFile()
+	static function getProfilesFile(): string
 	{
 		return self::getMinecraftFolder()."/launcher_profiles.json";
 	}
@@ -85,7 +85,7 @@ abstract class Phpcraft
 	 *
 	 * @return string
 	 */
-	static function getMinecraftFolder()
+	static function getMinecraftFolder(): string
 	{
 		if(self::isWindows())
 		{
@@ -115,7 +115,7 @@ abstract class Phpcraft
 	 *
 	 * @return boolean
 	 */
-	static function isWindows()
+	static function isWindows(): bool
 	{
 		return defined("PHP_WINDOWS_VERSION_MAJOR");
 	}
@@ -124,8 +124,9 @@ abstract class Phpcraft
 	 * Saves the profiles array into Minecraft's launcher_profiles.json.
 	 *
 	 * @param array $profiles
+	 * @return void
 	 */
-	static function saveProfiles(array $profiles)
+	static function saveProfiles(array $profiles): void
 	{
 		self::$profiles = $profiles;
 		file_put_contents(self::getProfilesFile(), json_encode(self::$profiles, JSON_PRETTY_PRINT));
@@ -164,10 +165,11 @@ abstract class Phpcraft
 	/**
 	 * Deletes expired cache entries.
 	 *
+	 * @return void
 	 * @see getCachableJson
 	 * @see getCachableResource
 	 */
-	static function maintainCache()
+	static function maintainCache(): void
 	{
 		if(!is_file(self::$json_cache->file))
 		{
@@ -218,7 +220,7 @@ abstract class Phpcraft
 	 * @param string $server The server address, e.g. localhost
 	 * @return string The resolved address, e.g. localhost:25565
 	 */
-	static function resolve(string $server)
+	static function resolve(string $server): string
 	{
 		$arr = explode(":", $server);
 		if(count($arr) > 1)
@@ -228,7 +230,7 @@ abstract class Phpcraft
 		return self::resolveName($server, true);
 	}
 
-	private static function resolveName(string $server, bool $withPort = true)
+	private static function resolveName(string $server, bool $withPort = true): string
 	{
 		if(ip2long($server) === false && $res = @dns_get_record("_minecraft._tcp.{$server}", DNS_SRV))
 		{
@@ -238,7 +240,7 @@ abstract class Phpcraft
 		return $server.($withPort ? ":25565" : "");
 	}
 
-	static function binaryStringToHex(string $str)
+	static function binaryStringToHex(string $str): string
 	{
 		$hex_str = "";
 		foreach(str_split($str) as $char)
@@ -260,7 +262,7 @@ abstract class Phpcraft
 	 * @param string $str
 	 * @return string
 	 */
-	static function sha1(string $str)
+	static function sha1(string $str): string
 	{
 		$gmp = gmp_import(sha1($str, true));
 		if(gmp_cmp($gmp, gmp_init("0x8000000000000000000000000000000000000000")) >= 0)
@@ -279,7 +281,7 @@ abstract class Phpcraft
 	 * @param array $parent Ignore this parameter.
 	 * @return string
 	 */
-	static function chatToText($chat, int $format = self::FORMAT_NONE, array $translations = null, array $parent = [])
+	static function chatToText($chat, int $format = self::FORMAT_NONE, ?array $translations = null, array $parent = []): string
 	{
 		if($parent === [])
 		{
@@ -718,8 +720,9 @@ abstract class Phpcraft
 	 * Recursively deletes a folder.
 	 *
 	 * @param string $path
+	 * @return void
 	 */
-	static function recursivelyDelete(string $path)
+	static function recursivelyDelete(string $path): void
 	{
 		if(substr($path, -1) == "/")
 		{

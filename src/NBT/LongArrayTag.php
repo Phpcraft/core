@@ -47,9 +47,9 @@ class LongArrayTag extends AbstractListTag
 		return $str."}";
 	}
 
-	function copy(): NBT
+	function copy(): LongArrayTag
 	{
-		return new IntArrayTag($this->name, $this->children);
+		return new LongArrayTag($this->name, $this->children);
 	}
 
 	/**

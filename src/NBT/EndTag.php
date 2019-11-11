@@ -19,7 +19,7 @@ class EndTag extends NBT
 		return $con;
 	}
 
-	function copy(): NBT
+	function copy(): EndTag
 	{
 		return new EndTag();
 	}

@@ -51,13 +51,7 @@ class AssetsManager
 		return new AssetsManager(json_decode(file_get_contents($version_manifest), true)["assetIndex"]["url"]);
 	}
 
-	/**
-	 * Checks the asset index for the existence of an asset.
-	 *
-	 * @param string $name
-	 * @return boolean
-	 */
-	function doesAssetExist(string $name)
+	function doesAssetExist(string $name): bool
 	{
 		return isset($this->getAssetIndex()["objects"][$name]);
 	}
@@ -89,8 +83,10 @@ class AssetsManager
 
 	/**
 	 * Downloads all assets.
+	 *
+	 * @return void
 	 */
-	function downloadAllAssets()
+	function downloadAllAssets(): void
 	{
 		foreach($this->getAssetIndex()["objects"] as $name => $object)
 		{
@@ -104,7 +100,7 @@ class AssetsManager
 	 * @param string $name
 	 * @return string|null
 	 */
-	function downloadAsset(string $name)
+	function downloadAsset(string $name): ?string
 	{
 		$asset_index = $this->getAssetIndex();
 		$objects_dir = Phpcraft::getMinecraftFolder()."/assets/objects";
@@ -132,8 +128,10 @@ class AssetsManager
 
 	/**
 	 * Builds the legacy assets folder for versions before 1.7.2.
+	 *
+	 * @return void
 	 */
-	function buildLegacyAssetsFolder()
+	function buildLegacyAssetsFolder(): void
 	{
 		$asset_index = $this->getAssetIndex();
 		$virtual_dir = Phpcraft::getMinecraftFolder()."/assets/virtual";

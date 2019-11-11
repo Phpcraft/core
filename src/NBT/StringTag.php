@@ -39,7 +39,7 @@ class StringTag extends NBT
 		return $con;
 	}
 
-	function copy(): NBT
+	function copy(): StringTag
 	{
 		return new StringTag($this->name, $this->value);
 	}

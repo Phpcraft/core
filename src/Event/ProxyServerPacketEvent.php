@@ -13,7 +13,7 @@ class ProxyServerPacketEvent extends ProxyPacketEvent
 	 * @param ServerConnection|null $server The server connection.
 	 * @param ServerboundPacketId $packetId The ID of the packet the client has sent.
 	 */
-	function __construct(ClientConnection $client, $server, ServerboundPacketId $packetId)
+	function __construct(ClientConnection $client, ?ServerConnection $server, ServerboundPacketId $packetId)
 	{
 		parent::__construct($client, $server, $packetId);
 	}

@@ -52,7 +52,7 @@ class UserInterface extends PlainUserInterface
 		$this->ob_start();
 	}
 
-	private function ob_start()
+	private function ob_start(): void
 	{
 		ob_start(function(string $buffer)
 		{
@@ -79,7 +79,7 @@ class UserInterface extends PlainUserInterface
 	 * Adds a message to the chat log.
 	 *
 	 * @param string $message
-	 * @return $this
+	 * @return UserInterface $this
 	 */
 	function add(string $message)
 	{
@@ -91,8 +91,9 @@ class UserInterface extends PlainUserInterface
 	 * Sets the string displayed before the user's input
 	 *
 	 * @param string $input_prefix
+	 * @return void
 	 */
-	function setInputPrefix(string $input_prefix)
+	function setInputPrefix(string $input_prefix): void
 	{
 		if($this->stdin === null)
 		{
@@ -119,7 +120,7 @@ class UserInterface extends PlainUserInterface
 	 * @param boolean $accept_input Set to true if you are looking for a return value.
 	 * @return string|null If $accept_input is true and the user has submitted a line, the return will be that line. Otherwise, it will be null.
 	 */
-	function render(bool $accept_input = false)
+	function render(bool $accept_input = false): ?string
 	{
 		ob_end_flush();
 		if($this->stdin !== null)
@@ -430,7 +431,7 @@ class UserInterface extends PlainUserInterface
 	 * Appends to the last message in the chat log.
 	 *
 	 * @param string $appendix
-	 * @return $this
+	 * @return UserInterface $this
 	 */
 	function append(string $appendix)
 	{

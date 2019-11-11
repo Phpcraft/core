@@ -67,10 +67,10 @@ class ServerConnection extends Connection implements CommandSender
 	 *
 	 * @param Account $account
 	 * @param array<string,string>|null $translations The translations array so translated messages look proper.
-	 * @return string Error message. Empty on success.
+	 * @return string|null The error message or null on success.
 	 * @throws IOException
 	 */
-	function login(Account $account, array $translations = null): string
+	function login(Account $account, ?array $translations = null): ?string
 	{
 		$this->writeVarInt(0x00);
 		$this->writeString($account->username);
@@ -149,7 +149,7 @@ class ServerConnection extends Connection implements CommandSender
 			}
 		}
 		while(true);
-		return "";
+		return null;
 	}
 
 	/**
@@ -183,15 +183,14 @@ class ServerConnection extends Connection implements CommandSender
 	 * If you want to print to console specifically, just use PHP's `echo`.
 	 *
 	 * @param array|string $message
-	 * @return ServerConnection $this
+	 * @return void
 	 */
-	function sendMessage($message): ServerConnection
+	function sendMessage($message): void
 	{
 		echo Phpcraft::chatToText($message, Phpcraft::FORMAT_ANSI)."\n\e[m";
-		return $this;
 	}
 
-	function sendAdminBroadcast($message, string $permission = "everything")
+	function sendAdminBroadcast($message, string $permission = "everything"): void
 	{
 		echo Phpcraft::chatToText($message, Phpcraft::FORMAT_ANSI)."\n\e[m";
 	}

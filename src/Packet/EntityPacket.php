@@ -40,8 +40,9 @@ abstract class EntityPacket extends Packet
 	 *
 	 * @param GMP $old_eid
 	 * @param GMP $new_eid
+	 * @return void
 	 */
-	function replaceEntity(GMP $old_eid, GMP $new_eid)
+	function replaceEntity(GMP $old_eid, GMP $new_eid): void
 	{
 		foreach($this->eids as $i => $eid)
 		{

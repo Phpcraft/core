@@ -15,7 +15,7 @@ class ClientboundPacketId extends PacketId
 	 * @param string $name
 	 * @return ClientboundPacketId|null
 	 */
-	static function get(string $name)
+	static function get(string $name): ?ClientboundPacketId
 	{
 		$name = strtolower($name);
 		if(self::$all_cache === null)
@@ -25,7 +25,7 @@ class ClientboundPacketId extends PacketId
 		return self::$all_cache[$name] ?? @self::$all_cache["clientbound_".$name];
 	}
 
-	static protected function populateAllCache()
+	static protected function populateAllCache(): void
 	{
 		self::populateAllCache_("toClient");
 	}
@@ -61,7 +61,7 @@ class ClientboundPacketId extends PacketId
 	 * @param int $protocol_version
 	 * @return int|null
 	 */
-	function getId(int $protocol_version)
+	function getId(int $protocol_version): ?int
 	{
 		return $protocol_version >= $this->since_protocol_version ? $this->_getId($protocol_version, "toClient") : null;
 	}
@@ -71,7 +71,7 @@ class ClientboundPacketId extends PacketId
 	 *
 	 * @return string|null
 	 */
-	function getClass()
+	function getClass(): ?string
 	{
 		switch($this->name) // Ordered alphabetically
 		{
@@ -98,7 +98,7 @@ class ClientboundPacketId extends PacketId
 			case "map_data":
 				return MapDataPacket::class;
 			case "remove_entity_effect":
-				return RemoveEntityEffect::class;
+				return RemoveEntityEffectPacket::class;
 			case "set_experience":
 				return SetExperiencePacket::class;
 			case "set_slot":

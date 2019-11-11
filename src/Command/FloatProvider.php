@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PhpUnusedParameterInspection */
 namespace Phpcraft\Command;
 use InvalidArgumentException;
 use Phpcraft\Connection;
@@ -13,7 +13,7 @@ class FloatProvider extends ArgumentProvider
 		$this->value = floatval($arg);
 	}
 
-	static function write(Connection $con)
+	static function write(Connection $con): void
 	{
 		$con->writeString("brigadier:double");
 		$con->writeByte(0);

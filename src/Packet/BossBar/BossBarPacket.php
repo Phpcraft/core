@@ -27,7 +27,7 @@ abstract class BossBarPacket extends Packet
 	/**
 	 * @param UUID|null $uuid The UUID of the boss bar.
 	 */
-	function __construct(UUID $uuid = null)
+	function __construct(?UUID $uuid = null)
 	{
 		$this->uuid = $uuid;
 	}
@@ -40,7 +40,7 @@ abstract class BossBarPacket extends Packet
 	 * @throws IOException
 	 * @todo Implement every subpacket.
 	 */
-	static function read(Connection $con)
+	static function read(Connection $con): ?BossBarPacket
 	{
 		$uuid = $con->readUuid();
 		$action = gmp_intval($con->readVarInt());

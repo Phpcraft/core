@@ -77,7 +77,7 @@ $this->registerCommand([
 	 }, "use /metadata");
 if(PluginManager::$command_prefix == "/")
 {
-	$this->registerCommand("group", function(CommandSender &$sender, ClientConfiguration $player, string $group = "")
+	$this->registerCommand("group", function(ServerCommandSender &$sender, ClientConfiguration $player, string $group = "")
 	{
 		if($group == "")
 		{

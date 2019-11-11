@@ -43,7 +43,7 @@ class IntTag extends NBT
 		return $con;
 	}
 
-	function copy(): NBT
+	function copy(): IntTag
 	{
 		return new IntTag($this->name, $this->value);
 	}

@@ -22,7 +22,7 @@ class Item extends Identifier
 		$this->display_name = $display_name;
 	}
 
-	static protected function populateAllCache()
+	static protected function populateAllCache(): void
 	{
 		self::$all_cache = [];
 		$json_cache = [];
@@ -101,7 +101,7 @@ class Item extends Identifier
 	 * @param int $protocol_version
 	 * @return int|null
 	 */
-	function getId(int $protocol_version)
+	function getId(int $protocol_version): ?int
 	{
 		if($protocol_version >= $this->since_protocol_version)
 		{
@@ -133,7 +133,7 @@ class Item extends Identifier
 	 * @param NBT|null $nbt The NBT data of this item in the slot.
 	 * @return Slot
 	 */
-	function slot(int $count = 1, NBT $nbt = null): Slot
+	function slot(int $count = 1, ?NBT $nbt = null): Slot
 	{
 		return new Slot($this, $count, $nbt);
 	}

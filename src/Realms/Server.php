@@ -103,7 +103,7 @@ class Server
 	 * @param bool $await_start
 	 * @return array<string,string|null>|null An array containing "address" (in [host]:[port] format), "resourcePackUrl" (string|null), and "resourcePackHash" (string|null). If $await_start is false and the realms server is not online, null is returned.
 	 */
-	function join(bool $await_start = true)
+	function join(bool $await_start = true): ?array
 	{
 		$res = json_decode($this->account->sendRealmsRequest("GET", "/worlds/v1/{$this->id}/join/pc"), true);
 		if($res === null) // Retry again later

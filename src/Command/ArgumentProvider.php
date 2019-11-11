@@ -18,11 +18,11 @@ abstract class ArgumentProvider
 	 * Does nothing and shouldn't do anything.
 	 * This function is called on "native" argument providers by Command so they are forced into existence.
 	 */
-	static function noop()
+	static function noop(): void
 	{
 	}
 
-	static function write(Connection $con)
+	static function write(Connection $con): void
 	{
 		$con->writeString("brigadier:string");
 		$con->writeVarInt(0); // SINGLE_WORD
@@ -97,7 +97,7 @@ abstract class ArgumentProvider
 		return true;
 	}
 
-	function acceptNext(string $arg)
+	function acceptNext(string $arg): void
 	{
 	}
 }

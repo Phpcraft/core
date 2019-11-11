@@ -37,7 +37,7 @@ class IntArrayTag extends AbstractListTag
 		return $con;
 	}
 
-	function copy(): NBT
+	function copy(): IntArrayTag
 	{
 		return new IntArrayTag($this->name, $this->children);
 	}

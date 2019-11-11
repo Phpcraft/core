@@ -16,7 +16,7 @@ class EffectType extends Identifier
 		$this->id = $id;
 	}
 
-	protected static function populateAllCache()
+	protected static function populateAllCache(): void
 	{
 		self::$all_cache = [
 			"speed" => new EffectType("speed", 1),
@@ -60,7 +60,7 @@ class EffectType extends Identifier
 	 * @param int $protocol_version
 	 * @return int|null
 	 */
-	function getId(int $protocol_version)
+	function getId(int $protocol_version): ?int
 	{
 		return $protocol_version >= $this->since_protocol_version ? $this->id : null;
 	}

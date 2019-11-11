@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PhpUnusedParameterInspection */
 namespace Phpcraft\Command;
 use InvalidArgumentException;
 use Phpcraft\Connection;
@@ -21,7 +21,7 @@ class QuotedStringProvider extends ArgumentProvider
 		return substr($arg, -1) != "\"" || substr($arg, -2) == "\\\"";
 	}
 
-	static function write(Connection $con)
+	static function write(Connection $con): void
 	{
 		$con->writeString("brigadier:string");
 		$con->writeVarInt(1); // QUOTABLE_PHRASE
@@ -32,7 +32,7 @@ class QuotedStringProvider extends ArgumentProvider
 		return new QuotedString(substr(str_replace("\\\\", "\\", str_replace("\\\"", "\"", $this->value)), 1, -1));
 	}
 
-	function acceptNext(string $arg)
+	function acceptNext(string $arg): void
 	{
 		$this->value .= " ".$arg;
 		$this->has_more = self::hasMore($arg);

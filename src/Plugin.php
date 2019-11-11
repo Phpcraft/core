@@ -121,7 +121,7 @@ class Plugin
 	 * @param string|null $required_permission The permission required to use this command or null if not applicable.
 	 * @return Plugin $this
 	 */
-	protected function registerCommand($names, callable $function, $required_permission = null): Plugin
+	protected function registerCommand($names, callable $function, ?string $required_permission = null): Plugin
 	{
 		if($this->unregistered)
 		{
@@ -148,8 +148,10 @@ class Plugin
 	/**
 	 * Unregisters the plugin, including its event handlers and its commands.
 	 * Make sure your plugin has no statements other than `return;` after this.
+	 *
+	 * @return void
 	 */
-	protected function unregister()
+	protected function unregister(): void
 	{
 		PluginManager::$loaded_plugins->detach($this);
 		foreach(PluginManager::$registered_commands as $command)

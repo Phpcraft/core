@@ -4,7 +4,7 @@ use GMP;
 use Phpcraft\
 {Connection, EffectType, Exception\IOException};
 /** Sent by servers to clients to inform them about entities losing a potion effect. */
-class RemoveEntityEffect extends EntityPacket
+class RemoveEntityEffectPacket extends EntityPacket
 {
 	/**
 	 * @var EffectType $effect
@@ -25,12 +25,12 @@ class RemoveEntityEffect extends EntityPacket
 	 * Initialises the packet class by reading its payload from the given Connection.
 	 *
 	 * @param Connection $con
-	 * @return RemoveEntityEffect
+	 * @return RemoveEntityEffectPacket
 	 * @throws IOException
 	 */
-	static function read(Connection $con): RemoveEntityEffect
+	static function read(Connection $con): RemoveEntityEffectPacket
 	{
-		return new RemoveEntityEffect($con->readVarInt(), EffectType::getById($con->readByte(), $con->protocol_version));
+		return new RemoveEntityEffectPacket($con->readVarInt(), EffectType::getById($con->readByte(), $con->protocol_version));
 	}
 
 	/**
@@ -38,9 +38,10 @@ class RemoveEntityEffect extends EntityPacket
 	 * Note that in some cases this will produce multiple Minecraft packets, therefore you should only use this on connections without a stream if you know what you're doing.
 	 *
 	 * @param Connection $con
+	 * @return void
 	 * @throws IOException
 	 */
-	function send(Connection $con)
+	function send(Connection $con): void
 	{
 		foreach($this->eids as $eid)
 		{

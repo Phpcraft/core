@@ -9,7 +9,7 @@ abstract class Packet
 	 * Initialises the packet class by reading its payload from the given Connection.
 	 *
 	 * @param Connection $con
-	 * @return Packet|null
+	 * @return static|null
 	 * @throws IOException
 	 */
 	abstract static function read(Connection $con);
@@ -19,9 +19,10 @@ abstract class Packet
 	 * Note that in some cases this will produce multiple Minecraft packets, therefore you should only use this on connections without a stream if you know what you're doing.
 	 *
 	 * @param Connection $con
+	 * @return void
 	 * @throws IOException
 	 */
-	abstract function send(Connection $con);
+	abstract function send(Connection $con): void;
 
 	abstract function __toString();
 }

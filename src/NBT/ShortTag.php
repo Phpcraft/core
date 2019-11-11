@@ -43,7 +43,7 @@ class ShortTag extends NBT
 		return "{Short \"".$this->name."\": ".$this->value."}";
 	}
 
-	function copy(): NBT
+	function copy(): ShortTag
 	{
 		return new ShortTag($this->name, $this->value);
 	}

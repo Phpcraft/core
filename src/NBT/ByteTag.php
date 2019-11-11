@@ -34,11 +34,11 @@ class ByteTag extends NBT
 		{
 			$this->_write($con);
 		}
-		$con->writeByte($this->value, true);
+		$con->writeByte($this->value);
 		return $con;
 	}
 
-	function copy(): NBT
+	function copy(): ByteTag
 	{
 		return new ByteTag($this->name, $this->value);
 	}

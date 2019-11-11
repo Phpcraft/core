@@ -25,7 +25,7 @@ class PlainUserInterface
 	 * @param boolean $accept_input Set to true if you are looking for a return value.
 	 * @return string|null If $accept_input is true, we're not on Windows, and the user has submitted a line, the return will be that line. Otherwise, it will be null.
 	 */
-	function render(bool $accept_input = false)
+	function render(bool $accept_input = false): ?string
 	{
 		return (($accept_input && pai::hasLine()) ? pai::getLine() : null);
 	}
@@ -34,7 +34,7 @@ class PlainUserInterface
 	 * Prints a message.
 	 *
 	 * @param string $message
-	 * @return $this
+	 * @return PlainUserInterface $this
 	 */
 	function append(string $message)
 	{
@@ -45,7 +45,7 @@ class PlainUserInterface
 	 * Prints a message.
 	 *
 	 * @param string $message
-	 * @return $this
+	 * @return PlainUserInterface $this
 	 */
 	function add(string $message)
 	{

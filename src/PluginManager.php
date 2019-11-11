@@ -22,8 +22,9 @@ abstract class PluginManager
 	 * Loads all plugins in a folder.
 	 *
 	 * @param string $plugins_folder The path to the folder in which plugins are contained.
+	 * @return void
 	 */
-	static function loadPlugins(string $plugins_folder = "plugins")
+	static function loadPlugins(string $plugins_folder = "plugins"): void
 	{
 		foreach(scandir($plugins_folder) as $name)
 		{
@@ -47,7 +48,7 @@ abstract class PluginManager
 		}
 	}
 
-	static function unloadAllPlugins()
+	static function unloadAllPlugins(): void
 	{
 		PluginManager::$loaded_plugins = new SplObjectStorage();
 		PluginManager::$registered_commands = new SplObjectStorage();
@@ -59,7 +60,7 @@ abstract class PluginManager
 	 * @param Event $event
 	 * @return boolean True if the event was cancelled.
 	 */
-	static function fire(Event $event)
+	static function fire(Event $event): bool
 	{
 		$type = get_class($event);
 		$handlers = [];

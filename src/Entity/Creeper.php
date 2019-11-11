@@ -13,8 +13,9 @@ class Creeper extends Monster
 	 * Writes non-null metadata values to the Connection's write buffer.
 	 *
 	 * @param Connection $con
+	 * @return void
 	 */
-	function write(Connection $con)
+	function write(Connection $con): void
 	{
 		parent::write($con);
 		if($this->charged !== null)
@@ -27,7 +28,10 @@ class Creeper extends Monster
 		}
 	}
 
-	function getStringAttributes()
+	/**
+	 * @return array<string>
+	 */
+	function getStringAttributes(): array
 	{
 		$attr = parent::getStringAttributes();
 		if($this->charged !== null)
@@ -43,7 +47,7 @@ class Creeper extends Monster
 	 * @return boolean
 	 * @throws IOException
 	 */
-	protected function read_(Connection $con, int $index)
+	protected function read_(Connection $con, int $index): bool
 	{
 		switch($index)
 		{

@@ -35,7 +35,7 @@ class CompoundTag extends NBT implements Iterator, Countable, ArrayAccess
 	 * @param string $name
 	 * @return boolean
 	 */
-	function hasChild(string $name)
+	function hasChild(string $name): bool
 	{
 		foreach($this->children as $child)
 		{
@@ -68,7 +68,7 @@ class CompoundTag extends NBT implements Iterator, Countable, ArrayAccess
 		return $con;
 	}
 
-	function copy(): NBT
+	function copy(): CompoundTag
 	{
 		$tag = new CompoundTag($this->name);
 		$tag->children->addAll($this->children);

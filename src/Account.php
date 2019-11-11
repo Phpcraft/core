@@ -166,7 +166,7 @@ class Account
 	 * @param string $password The account's password.
 	 * @return Account|null
 	 */
-	static function online(string $name, string $password)
+	static function online(string $name, string $password): ?Account
 	{
 		$profiles = Phpcraft::getProfiles();
 		$res = Phpcraft::httpPOST("https://authserver.mojang.com/authenticate", [
@@ -238,11 +238,7 @@ class Account
 		return true;
 	}
 
-	/**
-	 * @param string $profile_name
-	 * @return string|null
-	 */
-	static function getAccountIdFromProfileName(string $profile_name)
+	static function getAccountIdFromProfileName(string $profile_name): ?string
 	{
 		$profiles = Phpcraft::getProfiles();
 		foreach($profiles["authenticationDatabase"] as $account_id => $account)
@@ -293,9 +289,9 @@ class Account
 	/**
 	 * Returns all realms invites this account currently has pending.
 	 *
-	 * @return Invite[]
+	 * @return array<Invite>
 	 */
-	function getRealmsInvites()
+	function getRealmsInvites(): array
 	{
 		$invites = [];
 		foreach(json_decode($this->sendRealmsRequest("GET", "/invites/pending"), true)["invites"] as $invite)
@@ -339,9 +335,9 @@ class Account
 	/**
 	 * Returns all realms servers this account has joined or owns.
 	 *
-	 * @return Server[]
+	 * @return array<Server>
 	 */
-	function getRealmsServers()
+	function getRealmsServers(): array
 	{
 		$servers = [];
 		foreach(json_decode($this->sendRealmsRequest("GET", "/worlds"), true)["servers"] as $server)

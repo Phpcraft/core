@@ -18,7 +18,7 @@ class DeclareCommandsPacket extends Packet
 	 * Initialises the packet class by reading its payload from the given Connection.
 	 *
 	 * @param Connection $con
-	 * @return DeclareCommandsPacket|null
+	 * @return DeclareCommandsPacket
 	 * @throws IOException
 	 */
 	static function read(Connection $con): DeclareCommandsPacket
@@ -107,9 +107,10 @@ class DeclareCommandsPacket extends Packet
 	 * Note that in some cases this will produce multiple Minecraft packets, therefore you should only use this on connections without a stream if you know what you're doing.
 	 *
 	 * @param Connection $con
+	 * @return void
 	 * @throws IOException
 	 */
-	function send(Connection $con)
+	function send(Connection $con): void
 	{
 		if($con->protocol_version >= 393)
 		{

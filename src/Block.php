@@ -36,7 +36,7 @@ class Block
 	 * @param string $name
 	 * @return Block|null
 	 */
-	static function get(string $name)
+	static function get(string $name): ?Block
 	{
 		$name = strtolower($name);
 		if(substr($name, 0, 10) == "minecraft:")
@@ -47,11 +47,11 @@ class Block
 	}
 
 	/**
-	 * Returns everything of this type.
+	 * Returns an array containing every Block.
 	 *
-	 * @return static[]
+	 * @return array<Block>
 	 */
-	static function all()
+	static function all(): array
 	{
 		if(self::$all_cache === null)
 		{
@@ -179,7 +179,7 @@ class Block
 	 * @return BlockState|null
 	 * @throws InvalidArgumentException If an invalid property name or value was given.
 	 */
-	function getStateFromArray(array $properties)
+	function getStateFromArray(array $properties): ?BlockState
 	{
 		$properties_ = [];
 		foreach($this->properties as $name => $property)

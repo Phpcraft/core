@@ -12,7 +12,7 @@ class EntityType extends Identifier
 		parent::__construct($name, $since_protocol_version);
 	}
 
-	static protected function populateAllCache()
+	static protected function populateAllCache(): void
 	{
 		self::$all_cache = [
 			"area_effect_cloud" => new EntityType("area_effect_cloud"),
@@ -119,7 +119,7 @@ class EntityType extends Identifier
 	 * @param int $protocol_version
 	 * @return int|null
 	 */
-	function getId(int $protocol_version)
+	function getId(int $protocol_version): ?int
 	{
 		if($protocol_version >= $this->since_protocol_version)
 		{

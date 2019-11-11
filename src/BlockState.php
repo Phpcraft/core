@@ -31,7 +31,7 @@ class BlockState
 	 * @param string $str A BlockState string representation, e.g. "grass_block[snowy=true]"
 	 * @return BlockState|null
 	 */
-	static function get(string $str)
+	static function get(string $str): ?BlockState
 	{
 		$state_start = strpos($str, "[");
 		$block = Block::get($state_start ? substr($str, 0, $state_start) : $str);
@@ -45,7 +45,7 @@ class BlockState
 	 * @param int $protocol_version
 	 * @return BlockState|null
 	 */
-	static function getById(int $id, int $protocol_version)
+	static function getById(int $id, int $protocol_version): ?BlockState
 	{
 		foreach(BlockState::all() as $blockState)
 		{
@@ -58,11 +58,11 @@ class BlockState
 	}
 
 	/**
-	 * Returns everything of this type.
+	 * Returns an array containing every BlockState.
 	 *
-	 * @return static[]
+	 * @return array<BlockState>
 	 */
-	static function all()
+	static function all(): array
 	{
 		if(self::$all_cache === null)
 		{
@@ -81,7 +81,7 @@ class BlockState
 	 * @param int $protocol_version
 	 * @return int|null
 	 */
-	function getId(int $protocol_version)
+	function getId(int $protocol_version): ?int
 	{
 		if($protocol_version >= $this->block->since_protocol_version)
 		{
@@ -116,7 +116,7 @@ class BlockState
 		return $this->block->name.$this->getStateString();
 	}
 
-	function getStateString()
+	function getStateString(): string
 	{
 		$str = "";
 		foreach($this->properties as $name => $value)

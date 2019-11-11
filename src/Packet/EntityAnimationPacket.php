@@ -49,9 +49,10 @@ class EntityAnimationPacket extends EntityPacket
 	 * Note that in some cases this will produce multiple Minecraft packets, therefore you should only use this on connections without a stream if you know what you're doing.
 	 *
 	 * @param Connection $con
+	 * @return void
 	 * @throws IOException
 	 */
-	function send(Connection $con)
+	function send(Connection $con): void
 	{
 		foreach($this->eids as $eid)
 		{

@@ -38,7 +38,7 @@ class DoubleTag extends NBT
 		return $con;
 	}
 
-	function copy(): NBT
+	function copy(): DoubleTag
 	{
 		return new DoubleTag($this->name, $this->value);
 	}

@@ -7,12 +7,12 @@ abstract class PacketId extends Identifier
 	protected static $all_cache;
 	private static $mappings = [];
 
-	static protected function populateAllCache()
+	static protected function populateAllCache(): void
 	{
 		self::$all_cache = ClientboundPacketId::all() + ServerboundPacketId::all();
 	}
 
-	protected static function populateAllCache_(string $key)
+	protected static function populateAllCache_(string $key): void
 	{
 		$name_map = static::nameMap();
 		static::$all_cache = [];
@@ -60,7 +60,7 @@ abstract class PacketId extends Identifier
 	 * @return Packet|null
 	 * @deprecated Use PacketId::getInstance, instead.
 	 */
-	function init(Connection $con)
+	function init(Connection $con): ?Packet
 	{
 		return $this->getInstance($con);
 	}
@@ -72,7 +72,7 @@ abstract class PacketId extends Identifier
 	 * @param Connection|null $con
 	 * @return Packet|null
 	 */
-	function getInstance(Connection $con = null)
+	function getInstance(?Connection $con = null): ?Packet
 	{
 		$class = $this->getClass();
 		if($class === null)
@@ -87,7 +87,7 @@ abstract class PacketId extends Identifier
 	 *
 	 * @return string|null
 	 */
-	abstract function getClass();
+	abstract function getClass(): ?string;
 
 	protected function _getId(int $protocol_version, string $key)
 	{

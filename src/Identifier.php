@@ -42,7 +42,7 @@ abstract class Identifier
 		return @static::$all_cache[$name];
 	}
 
-	abstract protected static function populateAllCache();
+	abstract protected static function populateAllCache(): void;
 
 	/**
 	 * Returns an Identifier by its ID in the given protocol version or null if not found.
@@ -51,7 +51,7 @@ abstract class Identifier
 	 * @param int $protocol_version
 	 * @return static|null
 	 */
-	static function getById(int $id, int $protocol_version)
+	static function getById(int $id, int $protocol_version): ?Identifier
 	{
 		foreach(static::all() as $thing)
 		{
@@ -83,5 +83,5 @@ abstract class Identifier
 	 * @param int $protocol_version
 	 * @return int|null
 	 */
-	abstract function getId(int $protocol_version);
+	abstract function getId(int $protocol_version): ?int;
 }

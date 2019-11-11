@@ -44,12 +44,12 @@ class Invite
 		$this->invite_time = round($data["date"] / 1000);
 	}
 
-	function accept()
+	function accept(): void
 	{
 		$this->account->sendRealmsRequest("PUT", "/invites/accept/".$this->id);
 	}
 
-	function reject()
+	function reject(): void
 	{
 		$this->account->sendRealmsRequest("PUT", "/invites/reject/".$this->id);
 	}

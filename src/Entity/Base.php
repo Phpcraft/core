@@ -47,8 +47,9 @@ class Base extends Metadata
 	 * Writes non-null metadata values to the Connection's write buffer.
 	 *
 	 * @param Connection $con
+	 * @return void
 	 */
-	function write(Connection $con)
+	function write(Connection $con): void
 	{
 		if($this->burning !== null || $this->crouching !== null || $this->sprinting !== null || $this->swimming !== null || $this->invisible !== null || $this->glowing !== null || $this->elytraing !== null)
 		{
@@ -111,7 +112,10 @@ class Base extends Metadata
 		}
 	}
 
-	function getStringAttributes()
+	/**
+	 * @return array<string>
+	 */
+	function getStringAttributes(): array
 	{
 		$attr = [];
 		if($this->custom_name !== null)
@@ -159,7 +163,7 @@ class Base extends Metadata
 	 * @return boolean
 	 * @throws IOException
 	 */
-	protected function read_(Connection $con, int $index)
+	protected function read_(Connection $con, int $index): bool
 	{
 		switch($index)
 		{

@@ -15,7 +15,7 @@ class ClientConfiguration extends Configuration
 	 */
 	public $con;
 
-	function __construct(Server &$server, ClientConnection $con = null, $file = null)
+	function __construct(Server &$server, ?ClientConnection $con = null, $file = null)
 	{
 		parent::__construct($file);
 		$this->server = $server;
@@ -55,26 +55,17 @@ class ClientConfiguration extends Configuration
 		return $this->getPlayer() !== null;
 	}
 
-	/**
-	 * @return ClientConnection|null
-	 */
-	function getPlayer()
+	function getPlayer(): ?ClientConnection
 	{
 		return $this->con ?? ($this->file ? $this->server->getPlayer($this->getUUID()) : null);
 	}
 
-	/**
-	 * @return UUID|null
-	 */
-	function getUUID()
+	function getUUID(): ?UUID
 	{
 		return $this->con ? $this->con->uuid : ($this->file ? new UUID(substr($this->file, -37, 32)) : null);
 	}
 
-	/**
-	 * @return string|null
-	 */
-	function getName()
+	function getName(): ?string
 	{
 		return $this->con ? $this->con->username : ($this->file ? Phpcraft::$user_cache->get($this->getUUID()
 																								  ->toString(false)) : null);

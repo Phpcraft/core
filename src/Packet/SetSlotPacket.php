@@ -30,7 +30,7 @@ class SetSlotPacket extends Packet
 	 * @param int $slotId The ID of the slot being updated. See https://wiki.vg/Inventory and {@link Slot} constants.
 	 * @param Slot|null $slot The new value of the slot.
 	 */
-	function __construct(int $window = 0, int $slotId = 0, Slot $slot = null)
+	function __construct(int $window = 0, int $slotId = 0, ?Slot $slot = null)
 	{
 		$this->window = $window;
 		$this->slotId = $slotId;
@@ -54,10 +54,11 @@ class SetSlotPacket extends Packet
 	 * Note that in some cases this will produce multiple Minecraft packets, therefore you should only use this on connections without a stream if you know what you're doing.
 	 *
 	 * @param Connection $con
+	 * @return void
 	 * @throws IOException
 	 * @throws MissingMetadataException
 	 */
-	function send(Connection $con)
+	function send(Connection $con): void
 	{
 		$con->startPacket("set_slot");
 		$con->writeByte($this->window);
