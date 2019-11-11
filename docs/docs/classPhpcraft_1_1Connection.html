@@ -138,6 +138,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ae2c43093e8d0dc952337a0ce4ec9b341"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a385117fb1bf4927769b851cd0ff16cf5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#a385117fb1bf4927769b851cd0ff16cf5">readRawPacket</a> (float $timeout=3.000, int $bytes=0)</td></tr>
 <tr class="separator:a385117fb1bf4927769b851cd0ff16cf5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acee95a7a0e3e4058dbd58b0996821a96"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#acee95a7a0e3e4058dbd58b0996821a96">getRemoteAddress</a> ()</td></tr>
+<tr class="separator:acee95a7a0e3e4058dbd58b0996821a96"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5d62355781e068296fb613725caafc0d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#a5d62355781e068296fb613725caafc0d">readPacket</a> (float $timeout=3.000)</td></tr>
 <tr class="separator:a5d62355781e068296fb613725caafc0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a31e927e43beb7463823b8fbb970b49c6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#a31e927e43beb7463823b8fbb970b49c6">readVarInt</a> ()</td></tr>
@@ -200,8 +202,8 @@ Public Attributes</h2></td></tr>
 <tr class="separator:aa84f0cd6a52aec79e73ec8cfbe564c35"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a34cb2151305f76007e8370bb90e719d8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#a34cb2151305f76007e8370bb90e719d8">$protocol_version</a></td></tr>
 <tr class="separator:a34cb2151305f76007e8370bb90e719d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af1e92d8d3381fc0384e4c7c175cc10ed"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#af1e92d8d3381fc0384e4c7c175cc10ed">$stream</a></td></tr>
-<tr class="separator:af1e92d8d3381fc0384e4c7c175cc10ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a79120beae1b35de67682349a4eefae0c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#a79120beae1b35de67682349a4eefae0c">$stream</a></td></tr>
+<tr class="separator:a79120beae1b35de67682349a4eefae0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a079ea9c5cb410339aba8de282cad4f31"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#a079ea9c5cb410339aba8de282cad4f31">$compression_threshold</a> = -1</td></tr>
 <tr class="separator:a079ea9c5cb410339aba8de282cad4f31"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a244ea931ac1615b2e64357a6b463239c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#a244ea931ac1615b2e64357a6b463239c">$state</a></td></tr>
@@ -221,7 +223,7 @@ Static Public Attributes</h2></td></tr>
 <tr class="separator:a016ccffcdfa6706f9497624b6b34bba2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>A wrapper to read and write from streams. The <a class="el" href="classPhpcraft_1_1Connection.html">Connection</a> object can also be utilized without a stream: </p><pre>$con = new \<a class="el" href="classPhpcraft_1_1Phpcraft.html">Phpcraft</a>\<a class="el" href="classPhpcraft_1_1Connection.html">Connection</a>($protocol_version);
+<div class="textblock"><p>A wrapper to read and write from streams. The <a class="el" href="classPhpcraft_1_1Connection.html">Connection</a> object can also be utilized without a stream, e.g.: </p><pre>$con = new \<a class="el" href="classPhpcraft_1_1Phpcraft.html">Phpcraft</a>\<a class="el" href="classPhpcraft_1_1Connection.html">Connection</a>($protocol_version);
 $packet = new \<a class="el" href="classPhpcraft_1_1Phpcraft.html">Phpcraft</a>\SpawnMobPacket();
 // $packet-&gt;...
 $packet-&gt;send($con);
@@ -254,7 +256,7 @@ echo \<a class="el" href="classPhpcraft_1_1Phpcraft.html">Phpcraft</a>\<a class=
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramtype">int</td><td class="paramname">$protocol_version</td><td></td></tr>
-    <tr><td class="paramtype">resource</td><td class="paramname">$stream</td><td></td></tr>
+    <tr><td class="paramtype">resource&#160;|&#160;null</td><td class="paramname">$stream</td><td></td></tr>
   </table>
   </dd>
 </dl>
@@ -296,6 +298,25 @@ echo \<a class="el" href="classPhpcraft_1_1Phpcraft.html">Phpcraft</a>\<a class=
 </div><div class="memdoc">
 <p>Returns all the data in the read buffer that is yet to be read.</p>
 <dl class="section return"><dt>Returns</dt><dd>string </dd></dl>
+
+</div>
+</div>
+<a id="acee95a7a0e3e4058dbd58b0996821a96"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acee95a7a0e3e4058dbd58b0996821a96">&#9670;&nbsp;</a></span>getRemoteAddress()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Phpcraft\Connection::getRemoteAddress </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The address of the connection's peer or null if the connection has no stream.</p>
+<dl class="section return"><dt>Returns</dt><dd>string|null </dd></dl>
 
 </div>
 </div>
@@ -345,7 +366,7 @@ echo \<a class="el" href="classPhpcraft_1_1Phpcraft.html">Phpcraft</a>\<a class=
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Returns whether the stream is (still) open.</p>
+<p>Returns true if this connection has an open stream.</p>
 <dl class="section return"><dt>Returns</dt><dd>boolean </dd></dl>
 
 </div>
@@ -980,7 +1001,7 @@ Packet::serverboundPacketIdToName() </dd></dl>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Sends the contents of the write buffer over the stream and clears the write buffer or does nothing if there is no stream.</p>
+<p>Sends the contents of the write buffer over the stream and clears the write buffer. Does nothing if the connection has no stream.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramtype">boolean</td><td class="paramname">$raw</td><td>When true, the write buffer is sent as-is, without length prefix or compression, which you probably don't want. </td></tr>
@@ -1680,18 +1701,18 @@ Packet::serverboundPacketIdToName() </dd></dl>
 
 </div>
 </div>
-<a id="af1e92d8d3381fc0384e4c7c175cc10ed"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af1e92d8d3381fc0384e4c7c175cc10ed">&#9670;&nbsp;</a></span>$stream</h2>
+<a id="a79120beae1b35de67682349a4eefae0c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a79120beae1b35de67682349a4eefae0c">&#9670;&nbsp;</a></span>$stream</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">resource Phpcraft\Connection::$stream</td>
+          <td class="memname">resource null Phpcraft\Connection::$stream</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>The stream of the connection of null. </p>
+<p>The stream of the connection or null. </p>
 
 </div>
 </div>

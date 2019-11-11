@@ -160,7 +160,7 @@ var searchData=
   ['_24stack_5fsize',['$stack_size',['../classPhpcraft_1_1Item.html#a77779582e66cc1b3f438aec26d130c07',1,'Phpcraft::Item']]],
   ['_24state',['$state',['../classPhpcraft_1_1Connection.html#a244ea931ac1615b2e64357a6b463239c',1,'Phpcraft\Connection\$state()'],['../classPhpcraft_1_1Realms_1_1Server.html#a7e18c9ba21a4b5c154ac8aca7388faf8',1,'Phpcraft\Realms\Server\$state()']]],
   ['_24states',['$states',['../classPhpcraft_1_1Block.html#acc25e37d0936a7ee0970753804638617',1,'Phpcraft::Block']]],
-  ['_24stream',['$stream',['../classPhpcraft_1_1Connection.html#af1e92d8d3381fc0384e4c7c175cc10ed',1,'Phpcraft::Connection']]],
+  ['_24stream',['$stream',['../classPhpcraft_1_1Connection.html#a79120beae1b35de67682349a4eefae0c',1,'Phpcraft::Connection']]],
   ['_24streams',['$streams',['../classPhpcraft_1_1Server.html#a410a9dbebe6d41abc67ebc7c73d2248f',1,'Phpcraft::Server']]],
   ['_24swimming',['$swimming',['../classPhpcraft_1_1Entity_1_1Base.html#afd345db5872953c11f6cc2eb88d1b991',1,'Phpcraft::Entity::Base']]],
   ['_24tabcomplete_5ffunction',['$tabcomplete_function',['../classPhpcraft_1_1UserInterface.html#ab7a435c20dd3f490e3d499b3666c6a29',1,'Phpcraft::UserInterface']]],

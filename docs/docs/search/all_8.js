@@ -37,6 +37,7 @@ var searchData=
   ['getrealmsinvites',['getRealmsInvites',['../classPhpcraft_1_1Account.html#a6570cfe49fac3702b6333ae82798f427',1,'Phpcraft::Account']]],
   ['getrealmsservers',['getRealmsServers',['../classPhpcraft_1_1Account.html#abb21cba06e07fcf1232cbd09f7d57bfc',1,'Phpcraft::Account']]],
   ['getremainingdata',['getRemainingData',['../classPhpcraft_1_1Connection.html#a49683613fdd7852e22a0fea6436ae99a',1,'Phpcraft::Connection']]],
+  ['getremoteaddress',['getRemoteAddress',['../classPhpcraft_1_1Connection.html#acee95a7a0e3e4058dbd58b0996821a96',1,'Phpcraft::Connection']]],
   ['getresponse',['getResponse',['../classPhpcraft_1_1Packet_1_1KeepAliveRequestPacket.html#ad1a0f33dab49ea04408ea74c5d17b263',1,'Phpcraft::Packet::KeepAliveRequestPacket']]],
   ['getserver',['getServer',['../classPhpcraft_1_1ClientConnection.html#aaf19ba5251d4c243030e4ea57b1e04e9',1,'Phpcraft\ClientConnection\getServer()'],['../interfacePhpcraft_1_1Command_1_1ServerCommandSender.html#add61ebf0441ecc1db677026c6e5a5ff5',1,'Phpcraft\Command\ServerCommandSender\getServer()'],['../classPhpcraft_1_1Server.html#a651949f73a9efab50ab28347090174d2',1,'Phpcraft\Server\getServer()']]],
   ['getserverstatus',['getServerStatus',['../classPhpcraft_1_1Phpcraft.html#aa9d4ba8e33f9f81a364cff86e1800c5a',1,'Phpcraft::Phpcraft']]],
