@@ -9,7 +9,7 @@ use Phpcraft\
 $WorldImitatorActive = false;
 if(!extension_loaded("gd"))
 {
-	echo "[Map] Install the PHP gd extension if you want `map.png` as an in-game map.\n";
+	echo "[Map] Install the PHP gd extension if you want to see PNG images as in-game maps.\n";
 	$this->unregister();
 	return;
 }
@@ -36,7 +36,7 @@ $this->on(function(ServerJoinEvent $event)
 	$packet->mapId = 1337;
 	$packet->width = 128;
 	$packet->height = 128;
-	$img = imagecreatefrompng("map.png");
+	$img = imagecreatefrompng(__DIR__."/map.png");
 	for($y = 0; $y < 128; $y++)
 	{
 		for($x = 0; $x < 128; $x++)
