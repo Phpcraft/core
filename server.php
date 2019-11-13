@@ -6,7 +6,7 @@ if(empty($argv))
 }
 require "vendor/autoload.php";
 use Phpcraft\
-{ClientConnection, Command\Command, Connection, Event\ServerChatEvent, Event\ServerChunkBorderEvent, Event\ServerClientMetadataEvent, Event\ServerClientSettingsEvent, Event\ServerConsoleEvent, Event\ServerFlyingChangeEvent, Event\ServerJoinEvent, Event\ServerLeaveEvent, Event\ServerMovementEvent, Event\ServerOnGroundChangeEvent, Event\ServerPacketEvent, Event\ServerRotationEvent, Event\ServerTickEvent, Exception\IOException, Packet\ClientSettingsPacket, Packet\ServerboundPacketId, Phpcraft, PlainUserInterface, PluginManager, Server, UserInterface, Versions};
+{ClientConnection, Command\Command, Connection, Event\ServerChatEvent, Event\ServerChunkBorderEvent, Event\ServerClientMetadataEvent, Event\ServerClientSettingsEvent, Event\ServerConsoleEvent, Event\ServerFlyingChangeEvent, Event\ServerJoinEvent, Event\ServerLeaveEvent, Event\ServerMovementEvent, Event\ServerOnGroundChangeEvent, Event\ServerPacketEvent, Event\ServerRotationEvent, Event\ServerTickEvent, Exception\IOException, Packet\ClientSettingsPacket, Packet\ServerboundPacketId, Phpcraft, PlainUserInterface, PluginManager, Server, FancyUserInterface, Versions};
 $options = [
 	"offline" => false,
 	"nocolor" => false,
@@ -48,7 +48,7 @@ for($i = 1; $i < count($argv); $i++)
 }
 try
 {
-	$ui = ($options["plain"] ? new PlainUserInterface() : new UserInterface("PHP Minecraft Server"));
+	$ui = ($options["plain"] ? new PlainUserInterface() : new FancyUserInterface("PHP Minecraft Server"));
 }
 catch(RuntimeException $e)
 {
@@ -218,7 +218,7 @@ function reloadConfiguration()
 }
 
 reloadConfiguration();
-if($ui instanceof UserInterface)
+if($ui instanceof FancyUserInterface)
 {
 	$ui->setInputPrefix("[Server] ");
 }

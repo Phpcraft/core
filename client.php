@@ -6,7 +6,7 @@ if(empty($argv))
 }
 require "vendor/autoload.php";
 use Phpcraft\
-{Account, AssetsManager, Command\Command, Configuration, Connection, Event\ClientConsoleEvent, Event\ClientJoinEvent, Event\ClientPacketEvent, Packet\ClientboundPacketId, Packet\KeepAliveRequestPacket, Packet\PluginMessage\ServerboundBrandPluginMessagePacket, Phpcraft, PlainUserInterface, PluginManager, Point3D, ServerConnection, UserInterface, Versions};
+{Account, AssetsManager, Command\Command, Configuration, Connection, Event\ClientConsoleEvent, Event\ClientJoinEvent, Event\ClientPacketEvent, Packet\ClientboundPacketId, Packet\KeepAliveRequestPacket, Packet\PluginMessage\ServerboundBrandPluginMessagePacket, Phpcraft, PlainUserInterface, PluginManager, Point3D, ServerConnection, FancyUserInterface, Versions};
 $options = [];
 for($i = 1; $i < count($argv); $i++)
 {
@@ -161,7 +161,7 @@ if(!$server)
 fclose($stdin);
 try
 {
-	$ui = (isset($options["plain"]) ? new PlainUserInterface() : new UserInterface("PHP Minecraft Client"));
+	$ui = (isset($options["plain"]) ? new PlainUserInterface() : new FancyUserInterface("PHP Minecraft Client"));
 }
 catch(RuntimeException $e)
 {
@@ -288,7 +288,7 @@ do
 		   ->render();
 		exit;
 	}
-	if($ui instanceof UserInterface)
+	if($ui instanceof FancyUserInterface)
 	{
 		$ui->setInputPrefix("<{$account->username}> ");
 	}
