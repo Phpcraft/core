@@ -43,18 +43,26 @@ foreach([
 		else
 		{
 			$ok = false;
-			$str .= "\n".($i == $i_limit ? "  " : "│ ").($j == $j_limit ? " " : "│")." └ ";
+			$nl = "\n".($i == $i_limit ? "  " : "│ ").($j == $j_limit ? " " : "│")." ";
+			$str .= $nl;
 			if(defined("PHP_WINDOWS_VERSION_MAJOR"))
 			{
-				$str .= "Check the extensions section of your php.ini.\n";
+				if(in_array($ext, ["curl", "gd", "gmp", "mbstring", "sockets"]))
+				{
+					$str .= "├ cone get php-$ext".$nl."└ If you don't have Cone, check the extensions section of your php.ini.\n";
+				}
+				else
+				{
+					$str .= "└ Check the extensions section of your php.ini.\n";
+				}
 			}
 			else if($ext == "mcrypt" && version_compare(PHP_VERSION, "7.2") >= 0)
 			{
-				$str .= "sudo apt-get -y install php-dev gcc make autoconf libc-dev pkg-config libmcrypt-dev php-pear && sudo pecl install mcrypt-1.0.1\n";
+				$str .= "└ sudo apt-get -y install php-dev gcc make autoconf libc-dev pkg-config libmcrypt-dev php-pear && sudo pecl install mcrypt-1.0.1\n";
 			}
 			else
 			{
-				$str .= "sudo apt-get -y install php-".$ext."\n";
+				$str .= "└ sudo apt-get -y install php-$ext\n";
 			}
 		}
 	}
