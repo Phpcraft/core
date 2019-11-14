@@ -5,7 +5,7 @@
  * @var Plugin $this
  */
 use Phpcraft\
-{BlockState, ClientConnection, Connection, Enum\Gamemode, Event\Event, Event\ServerChunkBorderEvent, Event\ServerJoinEvent, Event\ServerTickEvent, IntegratedServer, NBT\CompoundTag, NBT\LongArrayTag, Packet\JoinGamePacket, Packet\PluginMessage\ClientboundBrandPluginMessagePacket, Plugin, PluginManager, Point3D};
+{BlockState, ClientConnection, Connection, Enum\Gamemode, Event\ServerChunkBorderEvent, Event\ServerJoinEvent, Event\ServerTickEvent, IntegratedServer, NBT\CompoundTag, NBT\LongArrayTag, Packet\JoinGamePacket, Packet\PluginMessage\ClientboundBrandPluginMessagePacket, Plugin, PluginManager, Point3D};
 if(PluginManager::$command_prefix != "/")
 {
 	$this->unregister();
@@ -50,7 +50,7 @@ $this->on(function(ServerJoinEvent $event)
 	}
 	$con->chunk_preference = "\x00\x01";
 	$this->fire(new ServerChunkBorderEvent($event->server, $con));
-}, Event::PRIORITY_NORMAL)
+})
 	 ->registerCommand("grass", function(ClientConnection &$client)
 	 {
 		 $client->chunk_preference = "\x00\x00";

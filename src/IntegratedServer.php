@@ -452,6 +452,28 @@ class IntegratedServer extends Server
 				$this->config[$key] = $default;
 			}
 		}
+		if(!array_key_exists("groups", $this->config))
+		{
+			$this->config["groups"] = [
+				"default" => [
+					"allow" => [
+						"use /me",
+						"use /gamemode",
+						"use /metadata",
+						"change the world"
+					]
+				],
+				"user" => [
+					"inherit" => "default",
+					"allow" => [
+						"use /abilities"
+					]
+				],
+				"admin" => [
+					"allow" => "everything"
+				]
+			];
+		}
 		if(!array_key_exists("ports", $this->config))
 		{
 			$this->config["ports"] = [25565];
@@ -480,6 +502,7 @@ class IntegratedServer extends Server
 		}
 		$this->saveConfig();
 		$this->compression_threshold = $this->config["compression_threshold"];
+		$this->setGroups($this->config["groups"]);
 		$open_ports = [];
 		$streams_ = [];
 		foreach($this->streams as $stream)

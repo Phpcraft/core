@@ -6,7 +6,7 @@
  */
 use Phpcraft\
 {Command\ServerCommandSender, IntegratedServer, Plugin, PluginManager};
-if(PluginManager::$command_prefix != "/")
+if(substr(PluginManager::$command_prefix, 0, 1) != "/")
 {
 	$this->unregister();
 	return;
@@ -21,7 +21,8 @@ $this->registerCommand("reload", function(ServerCommandSender &$sender)
 	if($sender->getServer() instanceof IntegratedServer)
 	{
 		$sender->sendAdminBroadcast("Reloading server config...", "use /reload");
-		$sender->getServer()->reloadConfig();
+		$sender->getServer()
+			   ->reloadConfig();
 		$sender->sendAdminBroadcast("Done. ".count($sender->getServer()->groups)." groups loaded.", "use /reload");
 	}
 }, "use /reload");

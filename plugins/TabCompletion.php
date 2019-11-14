@@ -17,6 +17,7 @@ $this->on(function(ProxyJoinEvent $event)
 	{
 		return;
 	}
+	// TODO: Add support for 1.12.2 and below.
 	if($event->client->protocol_version >= 393)
 	{
 		$packet = new DeclareCommandsPacket();

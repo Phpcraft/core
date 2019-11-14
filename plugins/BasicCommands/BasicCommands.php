@@ -1,11 +1,11 @@
 <?php
 /**
- * This plugin provides clients of the server with /abilities, /gamemode, and /metadata.
+ * This plugin provides clients with the /abilities, /gamemode, and /metadata commands.
  *
  * @var Plugin $this
  */
 use Phpcraft\
-{ClientConfiguration, ClientConnection, Command\Command, Command\CommandSender, Command\GreedyString, Command\ServerCommandSender, Plugin, PluginManager};
+{ClientConnection, Command\GreedyString, Command\ServerCommandSender, Plugin, PluginManager};
 require "GamemodeArgument.php";
 require "GamemodeArgumentProvider.php";
 if(PluginManager::$command_prefix != "/" && PluginManager::$command_prefix != "/proxy:")
@@ -13,27 +13,11 @@ if(PluginManager::$command_prefix != "/" && PluginManager::$command_prefix != "/
 	$this->unregister();
 	return;
 }
-$this->registerCommand([
-	"help",
-	"?"
-], function(CommandSender &$sender)
+$this->registerCommand("me", function(ServerCommandSender &$sender, GreedyString $action)
 {
-	$commands = [];
-	foreach(PluginManager::$registered_commands as $command)
-	{
-		assert($command instanceof Command);
-		if($command->isUsableBy($sender))
-		{
-			array_push($commands, $command->getSyntax());
-		}
-	}
-	$sender->sendMessage(["text" => "You have access to ".count($commands)." commands:\n".join("\n", $commands)]);
-})
-	 ->registerCommand("me", function(ServerCommandSender &$sender, GreedyString $action)
-	 {
-		 $sender->getServer()
-				->broadcast("* ".$sender->getName()." ".$action->value);
-	 }, "use /me")
+	$sender->getServer()
+		   ->broadcast("* ".$sender->getName()." ".$action->value);
+}, "use /me")
 	 ->registerCommand([
 		 "gamemode",
 		 "gm"
@@ -75,31 +59,3 @@ $this->registerCommand([
 		 $client->writeByte(0xFF);
 		 $client->send();
 	 }, "use /metadata");
-if(PluginManager::$command_prefix == "/")
-{
-	$this->registerCommand("group", function(ServerCommandSender &$sender, ClientConfiguration $player, string $group = "")
-	{
-		if($group == "")
-		{
-			$sender->sendMessage([
-				"text" => $player->getName()." is currently in group '".$player->getGroupName()."'."
-			]);
-		}
-		else if($sender->getServer()
-					   ->getGroup($group) !== null)
-		{
-			$player->setGroup($group);
-			$sender->sendMessage([
-				"text" => $player->getName()." is now in group '".$player->getGroupName()."'.",
-				"color" => "green"
-			]);
-		}
-		else
-		{
-			$sender->sendMessage([
-				"text" => "Group '$group' does not exist.",
-				"color" => "red"
-			]);
-		}
-	}, "use /group");
-}

@@ -6,7 +6,12 @@
  * @var Plugin $this
  */
 use Phpcraft\
-{Event\ProxyClientPacketEvent, Event\ProxyServerPacketEvent, Plugin};
+{Event\ProxyClientPacketEvent, Event\ProxyServerPacketEvent, Plugin, PluginManager};
+if(PluginManager::$command_prefix != "/proxy:")
+{
+	$this->unregister();
+	return;
+}
 $this->on(function(ProxyClientPacketEvent &$e)
 {
 	$packet_class = $e->packetId->getClass();
