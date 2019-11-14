@@ -16,6 +16,5 @@ var searchData=
   ['doesassetexist',['doesAssetExist',['../classPhpcraft_1_1AssetsManager.html#a13a585f3fdb1caab24292cf9b43e9872',1,'Phpcraft::AssetsManager']]],
   ['doubletag',['DoubleTag',['../classPhpcraft_1_1NBT_1_1DoubleTag.html',1,'Phpcraft::NBT']]],
   ['downloadallassets',['downloadAllAssets',['../classPhpcraft_1_1AssetsManager.html#a0acdd8f596c09d2bdffa6d6e0add69a9',1,'Phpcraft::AssetsManager']]],
-  ['downloadasset',['downloadAsset',['../classPhpcraft_1_1AssetsManager.html#a55828e6fd7653132c68891dd925da18f',1,'Phpcraft::AssetsManager']]],
-  ['docs_5findex',['docs_index',['../md_docs_docs_index.html',1,'']]]
+  ['downloadasset',['downloadAsset',['../classPhpcraft_1_1AssetsManager.html#a55828e6fd7653132c68891dd925da18f',1,'Phpcraft::AssetsManager']]]
 ];
