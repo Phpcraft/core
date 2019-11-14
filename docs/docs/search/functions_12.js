@@ -28,7 +28,7 @@ var searchData=
   ['recursivelydelete',['recursivelyDelete',['../classPhpcraft_1_1Phpcraft.html#aa1d3fc7f04e2cbc09b6aecf824444c6d',1,'Phpcraft::Phpcraft']]],
   ['recursivelyflatten',['recursivelyFlatten',['../classPhpcraft_1_1Packet_1_1DeclareCommands_1_1DeclareCommandsPacket.html#a4403d32b3dc0f7d8a871d7e9f94763de',1,'Phpcraft::Packet::DeclareCommands::DeclareCommandsPacket']]],
   ['registercommand',['registerCommand',['../classPhpcraft_1_1Plugin.html#a5be5f0aec268a19d0e9a6f5c5f2a5ac5',1,'Phpcraft::Plugin']]],
-  ['reject',['reject',['../classPhpcraft_1_1Realms_1_1Invite.html#a979ba1fa19288ed29cc0f8935c571683',1,'Phpcraft::Realms::Invite']]],
+  ['reject',['reject',['../classPhpcraft_1_1Realms_1_1RealmsInvite.html#a3cda5f6f5706316bb109c59680bd8d88',1,'Phpcraft::Realms::RealmsInvite']]],
   ['releases',['releases',['../classPhpcraft_1_1Versions.html#a7dec6dde245708976d70b171f4c30ccc',1,'Phpcraft::Versions']]],
   ['reloadconfig',['reloadConfig',['../classPhpcraft_1_1IntegratedServer.html#a988f7933be268d5482b06624fb69ad05',1,'Phpcraft::IntegratedServer']]],
   ['render',['render',['../classPhpcraft_1_1FancyUserInterface.html#a743f30aeb5d1007ace49a0c8dfbf0946',1,'Phpcraft\FancyUserInterface\render()'],['../classPhpcraft_1_1PlainUserInterface.html#aba3b48a12123eb86d46eeaefd2072329',1,'Phpcraft\PlainUserInterface\render()'],['../classPhpcraft_1_1UserInterface.html#ad80d10131ece8fa438e4bf526faf6234',1,'Phpcraft\UserInterface\render()']]],

@@ -75,6 +75,7 @@ Inheritance diagram for Phpcraft\Server:</div>
 <div class="dyncontent">
 <div class="center"><img src="classPhpcraft_1_1Server__inherit__graph.png" border="0" usemap="#Phpcraft_0CServer_inherit__map" alt="Inheritance graph"/></div>
 <map name="Phpcraft_0CServer_inherit__map" id="Phpcraft_0CServer_inherit__map">
+<area shape="rect" id="node4" href="classPhpcraft_1_1IntegratedServer.html" title="Phpcraft\\IntegratedServer" alt="" coords="41,259,230,285"/>
 <area shape="rect" id="node2" href="interfacePhpcraft_1_1Command_1_1ServerCommandSender.html" title="Phpcraft\\Command\\ServerCommand\lSender" alt="" coords="5,95,265,136"/>
 <area shape="rect" id="node3" href="interfacePhpcraft_1_1Command_1_1CommandSender.html" title="Phpcraft\\Command\\Command\lSender" alt="" coords="26,5,245,47"/>
 </map>
@@ -365,7 +366,7 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Returns the "description" key from $this-&gt;list_ping_function's return array.</p>
 <dl class="section return"><dt>Returns</dt><dd>array|string </dd></dl>
-<dl class="section see"><dt>See also</dt><dd>Server::$list_ping_function </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classPhpcraft_1_1Server.html#a27aba103cfdd78a7e96f3da8e6d8af06">Server::$list_ping_function</a> </dd></dl>
 
 </div>
 </div>
@@ -810,7 +811,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>A <a class="el" href="classPhpcraft_1_1ClientConnection.html">ClientConnection</a> array of all clients that are connected to the server.</p>
-<dl class="section see"><dt>See also</dt><dd>Server::getPlayers() </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classPhpcraft_1_1Server.html#a8eea4895410ef8bfda087f151cae491d">Server::getPlayers()</a> </dd></dl>
 
 </div>
 </div>
@@ -841,7 +842,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>The function called when a client's disconnected from the server with the <a class="el" href="classPhpcraft_1_1ClientConnection.html">ClientConnection</a> as argument.</p>
-<dl class="section see"><dt>See also</dt><dd>Server::handle() </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classPhpcraft_1_1Server.html#a4f4c7ec689744dd6eed990527a773f00">Server::handle()</a> </dd></dl>
 
 </div>
 </div>
@@ -886,7 +887,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>The function called when a client has entered state 3 (playing) with the <a class="el" href="classPhpcraft_1_1ClientConnection.html">ClientConnection</a> as argument.</p>
-<dl class="section see"><dt>See also</dt><dd>Server::handle() </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classPhpcraft_1_1Server.html#a4f4c7ec689744dd6eed990527a773f00">Server::handle()</a> </dd></dl>
 
 </div>
 </div>
@@ -902,9 +903,9 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>The function called when to get the server's response to a list ping request with the <a class="el" href="classPhpcraft_1_1ClientConnection.html">ClientConnection</a> as argument or null if called internally to get list ping information, e.g. in a plugin. See <a class="el" href="classPhpcraft_1_1Phpcraft.html#aa9d4ba8e33f9f81a364cff86e1800c5a">Phpcraft::getServerStatus</a> for an example of all the data a server may respond with (excluding "ping"). Additionally, if you set "no_ping", the client will show "(no connection)" where usually the ping in ms would be.</p>
-<dl class="section see"><dt>See also</dt><dd>Server::accept() </dd>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classPhpcraft_1_1Server.html#a172423393c7cd2339523706457c05c37">Server::accept()</a> </dd>
 <dd>
-Server::handle() </dd></dl>
+<a class="el" href="classPhpcraft_1_1Server.html#a4f4c7ec689744dd6eed990527a773f00">Server::handle()</a> </dd></dl>
 
 </div>
 </div>
@@ -920,7 +921,7 @@ Server::handle() </dd></dl>
       </table>
 </div><div class="memdoc">
 <p>The function called when the server receives a packet from a client in state 3 (playing) unless it's a keep alive response with the <a class="el" href="classPhpcraft_1_1ClientConnection.html">ClientConnection</a> and ServerboundPacketId as arguments.</p>
-<dl class="section see"><dt>See also</dt><dd>Server::handle() </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classPhpcraft_1_1Server.html#a4f4c7ec689744dd6eed990527a773f00">Server::handle()</a> </dd></dl>
 
 </div>
 </div>

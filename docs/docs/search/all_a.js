@@ -10,7 +10,6 @@ var searchData=
   ['integratedserver',['IntegratedServer',['../classPhpcraft_1_1IntegratedServer.html',1,'Phpcraft']]],
   ['inttag',['IntTag',['../classPhpcraft_1_1NBT_1_1IntTag.html',1,'Phpcraft::NBT']]],
   ['invert',['invert',['../classPhpcraft_1_1Point3D.html#a2cc375bee32edb0beefa3dfa9ebec094',1,'Phpcraft::Point3D']]],
-  ['invite',['Invite',['../classPhpcraft_1_1Realms_1_1Invite.html',1,'Phpcraft::Realms']]],
   ['ioexception',['IOException',['../classPhpcraft_1_1Exception_1_1IOException.html',1,'Phpcraft::Exception']]],
   ['isauthenticationpending',['isAuthenticationPending',['../classPhpcraft_1_1ClientConnection.html#a6d87e1f33d819184fcb64f08652c4afc',1,'Phpcraft::ClientConnection']]],
   ['isempty',['isEmpty',['../classPhpcraft_1_1Slot.html#a0044426f524118c87fd794bb825fdc81',1,'Phpcraft::Slot']]],
