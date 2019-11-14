@@ -1,7 +1,7 @@
 <?php /** @noinspection PhpComposerExtensionStubsInspection */
 namespace Phpcraft;
 use Phpcraft\Realms\
-{Invite, Server};
+{RealmsInvite, RealmsServer};
 /** A Mojang or Minecraft account. */
 class Account
 {
@@ -293,14 +293,14 @@ class Account
 	/**
 	 * Returns all realms invites this account currently has pending.
 	 *
-	 * @return array<Invite>
+	 * @return array<RealmsInvite>
 	 */
 	function getRealmsInvites(): array
 	{
 		$invites = [];
 		foreach(json_decode($this->sendRealmsRequest("GET", "/invites/pending"), true)["invites"] as $invite)
 		{
-			array_push($invites, new Invite($this, $invite));
+			array_push($invites, new RealmsInvite($this, $invite));
 		}
 		return $invites;
 	}
@@ -339,14 +339,14 @@ class Account
 	/**
 	 * Returns all realms servers this account has joined or owns.
 	 *
-	 * @return array<Server>
+	 * @return array<RealmsServer>
 	 */
 	function getRealmsServers(): array
 	{
 		$servers = [];
 		foreach(json_decode($this->sendRealmsRequest("GET", "/worlds"), true)["servers"] as $server)
 		{
-			array_push($servers, new Server($this, $server));
+			array_push($servers, new RealmsServer($this, $server));
 		}
 		return $servers;
 	}

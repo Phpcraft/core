@@ -2,7 +2,7 @@
 namespace Phpcraft\Realms;
 use hellsh\UUID;
 use Phpcraft\Account;
-class Invite
+class RealmsInvite
 {
 	/**
 	 * @var Account $account
@@ -25,7 +25,7 @@ class Invite
 	 */
 	public $server_owner_name;
 	/**
-	 * @var UUID $owner_uuid
+	 * @var UUID $server_owner_uuid
 	 */
 	public $server_owner_uuid;
 	/**
@@ -33,6 +33,10 @@ class Invite
 	 */
 	public $invite_time;
 
+	/**
+	 * @param Account $account
+	 * @param array $data
+	 */
 	function __construct(Account $account, array $data)
 	{
 		$this->account = $account;

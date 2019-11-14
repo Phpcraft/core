@@ -2,7 +2,7 @@
 namespace Phpcraft\Realms;
 use hellsh\UUID;
 use Phpcraft\Account;
-class Server
+class RealmsServer
 {
 	/**
 	 * @var Account $account
@@ -77,6 +77,10 @@ class Server
 	 */
 	public $minigame_image;
 
+	/**
+	 * @param Account $account
+	 * @param array $data
+	 */
 	function __construct(Account $account, array $data)
 	{
 		$this->account = $account;
