@@ -12,7 +12,7 @@ var searchData=
   ['sendmessage',['sendMessage',['../classPhpcraft_1_1ClientConnection.html#a9ed0586a5ca0d6898b7a547739296025',1,'Phpcraft\ClientConnection\sendMessage()'],['../interfacePhpcraft_1_1Command_1_1CommandSender.html#a9db2ce7b323f2042dfc6c5d729981d70',1,'Phpcraft\Command\CommandSender\sendMessage()'],['../classPhpcraft_1_1Server.html#a3dbcdf93f9f834134cea839460b5344e',1,'Phpcraft\Server\sendMessage()'],['../classPhpcraft_1_1ServerConnection.html#a2facb38c4c96f2e4c7305e7bc42fdfeb',1,'Phpcraft\ServerConnection\sendMessage()']]],
   ['sendrealmsrequest',['sendRealmsRequest',['../classPhpcraft_1_1Account.html#a4fd30532181444e3498ad3de71047d33',1,'Phpcraft::Account']]],
   ['set',['set',['../classPhpcraft_1_1Configuration.html#a2c2a45a3feebf39716bde30b9508f56e',1,'Phpcraft::Configuration']]],
-  ['setabilities',['setAbilities',['../classPhpcraft_1_1ClientConnection.html#a224b97346c4c3762b94192217f7b278d',1,'Phpcraft::ClientConnection']]],
+  ['setabilitiesfromgamemode',['setAbilitiesFromGamemode',['../classPhpcraft_1_1ClientConnection.html#a54290351f3b8320999b30f30bf3b158d',1,'Phpcraft::ClientConnection']]],
   ['setdisplayname',['setDisplayName',['../classPhpcraft_1_1Slot.html#a7ba6fcc1ce1ab41bf671aa1d45145928',1,'Phpcraft::Slot']]],
   ['setfile',['setFile',['../classPhpcraft_1_1Configuration.html#afcbdb1061ac08f7a293728fa5065955d',1,'Phpcraft::Configuration']]],
   ['setgamemode',['setGamemode',['../classPhpcraft_1_1ClientConnection.html#ab83bc7aa368b731af94813d74523886f',1,'Phpcraft::ClientConnection']]],
