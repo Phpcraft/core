@@ -4,8 +4,7 @@ use Exception;
 use Phpcraft\
 {Command\Command, Enum\Gamemode, Event\ServerChatEvent, Event\ServerChunkBorderEvent, Event\ServerClientMetadataEvent, Event\ServerClientSettingsEvent, Event\ServerFlyingChangeEvent, Event\ServerJoinEvent, Event\ServerLeaveEvent, Event\ServerMovementEvent, Event\ServerOnGroundChangeEvent, Event\ServerPacketEvent, Event\ServerRotationEvent, Exception\IOException, Packet\ClientSettingsPacket, Packet\JoinGamePacket, Packet\PluginMessage\ClientboundBrandPluginMessagePacket, Packet\ServerboundPacketId};
 use RuntimeException;
-/** @noinspection PhpUnnecessaryFullyQualifiedNameInspection */
-class IntegratedServer extends \Phpcraft\Server
+class IntegratedServer extends Server
 {
 	/**
 	 * @var string $name
