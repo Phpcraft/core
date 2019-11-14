@@ -6,7 +6,7 @@
  */
 use Phpcraft\
 {BlockState, ClientConnection, Connection, Enum\Gamemode, Event\ServerChunkBorderEvent, Event\ServerJoinEvent, Event\ServerTickEvent, IntegratedServer, NBT\CompoundTag, NBT\LongArrayTag, Packet\JoinGamePacket, Packet\PluginMessage\ClientboundBrandPluginMessagePacket, Plugin, PluginManager, Point3D};
-if(PluginManager::$command_prefix != "/")
+if(PluginManager::$command_prefix == "/proxy:" || substr(PluginManager::$command_prefix, 0, 1) != "/")
 {
 	$this->unregister();
 	return;
