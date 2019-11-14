@@ -82,7 +82,7 @@ class Server implements ServerCommandSender
 
 	/**
 	 * @param array<resource> $streams An array of streams created by stream_socket_server to listen for clients on.
-	 * @param resource $private_key A private key generated using openssl_pkey_new(["private_key_bits" => 1024, "private_key_type" => OPENSSL_KEYTYPE_RSA]) to use for online mode, or null to use offline mode.
+	 * @param resource|null $private_key A private key generated using openssl_pkey_new(["private_key_bits" => 1024, "private_key_type" => OPENSSL_KEYTYPE_RSA]) to use for online mode, or null to use offline mode.
 	 */
 	function __construct(array $streams = [], $private_key = null)
 	{
@@ -127,6 +127,9 @@ class Server implements ServerCommandSender
 			}
 			return $data;
 		};
+		$this->groups = [
+			"default" => new Group($this, [])
+		];
 	}
 
 	/**
@@ -413,11 +416,11 @@ class Server implements ServerCommandSender
 			}
 			if(!$con->isOpen())
 			{
+				$this->clients->detach($con);
 				if($this->disconnect_function)
 				{
 					($this->disconnect_function)($con);
 				}
-				$this->clients->detach($con);
 			}
 		}
 		Configuration::handleQueue(0.03);

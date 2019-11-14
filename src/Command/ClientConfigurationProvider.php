@@ -2,7 +2,8 @@
 namespace Phpcraft\Command;
 use DomainException;
 use LogicException;
-use Phpcraft\ClientConfiguration;
+use Phpcraft\
+{ClientConfiguration, Connection};
 class ClientConfigurationProvider extends ArgumentProvider
 {
 	public function __construct(CommandSender &$sender, string $arg)
@@ -17,6 +18,16 @@ class ClientConfigurationProvider extends ArgumentProvider
 		{
 			throw new DomainException("A player named $arg was never on this server");
 		}
+	}
+
+	/**
+	 * @param Connection $con
+	 * @return void
+	 */
+	static function write(Connection $con): void
+	{
+		$con->writeString("minecraft:entity");
+		$con->writeByte(0x01 | 0x02);
 	}
 
 	/**

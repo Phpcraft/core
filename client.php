@@ -6,7 +6,7 @@ if(empty($argv))
 }
 require "vendor/autoload.php";
 use Phpcraft\
-{Account, AssetsManager, Command\Command, Configuration, Connection, Event\ClientConsoleEvent, Event\ClientJoinEvent, Event\ClientPacketEvent, Packet\ClientboundPacketId, Packet\KeepAliveRequestPacket, Packet\PluginMessage\ServerboundBrandPluginMessagePacket, Phpcraft, PlainUserInterface, PluginManager, Point3D, ServerConnection, FancyUserInterface, Versions};
+{Account, AssetsManager, Command\Command, Configuration, Connection, Event\ClientConsoleEvent, Event\ClientJoinEvent, Event\ClientPacketEvent, FancyUserInterface, Packet\ClientboundPacketId, Packet\KeepAliveRequestPacket, Packet\PluginMessage\ServerboundBrandPluginMessagePacket, Phpcraft, PlainUserInterface, PluginManager, Point3D, ServerConnection, Versions};
 $options = [];
 for($i = 1; $i < count($argv); $i++)
 {
@@ -226,7 +226,7 @@ function loadPlugins()
 	}
 	echo "Loading plugins...\n";
 	PluginManager::loadPlugins();
-	echo "Loaded ".PluginManager::$loaded_plugins->count()." plugin(s).\n";
+	echo "Loaded ".count(PluginManager::$loaded_plugins)." plugin(s).\n";
 	$ui->render();
 }
 

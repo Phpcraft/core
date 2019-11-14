@@ -1,9 +1,6 @@
 <?php
 namespace Phpcraft\Event;
-/**
- * The event emitted when a client who had reached state 3 disconnects.
- * Can be cancelled to prevent the "username left the game" message.
- */
+/** The event emitted when a player disconnects. */
 class ServerLeaveEvent extends ServerClientEvent
 {
 }

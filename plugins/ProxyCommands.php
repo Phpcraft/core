@@ -18,19 +18,21 @@ $this->registerCommand("connect", function(ClientConnection $sender, string $add
 	{
 		$sender->sendMessage("Resolving username...");
 		$json = json_decode(file_get_contents("https://apimon.de/mcuser/".$account), true);
-		if(!$json || !$json["id"])
+		$account = new Account($account);
+		if($json && !empty($json["id"]))
+		{
+			$join_specs = [
+				"1.1.1.1",
+				$json["id"]
+			];
+		}
+		else
 		{
 			$sender->sendMessage([
-				"text" => "Error: Minecraft account not found.",
-				"color" => "red"
+				"text" => "$account is not a registered Minecraft account, so the UUID can't be provided to the server.",
+				"color" => "yellow"
 			]);
-			return;
 		}
-		$account = new Account($account);
-		$join_specs = [
-			"1.1.1.1",
-			$json["id"]
-		];
 	}
 	else
 	{
@@ -38,7 +40,7 @@ $this->registerCommand("connect", function(ClientConnection $sender, string $add
 		if(!$account)
 		{
 			$sender->sendMessage([
-				"text" => "The proxy is not logged in. Please provide an account name to connect to an offline mode or BungeeCord-compatible server.",
+				"text" => "The proxy is not logged in. Please provide an account name to connect to an offline mode or reverse proxy-compatible server.",
 				"color" => "red"
 			]);
 			return;

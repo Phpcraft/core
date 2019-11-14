@@ -40,7 +40,7 @@ $this->on(function(ServerJoinEvent $event)
 	$con->send();
 	$con->startPacket("player_list_header_and_footer");
 	$con->writeString('{"text":"Phpcraft Server"}');
-	$con->writeString('{"text":"github.com/timmyrs/Phpcraft"}');
+	$con->writeString('{"text":"phpcraft.de"}');
 	$con->send();
 	$con->sendMessage("Welcome to this Phpcraft server.");
 	if($con->hasPermission("change the world"))

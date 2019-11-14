@@ -27,8 +27,8 @@ class Plugin
 	/**
 	 * Don't call this unless you know what you're doing.
 	 *
-	 * @param string $name The name of the plugin.
 	 * @param string $folder The path of the folder the plugin was loaded from.
+	 * @param string $name The name of the plugin.
 	 * @see PluginManager::loadPlugins()
 	 */
 	function __construct(string $folder, string $name)
@@ -153,7 +153,7 @@ class Plugin
 	 */
 	protected function unregister(): void
 	{
-		PluginManager::$loaded_plugins->detach($this);
+		unset(PluginManager::$loaded_plugins[$this->name]);
 		foreach(PluginManager::$registered_commands as $command)
 		{
 			if($command->plugin == $this)

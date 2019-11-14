@@ -5,7 +5,7 @@
  * @var Plugin $this
  */
 use Phpcraft\
-{Command\ServerCommandSender, Plugin, PluginManager};
+{Command\ServerCommandSender, IntegratedServer, Plugin, PluginManager};
 if(PluginManager::$command_prefix != "/")
 {
 	$this->unregister();
@@ -18,9 +18,12 @@ $this->registerCommand("reload", function(ServerCommandSender &$sender)
 	$sender->sendAdminBroadcast("Loading plugins...", "use /reload");
 	PluginManager::loadPlugins();
 	$sender->sendAdminBroadcast(count(PluginManager::$loaded_plugins)." plugins loaded.", "use /reload");
-	$sender->sendAdminBroadcast("Reloading server config...", "use /reload");
-	reloadConfiguration();
-	$sender->sendAdminBroadcast("Done. ".count($sender->getServer()->groups)." groups loaded.", "use /reload");
+	if($sender->getServer() instanceof IntegratedServer)
+	{
+		$sender->sendAdminBroadcast("Reloading server config...", "use /reload");
+		$sender->getServer()->reloadConfig();
+		$sender->sendAdminBroadcast("Done. ".count($sender->getServer()->groups)." groups loaded.", "use /reload");
+	}
 }, "use /reload");
 $this->registerCommand("stop", function(ServerCommandSender &$sender)
 {

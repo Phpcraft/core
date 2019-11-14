@@ -5,7 +5,7 @@ use Phpcraft\
 class ProxyEvent extends Event
 {
 	/**
-	 * The proxy connection.
+	 * The client connection.
 	 *
 	 * @var ClientConnection|null $client
 	 */

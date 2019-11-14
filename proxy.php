@@ -16,10 +16,10 @@ if(trim(fgets($stdin)) == "y")
 	$account = Account::cliLogin($stdin);
 	echo "Authenticated as {$account->username}.\n";
 }
-echo "Autoloading plugins...\n";
+echo "Loading plugins...\n";
 PluginManager::$command_prefix = "/proxy:";
 PluginManager::loadPlugins();
-echo "Loaded ".PluginManager::$loaded_plugins->count()." plugin(s).\n";
+echo "Loaded ".count(PluginManager::$loaded_plugins)." plugin(s).\n";
 $socket = stream_socket_server("tcp://0.0.0.0:25565", $errno, $errstr) or die($errstr."\n");
 $private_key = openssl_pkey_new([
 	"private_key_bits" => 1024,
@@ -97,7 +97,7 @@ $server->join_function = function(ClientConnection $con)
 	}
 	else
 	{
-		$con->writeString('{"text":"Welcome to this Phpcraft proxy, '.$con->username.'. Use /proxy:connect <ip> <username> to connect to a BungeeCord-compatible server."}');
+		$con->writeString('{"text":"Welcome to this Phpcraft proxy, '.$con->username.'. Use /proxy:connect <ip> <username> to connect to a reverse proxy-compatible server."}');
 	}
 	$con->writeByte(1);
 	$con->send();

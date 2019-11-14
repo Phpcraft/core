@@ -6,9 +6,9 @@ use SplObjectStorage;
 abstract class PluginManager
 {
 	/**
-	 * @var SplObjectStorage $loaded_plugins
+	 * @var array<string,Plugin> $loaded_plugins
 	 */
-	public static $loaded_plugins;
+	public static $loaded_plugins = [];
 	/**
 	 * @var string $command_prefix
 	 */
@@ -17,33 +17,49 @@ abstract class PluginManager
 	 * @var SplObjectStorage $registered_commands
 	 */
 	public static $registered_commands;
+	public static $plugin_folders = [
+		"plugins",
+		__DIR__."/../plugins"
+	];
 
 	/**
-	 * Loads all plugins in a folder.
+	 * Loads all plugins in all PluginManager::$plugin_folders
 	 *
-	 * @param string $plugins_folder The path to the folder in which plugins are contained.
 	 * @return void
 	 */
-	static function loadPlugins(string $plugins_folder = "plugins"): void
+	static function loadPlugins(): void
 	{
-		foreach(scandir($plugins_folder) as $name)
+		$loaded_folders = [];
+		foreach(self::$plugin_folders as $folder)
 		{
-			if(substr($name, -4) == ".php" && is_file("$plugins_folder/$name"))
-			{
-				$name = substr($name, 0, -4);
-			}
-			else if(!is_dir("$plugins_folder/$name") || !is_file("$plugins_folder/$name/$name.php"))
+			$folder = realpath($folder);
+			if(in_array($folder, $loaded_folders))
 			{
 				continue;
 			}
-			try
+			array_push($loaded_folders, $folder);
+			foreach(scandir($folder) as $name)
 			{
-				$plugin = new Plugin($plugins_folder, $name);
-				self::$loaded_plugins->attach($plugin);
-			}
-			catch(Exception $e)
-			{
-				echo "Unhandled exception in plugin \"$name\": ".get_class($e).": ".$e->getMessage()."\n".$e->getTraceAsString()."\n";
+				if(substr($name, -4) == ".php" && is_file("$folder/$name"))
+				{
+					$name = substr($name, 0, -4);
+				}
+				else if(!is_dir("$folder/$name") || !is_file("$folder/$name/$name.php"))
+				{
+					continue;
+				}
+				if(array_key_exists($name, self::$loaded_plugins))
+				{
+					echo "A plugin called $name is already loaded, not loading $name from $folder\n";
+				}
+				try
+				{
+					self::$loaded_plugins[$name] = new Plugin($folder, $name);
+				}
+				catch(Exception $e)
+				{
+					echo "Unhandled exception in plugin \"$name\": ".get_class($e).": ".$e->getMessage()."\n".$e->getTraceAsString()."\n";
+				}
 			}
 		}
 	}
@@ -53,7 +69,7 @@ abstract class PluginManager
 	 */
 	static function unloadAllPlugins(): void
 	{
-		PluginManager::$loaded_plugins = new SplObjectStorage();
+		PluginManager::$loaded_plugins = [];
 		PluginManager::$registered_commands = new SplObjectStorage();
 	}
 
@@ -93,4 +109,4 @@ abstract class PluginManager
 	}
 }
 
-PluginManager::unloadAllPlugins();
+PluginManager::$registered_commands = new SplObjectStorage();

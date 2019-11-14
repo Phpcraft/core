@@ -10,6 +10,10 @@ class ServerTickEvent extends ServerEvent
 	 */
 	public $lagging;
 
+	/**
+	 * @param Server $server The server emitting the event.
+	 * @param bool $lagging
+	 */
 	function __construct(Server $server, bool $lagging)
 	{
 		parent::__construct($server);
