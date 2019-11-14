@@ -322,7 +322,7 @@ class FancyUserInterface extends UserInterface
 			// In theory this can also be done using ANSI by printing "\e[9999;9999H\e[6n" and then reading from STDIN.
 			if(Phpcraft::isWindows())
 			{
-				$proc = proc_open(Phpcraft::BIN_DIR.'/get_window_size.exe', [
+				$proc = proc_open('"'.realpath(Phpcraft::BIN_DIR.'/get_window_size.exe').'"', [
 					0 => [
 						"pipe",
 						"r"
