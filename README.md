@@ -2,16 +2,23 @@
 
 A PHP library for [all things](https://phpcraft.de/docs/inherits.html) Minecraft: Java Edition.
 
-## Dependencies
+## Prerequisites
 
-There are different dependencies for different use cases — the `selfcheck.php` can help you find out what you need for what — but in general, you will need [PHP-CLI](https://www.php.net/downloads.php), [Composer](https://getcomposer.org/download/), and [Git](https://git-scm.com/downloads).
-If you're apt to it, feel free to run `sudo apt-get -y install php-cli composer git` to install them.
+You'll need PHP (CLI), Composer, and Git.
+
+### Instructions
+
+- **Debian**: `apt-get -y install php-cli composer git`
+- **Windows**:
+  1. Install [Cone](https://getcone.org), which will install the latest PHP with it.
+  2. Run `cone get composer` as administrator.
+  3. Install [Git for Windows](https://git-scm.com/download/win).
 
 ## Using the Phpcraft CLI utilities
 
 First, we'll clone the repository and generate the autoload script:
 
-    git clone https://github.com/timmyrs/Phpcraft
+    git clone https://github.com/Phpcraft/core Phpcraft
     cd Phpcraft
     composer install --no-dev --no-suggest --ignore-platform-reqs
 
@@ -24,7 +31,6 @@ If any dependencies are missing, follow the instructions, and then run the self 
 Finally, you can use the Phpcraft CLI utilities:
 
 - `php client.php help` — A chat client with basic plugin support and built-in commands; type `.help` for more information.
-- `php server.php help` — A server with plugin support, including a plugin that provides a boring world.
 - `php proxy.php help` — A proxy with plugin support allowing you to play as another account.
 - `php listping.php` — A listping utility.
 - `php snbt.php` — A tool to convert SNBT.
@@ -55,13 +61,12 @@ If any dependencies are missing, follow the instructions, and then run the self 
 
 Finally, you can `require "vendor/autoload.php";` to use Phpcraft's many APIs.
 
-In addition to the CLI utilities above and the "Who uses Phpcraft?" section below serving up great example code, there's also the [docs](https://phpcraft.de/docs/index.html) and [wiki](https://github.com/timmyrs/Phpcraft/wiki) for you to read.
+In addition to the CLI utilities above and the "Projects using Phpcraft" section below serving up great example code, there's also the [docs](https://phpcraft.de/docs/index.html) and [wiki](https://github.com/timmyrs/Phpcraft/wiki) for you to read.
 
-## Who uses Phpcraft?
+## Projects using Phpcraft
 
-Who would be a crazy enough to use a PHP Minecraft library? Its author of course!
-
-- [mcverify](https://github.com/timmyrs/mcverify): A simple REST API for linking your users' Minecraft: Java Edition accounts.
+- [Phpcraft Server](https://github.com/Phpcraft/server): A server based on Phpcraft's integrated server.
+- [mcverify](https://github.com/timmyRS/mcverify): A REST API for linking your users' Minecraft accounts.
 
 ## Thanks
 
