@@ -41,6 +41,7 @@ class IntegratedServer extends Server
 		$this->name = $name;
 		$this->custom_config_defaults = $custom_config_defaults;
 		$this->ui = $ui ?? new PlainUserInterface();
+		$this->persist_configs = true;
 		$this->reloadConfig();
 		if($this->ui instanceof FancyUserInterface)
 		{

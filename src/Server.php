@@ -33,7 +33,8 @@ class Server implements ServerCommandSender
 	 */
 	public $eidCounter;
 	/**
-	 * Set to true if you'd like every client's config to be persisted across connections from the same client.
+	 * True if you'd like every client's config to be persisted across connections from the same client.
+	 * This is true by default on the IntegratedServer.
 	 *
 	 * @var bool $persist_configs
 	 */
