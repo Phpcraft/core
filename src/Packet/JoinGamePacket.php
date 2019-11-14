@@ -9,12 +9,39 @@ class JoinGamePacket extends Packet
 	/**
 	 * @var GMP $eid
 	 */
-	public $eid = 0;
+	public $eid;
+	/**
+	 * @var int $gamemode
+	 */
 	public $gamemode = Gamemode::SURVIVAL;
+	/**
+	 * @var bool $hardcore
+	 */
 	public $hardcore = false;
+	/**
+	 * @var int $dimension
+	 */
 	public $dimension = Dimension::OVERWORLD;
+	/**
+	 * @var int $difficulty
+	 */
 	public $difficulty = Difficulty::PEACEFUL;
+	/**
+	 * @var int $render_distance
+	 */
 	public $render_distance = 8;
+
+	/**
+	 * @param GMP|int|string $eid
+	 */
+	function __construct($eid = 0)
+	{
+		if(!$eid instanceof GMP)
+		{
+			$eid = gmp_init($eid);
+		}
+		$this->eid = $eid;
+	}
 
 	/**
 	 * Initialises the packet class by reading its payload from the given Connection.
@@ -25,8 +52,7 @@ class JoinGamePacket extends Packet
 	 */
 	static function read(Connection $con): JoinGamePacket
 	{
-		$packet = new JoinGamePacket();
-		$packet->eid = $con->readInt();
+		$packet = new JoinGamePacket($con->readInt());
 		$packet->gamemode = $con->readByte();
 		if($packet->gamemode >= 0x8)
 		{

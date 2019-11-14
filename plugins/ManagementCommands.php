@@ -6,11 +6,6 @@
  */
 use Phpcraft\
 {Command\ServerCommandSender, IntegratedServer, Plugin, PluginManager};
-if(substr(PluginManager::$command_prefix, 0, 1) != "/")
-{
-	$this->unregister();
-	return;
-}
 $this->registerCommand("reload", function(ServerCommandSender &$sender)
 {
 	PluginManager::unloadAllPlugins();

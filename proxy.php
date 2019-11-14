@@ -69,27 +69,11 @@ $server->join_function = function(ClientConnection $con)
 	}
 	$client_con = $con;
 	echo $con->username." has joined.\n";
-	$packet = new JoinGamePacket();
-	$packet->eid = $con->eid;
-	$packet->gamemode = Gamemode::SURVIVAL;
-	$packet->dimension = Dimension::OVERWORLD;
-	$packet->difficulty = Difficulty::PEACEFUL;
-	$packet->send($con);
+	(new JoinGamePacket($con->eid))->send($con);
 	$con->startPacket("spawn_position");
-	$con->writePosition(new Point3D(0, 100, 0));
+	$con->writePosition($con->pos = new Point3D(0, 64, 0));
 	$con->send();
-	$con->startPacket("teleport");
-	$con->writeDouble(0);
-	$con->writeDouble(100);
-	$con->writeDouble(0);
-	$con->writeFloat(0);
-	$con->writeFloat(0);
-	$con->writeByte(0);
-	if($con->protocol_version > 47)
-	{
-		$con->writeVarInt(0); // Teleport ID
-	}
-	$con->send();
+	$con->teleport($con->pos);
 	$con->startPacket("clientbound_chat_message");
 	if($account instanceof Account)
 	{

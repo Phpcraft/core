@@ -622,8 +622,8 @@ class ClientConnection extends Connection implements ServerCommandSender
 		$this->writeByte(3);
 		$this->writeFloat($gamemode);
 		$this->send();
-		$this->setAbilities($gamemode);
-		$this->sendAbilities();
+		$this->setAbilitiesFromGamemode($gamemode)
+			 ->sendAbilities();
 		return $this;
 	}
 
@@ -635,20 +635,11 @@ class ClientConnection extends Connection implements ServerCommandSender
 	 * @see ClientConnection::sendAbilities
 	 * @see ClientConnection::setGamemode
 	 */
-	function setAbilities(int $gamemode): ClientConnection
+	function setAbilitiesFromGamemode(int $gamemode): ClientConnection
 	{
 		$this->instant_breaking = ($gamemode == Gamemode::CREATIVE);
 		$this->flying = ($gamemode == Gamemode::SPECTATOR);
-		if($gamemode == Gamemode::CREATIVE || $gamemode == Gamemode::SPECTATOR)
-		{
-			$this->invulnerable = true;
-			$this->can_fly = true;
-		}
-		else
-		{
-			$this->invulnerable = false;
-			$this->can_fly = false;
-		}
+		$this->invulnerable = $this->can_fly = ($gamemode == Gamemode::CREATIVE || $gamemode == Gamemode::SPECTATOR);
 		return $this;
 	}
 

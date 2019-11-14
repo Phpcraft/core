@@ -5,12 +5,7 @@
  * @var Plugin $this
  */
 use Phpcraft\
-{BlockState, ClientConnection, Connection, Enum\Gamemode, Event\ServerChunkBorderEvent, Event\ServerJoinEvent, Event\ServerTickEvent, IntegratedServer, NBT\CompoundTag, NBT\LongArrayTag, Packet\JoinGamePacket, Packet\PluginMessage\ClientboundBrandPluginMessagePacket, Plugin, PluginManager, Point3D};
-if(PluginManager::$command_prefix == "/proxy:" || substr(PluginManager::$command_prefix, 0, 1) != "/")
-{
-	$this->unregister();
-	return;
-}
+{BlockState, ClientConnection, Connection, Event\ServerChunkBorderEvent, Event\ServerJoinEvent, Event\ServerTickEvent, NBT\CompoundTag, NBT\LongArrayTag, Plugin, PluginManager};
 $this->on(function(ServerJoinEvent $event)
 {
 	if($event->cancelled)
@@ -22,28 +17,10 @@ $this->on(function(ServerJoinEvent $event)
 	{
 		return;
 	}
-	$packet = new JoinGamePacket();
-	$packet->eid = $con->eid;
-	$packet->gamemode = $con->gamemode = Gamemode::CREATIVE;
-	$packet->render_distance = 32;
-	$packet->send($con);
-	$brand = $event->server instanceof IntegratedServer ? $event->server->name : "Phpcraft";
-	(new ClientboundBrandPluginMessagePacket($brand))->send($con);
-	$con->setAbilities($con->gamemode);
-	$con->sendAbilities();
-	$con->startPacket("spawn_position");
-	$con->writePosition($con->pos = new Point3D(0.0, 16.0, 0.0));
-	$con->send();
-	$con->teleport($con->pos);
 	$con->startPacket("update_time");
 	$con->writeLong(0); // World Age
 	$con->writeLong(-6000); // Time of Day
 	$con->send();
-	$con->startPacket("player_list_header_and_footer");
-	$con->writeString(json_encode(["text" => $brand]));
-	$con->writeString('{"text":"phpcraft.de"}');
-	$con->send();
-	$con->sendMessage("Welcome to this $brand instance.");
 	if($con->hasPermission("change the world"))
 	{
 		$con->sendMessage("Use /grass, /stone, and /grass_stone to §ochange the world§r.");

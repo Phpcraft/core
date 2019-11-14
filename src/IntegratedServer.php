@@ -2,7 +2,7 @@
 namespace Phpcraft;
 use Exception;
 use Phpcraft\
-{Command\Command, Event\ServerChatEvent, Event\ServerChunkBorderEvent, Event\ServerClientMetadataEvent, Event\ServerClientSettingsEvent, Event\ServerFlyingChangeEvent, Event\ServerJoinEvent, Event\ServerLeaveEvent, Event\ServerMovementEvent, Event\ServerOnGroundChangeEvent, Event\ServerPacketEvent, Event\ServerRotationEvent, Exception\IOException, Packet\ClientSettingsPacket, Packet\ServerboundPacketId};
+{Command\Command, Enum\Gamemode, Event\ServerChatEvent, Event\ServerChunkBorderEvent, Event\ServerClientMetadataEvent, Event\ServerClientSettingsEvent, Event\ServerFlyingChangeEvent, Event\ServerJoinEvent, Event\ServerLeaveEvent, Event\ServerMovementEvent, Event\ServerOnGroundChangeEvent, Event\ServerPacketEvent, Event\ServerRotationEvent, Exception\IOException, Packet\ClientSettingsPacket, Packet\JoinGamePacket, Packet\PluginMessage\ClientboundBrandPluginMessagePacket, Packet\ServerboundPacketId};
 use RuntimeException;
 class IntegratedServer extends Server
 {
@@ -28,6 +28,10 @@ class IntegratedServer extends Server
 	 * @var callable|null $config_reloaded_function
 	 */
 	public $config_reloaded_function;
+	/**
+	 * @var bool $provide_player_list
+	 */
+	public $provide_player_list = true;
 
 	/**
 	 * @param string $name
@@ -139,41 +143,56 @@ class IntegratedServer extends Server
 					}
 				}
 			}
+			$packet = new JoinGamePacket();
+			$packet->eid = $con->eid;
+			$packet->gamemode = $con->gamemode = Gamemode::CREATIVE;
+			$packet->render_distance = 32;
+			$packet->send($con);
+			(new ClientboundBrandPluginMessagePacket($this->name))->send($con);
+			$con->setAbilitiesFromGamemode($con->gamemode)
+				->sendAbilities();
+			$con->startPacket("spawn_position");
+			$con->writePosition($con->pos = new Point3D(0, 16, 0));
+			$con->send();
+			$con->teleport($con->pos);
 			if(PluginManager::fire(new ServerJoinEvent($this, $con)))
 			{
 				$con->close();
 				return;
 			}
-			foreach($this->getPlayers() as $c)
+			if($this->provide_player_list)
 			{
-				try
+				foreach($this->getPlayers() as $c)
 				{
-					$c->startPacket("player_info");
-					$c->writeVarInt(0);
-					$c->writeVarInt(1);
-					$c->writeUUID($con->uuid);
-					$c->writeString($con->username);
-					$c->writeVarInt(0);
-					$c->writeVarInt(-1);
-					$c->writeVarInt(-1);
-					$c->writeBoolean(false);
-					$c->send();
-					if($c !== $con)
+					try
 					{
-						$con->startPacket("player_info");
-						$con->writeVarInt(0);
-						$con->writeVarInt(1);
-						$con->writeUUID($c->uuid);
-						$con->writeString($c->username);
-						$con->writeVarInt(0);
-						$con->writeVarInt(0);
-						$con->writeVarInt(-1);
-						$con->writeBoolean(false);
-						$con->send();
+						$c->startPacket("player_info");
+						$c->writeVarInt(0);
+						$c->writeVarInt(1);
+						$c->writeUUID($con->uuid);
+						$c->writeString($con->username);
+						$c->writeVarInt(0);
+						$c->writeVarInt(-1);
+						$c->writeVarInt(-1);
+						$c->writeBoolean(false);
+						$c->send();
+						if($c !== $con)
+						{
+							$con->startPacket("player_info");
+							$con->writeVarInt(0);
+							$con->writeVarInt(1);
+							$con->writeUUID($c->uuid);
+							$con->writeString($c->username);
+							$con->writeVarInt(0);
+							$con->writeVarInt(0);
+							$con->writeVarInt(-1);
+							$con->writeBoolean(false);
+							$con->send();
+						}
 					}
-				}
-				catch(Exception $ignored)
-				{
+					catch(Exception $ignored)
+					{
+					}
 				}
 			}
 		};

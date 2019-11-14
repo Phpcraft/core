@@ -6,11 +6,6 @@
  */
 use Phpcraft\
 {Command\Command, Event\ProxyJoinEvent, Event\ServerJoinEvent, Packet\DeclareCommands\DeclareCommandsPacket, Plugin, PluginManager};
-if(substr(PluginManager::$command_prefix, 0, 1) != "/")
-{
-	$this->unregister();
-	return;
-}
 $this->on(function(ProxyJoinEvent $event)
 {
 	if($event->cancelled)

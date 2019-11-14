@@ -6,11 +6,6 @@
  */
 use Phpcraft\
 {ClientConfiguration, Command\ServerCommandSender, Plugin, PluginManager};
-if(PluginManager::$command_prefix == "/proxy:" || substr(PluginManager::$command_prefix, 0, 1) != "/")
-{
-	$this->unregister();
-	return;
-}
 $this->registerCommand("group", function(ServerCommandSender &$sender, ClientConfiguration $player, string $group = "")
 {
 	if($group == "")
