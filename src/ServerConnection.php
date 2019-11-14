@@ -190,7 +190,7 @@ class ServerConnection extends Connection implements CommandSender
 	 */
 	function sendMessage($message): void
 	{
-		echo Phpcraft::chatToText($message, Phpcraft::FORMAT_ANSI)."\n\e[m";
+		echo Phpcraft::chatToText($message, Phpcraft::FORMAT_ANSI)."\n";
 	}
 
 	/**
@@ -200,7 +200,7 @@ class ServerConnection extends Connection implements CommandSender
 	 */
 	function sendAdminBroadcast($message, string $permission = "everything"): void
 	{
-		echo Phpcraft::chatToText($message, Phpcraft::FORMAT_ANSI)."\n\e[m";
+		echo Phpcraft::chatToText($message, Phpcraft::FORMAT_ANSI)."\n";
 	}
 
 	/**

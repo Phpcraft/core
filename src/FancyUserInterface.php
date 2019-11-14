@@ -56,18 +56,10 @@ class FancyUserInterface extends UserInterface
 	{
 		ob_start(function(string $buffer)
 		{
-			if(substr($buffer, -4) == "\n\e[m")
-			{
-				$buffer = substr($buffer, 0, -4);
-			}
 			foreach(explode("\n", $buffer) as $line)
 			{
 				if($line = trim($line))
 				{
-					if(substr($line, 0, 3) == "\e[m")
-					{
-						$line = substr($line, 3);
-					}
 					$this->add($line);
 				}
 			}

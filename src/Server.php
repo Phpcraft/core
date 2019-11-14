@@ -616,7 +616,7 @@ class Server implements ServerCommandSender
 	 */
 	function sendMessage($message): void
 	{
-		echo Phpcraft::chatToText($message, Phpcraft::FORMAT_ANSI)."\n\e[m";
+		echo Phpcraft::chatToText($message, Phpcraft::FORMAT_ANSI)."\n";
 	}
 
 	/**

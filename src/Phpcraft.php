@@ -278,12 +278,12 @@ abstract class Phpcraft
 	 * @param array|string $chat The chat object as an array or string.
 	 * @param int $format The formatting to convert to: <ul><li>0: None (drop colors and formatting)</li><li>1: ANSI escape codes (for compatible terminals)</li><li>2: Paragraph (§) format</li><li>3: Ampersand (&) format</li><li>4: HTML</li></ul>
 	 * @param array<string,string>|null $translations The translations array so translated messages look proper.
-	 * @param array $parent Ignore this parameter.
+	 * @param array|null $parent Ignore this parameter.
 	 * @return string
 	 */
-	static function chatToText($chat, int $format = self::FORMAT_NONE, ?array $translations = null, array $parent = []): string
+	static function chatToText($chat, int $format = self::FORMAT_NONE, ?array $translations = null, ?array $parent = null): string
 	{
-		if($parent === [])
+		if($parent === null)
 		{
 			if($format < 0 || $format > 4)
 			{
@@ -501,6 +501,10 @@ abstract class Phpcraft
 		if($format == self::FORMAT_HTML)
 		{
 			$text .= $closing_tags;
+		}
+		else if($format == self::FORMAT_ANSI && $parent === null)
+		{
+			$text .= "\e[m";
 		}
 		return $text;
 	}

@@ -50,7 +50,7 @@ class PlainUserInterface extends UserInterface
 	 */
 	function add(string $message): PlainUserInterface
 	{
-		echo "\e[m{$message}\n\e[m";
+		echo $message."\n";
 		return $this;
 	}
 }
