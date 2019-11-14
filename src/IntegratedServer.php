@@ -463,7 +463,7 @@ class IntegratedServer extends Server
 		if(!array_key_exists("description", $this->config["server_list_appearance"]))
 		{
 			$this->config["server_list_appearance"]["description"] = [
-				"text" => "A ".$this->name
+				"text" => "A {$this->name} instance"
 			];
 		}
 		if(!array_key_exists("show_question_marks_instead_of_player_count", $this->config["server_list_appearance"]))
