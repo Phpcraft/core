@@ -74,7 +74,15 @@ Inheritance diagram for Phpcraft\PlainUserInterface:</div>
 <div class="dyncontent">
 <div class="center"><img src="classPhpcraft_1_1PlainUserInterface__inherit__graph.png" border="0" usemap="#Phpcraft_0CPlainUserInterface_inherit__map" alt="Inheritance graph"/></div>
 <map name="Phpcraft_0CPlainUserInterface_inherit__map" id="Phpcraft_0CPlainUserInterface_inherit__map">
-<area shape="rect" id="node2" href="classPhpcraft_1_1UserInterface.html" title="Phpcraft\\UserInterface" alt="" coords="21,80,189,107"/>
+<area shape="rect" id="node2" href="classPhpcraft_1_1UserInterface.html" title="Phpcraft\\UserInterface" alt="" coords="21,5,189,32"/>
+</map>
+<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
+<div class="dynheader">
+Collaboration diagram for Phpcraft\PlainUserInterface:</div>
+<div class="dyncontent">
+<div class="center"><img src="classPhpcraft_1_1PlainUserInterface__coll__graph.png" border="0" usemap="#Phpcraft_0CPlainUserInterface_coll__map" alt="Collaboration graph"/></div>
+<map name="Phpcraft_0CPlainUserInterface_coll__map" id="Phpcraft_0CPlainUserInterface_coll__map">
+<area shape="rect" id="node2" href="classPhpcraft_1_1UserInterface.html" title="Phpcraft\\UserInterface" alt="" coords="21,5,189,32"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -88,6 +96,13 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ab595bb429496c044cad24d32902ced4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a084f718094191d03675d7bc1177bbca1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1PlainUserInterface.html#a084f718094191d03675d7bc1177bbca1">add</a> (string $message)</td></tr>
 <tr class="separator:a084f718094191d03675d7bc1177bbca1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_classPhpcraft_1_1UserInterface"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classPhpcraft_1_1UserInterface')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classPhpcraft_1_1UserInterface.html">Phpcraft\UserInterface</a></td></tr>
+<tr class="memitem:ad80d10131ece8fa438e4bf526faf6234 inherit pub_methods_classPhpcraft_1_1UserInterface"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1UserInterface.html#ad80d10131ece8fa438e4bf526faf6234">render</a> (bool $accept_input=false)</td></tr>
+<tr class="separator:ad80d10131ece8fa438e4bf526faf6234 inherit pub_methods_classPhpcraft_1_1UserInterface"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2fff23e3ac4cdd682844714fcbc077e7 inherit pub_methods_classPhpcraft_1_1UserInterface"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1UserInterface.html#a2fff23e3ac4cdd682844714fcbc077e7">add</a> (string $message)</td></tr>
+<tr class="separator:a2fff23e3ac4cdd682844714fcbc077e7 inherit pub_methods_classPhpcraft_1_1UserInterface"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a534f8df42a04bbfbdaadda4de06ac627 inherit pub_methods_classPhpcraft_1_1UserInterface"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1UserInterface.html#a534f8df42a04bbfbdaadda4de06ac627">append</a> (string $message)</td></tr>
+<tr class="separator:a534f8df42a04bbfbdaadda4de06ac627 inherit pub_methods_classPhpcraft_1_1UserInterface"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Plain user interface, e.g. writing logs to a file. </p>
@@ -127,7 +142,7 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Prints a message.</p>
+<p>Prints the given message.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramtype">string</td><td class="paramname">$message</td><td></td></tr>
@@ -153,7 +168,7 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Prints a message.</p>
+<p>Prints the given message. Only available in accordance with <a class="el" href="classPhpcraft_1_1UserInterface.html">UserInterface</a>, appending messages is not supported here.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramtype">string</td><td class="paramname">$message</td><td></td></tr>
@@ -186,7 +201,7 @@ Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>string|null If $accept_input is true, we're not on Windows, and the user has submitted a line, the return will be that line. Otherwise, it will be null. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>string|null If $accept_input is true and the user has submitted a line, the return will be that line. Otherwise, it will be null. </dd></dl>
 
 </div>
 </div>

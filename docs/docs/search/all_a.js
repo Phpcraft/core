@@ -7,6 +7,7 @@ var searchData=
   ['install_5fdir',['INSTALL_DIR',['../classPhpcraft_1_1Phpcraft.html#a7bb388a3d99b1f94e130b8c18f669677',1,'Phpcraft::Phpcraft']]],
   ['intarraytag',['IntArrayTag',['../classPhpcraft_1_1NBT_1_1IntArrayTag.html',1,'Phpcraft::NBT']]],
   ['integerprovider',['IntegerProvider',['../classPhpcraft_1_1Command_1_1IntegerProvider.html',1,'Phpcraft::Command']]],
+  ['integratedserver',['IntegratedServer',['../classPhpcraft_1_1IntegratedServer.html',1,'Phpcraft']]],
   ['inttag',['IntTag',['../classPhpcraft_1_1NBT_1_1IntTag.html',1,'Phpcraft::NBT']]],
   ['invert',['invert',['../classPhpcraft_1_1Point3D.html#a2cc375bee32edb0beefa3dfa9ebec094',1,'Phpcraft::Point3D']]],
   ['invite',['Invite',['../classPhpcraft_1_1Realms_1_1Invite.html',1,'Phpcraft::Realms']]],

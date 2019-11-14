@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['fancyuserinterface',['FancyUserInterface',['../classPhpcraft_1_1FancyUserInterface.html',1,'Phpcraft']]],
   ['feet',['FEET',['../classPhpcraft_1_1Slot.html#a43d1ef95a8e832bdd8fa686905ec2c4f',1,'Phpcraft::Slot']]],
   ['finish',['finish',['../classPhpcraft_1_1Entity_1_1Metadata.html#a1af13f393ca67b5e87c792d1ebb391fc',1,'Phpcraft::Entity::Metadata']]],
   ['finishlogin',['finishLogin',['../classPhpcraft_1_1ClientConnection.html#a891e459081509946f485e6253c18f168',1,'Phpcraft::ClientConnection']]],
