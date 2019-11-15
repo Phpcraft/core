@@ -109,7 +109,7 @@ $server->packet_function = function(ClientConnection $con, ServerboundPacketId $
 		{
 			$packet->send($server_con);
 		}
-		else
+		else if($packetId->since_protocol_version <= $server_con->protocol_version)
 		{
 			$server_con->write_buffer = $con->read_buffer;
 			$server_con->send();
@@ -190,7 +190,7 @@ do
 				{
 					$packet->send($client_con);
 				}
-				else
+				else if($packetId->since_protocol_version <= $client_con->protocol_version)
 				{
 					$client_con->write_buffer = $server_con->read_buffer;
 					$client_con->send();
