@@ -463,7 +463,7 @@ class IntegratedServer extends Server
 			$ui->append("Done.")
 			   ->render();
 		}
-		return new IntegratedServer($name, $custom_config_defaults, $ui, $private_key);
+		return new static($name, $custom_config_defaults, $ui, $private_key);
 	}
 
 	/**
