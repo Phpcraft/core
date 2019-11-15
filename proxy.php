@@ -88,7 +88,7 @@ $server->join_function = function(ClientConnection $con)
 };
 $server->packet_function = function(ClientConnection $con, ServerboundPacketId $packetId)
 {
-	global $server_con, $transform_packets;
+	global $server_con, $server_eid, $transform_packets;
 	if(PluginManager::fire(new ProxyServerPacketEvent($con, $server_con, $packetId)))
 	{
 		return;
@@ -105,7 +105,15 @@ $server->packet_function = function(ClientConnection $con, ServerboundPacketId $
 	}
 	else if($server_con instanceof ServerConnection)
 	{
-		if($transform_packets && ($packet = $packetId->getInstance($con)))
+		if($packetId->name == "entity_action")
+		{
+			$server_con->startPacket("entity_action");
+			$eid = $con->readVarInt();
+			$server_con->writeVarInt(gmp_cmp($eid, $con->eid) == 0 ? $server_eid : $eid);
+			$server_con->write_buffer .= $con->getRemainingData();
+			$server_con->send();
+		}
+		else if($transform_packets && ($packet = $packetId->getInstance($con)))
 		{
 			$packet->send($server_con);
 		}
