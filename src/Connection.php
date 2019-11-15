@@ -508,7 +508,7 @@ class Connection
 		}
 		else if(gettype($packet) != "integer")
 		{
-			throw new InvalidArgumentException("Packet has to be either string or integer");
+			throw new InvalidArgumentException("\$packet has to be string, integer, or instance of PacketId");
 		}
 		$this->write_buffer = self::varInt($packet);
 		return $this;
