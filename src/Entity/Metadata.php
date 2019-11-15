@@ -212,7 +212,6 @@ abstract class Metadata
 				$type = $con->readByte();
 				if(!$this->read_($con, $index))
 				{
-					trigger_error("Unimplemented index: {$index}");
 					foreach($versions as $pv => $v)
 					{
 						if($con->protocol_version >= $pv)
