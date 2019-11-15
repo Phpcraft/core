@@ -5,7 +5,7 @@ use DomainException;
 use GMP;
 use hellsh\UUID;
 use Phpcraft\
-{Command\ServerCommandSender, Entity\Living, Enum\ChatPosition, Enum\Gamemode, Exception\IOException, Packet\ClientboundAbilitiesPacket, Packet\ClientboundPacketId};
+{Command\ServerCommandSender, Entity\Player, Enum\ChatPosition, Enum\Gamemode, Exception\IOException, Packet\ClientboundAbilitiesPacket, Packet\ClientboundPacketId};
 /** A server-to-client connection. */
 class ClientConnection extends Connection implements ServerCommandSender
 {
@@ -120,7 +120,7 @@ class ClientConnection extends Connection implements ServerCommandSender
 	 */
 	public $gamemode = Gamemode::SURVIVAL;
 	/**
-	 * @var Living|null $entityMetadata
+	 * @var Player|null $entityMetadata
 	 * @todo Create sendMetadata method
 	 */
 	public $entityMetadata;
@@ -285,7 +285,7 @@ class ClientConnection extends Connection implements ServerCommandSender
 
 	/**
 	 * Returns the host the client had connected to, e.g. localhost:25565.
-	 * Note that SRV records are pre-connection redirects, so if _minecraft._tcp.example.com points to mc.example.com which is an A (or AAAA) record, this will return mc.example.com:25565.
+	 * Note that SRV records are pre-connection redirects, so if _minecraft._tcp.example.com points to mc.example.com which is an A or AAAA record, this will return mc.example.com:25565.
 	 *
 	 * @return string
 	 */
@@ -435,7 +435,7 @@ class ClientConnection extends Connection implements ServerCommandSender
 		$this->writeString($this->username);
 		$this->send();
 		$this->eid = $eidCounter->next();
-		$this->entityMetadata = new Living();
+		$this->entityMetadata = new Player();
 		$this->state = self::STATE_PLAY;
 		if($this->config && $this->config->server->persist_configs)
 		{
