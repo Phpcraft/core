@@ -1,4 +1,5 @@
 <map id="Phpcraft\Packet\EntityAnimationPacket" name="Phpcraft\Packet\EntityAnimationPacket">
-<area shape="rect" id="node2" href="$classPhpcraft_1_1Packet_1_1EntityPacket.html" title="Phpcraft\\Packet\\EntityPacket" alt="" coords="17,80,225,107"/>
-<area shape="rect" id="node3" href="$classPhpcraft_1_1Packet_1_1Packet.html" title="Phpcraft\\Packet\\Packet" alt="" coords="36,5,207,32"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,155,237,196"/>
+<area shape="rect" id="node2" href="$classPhpcraft_1_1Packet_1_1EntityPacket.html" title=" " alt="" coords="17,80,225,107"/>
+<area shape="rect" id="node3" href="$classPhpcraft_1_1Packet_1_1Packet.html" title=" " alt="" coords="36,5,207,32"/>
 </map>

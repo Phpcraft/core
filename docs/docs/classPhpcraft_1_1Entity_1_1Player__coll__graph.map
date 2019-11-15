@@ -1,0 +1,6 @@
+<map id="Phpcraft\Entity\Player" name="Phpcraft\Entity\Player">
+<area shape="rect" id="node1" title=" " alt="" coords="15,229,178,256"/>
+<area shape="rect" id="node2" href="$classPhpcraft_1_1Entity_1_1Living.html" title=" " alt="" coords="16,155,177,181"/>
+<area shape="rect" id="node3" href="$classPhpcraft_1_1Entity_1_1Base.html" title=" " alt="" coords="19,80,174,107"/>
+<area shape="rect" id="node4" href="$classPhpcraft_1_1Entity_1_1Metadata.html" title=" " alt="" coords="5,5,188,32"/>
+</map>

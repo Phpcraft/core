@@ -1,4 +1,5 @@
 <map id="Phpcraft\Entity\Living" name="Phpcraft\Entity\Living">
-<area shape="rect" id="node2" href="$classPhpcraft_1_1Entity_1_1Base.html" title="Phpcraft\\Entity\\Base" alt="" coords="19,80,174,107"/>
-<area shape="rect" id="node3" href="$classPhpcraft_1_1Entity_1_1Metadata.html" title="Phpcraft\\Entity\\Metadata" alt="" coords="5,5,188,32"/>
+<area shape="rect" id="node1" title=" " alt="" coords="16,155,177,181"/>
+<area shape="rect" id="node2" href="$classPhpcraft_1_1Entity_1_1Base.html" title=" " alt="" coords="19,80,174,107"/>
+<area shape="rect" id="node3" href="$classPhpcraft_1_1Entity_1_1Metadata.html" title=" " alt="" coords="5,5,188,32"/>
 </map>

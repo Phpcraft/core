@@ -1,10 +1,11 @@
 <map id="Phpcraft\Command\ArgumentProvider" name="Phpcraft\Command\ArgumentProvider">
-<area shape="rect" id="node2" href="$classPhpcraft_1_1Command_1_1ClientConfigurationProvider.html" title="Phpcraft\\Command\\ClientConfiguration\lProvider" alt="" coords="268,5,544,47"/>
-<area shape="rect" id="node3" href="$classPhpcraft_1_1Command_1_1ClientConnectionProvider.html" title="Phpcraft\\Command\\ClientConnection\lProvider" alt="" coords="275,71,537,112"/>
-<area shape="rect" id="node4" href="$classPhpcraft_1_1Command_1_1FloatProvider.html" title="Phpcraft\\Command\\FloatProvider" alt="" coords="287,137,525,163"/>
-<area shape="rect" id="node5" href="$classPhpcraft_1_1Command_1_1GreedyStringProvider.html" title="Phpcraft\\Command\\GreedyString\lProvider" alt="" coords="288,188,524,229"/>
-<area shape="rect" id="node6" href="$classPhpcraft_1_1Command_1_1IntegerProvider.html" title="Phpcraft\\Command\\Integer\lProvider" alt="" coords="307,253,505,295"/>
-<area shape="rect" id="node7" href="$classPhpcraft_1_1Command_1_1QuotedStringProvider.html" title="Phpcraft\\Command\\QuotedString\lProvider" alt="" coords="288,319,524,360"/>
-<area shape="rect" id="node8" href="$classPhpcraft_1_1Command_1_1SingleWordStringProvider.html" title="Phpcraft\\Command\\SingleWord\lStringProvider" alt="" coords="294,384,518,425"/>
-<area shape="rect" id="node9" href="$classPhpcraft_1_1Command_1_1StringProvider.html" title="Phpcraft\\Command\\StringProvider" alt="" coords="285,450,527,477"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,221,220,263"/>
+<area shape="rect" id="node2" href="$classPhpcraft_1_1Command_1_1ClientConfigurationProvider.html" title=" " alt="" coords="268,5,544,47"/>
+<area shape="rect" id="node3" href="$classPhpcraft_1_1Command_1_1ClientConnectionProvider.html" title=" " alt="" coords="275,71,537,112"/>
+<area shape="rect" id="node4" href="$classPhpcraft_1_1Command_1_1FloatProvider.html" title=" " alt="" coords="287,137,525,163"/>
+<area shape="rect" id="node5" href="$classPhpcraft_1_1Command_1_1GreedyStringProvider.html" title=" " alt="" coords="288,188,524,229"/>
+<area shape="rect" id="node6" href="$classPhpcraft_1_1Command_1_1IntegerProvider.html" title=" " alt="" coords="307,253,505,295"/>
+<area shape="rect" id="node7" href="$classPhpcraft_1_1Command_1_1QuotedStringProvider.html" title=" " alt="" coords="288,319,524,360"/>
+<area shape="rect" id="node8" href="$classPhpcraft_1_1Command_1_1SingleWordStringProvider.html" title=" " alt="" coords="294,384,518,425"/>
+<area shape="rect" id="node9" href="$classPhpcraft_1_1Command_1_1StringProvider.html" title=" " alt="" coords="285,450,527,477"/>
 </map>

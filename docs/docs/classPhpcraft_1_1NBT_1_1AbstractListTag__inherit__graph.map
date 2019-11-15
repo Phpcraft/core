@@ -1,7 +1,11 @@
 <map id="Phpcraft\NBT\AbstractListTag" name="Phpcraft\NBT\AbstractListTag">
-<area shape="rect" id="node6" href="$classPhpcraft_1_1NBT_1_1ByteArrayTag.html" title="Phpcraft\\NBT\\ByteArrayTag" alt="" coords="451,5,649,32"/>
-<area shape="rect" id="node7" href="$classPhpcraft_1_1NBT_1_1IntArrayTag.html" title="Phpcraft\\NBT\\IntArrayTag" alt="" coords="457,56,643,83"/>
-<area shape="rect" id="node8" href="$classPhpcraft_1_1NBT_1_1ListTag.html" title="Phpcraft\\NBT\\ListTag" alt="" coords="472,107,628,133"/>
-<area shape="rect" id="node9" href="$classPhpcraft_1_1NBT_1_1LongArrayTag.html" title="Phpcraft\\NBT\\LongArrayTag" alt="" coords="451,157,649,184"/>
-<area shape="rect" id="node2" href="$classPhpcraft_1_1NBT_1_1NBT.html" title="Phpcraft\\NBT\\NBT" alt="" coords="5,5,144,32"/>
+<area shape="rect" id="node1" title=" " alt="" coords="192,81,403,108"/>
+<area shape="rect" id="node6" href="$classPhpcraft_1_1NBT_1_1ByteArrayTag.html" title=" " alt="" coords="451,5,649,32"/>
+<area shape="rect" id="node7" href="$classPhpcraft_1_1NBT_1_1IntArrayTag.html" title=" " alt="" coords="457,56,643,83"/>
+<area shape="rect" id="node8" href="$classPhpcraft_1_1NBT_1_1ListTag.html" title=" " alt="" coords="472,107,628,133"/>
+<area shape="rect" id="node9" href="$classPhpcraft_1_1NBT_1_1LongArrayTag.html" title=" " alt="" coords="451,157,649,184"/>
+<area shape="rect" id="node2" href="$classPhpcraft_1_1NBT_1_1NBT.html" title=" " alt="" coords="5,5,144,32"/>
+<area shape="rect" id="node3" title=" " alt="" coords="39,56,110,83"/>
+<area shape="rect" id="node4" title=" " alt="" coords="31,107,119,133"/>
+<area shape="rect" id="node5" title=" " alt="" coords="23,157,126,184"/>
 </map>

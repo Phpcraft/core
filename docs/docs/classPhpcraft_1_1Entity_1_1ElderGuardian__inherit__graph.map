@@ -1,9 +1,10 @@
 <map id="Phpcraft\Entity\ElderGuardian" name="Phpcraft\Entity\ElderGuardian">
-<area shape="rect" id="node2" href="$classPhpcraft_1_1Entity_1_1Guardian.html" title="Phpcraft\\Entity\\Guardian" alt="" coords="22,453,203,480"/>
-<area shape="rect" id="node3" href="$classPhpcraft_1_1Entity_1_1Monster.html" title="Phpcraft\\Entity\\Monster" alt="" coords="25,379,200,405"/>
-<area shape="rect" id="node4" href="$classPhpcraft_1_1Entity_1_1Creature.html" title="Phpcraft\\Entity\\Creature" alt="" coords="23,304,202,331"/>
-<area shape="rect" id="node5" href="$classPhpcraft_1_1Entity_1_1Insentient.html" title="Phpcraft\\Entity\\Insentient" alt="" coords="19,229,206,256"/>
-<area shape="rect" id="node6" href="$classPhpcraft_1_1Entity_1_1Living.html" title="Phpcraft\\Entity\\Living" alt="" coords="32,155,193,181"/>
-<area shape="rect" id="node7" href="$classPhpcraft_1_1Entity_1_1Base.html" title="Phpcraft\\Entity\\Base" alt="" coords="35,80,190,107"/>
-<area shape="rect" id="node8" href="$classPhpcraft_1_1Entity_1_1Metadata.html" title="Phpcraft\\Entity\\Metadata" alt="" coords="21,5,204,32"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,528,220,555"/>
+<area shape="rect" id="node2" href="$classPhpcraft_1_1Entity_1_1Guardian.html" title=" " alt="" coords="22,453,203,480"/>
+<area shape="rect" id="node3" href="$classPhpcraft_1_1Entity_1_1Monster.html" title=" " alt="" coords="25,379,200,405"/>
+<area shape="rect" id="node4" href="$classPhpcraft_1_1Entity_1_1Creature.html" title=" " alt="" coords="23,304,202,331"/>
+<area shape="rect" id="node5" href="$classPhpcraft_1_1Entity_1_1Insentient.html" title=" " alt="" coords="19,229,206,256"/>
+<area shape="rect" id="node6" href="$classPhpcraft_1_1Entity_1_1Living.html" title=" " alt="" coords="32,155,193,181"/>
+<area shape="rect" id="node7" href="$classPhpcraft_1_1Entity_1_1Base.html" title=" " alt="" coords="35,80,190,107"/>
+<area shape="rect" id="node8" href="$classPhpcraft_1_1Entity_1_1Metadata.html" title=" " alt="" coords="21,5,204,32"/>
 </map>

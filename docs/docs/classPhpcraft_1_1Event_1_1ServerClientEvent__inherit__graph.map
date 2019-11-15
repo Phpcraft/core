@@ -1,15 +1,16 @@
 <map id="Phpcraft\Event\ServerClientEvent" name="Phpcraft\Event\ServerClientEvent">
-<area shape="rect" id="node4" href="$classPhpcraft_1_1Event_1_1ServerChatEvent.html" title="Phpcraft\\Event\\ServerChat\lEvent" alt="" coords="729,5,922,47"/>
-<area shape="rect" id="node5" href="$classPhpcraft_1_1Event_1_1ServerClientMetadataEvent.html" title="Phpcraft\\Event\\ServerClient\lMetadataEvent" alt="" coords="725,71,926,112"/>
-<area shape="rect" id="node6" href="$classPhpcraft_1_1Event_1_1ServerClientSettingsEvent.html" title="Phpcraft\\Event\\ServerClient\lSettingsEvent" alt="" coords="725,136,926,177"/>
-<area shape="rect" id="node7" href="$classPhpcraft_1_1Event_1_1ServerFlyingChangeEvent.html" title="Phpcraft\\Event\\ServerFlying\lChangeEvent" alt="" coords="724,201,927,243"/>
-<area shape="rect" id="node8" href="$classPhpcraft_1_1Event_1_1ServerJoinEvent.html" title="Phpcraft\\Event\\ServerJoin\lEvent" alt="" coords="732,267,919,308"/>
-<area shape="rect" id="node9" href="$classPhpcraft_1_1Event_1_1ServerLeaveEvent.html" title="Phpcraft\\Event\\ServerLeave\lEvent" alt="" coords="724,332,927,373"/>
-<area shape="rect" id="node10" href="$classPhpcraft_1_1Event_1_1ServerMovementEvent.html" title="Phpcraft\\Event\\ServerMovement\lEvent" alt="" coords="709,397,941,439"/>
-<area shape="rect" id="node12" href="$classPhpcraft_1_1Event_1_1ServerOnGroundChangeEvent.html" title="Phpcraft\\Event\\ServerOnGround\lChangeEvent" alt="" coords="711,463,939,504"/>
-<area shape="rect" id="node13" href="$classPhpcraft_1_1Event_1_1ServerPacketEvent.html" title="Phpcraft\\Event\\ServerPacket\lEvent" alt="" coords="722,528,929,569"/>
-<area shape="rect" id="node14" href="$classPhpcraft_1_1Event_1_1ServerRotationEvent.html" title="Phpcraft\\Event\\ServerRotation\lEvent" alt="" coords="717,593,934,635"/>
-<area shape="rect" id="node2" href="$classPhpcraft_1_1Event_1_1ServerEvent.html" title="Phpcraft\\Event\\ServerEvent" alt="" coords="212,307,412,334"/>
-<area shape="rect" id="node3" href="$classPhpcraft_1_1Event_1_1Event.html" title="Phpcraft\\Event\\Event" alt="" coords="5,307,164,334"/>
-<area shape="rect" id="node11" href="$classPhpcraft_1_1Event_1_1ServerChunkBorderEvent.html" title="Phpcraft\\Event\\ServerChunk\lBorderEvent" alt="" coords="989,397,1193,439"/>
+<area shape="rect" id="node1" title=" " alt="" coords="460,300,661,341"/>
+<area shape="rect" id="node4" href="$classPhpcraft_1_1Event_1_1ServerChatEvent.html" title=" " alt="" coords="729,5,922,47"/>
+<area shape="rect" id="node5" href="$classPhpcraft_1_1Event_1_1ServerClientMetadataEvent.html" title=" " alt="" coords="725,71,926,112"/>
+<area shape="rect" id="node6" href="$classPhpcraft_1_1Event_1_1ServerClientSettingsEvent.html" title=" " alt="" coords="725,136,926,177"/>
+<area shape="rect" id="node7" href="$classPhpcraft_1_1Event_1_1ServerFlyingChangeEvent.html" title=" " alt="" coords="724,201,927,243"/>
+<area shape="rect" id="node8" href="$classPhpcraft_1_1Event_1_1ServerJoinEvent.html" title=" " alt="" coords="732,267,919,308"/>
+<area shape="rect" id="node9" href="$classPhpcraft_1_1Event_1_1ServerLeaveEvent.html" title=" " alt="" coords="724,332,927,373"/>
+<area shape="rect" id="node10" href="$classPhpcraft_1_1Event_1_1ServerMovementEvent.html" title=" " alt="" coords="709,397,941,439"/>
+<area shape="rect" id="node12" href="$classPhpcraft_1_1Event_1_1ServerOnGroundChangeEvent.html" title=" " alt="" coords="711,463,939,504"/>
+<area shape="rect" id="node13" href="$classPhpcraft_1_1Event_1_1ServerPacketEvent.html" title=" " alt="" coords="722,528,929,569"/>
+<area shape="rect" id="node14" href="$classPhpcraft_1_1Event_1_1ServerRotationEvent.html" title=" " alt="" coords="717,593,934,635"/>
+<area shape="rect" id="node2" href="$classPhpcraft_1_1Event_1_1ServerEvent.html" title=" " alt="" coords="212,307,412,334"/>
+<area shape="rect" id="node3" href="$classPhpcraft_1_1Event_1_1Event.html" title=" " alt="" coords="5,307,164,334"/>
+<area shape="rect" id="node11" href="$classPhpcraft_1_1Event_1_1ServerChunkBorderEvent.html" title=" " alt="" coords="989,397,1193,439"/>
 </map>

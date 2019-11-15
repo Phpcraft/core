@@ -1,9 +1,10 @@
 <map id="Phpcraft\Event\ProxyEvent" name="Phpcraft\Event\ProxyEvent">
-<area shape="rect" id="node3" href="$classPhpcraft_1_1Event_1_1ProxyConnectEvent.html" title="Phpcraft\\Event\\ProxyConnect\lEvent" alt="" coords="455,5,665,47"/>
-<area shape="rect" id="node4" href="$classPhpcraft_1_1Event_1_1ProxyJoinEvent.html" title="Phpcraft\\Event\\ProxyJoin\lEvent" alt="" coords="469,71,651,112"/>
-<area shape="rect" id="node5" href="$classPhpcraft_1_1Event_1_1ProxyPacketEvent.html" title="Phpcraft\\Event\\ProxyPacket\lEvent" alt="" coords="459,136,661,177"/>
-<area shape="rect" id="node8" href="$classPhpcraft_1_1Event_1_1ProxyTickEvent.html" title="Phpcraft\\Event\\ProxyTick\lEvent" alt="" coords="467,201,653,243"/>
-<area shape="rect" id="node2" href="$classPhpcraft_1_1Event_1_1Event.html" title="Phpcraft\\Event\\Event" alt="" coords="5,111,164,138"/>
-<area shape="rect" id="node6" href="$classPhpcraft_1_1Event_1_1ProxyClientPacketEvent.html" title="Phpcraft\\Event\\ProxyClient\lPacketEvent" alt="" coords="715,104,911,145"/>
-<area shape="rect" id="node7" href="$classPhpcraft_1_1Event_1_1ProxyServerPacketEvent.html" title="Phpcraft\\Event\\ProxyServer\lPacketEvent" alt="" coords="713,169,913,211"/>
+<area shape="rect" id="node1" title=" " alt="" coords="212,111,407,138"/>
+<area shape="rect" id="node3" href="$classPhpcraft_1_1Event_1_1ProxyConnectEvent.html" title=" " alt="" coords="455,5,665,47"/>
+<area shape="rect" id="node4" href="$classPhpcraft_1_1Event_1_1ProxyJoinEvent.html" title=" " alt="" coords="469,71,651,112"/>
+<area shape="rect" id="node5" href="$classPhpcraft_1_1Event_1_1ProxyPacketEvent.html" title=" " alt="" coords="459,136,661,177"/>
+<area shape="rect" id="node8" href="$classPhpcraft_1_1Event_1_1ProxyTickEvent.html" title=" " alt="" coords="467,201,653,243"/>
+<area shape="rect" id="node2" href="$classPhpcraft_1_1Event_1_1Event.html" title=" " alt="" coords="5,111,164,138"/>
+<area shape="rect" id="node6" href="$classPhpcraft_1_1Event_1_1ProxyClientPacketEvent.html" title=" " alt="" coords="715,104,911,145"/>
+<area shape="rect" id="node7" href="$classPhpcraft_1_1Event_1_1ProxyServerPacketEvent.html" title=" " alt="" coords="713,169,913,211"/>
 </map>
