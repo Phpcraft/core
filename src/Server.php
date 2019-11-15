@@ -231,16 +231,17 @@ class Server implements ServerCommandSender
 	/**
 	 * Deals with all connected clients.
 	 * This includes dealing with handshakes, status requests, keep alive packets, teleportation confirms, closing dead connections, and saving client configurations.
-	 * This does not include implementing an entire server; that is what the packet_function is for.
+	 * This does not include implementing an entire server; that is what packet_function and IntegratedServer are for.
 	 *
+	 * @param bool $packets If false, only dead connections will be closed.
 	 * @return Server $this
 	 */
-	function handle(): Server
+	function handle(bool $packets = true): Server
 	{
 		foreach($this->clients as $con)
 		{
 			assert($con instanceof ClientConnection);
-			if($con->isOpen())
+			if($packets && $con->isOpen())
 			{
 				try
 				{

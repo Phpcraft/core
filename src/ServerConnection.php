@@ -145,7 +145,7 @@ class ServerConnection extends Connection implements CommandSender
 			}
 			else
 			{
-				return "Unexpected response: {$id} ".bin2hex($this->read_buffer);
+				return "Unexpected packet {$id}: ".Phpcraft::binaryStringToHex($this->read_buffer);
 			}
 		}
 		while(true);

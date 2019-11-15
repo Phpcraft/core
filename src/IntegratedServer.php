@@ -3,6 +3,7 @@ namespace Phpcraft;
 use Exception;
 use Phpcraft\
 {Command\Command, Enum\Gamemode, Event\ServerChatEvent, Event\ServerChunkBorderEvent, Event\ServerClientMetadataEvent, Event\ServerClientSettingsEvent, Event\ServerFlyingChangeEvent, Event\ServerJoinEvent, Event\ServerLeaveEvent, Event\ServerMovementEvent, Event\ServerOnGroundChangeEvent, Event\ServerPacketEvent, Event\ServerRotationEvent, Exception\IOException, Packet\ClientSettingsPacket, Packet\JoinGamePacket, Packet\PluginMessage\ClientboundBrandPluginMessagePacket, Packet\ServerboundPacketId};
+use hellsh\UUID;
 use RuntimeException;
 class IntegratedServer extends Server
 {
@@ -32,6 +33,16 @@ class IntegratedServer extends Server
 	 * @var bool $provide_player_list
 	 */
 	public $provide_player_list = true;
+	/**
+	 * Offline mode only: If true, duplicate player names will be resolved by adding (2), etc. to the end of the name, if possible. Otherwise, they will just be disconnected.
+	 *
+	 * @var bool $fix_duplicate_names
+	 */
+	public $fix_duplicate_names = true;
+	/**
+	 * @var bool $fire_join_event
+	 */
+	public $fire_join_event = true;
 
 	/**
 	 * @param string $name
@@ -98,9 +109,9 @@ class IntegratedServer extends Server
 					if($this->isOnlineMode())
 					{
 						$client->disconnect(["text" => "You've logged in from a different location."]);
-						$this->handle();
+						$this->handle(false); // Properly dispose of $client before continuing with a new connection using the same identity to avoid issues.
 					}
-					else
+					else if($this->fix_duplicate_names)
 					{
 						$solved = false;
 						if(strlen($con->username) <= 13)
@@ -110,6 +121,7 @@ class IntegratedServer extends Server
 								if($this->getPlayer("{$con->username}($i)") === null)
 								{
 									$con->username .= "($i)";
+									$con->uuid = UUID::v3("OfflinePlayer:".$con->username);
 									$con->sendMessage([
 										"text" => "To avoid conflicts, your name has been changed to {$con->username}.",
 										"color" => "red"
@@ -141,6 +153,12 @@ class IntegratedServer extends Server
 							return;
 						}
 					}
+					else
+					{
+						$con->disconnect(["text" => "I already have a ".$con->username."."]);
+						$con->state = Connection::STATE_LOGIN; // prevent ServerLeaveEvent being fired
+						return;
+					}
 				}
 			}
 			$packet = new JoinGamePacket();
@@ -155,7 +173,7 @@ class IntegratedServer extends Server
 			$con->writePosition($con->pos = new Point3D(0, 16, 0));
 			$con->send();
 			$con->teleport($con->pos);
-			if(PluginManager::fire(new ServerJoinEvent($this, $con)))
+			if($this->fire_join_event && PluginManager::fire(new ServerJoinEvent($this, $con)))
 			{
 				$con->close();
 				return;
