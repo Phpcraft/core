@@ -7,7 +7,7 @@ if(empty($argv))
 }
 require "vendor/autoload.php";
 use Phpcraft\
-{Account, ClientConnection, Command\Command, Enum\Difficulty, Enum\Dimension, Enum\Gamemode, Event\ProxyClientPacketEvent, Event\ProxyJoinEvent, Event\ProxyServerPacketEvent, Event\ProxyTickEvent, Packet\ClientboundPacketId, Packet\EntityPacket, Packet\JoinGamePacket, Packet\KeepAliveRequestPacket, Packet\ServerboundPacketId, PluginManager, Point3D, Server, ServerConnection, Versions};
+{Account, ClientConnection, Command\Command, Event\ProxyClientPacketEvent, Event\ProxyJoinEvent, Event\ProxyServerPacketEvent, Event\ProxyTickEvent, Packet\ClientboundPacketId, Packet\EntityPacket, Packet\JoinGamePacket, Packet\KeepAliveRequestPacket, Packet\ServerboundPacketId, PluginManager, Point3D, Server, ServerConnection, Versions};
 $stdin = fopen("php://stdin", "r") or die("Failed to open php://stdin\n");
 stream_set_blocking($stdin, true);
 echo "Would you like to provide a Mojang/Minecraft account to be possesed? [y/N] ";
@@ -105,12 +105,7 @@ $server->packet_function = function(ClientConnection $con, ServerboundPacketId $
 	}
 	else if($server_con instanceof ServerConnection)
 	{
-		$packet = null;
-		if($transform_packets)
-		{
-			$packet = $packetId->getInstance($con);
-		}
-		if($packet !== null)
+		if($transform_packets && ($packet = $packetId->getInstance($con)))
 		{
 			$packet->send($server_con);
 		}
@@ -191,22 +186,14 @@ do
 					$client_con->writeFloat($packet->gamemode);
 					$client_con->send();
 				}
+				else if($transform_packets && ($packet = $packetId->getInstance($server_con)))
+				{
+					$packet->send($client_con);
+				}
 				else
 				{
-					$packet = null;
-					if($transform_packets)
-					{
-						$packet = $packetId->getInstance($server_con);
-					}
-					if($packet !== null)
-					{
-						$packet->send($client_con);
-					}
-					else
-					{
-						$client_con->write_buffer = $server_con->read_buffer;
-						$client_con->send();
-					}
+					$client_con->write_buffer = $server_con->read_buffer;
+					$client_con->send();
 				}
 			}
 		}
