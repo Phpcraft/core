@@ -30,10 +30,6 @@ class IntegratedServer extends Server
 	 */
 	public $config_reloaded_function;
 	/**
-	 * @var bool $provide_player_list
-	 */
-	public $provide_player_list = true;
-	/**
 	 * Offline mode only: If true, duplicate player names will be resolved by adding (2), etc. to the end of the name, if possible. Otherwise, they will just be disconnected.
 	 *
 	 * @var bool $fix_duplicate_names
@@ -43,6 +39,21 @@ class IntegratedServer extends Server
 	 * @var bool $fire_join_event
 	 */
 	public $fire_join_event = true;
+	/**
+	 * @var bool $send_first_packets
+	 */
+	public $send_first_packets = true;
+	/**
+	 * If send_first_packets is true, this is the position that clients will spawn it.
+	 * Defaults to <pre>new Point3D(0, 64, 0)</pre>.
+	 *
+	 * @var Point3D $spawn_position
+	 */
+	public $spawn_position;
+	/**
+	 * @var bool $provide_player_list
+	 */
+	public $provide_player_list = true;
 
 	/**
 	 * @param string $name
@@ -55,6 +66,7 @@ class IntegratedServer extends Server
 		parent::__construct([], $private_key);
 		$this->name = $name;
 		$this->custom_config_defaults = $custom_config_defaults;
+		$this->spawn_position = new Point3D(0, 64, 0);
 		$this->ui = $ui ?? new PlainUserInterface();
 		$this->persist_configs = true;
 		$this->reloadConfig();
@@ -161,18 +173,20 @@ class IntegratedServer extends Server
 					}
 				}
 			}
-			$packet = new JoinGamePacket();
-			$packet->eid = $con->eid;
-			$packet->gamemode = $con->gamemode = Gamemode::CREATIVE;
-			$packet->render_distance = 32;
-			$packet->send($con);
-			(new ClientboundBrandPluginMessagePacket($this->name))->send($con);
-			$con->setAbilitiesFromGamemode($con->gamemode)
-				->sendAbilities();
-			$con->startPacket("spawn_position");
-			$con->writePosition($con->pos = new Point3D(0, 16, 0));
-			$con->send();
-			$con->teleport($con->pos);
+			if($this->send_first_packets)
+			{
+				$packet = new JoinGamePacket($con->eid);
+				$packet->gamemode = $con->gamemode = Gamemode::CREATIVE;
+				$packet->render_distance = 32;
+				$packet->send($con);
+				(new ClientboundBrandPluginMessagePacket($this->name))->send($con);
+				$con->setAbilitiesFromGamemode($con->gamemode)
+					->sendAbilities();
+				$con->startPacket("spawn_position");
+				$con->writePosition($con->pos = $this->spawn_position);
+				$con->send();
+				$con->teleport($con->pos);
+			}
 			if($this->fire_join_event && PluginManager::fire(new ServerJoinEvent($this, $con)))
 			{
 				$con->close();
