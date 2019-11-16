@@ -1,9 +1,9 @@
 <?php
 namespace Phpcraft;
 use Exception;
+use hellsh\UUID;
 use Phpcraft\
 {Command\Command, Enum\Gamemode, Event\ServerChatEvent, Event\ServerChunkBorderEvent, Event\ServerClientMetadataEvent, Event\ServerClientSettingsEvent, Event\ServerFlyingChangeEvent, Event\ServerJoinEvent, Event\ServerLeaveEvent, Event\ServerMovementEvent, Event\ServerOnGroundChangeEvent, Event\ServerPacketEvent, Event\ServerRotationEvent, Exception\IOException, Packet\ClientSettingsPacket, Packet\JoinGamePacket, Packet\PluginMessage\ClientboundBrandPluginMessagePacket, Packet\ServerboundPacketId};
-use hellsh\UUID;
 use RuntimeException;
 class IntegratedServer extends Server
 {
@@ -389,84 +389,6 @@ class IntegratedServer extends Server
 	}
 
 	/**
-	 * Starts the integrated server using $argv.
-	 *
-	 * @param string $name
-	 * @param array $custom_config_defaults
-	 * @return IntegratedServer
-	 */
-	static function cliStart(string $name = "Phpcraft Integrated Server", array $custom_config_defaults = []): IntegratedServer
-	{
-		global $argv;
-		$options = [
-			"offline" => false,
-			"plain" => false
-		];
-		for($i = 1; $i < count($argv); $i++)
-		{
-			$arg = ltrim($argv[$i], "-/");
-			switch($arg)
-			{
-				case "offline":
-				case "plain":
-					$options[$arg] = true;
-					break;
-				case "?":
-				case "help":
-					echo "offline      disables online mode and allows cracked players\n";
-					echo "plain        uses the plain user interface e.g. for writing logs to a file\n";
-					exit;
-				default:
-					die("Unknown flag '$arg' -- use 'help' to get a list of supported flags.\n");
-			}
-		}
-		return self::start($name, $options["offline"], $options["plain"], $custom_config_defaults);
-	}
-
-	/**
-	 * Starts the integrated server using the given settings.
-	 *
-	 * @param string $name
-	 * @param bool $offline
-	 * @param bool $plain
-	 * @param array $custom_config_defaults
-	 * @return IntegratedServer
-	 */
-	static function start(string $name = "Phpcraft Integrated Server", bool $offline = false, bool $plain = false, array $custom_config_defaults = []): IntegratedServer
-	{
-		try
-		{
-			$ui = ($plain ? new PlainUserInterface() : new FancyUserInterface($name));
-		}
-		catch(RuntimeException $e)
-		{
-			echo "Since you're on PHP <7.2.0 and Windows <10.0.10586, the plain user interface is forcefully enabled.\n";
-			$ui = new PlainUserInterface();
-		}
-		if($offline)
-		{
-			$private_key = null;
-		}
-		else
-		{
-			$ui->add("Generating 1024-bit RSA keypair... ")
-			   ->render();
-			$args = [
-				"private_key_bits" => 1024,
-				"private_key_type" => OPENSSL_KEYTYPE_RSA
-			];
-			if(Phpcraft::isWindows())
-			{
-				$args["config"] = __DIR__."/openssl.cnf";
-			}
-			$private_key = openssl_pkey_new($args) or die("Failed to generate private key.\n");
-			$ui->append("Done.")
-			   ->render();
-		}
-		return new static($name, $custom_config_defaults, $ui, $private_key);
-	}
-
-	/**
 	 * @return void
 	 */
 	function reloadConfig(): void
@@ -599,5 +521,83 @@ class IntegratedServer extends Server
 	function saveConfig(): void
 	{
 		file_put_contents("config/".$this->name.".json", json_encode($this->config, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
+	}
+
+	/**
+	 * Starts the integrated server using $argv.
+	 *
+	 * @param string $name
+	 * @param array $custom_config_defaults
+	 * @return IntegratedServer
+	 */
+	static function cliStart(string $name = "Phpcraft Integrated Server", array $custom_config_defaults = []): IntegratedServer
+	{
+		global $argv;
+		$options = [
+			"offline" => false,
+			"plain" => false
+		];
+		for($i = 1; $i < count($argv); $i++)
+		{
+			$arg = ltrim($argv[$i], "-/");
+			switch($arg)
+			{
+				case "offline":
+				case "plain":
+					$options[$arg] = true;
+					break;
+				case "?":
+				case "help":
+					echo "offline      disables online mode and allows cracked players\n";
+					echo "plain        uses the plain user interface e.g. for writing logs to a file\n";
+					exit;
+				default:
+					die("Unknown flag '$arg' -- use 'help' to get a list of supported flags.\n");
+			}
+		}
+		return self::start($name, $options["offline"], $options["plain"], $custom_config_defaults);
+	}
+
+	/**
+	 * Starts the integrated server using the given settings.
+	 *
+	 * @param string $name
+	 * @param bool $offline
+	 * @param bool $plain
+	 * @param array $custom_config_defaults
+	 * @return IntegratedServer
+	 */
+	static function start(string $name = "Phpcraft Integrated Server", bool $offline = false, bool $plain = false, array $custom_config_defaults = []): IntegratedServer
+	{
+		try
+		{
+			$ui = ($plain ? new PlainUserInterface() : new FancyUserInterface($name));
+		}
+		catch(RuntimeException $e)
+		{
+			echo "Since you're on PHP <7.2.0 and Windows <10.0.10586, the plain user interface is forcefully enabled.\n";
+			$ui = new PlainUserInterface();
+		}
+		if($offline)
+		{
+			$private_key = null;
+		}
+		else
+		{
+			$ui->add("Generating 1024-bit RSA keypair... ")
+			   ->render();
+			$args = [
+				"private_key_bits" => 1024,
+				"private_key_type" => OPENSSL_KEYTYPE_RSA
+			];
+			if(Phpcraft::isWindows())
+			{
+				$args["config"] = __DIR__."/openssl.cnf";
+			}
+			$private_key = openssl_pkey_new($args) or die("Failed to generate private key.\n");
+			$ui->append("Done.")
+			   ->render();
+		}
+		return new static($name, $custom_config_defaults, $ui, $private_key);
 	}
 }

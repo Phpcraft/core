@@ -628,22 +628,6 @@ class ClientConnection extends Connection implements ServerCommandSender
 	}
 
 	/**
-	 * Sets the client's abilities according to the given gamemode.
-	 *
-	 * @param int $gamemode
-	 * @return ClientConnection $this
-	 * @see ClientConnection::sendAbilities
-	 * @see ClientConnection::setGamemode
-	 */
-	function setAbilitiesFromGamemode(int $gamemode): ClientConnection
-	{
-		$this->instant_breaking = ($gamemode == Gamemode::CREATIVE);
-		$this->flying = ($gamemode == Gamemode::SPECTATOR);
-		$this->invulnerable = $this->can_fly = ($gamemode == Gamemode::CREATIVE || $gamemode == Gamemode::SPECTATOR);
-		return $this;
-	}
-
-	/**
 	 * Sends the client their abilities.
 	 *
 	 * @return ClientConnection $this
@@ -665,6 +649,22 @@ class ClientConnection extends Connection implements ServerCommandSender
 		$packet->fly_speed = $this->fly_speed;
 		$packet->walk_speed = $this->walk_speed;
 		$packet->send($this);
+		return $this;
+	}
+
+	/**
+	 * Sets the client's abilities according to the given gamemode.
+	 *
+	 * @param int $gamemode
+	 * @return ClientConnection $this
+	 * @see ClientConnection::sendAbilities
+	 * @see ClientConnection::setGamemode
+	 */
+	function setAbilitiesFromGamemode(int $gamemode): ClientConnection
+	{
+		$this->instant_breaking = ($gamemode == Gamemode::CREATIVE);
+		$this->flying = ($gamemode == Gamemode::SPECTATOR);
+		$this->invulnerable = $this->can_fly = ($gamemode == Gamemode::CREATIVE || $gamemode == Gamemode::SPECTATOR);
 		return $this;
 	}
 

@@ -5,7 +5,7 @@
  * @var Plugin $this
  */
 use Phpcraft\
-{BlockState, ClientConnection, Connection, Event\ServerChunkBorderEvent, Event\ServerJoinEvent, Event\ServerTickEvent, NBT\CompoundTag, NBT\LongArrayTag, Plugin, PluginManager};
+{BlockState, ClientConnection, Connection, Event\ServerChunkBorderEvent, Event\ServerJoinEvent, Event\ServerTickEvent, NBT\CompoundTag, NBT\LongArrayTag, Plugin};
 $this->on(function(ServerJoinEvent $event)
 {
 	if($event->cancelled)

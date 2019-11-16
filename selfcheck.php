@@ -47,7 +47,13 @@ foreach([
 			$str .= $nl;
 			if(defined("PHP_WINDOWS_VERSION_MAJOR"))
 			{
-				if(in_array($ext, ["curl", "gd", "gmp", "mbstring", "sockets"]))
+				if(in_array($ext, [
+					"curl",
+					"gd",
+					"gmp",
+					"mbstring",
+					"sockets"
+				]))
 				{
 					$str .= "├ cone get php-$ext".$nl."└ If you don't have Cone, check the extensions section of your php.ini.\n";
 				}

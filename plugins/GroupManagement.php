@@ -5,7 +5,7 @@
  * @var Plugin $this
  */
 use Phpcraft\
-{ClientConfiguration, Command\ServerCommandSender, Plugin, PluginManager};
+{ClientConfiguration, Command\ServerCommandSender, Plugin};
 $this->registerCommand("group", function(ServerCommandSender &$sender, ClientConfiguration $player, string $group = "")
 {
 	if($group == "")
