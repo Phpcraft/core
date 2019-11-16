@@ -176,12 +176,16 @@ Public Attributes</h2></td></tr>
 <tr class="separator:ace001fdb59ea0f07d6459f41e7f2ec24"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a297629bdfa0fb7916521b84ac7141831"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1IntegratedServer.html#a297629bdfa0fb7916521b84ac7141831">$config_reloaded_function</a></td></tr>
 <tr class="separator:a297629bdfa0fb7916521b84ac7141831"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aca32c5e68da3b4b6b0f7c4640d38ee3c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1IntegratedServer.html#aca32c5e68da3b4b6b0f7c4640d38ee3c">$provide_player_list</a> = true</td></tr>
-<tr class="separator:aca32c5e68da3b4b6b0f7c4640d38ee3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae0402cee945e38f195f81620471c7143"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1IntegratedServer.html#ae0402cee945e38f195f81620471c7143">$fix_duplicate_names</a> = true</td></tr>
 <tr class="separator:ae0402cee945e38f195f81620471c7143"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4fa2d05a3882dc1e8936e82338ade4c5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1IntegratedServer.html#a4fa2d05a3882dc1e8936e82338ade4c5">$fire_join_event</a> = true</td></tr>
 <tr class="separator:a4fa2d05a3882dc1e8936e82338ade4c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9f86e296bd8e726b820301e5d25346a6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1IntegratedServer.html#a9f86e296bd8e726b820301e5d25346a6">$send_first_packets</a> = true</td></tr>
+<tr class="separator:a9f86e296bd8e726b820301e5d25346a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a90aacd0964b48bc11183593be8b05b5a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1IntegratedServer.html#a90aacd0964b48bc11183593be8b05b5a">$spawn_position</a></td></tr>
+<tr class="separator:a90aacd0964b48bc11183593be8b05b5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca32c5e68da3b4b6b0f7c4640d38ee3c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1IntegratedServer.html#aca32c5e68da3b4b6b0f7c4640d38ee3c">$provide_player_list</a> = true</td></tr>
+<tr class="separator:aca32c5e68da3b4b6b0f7c4640d38ee3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_attribs_classPhpcraft_1_1Server"><td colspan="2" onclick="javascript:toggleInherit('pub_attribs_classPhpcraft_1_1Server')"><img src="closed.png" alt="-"/>&#160;Public Attributes inherited from <a class="el" href="classPhpcraft_1_1Server.html">Phpcraft\Server</a></td></tr>
 <tr class="memitem:a410a9dbebe6d41abc67ebc7c73d2248f inherit pub_attribs_classPhpcraft_1_1Server"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Server.html#a410a9dbebe6d41abc67ebc7c73d2248f">$streams</a></td></tr>
 <tr class="separator:a410a9dbebe6d41abc67ebc7c73d2248f inherit pub_attribs_classPhpcraft_1_1Server"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -495,6 +499,35 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9f86e296bd8e726b820301e5d25346a6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9f86e296bd8e726b820301e5d25346a6">&#9670;&nbsp;</a></span>$send_first_packets</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Phpcraft\IntegratedServer::$send_first_packets = true</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a90aacd0964b48bc11183593be8b05b5a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a90aacd0964b48bc11183593be8b05b5a">&#9670;&nbsp;</a></span>$spawn_position</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classPhpcraft_1_1Point3D.html">Point3D</a> Phpcraft\IntegratedServer::$spawn_position</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>If send_first_packets is true, this is the position that clients will spawn it. Defaults to </p><pre>new Point3D(0, 64, 0)</pre><p>. </p>
 
 </div>
 </div>

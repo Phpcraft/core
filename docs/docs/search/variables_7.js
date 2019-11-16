@@ -1,14 +1,14 @@
 var searchData=
 [
-  ['hard_1322',['HARD',['../classPhpcraft_1_1Enum_1_1Difficulty.html#a1510f020eb71078ec56fbc640884d7ad',1,'Phpcraft::Enum::Difficulty']]],
-  ['head_1323',['HEAD',['../classPhpcraft_1_1Slot.html#a97208cc9695c48e3cc23f4a87d2fb4be',1,'Phpcraft::Slot']]],
-  ['hotbar_5f1_1324',['HOTBAR_1',['../classPhpcraft_1_1Slot.html#a16c1567855b2c373e4bb929bd355e0ec',1,'Phpcraft::Slot']]],
-  ['hotbar_5f2_1325',['HOTBAR_2',['../classPhpcraft_1_1Slot.html#a8dc98d5dd26f9011673ae5bffc2f7535',1,'Phpcraft::Slot']]],
-  ['hotbar_5f3_1326',['HOTBAR_3',['../classPhpcraft_1_1Slot.html#afbf7bf91049788a61472745162607ce8',1,'Phpcraft::Slot']]],
-  ['hotbar_5f4_1327',['HOTBAR_4',['../classPhpcraft_1_1Slot.html#a2ad28bae22341b73748a8b157dafc3d2',1,'Phpcraft::Slot']]],
-  ['hotbar_5f5_1328',['HOTBAR_5',['../classPhpcraft_1_1Slot.html#aa9a72d40900df92385f23aa820978f54',1,'Phpcraft::Slot']]],
-  ['hotbar_5f6_1329',['HOTBAR_6',['../classPhpcraft_1_1Slot.html#a99cad67fd7bc1702607b73d1d4cb2613',1,'Phpcraft::Slot']]],
-  ['hotbar_5f7_1330',['HOTBAR_7',['../classPhpcraft_1_1Slot.html#aa5de0c9d5d00fd5661376aa96c609b2b',1,'Phpcraft::Slot']]],
-  ['hotbar_5f8_1331',['HOTBAR_8',['../classPhpcraft_1_1Slot.html#ab5c68cb8431ff08115b04900539c1c96',1,'Phpcraft::Slot']]],
-  ['hotbar_5f9_1332',['HOTBAR_9',['../classPhpcraft_1_1Slot.html#a250a2cf9832bfdd635fc4c0ffa2630ba',1,'Phpcraft::Slot']]]
+  ['hard_1326',['HARD',['../classPhpcraft_1_1Enum_1_1Difficulty.html#a1510f020eb71078ec56fbc640884d7ad',1,'Phpcraft::Enum::Difficulty']]],
+  ['head_1327',['HEAD',['../classPhpcraft_1_1Slot.html#a97208cc9695c48e3cc23f4a87d2fb4be',1,'Phpcraft::Slot']]],
+  ['hotbar_5f1_1328',['HOTBAR_1',['../classPhpcraft_1_1Slot.html#a16c1567855b2c373e4bb929bd355e0ec',1,'Phpcraft::Slot']]],
+  ['hotbar_5f2_1329',['HOTBAR_2',['../classPhpcraft_1_1Slot.html#a8dc98d5dd26f9011673ae5bffc2f7535',1,'Phpcraft::Slot']]],
+  ['hotbar_5f3_1330',['HOTBAR_3',['../classPhpcraft_1_1Slot.html#afbf7bf91049788a61472745162607ce8',1,'Phpcraft::Slot']]],
+  ['hotbar_5f4_1331',['HOTBAR_4',['../classPhpcraft_1_1Slot.html#a2ad28bae22341b73748a8b157dafc3d2',1,'Phpcraft::Slot']]],
+  ['hotbar_5f5_1332',['HOTBAR_5',['../classPhpcraft_1_1Slot.html#aa9a72d40900df92385f23aa820978f54',1,'Phpcraft::Slot']]],
+  ['hotbar_5f6_1333',['HOTBAR_6',['../classPhpcraft_1_1Slot.html#a99cad67fd7bc1702607b73d1d4cb2613',1,'Phpcraft::Slot']]],
+  ['hotbar_5f7_1334',['HOTBAR_7',['../classPhpcraft_1_1Slot.html#aa5de0c9d5d00fd5661376aa96c609b2b',1,'Phpcraft::Slot']]],
+  ['hotbar_5f8_1335',['HOTBAR_8',['../classPhpcraft_1_1Slot.html#ab5c68cb8431ff08115b04900539c1c96',1,'Phpcraft::Slot']]],
+  ['hotbar_5f9_1336',['HOTBAR_9',['../classPhpcraft_1_1Slot.html#a250a2cf9832bfdd635fc4c0ffa2630ba',1,'Phpcraft::Slot']]]
 ];
