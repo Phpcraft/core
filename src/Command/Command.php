@@ -43,7 +43,11 @@ class Command
 	function __construct(Plugin $plugin, array $names, $required_permission, callable $function)
 	{
 		$this->plugin = $plugin;
-		$this->names = $names;
+		$this->names = [];
+		foreach($names as $name)
+		{
+			array_push($this->names, strtolower($name));
+		}
 		$this->required_permission = $required_permission;
 		$this->function = $function;
 		try
@@ -146,10 +150,10 @@ class Command
 		if(substr($msg, 0, $prefix_len) == PluginManager::$command_prefix)
 		{
 			$args = explode(" ", $msg);
-			$cmd = Command::get(substr($args[0], $prefix_len));
+			$cmd = Command::get(strtolower(substr($args[0], $prefix_len)));
 			if($cmd === null)
 			{
-				if(substr($msg, 1, 4) == "help" || Command::get("help") === null)
+				if(Command::get("help") === null)
 				{
 					$sender->sendMessage([
 						"text" => "Unknown command. I would suggest using ".PluginManager::$command_prefix."help, but that's also not a known command.",
