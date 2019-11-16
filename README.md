@@ -66,6 +66,7 @@ In addition to the CLI utilities above and the "Projects using Phpcraft" section
 ## Projects using Phpcraft
 
 - [Phpcraft Server](https://github.com/Phpcraft/server): A server based on Phpcraft's integrated server.
+- [Phpcraft Surrogate](https://github.com/Phpcraft/surrogate): A reverse proxy based on Phpcraft's integrated server.
 - [mcverify](https://github.com/timmyRS/mcverify): A REST API for linking your users' Minecraft accounts.
 
 ## Thanks
