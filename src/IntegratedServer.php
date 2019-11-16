@@ -30,30 +30,12 @@ class IntegratedServer extends Server
 	 */
 	public $config_reloaded_function;
 	/**
-	 * Offline mode only: If true, duplicate player names will be resolved by adding (2), etc. to the end of the name, if possible. Otherwise, they will just be disconnected.
-	 *
-	 * @var bool $fix_duplicate_names
-	 */
-	public $fix_duplicate_names = true;
-	/**
-	 * @var bool $fire_join_event
-	 */
-	public $fire_join_event = true;
-	/**
-	 * @var bool $send_first_packets
-	 */
-	public $send_first_packets = true;
-	/**
 	 * If send_first_packets is true, this is the position that clients will spawn it.
-	 * Defaults to <pre>new Point3D(0, 64, 0)</pre>.
+	 * Defaults to <pre>new Point3D(0, 16, 0)</pre>.
 	 *
 	 * @var Point3D $spawn_position
 	 */
 	public $spawn_position;
-	/**
-	 * @var bool $provide_player_list
-	 */
-	public $provide_player_list = true;
 
 	/**
 	 * @param string $name
@@ -66,7 +48,7 @@ class IntegratedServer extends Server
 		parent::__construct([], $private_key);
 		$this->name = $name;
 		$this->custom_config_defaults = $custom_config_defaults;
-		$this->spawn_position = new Point3D(0, 64, 0);
+		$this->spawn_position = new Point3D(0, 16, 0);
 		$this->ui = $ui ?? new PlainUserInterface();
 		$this->persist_configs = true;
 		$this->reloadConfig();
@@ -109,23 +91,12 @@ class IntegratedServer extends Server
 		};
 		$this->join_function = function(ClientConnection $con)
 		{
-			if(!Versions::protocolSupported($con->protocol_version))
+			if(!$this->isOnlineMode())
 			{
-				$con->disconnect(["text" => "You're using an incompatible version."]);
-				return;
-			}
-			foreach($this->clients as $client)
-			{
-				if($client !== $con && $client->state == Connection::STATE_PLAY && $client->username == $con->username)
+				foreach($this->clients as $client)
 				{
-					if($this->isOnlineMode())
+					if($client !== $con && $client->state == Connection::STATE_PLAY && $client->username == $con->username)
 					{
-						$client->disconnect(["text" => "You've logged in from a different location."]);
-						$this->handle(false); // Properly dispose of $client before continuing with a new connection using the same identity to avoid issues.
-					}
-					else if($this->fix_duplicate_names)
-					{
-						$solved = false;
 						if(strlen($con->username) <= 13)
 						{
 							for($i = 2; $i <= 9; $i++)
@@ -138,93 +109,77 @@ class IntegratedServer extends Server
 										"text" => "To avoid conflicts, your name has been changed to {$con->username}.",
 										"color" => "red"
 									]);
-									$solved = true;
-									break;
+									break 2;
 								}
 							}
 						}
-						if(!$solved)
-						{
-							$con->disconnect([
-								"text" => "",
-								"extra" => [
-									[
-										"text" => "You",
-										"italic" => true
-									],
-									[
-										"text" => "'re already on this server, and the best solution I have is kicking "
-									],
-									[
-										"text" => "you.",
-										"bold" => true
-									]
+						$con->disconnect([
+							"text" => "",
+							"extra" => [
+								[
+									"text" => "You",
+									"italic" => true
+								],
+								[
+									"text" => "'re already on this server, and the best solution I have is kicking "
+								],
+								[
+									"text" => "you.",
+									"bold" => true
 								]
-							]);
-							$con->state = Connection::STATE_LOGIN; // prevent ServerLeaveEvent being fired
-							return;
-						}
-					}
-					else
-					{
-						$con->disconnect(["text" => "I already have a ".$con->username."."]);
+							]
+						]);
 						$con->state = Connection::STATE_LOGIN; // prevent ServerLeaveEvent being fired
 						return;
 					}
 				}
 			}
-			if($this->send_first_packets)
-			{
-				$packet = new JoinGamePacket($con->eid);
-				$packet->gamemode = $con->gamemode = Gamemode::CREATIVE;
-				$packet->render_distance = 32;
-				$packet->send($con);
-				(new ClientboundBrandPluginMessagePacket($this->name))->send($con);
-				$con->setAbilitiesFromGamemode($con->gamemode)
-					->sendAbilities();
-				$con->startPacket("spawn_position");
-				$con->writePosition($con->pos = $this->spawn_position);
-				$con->send();
-				$con->teleport($con->pos);
-			}
-			if($this->fire_join_event && PluginManager::fire(new ServerJoinEvent($this, $con)))
+			$packet = new JoinGamePacket($con->eid);
+			$packet->gamemode = $con->gamemode = Gamemode::CREATIVE;
+			$packet->render_distance = 32;
+			$packet->send($con);
+			(new ClientboundBrandPluginMessagePacket($this->name))->send($con);
+			$con->setAbilitiesFromGamemode($con->gamemode)
+				->sendAbilities();
+			$con->startPacket("spawn_position");
+			$con->writePosition($con->pos = $this->spawn_position);
+			$con->send();
+			$con->teleport($con->pos);
+			if(PluginManager::fire(new ServerJoinEvent($this, $con)))
 			{
 				$con->close();
 				return;
 			}
-			if($this->provide_player_list)
+			foreach($this->getPlayers() as $c)
 			{
-				foreach($this->getPlayers() as $c)
+				try
 				{
-					try
+					$c->startPacket("player_info");
+					$c->writeVarInt(0);
+					$c->writeVarInt(1);
+					$c->writeUUID($con->uuid);
+					$c->writeString($con->username);
+					$c->writeVarInt(0);
+					$c->writeVarInt(-1);
+					$c->writeVarInt(-1);
+					$c->writeBoolean(false);
+					$c->send();
+					if($c !== $con)
 					{
-						$c->startPacket("player_info");
-						$c->writeVarInt(0);
-						$c->writeVarInt(1);
-						$c->writeUUID($con->uuid);
-						$c->writeString($con->username);
-						$c->writeVarInt(0);
-						$c->writeVarInt(-1);
-						$c->writeVarInt(-1);
-						$c->writeBoolean(false);
-						$c->send();
-						if($c !== $con)
-						{
-							$con->startPacket("player_info");
-							$con->writeVarInt(0);
-							$con->writeVarInt(1);
-							$con->writeUUID($c->uuid);
-							$con->writeString($c->username);
-							$con->writeVarInt(0);
-							$con->writeVarInt(0);
-							$con->writeVarInt(-1);
-							$con->writeBoolean(false);
-							$con->send();
-						}
+						$con->startPacket("player_info");
+						$con->writeVarInt(0);
+						$con->writeVarInt(1);
+						$con->writeUUID($c->uuid);
+						$con->writeString($c->username);
+						$con->writeVarInt(0);
+						$con->writeVarInt(0);
+						$con->writeVarInt(-1);
+						$con->writeBoolean(false);
+						$con->send();
 					}
-					catch(Exception $ignored)
-					{
-					}
+				}
+				catch(Exception $ignored)
+				{
 				}
 			}
 		};

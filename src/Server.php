@@ -80,6 +80,12 @@ class Server implements ServerCommandSender
 	 * @var callable $list_ping_function
 	 */
 	public $list_ping_function = null;
+	/**
+	 * If true, clients using incompatible versions will be prevented from logging in.
+	 *
+	 * @var bool $deny_incompatible_versions
+	 */
+	public $deny_incompatible_versions = true;
 
 	/**
 	 * @param array<resource> $streams An array of streams created by stream_socket_server to listen for clients on.
@@ -250,7 +256,14 @@ class Server implements ServerCommandSender
 						switch($con->handleInitialPacket())
 						{
 							case 1:
-								$con->disconnect_after = microtime(true) + 3;
+								if($this->deny_incompatible_versions && !Versions::protocolSupported($con->protocol_version))
+								{
+									$con->disconnect(["text" => "You're using an incompatible version."]);
+								}
+								else
+								{
+									$con->disconnect_after = microtime(true) + 3;
+								}
 								break;
 							case 2: // Legacy List Ping
 								$json = ($this->list_ping_function)($con);
@@ -399,6 +412,14 @@ class Server implements ServerCommandSender
 						{
 							Phpcraft::$user_cache->set($res["id"], $con->username);
 							$con->finishLogin(new UUID($res["id"]), $this->eidCounter, $this->compression_threshold);
+							foreach($this->clients as $client)
+							{
+								if($client !== $con && $client->state == Connection::STATE_PLAY && $client->username == $con->username)
+								{
+									$client->disconnect(["text" => "You've logged in from a different location."]);
+									$this->handle(false); // Properly dispose of $client before continuing with a new connection using the same identity to avoid issues.
+								}
+							}
 							if($this->join_function)
 							{
 								($this->join_function)($con);
