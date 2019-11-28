@@ -1,5 +1,5 @@
 {
-	"name": "timmyrs/phpcraft",
+	"name": "craft/core",
 	"description": "A PHP library for all things Minecraft: Java Edition.",
 	"keywords": [
 		"minecraft-api",
