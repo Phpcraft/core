@@ -26,20 +26,20 @@ You'll need PHP (CLI), Composer, and Git.
 Thanks to Composer, using Phpcraft as a library is really easy. Just head into your project folder and run:
 
 ```Bash
-composer require timmyrs/phpcraft:dev-master --no-suggest --ignore-platform-reqs
+composer require craft/core --no-suggest --ignore-platform-reqs
 ```
 
 Next, we'll run a self check:
 
 ```Bash
-php vendor/timmyrs/phpcraft/selfcheck.php
+php vendor/craft/core/selfcheck.php
 ```
 
 If any dependencies are missing, follow the instructions, and then run the self check again.
 
 Finally, you can `require "vendor/autoload.php";` to use Phpcraft's many APIs.
 
-In addition to the CLI utilities above and the "Projects using Phpcraft" section below serving up great example code, there's also the [docs](https://phpcraft.de/docs/index.html) and [wiki](https://github.com/timmyrs/Phpcraft/wiki) for you to read.
+In addition to the CLI utilities above and the "Projects using Phpcraft" section below serving up great example code, there's also the [docs](https://phpcraft.de/docs/index.html) and [wiki](https://github.com/Phpcraft/core/wiki) for you to read.
 
 ## Using the Phpcraft Client & Proxy
 
