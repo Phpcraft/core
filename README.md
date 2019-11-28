@@ -41,6 +41,12 @@ Finally, you can `require "vendor/autoload.php";` to use Phpcraft's many APIs.
 
 In addition to the CLI utilities above and the "Projects using Phpcraft" section below serving up great example code, there's also the [docs](https://phpcraft.de/docs/index.html) and [wiki](https://github.com/Phpcraft/core/wiki) for you to read.
 
+### Modules
+
+You can use modules to extend the functionality of Phpcraft:
+
+- [Realms](https://github.com/Phpcraft/realms)
+
 ## Using the Phpcraft Client & Proxy
 
 First, we'll clone the repository and generate the autoload script:
