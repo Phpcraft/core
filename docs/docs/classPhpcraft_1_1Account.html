@@ -84,12 +84,6 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a19ebead2106418d3667d3d87455c991c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6f7df18e660e7643779a467352f3da56"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Account.html#a6f7df18e660e7643779a467352f3da56">isOnline</a> ()</td></tr>
 <tr class="separator:a6f7df18e660e7643779a467352f3da56"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6570cfe49fac3702b6333ae82798f427"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Account.html#a6570cfe49fac3702b6333ae82798f427">getRealmsInvites</a> ()</td></tr>
-<tr class="separator:a6570cfe49fac3702b6333ae82798f427"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4fd30532181444e3498ad3de71047d33"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Account.html#a4fd30532181444e3498ad3de71047d33">sendRealmsRequest</a> (string $method, string $path)</td></tr>
-<tr class="separator:a4fd30532181444e3498ad3de71047d33"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abb21cba06e07fcf1232cbd09f7d57bfc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Account.html#abb21cba06e07fcf1232cbd09f7d57bfc">getRealmsServers</a> ()</td></tr>
-<tr class="separator:abb21cba06e07fcf1232cbd09f7d57bfc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -212,44 +206,6 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a6570cfe49fac3702b6333ae82798f427"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6570cfe49fac3702b6333ae82798f427">&#9670;&nbsp;</a></span>getRealmsInvites()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">Phpcraft\Account::getRealmsInvites </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Returns all realms invites this account currently has pending.</p>
-<dl class="section return"><dt>Returns</dt><dd>array&lt;RealmsInvite&gt; </dd></dl>
-
-</div>
-</div>
-<a id="abb21cba06e07fcf1232cbd09f7d57bfc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abb21cba06e07fcf1232cbd09f7d57bfc">&#9670;&nbsp;</a></span>getRealmsServers()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">Phpcraft\Account::getRealmsServers </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Returns all realms servers this account has joined or owns.</p>
-<dl class="section return"><dt>Returns</dt><dd>array&lt;RealmsServer&gt; </dd></dl>
-
-</div>
-</div>
 <a id="a6f7df18e660e7643779a467352f3da56"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6f7df18e660e7643779a467352f3da56">&#9670;&nbsp;</a></span>isOnline()</h2>
 
@@ -330,43 +286,6 @@ Static Public Attributes</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Account|null </dd></dl>
-
-</div>
-</div>
-<a id="a4fd30532181444e3498ad3de71047d33"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4fd30532181444e3498ad3de71047d33">&#9670;&nbsp;</a></span>sendRealmsRequest()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">Phpcraft\Account::sendRealmsRequest </td>
-          <td>(</td>
-          <td class="paramtype">string&#160;</td>
-          <td class="paramname"><em>$method</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">string&#160;</td>
-          <td class="paramname"><em>$path</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Sends an HTTP request to the realms server.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramtype">string</td><td class="paramname">$method</td><td>The request method. </td></tr>
-    <tr><td class="paramtype">string</td><td class="paramname">$path</td><td>The path of the request, starting with a slash. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>bool|string The result of curl_exec. </dd></dl>
 
 </div>
 </div>

@@ -1,9 +1,6 @@
 var searchData=
 [
-  ['maintaincache_972',['maintainCache',['../classPhpcraft_1_1Phpcraft.html#aecb985bfa2ddbc754ddfd1b44229852a',1,'Phpcraft::Phpcraft']]],
-  ['minecraft_973',['minecraft',['../classPhpcraft_1_1Versions.html#aa31f8f10a3fb2e69957f2991c2424280',1,'Phpcraft::Versions']]],
-  ['minecraftreleases_974',['minecraftReleases',['../classPhpcraft_1_1Versions.html#a14670ab1a1408affc965ef1568393584',1,'Phpcraft::Versions']]],
-  ['minecraftsupported_975',['minecraftSupported',['../classPhpcraft_1_1Versions.html#a2178e98d67933760999588a28a2ed9f5',1,'Phpcraft::Versions']]],
-  ['minecrafttoprotocol_976',['minecraftToProtocol',['../classPhpcraft_1_1Versions.html#a0d0c85c2da51d46138bf75b04c7cb1bd',1,'Phpcraft::Versions']]],
-  ['multiply_977',['multiply',['../classPhpcraft_1_1Point3D.html#ab25145bb95e593be74ebb269566e7129',1,'Phpcraft::Point3D']]]
+  ['namemap_946',['nameMap',['../classPhpcraft_1_1Packet_1_1ClientboundPacketId.html#a7ac7754f6984adf464d176b7edb553d3',1,'Phpcraft\Packet\ClientboundPacketId\nameMap()'],['../classPhpcraft_1_1Packet_1_1PacketId.html#a999785a97320892bd12793e5da81795b',1,'Phpcraft\Packet\PacketId\nameMap()'],['../classPhpcraft_1_1Packet_1_1ServerboundPacketId.html#a461879e1a26b6e5d119ab991d5801f86',1,'Phpcraft\Packet\ServerboundPacketId\nameMap()']]],
+  ['next_947',['next',['../classPhpcraft_1_1Configuration.html#aeed74eea7d9705ddc0e01e0440e676bd',1,'Phpcraft\Configuration\next()'],['../classPhpcraft_1_1Counter.html#aed5594a217d12070396062b6e3914edb',1,'Phpcraft\Counter\next()'],['../classPhpcraft_1_1NBT_1_1AbstractListTag.html#a925fe780ba3c3d7eba408e4cf9c66a7b',1,'Phpcraft\NBT\AbstractListTag\next()'],['../classPhpcraft_1_1NBT_1_1CompoundTag.html#abd1b3fdf4e4ca6a1aa3844e3e39c4e20',1,'Phpcraft\NBT\CompoundTag\next()']]],
+  ['noop_948',['noop',['../classPhpcraft_1_1Command_1_1ArgumentProvider.html#a8b3bcbe86e306e0b19ea8e7bca7553d5',1,'Phpcraft::Command::ArgumentProvider']]]
 ];

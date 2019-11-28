@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['unloadallplugins_1066',['unloadAllPlugins',['../classPhpcraft_1_1PluginManager.html#a46c18a27049f37e4c612c1dfb545990a',1,'Phpcraft::PluginManager']]],
-  ['unregister_1067',['unregister',['../classPhpcraft_1_1Plugin.html#aae3ebad92fd03d0041aab886403a3e96',1,'Phpcraft::Plugin']]],
-  ['unset_1068',['unset',['../classPhpcraft_1_1Configuration.html#a9606680b1a89aa42ddc3d32b61ed2e28',1,'Phpcraft::Configuration']]]
+  ['valid_1035',['valid',['../classPhpcraft_1_1Configuration.html#aec924a5eb001fe5d4c98900c68c68aae',1,'Phpcraft\Configuration\valid()'],['../classPhpcraft_1_1NBT_1_1AbstractListTag.html#abc13e81cc52a3ff0aa3c0538cc9a4235',1,'Phpcraft\NBT\AbstractListTag\valid()'],['../classPhpcraft_1_1NBT_1_1CompoundTag.html#ade0018196eff62e6744b11ec3fc2e975',1,'Phpcraft\NBT\CompoundTag\valid()']]],
+  ['validateusername_1036',['validateUsername',['../classPhpcraft_1_1Account.html#aac51aa171363d834f5026a5b46363a88',1,'Phpcraft::Account']]],
+  ['varint_1037',['varInt',['../classPhpcraft_1_1Connection.html#af2b764c00dea42bfc18f234dd61022a9',1,'Phpcraft::Connection']]]
 ];

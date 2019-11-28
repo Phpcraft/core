@@ -1,8 +1,9 @@
 var searchData=
 [
-  ['list_967',['list',['../classPhpcraft_1_1Versions.html#ae69464352174adfb31e654c9c3d18c63',1,'Phpcraft::Versions']]],
-  ['loadplugins_968',['loadPlugins',['../classPhpcraft_1_1PluginManager.html#ac1d4b8974ce34cd2677df58d736ad2de',1,'Phpcraft::PluginManager']]],
-  ['login_969',['login',['../classPhpcraft_1_1ServerConnection.html#a180540d9353d923dacd4d8c057c6c660',1,'Phpcraft::ServerConnection']]],
-  ['loginusingprofiles_970',['loginUsingProfiles',['../classPhpcraft_1_1Account.html#a19ebead2106418d3667d3d87455c991c',1,'Phpcraft::Account']]],
-  ['lookat_971',['lookAt',['../classPhpcraft_1_1Point3D.html#af8376c92063e0ff7e27e6bfce01ddde3',1,'Phpcraft::Point3D']]]
+  ['maintaincache_940',['maintainCache',['../classPhpcraft_1_1Phpcraft.html#aecb985bfa2ddbc754ddfd1b44229852a',1,'Phpcraft::Phpcraft']]],
+  ['minecraft_941',['minecraft',['../classPhpcraft_1_1Versions.html#aa31f8f10a3fb2e69957f2991c2424280',1,'Phpcraft::Versions']]],
+  ['minecraftreleases_942',['minecraftReleases',['../classPhpcraft_1_1Versions.html#a14670ab1a1408affc965ef1568393584',1,'Phpcraft::Versions']]],
+  ['minecraftsupported_943',['minecraftSupported',['../classPhpcraft_1_1Versions.html#a2178e98d67933760999588a28a2ed9f5',1,'Phpcraft::Versions']]],
+  ['minecrafttoprotocol_944',['minecraftToProtocol',['../classPhpcraft_1_1Versions.html#a0d0c85c2da51d46138bf75b04c7cb1bd',1,'Phpcraft::Versions']]],
+  ['multiply_945',['multiply',['../classPhpcraft_1_1Point3D.html#ab25145bb95e593be74ebb269566e7129',1,'Phpcraft::Point3D']]]
 ];

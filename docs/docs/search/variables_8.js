@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['install_5fdir_1331',['INSTALL_DIR',['../classPhpcraft_1_1Phpcraft.html#a7bb388a3d99b1f94e130b8c18f669677',1,'Phpcraft::Phpcraft']]]
+  ['install_5fdir_1279',['INSTALL_DIR',['../classPhpcraft_1_1Phpcraft.html#a7bb388a3d99b1f94e130b8c18f669677',1,'Phpcraft::Phpcraft']]]
 ];
