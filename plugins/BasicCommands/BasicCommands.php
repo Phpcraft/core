@@ -8,7 +8,7 @@ use Phpcraft\
 {ClientConnection, Command\GreedyString, Command\ServerCommandSender, Plugin, PluginManager};
 require "GamemodeArgument.php";
 require "GamemodeArgumentProvider.php";
-if(PluginManager::$command_prefix != "/" && PluginManager::$command_prefix != "/proxy:")
+if(PluginManager::$command_prefix == ".")
 {
 	$this->unregister();
 	return;

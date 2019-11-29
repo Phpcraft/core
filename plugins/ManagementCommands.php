@@ -1,11 +1,16 @@
 <?php
 /**
- * Provides the management commands "/reload" and "/stop".
+ * Provides the management commands "/reload", "/stop" and "/close".
  *
  * @var Plugin $this
  */
 use Phpcraft\
 {Command\ServerCommandSender, IntegratedServer, Plugin, PluginManager};
+if(PluginManager::$command_prefix == ".")
+{
+	$this->unregister();
+	return;
+}
 $this->registerCommand("reload", function(ServerCommandSender &$sender)
 {
 	PluginManager::unloadAllPlugins();

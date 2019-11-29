@@ -7,6 +7,11 @@
  */
 use Phpcraft\
 {Command\CommandSender, Plugin, PluginManager};
+if(PluginManager::$command_prefix == ".")
+{
+	$this->unregister();
+	return;
+}
 $this->registerCommand([
 	"help",
 	"?"
