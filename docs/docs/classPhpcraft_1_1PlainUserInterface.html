@@ -93,8 +93,8 @@ Collaboration diagram for Phpcraft\PlainUserInterface:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ab59432ebf5a592d5c3765efd8d1aa10f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1PlainUserInterface.html#ab59432ebf5a592d5c3765efd8d1aa10f">__construct</a> ()</td></tr>
-<tr class="separator:ab59432ebf5a592d5c3765efd8d1aa10f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abfa288cabbeeab8abc927d5d73d6384e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1PlainUserInterface.html#abfa288cabbeeab8abc927d5d73d6384e">__construct</a> ($title=null)</td></tr>
+<tr class="separator:abfa288cabbeeab8abc927d5d73d6384e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aba3b48a12123eb86d46eeaefd2072329"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1PlainUserInterface.html#aba3b48a12123eb86d46eeaefd2072329">render</a> (bool $accept_input=false)</td></tr>
 <tr class="separator:aba3b48a12123eb86d46eeaefd2072329"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab595bb429496c044cad24d32902ced4e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1PlainUserInterface.html#ab595bb429496c044cad24d32902ced4e">append</a> (string $message)</td></tr>
@@ -105,8 +105,8 @@ Public Member Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Plain user interface, e.g. writing logs to a file. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ab59432ebf5a592d5c3765efd8d1aa10f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab59432ebf5a592d5c3765efd8d1aa10f">&#9670;&nbsp;</a></span>__construct()</h2>
+<a id="abfa288cabbeeab8abc927d5d73d6384e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abfa288cabbeeab8abc927d5d73d6384e">&#9670;&nbsp;</a></span>__construct()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -114,12 +114,21 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">Phpcraft\PlainUserInterface::__construct </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$title</em> = <code>null</code></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Note that from this point forward, STDIN is in the hands of pai. </p>
+<p>Note that from this point forward, STDIN is in the hands of pai, if it wasn't already.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string&#160;|&#160;null</td><td class="paramname">$title</td><td>The title that the terminal window will be given or null. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Reimplemented from <a class="el" href="classPhpcraft_1_1UserInterface.html#a6c4aaecbfaf5a2e8acd8235b65d45f9a">Phpcraft\UserInterface</a>.</p>
 
 </div>
 </div>
