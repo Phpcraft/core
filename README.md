@@ -26,7 +26,7 @@ You'll need PHP (CLI), Composer, and Git.
 Thanks to Composer, using Phpcraft as a library is really easy. Just head into your project folder and run:
 
 ```Bash
-composer require craft/core --no-suggest --ignore-platform-reqs
+composer require craft/core:* --no-suggest --ignore-platform-reqs
 ```
 
 Next, we'll run a self check:
