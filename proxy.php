@@ -8,12 +8,12 @@ if(empty($argv))
 require "vendor/autoload.php";
 use Phpcraft\
 {Account, ClientConnection, Command\Command, Event\ProxyClientPacketEvent, Event\ProxyJoinEvent, Event\ProxyServerPacketEvent, Event\ProxyTickEvent, Packet\ClientboundPacketId, Packet\EntityPacket, Packet\JoinGamePacket, Packet\KeepAliveRequestPacket, Packet\ServerboundPacketId, PluginManager, Point3D, Server, ServerConnection, Versions};
-$stdin = fopen("php://stdin", "r") or die("Failed to open php://stdin\n");
-stream_set_blocking($stdin, true);
+use hellsh\pai;
 echo "Would you like to provide a Mojang/Minecraft account to be possesed? [y/N] ";
-if(trim(fgets($stdin)) == "y")
+pai::init();
+if(pai::awaitLine() == "y")
 {
-	$account = Account::cliLogin($stdin);
+	$account = Account::cliLogin();
 	echo "Authenticated as {$account->username}.\n";
 }
 echo "Loading plugins...\n";

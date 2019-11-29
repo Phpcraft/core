@@ -11,10 +11,12 @@ class PlainUserInterface extends UserInterface
 	 */
 	function __construct()
 	{
-		pai::init();
+		if(!pai::isInitialized())
+		{
+			pai::init();
+		}
 		if(Phpcraft::isWindows() && version_compare(PHP_VERSION, "7.2.0", ">=") && php_uname("r") == "10.0" && explode(" ", php_uname("v"))[1] >= 10586)
 		{
-			/** @noinspection PhpUndefinedFunctionInspection */
 			sapi_windows_vt100_support(STDOUT, true);
 		}
 	}

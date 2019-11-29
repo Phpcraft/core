@@ -1,5 +1,6 @@
 <?php /** @noinspection PhpComposerExtensionStubsInspection */
 namespace Phpcraft;
+use hellsh\pai;
 /** A Mojang or Minecraft account. */
 class Account
 {
@@ -36,26 +37,16 @@ class Account
 	}
 
 	/**
-	 * Asks the user of the CLI application for a logged-in Account for "online mode" usage.
+	 * Asks the user of the CLI application for a logged-in Account for "online mode" usage using pai.
 	 *
-	 * @param resource|null $stdin Your own STDIN stream or null if don't have one.
 	 * @return Account
 	 */
-	static function cliLogin($stdin = null): Account
+	static function cliLogin(): Account
 	{
 		$profiles = Phpcraft::getProfiles();
-		$blocking_prev = null;
-		if(is_resource($stdin))
+		if(!pai::isInitialized())
 		{
-			$blocking_prev = stream_get_meta_data($stdin)["blocked"];
-		}
-		else
-		{
-			$stdin = fopen("php://stdin", "r") or die("Failed to open php://stdin\n");
-		}
-		if($blocking_prev !== true)
-		{
-			stream_set_blocking($stdin, true);
+			pai::init();
 		}
 		if(empty($profiles["authenticationDatabase"]))
 		{
@@ -73,7 +64,7 @@ class Account
 			do
 			{
 				echo "Your selection: ";
-				$sel = intval(trim(fgets($stdin)));
+				$sel = intval(pai::awaitLine());
 				if($sel < 1)
 				{
 					$sel = 0;
@@ -91,7 +82,7 @@ class Account
 			do
 			{
 				echo "What's your Mojang account email address? (username if unmigrated) ";
-				$name = trim(fgets($stdin));
+				$name = trim(pai::awaitLine());
 			}
 			while(!$name);
 			do
@@ -106,7 +97,7 @@ class Account
 					{
 					});
 				}
-				$password = trim(fgets($stdin));
+				$password = trim(pai::awaitLine());
 				if(!Phpcraft::isWindows())
 				{
 					readline_callback_handler_remove();
@@ -125,7 +116,7 @@ class Account
 				}
 				echo " Failed. Either the credentials were incorrect or the Mojang account doesn't own Minecraft.\n";
 				echo "Would you like to try to enter the password again? [Y/n] ";
-				if(trim(fgets($stdin)) == "n")
+				if(trim(pai::awaitLine()) == "n")
 				{
 					break;
 				}
@@ -146,15 +137,7 @@ class Account
 				$account = null;
 			}
 		}
-		if($blocking_prev === null)
-		{
-			fclose($stdin);
-		}
-		else if($blocking_prev === false)
-		{
-			stream_set_blocking($stdin, $blocking_prev);
-		}
-		return $account ?? Account::cliLogin($stdin);
+		return $account ?? Account::cliLogin();
 	}
 
 	/**

@@ -7,6 +7,7 @@ if(empty($argv))
 require "vendor/autoload.php";
 use Phpcraft\
 {Account, AssetsManager, Command\Command, Configuration, Connection, Event\ClientConsoleEvent, Event\ClientJoinEvent, Event\ClientPacketEvent, FancyUserInterface, Packet\ClientboundPacketId, Packet\KeepAliveRequestPacket, Packet\PluginMessage\ServerboundBrandPluginMessagePacket, Phpcraft, PlainUserInterface, PluginManager, Point3D, ServerConnection, Versions};
+use hellsh\pai;
 $options = [];
 for($i = 1; $i < count($argv); $i++)
 {
@@ -91,9 +92,8 @@ else
 	}
 }
 $translations = json_decode(file_get_contents($am->downloadAsset("minecraft/lang/".strtolower($options["lang"]).".json")), true);
-$stdin = fopen("php://stdin", "r") or die("Failed to open php://stdin\n");
-stream_set_blocking($stdin, true);
 $online = false;
+pai::init();
 if(isset($options["online"]) && $options["online"] === true)
 {
 	$online = true;
@@ -101,7 +101,7 @@ if(isset($options["online"]) && $options["online"] === true)
 else if(!isset($options["online"]))
 {
 	echo "Would you like to join premium servers? (y/N) ";
-	if(substr(trim(fgets($stdin)), 0, 1) == "y")
+	if(substr(pai::awaitLine(), 0, 1) == "y")
 	{
 		$online = true;
 	}
@@ -120,14 +120,14 @@ if($account === null)
 {
 	if($online)
 	{
-		$account = Account::cliLogin($stdin);
+		$account = Account::cliLogin();
 	}
 	else
 	{
 		do
 		{
 			echo "How would you like to be called in-game? [PhpcraftUser] ";
-			$name = trim(fgets($stdin));
+			$name = pai::getLine();
 			if($name == "")
 			{
 				$account = new Account("PhpcraftUser");
@@ -152,13 +152,12 @@ if(isset($options["server"]))
 if(!$server)
 {
 	echo "What server would you like to join? [localhost] ";
-	$server = trim(fgets($stdin));
+	$server = pai::awaitLine();
 	if(!$server)
 	{
 		$server = "localhost";
 	}
 }
-fclose($stdin);
 try
 {
 	$ui = (isset($options["plain"]) ? new PlainUserInterface() : new FancyUserInterface("PHP Minecraft Client"));

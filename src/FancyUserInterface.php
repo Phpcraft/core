@@ -23,19 +23,21 @@ class FancyUserInterface extends UserInterface
 	 * Note that from this point forward, STDIN and STDOUT are in the hands of the UI until it is destructed.
 	 * For PHP <7.2.0 and Windows <10.0.10586, use the PlainUserInterface.
 	 *
-	 * @param string $title The title the terminal window will be changed to.
+	 * @param string $title The title that the terminal window will be given.
 	 */
 	function __construct(string $title)
 	{
 		if(Phpcraft::isWindows())
 		{
 			passthru("TITLE $title");
-			pai::init();
+			if(!pai::isInitialized())
+			{
+				pai::init();
+			}
 			if(version_compare(PHP_VERSION, "7.2.0", "<") || php_uname("r") != "10.0" || explode(" ", php_uname("v"))[1] < 10586)
 			{
 				throw new RuntimeException("For PHP <7.2.0 and Windows <10.0.10586, use the PlainUserInterface.");
 			}
-			/** @noinspection PhpUndefinedFunctionInspection */
 			sapi_windows_vt100_support(STDOUT, true);
 			echo "\e[2J\e[9999H";
 		}
