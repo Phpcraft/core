@@ -87,8 +87,8 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a99fb106a9336f45762a057d4ddc6dd46"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Account.html#a99fb106a9336f45762a057d4ddc6dd46">cliLogin</a> ($stdin=null)</td></tr>
-<tr class="separator:a99fb106a9336f45762a057d4ddc6dd46"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afb6d2161ff62852075be9b966f0c2a90"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Account.html#afb6d2161ff62852075be9b966f0c2a90">cliLogin</a> ()</td></tr>
+<tr class="separator:afb6d2161ff62852075be9b966f0c2a90"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3c2c42eadd5e7ba5ba6703fa97c5c593"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Account.html#a3c2c42eadd5e7ba5ba6703fa97c5c593">online</a> (string $name, string $password)</td></tr>
 <tr class="separator:a3c2c42eadd5e7ba5ba6703fa97c5c593"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a243e8f125c3121e81a0404b459f4e0bd"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Account.html#a243e8f125c3121e81a0404b459f4e0bd">getAccountIdFromProfileName</a> (string $profile_name)</td></tr>
@@ -128,7 +128,7 @@ Static Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Contructs an <a class="el" href="classPhpcraft_1_1Account.html">Account</a> for "offline mode" usage. For online usage, use <a class="el" href="classPhpcraft_1_1Account.html#a3c2c42eadd5e7ba5ba6703fa97c5c593">Account::online</a> or <a class="el" href="classPhpcraft_1_1Account.html#a99fb106a9336f45762a057d4ddc6dd46">Account::cliLogin</a>. Okay, I lied, if you call <a class="el" href="classPhpcraft_1_1Account.html#a19ebead2106418d3667d3d87455c991c">Account::loginUsingProfiles</a> you <b><em>might</em></b> be able to convert such an instance into one for "online mode" usage.</p>
+<p>Contructs an <a class="el" href="classPhpcraft_1_1Account.html">Account</a> for "offline mode" usage. For online usage, use <a class="el" href="classPhpcraft_1_1Account.html#a3c2c42eadd5e7ba5ba6703fa97c5c593">Account::online</a> or <a class="el" href="classPhpcraft_1_1Account.html#afb6d2161ff62852075be9b966f0c2a90">Account::cliLogin</a>. Okay, I lied, if you call <a class="el" href="classPhpcraft_1_1Account.html#a19ebead2106418d3667d3d87455c991c">Account::loginUsingProfiles</a> you <b><em>might</em></b> be able to convert such an instance into one for "online mode" usage.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramtype">string</td><td class="paramname">$username</td><td>The in-game name. </td></tr>
@@ -139,8 +139,8 @@ Static Public Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a99fb106a9336f45762a057d4ddc6dd46"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a99fb106a9336f45762a057d4ddc6dd46">&#9670;&nbsp;</a></span>cliLogin()</h2>
+<a id="afb6d2161ff62852075be9b966f0c2a90"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afb6d2161ff62852075be9b966f0c2a90">&#9670;&nbsp;</a></span>cliLogin()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -151,8 +151,7 @@ Static Public Attributes</h2></td></tr>
         <tr>
           <td class="memname">static Phpcraft\Account::cliLogin </td>
           <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>$stdin</em> = <code>null</code></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -162,13 +161,7 @@ Static Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Asks the user of the CLI application for a logged-in <a class="el" href="classPhpcraft_1_1Account.html">Account</a> for "online mode" usage.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramtype">resource&#160;|&#160;null</td><td class="paramname">$stdin</td><td>Your own STDIN stream or null if don't have one. </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Asks the user of the CLI application for a logged-in <a class="el" href="classPhpcraft_1_1Account.html">Account</a> for "online mode" usage using pai.</p>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="classPhpcraft_1_1Account.html">Account</a> </dd></dl>
 
 </div>
