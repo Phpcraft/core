@@ -7,10 +7,13 @@ use hellsh\pai;
 class PlainUserInterface extends UserInterface
 {
 	/**
-	 * Note that from this point forward, STDIN is in the hands of pai.
+	 * Note that from this point forward, STDIN is in the hands of pai, if it wasn't already.
+	 *
+	 * @param string|null $title The title that the terminal window will be given or null.
 	 */
-	function __construct()
+	function __construct($title = null)
 	{
+		parent::__construct($title);
 		if(!pai::isInitialized())
 		{
 			pai::init();

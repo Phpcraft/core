@@ -160,12 +160,12 @@ if(!$server)
 }
 try
 {
-	$ui = (isset($options["plain"]) ? new PlainUserInterface() : new FancyUserInterface("PHP Minecraft Client"));
+	$ui = (isset($options["plain"]) ? new PlainUserInterface("PHP Minecraft Client") : new FancyUserInterface("PHP Minecraft Client"));
 }
 catch(RuntimeException $e)
 {
 	echo "Since you're on PHP <7.2.0 or Windows <10.0.10586, the plain user interface is forcefully enabled.\n";
-	$ui = new PlainUserInterface();
+	$ui = new PlainUserInterface("PHP Minecraft Client");
 }
 $ui->add("Resolving... ")
    ->render();

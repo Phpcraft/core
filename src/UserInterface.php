@@ -3,6 +3,17 @@ namespace Phpcraft;
 abstract class UserInterface
 {
 	/**
+	 * @param string|null $title The title that the terminal window will be given or null.
+	 */
+	function __construct($title = null)
+	{
+		if(is_string($title))
+		{
+			cli_set_process_title($title);
+		}
+	}
+
+	/**
 	 * Renders the user interface.
 	 *
 	 * @param boolean $accept_input Set to true if you are looking for a return value.

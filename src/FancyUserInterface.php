@@ -27,9 +27,9 @@ class FancyUserInterface extends UserInterface
 	 */
 	function __construct(string $title)
 	{
+		parent::__construct($title);
 		if(Phpcraft::isWindows())
 		{
-			passthru("TITLE $title");
 			if(!pai::isInitialized())
 			{
 				pai::init();

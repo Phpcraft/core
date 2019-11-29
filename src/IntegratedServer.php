@@ -49,7 +49,7 @@ class IntegratedServer extends Server
 		$this->name = $name;
 		$this->custom_config_defaults = $custom_config_defaults;
 		$this->spawn_position = new Point3D(0, 16, 0);
-		$this->ui = $ui ?? new PlainUserInterface();
+		$this->ui = $ui ?? new PlainUserInterface($name);
 		$this->persist_configs = true;
 		$this->reloadConfig();
 		if($this->ui instanceof FancyUserInterface)
@@ -540,12 +540,12 @@ class IntegratedServer extends Server
 	{
 		try
 		{
-			$ui = ($plain ? new PlainUserInterface() : new FancyUserInterface($name));
+			$ui = ($plain ? new PlainUserInterface($name) : new FancyUserInterface($name));
 		}
 		catch(RuntimeException $e)
 		{
 			echo "Since you're on PHP <7.2.0 and Windows <10.0.10586, the plain user interface is forcefully enabled.\n";
-			$ui = new PlainUserInterface();
+			$ui = new PlainUserInterface($name);
 		}
 		if($offline)
 		{
