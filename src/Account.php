@@ -1,7 +1,5 @@
 <?php /** @noinspection PhpComposerExtensionStubsInspection */
 namespace Phpcraft;
-use Phpcraft\Realms\
-{RealmsInvite, RealmsServer};
 /** A Mojang or Minecraft account. */
 class Account
 {
