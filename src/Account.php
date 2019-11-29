@@ -211,12 +211,12 @@ class Account
 			$this->profileId = array_keys($profiles["authenticationDatabase"][$i]["profiles"])[0];
 			$profiles["authenticationDatabase"][$i]["accessToken"] = $this->accessToken;
 			Phpcraft::saveProfiles($profiles);
-			return false;
+			return true;
 		}
 		unset($profiles["authenticationDatabase"][$i]);
 		Phpcraft::saveProfiles($profiles);
 		$this->accessToken = null;
-		return true;
+		return false;
 	}
 
 	/**
