@@ -67,6 +67,9 @@ $(function() {
 <li>$accessToken
 : <a class="el" href="classPhpcraft_1_1Account.html#af07fd0b436e183e34d0422c554ab466b">Phpcraft\Account</a>
 </li>
+<li>$address
+: <a class="el" href="classPhpcraft_1_1Event_1_1ProxyConnectEvent.html#a7575de38205940a9573656317fb06b0e">Phpcraft\Event\ProxyConnectEvent</a>
+</li>
 <li>$all_cache
 : <a class="el" href="classPhpcraft_1_1EffectType.html#acb11331f7244fae6a63d024c65e45147">Phpcraft\EffectType</a>
 , <a class="el" href="classPhpcraft_1_1Entity_1_1EntityType.html#ac87c80c9cd11a07e2e0877ef77b952b3">Phpcraft\Entity\EntityType</a>
@@ -131,7 +134,7 @@ $(function() {
 : <a class="el" href="classPhpcraft_1_1ClientConnection.html#ad957cd4fa937e6a597802c3e111db50b">Phpcraft\ClientConnection</a>
 </li>
 <li>$client
-: <a class="el" href="classPhpcraft_1_1Event_1_1ProxyEvent.html#a287fdec0661f500c9d7d2baf6f5e6f25">Phpcraft\Event\ProxyEvent</a>
+: <a class="el" href="classPhpcraft_1_1Event_1_1ProxyClientEvent.html#a10d64b43a34f509b25b92be1d631f429">Phpcraft\Event\ProxyClientEvent</a>
 , <a class="el" href="classPhpcraft_1_1Event_1_1ServerClientEvent.html#ac182fcdf127fe7d89f3e3985c1c58f16">Phpcraft\Event\ServerClientEvent</a>
 </li>
 <li>$clients
@@ -168,6 +171,9 @@ $(function() {
 </li>
 <li>$contents
 : <a class="el" href="classPhpcraft_1_1Packet_1_1MapData_1_1MapDataPacket.html#a754628ebf5ea0b4c6047db801b969aae">Phpcraft\Packet\MapData\MapDataPacket</a>
+</li>
+<li>$convert_packets
+: <a class="el" href="classPhpcraft_1_1ClientConnection.html#ae5df61497ba7dfb0e52491794a71ed4d">Phpcraft\ClientConnection</a>
 </li>
 <li>$count
 : <a class="el" href="classPhpcraft_1_1Slot.html#a013240ca1d8b74078671ca05c95cc607">Phpcraft\Slot</a>
@@ -216,6 +222,12 @@ $(function() {
 </li>
 <li>$division
 : <a class="el" href="classPhpcraft_1_1Packet_1_1BossBar_1_1AddBossBarPacket.html#acec1be998b23eb19306f21146149cdb8">Phpcraft\Packet\BossBar\AddBossBarPacket</a>
+</li>
+<li>$downstream
+: <a class="el" href="classPhpcraft_1_1ClientConnection.html#adf78c866a582da5e50d742ec9301ab28">Phpcraft\ClientConnection</a>
+</li>
+<li>$downstream_eid
+: <a class="el" href="classPhpcraft_1_1ClientConnection.html#aab3892fbc6a7d03d7f9172bc8c998faf">Phpcraft\ClientConnection</a>
 </li>
 <li>$duration
 : <a class="el" href="classPhpcraft_1_1Packet_1_1EntityEffectPacket.html#a95a449a7448c64efc7f7b8fcf5a12999">Phpcraft\Packet\EntityEffectPacket</a>
@@ -331,7 +343,8 @@ $(function() {
 , <a class="el" href="classPhpcraft_1_1Packet_1_1KeepAliveResponsePacket.html#aa9902070b1102bf21d3dbbe9d9266d29">Phpcraft\Packet\KeepAliveResponsePacket</a>
 </li>
 <li>$lagging
-: <a class="el" href="classPhpcraft_1_1Event_1_1ServerTickEvent.html#a82f608dc5537892e21962236171d39fe">Phpcraft\Event\ServerTickEvent</a>
+: <a class="el" href="classPhpcraft_1_1Event_1_1ProxyTickEvent.html#a6b0f2168224abd456551576f1da72204">Phpcraft\Event\ProxyTickEvent</a>
+, <a class="el" href="classPhpcraft_1_1Event_1_1ServerTickEvent.html#a82f608dc5537892e21962236171d39fe">Phpcraft\Event\ServerTickEvent</a>
 </li>
 <li>$left_handed
 : <a class="el" href="classPhpcraft_1_1Packet_1_1ClientSettingsPacket.html#aa33b0825c6b0ba698f36609d72031357">Phpcraft\Packet\ClientSettingsPacket</a>
@@ -365,6 +378,7 @@ $(function() {
 </li>
 <li>$message
 : <a class="el" href="classPhpcraft_1_1Event_1_1ClientConsoleEvent.html#abe5ad4565c7227c95ce73e7b99e1e833">Phpcraft\Event\ClientConsoleEvent</a>
+, <a class="el" href="classPhpcraft_1_1Event_1_1ProxyConsoleEvent.html#a74bd04be9d109ab0280a6cad85dbd2ab">Phpcraft\Event\ProxyConsoleEvent</a>
 , <a class="el" href="classPhpcraft_1_1Event_1_1ServerChatEvent.html#ab2c0686d387727c68f1cfd6df3a5bfc4">Phpcraft\Event\ServerChatEvent</a>
 , <a class="el" href="classPhpcraft_1_1Event_1_1ServerConsoleEvent.html#af4ad198165c2ea234963540604c80f7e">Phpcraft\Event\ServerConsoleEvent</a>
 </li>
@@ -412,7 +426,9 @@ $(function() {
 </li>
 <li>$packetId
 : <a class="el" href="classPhpcraft_1_1Event_1_1ClientPacketEvent.html#aa693d6e02a4db7230230fc39c647a949">Phpcraft\Event\ClientPacketEvent</a>
+, <a class="el" href="classPhpcraft_1_1Event_1_1ProxyClientPacketEvent.html#a346692f813b733e88c4854a62e8f44a4">Phpcraft\Event\ProxyClientPacketEvent</a>
 , <a class="el" href="classPhpcraft_1_1Event_1_1ProxyPacketEvent.html#a4bd63680cf78283abc86061b379315b0">Phpcraft\Event\ProxyPacketEvent</a>
+, <a class="el" href="classPhpcraft_1_1Event_1_1ProxyServerPacketEvent.html#a47e9f2e030faa3e77a80be382da2f778">Phpcraft\Event\ProxyServerPacketEvent</a>
 , <a class="el" href="classPhpcraft_1_1Event_1_1ServerPacketEvent.html#a51c2f07192d4cb9b1baa2a443f9daaa3">Phpcraft\Event\ServerPacketEvent</a>
 </li>
 <li>$params
@@ -526,7 +542,7 @@ $(function() {
 <li>$server
 : <a class="el" href="classPhpcraft_1_1ClientConfiguration.html#a25850baccd60c7b105d76293260c7f7b">Phpcraft\ClientConfiguration</a>
 , <a class="el" href="classPhpcraft_1_1Event_1_1ClientEvent.html#af49c87b80af71814afaec0dcccc94710">Phpcraft\Event\ClientEvent</a>
-, <a class="el" href="classPhpcraft_1_1Event_1_1ProxyEvent.html#ad19927719d5283c96b805403cdf802ad">Phpcraft\Event\ProxyEvent</a>
+, <a class="el" href="classPhpcraft_1_1Event_1_1ProxyEvent.html#abc14c4e5c856c9e669a7db8a26db0e45">Phpcraft\Event\ProxyEvent</a>
 , <a class="el" href="classPhpcraft_1_1Event_1_1ServerEvent.html#ada3f2ee887a953a1c40d8200c61bcb9b">Phpcraft\Event\ServerEvent</a>
 </li>
 <li>$servers
@@ -574,6 +590,9 @@ $(function() {
 </li>
 <li>$target_eid
 : <a class="el" href="classPhpcraft_1_1Entity_1_1Guardian.html#ad1a672c4719ed94996bd27b0228cc443">Phpcraft\Entity\Guardian</a>
+</li>
+<li>$tick_loop
+: <a class="el" href="classPhpcraft_1_1Server.html#a48bd66a011d4298e45dcccafffdfc71c">Phpcraft\Server</a>
 </li>
 <li>$title
 : <a class="el" href="classPhpcraft_1_1Packet_1_1BossBar_1_1AddBossBarPacket.html#a4efda30448953ac1cf5388ad92170c1a">Phpcraft\Packet\BossBar\AddBossBarPacket</a>

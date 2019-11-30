@@ -1,9 +1,10 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
 <area shape="rect" id="node1" href="$interfacePhpcraft_1_1Command_1_1CommandSender.html" title=" " alt="" coords="5,19,224,60"/>
 <area shape="rect" id="node2" href="$interfacePhpcraft_1_1Command_1_1ServerCommandSender.html" title=" " alt="" coords="272,5,532,47"/>
-<area shape="rect" id="node6" href="$classPhpcraft_1_1ServerConnection.html" title=" " alt="" coords="305,71,499,98"/>
+<area shape="rect" id="node7" href="$classPhpcraft_1_1ServerConnection.html" title=" " alt="" coords="305,71,499,98"/>
 <area shape="rect" id="node3" href="$classPhpcraft_1_1ClientConnection.html" title=" " alt="" coords="580,93,771,119"/>
 <area shape="rect" id="node4" href="$classPhpcraft_1_1Server.html" title=" " alt="" coords="614,13,737,39"/>
 <area shape="rect" id="node5" href="$classPhpcraft_1_1IntegratedServer.html" title=" " alt="" coords="819,13,1008,39"/>
-<area shape="rect" id="node7" href="$classPhpcraft_1_1Connection.html" title=" " alt="" coords="38,97,191,123"/>
+<area shape="rect" id="node6" href="$classPhpcraft_1_1ProxyServer.html" title=" " alt="" coords="1056,13,1215,39"/>
+<area shape="rect" id="node8" href="$classPhpcraft_1_1Connection.html" title=" " alt="" coords="38,97,191,123"/>
 </map>

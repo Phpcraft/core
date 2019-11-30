@@ -263,8 +263,14 @@ Public Attributes</h2></td></tr>
 <tr class="separator:a3c757b888862cad76f04eb5771b834ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0d1f22fe7d66b1928add1b3a468710c6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#a0d1f22fe7d66b1928add1b3a468710c6">$disconnect_after</a> = 0</td></tr>
 <tr class="separator:a0d1f22fe7d66b1928add1b3a468710c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adf78c866a582da5e50d742ec9301ab28"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#adf78c866a582da5e50d742ec9301ab28">$downstream</a></td></tr>
+<tr class="separator:adf78c866a582da5e50d742ec9301ab28"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae5df61497ba7dfb0e52491794a71ed4d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#ae5df61497ba7dfb0e52491794a71ed4d">$convert_packets</a></td></tr>
+<tr class="separator:ae5df61497ba7dfb0e52491794a71ed4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1e559d00f7bef2595c15ad3331e3d50b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#a1e559d00f7bef2595c15ad3331e3d50b">$eid</a></td></tr>
 <tr class="separator:a1e559d00f7bef2595c15ad3331e3d50b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aab3892fbc6a7d03d7f9172bc8c998faf"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#aab3892fbc6a7d03d7f9172bc8c998faf">$downstream_eid</a></td></tr>
+<tr class="separator:aab3892fbc6a7d03d7f9172bc8c998faf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a96b1c680181bfa94b1057fd44319c832"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#a96b1c680181bfa94b1057fd44319c832">$pos</a></td></tr>
 <tr class="separator:a96b1c680181bfa94b1057fd44319c832"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a42b729a48ff5c63b39f963dbeb80fd91"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#a42b729a48ff5c63b39f963dbeb80fd91">$chunk_x</a></td></tr>
@@ -1097,6 +1103,21 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
+<a id="ae5df61497ba7dfb0e52491794a71ed4d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae5df61497ba7dfb0e52491794a71ed4d">&#9670;&nbsp;</a></span>$convert_packets</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Phpcraft\ClientConnection::$convert_packets</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Used by proxy servers to store if the client is incompatible with the downstream server and needs packets to be converted. </p>
+
+</div>
+</div>
 <a id="a0d1f22fe7d66b1928add1b3a468710c6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0d1f22fe7d66b1928add1b3a468710c6">&#9670;&nbsp;</a></span>$disconnect_after</h2>
 
@@ -1109,6 +1130,36 @@ Additional Inherited Members</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>This variable is for servers to keep track of how long clients have to answer keep alive packets. </p>
+
+</div>
+</div>
+<a id="adf78c866a582da5e50d742ec9301ab28"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adf78c866a582da5e50d742ec9301ab28">&#9670;&nbsp;</a></span>$downstream</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classPhpcraft_1_1ServerConnection.html">ServerConnection</a> Phpcraft\ClientConnection::$downstream</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Used by proxy servers to store the downstream connection instance. </p>
+
+</div>
+</div>
+<a id="aab3892fbc6a7d03d7f9172bc8c998faf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aab3892fbc6a7d03d7f9172bc8c998faf">&#9670;&nbsp;</a></span>$downstream_eid</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">GMP Phpcraft\ClientConnection::$downstream_eid</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The downstream entity ID. Used only on proxy servers. </p>
 
 </div>
 </div>

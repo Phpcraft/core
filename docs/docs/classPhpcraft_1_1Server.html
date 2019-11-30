@@ -68,6 +68,7 @@ $(function() {
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="classPhpcraft_1_1Server-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Phpcraft\Server Class Reference</div>  </div>
@@ -82,6 +83,7 @@ Inheritance diagram for Phpcraft\Server:</div>
 <area shape="rect" href="classPhpcraft_1_1IntegratedServer.html" title=" " alt="" coords="41,259,230,285"/>
 <area shape="rect" href="interfacePhpcraft_1_1Command_1_1ServerCommandSender.html" title=" " alt="" coords="5,95,265,136"/>
 <area shape="rect" href="interfacePhpcraft_1_1Command_1_1CommandSender.html" title=" " alt="" coords="26,5,245,47"/>
+<area shape="rect" href="classPhpcraft_1_1ProxyServer.html" title=" " alt="" coords="56,333,215,360"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
@@ -99,12 +101,12 @@ Collaboration diagram for Phpcraft\Server:</div>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a8516c50fef59d4d45de8ad829abc9b2e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Server.html#a8516c50fef59d4d45de8ad829abc9b2e">__construct</a> (array $streams=[], $private_key=null)</td></tr>
 <tr class="separator:a8516c50fef59d4d45de8ad829abc9b2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a75d9cf1effa434c6ec3f967eb97c6254"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Server.html#a75d9cf1effa434c6ec3f967eb97c6254">isOpen</a> ()</td></tr>
+<tr class="separator:a75d9cf1effa434c6ec3f967eb97c6254"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a18a0b75bafa22447abed615ad5c297c5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Server.html#a18a0b75bafa22447abed615ad5c297c5">setGroups</a> (array $groups)</td></tr>
 <tr class="separator:a18a0b75bafa22447abed615ad5c297c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aab6fe1f0ea5be4e48c239c9ec872fe62"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Server.html#aab6fe1f0ea5be4e48c239c9ec872fe62">getGroup</a> (string $name)</td></tr>
 <tr class="separator:aab6fe1f0ea5be4e48c239c9ec872fe62"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a75d9cf1effa434c6ec3f967eb97c6254"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Server.html#a75d9cf1effa434c6ec3f967eb97c6254">isOpen</a> ()</td></tr>
-<tr class="separator:a75d9cf1effa434c6ec3f967eb97c6254"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a26f7ee9fb0f22248c2072ca6f115f3ff"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Server.html#a26f7ee9fb0f22248c2072ca6f115f3ff">isListening</a> ()</td></tr>
 <tr class="separator:a26f7ee9fb0f22248c2072ca6f115f3ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af547d6924f2abcd609b79ff1bb6a64be"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Server.html#af547d6924f2abcd609b79ff1bb6a64be">getPorts</a> ()</td></tr>
@@ -172,6 +174,11 @@ Public Attributes</h2></td></tr>
 <tr class="separator:a66641d7090697d045747ee06f92ab4c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1d94434a49d8f6bcca7bd7ed037990b9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Server.html#a1d94434a49d8f6bcca7bd7ed037990b9">$open_condition</a></td></tr>
 <tr class="separator:a1d94434a49d8f6bcca7bd7ed037990b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
+Protected Attributes</h2></td></tr>
+<tr class="memitem:a48bd66a011d4298e45dcccafffdfc71c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Server.html#a48bd66a011d4298e45dcccafffdfc71c">$tick_loop</a></td></tr>
+<tr class="separator:a48bd66a011d4298e45dcccafffdfc71c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A basic Minecraft server. This deals with connections, configurations, handshakes, status requests, keep alive packets, and teleportation confirmations. This does not include implementing an entire server; that is what packet_function and <a class="el" href="classPhpcraft_1_1IntegratedServer.html">IntegratedServer</a> are for. </p>
@@ -446,6 +453,8 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Returns all clients in state 3 (playing).</p>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="classPhpcraft_1_1ClientConnection.html">ClientConnection</a>[] </dd></dl>
+
+<p>Reimplemented in <a class="el" href="classPhpcraft_1_1ProxyServer.html#a3909c1ed13e6074ee474181244ffaa26">Phpcraft\ProxyServer</a>.</p>
 
 </div>
 </div>
@@ -959,6 +968,28 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>The streams the server listens for new connections on. </p>
+
+</div>
+</div>
+<a id="a48bd66a011d4298e45dcccafffdfc71c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a48bd66a011d4298e45dcccafffdfc71c">&#9670;&nbsp;</a></span>$tick_loop</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Phpcraft\Server::$tick_loop</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>

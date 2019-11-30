@@ -1,8 +1,9 @@
 <map id="Phpcraft\Command\CommandSender" name="Phpcraft\Command\CommandSender">
 <area shape="rect" id="node1" title=" " alt="" coords="207,5,426,47"/>
 <area shape="rect" id="node2" href="$interfacePhpcraft_1_1Command_1_1ServerCommandSender.html" title=" " alt="" coords="61,95,321,136"/>
-<area shape="rect" id="node6" href="$classPhpcraft_1_1ServerConnection.html" title=" " alt="" coords="346,102,541,129"/>
+<area shape="rect" id="node7" href="$classPhpcraft_1_1ServerConnection.html" title=" " alt="" coords="346,102,541,129"/>
 <area shape="rect" id="node3" href="$classPhpcraft_1_1ClientConnection.html" title=" " alt="" coords="5,184,196,211"/>
 <area shape="rect" id="node4" href="$classPhpcraft_1_1Server.html" title=" " alt="" coords="221,184,343,211"/>
 <area shape="rect" id="node5" href="$classPhpcraft_1_1IntegratedServer.html" title=" " alt="" coords="187,259,377,285"/>
+<area shape="rect" id="node6" href="$classPhpcraft_1_1ProxyServer.html" title=" " alt="" coords="203,333,361,360"/>
 </map>
