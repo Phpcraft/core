@@ -4,7 +4,8 @@ use Exception;
 use hellsh\UUID;
 use Phpcraft\
 {Command\ServerCommandSender, Enum\ChatPosition, Exception\IOException, Packet\KeepAliveRequestPacket, Packet\ServerboundPacketId, Permission\Group};
-use pas\pas;
+use pas\
+{Condition, pas};
 use SplObjectStorage;
 /**
  * A basic Minecraft server.
@@ -87,6 +88,10 @@ class Server implements ServerCommandSender
 	 * @var bool $deny_incompatible_versions
 	 */
 	public $deny_incompatible_versions = true;
+	/**
+	 * @var Condition $open_condition
+	 */
+	public $open_condition;
 
 	/**
 	 * @param array<resource> $streams An array of streams created by stream_socket_server to listen for clients on.
@@ -138,7 +143,11 @@ class Server implements ServerCommandSender
 		$this->groups = [
 			"default" => new Group($this, [])
 		];
-		pas::add(function()
+		$this->open_condition = pas::whileLoop(function()
+		{
+			return $this->isOpen();
+		});
+		$this->open_condition->add(function()
 		{
 			$this->handle(true);
 		}, 0.001);
