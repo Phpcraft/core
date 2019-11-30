@@ -141,7 +141,7 @@ $server->disconnect_function = function(ClientConnection $con)
 	}
 };
 echo "Now waiting for someone to connect to :25565\n";
-pas::add(function() use (&$client_con, &$server_con, &$server_eid, &$transform_packets)
+$server->open_condition->add(function() use (&$client_con, &$server_con, &$server_eid, &$transform_packets)
 {
 	try
 	{
@@ -212,7 +212,7 @@ pas::add(function() use (&$client_con, &$server_con, &$server_eid, &$transform_p
 		$server_con = null;
 	}
 }, 0.001);
-pas::add(function() use (&$client_con, &$server_con)
+$server->open_condition->add(function() use (&$client_con, &$server_con)
 {
 	PluginManager::fire(new ProxyTickEvent($client_con, $server_con));
 }, 0.05);
