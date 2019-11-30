@@ -4,7 +4,13 @@ use Exception;
 use hellsh\UUID;
 use Phpcraft\
 {Command\ServerCommandSender, Enum\ChatPosition, Exception\IOException, Packet\KeepAliveRequestPacket, Packet\ServerboundPacketId, Permission\Group};
+use pas\pas;
 use SplObjectStorage;
+/**
+ * A basic Minecraft server.
+ * This deals with connections, configurations, handshakes, status requests, keep alive packets, and teleportation confirmations.
+ * This does not include implementing an entire server; that is what packet_function and IntegratedServer are for.
+ */
 class Server implements ServerCommandSender
 {
 	/**
@@ -52,21 +58,18 @@ class Server implements ServerCommandSender
 	/**
 	 * The function called when a client has entered state 3 (playing) with the ClientConnection as argument.
 	 *
-	 * @see Server::handle()
 	 * @var callable $join_function
 	 */
 	public $join_function = null;
 	/**
 	 * The function called when the server receives a packet from a client in state 3 (playing) unless it's a keep alive response with the ClientConnection and ServerboundPacketId as arguments.
 	 *
-	 * @see Server::handle()
 	 * @var callable $packet_function
 	 */
 	public $packet_function = null;
 	/**
 	 * The function called when a client's disconnected from the server with the ClientConnection as argument.
 	 *
-	 * @see Server::handle()
 	 * @var callable $disconnect_function
 	 */
 	public $disconnect_function = null;
@@ -75,8 +78,6 @@ class Server implements ServerCommandSender
 	 * See Phpcraft::getServerStatus for an example of all the data a server may respond with (excluding "ping").
 	 * Additionally, if you set "no_ping", the client will show "(no connection)" where usually the ping in ms would be.
 	 *
-	 * @see Server::accept()
-	 * @see Server::handle()
 	 * @var callable $list_ping_function
 	 */
 	public $list_ping_function = null;
@@ -137,6 +138,10 @@ class Server implements ServerCommandSender
 		$this->groups = [
 			"default" => new Group($this, [])
 		];
+		pas::add(function()
+		{
+			$this->handle(true);
+		}, 0.001);
 	}
 
 	/**
@@ -215,39 +220,24 @@ class Server implements ServerCommandSender
 		return ($this->list_ping_function)()["description"];
 	}
 
-	/**
-	 * Accepts new clients.
-	 *
-	 * @return Server $this
-	 */
-	function accept(): Server
+	private function handle(bool $full): void
 	{
-		foreach($this->streams as $stream)
+		if($full)
 		{
-			while(($in = @stream_socket_accept($stream, 0)) !== false)
+			foreach($this->streams as $stream)
 			{
-				$con = new ClientConnection($in, $this);
-				$con->disconnect_after = microtime(true) + 3;
-				$this->clients->attach($con);
+				while(($in = @stream_socket_accept($stream, 0)) !== false)
+				{
+					$con = new ClientConnection($in, $this);
+					$con->disconnect_after = microtime(true) + 3;
+					$this->clients->attach($con);
+				}
 			}
 		}
-		return $this;
-	}
-
-	/**
-	 * Deals with all connected clients.
-	 * This includes dealing with handshakes, status requests, keep alive packets, teleportation confirms, closing dead connections, and saving client configurations.
-	 * This does not include implementing an entire server; that is what packet_function and IntegratedServer are for.
-	 *
-	 * @param bool $packets If false, only dead connections will be closed.
-	 * @return Server $this
-	 */
-	function handle(bool $packets = true): Server
-	{
 		foreach($this->clients as $con)
 		{
 			assert($con instanceof ClientConnection);
-			if($packets && $con->isOpen())
+			if($full && $con->isOpen())
 			{
 				try
 				{
@@ -446,8 +436,6 @@ class Server implements ServerCommandSender
 				}
 			}
 		}
-		Configuration::handleQueue(0.03);
-		return $this;
 	}
 
 	/**

@@ -6,8 +6,9 @@ if(empty($argv))
 }
 require "vendor/autoload.php";
 use Phpcraft\
-{Account, AssetsManager, Command\Command, Configuration, Connection, Event\ClientConsoleEvent, Event\ClientJoinEvent, Event\ClientPacketEvent, FancyUserInterface, Packet\ClientboundPacketId, Packet\KeepAliveRequestPacket, Packet\PluginMessage\ServerboundBrandPluginMessagePacket, Phpcraft, PlainUserInterface, PluginManager, Point3D, ServerConnection, Versions};
-use hellsh\pai;
+{Account, AssetsManager, Command\Command, Connection, Event\ClientConsoleEvent, Event\ClientJoinEvent, Event\ClientPacketEvent, FancyUserInterface, Packet\ClientboundPacketId, Packet\KeepAliveRequestPacket, Packet\PluginMessage\ServerboundBrandPluginMessagePacket, Phpcraft, PlainUserInterface, PluginManager, Point3D, ServerConnection, Versions};
+use pas\
+{pas, stdin};
 $options = [];
 for($i = 1; $i < count($argv); $i++)
 {
@@ -68,7 +69,7 @@ for($i = 1; $i < count($argv); $i++)
 			die("Unknown argument '{$n}' -- try 'help' for a list of arguments.\n");
 	}
 }
-$am = AssetsManager::fromMinecraftVersion(Versions::minecraft()[0]);
+$am = AssetsManager::fromMinecraftVersion(Versions::minecraft(false)[0]);
 if(empty($options["lang"]))
 {
 	$options["lang"] = "en_GB";
@@ -93,7 +94,7 @@ else
 }
 $translations = json_decode(file_get_contents($am->downloadAsset("minecraft/lang/".strtolower($options["lang"]).".json")), true);
 $online = false;
-pai::init();
+stdin::init();
 if(isset($options["online"]) && $options["online"] === true)
 {
 	$online = true;
@@ -101,7 +102,7 @@ if(isset($options["online"]) && $options["online"] === true)
 else if(!isset($options["online"]))
 {
 	echo "Would you like to join premium servers? (y/N) ";
-	if(substr(pai::awaitLine(), 0, 1) == "y")
+	if(substr(stdin::getNextLine(), 0, 1) == "y")
 	{
 		$online = true;
 	}
@@ -127,7 +128,7 @@ if($account === null)
 		do
 		{
 			echo "How would you like to be called in-game? [PhpcraftUser] ";
-			$name = pai::getLine();
+			$name = stdin::getNextLine();
 			if($name == "")
 			{
 				$account = new Account("PhpcraftUser");
@@ -152,7 +153,7 @@ if(isset($options["server"]))
 if(!$server)
 {
 	echo "What server would you like to join? [localhost] ";
-	$server = pai::awaitLine();
+	$server = stdin::getNextLine();
 	if(!$server)
 	{
 		$server = "localhost";
@@ -314,9 +315,21 @@ do
 	$dimension = 0;
 	$next_tick = false;
 	$posticks = 0;
-	do
+	pas::on("stdin_line", "handleConsoleMessage");
+	$loop = pas::whileLoop(function() use (&$reconnect, &$con)
 	{
-		$start = microtime(true);
+		$is_true = !$reconnect && $con->isOpen();
+		if(!$is_true)
+		{
+			pas::exitLoop();
+		}
+		return $is_true;
+	})->add(function()
+	{
+		global $ui, $con, $protocol_version, $translations, $options, $reconnect, $players, $yaw, $pitch, $_x, $_y, $_z, $_yaw, $_pitch, $motion_x, $motion_y, $motion_z, $entityId, $entities, $followEntity, $dimension, $posticks, $loop, $onGround;
+		/**
+		 * @var ServerConnection $con
+		 */
 		while(($packet_id = $con->readPacket(0)) !== false)
 		{
 			$packetId = ClientboundPacketId::getById($packet_id, $protocol_version);
@@ -587,7 +600,7 @@ do
 			}
 			else if($packetId->name == "join_game")
 			{
-				$next_tick = microtime(true);
+				$loop->next_run = microtime(true);
 				$entityId = gmp_intval($con->readInt());
 				$con->ignoreBytes(1);
 				if($protocol_version > 47)
@@ -639,14 +652,8 @@ do
 				$ui->add("Server closed connection: ".Phpcraft::chatToText($con->readString(), Phpcraft::FORMAT_ANSI))
 				   ->render();
 				$reconnect = !isset($options["noreconnect"]);
-				$next_tick = microtime(true) + 10;
 			}
 		}
-		while($message = $ui->render(true))
-		{
-			handleConsoleMessage($message);
-		}
-		Configuration::handleQueue();
 		if($followEntity !== false)
 		{
 			$motion_x = ($entities[$followEntity]["x"] - $con->pos->x);
@@ -796,11 +803,7 @@ do
 			$con->writeBoolean($onGround);
 			$con->send();
 		}
-		if(($remaining = (0.050 - (microtime(true) - $start))) > 0)
-		{
-			time_nanosleep(0, intval($remaining * 1000000000));
-		}
-	}
-	while(!$reconnect && $con->isOpen());
+	}, 0.05);
+	pas::loop();
 }
 while($reconnect || !isset($options["noreconnect"]));

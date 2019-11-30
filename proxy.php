@@ -8,10 +8,11 @@ if(empty($argv))
 require "vendor/autoload.php";
 use Phpcraft\
 {Account, ClientConnection, Command\Command, Event\ProxyClientPacketEvent, Event\ProxyJoinEvent, Event\ProxyServerPacketEvent, Event\ProxyTickEvent, Packet\ClientboundPacketId, Packet\EntityPacket, Packet\JoinGamePacket, Packet\KeepAliveRequestPacket, Packet\ServerboundPacketId, PluginManager, Point3D, Server, ServerConnection, Versions};
-use hellsh\pai;
+use pas\
+{pas, stdin};
 echo "Would you like to provide a Mojang/Minecraft account to be possesed? [y/N] ";
-pai::init();
-if(pai::awaitLine() == "y")
+stdin::init();
+if(stdin::getNextLine() == "y")
 {
 	$account = Account::cliLogin();
 	echo "Authenticated as {$account->username}.\n";
@@ -140,12 +141,8 @@ $server->disconnect_function = function(ClientConnection $con)
 	}
 };
 echo "Now waiting for someone to connect to :25565\n";
-$next_tick = microtime(true) + 0.05;
-do
+pas::add(function() use (&$client_con, &$server_con, &$server_eid, &$transform_packets)
 {
-	$start = microtime(true);
-	$server->accept();
-	$server->handle();
 	try
 	{
 		if($server_con instanceof ServerConnection && $client_con instanceof ClientConnection)
@@ -214,11 +211,9 @@ do
 		$server_con->close();
 		$server_con = null;
 	}
-	$time = microtime(true);
+}, 0.001);
+pas::add(function() use (&$client_con, &$server_con)
+{
 	PluginManager::fire(new ProxyTickEvent($client_con, $server_con));
-	if(($remaining = (0.050 - ($time - $start))) > 0)
-	{
-		time_nanosleep(0, $remaining * 1000000000);
-	}
-}
-while(true);
+}, 0.05);
+pas::loop();

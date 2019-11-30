@@ -1,6 +1,6 @@
 <?php /** @noinspection PhpComposerExtensionStubsInspection */
 namespace Phpcraft;
-use hellsh\pai;
+use pas\stdin;
 /** A Mojang or Minecraft account. */
 class Account
 {
@@ -37,17 +37,14 @@ class Account
 	}
 
 	/**
-	 * Asks the user of the CLI application for a logged-in Account for "online mode" usage using pai.
+	 * Asks the user of the CLI application for a logged-in Account for "online mode" usage using pas\stdin.
 	 *
 	 * @return Account
 	 */
 	static function cliLogin(): Account
 	{
 		$profiles = Phpcraft::getProfiles();
-		if(!pai::isInitialized())
-		{
-			pai::init();
-		}
+		stdin::init();
 		if(empty($profiles["authenticationDatabase"]))
 		{
 			$sel = 1;
@@ -64,7 +61,7 @@ class Account
 			do
 			{
 				echo "Your selection: ";
-				$sel = intval(pai::awaitLine());
+				$sel = intval(stdin::getNextLine());
 				if($sel < 1)
 				{
 					$sel = 0;
@@ -82,7 +79,7 @@ class Account
 			do
 			{
 				echo "What's your Mojang account email address? (username if unmigrated) ";
-				$name = trim(pai::awaitLine());
+				$name = trim(stdin::getNextLine());
 			}
 			while(!$name);
 			do
@@ -97,7 +94,7 @@ class Account
 					{
 					});
 				}
-				$password = trim(pai::awaitLine());
+				$password = trim(stdin::getNextLine());
 				if(!Phpcraft::isWindows())
 				{
 					readline_callback_handler_remove();
@@ -116,7 +113,7 @@ class Account
 				}
 				echo " Failed. Either the credentials were incorrect or the Mojang account doesn't own Minecraft.\n";
 				echo "Would you like to try to enter the password again? [Y/n] ";
-				if(trim(pai::awaitLine()) == "n")
+				if(trim(stdin::getNextLine()) == "n")
 				{
 					break;
 				}

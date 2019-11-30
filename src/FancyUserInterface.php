@@ -1,6 +1,6 @@
 <?php /** @noinspection PhpComposerExtensionStubsInspection */
 namespace Phpcraft;
-use hellsh\pai;
+use pas\{pas, stdin};
 use RuntimeException;
 class FancyUserInterface extends UserInterface
 {
@@ -17,10 +17,12 @@ class FancyUserInterface extends UserInterface
 	private $screen_scroll = 0;
 	private $chat_log = [];
 	private $chat_log_cap = 100;
-	private $next_render = 0;
+	private $render_loop;
 
 	/**
-	 * Note that from this point forward, STDIN and STDOUT are in the hands of the UI until it is destructed.
+	 * Note that from this point forward, STDIN and STDOUT are in the hands of the UI with no way out.
+	 * Make sure to register a "stdin_line" event handler with pas if you'd like input to work.
+	 * A render loop will be registered with pas, but you may still call ::render if you need immediate rendering.
 	 * For PHP <7.2.0 and Windows <10.0.10586, use the PlainUserInterface.
 	 *
 	 * @param string $title The title that the terminal window will be given.
@@ -30,10 +32,7 @@ class FancyUserInterface extends UserInterface
 		parent::__construct($title);
 		if(Phpcraft::isWindows())
 		{
-			if(!pai::isInitialized())
-			{
-				pai::init();
-			}
+			stdin::init();
 			if(version_compare(PHP_VERSION, "7.2.0", "<") || php_uname("r") != "10.0" || explode(" ", php_uname("v"))[1] < 10586)
 			{
 				throw new RuntimeException("For PHP <7.2.0 and Windows <10.0.10586, use the PlainUserInterface.");
@@ -52,6 +51,10 @@ class FancyUserInterface extends UserInterface
 			stream_set_blocking($this->stdin, false);
 		}
 		$this->ob_start();
+		$this->render_loop = pas::add(function()
+		{
+			$this->render();
+		}, 0.2, true);
 	}
 
 	private function ob_start(): void
@@ -98,23 +101,10 @@ class FancyUserInterface extends UserInterface
 		$this->input_prefix = $input_prefix;
 	}
 
-	function __destruct()
-	{
-		if($this->stdin !== null)
-		{
-			readline_callback_handler_remove();
-		}
-		ob_end_flush();
-		echo "\n";
-	}
-
 	/**
-	 * Renders the UI.
-	 *
-	 * @param boolean $accept_input Set to true if you are looking for a return value.
-	 * @return string|null If $accept_input is true and the user has submitted a line, the return will be that line. Otherwise, it will be null.
+	 * Renders the UI immediately.
 	 */
-	function render(bool $accept_input = false): ?string
+	function render(): void
 	{
 		ob_end_flush();
 		if($this->stdin !== null)
@@ -133,16 +123,12 @@ class FancyUserInterface extends UserInterface
 						}
 						else
 						{
-							if(!$accept_input)
-							{
-								break;
-							}
 							$line = trim($this->input_buffer);
 							$this->input_buffer = "";
 							$this->cursorpos = 1;
-							$this->next_render = 0;
+							$this->render_loop->next_run = microtime(true);
 							$this->ob_start();
-							return $line;
+							pas::fire("stdin_line", [$line]);
 						}
 					}
 					else if($char == "\x7F") // Backspace
@@ -155,7 +141,7 @@ class FancyUserInterface extends UserInterface
 						{
 							$this->cursorpos--;
 							$this->input_buffer = mb_substr($this->input_buffer, 0, $this->cursorpos - 1, "utf-8").mb_substr($this->input_buffer, $this->cursorpos, null, "utf-8");
-							$this->next_render = 0;
+							$this->render_loop->next_run = microtime(true);
 						}
 					}
 					else if($char == "\t") // Tabulator
@@ -222,7 +208,7 @@ class FancyUserInterface extends UserInterface
 								$this->cursorpos = mb_strlen($buffer_, "utf-8") + 1;
 							}
 							$this->input_buffer = $buffer_;
-							$this->next_render = 0;
+							$this->render_loop->next_run = microtime(true);
 						}
 					}
 					else
@@ -306,119 +292,106 @@ class FancyUserInterface extends UserInterface
 							$this->cursorpos -= 4;
 							$this->screen_scroll--;
 						}
-						$this->next_render = 0;
+						$this->render_loop->next_run = microtime(true);
 					}
 				}
 			}
 		}
-		else if($accept_input && pai::hasLine())
+		// In theory this can also be done using ANSI by printing "\e[9999;9999H\e[6n" and then reading from STDIN.
+		if(Phpcraft::isWindows())
 		{
-			echo "\e[".strlen($this->input_prefix)."C";
-			$this->ob_start();
-			$line = pai::getLine();
-			$this->add($line);
-			return $line;
+			$proc = proc_open('"'.realpath(Phpcraft::BIN_DIR.'/get_window_size.exe').'"', [
+				0 => [
+					"pipe",
+					"r"
+				],
+				1 => [
+					"pipe",
+					"w"
+				],
+				2 => [
+					"file",
+					"php://stdout",
+					"w"
+				]
+			], $pipes);
+			$res = stream_get_contents($pipes[1]);
+			proc_close($proc);
 		}
-		if(!$accept_input || $this->next_render < microtime(true))
+		else
 		{
-			// In theory this can also be done using ANSI by printing "\e[9999;9999H\e[6n" and then reading from STDIN.
-			if(Phpcraft::isWindows())
+			$res = shell_exec('echo "$(tput cols);$(tput lines)"');
+		}
+		$res = explode(";", $res);
+		assert(count($res) == 2);
+		$width = intval($res[0]);
+		$height = intval($res[1]);
+		$reversed_chat_log = array_reverse($this->chat_log);
+		$input_height = $this->stdin === null ? 1 : floor(mb_strlen($this->input_prefix.$this->input_buffer, "utf-8") / $width);
+		if($this->screen_scroll > ($this->chat_log_cap - $height) + $input_height)
+		{
+			$this->screen_scroll = ($height * -1) + 3 + $input_height;
+			echo "\x07"; // Bell/Alert
+		}
+		else if($this->screen_scroll < ($height * -1) + 3 + $input_height)
+		{
+			$this->screen_scroll = ($this->chat_log_cap - $height) + $input_height;
+			echo "\x07"; // Bell/Alert
+		}
+		$j = $this->screen_scroll;
+		if($this->stdin === null)
+		{
+			echo "\e[s";
+		}
+		for($i = $height - $input_height - 1; $i > 1; $i--)
+		{
+			$message = @$reversed_chat_log[$j++];
+			$len = mb_strlen(preg_replace('/\e\[[0-9]{1,3}(;[0-9]{1,3})*m/i', "", $message), "utf-8");
+			if($len > $width)
 			{
-				$proc = proc_open('"'.realpath(Phpcraft::BIN_DIR.'/get_window_size.exe').'"', [
-					0 => [
-						"pipe",
-						"r"
-					],
-					1 => [
-						"pipe",
-						"w"
-					],
-					2 => [
-						"file",
-						"php://stdout",
-						"w"
-					]
-				], $pipes);
-				$res = stream_get_contents($pipes[1]);
-				proc_close($proc);
+				$i -= floor($len / $width);
+			}
+			echo "\e[{$i};1H\e[97;40m$message";
+			$line_len = ($len == 0 ? 0 : ($len - (floor(($len - 1) / $width) * $width)));
+			if($line_len < $width)
+			{
+				echo str_repeat(" ", intval($width - $line_len));
+			}
+		}
+		echo "\e[".($height - $input_height).";1H";
+		if($this->stdin === null)
+		{
+			echo "\e[2K\n\e[97;40m".$this->input_prefix."\e[u";
+		}
+		else
+		{
+			echo "\e[97;40m".$this->input_prefix.$this->input_buffer;
+			$cursor_width = (mb_strlen($this->input_prefix, "utf-8") + $this->cursorpos);
+			if($cursor_width < $width)
+			{
+				$cursor_height = $height;
 			}
 			else
 			{
-				$res = shell_exec('echo "$(tput cols);$(tput lines)"');
-			}
-			$res = explode(";", $res);
-			assert(count($res) == 2);
-			$width = intval($res[0]);
-			$height = intval($res[1]);
-			$reversed_chat_log = array_reverse($this->chat_log);
-			$input_height = $this->stdin === null ? 1 : floor(mb_strlen($this->input_prefix.$this->input_buffer, "utf-8") / $width);
-			if($this->screen_scroll > ($this->chat_log_cap - $height) + $input_height)
-			{
-				$this->screen_scroll = ($height * -1) + 3 + $input_height;
-				echo "\x07"; // Bell/Alert
-			}
-			else if($this->screen_scroll < ($height * -1) + 3 + $input_height)
-			{
-				$this->screen_scroll = ($this->chat_log_cap - $height) + $input_height;
-				echo "\x07"; // Bell/Alert
-			}
-			$j = $this->screen_scroll;
-			if($this->stdin === null)
-			{
-				echo "\e[s";
-			}
-			for($i = $height - $input_height - 1; $i > 1; $i--)
-			{
-				$message = @$reversed_chat_log[$j++];
-				$len = mb_strlen(preg_replace('/\e\[[0-9]{1,3}(;[0-9]{1,3})*m/i', "", $message), "utf-8");
-				if($len > $width)
+				$overflows = floor(($cursor_width - 1) / $width);
+				$cursor_height = $height - $input_height + $overflows;
+				if($overflows > 0)
 				{
-					$i -= floor($len / $width);
-				}
-				echo "\e[{$i};1H\e[97;40m$message";
-				$line_len = ($len == 0 ? 0 : ($len - (floor(($len - 1) / $width) * $width)));
-				if($line_len < $width)
-				{
-					echo str_repeat(" ", intval($width - $line_len));
+					$cursor_width -= floor($width / $overflows);
 				}
 			}
-			echo "\e[".($height - $input_height).";1H";
-			if($this->stdin === null)
+			$line_len = mb_strlen($this->input_prefix.$this->input_buffer, "utf-8") - ($input_height * $width);
+			if($line_len < $width)
 			{
-				echo "\e[2K\n\e[97;40m".$this->input_prefix."\e[u";
+				echo str_repeat(" ", intval($width - $line_len));
 			}
-			else
-			{
-				echo "\e[97;40m".$this->input_prefix.$this->input_buffer;
-				$cursor_width = (mb_strlen($this->input_prefix, "utf-8") + $this->cursorpos);
-				if($cursor_width < $width)
-				{
-					$cursor_height = $height;
-				}
-				else
-				{
-					$overflows = floor(($cursor_width - 1) / $width);
-					$cursor_height = $height - $input_height + $overflows;
-					if($overflows > 0)
-					{
-						$cursor_width -= floor($width / $overflows);
-					}
-				}
-				$line_len = mb_strlen($this->input_prefix.$this->input_buffer, "utf-8") - ($input_height * $width);
-				if($line_len < $width)
-				{
-					echo str_repeat(" ", intval($width - $line_len));
-				}
-				echo "\e[{$cursor_height};{$cursor_width}H";
-			}
-			if(count($this->chat_log) > $this->chat_log_cap)
-			{
-				$this->chat_log = array_slice($this->chat_log, 1);
-			}
-			$this->next_render = microtime(true) + 0.2;
+			echo "\e[{$cursor_height};{$cursor_width}H";
+		}
+		if(count($this->chat_log) > $this->chat_log_cap)
+		{
+			$this->chat_log = array_slice($this->chat_log, 1);
 		}
 		$this->ob_start();
-		return null;
 	}
 
 	/**

@@ -3,6 +3,7 @@ namespace Phpcraft;
 use ArrayAccess;
 use Countable;
 use Iterator;
+use pas\pas;
 use SplObjectStorage;
 class Configuration implements Iterator, Countable, ArrayAccess
 {
@@ -14,6 +15,7 @@ class Configuration implements Iterator, Countable, ArrayAccess
 	public $data;
 	public $unsaved_changes = false;
 	private $current = 0;
+	private static $registered_loop = false;
 
 	function __construct($file = null, $default_data = null)
 	{
@@ -39,6 +41,14 @@ class Configuration implements Iterator, Countable, ArrayAccess
 			{
 				$this->data = [];
 			}
+		}
+		if(!self::$registered_loop)
+		{
+			pas::add(function()
+			{
+				Configuration::handleQueue(0.05);
+			}, 0.1);
+			self::$registered_loop = true;
 		}
 	}
 
