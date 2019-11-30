@@ -44,7 +44,7 @@ class Configuration implements Iterator, Countable, ArrayAccess
 		}
 		if(!self::$registered_loop)
 		{
-			pas::add(function()
+			pas::addInessential(function()
 			{
 				Configuration::handleQueue(0.05);
 			}, 0.1);

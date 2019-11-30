@@ -51,7 +51,7 @@ class FancyUserInterface extends UserInterface
 			stream_set_blocking($this->stdin, false);
 		}
 		$this->ob_start();
-		$this->render_loop = pas::add(function()
+		$this->render_loop = pas::addInessential(function()
 		{
 			$this->render();
 		}, 0.2, true);
