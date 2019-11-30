@@ -5,7 +5,7 @@
  * @var Plugin $this
  */
 use Phpcraft\
-{BlockState, ClientConnection, Connection, Event\ServerChunkBorderEvent, Event\ServerJoinEvent, Event\ServerTickEvent, NBT\CompoundTag, NBT\LongArrayTag, Plugin};
+{BlockState, ClientConnection, Connection, Event\ServerChunkBorderEvent, Event\ServerJoinEvent, Event\ServerTickEvent, NBT\CompoundTag, NBT\LongArrayTag, Plugin, PluginManager};
 $this->on(function(ServerJoinEvent $event)
 {
 	if($event->cancelled)
@@ -21,7 +21,7 @@ $this->on(function(ServerJoinEvent $event)
 	$con->writeLong(0); // World Age
 	$con->writeLong(-6000); // Time of Day
 	$con->send();
-	if($con->hasPermission("change the world"))
+	if(PluginManager::$command_prefix == "/" && $con->hasPermission("change the world"))
 	{
 		$con->sendMessage("Use /grass, /stone, and /grass_stone to §ochange the world§r.");
 	}
@@ -74,7 +74,7 @@ $this->on(function(ServerJoinEvent $event)
 		 foreach($event->server->clients as $con)
 		 {
 			 assert($con instanceof ClientConnection);
-			 if($con->state != Connection::STATE_PLAY || @$con->received_imitated_world)
+			 if($con->state != Connection::STATE_PLAY || $con->downstream !== null || @$con->received_imitated_world)
 			 {
 				 continue;
 			 }

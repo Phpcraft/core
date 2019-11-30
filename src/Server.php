@@ -2,10 +2,10 @@
 namespace Phpcraft;
 use Exception;
 use hellsh\UUID;
-use Phpcraft\
-{Command\ServerCommandSender, Enum\ChatPosition, Exception\IOException, Packet\KeepAliveRequestPacket, Packet\ServerboundPacketId, Permission\Group};
 use pas\
 {Condition, pas};
+use Phpcraft\
+{Command\ServerCommandSender, Enum\ChatPosition, Event\ServerTickEvent, Exception\IOException, Packet\KeepAliveRequestPacket, Packet\ServerboundPacketId, Permission\Group};
 use SplObjectStorage;
 /**
  * A basic Minecraft server.
@@ -92,6 +92,7 @@ class Server implements ServerCommandSender
 	 * @var Condition $open_condition
 	 */
 	public $open_condition;
+	protected $tick_loop;
 
 	/**
 	 * @param array<resource> $streams An array of streams created by stream_socket_server to listen for clients on.
@@ -151,6 +152,10 @@ class Server implements ServerCommandSender
 		{
 			$this->handle(true);
 		}, 0.001);
+		$this->tick_loop = $this->open_condition->add(function(bool $lagging)
+		{
+			PluginManager::fire(new ServerTickEvent($this, $lagging));
+		}, 0.05);
 	}
 
 	/**

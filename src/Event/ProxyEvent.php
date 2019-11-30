@@ -1,29 +1,18 @@
 <?php
 namespace Phpcraft\Event;
 use Phpcraft\
-{ClientConnection, ServerConnection};
+{ProxyServer};
 class ProxyEvent extends Event
 {
 	/**
-	 * The client connection.
+	 * The proxy server.
 	 *
-	 * @var ClientConnection|null $client
-	 */
-	public $client;
-	/**
-	 * The server connection.
-	 *
-	 * @var ServerConnection|null $server
+	 * @var Server $server
 	 */
 	public $server;
 
-	/**
-	 * @param ClientConnection|null $client The client connection.
-	 * @param ServerConnection|null $server The server connection.
-	 */
-	function __construct(?ClientConnection $client, ?ServerConnection $server = null)
+	function __construct(ProxyServer $server)
 	{
-		$this->client = $client;
 		$this->server = $server;
 	}
 }

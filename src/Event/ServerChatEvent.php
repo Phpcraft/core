@@ -12,11 +12,6 @@ class ServerChatEvent extends ServerClientEvent
 	 */
 	public $message;
 
-	/**
-	 * @param Server $server
-	 * @param ClientConnection $client
-	 * @param string $message The message that the client has proposed.
-	 */
 	function __construct(Server $server, ClientConnection $client, string $message)
 	{
 		parent::__construct($server, $client);

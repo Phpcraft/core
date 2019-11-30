@@ -31,7 +31,7 @@
 		"ext-zlib": "*",
 		"hell-sh/enum": "^1.1",
 		"hell-sh/uuid": "^1.2",
-		"hell-sh/pas": "^1.4",
+		"hell-sh/pas": "^1.4.1",
 		"phpseclib/mcrypt_compat": "^1.0"
 	},
 	"require-dev": {

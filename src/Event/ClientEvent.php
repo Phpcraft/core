@@ -10,9 +10,6 @@ abstract class ClientEvent extends Event
 	 */
 	public $server;
 
-	/**
-	 * @param ServerConnection $server The client's server connection.
-	 */
 	function __construct(ServerConnection $server)
 	{
 		$this->server = $server;

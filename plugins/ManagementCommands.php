@@ -23,19 +23,19 @@ $this->registerCommand("reload", function(ServerCommandSender &$sender)
 		$sender->sendAdminBroadcast("Reloading server config...", "use /reload");
 		$sender->getServer()
 			   ->reloadConfig();
-		$sender->sendAdminBroadcast("Done. ".count($sender->getServer()->groups)." groups loaded.", "use /reload");
+		$sender->sendAdminBroadcast("Done. ".count($sender->getServer()->groups)." group".(count($sender->getServer()->groups) == 1 ? "" : "s")." loaded.", "use /reload");
 	}
 }, "use /reload");
 $this->registerCommand("stop", function(ServerCommandSender &$sender)
 {
 	$sender->sendAdminBroadcast("Stopping server...");
 	$sender->getServer()
-		   ->close(["text" => "/stop has been issued by ".$sender->getName()]);
+		   ->close(["text" => PluginManager::$command_prefix."stop has been issued by ".$sender->getName()]);
 }, "use /stop");
 $this->registerCommand("close", function(ServerCommandSender &$sender)
 {
 	$sender->sendAdminBroadcast("Closing server...");
 	$sender->getServer()
 		   ->softClose();
-	$sender->sendAdminBroadcast("Done. The server will shutdown once empty. Use /reload to reopen listening sockets.");
+	$sender->sendAdminBroadcast("Done. The server will shutdown once empty. Use ".PluginManager::$command_prefix."reload to reopen listening sockets.");
 }, "use /stop");

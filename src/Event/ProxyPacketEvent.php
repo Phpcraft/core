@@ -1,22 +1,17 @@
 <?php
 namespace Phpcraft\Event;
 use Phpcraft\
-{ClientConnection, Packet\PacketId, ServerConnection};
-class ProxyPacketEvent extends ProxyEvent
+{ClientConnection, Packet\PacketId, ProxyServer};
+class ProxyPacketEvent extends ProxyClientEvent
 {
 	/**
 	 * @var PacketId $packetId
 	 */
 	public $packetId;
 
-	/**
-	 * @param ClientConnection $client The client connection.
-	 * @param ServerConnection|null $server The server connection.
-	 * @param PacketId $packetId The ID of the packet being sent.
-	 */
-	function __construct(ClientConnection $client, ?ServerConnection $server, PacketId $packetId)
+	function __construct(ProxyServer $server, ClientConnection $client, PacketId $packetId)
 	{
-		parent::__construct($client, $server);
+		parent::__construct($server, $client);
 		$this->packetId = $packetId;
 	}
 }

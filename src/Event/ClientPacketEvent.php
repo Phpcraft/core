@@ -15,10 +15,6 @@ class ClientPacketEvent extends ClientEvent
 	 */
 	public $packetId;
 
-	/**
-	 * @param ServerConnection $server The client's server connection.
-	 * @param ClientboundPacketId $packetId The ID of the packet that the server has sent.
-	 */
 	function __construct(ServerConnection $server, ClientboundPacketId $packetId)
 	{
 		parent::__construct($server);

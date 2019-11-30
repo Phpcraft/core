@@ -1,6 +1,6 @@
 <?php
 namespace Phpcraft\Event;
-/** The event emitted when a player disconnects. */
+/** The event emitted by the server when a player disconnects. */
 class ServerLeaveEvent extends ServerClientEvent
 {
 }

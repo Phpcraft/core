@@ -18,12 +18,6 @@ class ServerRotationEvent extends ServerClientEvent
 	 */
 	public $prev_pitch;
 
-	/**
-	 * @param Server $server
-	 * @param ClientConnection $client
-	 * @param float|null $prev_yaw
-	 * @param float|null $prev_pitch
-	 */
 	function __construct(Server $server, ClientConnection $client, ?float $prev_yaw = null, ?float $prev_pitch = null)
 	{
 		parent::__construct($server, $client);

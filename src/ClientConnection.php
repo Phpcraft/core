@@ -4,9 +4,9 @@ use BadMethodCallException;
 use DomainException;
 use GMP;
 use hellsh\UUID;
+use pas\pas;
 use Phpcraft\
 {Command\ServerCommandSender, Entity\Player, Enum\ChatPosition, Enum\Gamemode, Exception\IOException, Packet\ClientboundAbilitiesPacket, Packet\ClientboundPacketId};
-use pas\pas;
 /** A server-to-client connection. */
 class ClientConnection extends Connection implements ServerCommandSender
 {
@@ -62,11 +62,29 @@ class ClientConnection extends Connection implements ServerCommandSender
 	 */
 	public $disconnect_after = 0;
 	/**
+	 * Used by proxy servers to store the downstream connection instance.
+	 *
+	 * @var ServerConnection $downstream
+	 */
+	public $downstream;
+	/**
+	 * Used by proxy servers to store if the client is incompatible with the downstream server and needs packets to be converted.
+	 *
+	 * @var bool $convert_packets
+	 */
+	public $convert_packets;
+	/**
 	 * The client's entity ID.
 	 *
 	 * @var GMP $eid
 	 */
 	public $eid;
+	/**
+	 * The downstream entity ID. Used only on proxy servers.
+	 *
+	 * @var GMP $downstream_eid
+	 */
+	public $downstream_eid;
 	/**
 	 * The client's position.
 	 *

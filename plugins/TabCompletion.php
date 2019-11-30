@@ -6,7 +6,7 @@
  */
 use Phpcraft\
 {Command\Command, Event\ProxyJoinEvent, Event\ServerJoinEvent, Packet\DeclareCommands\DeclareCommandsPacket, Plugin, PluginManager};
-$this->on(function(ProxyJoinEvent $event)
+$this->on(function(ServerJoinEvent $event)
 {
 	if($event->cancelled)
 	{
@@ -28,10 +28,10 @@ $this->on(function(ProxyJoinEvent $event)
 		$packet->send($event->client);
 	}
 })
-	 ->on(function(ServerJoinEvent $event)
+	 ->on(function(ProxyJoinEvent $event)
 	 {
 		 /**
 		  * @var Plugin $this
 		  */
-		 $this->fire(new ProxyJoinEvent($event->client));
+		 $this->fire(new ServerJoinEvent($event->server, $event->client));
 	 });

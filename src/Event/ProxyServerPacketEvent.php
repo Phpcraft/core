@@ -1,7 +1,7 @@
 <?php
 namespace Phpcraft\Event;
 use Phpcraft\
-{ClientConnection, Packet\ServerboundPacketId, ServerConnection};
+{ClientConnection, Packet\ServerboundPacketId, ProxyServer};
 /**
  * The event emitted by the proxy when one of its clients sends a packet to their server. Cancellable.
  * Cancelling the event prevents the recipient from receiving the packet.
@@ -9,12 +9,12 @@ use Phpcraft\
 class ProxyServerPacketEvent extends ProxyPacketEvent
 {
 	/**
-	 * @param ClientConnection $client The client connection.
-	 * @param ServerConnection|null $server The server connection.
-	 * @param ServerboundPacketId $packetId The ID of the packet the client has sent.
+	 * @var ServerboundPacketId $packetId
 	 */
-	function __construct(ClientConnection $client, ?ServerConnection $server, ServerboundPacketId $packetId)
+	public $packetId;
+
+	function __construct(ProxyServer $server, ClientConnection $client, ServerboundPacketId $packetId)
 	{
-		parent::__construct($client, $server, $packetId);
+		parent::__construct($server, $client, $packetId);
 	}
 }

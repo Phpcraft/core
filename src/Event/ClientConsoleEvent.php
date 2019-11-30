@@ -11,10 +11,6 @@ class ClientConsoleEvent extends ClientEvent
 	 */
 	public $message;
 
-	/**
-	 * @param ServerConnection $server The client's server connection.
-	 * @param string $message The message that the console has proposed.
-	 */
 	function __construct(ServerConnection $server, string $message)
 	{
 		parent::__construct($server);

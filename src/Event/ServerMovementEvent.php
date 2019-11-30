@@ -12,11 +12,6 @@ class ServerMovementEvent extends ServerClientEvent
 	 */
 	public $prev_pos;
 
-	/**
-	 * @param Server $server
-	 * @param ClientConnection $client
-	 * @param Point3D|null $prev_pos
-	 */
 	function __construct(Server $server, ClientConnection $client, ?Point3D $prev_pos = null)
 	{
 		parent::__construct($server, $client);

@@ -16,11 +16,6 @@ class ServerOnGroundChangeEvent extends ServerClientEvent
 	 */
 	public $old_value;
 
-	/**
-	 * @param Server $server
-	 * @param ClientConnection $client
-	 * @param boolean $old_value The client's on_ground value before the change.
-	 */
 	function __construct(Server $server, ClientConnection $client, bool $old_value)
 	{
 		parent::__construct($server, $client);

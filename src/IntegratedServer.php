@@ -30,7 +30,7 @@ class IntegratedServer extends Server
 	 */
 	public $config_reloaded_function;
 	/**
-	 * If send_first_packets is true, this is the position that clients will spawn it.
+	 * The position where clients will spawn at.
 	 * Defaults to <pre>new Point3D(0, 16, 0)</pre>.
 	 *
 	 * @var Point3D $spawn_position
@@ -38,15 +38,15 @@ class IntegratedServer extends Server
 	public $spawn_position;
 
 	/**
-	 * @param string $name
+	 * @param string|null $name
 	 * @param array $custom_config_defaults
 	 * @param UserInterface|null $ui
 	 * @param resource|null $private_key A private key generated using openssl_pkey_new(["private_key_bits" => 1024, "private_key_type" => OPENSSL_KEYTYPE_RSA]) to use for online mode, or null to use offline mode.
 	 */
-	function __construct(string $name = "Phpcraft Integrated Server", array $custom_config_defaults = [], ?UserInterface $ui = null, $private_key = null)
+	function __construct(?string $name = null, array $custom_config_defaults = [], ?UserInterface $ui = null, $private_key = null)
 	{
 		parent::__construct([], $private_key);
-		$this->name = $name;
+		$this->name = $name ?? static::getDefaultName();
 		$this->custom_config_defaults = $custom_config_defaults;
 		$this->spawn_position = new Point3D(0, 16, 0);
 		$this->ui = $ui ?? new PlainUserInterface($name);
@@ -357,6 +357,11 @@ class IntegratedServer extends Server
 		};
 	}
 
+	static function getDefaultName(): string
+	{
+		return "Phpcraft Integrated Server";
+	}
+
 	/**
 	 * @return void
 	 */
@@ -495,11 +500,11 @@ class IntegratedServer extends Server
 	/**
 	 * Starts the integrated server using $argv.
 	 *
-	 * @param string $name
+	 * @param string|null $name
 	 * @param array $custom_config_defaults
 	 * @return IntegratedServer
 	 */
-	static function cliStart(string $name = "Phpcraft Integrated Server", array $custom_config_defaults = []): IntegratedServer
+	static function cliStart(?string $name = null, array $custom_config_defaults = []): IntegratedServer
 	{
 		global $argv;
 		$options = [
@@ -530,13 +535,13 @@ class IntegratedServer extends Server
 	/**
 	 * Starts the integrated server using the given settings.
 	 *
-	 * @param string $name
+	 * @param string|null $name
 	 * @param bool $offline
 	 * @param bool $plain
 	 * @param array $custom_config_defaults
 	 * @return IntegratedServer
 	 */
-	static function start(string $name = "Phpcraft Integrated Server", bool $offline = false, bool $plain = false, array $custom_config_defaults = []): IntegratedServer
+	static function start(?string $name = null, bool $offline = false, bool $plain = false, array $custom_config_defaults = []): IntegratedServer
 	{
 		try
 		{
