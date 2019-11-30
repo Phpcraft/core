@@ -14,7 +14,7 @@ class PlainUserInterface extends UserInterface
 	function __construct($title = null)
 	{
 		parent::__construct($title);
-		stdin::init();
+		stdin::init(null, false);
 		if(Phpcraft::isWindows() && version_compare(PHP_VERSION, "7.2.0", ">=") && php_uname("r") == "10.0" && explode(" ", php_uname("v"))[1] >= 10586)
 		{
 			sapi_windows_vt100_support(STDOUT, true);

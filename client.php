@@ -94,7 +94,7 @@ else
 }
 $translations = json_decode(file_get_contents($am->downloadAsset("minecraft/lang/".strtolower($options["lang"]).".json")), true);
 $online = false;
-stdin::init();
+stdin::init(null, false);
 if(isset($options["online"]) && $options["online"] === true)
 {
 	$online = true;

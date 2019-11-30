@@ -11,7 +11,7 @@ use Phpcraft\
 use pas\
 {pas, stdin};
 echo "Would you like to provide a Mojang/Minecraft account to be possesed? [y/N] ";
-stdin::init();
+stdin::init(null, false);
 if(stdin::getNextLine() == "y")
 {
 	$account = Account::cliLogin();

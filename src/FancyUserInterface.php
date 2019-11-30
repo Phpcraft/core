@@ -32,7 +32,7 @@ class FancyUserInterface extends UserInterface
 		parent::__construct($title);
 		if(Phpcraft::isWindows())
 		{
-			stdin::init();
+			stdin::init(null, false);
 			if(version_compare(PHP_VERSION, "7.2.0", "<") || php_uname("r") != "10.0" || explode(" ", php_uname("v"))[1] < 10586)
 			{
 				throw new RuntimeException("For PHP <7.2.0 and Windows <10.0.10586, use the PlainUserInterface.");

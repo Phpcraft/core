@@ -44,7 +44,7 @@ class Account
 	static function cliLogin(): Account
 	{
 		$profiles = Phpcraft::getProfiles();
-		stdin::init();
+		stdin::init(null, false);
 		if(empty($profiles["authenticationDatabase"]))
 		{
 			$sel = 1;
