@@ -95,8 +95,8 @@ Collaboration diagram for Phpcraft\PlainUserInterface:</div>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:abfa288cabbeeab8abc927d5d73d6384e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1PlainUserInterface.html#abfa288cabbeeab8abc927d5d73d6384e">__construct</a> ($title=null)</td></tr>
 <tr class="separator:abfa288cabbeeab8abc927d5d73d6384e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aba3b48a12123eb86d46eeaefd2072329"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1PlainUserInterface.html#aba3b48a12123eb86d46eeaefd2072329">render</a> (bool $accept_input=false)</td></tr>
-<tr class="separator:aba3b48a12123eb86d46eeaefd2072329"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5dc28f0d21d3af22425b675b4b11b9a8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1PlainUserInterface.html#a5dc28f0d21d3af22425b675b4b11b9a8">render</a> ()</td></tr>
+<tr class="separator:a5dc28f0d21d3af22425b675b4b11b9a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab595bb429496c044cad24d32902ced4e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1PlainUserInterface.html#ab595bb429496c044cad24d32902ced4e">append</a> (string $message)</td></tr>
 <tr class="separator:ab595bb429496c044cad24d32902ced4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a084f718094191d03675d7bc1177bbca1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1PlainUserInterface.html#a084f718094191d03675d7bc1177bbca1">add</a> (string $message)</td></tr>
@@ -120,7 +120,7 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Note that from this point forward, STDIN is in the hands of pai, if it wasn't already.</p>
+<p>Note that from this point forward, STDIN is in the hands of pas, if it wasn't already, so make sure to register a "stdin_line" event handler with pas if you'd like input to work.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramtype">string&#160;|&#160;null</td><td class="paramname">$title</td><td>The title that the terminal window will be given or null. </td></tr>
@@ -189,8 +189,8 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="aba3b48a12123eb86d46eeaefd2072329"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aba3b48a12123eb86d46eeaefd2072329">&#9670;&nbsp;</a></span>render()</h2>
+<a id="a5dc28f0d21d3af22425b675b4b11b9a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5dc28f0d21d3af22425b675b4b11b9a8">&#9670;&nbsp;</a></span>render()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -198,22 +198,14 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">Phpcraft\PlainUserInterface::render </td>
           <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>$accept_input</em> = <code>false</code></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Renders the UI.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramtype">boolean</td><td class="paramname">$accept_input</td><td>Set to true if you are looking for a return value. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>string|null If $accept_input is true and the user has submitted a line, the return will be that line. Otherwise, it will be null. </dd></dl>
+<p>Does nothing. Only available in accordance with <a class="el" href="classPhpcraft_1_1UserInterface.html">UserInterface</a>. </p>
 
-<p>Reimplemented from <a class="el" href="classPhpcraft_1_1UserInterface.html#ad80d10131ece8fa438e4bf526faf6234">Phpcraft\UserInterface</a>.</p>
+<p>Reimplemented from <a class="el" href="classPhpcraft_1_1UserInterface.html#a91cc34ec32bcfb13206453775e2dfbcf">Phpcraft\UserInterface</a>.</p>
 
 </div>
 </div>

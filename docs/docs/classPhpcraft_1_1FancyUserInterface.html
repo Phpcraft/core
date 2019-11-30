@@ -100,10 +100,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a5cb50630d98c46db3375686da363425c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5b4bce4c7bac96006b8c702616558ce8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1FancyUserInterface.html#a5b4bce4c7bac96006b8c702616558ce8">setInputPrefix</a> (string $input_prefix)</td></tr>
 <tr class="separator:a5b4bce4c7bac96006b8c702616558ce8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab6d368b51fe4926498a1a8b97e7603ae"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1FancyUserInterface.html#ab6d368b51fe4926498a1a8b97e7603ae">__destruct</a> ()</td></tr>
-<tr class="separator:ab6d368b51fe4926498a1a8b97e7603ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a743f30aeb5d1007ace49a0c8dfbf0946"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1FancyUserInterface.html#a743f30aeb5d1007ace49a0c8dfbf0946">render</a> (bool $accept_input=false)</td></tr>
-<tr class="separator:a743f30aeb5d1007ace49a0c8dfbf0946"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a411d4761167c8047393f950c78428f34"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1FancyUserInterface.html#a411d4761167c8047393f950c78428f34">render</a> ()</td></tr>
+<tr class="separator:a411d4761167c8047393f950c78428f34"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a309cf86aeed7dc28ca7c8f0acc788a45"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1FancyUserInterface.html#a309cf86aeed7dc28ca7c8f0acc788a45">append</a> (string $appendix)</td></tr>
 <tr class="separator:a309cf86aeed7dc28ca7c8f0acc788a45"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classPhpcraft_1_1UserInterface"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classPhpcraft_1_1UserInterface')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classPhpcraft_1_1UserInterface.html">Phpcraft\UserInterface</a></td></tr>
@@ -131,30 +129,13 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Note that from this point forward, STDIN and STDOUT are in the hands of the UI until it is destructed. For PHP &lt;7.2.0 and Windows &lt;10.0.10586, use the <a class="el" href="classPhpcraft_1_1PlainUserInterface.html">PlainUserInterface</a>.</p>
+<p>Note that from this point forward, STDIN and STDOUT are in the hands of the UI with no way out. Make sure to register a "stdin_line" event handler with pas if you'd like input to work. A render loop will be registered with pas, but you may still call ::render if you need immediate rendering. For PHP &lt;7.2.0 and Windows &lt;10.0.10586, use the <a class="el" href="classPhpcraft_1_1PlainUserInterface.html">PlainUserInterface</a>.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramtype">string</td><td class="paramname">$title</td><td>The title that the terminal window will be given. </td></tr>
   </table>
   </dd>
 </dl>
-
-</div>
-</div>
-<a id="ab6d368b51fe4926498a1a8b97e7603ae"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab6d368b51fe4926498a1a8b97e7603ae">&#9670;&nbsp;</a></span>__destruct()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">Phpcraft\FancyUserInterface::__destruct </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
 
 </div>
 </div>
@@ -215,8 +196,8 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a743f30aeb5d1007ace49a0c8dfbf0946"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a743f30aeb5d1007ace49a0c8dfbf0946">&#9670;&nbsp;</a></span>render()</h2>
+<a id="a411d4761167c8047393f950c78428f34"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a411d4761167c8047393f950c78428f34">&#9670;&nbsp;</a></span>render()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -224,22 +205,14 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="memname">Phpcraft\FancyUserInterface::render </td>
           <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>$accept_input</em> = <code>false</code></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Renders the UI.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramtype">boolean</td><td class="paramname">$accept_input</td><td>Set to true if you are looking for a return value. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>string|null If $accept_input is true and the user has submitted a line, the return will be that line. Otherwise, it will be null. </dd></dl>
+<p>Renders the UI immediately. </p>
 
-<p>Reimplemented from <a class="el" href="classPhpcraft_1_1UserInterface.html#ad80d10131ece8fa438e4bf526faf6234">Phpcraft\UserInterface</a>.</p>
+<p>Reimplemented from <a class="el" href="classPhpcraft_1_1UserInterface.html#a91cc34ec32bcfb13206453775e2dfbcf">Phpcraft\UserInterface</a>.</p>
 
 </div>
 </div>
