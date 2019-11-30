@@ -6,6 +6,7 @@ use GMP;
 use hellsh\UUID;
 use Phpcraft\
 {Command\ServerCommandSender, Entity\Player, Enum\ChatPosition, Enum\Gamemode, Exception\IOException, Packet\ClientboundAbilitiesPacket, Packet\ClientboundPacketId};
+use pas\pas;
 /** A server-to-client connection. */
 class ClientConnection extends Connection implements ServerCommandSender
 {
@@ -156,8 +157,6 @@ class ClientConnection extends Connection implements ServerCommandSender
 	 * @see ClientConnection::sendAbilities
 	 */
 	public $walk_speed = 0.1;
-	private $ch;
-	private $mh;
 
 	/**
 	 * After this, you should call ClientConnection::handleInitialPacket().
@@ -317,13 +316,26 @@ class ClientConnection extends Connection implements ServerCommandSender
 	/**
 	 * Reads an encryption response packet and starts asynchronous authentication with Mojang.
 	 * This requires ClientConnection::$username to be set.
-	 * In case of an error, the client is disconnected and false is returned. Otherwise, true is returned, and ClientConnection::handleAuthentication should be regularly called to finish the authentication.
+	 * In case of an error, the client is disconnected and false is returned.
+	 * Should the authentication with Mojang finish successfully, the callback is called with an array like this as argument:
+	 * <pre>[
+	 *   "id" => "11111111222233334444555555555555",
+	 *   "name" => "Notch",
+	 *   "properties" => [
+	 *     [
+	 *       "name" => "textures",
+	 *       "value" => "<base64 string>",
+	 *       "signature" => "<base64 string; signed data using Yggdrasil's private key>"
+	 *     ]
+	 *   ]
+	 * ]</pre>
 	 *
 	 * @param resource $private_key Your OpenSSL private key resource.
+	 * @param callable $callback
 	 * @return boolean
 	 * @throws IOException
 	 */
-	function handleEncryptionResponse($private_key): bool
+	function handleEncryptionResponse($private_key, callable $callback): bool
 	{
 		openssl_private_decrypt($this->readString(), $shared_secret, $private_key, OPENSSL_PKCS1_PADDING);
 		openssl_private_decrypt($this->readString(), $verify_token, $private_key, OPENSSL_PKCS1_PADDING);
@@ -339,66 +351,23 @@ class ClientConnection extends Connection implements ServerCommandSender
 		];
 		stream_filter_append($this->stream, "mcrypt.rijndael-128", STREAM_FILTER_WRITE, $opts);
 		stream_filter_append($this->stream, "mdecrypt.rijndael-128", STREAM_FILTER_READ, $opts);
-		$this->ch = curl_init("https://sessionserver.mojang.com/session/minecraft/hasJoined?username=".$this->username."&serverId=".Phpcraft::sha1($shared_secret.base64_decode(trim(substr(openssl_pkey_get_details($private_key)["key"], 26, -24))))."&ip=".$this->getRemoteAddress());
-		curl_setopt($this->ch, CURLOPT_RETURNTRANSFER, true);
+		$ch = curl_init("https://sessionserver.mojang.com/session/minecraft/hasJoined?username=".$this->username."&serverId=".Phpcraft::sha1($shared_secret.base64_decode(trim(substr(openssl_pkey_get_details($private_key)["key"], 26, -24))))."&ip=".$this->getRemoteAddress());
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		if(Phpcraft::isWindows())
 		{
-			curl_setopt($this->ch, CURLOPT_CAINFO, __DIR__."/cacert.pem");
+			curl_setopt($ch, CURLOPT_CAINFO, __DIR__."/cacert.pem");
 		}
-		$this->mh = curl_multi_init();
-		curl_multi_add_handle($this->mh, $this->ch);
+		pas::curl_exec($ch, function($res) use (&$ch, &$callback)
+		{
+			curl_close($ch);
+			$json = json_decode($res, true);
+			if(!$json || empty($json["id"]) || @$json["name"] !== $this->username)
+			{
+				$this->disconnect(["text" => "Failed to authenticate against session server."]);
+			}
+			$callback($json);
+		});
 		return true;
-	}
-
-	/**
-	 * Returns true if an asynchronous authentication with Mojang is still pending.
-	 *
-	 * @return boolean
-	 * @see ClientConnection::handleAuthentication
-	 */
-	function isAuthenticationPending(): bool
-	{
-		return $this->mh !== null;
-	}
-
-	/**
-	 * Checks if the asynchronous authentication with Mojang has finished.
-	 * In case of an error, the client is disconnected and 0 is returned.
-	 * If Mojang's response was not yet received, 1 is returned.
-	 * If Mojang's response was received and the authentication was successful, an array such as this is returned:
-	 * <pre>[
-	 *   "id" => "11111111222233334444555555555555",
-	 *   "name" => "Notch",
-	 *   "properties" => [
-	 *     [
-	 *       "name" => "textures",
-	 *       "value" => "<base64 string>",
-	 *       "signature" => "<base64 string; signed data using Yggdrasil's private key>"
-	 *     ]
-	 *   ]
-	 * ]</pre>
-	 *
-	 * @return int|array
-	 * @see ClientConnection::isAuthenticationPending
-	 */
-	function handleAuthentication()
-	{
-		$active = 0;
-		curl_multi_exec($this->mh, $active);
-		if($active > 0)
-		{
-			return 1;
-		}
-		$json = json_decode(curl_multi_getcontent($this->ch), true);
-		curl_multi_remove_handle($this->mh, $this->ch);
-		curl_multi_close($this->mh);
-		curl_close($this->ch);
-		if(!$json || empty($json["id"]) || @$json["name"] !== $this->username)
-		{
-			$this->disconnect(["text" => "Failed to authenticate against session server."]);
-			return 0;
-		}
-		return $json;
 	}
 
 	/**

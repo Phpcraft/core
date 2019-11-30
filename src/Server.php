@@ -347,7 +347,24 @@ class Server implements ServerCommandSender
 								else if($packet_id == 0x01 && isset($con->username)) // Encryption Response
 								{
 									$con->disconnect_after = 0;
-									$con->handleEncryptionResponse($this->private_key);
+									$con->handleEncryptionResponse($this->private_key, function(array $res) use (&$con)
+									{
+										Phpcraft::$user_cache->set($res["id"], $con->username);
+										$con->finishLogin(new UUID($res["id"]), $this->eidCounter, $this->compression_threshold);
+										foreach($this->clients as $client)
+										{
+											if($client !== $con && $client->state == Connection::STATE_PLAY && $client->username == $con->username)
+											{
+												$client->disconnect(["text" => "You've logged in from a different location."]);
+												$this->handle(false); // Properly dispose of $client before continuing with a new connection using the same identity to avoid issues.
+											}
+										}
+										if($this->join_function)
+										{
+											($this->join_function)($con);
+										}
+										$con->next_heartbeat = microtime(true) + 15;
+									});
 								}
 								else
 								{
@@ -403,28 +420,6 @@ class Server implements ServerCommandSender
 						(new KeepAliveRequestPacket(time()))->send($con);
 						$con->next_heartbeat = 0;
 						$con->disconnect_after = microtime(true) + 30;
-					}
-					if($con->state == Connection::STATE_LOGIN && $con->isAuthenticationPending())
-					{
-						$res = $con->handleAuthentication();
-						if(is_array($res))
-						{
-							Phpcraft::$user_cache->set($res["id"], $con->username);
-							$con->finishLogin(new UUID($res["id"]), $this->eidCounter, $this->compression_threshold);
-							foreach($this->clients as $client)
-							{
-								if($client !== $con && $client->state == Connection::STATE_PLAY && $client->username == $con->username)
-								{
-									$client->disconnect(["text" => "You've logged in from a different location."]);
-									$this->handle(false); // Properly dispose of $client before continuing with a new connection using the same identity to avoid issues.
-								}
-							}
-							if($this->join_function)
-							{
-								($this->join_function)($con);
-							}
-							$con->next_heartbeat = microtime(true) + 15;
-						}
 					}
 				}
 				catch(Exception $e)
