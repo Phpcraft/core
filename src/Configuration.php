@@ -11,11 +11,11 @@ class Configuration implements Iterator, Countable, ArrayAccess
 	 * @var SplObjectStorage $save_queue
 	 */
 	static $save_queue;
+	private static $registered_loop = false;
 	public $file;
 	public $data;
 	public $unsaved_changes = false;
 	private $current = 0;
-	private static $registered_loop = false;
 
 	function __construct($file = null, $default_data = null)
 	{

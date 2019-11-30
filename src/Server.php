@@ -159,35 +159,6 @@ class Server implements ServerCommandSender
 	}
 
 	/**
-	 * @param array<string,array<string,string|array<string>>> $groups
-	 * @return Server
-	 */
-	function setGroups(array $groups): Server
-	{
-		$this->groups = [];
-		foreach($groups as $name => $data)
-		{
-			$this->groups[$name] = new Group($this, $data);
-		}
-		if(!array_key_exists("default", $this->groups))
-		{
-			$this->groups["default"] = new Group($this, []);
-		}
-		return $this;
-	}
-
-	/**
-	 * Returns the group with the given name or null if not found.
-	 *
-	 * @param string $name
-	 * @return Group|null
-	 */
-	function getGroup(string $name): ?Group
-	{
-		return @$this->groups[$name];
-	}
-
-	/**
 	 * Returns true if the server has at least one socket to listen for new connections on or at least one client.
 	 *
 	 * @return bool
@@ -195,43 +166,6 @@ class Server implements ServerCommandSender
 	function isOpen(): bool
 	{
 		return count($this->streams) > 0 || count($this->clients) > 0;
-	}
-
-	/**
-	 * Returns true if the server has at least one socket to listen for new connections.
-	 *
-	 * @return bool
-	 */
-	function isListening(): bool
-	{
-		return count($this->streams) > 0;
-	}
-
-	/**
-	 * Returns the ports the server is listening on.
-	 *
-	 * @return array<int>
-	 */
-	function getPorts(): array
-	{
-		$ports = [];
-		foreach($this->streams as $stream)
-		{
-			$name = stream_socket_get_name($stream, false);
-			array_push($ports, intval(substr($name, strpos($name, ":", -6) + 1)));
-		}
-		return $ports;
-	}
-
-	/**
-	 * Returns the "description" key from $this->list_ping_function's return array.
-	 *
-	 * @return array|string
-	 * @see Server::$list_ping_function
-	 */
-	function getMotd()
-	{
-		return ($this->list_ping_function)()["description"];
 	}
 
 	private function handle(bool $full): void
@@ -445,6 +379,72 @@ class Server implements ServerCommandSender
 				}
 			}
 		}
+	}
+
+	/**
+	 * @param array<string,array<string,string|array<string>>> $groups
+	 * @return Server
+	 */
+	function setGroups(array $groups): Server
+	{
+		$this->groups = [];
+		foreach($groups as $name => $data)
+		{
+			$this->groups[$name] = new Group($this, $data);
+		}
+		if(!array_key_exists("default", $this->groups))
+		{
+			$this->groups["default"] = new Group($this, []);
+		}
+		return $this;
+	}
+
+	/**
+	 * Returns the group with the given name or null if not found.
+	 *
+	 * @param string $name
+	 * @return Group|null
+	 */
+	function getGroup(string $name): ?Group
+	{
+		return @$this->groups[$name];
+	}
+
+	/**
+	 * Returns true if the server has at least one socket to listen for new connections.
+	 *
+	 * @return bool
+	 */
+	function isListening(): bool
+	{
+		return count($this->streams) > 0;
+	}
+
+	/**
+	 * Returns the ports the server is listening on.
+	 *
+	 * @return array<int>
+	 */
+	function getPorts(): array
+	{
+		$ports = [];
+		foreach($this->streams as $stream)
+		{
+			$name = stream_socket_get_name($stream, false);
+			array_push($ports, intval(substr($name, strpos($name, ":", -6) + 1)));
+		}
+		return $ports;
+	}
+
+	/**
+	 * Returns the "description" key from $this->list_ping_function's return array.
+	 *
+	 * @return array|string
+	 * @see Server::$list_ping_function
+	 */
+	function getMotd()
+	{
+		return ($this->list_ping_function)()["description"];
 	}
 
 	/**

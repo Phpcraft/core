@@ -1,6 +1,7 @@
 <?php /** @noinspection PhpComposerExtensionStubsInspection */
 namespace Phpcraft;
-use pas\{pas, stdin};
+use pas\
+{pas, stdin};
 use RuntimeException;
 class FancyUserInterface extends UserInterface
 {
@@ -82,23 +83,6 @@ class FancyUserInterface extends UserInterface
 	{
 		array_push($this->chat_log, $message);
 		return $this;
-	}
-
-	/**
-	 * Sets the string displayed before the user's input
-	 *
-	 * @param string $input_prefix
-	 * @return void
-	 */
-	function setInputPrefix(string $input_prefix): void
-	{
-		if($this->stdin === null)
-		{
-			ob_end_flush();
-			echo "\e[".strlen($input_prefix)."C";
-			$this->ob_start();
-		}
-		$this->input_prefix = $input_prefix;
 	}
 
 	/**
@@ -392,6 +376,23 @@ class FancyUserInterface extends UserInterface
 			$this->chat_log = array_slice($this->chat_log, 1);
 		}
 		$this->ob_start();
+	}
+
+	/**
+	 * Sets the string displayed before the user's input
+	 *
+	 * @param string $input_prefix
+	 * @return void
+	 */
+	function setInputPrefix(string $input_prefix): void
+	{
+		if($this->stdin === null)
+		{
+			ob_end_flush();
+			echo "\e[".strlen($input_prefix)."C";
+			$this->ob_start();
+		}
+		$this->input_prefix = $input_prefix;
 	}
 
 	/**
