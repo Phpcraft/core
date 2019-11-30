@@ -97,7 +97,6 @@ class Command
 						$type_name = ($type instanceof ReflectionNamedType ? $type->getName() : $type->__toString());
 						if(array_key_exists($type_name, self::$argument_providers))
 						{
-							/** @noinspection PhpDeprecationInspection */
 							trigger_error($class." provides {$type_name} which is already provided by ".self::$argument_providers[$type]);
 						}
 						else
@@ -114,7 +113,7 @@ class Command
 				$type = $param->getType();
 				if($type !== null)
 				{
-					/** @noinspection PhpDeprecationInspection */
+					/** @noinspection PhpUndefinedMethodInspection */
 					$type_name = ($type instanceof ReflectionNamedType ? $type->getName() : $type->__toString());
 					if(!array_key_exists($type_name, self::$argument_providers))
 					{
@@ -218,7 +217,7 @@ class Command
 	 */
 	function call(CommandSender &$sender, array $args): void
 	{
-		if($this->required_sender_class !== null && ((get_class($sender) != $this->required_sender_class && $this->required_sender_class != ServerCommandSender::class) || ($this->required_sender_class == ServerCommandSender::class && !is_subclass_of(get_class($sender), ServerCommandSender::class))))
+		if($this->required_sender_class !== null && get_class($sender) != $this->required_sender_class && !is_subclass_of(get_class($sender), ServerCommandSender::class))
 		{
 			if($this->required_sender_class == ServerCommandSender::class)
 			{
