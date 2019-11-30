@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['joingamepacket_730',['JoinGamePacket',['../classPhpcraft_1_1Packet_1_1JoinGamePacket.html',1,'Phpcraft::Packet']]]
+  ['joingamepacket_728',['JoinGamePacket',['../classPhpcraft_1_1Packet_1_1JoinGamePacket.html',1,'Phpcraft::Packet']]]
 ];

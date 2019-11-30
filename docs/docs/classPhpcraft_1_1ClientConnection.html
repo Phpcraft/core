@@ -110,12 +110,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a0bc689bdd17c4aa9eba4721423645a74"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a46c17ecc49a8c218ed013f26ba947549"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#a46c17ecc49a8c218ed013f26ba947549">sendEncryptionRequest</a> ($private_key)</td></tr>
 <tr class="separator:a46c17ecc49a8c218ed013f26ba947549"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab8e7b8f299956acff9deabdcaf3aa3f0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#ab8e7b8f299956acff9deabdcaf3aa3f0">handleEncryptionResponse</a> ($private_key)</td></tr>
-<tr class="separator:ab8e7b8f299956acff9deabdcaf3aa3f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6d87e1f33d819184fcb64f08652c4afc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#a6d87e1f33d819184fcb64f08652c4afc">isAuthenticationPending</a> ()</td></tr>
-<tr class="separator:a6d87e1f33d819184fcb64f08652c4afc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1863f864d45210aa52d15c75d959a135"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#a1863f864d45210aa52d15c75d959a135">handleAuthentication</a> ()</td></tr>
-<tr class="separator:a1863f864d45210aa52d15c75d959a135"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aad8c26e22e34bc8018bb3175e6935411"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#aad8c26e22e34bc8018bb3175e6935411">handleEncryptionResponse</a> ($private_key, callable $callback)</td></tr>
+<tr class="separator:aad8c26e22e34bc8018bb3175e6935411"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a891e459081509946f485e6253c18f168"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#a891e459081509946f485e6253c18f168">finishLogin</a> (UUID $uuid, <a class="el" href="classPhpcraft_1_1Counter.html">Counter</a> $eidCounter, int $compression_threshold=256)</td></tr>
 <tr class="separator:a891e459081509946f485e6253c18f168"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7614b8e7ce2592d157114fcc5d3557ee"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#a7614b8e7ce2592d157114fcc5d3557ee">teleport</a> (<a class="el" href="classPhpcraft_1_1Point3D.html">Point3D</a> $pos, ?float $yaw=null, ?float $pitch=null)</td></tr>
@@ -571,21 +567,32 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a1863f864d45210aa52d15c75d959a135"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1863f864d45210aa52d15c75d959a135">&#9670;&nbsp;</a></span>handleAuthentication()</h2>
+<a id="aad8c26e22e34bc8018bb3175e6935411"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aad8c26e22e34bc8018bb3175e6935411">&#9670;&nbsp;</a></span>handleEncryptionResponse()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">Phpcraft\ClientConnection::handleAuthentication </td>
+          <td class="memname">Phpcraft\ClientConnection::handleEncryptionResponse </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$private_key</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">callable&#160;</td>
+          <td class="paramname"><em>$callback</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Checks if the asynchronous authentication with Mojang has finished. In case of an error, the client is disconnected and 0 is returned. If Mojang's response was not yet received, 1 is returned. If Mojang's response was received and the authentication was successful, an array such as this is returned: </p><pre>[
+<p>Reads an encryption response packet and starts asynchronous authentication with Mojang. This requires <a class="el" href="classPhpcraft_1_1ClientConnection.html#a40ca8bff0bcce3ed004e46bf4341d880">ClientConnection::$username</a> to be set. In case of an error, the client is disconnected and false is returned. Should the authentication with Mojang finish successfully, the callback is called with an array like this as argument: </p><pre>[
   "id" =&gt; "11111111222233334444555555555555",
   "name" =&gt; "Notch",
   "properties" =&gt; [
@@ -595,30 +602,10 @@ Additional Inherited Members</h2></td></tr>
       "signature" =&gt; "&lt;base64 string; signed data using Yggdrasil's private key&gt;"
     ]
   ]
-]</pre><dl class="section return"><dt>Returns</dt><dd>int|array </dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="classPhpcraft_1_1ClientConnection.html#a6d87e1f33d819184fcb64f08652c4afc">ClientConnection::isAuthenticationPending</a> </dd></dl>
-
-</div>
-</div>
-<a id="ab8e7b8f299956acff9deabdcaf3aa3f0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab8e7b8f299956acff9deabdcaf3aa3f0">&#9670;&nbsp;</a></span>handleEncryptionResponse()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">Phpcraft\ClientConnection::handleEncryptionResponse </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>$private_key</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Reads an encryption response packet and starts asynchronous authentication with Mojang. This requires <a class="el" href="classPhpcraft_1_1ClientConnection.html#a40ca8bff0bcce3ed004e46bf4341d880">ClientConnection::$username</a> to be set. In case of an error, the client is disconnected and false is returned. Otherwise, true is returned, and <a class="el" href="classPhpcraft_1_1ClientConnection.html#a1863f864d45210aa52d15c75d959a135">ClientConnection::handleAuthentication</a> should be regularly called to finish the authentication.</p>
-<dl class="params"><dt>Parameters</dt><dd>
+]</pre><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramtype">resource</td><td class="paramname">$private_key</td><td>Your OpenSSL private key resource. </td></tr>
+    <tr><td class="paramtype">callable</td><td class="paramname">$callback</td><td></td></tr>
   </table>
   </dd>
 </dl>
@@ -695,26 +682,6 @@ Additional Inherited Members</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>bool </dd></dl>
 
 <p>Implements <a class="el" href="interfacePhpcraft_1_1Command_1_1CommandSender.html#aa412560e3e2834f59f9b5a3487ec3f41">Phpcraft\Command\CommandSender</a>.</p>
-
-</div>
-</div>
-<a id="a6d87e1f33d819184fcb64f08652c4afc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6d87e1f33d819184fcb64f08652c4afc">&#9670;&nbsp;</a></span>isAuthenticationPending()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">Phpcraft\ClientConnection::isAuthenticationPending </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Returns true if an asynchronous authentication with Mojang is still pending.</p>
-<dl class="section return"><dt>Returns</dt><dd>boolean </dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="classPhpcraft_1_1ClientConnection.html#a1863f864d45210aa52d15c75d959a135">ClientConnection::handleAuthentication</a> </dd></dl>
 
 </div>
 </div>
