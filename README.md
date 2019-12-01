@@ -17,7 +17,7 @@ You'll need PHP (CLI), Composer, and Git.
 ## Table of Contents
 
 - [Using Phpcraft as a library](#using-phpcraft-as-a-library)
-- [Using the Phpcraft Client & Proxy](#using-the-phpcraft-client--proxy)
+- [Using the Phpcraft Client](#using-the-phpcraft-client)
 - [Projects using Phpcraft](#projects-using-phpcraft)
 - [Thanks](#thanks)
 
@@ -47,7 +47,7 @@ You can use modules to extend the functionality of Phpcraft:
 
 - [Realms](https://github.com/Phpcraft/realms)
 
-## Using the Phpcraft Client & Proxy
+## Using the Phpcraft client
 
 First, we'll clone the repository and generate the autoload script:
 
@@ -67,13 +67,13 @@ If any dependencies are missing, follow the instructions, and then run the self 
 
 ### That's it!
 
-You can now use `php client.php help` and `php proxy.php help` to view the usage for the client and proxy, respectively.
+Use `php client.php help` to view the usage for the client.
 
-The client has built-in commands; type `.help` in it for more information.
+It also has built-in commands; type `.help` in it for more information.
 
 ### Updating
 
-To update Phpcraft, the client, the proxy, and their dependencies:
+To update Phpcraft, the client, and their dependencies:
 
 ```Bash
 git stash
@@ -87,9 +87,10 @@ If you have made local changes, they will be saved and re-applied after the upda
 ## Projects using Phpcraft
 
 - [Phpcraft Server](https://github.com/Phpcraft/server)
-- [Phpcraft Surrogate](https://github.com/Phpcraft/surrogate) — reverse proxy
 - [Phpcraft Toolbox](https://github.com/Phpcraft/toolbox) — CLI tools
+- [Phpcraft Surrogate](https://github.com/Phpcraft/surrogate) — reverse proxy
 - [mcverify](https://github.com/timmyRS/mcverify) — a REST API for linking your users' Minecraft accounts
+- [Phpcraft Proxy](https://github.com/Phpcraft/proxy)
 
 ## Thanks
 
