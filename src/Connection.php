@@ -795,7 +795,7 @@ class Connection
 	/**
 	 * Reads a string from the read buffer.
 	 *
-	 * @param int $maxLength The maxmium amount of bytes this string may use.
+	 * @param int $maxLength The maximum amount of bytes this string may use.
 	 * @param int $minLength The minimum amount of bytes this string must use.
 	 * @return string
 	 * @throws LengthException When the string doesn't fit the length requirements.
