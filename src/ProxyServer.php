@@ -2,7 +2,7 @@
 namespace Phpcraft;
 use Exception;
 use Phpcraft\
-{Command\Command, Enum\Dimension, Enum\Gamemode, Event\ProxyConnectEvent, Event\ProxyLeaveEvent, Event\ProxyServerPacketEvent, Event\ProxyTickEvent, Event\ServerJoinEvent, Event\ServerTickEvent, Exception\IOException, Packet\ClientboundPacketId, Packet\EntityPacket, Packet\JoinGamePacket, Packet\KeepAliveRequestPacket, Packet\PluginMessage\ClientboundBrandPluginMessagePacket, Packet\ServerboundPacketId};
+{Command\Command, Enum\Dimension, Enum\Gamemode, Event\ProxyClientPacketEvent, Event\ProxyConnectEvent, Event\ProxyLeaveEvent, Event\ProxyServerPacketEvent, Event\ProxyTickEvent, Event\ServerJoinEvent, Event\ServerTickEvent, Exception\IOException, Packet\ClientboundPacketId, Packet\EntityPacket, Packet\JoinGamePacket, Packet\KeepAliveRequestPacket, Packet\PluginMessage\ClientboundBrandPluginMessagePacket, Packet\ServerboundPacketId};
 class ProxyServer extends IntegratedServer
 {
 	function __construct(?string $name = null, array $custom_config_defaults = [], ?UserInterface $ui = null, $private_key = null)
@@ -26,6 +26,10 @@ class ProxyServer extends IntegratedServer
 					if(@$con->downstream !== null && $packet_id = $con->downstream->readPacket(0))
 					{
 						$packetId = ClientboundPacketId::getById($packet_id, $con->downstream->protocol_version);
+						if(PluginManager::fire(new ProxyClientPacketEvent($this, $con, $packetId)))
+						{
+							continue;
+						}
 						if(in_array($packetId->name, [
 							"entity_animation",
 							"entity_effect",
