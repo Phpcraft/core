@@ -1,5 +1,4 @@
 .idea/
-config/
 vendor/
 src/.json_cache
 src/.user_cache
