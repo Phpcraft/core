@@ -58,7 +58,7 @@ class ChatComponent
 	/**
 	 * @var string|null $text
 	 */
-	public $text = null;
+	public $text;
 	/**
 	 * @var string|null $color
 	 */
@@ -96,6 +96,11 @@ class ChatComponent
 	 */
 	public $with = [];
 	/**
+	 * @var string|null $keybind
+	 * @since 0.4.1
+	 */
+	public $keybind = null;
+	/**
 	 * Text to be inserted into the client's chat box when they shift-click the ChatComponent.
 	 *
 	 * @var string|null $insertion
@@ -106,20 +111,16 @@ class ChatComponent
 	 */
 	public $click_event = null;
 
-	function __construct(?string $text = null)
+	private function __construct(?string $text)
 	{
-		if($text !== null)
-		{
-			self::convertFromText($this, $text, false);
-		}
+		$this->text = $text;
 	}
 
-	private static function convertFromText(ChatComponent &$chat, string &$text, bool $allow_amp): void
+	private static function fromText(string &$text, bool $allow_amp): ChatComponent
 	{
 		if(strpos($text, "§") === false && (!$allow_amp || strpos($text, "&") === false))
 		{
-			$chat->text = $text;
-			return;
+			return new ChatComponent($text);
 		}
 		$components = [
 			new ChatComponent("")
@@ -198,6 +199,7 @@ class ChatComponent
 				$chat->extra = array_slice($components, 1);
 			}
 		}
+		return $chat;
 	}
 
 	/**
@@ -226,6 +228,20 @@ class ChatComponent
 	}
 
 	/**
+	 * Instantiates a blank ChatComponent that only serves to contain other ChatComponent instances.
+	 *
+	 * @param $children ChatComponent[]
+	 * @return ChatComponent
+	 * @since 0.4.1
+	 */
+	static function container(ChatComponent... $children): ChatComponent
+	{
+		$chat = new ChatComponent(null);
+		$chat->extra = $children;
+		return $chat;
+	}
+
+	/**
 	 * Instantiates a ChatComponent with the given text.
 	 * If the text has § format codes, they will be applied to the ChatComponent.
 	 *
@@ -235,9 +251,7 @@ class ChatComponent
 	 */
 	static function text(string $text, bool $allow_amp = false): ChatComponent
 	{
-		$chat = new ChatComponent();
-		self::convertFromText($chat, $text, $allow_amp);
-		return $chat;
+		return self::fromText($text, $allow_amp);
 	}
 
 	/**
@@ -249,12 +263,26 @@ class ChatComponent
 	 */
 	static function translate(string $key, array $with = []): ChatComponent
 	{
-		$chat = new ChatComponent();
+		$chat = new ChatComponent(null);
 		$chat->translate = $key;
 		foreach($with as $extra)
 		{
 			array_push($chat->with, ChatComponent::cast($extra));
 		}
+		return $chat;
+	}
+
+	/**
+	 * Initiates a "keybind" ChatComponent.
+	 *
+	 * @param string $name The name of the key, named after the value in the options.txt, e.g. "key_key.forward" in options.txt would mean "key.forward" here, and "w" would be displayed.
+	 * @return ChatComponent
+	 * @since 0.4.1
+	 */
+	static function keybind(string $name): ChatComponent
+	{
+		$chat = new ChatComponent(null);
+		$chat->keybind = $name;
 		return $chat;
 	}
 
@@ -272,7 +300,7 @@ class ChatComponent
 		}
 		else if(is_string($value) || $value === null)
 		{
-			return new ChatComponent($value);
+			return self::fromText($value, false);
 		}
 		else if(is_object($value))
 		{
@@ -290,9 +318,9 @@ class ChatComponent
 
 	static function fromArray(array $array): ChatComponent
 	{
-		$chat = new ChatComponent();
-		$chat->text = @$array["text"];
+		$chat = new ChatComponent(@$array["text"]);
 		$chat->translate = @$array["translate"];
+		$chat->keybind = @$array["keybind"];
 		$chat->insertion = @$array["insertion"];
 		$chat->color = @$array["color"];
 		foreach(self::$attributes as $attribute)
@@ -309,7 +337,7 @@ class ChatComponent
 				array_push($chat->extra, self::fromArray($extra));
 			}
 		}
-		else if(@$array["with"])
+		if(@$array["with"])
 		{
 			foreach($array["with"] as $extra)
 			{
@@ -359,15 +387,27 @@ class ChatComponent
 			{
 				throw new RuntimeException("ChatComponent can't have text and translate");
 			}
+			if($this->keybind !== null)
+			{
+				throw new RuntimeException("ChatComponent can't have text and keybind");
+			}
 			$chat["text"] = $this->text;
 		}
 		else if($this->translate !== null)
 		{
+			if($this->keybind !== null)
+			{
+				throw new RuntimeException("ChatComponent can't have translate and keybind");
+			}
 			$chat["translate"] = $this->translate;
 		}
-		else
+		else if($this->keybind !== null)
 		{
-			throw new RuntimeException("ChatComponent needs to have either text or translate");
+			$chat["keybind"] = $this->keybind;
+		}
+		else if(!$this->extra)
+		{
+			throw new RuntimeException("ChatComponent needs to have either text, translate, keybind, or extra");
 		}
 		if($this->color !== null)
 		{
@@ -554,6 +594,10 @@ class ChatComponent
 			{
 				$text .= $chat["translate"];
 			}
+		}
+		else if(@$chat["keybind"] !== null)
+		{
+			$text .= $chat["keybind"];
 		}
 		else
 		{
