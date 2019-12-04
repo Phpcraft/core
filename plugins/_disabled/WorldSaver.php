@@ -12,7 +12,6 @@ $this->on(function(ClientJoinEvent $event)
 	if($fh === false)
 	{
 		echo "[WorldSaver] Failed to open world.bin.\n";
-		/** @noinspection Annotator */
 		$this->unregister();
 		return;
 	}

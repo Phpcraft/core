@@ -113,7 +113,6 @@ class Command
 				$type = $param->getType();
 				if($type !== null)
 				{
-					/** @noinspection PhpUndefinedMethodInspection */
 					$type_name = ($type instanceof ReflectionNamedType ? $type->getName() : $type->__toString());
 					if(!array_key_exists($type_name, self::$argument_providers))
 					{

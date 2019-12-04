@@ -251,14 +251,14 @@ class ClientConnection extends Connection implements ServerCommandSender
 	}
 
 	/**
-	 * Disconnects the client with a reason.
+	 * Disconnects the client with an optional reason.
 	 *
-	 * @param array|string $reason The reason of the disconnect; chat object.
+	 * @param array|string|null|ChatComponent $reason The reason for the disconnect.
 	 * @return void
 	 */
-	function disconnect($reason = []): void
+	function disconnect($reason = null): void
 	{
-		if($reason && ($this->state == self::STATE_PLAY || $this->state == self::STATE_LOGIN))
+		if($this->state == self::STATE_PLAY || $this->state == self::STATE_LOGIN)
 		{
 			try
 			{
@@ -270,7 +270,7 @@ class ClientConnection extends Connection implements ServerCommandSender
 				{
 					$this->write_buffer = Connection::varInt(0x00);
 				}
-				$this->writeChat($reason);
+				$this->writeChat(ChatComponent::cast($reason));
 				$this->send();
 			}
 			catch(IOException $ignored)
@@ -381,7 +381,7 @@ class ClientConnection extends Connection implements ServerCommandSender
 			$json = json_decode($res, true);
 			if(!$json || empty($json["id"]) || @$json["name"] !== $this->username)
 			{
-				$this->disconnect(["text" => "Failed to authenticate against session server."]);
+				$this->disconnect("Failed to authenticate against the session server.");
 			}
 			$callback($json);
 		});
@@ -520,30 +520,16 @@ class ClientConnection extends Connection implements ServerCommandSender
 	/**
 	 * Sends a message to the client and "[{$this-&gt;username}: $message]" to the server console and players with the given permission.
 	 *
-	 * @param array|string $message
+	 * @param array|string|null|ChatComponent $message
 	 * @param string $permission
 	 * @return void
 	 * @throws IOException
 	 */
 	function sendAdminBroadcast($message, string $permission = "everything"): void
 	{
-		if(!is_array($message))
-		{
-			$message = Phpcraft::textToChat($message);
-		}
 		$this->sendMessage($message);
-		$message = [
-			"color" => "gray",
-			"text" => "[{$this->username}: ",
-			"extra" => [
-				$message,
-				[
-					"color" => "gray",
-					"text" => "]"
-				]
-			]
-		];
-		echo Phpcraft::chatToText($message, Phpcraft::FORMAT_ANSI)."\n";
+		$message = ChatComponent::text("[{$this->username}: ")->gray()->add($message)->add("]");
+		echo $message->toString(ChatComponent::FORMAT_ANSI)."\n";
 		foreach($this->getServer()->clients as $con)
 		{
 			assert($con instanceof ClientConnection);
@@ -561,21 +547,17 @@ class ClientConnection extends Connection implements ServerCommandSender
 	}
 
 	/**
-	 * Sends the client a chat message.
+	 * Sends a chat message to the client.
 	 *
-	 * @param array|string $message
+	 * @param array|string|null|ChatComponent $message
 	 * @param int $position
 	 * @return void
 	 * @throws IOException
 	 */
 	function sendMessage($message, int $position = ChatPosition::SYSTEM): void
 	{
-		if(!is_array($message))
-		{
-			$message = Phpcraft::textToChat((string) $message);
-		}
 		$this->startPacket("clientbound_chat_message");
-		$this->writeString(json_encode($message));
+		$this->writeChat(ChatComponent::cast($message));
 		$this->writeByte($position);
 		$this->send();
 	}

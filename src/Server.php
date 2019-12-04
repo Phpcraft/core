@@ -90,6 +90,7 @@ class Server implements ServerCommandSender
 	public $deny_incompatible_versions = true;
 	/**
 	 * @var Condition $open_condition
+	 * @since 0.2.1
 	 */
 	public $open_condition;
 	protected $tick_loop;
@@ -196,7 +197,7 @@ class Server implements ServerCommandSender
 							case 1:
 								if($this->deny_incompatible_versions && !Versions::protocolSupported($con->protocol_version))
 								{
-									$con->disconnect(["text" => "You're using an incompatible version."]);
+									$con->disconnect("You're using an incompatible version.");
 								}
 								else
 								{
@@ -217,7 +218,7 @@ class Server implements ServerCommandSender
 								{
 									$json["players"]["max"] = 0;
 								}
-								$data = "§1\x00127\x00".@$json["version"]["name"]."\x00".Phpcraft::chatToText(@$json["description"], 2)."\x00".$json["players"]["online"]."\x00".$json["players"]["max"];
+								$data = "§1\x00127\x00".@$json["version"]["name"]."\x00".ChatComponent::fromArray($json["description"])->toString(ChatComponent::FORMAT_SILCROW)."\x00".$json["players"]["online"]."\x00".$json["players"]["max"];
 								$con->writeByte(0xFF);
 								$con->writeShort(mb_strlen($data));
 								$con->writeRaw(mb_convert_encoding($data, "utf-16be"));
@@ -342,16 +343,12 @@ class Server implements ServerCommandSender
 					}
 					if($con->disconnect_after != 0 && $con->disconnect_after <= microtime(true))
 					{
-						$con->disconnect([
-							"text" => "Keep alive timeout"
-						]);
+						$con->disconnect("Keep alive timeout");
 						continue;
 					}
 					if($con->tp_confirm_deadline != 0 && $con->tp_confirm_deadline <= microtime(true))
 					{
-						$con->disconnect([
-							"text" => "Teleportation confirmation timeout"
-						]);
+						$con->disconnect("Teleportation confirmation timeout");
 						continue;
 					}
 					if($con->next_heartbeat != 0 && $con->next_heartbeat <= microtime(true))
@@ -458,26 +455,27 @@ class Server implements ServerCommandSender
 	}
 
 	/**
-	 * Sends a message to all players (clients in playing state) and prints it to the console.
+	 * Sends a message to all players and prints it to the console.
 	 *
-	 * @param array|string $message
+	 * @param array|string|null|ChatComponent $msg
 	 * @param int $position
 	 * @return Server $this
 	 */
-	function broadcast($message, int $position = ChatPosition::SYSTEM): Server
+	function broadcast($msg, int $position = ChatPosition::SYSTEM): Server
 	{
-		if(!is_array($message))
-		{
-			$message = Phpcraft::textToChat($message);
-		}
-		echo Phpcraft::chatToText($message, Phpcraft::FORMAT_ANSI)."\n";
-		foreach(self::getPlayers() as $con)
+		$msg = ChatComponent::cast($msg);
+		echo $msg->toString(ChatComponent::FORMAT_ANSI)."\n";
+		$msg = json_encode($msg->toArray());
+		foreach($this->getPlayers() as $c)
 		{
 			try
 			{
-				$con->sendMessage($message, $position);
+				$c->startPacket("clientbound_chat_message");
+				$c->writeString($msg);
+				$c->writeByte($position);
+				$c->send();
 			}
-			catch(IOException $e)
+			catch(Exception $ignored)
 			{
 			}
 		}
@@ -505,42 +503,39 @@ class Server implements ServerCommandSender
 	/**
 	 * Sends a message to the server console and all players with the given permission, e.g. "everything" for administrators.
 	 *
-	 * @param array|string $message
+	 * @param array|string|null|ChatComponent $msg
 	 * @param string $permission
 	 * @return Server
 	 */
-	function adminBroadcast($message, string $permission = "everything"): Server
+	function adminBroadcast($msg, string $permission = "everything"): Server
 	{
-		if(!is_array($message))
-		{
-			$message = Phpcraft::textToChat($message);
-		}
-		echo Phpcraft::chatToText($message, Phpcraft::FORMAT_ANSI)."\n";
-		return $this->permissionBroadcast($permission, $message);
+		$msg = ChatComponent::cast($msg);
+		echo $msg->toString(ChatComponent::FORMAT_ANSI)."\n";
+		return $this->permissionBroadcast($permission, $msg);
 	}
 
 	/**
 	 * Sends a message to all clients in playing state with the given permission.
 	 *
 	 * @param string $permission
-	 * @param array|string $message
+	 * @param array|string|null|ChatComponent $msg
 	 * @param int $position
 	 * @return Server $this
 	 */
-	function permissionBroadcast(string $permission, $message, int $position = ChatPosition::SYSTEM): Server
+	function permissionBroadcast(string $permission, $msg, int $position = ChatPosition::SYSTEM): Server
 	{
-		if(!is_array($message))
+		$msg = json_encode(ChatComponent::cast($msg)->toArray());
+		foreach($this->clients as $c)
 		{
-			$message = Phpcraft::textToChat($message);
-		}
-		foreach($this->clients as $con)
-		{
-			assert($con instanceof ClientConnection);
+			assert($c instanceof ClientConnection);
 			try
 			{
-				if($con->state == Connection::STATE_PLAY && $con->hasPermission($permission))
+				if($c->state == Connection::STATE_PLAY && $c->hasPermission($permission))
 				{
-					$con->sendMessage($message, $position);
+					$c->startPacket("clientbound_chat_message");
+					$c->writeString($msg);
+					$c->writeByte($position);
+					$c->send();
 				}
 			}
 			catch(IOException $e)
@@ -553,28 +548,15 @@ class Server implements ServerCommandSender
 	/**
 	 * Sends a message to the server console and "[Server: $message]" to all players with the given permission.
 	 *
-	 * @param array|string $message
+	 * @param array|string|null|ChatComponent $message
 	 * @param string $permission
 	 * @return void
 	 */
 	function sendAdminBroadcast($message, string $permission = "everything"): void
 	{
-		if(!is_array($message))
-		{
-			$message = Phpcraft::textToChat($message);
-		}
-		echo Phpcraft::chatToText($message, Phpcraft::FORMAT_ANSI)."\n";
-		$this->permissionBroadcast($permission, [
-			"color" => "gray",
-			"text" => "[Server: ",
-			"extra" => [
-				$message,
-				[
-					"color" => "gray",
-					"text" => "]"
-				]
-			]
-		]);
+		$message = ChatComponent::cast($message);
+		echo $message->toString(ChatComponent::FORMAT_ANSI)."\n";
+		$this->permissionBroadcast($permission, ChatComponent::text("[Server: ")->gray()->add($message)->add("]"));
 	}
 
 	/**
@@ -634,25 +616,26 @@ class Server implements ServerCommandSender
 	 * Available in accordance with the CommandSender interface.
 	 * If you want to print to console specifically, just use PHP's `echo`.
 	 *
-	 * @param array|string $message
+	 * @param array|string|null|ChatComponent $message
 	 * @return void
 	 */
 	function sendMessage($message): void
 	{
-		echo Phpcraft::chatToText($message, Phpcraft::FORMAT_ANSI)."\n";
+		echo ChatComponent::cast($message)->toString(ChatComponent::FORMAT_ANSI)."\n";
 	}
 
 	/**
 	 * Closes all server listen sockets and client connections.
 	 *
-	 * @param array|string $reason The reason for closing the server as a chat object, sent to all clients.
+	 * @param array|string|null|ChatComponent $reason The reason for closing the server, sent to clients before disconnecting them.
 	 * @return void
 	 */
-	function close($reason = []): void
+	function close($reason = null): void
 	{
 		$this->softClose();
 		foreach($this->clients as $client)
 		{
+			assert($client instanceof ClientConnection);
 			$client->disconnect($reason);
 		}
 	}

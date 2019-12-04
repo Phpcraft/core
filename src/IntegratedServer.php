@@ -113,22 +113,11 @@ class IntegratedServer extends Server
 								}
 							}
 						}
-						$con->disconnect([
-							"text" => "",
-							"extra" => [
-								[
-									"text" => "You",
-									"italic" => true
-								],
-								[
-									"text" => "'re already on this server, and the best solution I have is kicking "
-								],
-								[
-									"text" => "you.",
-									"bold" => true
-								]
-							]
-						]);
+						$con->disconnect(
+							ChatComponent::text("")
+										 ->add(ChatComponent::text("You")->italic())
+								->add("'re already on this server, and the best solution I have is kicking ")
+								->add(ChatComponent::text("you.")->bold()));
 						$con->state = Connection::STATE_LOGIN; // prevent ServerLeaveEvent being fired
 						return;
 					}
@@ -296,23 +285,20 @@ class IntegratedServer extends Server
 			else if($packetId->name == "serverbound_chat_message")
 			{
 				$msg = $con->readString($con->protocol_version < 314 ? 100 : 256);
+				if(strpos($msg, "§") !== false)
+				{
+					$con->disconnect("Illegal chat message");
+				}
 				if(Command::handleMessage($con, $msg) || PluginManager::fire(new ServerChatEvent($this, $con, $msg)))
 				{
 					return;
 				}
-				$msg = [
-					"translate" => "chat.type.text",
-					"with" => [
-						[
-							"text" => $con->username
-						],
-						[
-							"text" => $msg
-						]
-					]
-				];
-				$this->ui->add(Phpcraft::chatToText($msg, Phpcraft::FORMAT_ANSI));
-				$msg = json_encode($msg);
+				$msg = ChatComponent::translate("chat.type.text", [
+					$con->username,
+					$msg
+				]);
+				$this->ui->add($msg->toString(ChatComponent::FORMAT_ANSI));
+				$msg = json_encode($msg->toArray());
 				foreach($this->getPlayers() as $c)
 				{
 					try

@@ -52,21 +52,21 @@ class Slot
 	}
 
 	/**
-	 * Returns the display name of the item in this slot as a chat object or null if not set.
+	 * Returns the display name of the item in this slot or null if not set.
 	 *
-	 * @return array|null
+	 * @return ChatComponent|null
 	 */
-	function getDisplayName(): ?array
+	function getDisplayName(): ?ChatComponent
 	{
 		if($this->nbt instanceof CompoundTag)
 		{
 			$display = $this->nbt->getChild("display");
-			if($display && $display instanceof CompoundTag)
+			if($display instanceof CompoundTag)
 			{
 				$name = $display->getChild("Name");
-				if($name && $name instanceof StringTag)
+				if($name instanceof StringTag)
 				{
-					return json_decode($name->value, true);
+					return ChatComponent::fromArray(json_decode($name->value, true));
 				}
 			}
 		}
@@ -86,12 +86,12 @@ class Slot
 	}
 
 	/**
-	 * Sets the display name of the item in this slot.
+	 * Sets the display name of this slot.
 	 *
-	 * @param array|null $name The new display name; chat object, or null to clear.
+	 * @param ChatComponent|null $name The new display name or null to unset it.
 	 * @return Slot $this
 	 */
-	function setDisplayName(?array $name): Slot
+	function setDisplayName(?ChatComponent $name): Slot
 	{
 		if(!$this->nbt instanceof CompoundTag)
 		{
@@ -105,11 +105,11 @@ class Slot
 		$display_name = $display->getChild("Name");
 		if($display_name instanceof StringTag)
 		{
-			$display_name->value = json_encode($name);
+			$display_name->value = json_encode($name->toArray());
 		}
 		else
 		{
-			$display->addChild(new StringTag("Name", json_encode($name)));
+			$display->addChild(new StringTag("Name", json_encode($name->toArray())));
 		}
 		return $this;
 	}

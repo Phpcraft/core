@@ -1,6 +1,6 @@
-<?php /** @noinspection PhpUnused */
+<?php
 namespace Phpcraft\Packet\MapData;
-use Phpcraft\Phpcraft;
+use Phpcraft\ChatComponent;
 /**
  * A marker on a map.
  *
@@ -72,9 +72,9 @@ class MapMarker
 	 */
 	public $rotation;
 	/**
-	 * The display name of this marker; chat object. Only visible to 1.13+ clients.
+	 * The display name of this marker. Only visible to 1.13+ clients.
 	 *
-	 * @var array $name
+	 * @var ChatComponent|null $name
 	 */
 	public $name;
 
@@ -83,9 +83,9 @@ class MapMarker
 	 * @param int $x The x coordinate of the marker on the map from -127 to 128.
 	 * @param int $z The z coordinate of the marker on the map from -127 to 128.
 	 * @param int $rotation The rotation of the marker divided by 22.5°, so it has a value between 0 and 15.
-	 * @param array $name The display name of this marker; chat object. Only visible to 1.13+ clients.
+	 * @param ChatComponent|null $name The display name of this marker. Only visible to 1.13+ clients.
 	 */
-	function __construct(int $type = MapMarker::TYPE_WHITE_ARROW, int $x = 0, int $z = 0, int $rotation = 0, array $name = [])
+	function __construct(int $type = MapMarker::TYPE_WHITE_ARROW, int $x = 0, int $z = 0, int $rotation = 0, ?ChatComponent $name = null)
 	{
 		$this->type = $type;
 		$this->x = $x;
@@ -96,6 +96,6 @@ class MapMarker
 
 	function __toString()
 	{
-		return "{Map Marker".($this->name ? " \"".Phpcraft::chatToText($this->name)."\"" : "")." at {$this->x}:{$this->z}, Type {$this->type}, ".($this->rotation * 22.5)."° Rotation}";
+		return "{Map Marker".($this->name ? " \"".$this->name->toString()."\"" : "")." at {$this->x}:{$this->z}, Type {$this->type}, ".($this->rotation * 22.5)."° Rotation}";
 	}
 }

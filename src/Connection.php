@@ -114,23 +114,14 @@ class Connection
 	}
 
 	/**
-	 * Adds a chat object to the read buffer.
+	 * Adds a chat component to the write buffer.
 	 *
-	 * @param array|string $value The chat object or a strings that will be converted into a chat object.
+	 * @param ChatComponent $value
 	 * @return Connection $this
 	 */
-	function writeChat($value): Connection
+	function writeChat(ChatComponent $value): Connection
 	{
-		if(gettype($value) == "string")
-		{
-			$value = Phpcraft::textToChat($value);
-		}
-		else if(gettype($value) != "array")
-		{
-			throw new InvalidArgumentException("Argument can't be of type ".gettype($value));
-		}
-		$this->writeString(json_encode($value));
-		return $this;
+		return $this->writeString(json_encode($value->toArray()));
 	}
 
 	/**
@@ -376,12 +367,12 @@ class Connection
 			if($this->protocol_version < 402 && $slot->nbt instanceof CompoundTag)
 			{
 				$display = $slot->nbt->getChild("display");
-				if($display && $display instanceof CompoundTag)
+				if($display instanceof CompoundTag)
 				{
 					$name = $display->getChild("Name");
-					if($name && $name instanceof StringTag)
+					if($name instanceof StringTag)
 					{
-						$name->value = Phpcraft::chatToText(json_decode($name->value, true), 2);
+						$name->value = ChatComponent::fromArray(json_decode($name->value, true))->toString(ChatComponent::FORMAT_SILCROW);
 					}
 				}
 			}
@@ -782,14 +773,14 @@ class Connection
 	}
 
 	/**
-	 * Reads a chat object from the read buffer.
+	 * Reads a chat component from the read buffer.
 	 *
-	 * @return array
+	 * @return ChatComponent
 	 * @throws IOException When there are not enough bytes to read the string.
 	 */
-	function readChat(): array
+	function readChat(): ChatComponent
 	{
-		return json_decode($this->readString(), true);
+		return ChatComponent::fromArray(json_decode($this->readString(), true));
 	}
 
 	/**
@@ -1020,12 +1011,12 @@ class Connection
 			if($slot->nbt instanceof CompoundTag)
 			{
 				$display = $slot->nbt->getChild("display");
-				if($display && $display instanceof CompoundTag)
+				if($display instanceof CompoundTag)
 				{
 					$name = $display->getChild("Name");
-					if($name && $name instanceof StringTag)
+					if($name instanceof StringTag)
 					{
-						$name->value = json_encode(Phpcraft::textToChat($name->value));
+						$name->value = json_encode(ChatComponent::text($name->value)->toArray());
 						$slot->nbt->addChild($display->addChild($name));
 					}
 				}

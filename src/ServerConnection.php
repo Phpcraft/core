@@ -66,11 +66,10 @@ class ServerConnection extends Connection implements CommandSender
 	 * This has to be called even when joining an offline mode server.
 	 *
 	 * @param Account $account
-	 * @param array<string,string>|null $translations The translations array so translated messages look proper.
 	 * @return string|null The error message or null on success.
 	 * @throws IOException
 	 */
-	function login(Account $account, ?array $translations = null): ?string
+	function login(Account $account): ?string
 	{
 		$this->writeVarInt(0x00);
 		$this->writeString($account->username);
@@ -141,7 +140,7 @@ class ServerConnection extends Connection implements CommandSender
 			}
 			else if($id == 0x00) // Disconnect
 			{
-				return Phpcraft::chatToText(json_decode($this->readString(), true), 0, $translations);
+				return $this->readChat()->toString();
 			}
 			else
 			{
@@ -183,24 +182,26 @@ class ServerConnection extends Connection implements CommandSender
 	/**
 	 * Prints a message to the console.
 	 * Available in accordance with the CommandSender interface.
-	 * If you want to print to console specifically, just use PHP's `echo`.
 	 *
-	 * @param array|string $message
+	 * @param array|string|null|ChatComponent $message
 	 * @return void
 	 */
 	function sendMessage($message): void
 	{
-		echo Phpcraft::chatToText($message, Phpcraft::FORMAT_ANSI)."\n";
+		echo ChatComponent::cast($message)->toString(ChatComponent::FORMAT_ANSI)."\n";
 	}
 
 	/**
-	 * @param array|string $message
+	 * Prints a message to the console.
+	 * Available in accordance with the CommandSender interface.
+	 *
+	 * @param array|string|null|ChatComponent $message
 	 * @param string $permission
 	 * @return void
 	 */
 	function sendAdminBroadcast($message, string $permission = "everything"): void
 	{
-		echo Phpcraft::chatToText($message, Phpcraft::FORMAT_ANSI)."\n";
+		echo ChatComponent::cast($message)->toString(ChatComponent::FORMAT_ANSI)."\n";
 	}
 
 	/**

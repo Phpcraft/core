@@ -1,6 +1,7 @@
 <?php
 namespace Phpcraft\Command;
-use Phpcraft\Point3D;
+use Phpcraft\
+{ChatComponent, Point3D};
 interface CommandSender
 {
 	/**
@@ -9,13 +10,15 @@ interface CommandSender
 	function getName(): string;
 
 	/**
-	 * @param array|string $message
+	 * @param array|string|null|ChatComponent $message
+	 * @return void
 	 */
 	function sendMessage($message): void;
 
 	/**
-	 * @param array|string $message
+	 * @param array|string|null|ChatComponent $message
 	 * @param string $permission
+	 * @return void
 	 */
 	function sendAdminBroadcast($message, string $permission = "everything"): void;
 

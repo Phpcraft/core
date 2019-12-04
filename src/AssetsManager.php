@@ -14,11 +14,22 @@ class AssetsManager
 	}
 
 	/**
+	 * Returns an AssetsManager using the latest supported Minecraft version's asset index.
+	 *
+	 * @return AssetsManager
+	 * @throws Exception if the version manifest couldn't be fetched.
+	 */
+	static function latest(): AssetsManager
+	{
+		return self::fromMinecraftVersion(Versions::minecraft(true)[0]);
+	}
+
+	/**
 	 * Returns an AssetsManager using the given Minecraft version's asset index.
 	 *
 	 * @param string $version The Minecraft version you'd like to access the assets of.
 	 * @return AssetsManager
-	 * @throws Exception When the version manifest for the given version couldn't be fetched.
+	 * @throws Exception if the version manifest for the given version couldn't be fetched.
 	 */
 	static function fromMinecraftVersion(string $version): AssetsManager
 	{

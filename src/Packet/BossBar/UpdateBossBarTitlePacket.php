@@ -2,24 +2,25 @@
 namespace Phpcraft\Packet\BossBar;
 use hellsh\UUID;
 use Phpcraft\
-{Connection, Entity\Living, Exception\IOException, Phpcraft};
+{ChatComponent, Connection, Entity\Living, Exception\IOException
+};
 class UpdateBossBarTitlePacket extends BossBarPacket
 {
 	/**
-	 * The "title" of the boss bar; chat object.
+	 * The "title" of the boss bar.
 	 *
-	 * @var array $title
+	 * @var ChatComponent $title
 	 */
-	public $title = ["text" => ""];
+	public $title;
 
 	/**
-	 * @param UUID|null $uuid The UUID of the boss bar.
-	 * @param array|string $title The "title" of the boss bar; chat object.
+	 * @param UUID $uuid The UUID of the boss bar.
+	 * @param array|string|null|ChatComponent $title The "title" of the boss bar.
 	 */
-	function __construct(?UUID $uuid = null, $title = ["text" => ""])
+	function __construct(UUID $uuid, $title)
 	{
 		parent::__construct($uuid);
-		$this->title = $title;
+		$this->title = ChatComponent::cast($title);
 	}
 
 	/**
@@ -52,6 +53,6 @@ class UpdateBossBarTitlePacket extends BossBarPacket
 
 	function __toString()
 	{
-		return "{UpdateBossBarTitlePacket: Boss Bar ".$this->uuid->__toString().", \"".Phpcraft::chatToText($this->title)."\"}";
+		return "{UpdateBossBarTitlePacket: Boss Bar {$this->uuid}, \"".$this->title->toString()."\"}";
 	}
 }

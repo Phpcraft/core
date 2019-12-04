@@ -1,15 +1,15 @@
 <?php
 namespace Phpcraft\Packet\BossBar;
 use Phpcraft\
-{ClientConnection, Connection, Entity\EntityType, Entity\Living, Exception\IOException, Packet\SpawnMobPacket, Phpcraft, Point3D};
+{ChatComponent, ClientConnection, Connection, Entity\EntityType, Entity\Living, Exception\IOException, Packet\SpawnMobPacket, Point3D};
 class AddBossBarPacket extends BossBarPacket
 {
 	/**
-	 * The "title" of the boss bar; chat object.
+	 * The "title" of the boss bar.
 	 *
-	 * @var array $title
+	 * @var ChatComponent $title
 	 */
-	public $title = ["text" => ""];
+	public $title;
 	/**
 	 * The percentage the boss bar is filled, aka. the health of the boss.
 	 * This should be between 0 and 1. And whilst values below 0 disconnect the client, values above 1 render additional boss bars to the right.
@@ -120,7 +120,7 @@ class AddBossBarPacket extends BossBarPacket
 
 	function __toString()
 	{
-		$str = "{AddBossBarPacket: Boss Bar ".$this->uuid->__toString().", \"".Phpcraft::chatToText($this->title)."\", ".($this->health * 100)."% Health, Color ID {$this->color}, Division ID {$this->division}";
+		$str = "{AddBossBarPacket: Boss Bar {$this->uuid}, \"".$this->title->toString()."\", ".($this->health * 100)."% Health, Color ID {$this->color}, Division ID {$this->division}";
 		if($this->darken_sky)
 		{
 			$str .= ", Darkens Sky";

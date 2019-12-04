@@ -1,7 +1,8 @@
 <?php
 namespace Phpcraft\Entity;
 use Phpcraft\
-{Connection, Exception\IOException, Phpcraft};
+{ChatComponent, Connection, Exception\IOException
+};
 class Base extends Metadata
 {
 	/**
@@ -33,9 +34,9 @@ class Base extends Metadata
 	 */
 	public $elytraing = null;
 	/**
-	 * Custom name of the entity; chat object.
+	 * Custom name of the entity.
 	 *
-	 * @var array|null $custom_name
+	 * @var ChatComponent|null $custom_name
 	 */
 	public $custom_name = null;
 	/**
@@ -90,21 +91,7 @@ class Base extends Metadata
 		}
 		if($this->custom_name !== null)
 		{
-			if($con->protocol_version >= 57)
-			{
-				self::writeOptChat($con, 2, $this->custom_name);
-			}
-			else
-			{
-				if(!empty($this->custom_name))
-				{
-					self::writeString($con, 2, Phpcraft::chatToText($this->custom_name, 2));
-				}
-				else
-				{
-					self::writeString($con, 2, "");
-				}
-			}
+			self::writeOptChat($con, 2, $this->custom_name);
 		}
 		if(get_called_class() == __CLASS__)
 		{
@@ -120,7 +107,7 @@ class Base extends Metadata
 		$attr = [];
 		if($this->custom_name !== null)
 		{
-			array_push($attr, "\"".Phpcraft::chatToText($this->custom_name)."\"");
+			array_push($attr, "\"".$this->custom_name->toString()."\"");
 		}
 		if($this->burning !== null)
 		{
@@ -191,7 +178,7 @@ class Base extends Metadata
 					}
 					else
 					{
-						$this->custom_name = Phpcraft::textToChat($name);
+						$this->custom_name = ChatComponent::text($name);
 					}
 				}
 				return true;

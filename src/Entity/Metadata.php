@@ -4,7 +4,7 @@ use DomainException;
 use GMP;
 use LogicException;
 use Phpcraft\
-{Connection, Exception\IOException, Phpcraft};
+{ChatComponent, Connection, Exception\IOException, Phpcraft};
 use RuntimeException;
 use UnexpectedValueException;
 /**
@@ -74,26 +74,29 @@ abstract class Metadata
 	/**
 	 * @param Connection $con
 	 * @param int $index
-	 * @param array|string|null $value
+	 * @param ChatComponent|null $value
 	 * @return void
 	 * @throws LogicException
 	 */
-	static function writeOptChat(Connection $con, int $index, $value): void
+	static function writeOptChat(Connection $con, int $index, ?ChatComponent $value): void
 	{
 		if($con->protocol_version < 57)
 		{
-			throw new LogicException("OptChat is not available at this protocol version");
-		}
-		$con->writeByte($index);
-		$con->writeByte(5);
-		if($value !== null)
-		{
-			$con->writeBoolean(true);
-			$con->writeChat($value);
+			self::writeString($con, $index, $value === null ? "" : $value->toString(ChatComponent::FORMAT_SILCROW));
 		}
 		else
 		{
-			$con->writeBoolean(false);
+			$con->writeByte($index);
+			$con->writeByte(5);
+			if($value !== null)
+			{
+				$con->writeBoolean(true);
+				$con->writeChat($value);
+			}
+			else
+			{
+				$con->writeBoolean(false);
+			}
 		}
 	}
 

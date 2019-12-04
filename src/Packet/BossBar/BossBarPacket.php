@@ -1,4 +1,4 @@
-<?php /** @noinspection PhpUnused */
+<?php
 namespace Phpcraft\Packet\BossBar;
 use hellsh\UUID;
 use Phpcraft\

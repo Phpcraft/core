@@ -3,6 +3,9 @@ namespace Phpcraft;
 use Exception;
 use Phpcraft\
 {Command\Command, Enum\Dimension, Enum\Gamemode, Event\ProxyClientPacketEvent, Event\ProxyConnectEvent, Event\ProxyLeaveEvent, Event\ProxyServerPacketEvent, Event\ProxyTickEvent, Event\ServerJoinEvent, Event\ServerTickEvent, Exception\IOException, Packet\ClientboundPacketId, Packet\EntityPacket, Packet\JoinGamePacket, Packet\KeepAliveRequestPacket, Packet\PluginMessage\ClientboundBrandPluginMessagePacket, Packet\ServerboundPacketId};
+/**
+ * @since 0.3
+ */
 class ProxyServer extends IntegratedServer
 {
 	function __construct(?string $name = null, array $custom_config_defaults = [], ?UserInterface $ui = null, $private_key = null)
@@ -107,7 +110,7 @@ class ProxyServer extends IntegratedServer
 				}
 				catch(Exception $e)
 				{
-					$con->disconnect("[Surrogate] ".$e->getMessage());
+					$con->disconnect("[".$this->name."] ".$e->getMessage());
 				}
 			}
 		}, 0.001);

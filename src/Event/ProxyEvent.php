@@ -1,7 +1,7 @@
 <?php
 namespace Phpcraft\Event;
 use Phpcraft\
-{ProxyServer};
+{ProxyServer, Server};
 class ProxyEvent extends Event
 {
 	/**

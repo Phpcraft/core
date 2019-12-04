@@ -23,7 +23,6 @@ class RemoveBossBarPacket extends BossBarPacket
 		}
 		else
 		{
-			/** @noinspection PhpUndefinedMethodInspection */
 			(new DestroyEntityPacket([abs($this->uuid->hashCode()) * -1]))->send($con);
 		}
 	}

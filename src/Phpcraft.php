@@ -1,7 +1,6 @@
 <?php
 namespace Phpcraft;
 use hellsh\UUID;
-use InvalidArgumentException;
 use Phpcraft\Exception\IOException;
 abstract class Phpcraft
 {
@@ -9,16 +8,25 @@ abstract class Phpcraft
 	const INSTALL_DIR = self::SRC_DIR.'/..';
 	const BIN_DIR = self::INSTALL_DIR.'/bin';
 	const DATA_DIR = self::INSTALL_DIR.'/data';
+	/**
+	 * @deprecated Use ChatComponent::FORMAT_NONE, instead.
+	 */
 	const FORMAT_NONE = 0;
+	/**
+	 * @deprecated Use ChatComponent::FORMAT_ANSI, instead.
+	 */
 	const FORMAT_ANSI = 1;
 	/**
-	 * §-format
+	 * @deprecated Use ChatComponent::FORMAT_SILCROW, instead.
 	 */
 	const FORMAT_SILCROW = 2;
 	/**
-	 * &-format
+	 * @deprecated Use ChatComponent::FORMAT_AMPERSAND, instead.
 	 */
 	const FORMAT_AMPERSAND = 3;
+	/**
+	 * @deprecated Use ChatComponent::FORMAT_HTML, instead.
+	 */
 	const FORMAT_HTML = 4;
 	/**
 	 * Modern list ping. Legacy if that fails.
@@ -273,344 +281,20 @@ abstract class Phpcraft
 	}
 
 	/**
-	 * Converts a chat object into text.
-	 *
-	 * @param array|string $chat The chat object as an array or string.
-	 * @param int $format The formatting to convert to: <ul><li>0: None (drop colors and formatting)</li><li>1: ANSI escape codes (for compatible terminals)</li><li>2: Paragraph (§) format</li><li>3: Ampersand (&) format</li><li>4: HTML</li></ul>
-	 * @param array<string,string>|null $translations The translations array so translated messages look proper.
-	 * @param array|null $parent Ignore this parameter.
+	 * @param array|string|null|ChatComponent $chat
+	 * @param int $format
+	 * @param array<string,string>|null $translations
 	 * @return string
+	 * @deprecated Use ChatComponent::cast($chat)->toString($format), instead.
 	 */
-	static function chatToText($chat, int $format = self::FORMAT_NONE, ?array $translations = null, ?array $parent = null): string
+	static function chatToText($chat, int $format = ChatComponent::FORMAT_NONE, ?array $translations = null): string
 	{
-		if($parent === null)
+		if($translations !== null && count($translations) > count(ChatComponent::$translations))
 		{
-			if($format < 0 || $format > 4)
-			{
-				throw new InvalidArgumentException("Format has to be an integer between 0 and 4 inclusive");
-			}
-			if($translations == null)
-			{
-				$translations = [
-					"chat.type.text" => "<%s> %s",
-					"chat.type.announcement" => "[%s] %s",
-					"multiplayer.player.joined" => "%s joined the game",
-					"multiplayer.player.left" => "%s left the game"
-				];
-			}
+			ChatComponent::$translations = $translations;
 		}
-		if(!is_array($chat))
-		{
-			$chat = (string) $chat;
-			if(strpos($chat, "§") === false)
-			{
-				return $chat;
-			}
-			$chat = self::textToChat($chat);
-		}
-		$text = "";
-		$closing_tags = "";
-		if($format > 0)
-		{
-			$ansi_modifiers = [];
-			if($format == self::FORMAT_ANSI)
-			{
-				$attributes = [
-					"reset" => "0",
-					"bold" => "1",
-					"italic" => "3",
-					"underlined" => "4",
-					"obfuscated" => "8",
-					"strikethrough" => "9"
-				];
-			}
-			else if($format == self::FORMAT_HTML)
-			{
-				$attributes = [
-					"bold" => "b",
-					"italic" => "i",
-					"underlined" => 'span style="text-decoration:underline"',
-					"strikethrough" => "del"
-				];
-			}
-			else
-			{
-				$text = ($format == 2 ? "§" : "&")."r";
-				$attributes = [
-					"obfuscated" => "k",
-					"bold" => "l",
-					"strikethrough" => "m",
-					"underlined" => "n",
-					"italic" => "o",
-					"reset" => "r"
-				];
-			}
-			if(!isset($chat["color"]))
-			{
-				if(isset($parent["color"]))
-				{
-					$chat["color"] = $parent["color"];
-				}
-			}
-			if(isset($chat["color"]))
-			{
-				if($format == self::FORMAT_ANSI)
-				{
-					$colors = [
-						"black" => "30",
-						"dark_blue" => "34",
-						"dark_green" => "32",
-						"dark_aqua" => "36",
-						"dark_red" => "31",
-						"dark_purple" => "35",
-						"gold" => "33",
-						"gray" => "37",
-						"dark_gray" => "90",
-						"blue" => "94",
-						"green" => "92",
-						"aqua" => "96",
-						"red" => "91",
-						"light_purple" => "95",
-						"yellow" => "93",
-						"white" => "97"
-					];
-					if(isset($colors[$chat["color"]]))
-					{
-						array_push($ansi_modifiers, $colors[$chat["color"]]);
-					}
-				}
-				else if($format == self::FORMAT_HTML)
-				{
-					$colors = [
-						"black" => "000",
-						"dark_blue" => "0000aa",
-						"dark_green" => "00aa00",
-						"dark_aqua" => "00aaaa",
-						"dark_red" => "aa0000",
-						"dark_purple" => "aa00aa",
-						"gold" => "ffaa00",
-						"gray" => "aaa",
-						"dark_gray" => "555",
-						"blue" => "5555ff",
-						"green" => "55ff55",
-						"aqua" => "55ffff",
-						"red" => "ff5555",
-						"light_purple" => "ff55ff",
-						"yellow" => "ffff55",
-						"white" => "fff"
-					];
-					if(isset($colors[$chat["color"]]))
-					{
-						$text .= '<span style="color:#'.$colors[$chat["color"]].'">';
-						$closing_tags .= "</span>";
-					}
-				}
-				else if(($i = array_search($chat["color"], [
-						"black",
-						"dark_blue",
-						"dark_green",
-						"dark_aqua",
-						"dark_red",
-						"dark_purple",
-						"gold",
-						"gray",
-						"dark_gray",
-						"blue",
-						"green",
-						"aqua",
-						"red",
-						"light_purple",
-						"yellow",
-						"white"
-					])) !== false)
-				{
-					$text .= ($format == self::FORMAT_SILCROW ? "§" : "&").dechex(intval($i));
-				}
-			}
-			if($format == self::FORMAT_ANSI)
-			{
-				$text .= "\x1B[".join(";", $ansi_modifiers)."m";
-			}
-			foreach($attributes as $n => $v)
-			{
-				if(!isset($chat[$n]))
-				{
-					if(!isset($parent[$n]))
-					{
-						continue;
-					}
-					$chat[$n] = $parent[$n];
-				}
-				if($chat[$n] && $chat[$n] !== "false")
-				{
-					if($format == self::FORMAT_ANSI)
-					{
-						array_push($ansi_modifiers, $v);
-					}
-					else if($format == self::FORMAT_SILCROW)
-					{
-						$text .= "§".$v;
-					}
-					else if($format == self::FORMAT_AMPERSAND)
-					{
-						$text .= "&".$v;
-					}
-					else
-					{
-						$text .= "<{$v}>";
-						$closing_tags .= "</".explode(" ", $v)[0].">";
-					}
-				}
-			}
-		}
-		if(isset($chat["translate"]))
-		{
-			if(isset($translations[$chat["translate"]]))
-			{
-				$raw = $translations[$chat["translate"]];
-			}
-			else
-			{
-				$raw = $chat["translate"];
-			}
-			if(isset($chat["with"]))
-			{
-				$with = [];
-				foreach($chat["with"] as $extra)
-				{
-					array_push($with, self::chatToText($extra, $format, $translations, $chat));
-				}
-				if(($formatted = @vsprintf($raw, $with)) !== false)
-				{
-					$raw = $formatted;
-				}
-			}
-			$text .= $raw;
-		}
-		else if(isset($chat["text"]))
-		{
-			$text .= strpos($chat["text"], "§") === false ? $chat["text"] : self::chatToText($chat["text"], $format, $translations, $chat);
-		}
-		if(isset($chat["extra"]))
-		{
-			foreach($chat["extra"] as $extra)
-			{
-				$text .= self::chatToText($extra, $format, $translations, $chat);
-			}
-		}
-		if($format == self::FORMAT_HTML)
-		{
-			$text .= $closing_tags;
-		}
-		else if($format == self::FORMAT_ANSI && $parent === null)
-		{
-			$text .= "\e[m";
-		}
-		return $text;
-	}
-
-	/**
-	 * Converts a string using § format codes into a chat object.
-	 *
-	 * @param string $text
-	 * @param boolean $allowAmp If true, '&' will be handled like '§'.
-	 * @return array
-	 */
-	static function textToChat(string $text, bool $allowAmp = false): array
-	{
-		if(strpos($text, "§") === false && (!$allowAmp || strpos($text, "&") === false))
-		{
-			return ["text" => $text];
-		}
-		$colors = [
-			"0" => "black",
-			"1" => "dark_blue",
-			"2" => "dark_green",
-			"3" => "dark_aqua",
-			"4" => "dark_red",
-			"5" => "dark_purple",
-			"6" => "gold",
-			"7" => "gray",
-			"8" => "dark_gray",
-			"9" => "blue",
-			"a" => "green",
-			"b" => "aqua",
-			"c" => "red",
-			"d" => "light_purple",
-			"e" => "yellow",
-			"f" => "white"
-		];
-		$components = [["text" => ""]];
-		$component = 0;
-		$lastWasParagraph = false;
-		foreach(preg_split('//u', $text, null, PREG_SPLIT_NO_EMPTY) as $c)
-		{
-			if($c == "§" || ($allowAmp && $c == "&"))
-			{
-				$lastWasParagraph = true;
-			}
-			else if($lastWasParagraph)
-			{
-				$lastWasParagraph = false;
-				if($c == "r")
-				{
-					if($component != 0)
-					{
-						$components[++$component] = ["text" => ""];
-					}
-					continue;
-				}
-				if($component == 0 || $components[$component]["text"] != "")
-				{
-					$components[++$component] = ["text" => ""];
-				}
-				if($c == "k")
-				{
-					$components[$component]["obfuscated"] = true;
-				}
-				else if($c == "l")
-				{
-					$components[$component]["bold"] = true;
-				}
-				else if($c == "m")
-				{
-					$components[$component]["strikethrough"] = true;
-				}
-				else if($c == "n")
-				{
-					$components[$component]["underlined"] = true;
-				}
-				else if($c == "o")
-				{
-					$components[$component]["italic"] = true;
-				}
-				else if(isset($colors[$c]))
-				{
-					$components[$component]["color"] = $colors[$c];
-				}
-			}
-			else
-			{
-				$components[$component]["text"] .= $c;
-			}
-		}
-		if($components[0]["text"] == "")
-		{
-			unset($components[0]["text"]);
-		}
-		$chat = $components[0];
-		if($component > 0)
-		{
-			if($component == 1 && !array_key_exists("text", $chat))
-			{
-				$chat = $components[1];
-			}
-			else
-			{
-				$chat["extra"] = array_slice($components, 1);
-			}
-		}
-		return $chat;
+		return ChatComponent::cast($chat)
+							->toString($format);
 	}
 
 	/**
@@ -637,8 +321,8 @@ abstract class Phpcraft
 	 *   "favicon" => "data:image/png;base64,&lt;data&gt;",
 	 *   "ping" => 0.068003177642822
 	 * ]</pre>
-	 * Note that a server might not present all of these values, so always check with `isset` first.
-	 * Also, the `description` is a chat object, so you can pass it to Phpcraft::chatToText().
+	 * Note that a server might not present all of these values, so always check with `isset` or `array_key_exists` first.
+	 * `description` should always be a valid chat component.
 	 *
 	 * @param string $server_name
 	 * @param int $server_port
@@ -698,7 +382,7 @@ abstract class Phpcraft
 							"max" => intval(mb_convert_encoding($arr[4], mb_internal_encoding(), "utf-16be")),
 							"online" => intval(mb_convert_encoding($arr[3], mb_internal_encoding(), "utf-16be"))
 						],
-						"description" => Phpcraft::textToChat(mb_convert_encoding($arr[2], mb_internal_encoding(), "utf-16be")),
+						"description" => ChatComponent::text(mb_convert_encoding($arr[2], mb_internal_encoding(), "utf-16be"))->toArray(),
 						"ping" => (microtime(true) - $start)
 					];
 				}
@@ -706,6 +390,18 @@ abstract class Phpcraft
 			}
 		}
 		return [];
+	}
+
+	/**
+	 * @param string $text
+	 * @param boolean $allow_amp
+	 * @return array
+	 * @deprecated Use ChatComponent::text($text, $allow_amp)->toArray(), instead.
+	 */
+	static function textToChat(string $text, bool $allow_amp = false): array
+	{
+		return ChatComponent::text($text, $allow_amp)
+							->toArray();
 	}
 
 	/**

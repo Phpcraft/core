@@ -18,11 +18,11 @@ $this->registerCommand("reload", function(ServerCommandSender &$sender)
 	$sender->sendAdminBroadcast("Loading plugins...", "use /reload");
 	PluginManager::loadPlugins();
 	$sender->sendAdminBroadcast(count(PluginManager::$loaded_plugins)." plugins loaded.", "use /reload");
-	if($sender->getServer() instanceof IntegratedServer)
+	$server = $sender->getServer();
+	if($server instanceof IntegratedServer)
 	{
 		$sender->sendAdminBroadcast("Reloading server config...", "use /reload");
-		$sender->getServer()
-			   ->reloadConfig();
+		$server->reloadConfig();
 		$sender->sendAdminBroadcast("Done. ".count($sender->getServer()->groups)." group".(count($sender->getServer()->groups) == 1 ? "" : "s")." loaded.", "use /reload");
 	}
 }, "use /reload");

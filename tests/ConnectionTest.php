@@ -1,7 +1,7 @@
 <?php /** @noinspection PhpUnused PhpUnhandledExceptionInspection */
 require_once __DIR__."/../vendor/autoload.php";
 use Phpcraft\
-{Connection, Point3D};
+{ChatComponent, Connection, Point3D};
 class ConnectionTest
 {
 	function testReadAndWriteInts()
@@ -76,18 +76,18 @@ class ConnectionTest
 		Nose::assertEquals($con->read_buffer_offset, strlen($con->read_buffer));
 	}
 
-	function testReadAndWriteChatObject()
+	function testReadAndWriteChatComponent()
 	{
-		$chat = [
+		$chat = ChatComponent::fromArray([
 			"text" => "Hey",
 			"color" => "gold"
-		];
+		]);
 		$con = new Connection();
-		$con->writeChat("Hi");
+		$con->writeChat(ChatComponent::text("Hi"));
 		$con->writeChat($chat);
 		$con->read_buffer = $con->write_buffer;
-		Nose::assertEquals(["text" => "Hi"], $con->readChat());
-		Nose::assertEquals($chat, $con->readChat());
+		Nose::assertEquals(["text" => "Hi"], $con->readChat()->toArray());
+		Nose::assertEquals($chat->toArray(), $con->readChat()->toArray());
 		Nose::assertEquals($con->read_buffer_offset, strlen($con->read_buffer));
 	}
 
