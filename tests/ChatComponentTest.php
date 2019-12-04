@@ -61,9 +61,11 @@ class ChatComponentTest
 		Nose::assertEquals("§0Test", $chat->toString(ChatComponent::FORMAT_SILCROW));
 		Nose::assertEquals("&0Test", $chat->toString(ChatComponent::FORMAT_AMPERSAND));
 		Nose::assertEquals('<span style="color:#000">Test</span>', $chat->toString(ChatComponent::FORMAT_HTML));
-		$chat = ChatComponent::text("A")->red()
-										->add(ChatComponent::text("B")->yellow())
-		->add(ChatComponent::text("C"));
+		$chat = ChatComponent::text("A")
+							 ->red()
+							 ->add(ChatComponent::text("B")
+												->yellow())
+							 ->add(ChatComponent::text("C"));
 		Nose::assertEquals($chat->toString(ChatComponent::FORMAT_SILCROW), "§cA§eB§cC");
 	}
 }

@@ -372,7 +372,8 @@ class Connection
 					$name = $display->getChild("Name");
 					if($name instanceof StringTag)
 					{
-						$name->value = ChatComponent::fromArray(json_decode($name->value, true))->toString(ChatComponent::FORMAT_SILCROW);
+						$name->value = ChatComponent::fromArray(json_decode($name->value, true))
+													->toString(ChatComponent::FORMAT_SILCROW);
 					}
 				}
 			}
@@ -1016,7 +1017,8 @@ class Connection
 					$name = $display->getChild("Name");
 					if($name instanceof StringTag)
 					{
-						$name->value = json_encode(ChatComponent::text($name->value)->toArray());
+						$name->value = json_encode(ChatComponent::text($name->value)
+																->toArray());
 						$slot->nbt->addChild($display->addChild($name));
 					}
 				}

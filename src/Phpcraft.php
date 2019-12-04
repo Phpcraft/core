@@ -382,7 +382,8 @@ abstract class Phpcraft
 							"max" => intval(mb_convert_encoding($arr[4], mb_internal_encoding(), "utf-16be")),
 							"online" => intval(mb_convert_encoding($arr[3], mb_internal_encoding(), "utf-16be"))
 						],
-						"description" => ChatComponent::text(mb_convert_encoding($arr[2], mb_internal_encoding(), "utf-16be"))->toArray(),
+						"description" => ChatComponent::text(mb_convert_encoding($arr[2], mb_internal_encoding(), "utf-16be"))
+													  ->toArray(),
 						"ping" => (microtime(true) - $start)
 					];
 				}

@@ -113,11 +113,12 @@ class IntegratedServer extends Server
 								}
 							}
 						}
-						$con->disconnect(
-							ChatComponent::text("")
-										 ->add(ChatComponent::text("You")->italic())
-								->add("'re already on this server, and the best solution I have is kicking ")
-								->add(ChatComponent::text("you.")->bold()));
+						$con->disconnect(ChatComponent::text("")
+													  ->add(ChatComponent::text("You")
+																		 ->italic())
+													  ->add("'re already on this server, and the best solution I have is kicking ")
+													  ->add(ChatComponent::text("you.")
+																		 ->bold()));
 						$con->state = Connection::STATE_LOGIN; // prevent ServerLeaveEvent being fired
 						return;
 					}

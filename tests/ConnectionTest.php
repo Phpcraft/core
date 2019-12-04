@@ -86,8 +86,10 @@ class ConnectionTest
 		$con->writeChat(ChatComponent::text("Hi"));
 		$con->writeChat($chat);
 		$con->read_buffer = $con->write_buffer;
-		Nose::assertEquals(["text" => "Hi"], $con->readChat()->toArray());
-		Nose::assertEquals($chat->toArray(), $con->readChat()->toArray());
+		Nose::assertEquals(["text" => "Hi"], $con->readChat()
+												 ->toArray());
+		Nose::assertEquals($chat->toArray(), $con->readChat()
+												 ->toArray());
 		Nose::assertEquals($con->read_buffer_offset, strlen($con->read_buffer));
 	}
 

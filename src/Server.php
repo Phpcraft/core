@@ -218,7 +218,8 @@ class Server implements ServerCommandSender
 								{
 									$json["players"]["max"] = 0;
 								}
-								$data = "§1\x00127\x00".@$json["version"]["name"]."\x00".ChatComponent::fromArray($json["description"])->toString(ChatComponent::FORMAT_SILCROW)."\x00".$json["players"]["online"]."\x00".$json["players"]["max"];
+								$data = "§1\x00127\x00".@$json["version"]["name"]."\x00".ChatComponent::fromArray($json["description"])
+																									  ->toString(ChatComponent::FORMAT_SILCROW)."\x00".$json["players"]["online"]."\x00".$json["players"]["max"];
 								$con->writeByte(0xFF);
 								$con->writeShort(mb_strlen($data));
 								$con->writeRaw(mb_convert_encoding($data, "utf-16be"));
@@ -524,7 +525,8 @@ class Server implements ServerCommandSender
 	 */
 	function permissionBroadcast(string $permission, $msg, int $position = ChatPosition::SYSTEM): Server
 	{
-		$msg = json_encode(ChatComponent::cast($msg)->toArray());
+		$msg = json_encode(ChatComponent::cast($msg)
+										->toArray());
 		foreach($this->clients as $c)
 		{
 			assert($c instanceof ClientConnection);
@@ -556,7 +558,10 @@ class Server implements ServerCommandSender
 	{
 		$message = ChatComponent::cast($message);
 		echo $message->toString(ChatComponent::FORMAT_ANSI)."\n";
-		$this->permissionBroadcast($permission, ChatComponent::text("[Server: ")->gray()->add($message)->add("]"));
+		$this->permissionBroadcast($permission, ChatComponent::text("[Server: ")
+															 ->gray()
+															 ->add($message)
+															 ->add("]"));
 	}
 
 	/**
@@ -621,7 +626,8 @@ class Server implements ServerCommandSender
 	 */
 	function sendMessage($message): void
 	{
-		echo ChatComponent::cast($message)->toString(ChatComponent::FORMAT_ANSI)."\n";
+		echo ChatComponent::cast($message)
+						  ->toString(ChatComponent::FORMAT_ANSI)."\n";
 	}
 
 	/**

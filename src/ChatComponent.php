@@ -116,6 +116,58 @@ class ChatComponent
 		$this->text = $text;
 	}
 
+	/**
+	 * Downloads the latest supported Minecraft version's translation for the given language into ChatComponent::$translations, so messages using a "translate" component will be displayed correctly.
+	 * Note that we can't use en_US because that is compiled into Minecraft's jar and not (legally) accessible otherwise.
+	 *
+	 * @param string $language_code
+	 * @return bool True if the translations for the given language have been applied.
+	 */
+	static function downloadTranslations(string $language_code = "en_GB"): bool
+	{
+		try
+		{
+			$am = AssetsManager::latest();
+			$local_file = $am->downloadAsset("minecraft/lang/".strtolower($language_code).".json");
+			if($local_file !== null)
+			{
+				self::$translations = json_decode(file_get_contents($local_file), true);
+				return true;
+			}
+		}
+		catch(Exception $ignored)
+		{
+		}
+		return false;
+	}
+
+	/**
+	 * Instantiates a blank ChatComponent that only serves to contain other ChatComponent instances.
+	 *
+	 * @param $children ChatComponent[]
+	 * @return ChatComponent
+	 * @since 0.4.1
+	 */
+	static function container(ChatComponent...$children): ChatComponent
+	{
+		$chat = new ChatComponent(null);
+		$chat->extra = $children;
+		return $chat;
+	}
+
+	/**
+	 * Instantiates a ChatComponent with the given text.
+	 * If the text has § format codes, they will be applied to the ChatComponent.
+	 *
+	 * @param string $text
+	 * @param bool $allow_amp If true, '&' will be handled like '§'.
+	 * @return ChatComponent
+	 */
+	static function text(string $text, bool $allow_amp = false): ChatComponent
+	{
+		return self::fromText($text, $allow_amp);
+	}
+
 	private static function fromText(string &$text, bool $allow_amp): ChatComponent
 	{
 		if(strpos($text, "§") === false && (!$allow_amp || strpos($text, "&") === false))
@@ -203,58 +255,6 @@ class ChatComponent
 	}
 
 	/**
-	 * Downloads the latest supported Minecraft version's translation for the given language into ChatComponent::$translations, so messages using a "translate" component will be displayed correctly.
-	 * Note that we can't use en_US because that is compiled into Minecraft's jar and not (legally) accessible otherwise.
-	 *
-	 * @param string $language_code
-	 * @return bool True if the translations for the given language have been applied.
-	 */
-	static function downloadTranslations(string $language_code = "en_GB"): bool
-	{
-		try
-		{
-			$am = AssetsManager::latest();
-			$local_file = $am->downloadAsset("minecraft/lang/".strtolower($language_code).".json");
-			if($local_file !== null)
-			{
-				self::$translations = json_decode(file_get_contents($local_file), true);
-				return true;
-			}
-		}
-		catch(Exception $ignored)
-		{
-		}
-		return false;
-	}
-
-	/**
-	 * Instantiates a blank ChatComponent that only serves to contain other ChatComponent instances.
-	 *
-	 * @param $children ChatComponent[]
-	 * @return ChatComponent
-	 * @since 0.4.1
-	 */
-	static function container(ChatComponent... $children): ChatComponent
-	{
-		$chat = new ChatComponent(null);
-		$chat->extra = $children;
-		return $chat;
-	}
-
-	/**
-	 * Instantiates a ChatComponent with the given text.
-	 * If the text has § format codes, they will be applied to the ChatComponent.
-	 *
-	 * @param string $text
-	 * @param bool $allow_amp If true, '&' will be handled like '§'.
-	 * @return ChatComponent
-	 */
-	static function text(string $text, bool $allow_amp = false): ChatComponent
-	{
-		return self::fromText($text, $allow_amp);
-	}
-
-	/**
 	 * Instantiates a "translate" ChatComponent.
 	 *
 	 * @param string $key
@@ -269,20 +269,6 @@ class ChatComponent
 		{
 			array_push($chat->with, ChatComponent::cast($extra));
 		}
-		return $chat;
-	}
-
-	/**
-	 * Initiates a "keybind" ChatComponent.
-	 *
-	 * @param string $name The name of the key, named after the value in the options.txt, e.g. "key_key.forward" in options.txt would mean "key.forward" here, and "w" would be displayed.
-	 * @return ChatComponent
-	 * @since 0.4.1
-	 */
-	static function keybind(string $name): ChatComponent
-	{
-		$chat = new ChatComponent(null);
-		$chat->keybind = $name;
 		return $chat;
 	}
 
@@ -345,7 +331,7 @@ class ChatComponent
 			}
 		}
 		if(array_key_exists("clickEvent", $array) && is_array($array["clickEvent"]) && array_key_exists("action", $array["clickEvent"]) && array_key_exists("value", $array["clickEvent"]) && in_array($array["clickEvent"]["action"], [
-			"open_url",
+				"open_url",
 				"run_command",
 				"suggest_command",
 				"change_page"
@@ -359,19 +345,39 @@ class ChatComponent
 		return $chat;
 	}
 
-	private static function explicitChild(array &$parent, array &$child)
+	/**
+	 * Initiates a "keybind" ChatComponent.
+	 *
+	 * @param string $name The name of the key, named after the value in the options.txt, e.g. "key_key.forward" in options.txt would mean "key.forward" here, and "w" would be displayed.
+	 * @return ChatComponent
+	 * @since 0.4.1
+	 */
+	static function keybind(string $name): ChatComponent
 	{
-		foreach(self::$attributes as $attribute)
+		$chat = new ChatComponent(null);
+		$chat->keybind = $name;
+		return $chat;
+	}
+
+	/**
+	 * Converts the ChatComponent to a string.
+	 *
+	 * @param int $format The format to apply: <ul><li>0: None (drop colors and attributes)</li><li>1: ANSI escape codes (for compatible terminals)</li><li>2: Paragraph (§) format</li><li>3: Ampersand (&) format</li><li>4: HTML</li></ul>
+	 * @return string
+	 */
+	function toString(int $format = ChatComponent::FORMAT_NONE): string
+	{
+		if($format < 0 || $format > 4)
 		{
-			if(!@$child[$attribute])
-			{
-				$child[$attribute] = $parent[$attribute];
-			}
+			throw new InvalidArgumentException("Invalid format: $format");
 		}
-		if(!@$child["color"])
+		$chat = $this->toArray(true);
+		$text = self::toString_($chat, $format, []);
+		if($format == self::FORMAT_ANSI)
 		{
-			$child["color"] = @$parent["color"];
+			$text .= "\e[m";
 		}
+		return $text;
 	}
 
 	/**
@@ -489,25 +495,19 @@ class ChatComponent
 		return $chat;
 	}
 
-	/**
-	 * Converts the ChatComponent to a string.
-	 *
-	 * @param int $format The format to apply: <ul><li>0: None (drop colors and attributes)</li><li>1: ANSI escape codes (for compatible terminals)</li><li>2: Paragraph (§) format</li><li>3: Ampersand (&) format</li><li>4: HTML</li></ul>
-	 * @return string
-	 */
-	function toString(int $format = ChatComponent::FORMAT_NONE): string
+	private static function explicitChild(array &$parent, array &$child)
 	{
-		if($format < 0 || $format > 4)
+		foreach(self::$attributes as $attribute)
 		{
-			throw new InvalidArgumentException("Invalid format: $format");
+			if(!@$child[$attribute])
+			{
+				$child[$attribute] = $parent[$attribute];
+			}
 		}
-		$chat = $this->toArray(true);
-		$text = self::toString_($chat, $format, []);
-		if($format == self::FORMAT_ANSI)
+		if(!@$child["color"])
 		{
-			$text .= "\e[m";
+			$child["color"] = @$parent["color"];
 		}
-		return $text;
 	}
 
 	private static function toString_(array &$chat, int $format, array $previous): string
@@ -653,7 +653,10 @@ class ChatComponent
 	 */
 	function onClickOpenLink(string $url): ChatComponent
 	{
-		$this->click_event = ["open_url", $url];
+		$this->click_event = [
+			"open_url",
+			$url
+		];
 		return $this;
 	}
 
@@ -666,7 +669,10 @@ class ChatComponent
 	 */
 	function onClickSendMessage(string $message): ChatComponent
 	{
-		$this->click_event = ["run_command", $message];
+		$this->click_event = [
+			"run_command",
+			$message
+		];
 		return $this;
 	}
 
@@ -679,7 +685,10 @@ class ChatComponent
 	 */
 	function onClickSuggestMessage(string $message): ChatComponent
 	{
-		$this->click_event = ["suggest_command", $message];
+		$this->click_event = [
+			"suggest_command",
+			$message
+		];
 		return $this;
 	}
 
@@ -692,7 +701,10 @@ class ChatComponent
 	 */
 	function onClickChangePage(int $page): ChatComponent
 	{
-		$this->click_event = ["change_page", $page];
+		$this->click_event = [
+			"change_page",
+			$page
+		];
 		return $this;
 	}
 

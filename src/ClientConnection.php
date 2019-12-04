@@ -528,7 +528,10 @@ class ClientConnection extends Connection implements ServerCommandSender
 	function sendAdminBroadcast($message, string $permission = "everything"): void
 	{
 		$this->sendMessage($message);
-		$message = ChatComponent::text("[{$this->username}: ")->gray()->add($message)->add("]");
+		$message = ChatComponent::text("[{$this->username}: ")
+								->gray()
+								->add($message)
+								->add("]");
 		echo $message->toString(ChatComponent::FORMAT_ANSI)."\n";
 		foreach($this->getServer()->clients as $con)
 		{

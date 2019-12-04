@@ -140,7 +140,8 @@ class ServerConnection extends Connection implements CommandSender
 			}
 			else if($id == 0x00) // Disconnect
 			{
-				return $this->readChat()->toString();
+				return $this->readChat()
+							->toString();
 			}
 			else
 			{
@@ -188,7 +189,8 @@ class ServerConnection extends Connection implements CommandSender
 	 */
 	function sendMessage($message): void
 	{
-		echo ChatComponent::cast($message)->toString(ChatComponent::FORMAT_ANSI)."\n";
+		echo ChatComponent::cast($message)
+						  ->toString(ChatComponent::FORMAT_ANSI)."\n";
 	}
 
 	/**
@@ -201,7 +203,8 @@ class ServerConnection extends Connection implements CommandSender
 	 */
 	function sendAdminBroadcast($message, string $permission = "everything"): void
 	{
-		echo ChatComponent::cast($message)->toString(ChatComponent::FORMAT_ANSI)."\n";
+		echo ChatComponent::cast($message)
+						  ->toString(ChatComponent::FORMAT_ANSI)."\n";
 	}
 
 	/**
