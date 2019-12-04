@@ -78,8 +78,6 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a083c7f816cf70e7b943fee8b3449f0be"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ChatComponent.html#a083c7f816cf70e7b943fee8b3449f0be">__construct</a> (?string $<a class="el" href="classPhpcraft_1_1ChatComponent.html#ac6f894db026f12676d3b639acf47b8b6">text</a>=null)</td></tr>
-<tr class="separator:a083c7f816cf70e7b943fee8b3449f0be"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5c93b4845c0c5472e5b41c16248fa615"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ChatComponent.html#a5c93b4845c0c5472e5b41c16248fa615">toArray</a> (bool $explicit=false)</td></tr>
 <tr class="separator:a5c93b4845c0c5472e5b41c16248fa615"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a32dfe25ca2a9b673ff8f9add73d1b2df"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ChatComponent.html#a32dfe25ca2a9b673ff8f9add73d1b2df">toString</a> (int $format=<a class="el" href="classPhpcraft_1_1ChatComponent.html#a3dfda40b8d6823890467a7ac80c069f7">ChatComponent::FORMAT_NONE</a>)</td></tr>
@@ -143,10 +141,14 @@ Public Member Functions</h2></td></tr>
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:afd5246221948a5b0c701b2d6fdea252b"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ChatComponent.html#afd5246221948a5b0c701b2d6fdea252b">downloadTranslations</a> (string $language_code=&quot;en_GB&quot;)</td></tr>
 <tr class="separator:afd5246221948a5b0c701b2d6fdea252b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5c4b338e29777609709f987e3015b2a3"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ChatComponent.html#a5c4b338e29777609709f987e3015b2a3">container</a> (ChatComponent... $children)</td></tr>
+<tr class="separator:a5c4b338e29777609709f987e3015b2a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac6f894db026f12676d3b639acf47b8b6"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ChatComponent.html#ac6f894db026f12676d3b639acf47b8b6">text</a> (string $text, bool $allow_amp=false)</td></tr>
 <tr class="separator:ac6f894db026f12676d3b639acf47b8b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a45945b92a4ddfac99a9108b0c9f26bfd"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ChatComponent.html#a45945b92a4ddfac99a9108b0c9f26bfd">translate</a> (string $key, array $with=[])</td></tr>
 <tr class="separator:a45945b92a4ddfac99a9108b0c9f26bfd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad954f93f6fcc6aba3642b95279cf28c3"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ChatComponent.html#ad954f93f6fcc6aba3642b95279cf28c3">keybind</a> (string $name)</td></tr>
+<tr class="separator:ad954f93f6fcc6aba3642b95279cf28c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6176e33b97837cef137dbe45e93f364f"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ChatComponent.html#a6176e33b97837cef137dbe45e93f364f">cast</a> ($value)</td></tr>
 <tr class="separator:a6176e33b97837cef137dbe45e93f364f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a743a174bcbafc0dbfb3aa10edda15b5e"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ChatComponent.html#a743a174bcbafc0dbfb3aa10edda15b5e">fromArray</a> (array $array)</td></tr>
@@ -164,7 +166,7 @@ Public Attributes</h2></td></tr>
 <tr class="separator:a79f80591b957ae02db66b719e332ca1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afd2443c76f8fbaddd62792d887b000e4"><td class="memItemLeft" align="right" valign="top">const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ChatComponent.html#afd2443c76f8fbaddd62792d887b000e4">FORMAT_HTML</a> = 4</td></tr>
 <tr class="separator:afd2443c76f8fbaddd62792d887b000e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afec9af145a4dd2cec4eed55a8485fdd9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ChatComponent.html#afec9af145a4dd2cec4eed55a8485fdd9">$text</a> = null</td></tr>
+<tr class="memitem:afec9af145a4dd2cec4eed55a8485fdd9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ChatComponent.html#afec9af145a4dd2cec4eed55a8485fdd9">$text</a></td></tr>
 <tr class="separator:afec9af145a4dd2cec4eed55a8485fdd9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1804de0b3da8ecd57ba12679a3d5a2d4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ChatComponent.html#a1804de0b3da8ecd57ba12679a3d5a2d4">$color</a> = null</td></tr>
 <tr class="separator:a1804de0b3da8ecd57ba12679a3d5a2d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -184,6 +186,8 @@ Public Attributes</h2></td></tr>
 <tr class="separator:adcebf0c26327b23ab49f1de0fe1027a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a942a9d2da9393520e9d6309b00732e63"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ChatComponent.html#a942a9d2da9393520e9d6309b00732e63">$with</a> = []</td></tr>
 <tr class="separator:a942a9d2da9393520e9d6309b00732e63"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa5f0cbceaef16da15d3cb446767ceae5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ChatComponent.html#aa5f0cbceaef16da15d3cb446767ceae5">$keybind</a> = null</td></tr>
+<tr class="separator:aa5f0cbceaef16da15d3cb446767ceae5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af2b2e2dfe5a88c1457e34c2ebaf3bb5c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ChatComponent.html#af2b2e2dfe5a88c1457e34c2ebaf3bb5c">$insertion</a> = null</td></tr>
 <tr class="separator:af2b2e2dfe5a88c1457e34c2ebaf3bb5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae6924c562caeb63bebdb7ca513e986e8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ChatComponent.html#ae6924c562caeb63bebdb7ca513e986e8">$click_event</a> = null</td></tr>
@@ -212,26 +216,7 @@ Static Public Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><dl class="section since"><dt>Since</dt><dd>0.4 </dd></dl>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a083c7f816cf70e7b943fee8b3449f0be"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a083c7f816cf70e7b943fee8b3449f0be">&#9670;&nbsp;</a></span>__construct()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">Phpcraft\ChatComponent::__construct </td>
-          <td>(</td>
-          <td class="paramtype">?string&#160;</td>
-          <td class="paramname"><em>$text</em> = <code>null</code></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a036c7935ec7bd00e82db292f77a543c4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a036c7935ec7bd00e82db292f77a543c4">&#9670;&nbsp;</a></span>add()</h2>
 
@@ -365,6 +350,41 @@ Static Public Attributes</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="classPhpcraft_1_1ChatComponent.html">ChatComponent</a> </dd></dl>
+
+</div>
+</div>
+<a id="a5c4b338e29777609709f987e3015b2a3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c4b338e29777609709f987e3015b2a3">&#9670;&nbsp;</a></span>container()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static Phpcraft\ChatComponent::container </td>
+          <td>(</td>
+          <td class="paramtype">ChatComponent...&#160;</td>
+          <td class="paramname"><em>$children</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Instantiates a blank <a class="el" href="classPhpcraft_1_1ChatComponent.html">ChatComponent</a> that only serves to contain other <a class="el" href="classPhpcraft_1_1ChatComponent.html">ChatComponent</a> instances.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">$children</td><td><a class="el" href="classPhpcraft_1_1ChatComponent.html">ChatComponent</a>[] </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classPhpcraft_1_1ChatComponent.html">ChatComponent</a> </dd></dl>
+<dl class="section since"><dt>Since</dt><dd>0.4.1 </dd></dl>
 
 </div>
 </div>
@@ -641,6 +661,41 @@ Static Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Sets $this-&gt;italic to true.</p>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="classPhpcraft_1_1ChatComponent.html">ChatComponent</a> $this </dd></dl>
+
+</div>
+</div>
+<a id="ad954f93f6fcc6aba3642b95279cf28c3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad954f93f6fcc6aba3642b95279cf28c3">&#9670;&nbsp;</a></span>keybind()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static Phpcraft\ChatComponent::keybind </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>$name</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Initiates a "keybind" <a class="el" href="classPhpcraft_1_1ChatComponent.html">ChatComponent</a>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$name</td><td>The name of the key, named after the value in the options.txt, e.g. "key_key.forward" in options.txt would mean "key.forward" here, and "w" would be displayed. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classPhpcraft_1_1ChatComponent.html">ChatComponent</a> </dd></dl>
+<dl class="section since"><dt>Since</dt><dd>0.4.1 </dd></dl>
 
 </div>
 </div>
@@ -1296,6 +1351,21 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="aa5f0cbceaef16da15d3cb446767ceae5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa5f0cbceaef16da15d3cb446767ceae5">&#9670;&nbsp;</a></span>$keybind</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">string null Phpcraft\ChatComponent::$keybind = null</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section since"><dt>Since</dt><dd>0.4.1 </dd></dl>
+
+</div>
+</div>
 <a id="a9e697598572fa993afdf0906460c7d19"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9e697598572fa993afdf0906460c7d19">&#9670;&nbsp;</a></span>$obfuscated</h2>
 
@@ -1331,7 +1401,7 @@ Static Public Attributes</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">string null Phpcraft\ChatComponent::$text = null</td>
+          <td class="memname">string null Phpcraft\ChatComponent::$text</td>
         </tr>
       </table>
 </div><div class="memdoc">
