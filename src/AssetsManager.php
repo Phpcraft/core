@@ -21,7 +21,7 @@ class AssetsManager
 	 */
 	static function latest(): AssetsManager
 	{
-		return self::fromMinecraftVersion(Versions::minecraft(true)[0]);
+		return self::fromMinecraftVersion(Versions::minecraft(false)[0]);
 	}
 
 	/**
