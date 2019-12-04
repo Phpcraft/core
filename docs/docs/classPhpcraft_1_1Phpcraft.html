@@ -99,12 +99,12 @@ Static Public Member Functions</h2></td></tr>
 <tr class="separator:a31fe0ef2465673ad8f42f1c418ed1fe9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a81acb8558a1a03521ee54679e066a7bc"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Phpcraft.html#a81acb8558a1a03521ee54679e066a7bc">sha1</a> (string $str)</td></tr>
 <tr class="separator:a81acb8558a1a03521ee54679e066a7bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3940f1edd020df7730f1f6d994e6e2b1"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Phpcraft.html#a3940f1edd020df7730f1f6d994e6e2b1">chatToText</a> ($chat, int $format=self::FORMAT_NONE, ?array $translations=null, ?array $parent=null)</td></tr>
-<tr class="separator:a3940f1edd020df7730f1f6d994e6e2b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abac320a100d201b159eb114d052ed6c0"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Phpcraft.html#abac320a100d201b159eb114d052ed6c0">textToChat</a> (string $text, bool $allowAmp=false)</td></tr>
-<tr class="separator:abac320a100d201b159eb114d052ed6c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2fb1a5167c08f40b7597f68964c8d04b"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Phpcraft.html#a2fb1a5167c08f40b7597f68964c8d04b">chatToText</a> ($chat, int $format=<a class="el" href="classPhpcraft_1_1ChatComponent.html#a3dfda40b8d6823890467a7ac80c069f7">ChatComponent::FORMAT_NONE</a>, ?array $translations=null)</td></tr>
+<tr class="separator:a2fb1a5167c08f40b7597f68964c8d04b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa9d4ba8e33f9f81a364cff86e1800c5a"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Phpcraft.html#aa9d4ba8e33f9f81a364cff86e1800c5a">getServerStatus</a> (string $server_name, int $server_port=25565, float $timeout=3.000, int $method=Phpcraft::METHOD_ALL)</td></tr>
 <tr class="separator:aa9d4ba8e33f9f81a364cff86e1800c5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a532887b8342493dc6839fdb272f8d92e"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Phpcraft.html#a532887b8342493dc6839fdb272f8d92e">textToChat</a> (string $text, bool $allow_amp=false)</td></tr>
+<tr class="separator:a532887b8342493dc6839fdb272f8d92e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a11fab2d2d4e08c8e14f2642530d94f80"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Phpcraft.html#a11fab2d2d4e08c8e14f2642530d94f80">colorDiff</a> (array $rgb1, array $rgb2)</td></tr>
 <tr class="separator:a11fab2d2d4e08c8e14f2642530d94f80"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa1d3fc7f04e2cbc09b6aecf824444c6d"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Phpcraft.html#aa1d3fc7f04e2cbc09b6aecf824444c6d">recursivelyDelete</a> (string $path)</td></tr>
@@ -171,8 +171,8 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a3940f1edd020df7730f1f6d994e6e2b1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3940f1edd020df7730f1f6d994e6e2b1">&#9670;&nbsp;</a></span>chatToText()</h2>
+<a id="a2fb1a5167c08f40b7597f68964c8d04b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2fb1a5167c08f40b7597f68964c8d04b">&#9670;&nbsp;</a></span>chatToText()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -190,19 +190,13 @@ Static Public Attributes</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>$format</em> = <code>self::FORMAT_NONE</code>, </td>
+          <td class="paramname"><em>$format</em> = <code><a class="el" href="classPhpcraft_1_1ChatComponent.html#a3dfda40b8d6823890467a7ac80c069f7">ChatComponent::FORMAT_NONE</a></code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">?array&#160;</td>
-          <td class="paramname"><em>$translations</em> = <code>null</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">?array&#160;</td>
-          <td class="paramname"><em>$parent</em> = <code>null</code>&#160;</td>
+          <td class="paramname"><em>$translations</em> = <code>null</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -216,29 +210,16 @@ Static Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Converts a chat object into text.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype">array&#160;|&#160;string</td><td class="paramname">$chat</td><td>The chat object as an array or string. </td></tr>
-    <tr><td class="paramtype">int</td><td class="paramname">$format</td><td>The formatting to convert to: <ul>
-<li>
-0: None (drop colors and formatting)</li>
-<li>
-1: ANSI escape codes (for compatible terminals)</li>
-<li>
-2: Paragraph (§) format</li>
-<li>
-3: Ampersand (&amp;) format</li>
-<li>
-4: HTML</li>
-</ul>
-</td></tr>
-    <tr><td class="paramtype"></td><td class="paramname">array&lt;string,string&gt;|null</td><td>$translations The translations array so translated messages look proper. </td></tr>
-    <tr><td class="paramtype">array&#160;|&#160;null</td><td class="paramname">$parent</td><td>Ignore this parameter. </td></tr>
+    <tr><td class="paramtype">array&#160;|&#160;string&#160;|&#160;null&#160;|&#160;<a class="el" href="classPhpcraft_1_1ChatComponent.html">ChatComponent</a></td><td class="paramname">$chat</td><td></td></tr>
+    <tr><td class="paramtype">int</td><td class="paramname">$format</td><td></td></tr>
+    <tr><td class="paramtype"></td><td class="paramname">array&lt;string,string&gt;|null</td><td>$translations </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>string </dd></dl>
+<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000006">Deprecated:</a></b></dt><dd>Use <a class="el" href="classPhpcraft_1_1ChatComponent.html#a6176e33b97837cef137dbe45e93f364f">ChatComponent::cast</a>($chat)-&gt;toString($format), instead. </dd></dl>
 
 </div>
 </div>
@@ -478,7 +459,7 @@ Phpcraft::saveProfiles() </dd></dl>
   ],
   "favicon" =&gt; "data:image/png;base64,&amp;lt;data&amp;gt;",
   "ping" =&gt; 0.068003177642822
-]</pre><p> Note that a server might not present all of these values, so always check with <code>isset</code> first. Also, the <code>description</code> is a chat object, so you can pass it to Phpcraft::chatToText().</p>
+]</pre><p> Note that a server might not present all of these values, so always check with <code>isset</code> or <code>array_key_exists</code> first. <code>description</code> should always be a valid chat component.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramtype">string</td><td class="paramname">$server_name</td><td></td></tr>
@@ -736,8 +717,8 @@ getCachableResource </dd></dl>
 
 </div>
 </div>
-<a id="abac320a100d201b159eb114d052ed6c0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abac320a100d201b159eb114d052ed6c0">&#9670;&nbsp;</a></span>textToChat()</h2>
+<a id="a532887b8342493dc6839fdb272f8d92e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a532887b8342493dc6839fdb272f8d92e">&#9670;&nbsp;</a></span>textToChat()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -755,7 +736,7 @@ getCachableResource </dd></dl>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>$allowAmp</em> = <code>false</code>&#160;</td>
+          <td class="paramname"><em>$allow_amp</em> = <code>false</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -769,15 +750,15 @@ getCachableResource </dd></dl>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Converts a string using § format codes into a chat object.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramtype">string</td><td class="paramname">$text</td><td></td></tr>
-    <tr><td class="paramtype">boolean</td><td class="paramname">$allowAmp</td><td>If true, '&amp;' will be handled like '§'. </td></tr>
+    <tr><td class="paramtype">boolean</td><td class="paramname">$allow_amp</td><td></td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>array </dd></dl>
+<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000007">Deprecated:</a></b></dt><dd>Use <a class="el" href="classPhpcraft_1_1ChatComponent.html#ac6f894db026f12676d3b639acf47b8b6">ChatComponent::text</a>($text, $allow_amp)-&gt;toArray(), instead. </dd></dl>
 
 </div>
 </div>
@@ -865,7 +846,7 @@ getCachableResource </dd></dl>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>&amp;-format </p>
+<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000004">Deprecated:</a></b></dt><dd>Use <a class="el" href="classPhpcraft_1_1ChatComponent.html#a79f80591b957ae02db66b719e332ca1c">ChatComponent::FORMAT_AMPERSAND</a>, instead. </dd></dl>
 
 </div>
 </div>
@@ -880,6 +861,7 @@ getCachableResource </dd></dl>
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000002">Deprecated:</a></b></dt><dd>Use <a class="el" href="classPhpcraft_1_1ChatComponent.html#a8c013f163cdc40b3d6252bd955c425c5">ChatComponent::FORMAT_ANSI</a>, instead. </dd></dl>
 
 </div>
 </div>
@@ -894,6 +876,7 @@ getCachableResource </dd></dl>
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000005">Deprecated:</a></b></dt><dd>Use <a class="el" href="classPhpcraft_1_1ChatComponent.html#afd2443c76f8fbaddd62792d887b000e4">ChatComponent::FORMAT_HTML</a>, instead. </dd></dl>
 
 </div>
 </div>
@@ -908,6 +891,7 @@ getCachableResource </dd></dl>
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000001">Deprecated:</a></b></dt><dd>Use <a class="el" href="classPhpcraft_1_1ChatComponent.html#a3dfda40b8d6823890467a7ac80c069f7">ChatComponent::FORMAT_NONE</a>, instead. </dd></dl>
 
 </div>
 </div>
@@ -922,7 +906,7 @@ getCachableResource </dd></dl>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>§-format </p>
+<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000003">Deprecated:</a></b></dt><dd>Use <a class="el" href="classPhpcraft_1_1ChatComponent.html#a155a77fa1ba67737b79e33d309c714b4">ChatComponent::FORMAT_SILCROW</a>, instead. </dd></dl>
 
 </div>
 </div>

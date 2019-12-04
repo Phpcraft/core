@@ -92,6 +92,8 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a3ec26bb409f44f07676f0cdeb9ddd2ac"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1AssetsManager.html#a3ec26bb409f44f07676f0cdeb9ddd2ac">latest</a> ()</td></tr>
+<tr class="separator:a3ec26bb409f44f07676f0cdeb9ddd2ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a37b69586a1ec2cd6015d43f549ca4b40"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1AssetsManager.html#a37b69586a1ec2cd6015d43f549ca4b40">fromMinecraftVersion</a> (string $version)</td></tr>
 <tr class="separator:a37b69586a1ec2cd6015d43f549ca4b40"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -248,7 +250,7 @@ Public Attributes</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="classPhpcraft_1_1AssetsManager.html">AssetsManager</a> </dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname"><a class="el" href="namespacePhpcraft_1_1Exception.html">Exception</a></td><td>When the version manifest for the given version couldn't be fetched. </td></tr>
+    <tr><td class="paramname"><a class="el" href="namespacePhpcraft_1_1Exception.html">Exception</a></td><td>if the version manifest for the given version couldn't be fetched. </td></tr>
   </table>
   </dd>
 </dl>
@@ -271,6 +273,39 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Returns the JSON-decoded content of the asset index of the version.</p>
 <dl class="section return"><dt>Returns</dt><dd>array </dd></dl>
+
+</div>
+</div>
+<a id="a3ec26bb409f44f07676f0cdeb9ddd2ac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3ec26bb409f44f07676f0cdeb9ddd2ac">&#9670;&nbsp;</a></span>latest()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static Phpcraft\AssetsManager::latest </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Returns an <a class="el" href="classPhpcraft_1_1AssetsManager.html">AssetsManager</a> using the latest supported Minecraft version's asset index.</p>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classPhpcraft_1_1AssetsManager.html">AssetsManager</a> </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="namespacePhpcraft_1_1Exception.html">Exception</a></td><td>if the version manifest couldn't be fetched. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

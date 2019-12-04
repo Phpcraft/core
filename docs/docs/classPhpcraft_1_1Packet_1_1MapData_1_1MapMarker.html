@@ -76,8 +76,8 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aade2651dd373ac2bca36d01551871a85"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Packet_1_1MapData_1_1MapMarker.html#aade2651dd373ac2bca36d01551871a85">__construct</a> (int $type=<a class="el" href="classPhpcraft_1_1Packet_1_1MapData_1_1MapMarker.html#ac1ae785ef8ecb00bf6da91f464f15db6">MapMarker::TYPE_WHITE_ARROW</a>, int $x=0, int $z=0, int $rotation=0, array $name=[])</td></tr>
-<tr class="separator:aade2651dd373ac2bca36d01551871a85"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a49e7a0473e969b7d7cb20c3aa561298c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Packet_1_1MapData_1_1MapMarker.html#a49e7a0473e969b7d7cb20c3aa561298c">__construct</a> (int $type=<a class="el" href="classPhpcraft_1_1Packet_1_1MapData_1_1MapMarker.html#ac1ae785ef8ecb00bf6da91f464f15db6">MapMarker::TYPE_WHITE_ARROW</a>, int $x=0, int $z=0, int $rotation=0, ?<a class="el" href="classPhpcraft_1_1ChatComponent.html">ChatComponent</a> $name=null)</td></tr>
+<tr class="separator:a49e7a0473e969b7d7cb20c3aa561298c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9aab4ed14db29d4f7b8867e19016bb79"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Packet_1_1MapData_1_1MapMarker.html#a9aab4ed14db29d4f7b8867e19016bb79">__toString</a> ()</td></tr>
 <tr class="separator:a9aab4ed14db29d4f7b8867e19016bb79"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -145,15 +145,15 @@ Public Attributes</h2></td></tr>
 <tr class="separator:ac083a83c509928023dd624aa74c7b8d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6e4c29df21382eff9136cc9568401911"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Packet_1_1MapData_1_1MapMarker.html#a6e4c29df21382eff9136cc9568401911">$rotation</a></td></tr>
 <tr class="separator:a6e4c29df21382eff9136cc9568401911"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a03de562229f1546893d5810f2136e271"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Packet_1_1MapData_1_1MapMarker.html#a03de562229f1546893d5810f2136e271">$name</a></td></tr>
-<tr class="separator:a03de562229f1546893d5810f2136e271"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a804b6398d7979f78653dad0b95ffd457"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Packet_1_1MapData_1_1MapMarker.html#a804b6398d7979f78653dad0b95ffd457">$name</a></td></tr>
+<tr class="separator:a804b6398d7979f78653dad0b95ffd457"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A marker on a map.</p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classPhpcraft_1_1Packet_1_1MapData_1_1MapDataPacket.html">MapDataPacket</a> </dd></dl>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="aade2651dd373ac2bca36d01551871a85"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aade2651dd373ac2bca36d01551871a85">&#9670;&nbsp;</a></span>__construct()</h2>
+<a id="a49e7a0473e969b7d7cb20c3aa561298c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a49e7a0473e969b7d7cb20c3aa561298c">&#9670;&nbsp;</a></span>__construct()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -185,8 +185,8 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">array&#160;</td>
-          <td class="paramname"><em>$name</em> = <code>[]</code>&#160;</td>
+          <td class="paramtype">?<a class="el" href="classPhpcraft_1_1ChatComponent.html">ChatComponent</a>&#160;</td>
+          <td class="paramname"><em>$name</em> = <code>null</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -201,7 +201,7 @@ Public Attributes</h2></td></tr>
     <tr><td class="paramtype">int</td><td class="paramname">$x</td><td>The x coordinate of the marker on the map from -127 to 128. </td></tr>
     <tr><td class="paramtype">int</td><td class="paramname">$z</td><td>The z coordinate of the marker on the map from -127 to 128. </td></tr>
     <tr><td class="paramtype">int</td><td class="paramname">$rotation</td><td>The rotation of the marker divided by 22.5°, so it has a value between 0 and 15. </td></tr>
-    <tr><td class="paramtype">array</td><td class="paramname">$name</td><td>The display name of this marker; chat object. Only visible to 1.13+ clients. </td></tr>
+    <tr><td class="paramtype"><a class="el" href="classPhpcraft_1_1ChatComponent.html">ChatComponent</a>&#160;|&#160;null</td><td class="paramname">$name</td><td>The display name of this marker. Only visible to 1.13+ clients. </td></tr>
   </table>
   </dd>
 </dl>
@@ -227,18 +227,18 @@ Public Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="a03de562229f1546893d5810f2136e271"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a03de562229f1546893d5810f2136e271">&#9670;&nbsp;</a></span>$name</h2>
+<a id="a804b6398d7979f78653dad0b95ffd457"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a804b6398d7979f78653dad0b95ffd457">&#9670;&nbsp;</a></span>$name</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">array Phpcraft\Packet\MapData\MapMarker::$name</td>
+          <td class="memname"><a class="el" href="classPhpcraft_1_1ChatComponent.html">ChatComponent</a> null Phpcraft\Packet\MapData\MapMarker::$name</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>The display name of this marker; chat object. Only visible to 1.13+ clients. </p>
+<p>The display name of this marker. Only visible to 1.13+ clients. </p>
 
 </div>
 </div>

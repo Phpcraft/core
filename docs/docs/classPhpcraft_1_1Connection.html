@@ -96,8 +96,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a7c459cc8e8a68e1ccd99f7ee80a2794b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a49683613fdd7852e22a0fea6436ae99a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#a49683613fdd7852e22a0fea6436ae99a">getRemainingData</a> ()</td></tr>
 <tr class="separator:a49683613fdd7852e22a0fea6436ae99a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af87354d640c41b05b46b2f6384151531"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#af87354d640c41b05b46b2f6384151531">writeChat</a> ($value)</td></tr>
-<tr class="separator:af87354d640c41b05b46b2f6384151531"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3728423814fb1e55c6b6ee7585bea271"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#a3728423814fb1e55c6b6ee7585bea271">writeChat</a> (<a class="el" href="classPhpcraft_1_1ChatComponent.html">ChatComponent</a> $value)</td></tr>
+<tr class="separator:a3728423814fb1e55c6b6ee7585bea271"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5bbf2b6797d4e27bd836051505a40705"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#a5bbf2b6797d4e27bd836051505a40705">writeString</a> (string $value)</td></tr>
 <tr class="separator:a5bbf2b6797d4e27bd836051505a40705"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7176634ff93842f2589562532e807536"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#a7176634ff93842f2589562532e807536">writeRaw</a> (string $value)</td></tr>
@@ -465,8 +465,8 @@ echo \<a class="el" href="classPhpcraft_1_1Phpcraft.html">Phpcraft</a>\<a class=
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Reads a chat object from the read buffer.</p>
-<dl class="section return"><dt>Returns</dt><dd>array </dd></dl>
+<p>Reads a chat component from the read buffer.</p>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classPhpcraft_1_1ChatComponent.html">ChatComponent</a> </dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
     <tr><td class="paramname">IOException</td><td>When there are not enough bytes to read the string. </td></tr>
@@ -1189,8 +1189,8 @@ Packet::serverboundPacketIdToName() </dd></dl>
 
 </div>
 </div>
-<a id="af87354d640c41b05b46b2f6384151531"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af87354d640c41b05b46b2f6384151531">&#9670;&nbsp;</a></span>writeChat()</h2>
+<a id="a3728423814fb1e55c6b6ee7585bea271"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3728423814fb1e55c6b6ee7585bea271">&#9670;&nbsp;</a></span>writeChat()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1198,16 +1198,16 @@ Packet::serverboundPacketIdToName() </dd></dl>
         <tr>
           <td class="memname">Phpcraft\Connection::writeChat </td>
           <td>(</td>
-          <td class="paramtype">&#160;</td>
+          <td class="paramtype"><a class="el" href="classPhpcraft_1_1ChatComponent.html">ChatComponent</a>&#160;</td>
           <td class="paramname"><em>$value</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Adds a chat object to the read buffer.</p>
+<p>Adds a chat component to the write buffer.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype">array&#160;|&#160;string</td><td class="paramname">$value</td><td>The chat object or a strings that will be converted into a chat object. </td></tr>
+    <tr><td class="paramtype"><a class="el" href="classPhpcraft_1_1ChatComponent.html">ChatComponent</a></td><td class="paramname">$value</td><td></td></tr>
   </table>
   </dd>
 </dl>
