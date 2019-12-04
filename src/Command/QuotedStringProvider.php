@@ -6,7 +6,7 @@ class QuotedStringProvider extends ArgumentProvider
 {
 	private $has_more = false;
 
-	public function __construct(CommandSender &$sender, string $arg)
+	function __construct(CommandSender &$sender, string $arg)
 	{
 		if(substr($arg, 0, 1) != "\"")
 		{

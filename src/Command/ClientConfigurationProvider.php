@@ -6,7 +6,7 @@ use Phpcraft\
 {ClientConfiguration, Connection};
 class ClientConfigurationProvider extends ArgumentProvider
 {
-	public function __construct(CommandSender &$sender, string $arg)
+	function __construct(CommandSender &$sender, string $arg)
 	{
 		if(!$sender instanceof ServerCommandSender)
 		{

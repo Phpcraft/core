@@ -169,7 +169,7 @@ class Configuration implements Iterator, Countable, ArrayAccess
 		return $this->current < count($this->data);
 	}
 
-	public function rewind()
+	function rewind()
 	{
 		$this->current = 0;
 	}

@@ -4,7 +4,7 @@ use InvalidArgumentException;
 use Phpcraft\Connection;
 class FloatProvider extends ArgumentProvider
 {
-	public function __construct(CommandSender &$sender, string $arg)
+	function __construct(CommandSender &$sender, string $arg)
 	{
 		if(!is_numeric($arg))
 		{

@@ -5,7 +5,7 @@ use LogicException;
 use Phpcraft\ClientConnection;
 class ClientConnectionProvider extends ArgumentProvider
 {
-	public function __construct(CommandSender &$sender, string $arg)
+	function __construct(CommandSender &$sender, string $arg)
 	{
 		$arg = strtolower($arg);
 		if(!$sender instanceof ServerCommandSender)

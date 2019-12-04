@@ -5,7 +5,7 @@ namespace Phpcraft\Command;
  */
 class StringProvider extends ArgumentProvider
 {
-	public function __construct(CommandSender &$sender, string $arg)
+	function __construct(CommandSender &$sender, string $arg)
 	{
 		$this->value = $arg;
 	}
