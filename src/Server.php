@@ -434,14 +434,14 @@ class Server implements ServerCommandSender
 	}
 
 	/**
-	 * Returns the "description" key from $this->list_ping_function's return array.
+	 * Returns the "description" key from $this->list_ping_function's return array, cast to ChatComponent.
 	 *
-	 * @return array|string
+	 * @return ChatComponent
 	 * @see Server::$list_ping_function
 	 */
-	function getMotd()
+	function getMotd(): ChatComponent
 	{
-		return ($this->list_ping_function)()["description"];
+		return ChatComponent::cast(($this->list_ping_function)()["description"]);
 	}
 
 	/**
