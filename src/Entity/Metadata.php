@@ -54,26 +54,6 @@ abstract class Metadata
 	/**
 	 * @param Connection $con
 	 * @param int $index
-	 * @param string $value
-	 * @return void
-	 */
-	static function writeString(Connection $con, int $index, string $value): void
-	{
-		if($con->protocol_version >= 57)
-		{
-			$con->writeByte($index);
-			$con->writeByte(3);
-		}
-		else
-		{
-			$con->writeByte(4 << 5 | $index & 0x1F);
-		}
-		$con->writeString($value);
-	}
-
-	/**
-	 * @param Connection $con
-	 * @param int $index
 	 * @param ChatComponent|null $value
 	 * @return void
 	 * @throws LogicException
@@ -98,6 +78,26 @@ abstract class Metadata
 				$con->writeBoolean(false);
 			}
 		}
+	}
+
+	/**
+	 * @param Connection $con
+	 * @param int $index
+	 * @param string $value
+	 * @return void
+	 */
+	static function writeString(Connection $con, int $index, string $value): void
+	{
+		if($con->protocol_version >= 57)
+		{
+			$con->writeByte($index);
+			$con->writeByte(3);
+		}
+		else
+		{
+			$con->writeByte(4 << 5 | $index & 0x1F);
+		}
+		$con->writeString($value);
 	}
 
 	/**

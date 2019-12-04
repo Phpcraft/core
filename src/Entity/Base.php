@@ -1,8 +1,7 @@
 <?php
 namespace Phpcraft\Entity;
 use Phpcraft\
-{ChatComponent, Connection, Exception\IOException
-};
+{ChatComponent, Connection, Exception\IOException};
 class Base extends Metadata
 {
 	/**

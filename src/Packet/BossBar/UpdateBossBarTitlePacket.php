@@ -2,8 +2,7 @@
 namespace Phpcraft\Packet\BossBar;
 use hellsh\UUID;
 use Phpcraft\
-{ChatComponent, Connection, Entity\Living, Exception\IOException
-};
+{ChatComponent, Connection, Entity\Living, Exception\IOException};
 class UpdateBossBarTitlePacket extends BossBarPacket
 {
 	/**
