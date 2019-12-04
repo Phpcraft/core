@@ -212,7 +212,7 @@ class ChatComponent
 		try
 		{
 			$am = AssetsManager::latest();
-			$local_file = $am->downloadAsset("minecraft/lang/{$language_code}.json");
+			$local_file = $am->downloadAsset("minecraft/lang/".strtolower($language_code).".json");
 			if($local_file !== null)
 			{
 				self::$translations = json_decode(file_get_contents($local_file), true);
