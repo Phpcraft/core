@@ -568,7 +568,7 @@ class ChatComponent
 		}
 		if(@$chat["translate"] !== null)
 		{
-			if(array_key_exists(self::$translations, $chat["translate"]))
+			if(array_key_exists($chat["translate"], self::$translations))
 			{
 				$raw = self::$translations[$chat["translate"]];
 				if(@$chat["with"])
