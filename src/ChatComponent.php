@@ -980,7 +980,7 @@ ChatComponent::$color_to_hex = [
 	"red" => "c",
 	"light_purple" => "d",
 	"yellow" => "e",
-	"white " => "f"
+	"white" => "f"
 ];
 ChatComponent::$color_to_ansi = [
 	"black" => "30",
