@@ -5,7 +5,23 @@
  * @var Plugin $this
  */
 use Phpcraft\
-{BlockState, ClientConnection, Connection, Event\ServerChunkBorderEvent, Event\ServerJoinEvent, Event\ServerTickEvent, NBT\CompoundTag, NBT\LongArrayTag, Plugin, PluginManager};
+{BlockState, Chunk, ChunkSection, ClientConnection, Event\ServerChunkBorderEvent, Event\ServerJoinEvent, Event\ServerTickEvent, Plugin, PluginManager, Point3D};
+global $grass_chunk, $stone_chunk, $grass_stone_chunk;
+$grass_chunk = new Chunk();
+$grass_chunk->setSection(0, new ChunkSection(BlockState::get("grass_block")));
+$stone_chunk = new Chunk();
+$stone_chunk->setSection(0, new ChunkSection(BlockState::get("stone")));
+$grass_stone_chunk = new Chunk();
+for($x = 0; $x < 16; $x++)
+{
+	for($y = 0; $y < 16; $y++)
+	{
+		for($z = 0; $z < 16; $z++)
+		{
+			$grass_stone_chunk->set(new Point3D($x, $y, $z), BlockState::get($x % 2 ? "grass_block" : "stone"));
+		}
+	}
+}
 $this->on(function(ServerJoinEvent $event)
 {
 	if($event->cancelled)
@@ -25,24 +41,28 @@ $this->on(function(ServerJoinEvent $event)
 	{
 		$con->sendMessage("Use /grass, /stone, and /grass_stone to §ochange the world§r.");
 	}
-	$con->chunk_preference = "\x00\x01";
+	global $grass_stone_chunk;
+	$con->chunk_preference = $grass_stone_chunk;
 	$this->fire(new ServerChunkBorderEvent($event->server, $con));
 })
 	 ->registerCommand("grass", function(ClientConnection &$client)
 	 {
-		 $client->chunk_preference = "\x00\x00";
+		 global $grass_chunk;
+		 $client->chunk_preference = $grass_chunk;
 		 $client->chunks = [];
 		 $this->fire(new ServerChunkBorderEvent($client->getServer(), $client));
 	 }, "change the world")
 	 ->registerCommand("stone", function(ClientConnection &$client)
 	 {
-		 $client->chunk_preference = "\x01\x01";
+	 	global $stone_chunk;
+		 $client->chunk_preference = $stone_chunk;
 		 $client->chunks = [];
 		 $this->fire(new ServerChunkBorderEvent($client->getServer(), $client));
 	 }, "change the world")
 	 ->registerCommand("grass_stone", function(ClientConnection &$client)
 	 {
-		 $client->chunk_preference = "\x00\x01";
+		 global $grass_stone_chunk;
+		 $client->chunk_preference = $grass_stone_chunk;
 		 $client->chunks = [];
 		 $this->fire(new ServerChunkBorderEvent($client->getServer(), $client));
 	 }, "change the world")
@@ -74,7 +94,7 @@ $this->on(function(ServerJoinEvent $event)
 		 foreach($event->server->clients as $con)
 		 {
 			 assert($con instanceof ClientConnection);
-			 if($con->state != Connection::STATE_PLAY || $con->downstream !== null || @$con->received_imitated_world)
+			 if(@$con->chunk_preference === null || $con->downstream !== null || @$con->received_imitated_world)
 			 {
 				 continue;
 			 }
@@ -84,74 +104,8 @@ $this->on(function(ServerJoinEvent $event)
 				 $con->writeInt($chunk_coords[0]); // Chunk X
 				 $con->writeInt($chunk_coords[1]); // Chunk Z
 				 $con->writeBoolean(true); // Is New Chunk
-				 if($con->protocol_version >= 70) // Sections Bit Mask
-				 {
-					 $con->writeVarInt(0b00000001);
-				 }
-				 else if($con->protocol_version >= 60)
-				 {
-					 $con->writeInt(0b00000001);
-				 }
-				 else
-				 {
-					 $con->writeShort(0b00000001);
-				 }
-				 if($con->protocol_version >= 472) // Height map
-				 {
-					 $bits = str_repeat("000001111", 256);
-					 $motion_blocking = new LongArrayTag("MOTION_BLOCKING");
-					 for($i = 0; $i < 36; $i++)
-					 {
-						 array_push($motion_blocking->children, gmp_init(substr($bits, $i * 64, 64), 2));
-					 }
-					 (new CompoundTag("", [
-						 $motion_blocking,
-						 //new NbtLongArray("WORLD_SURFACE", $motion_blocking->children)
-					 ]))->write($con);
-				 }
-				 // Data Size + Data:
-				 $data = new Connection();
-				 //for($i = 0; $i < 1; $i++)
-				 {
-					 if($con->protocol_version > 47)
-					 {
-						 if($con->protocol_version >= 472)
-						 {
-							 $data->writeShort(4096); // Block count
-						 }
-						 $data->writeByte(8); // Bits per Block
-						 $data->writeVarInt(2); // Palette Size
-						 $data->writeVarInt(BlockState::get("grass_block")
-													  ->getId($con->protocol_version));
-						 $data->writeVarInt(BlockState::get("stone")
-													  ->getId($con->protocol_version));
-						 $data->writeVarInt(512); // (4096 / (64 / Bits per Block))
-						 $data->write_buffer .= str_repeat($con->chunk_preference, 2048); // Blocks
-					 }
-					 else
-					 {
-						 $legacy_ids = "";
-						 for($i = 0; $i < 2; $i++)
-						 {
-							 $legacy_ids .= substr($con->chunk_preference, $i, 1) == "\x00" ? "\x20\x00" : "\x10\x00"; // For some reason the byte order is reversed
-						 }
-						 $data->write_buffer .= str_repeat($legacy_ids, 2048);
-						 $data->writeVarInt(16); // Bits of data per block: 4 for block light, 8 for block + sky light, 16 for both + biome.
-						 $data->writeVarInt(8192); // Number of elements in block + sky light arrays
-					 }
-					 if($con->protocol_version < 472)
-					 {
-						 $data->write_buffer .= str_repeat("\x00", 2048); // Block Light
-						 $data->write_buffer .= str_repeat("\xFF", 2048); // Sky Light
-					 }
-				 }
-				 $data->write_buffer .= str_repeat($con->protocol_version >= 357 ? "\x00\x00\x00\x7F" : "\x00", 256); // Biomes
-				 $con->writeVarInt(strlen($data->write_buffer));
-				 $con->write_buffer .= $data->write_buffer;
-				 if($con->protocol_version >= 110)
-				 {
-					 $con->writeVarInt(0); // Number of block entities
-				 }
+				 $con->chunk_preference->write($con);
+				 file_put_contents("chunk.bin",  $con->write_buffer);
 				 $con->send();
 				 /*if($con->protocol_version >= 472)
 				 {

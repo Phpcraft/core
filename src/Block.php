@@ -60,15 +60,15 @@ class Block
 				"1.13" => json_decode(file_get_contents(Phpcraft::DATA_DIR."/minecraft-data/1.13/blocks.json"), true)
 			];
 			foreach([
-				393 => "1.13",
+				477 => "1.14",
 				397 => "1.13.2",
-				477 => "1.14"
+				393 => "1.13"
 			] as $pv => $v)
 			{
 				foreach(json_decode(file_get_contents(Phpcraft::DATA_DIR."/mcdata/{$v}/blocks.json"), true) as $_identifier => $data)
 				{
 					$identifier = substr($_identifier, 10);
-					if($pv == 393 || !array_key_exists($identifier, self::$all_cache))
+					if($pv == 477 || !array_key_exists($identifier, self::$all_cache))
 					{
 						$display_name = null;
 						foreach($json_cache["1.13"] as $_block)
@@ -98,9 +98,9 @@ class Block
 								}
 							}
 							$ids = [
-								477 => null,
+								393 => null,
 								397 => null,
-								393 => null
+								477 => null
 							];
 							$ids[$pv] = $state["id"];
 							foreach([
@@ -131,6 +131,10 @@ class Block
 					}
 					else
 					{
+						if(self::$all_cache[$identifier]->since_protocol_version > $pv)
+						{
+							self::$all_cache[$identifier]->since_protocol_version = $pv;
+						}
 						$state_i = 0;
 						foreach($data["states"] as $state)
 						{

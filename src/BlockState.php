@@ -47,12 +47,19 @@ class BlockState
 	 */
 	static function getById(int $id, int $protocol_version): ?BlockState
 	{
+		$i = 0;
 		foreach(BlockState::all() as $blockState)
 		{
+			if(!$blockState instanceof BlockState)
+			{
+				var_dump($blockState);
+				echo "@ $i\n";
+			}
 			if($blockState->getId($protocol_version) == $id)
 			{
 				return $blockState;
 			}
+			$i++;
 		}
 		return null;
 	}

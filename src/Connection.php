@@ -214,7 +214,7 @@ class Connection
 		return $this;
 	}
 
-	private function writeGMP($value, int $bytes, int $bits, bool $signed): void
+	function writeGMP($value, int $bytes, int $bits, bool $signed, int $gmp_export_options = GMP_BIG_ENDIAN): void
 	{
 		if(is_float($value))
 		{
@@ -235,7 +235,7 @@ class Connection
 			{
 				$value = gmp_sub(self::$pow2[$bits], gmp_abs($value));
 			}
-			$this->write_buffer .= gmp_export($value, $bytes, GMP_BIG_ENDIAN);
+			$this->write_buffer .= gmp_export($value, $bytes, $gmp_export_options);
 		}
 	}
 
