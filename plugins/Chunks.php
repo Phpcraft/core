@@ -6,7 +6,6 @@
  */
 use Phpcraft\
 {BlockState, Chunk, ChunkSection, ClientConnection, Event\ServerChunkBorderEvent, Event\ServerJoinEvent, Event\ServerTickEvent, Plugin, PluginManager, Point3D};
-global $grass_chunk, $stone_chunk, $grass_stone_chunk;
 $grass_chunk = new Chunk();
 $grass_chunk->setSection(0, new ChunkSection(BlockState::get("grass_block")));
 $stone_chunk = new Chunk();
@@ -22,7 +21,7 @@ for($x = 0; $x < 16; $x++)
 		}
 	}
 }
-$this->on(function(ServerJoinEvent $event)
+$this->on(function(ServerJoinEvent $event) use (&$grass_stone_chunk)
 {
 	if($event->cancelled)
 	{
@@ -41,27 +40,23 @@ $this->on(function(ServerJoinEvent $event)
 	{
 		$con->sendMessage("Use /grass, /stone, and /grass_stone to §ochange the world§r.");
 	}
-	global $grass_stone_chunk;
 	$con->chunk_preference = $grass_stone_chunk;
 	$this->fire(new ServerChunkBorderEvent($event->server, $con));
 })
-	 ->registerCommand("grass", function(ClientConnection &$client)
+	 ->registerCommand("grass", function(ClientConnection &$client) use (&$grass_chunk)
 	 {
-		 global $grass_chunk;
 		 $client->chunk_preference = $grass_chunk;
 		 $client->chunks = [];
 		 $this->fire(new ServerChunkBorderEvent($client->getServer(), $client));
 	 }, "change the world")
-	 ->registerCommand("stone", function(ClientConnection &$client)
+	 ->registerCommand("stone", function(ClientConnection &$client) use (&$stone_chunk)
 	 {
-	 	global $stone_chunk;
 		 $client->chunk_preference = $stone_chunk;
 		 $client->chunks = [];
 		 $this->fire(new ServerChunkBorderEvent($client->getServer(), $client));
 	 }, "change the world")
-	 ->registerCommand("grass_stone", function(ClientConnection &$client)
+	 ->registerCommand("grass_stone", function(ClientConnection &$client) use (&$grass_stone_chunk)
 	 {
-		 global $grass_stone_chunk;
 		 $client->chunk_preference = $grass_stone_chunk;
 		 $client->chunks = [];
 		 $this->fire(new ServerChunkBorderEvent($client->getServer(), $client));
@@ -105,7 +100,7 @@ $this->on(function(ServerJoinEvent $event)
 				 $con->writeInt($chunk_coords[1]); // Chunk Z
 				 $con->writeBoolean(true); // Is New Chunk
 				 $con->chunk_preference->write($con);
-				 file_put_contents("chunk.bin",  $con->write_buffer);
+				 file_put_contents("chunk.bin", $con->write_buffer);
 				 $con->send();
 				 /*if($con->protocol_version >= 472)
 				 {
