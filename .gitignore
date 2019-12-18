@@ -1,8 +1,10 @@
 .idea/
+config/
 vendor/
 src/.json_cache
 src/.user_cache
 *.bin
 *.hex
-composer.lock
 *sketch.php
+composer.lock
+server.php
