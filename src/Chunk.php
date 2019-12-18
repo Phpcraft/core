@@ -2,7 +2,6 @@
 namespace Phpcraft;
 use Phpcraft\NBT\
 {CompoundTag, LongArrayTag};
-use RuntimeException;
 /**
  * @since 0.4.3
  */
