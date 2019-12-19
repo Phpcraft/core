@@ -1147,7 +1147,7 @@ class Connection
 	{
 		if(strlen($this->read_buffer) - $this->read_buffer_offset < $bytes)
 		{
-			throw new IOException("There are less than $bytes bytes");
+			throw new IOException("Can't read $bytes-byte binary string as that exceeds the read buffer");
 		}
 		$str = substr($this->read_buffer, $this->read_buffer_offset, $bytes);
 		$this->read_buffer_offset += $bytes;
@@ -1204,7 +1204,7 @@ class Connection
 	{
 		if(strlen($this->read_buffer) - $this->read_buffer_offset < $bytes)
 		{
-			throw new IOException("There are less than {$bytes} bytes");
+			throw new IOException("Can't ignore {$bytes} bytes as that exceeds the read buffer");
 		}
 		$this->read_buffer_offset += $bytes;
 		return $this;
