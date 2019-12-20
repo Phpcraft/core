@@ -1,7 +1,7 @@
 <?php
 namespace Phpcraft\Event;
-use Phpcraft\ClientConnection;
-use Phpcraft\Server;
+use Phpcraft\
+{ClientConnection, Server};
 /**
  * The event emitted by the server when a client's flying value has changed. Not cancellable.
  *

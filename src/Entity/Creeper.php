@@ -1,7 +1,7 @@
 <?php
 namespace Phpcraft\Entity;
-use Phpcraft\Connection;
-use Phpcraft\Exception\IOException;
+use Phpcraft\
+{Connection, Exception\IOException};
 class Creeper extends Monster
 {
 	/**

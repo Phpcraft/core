@@ -1,7 +1,7 @@
 <?php
 namespace Phpcraft\Packet\PluginMessage;
-use Phpcraft\Connection;
-use Phpcraft\Exception\IOException;
+use Phpcraft\
+{Connection, Exception\IOException};
 class ServerboundPluginMessagePacket extends PluginMessagePacket
 {
 	/**

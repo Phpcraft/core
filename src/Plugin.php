@@ -3,8 +3,8 @@ namespace Phpcraft;
 use Closure;
 use DomainException;
 use InvalidArgumentException;
-use Phpcraft\Command\Command;
-use Phpcraft\Event\Event;
+use Phpcraft\
+{Command\Command, Event\Event};
 use ReflectionClass;
 use ReflectionException;
 use ReflectionFunction;

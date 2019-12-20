@@ -1,7 +1,7 @@
 <?php
 namespace Phpcraft\Event;
-use Phpcraft\ClientConnection;
-use Phpcraft\Server;
+use Phpcraft\
+{ClientConnection, Server};
 abstract class ServerClientEvent extends ServerEvent
 {
 	/**

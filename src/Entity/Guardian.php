@@ -1,8 +1,8 @@
 <?php
 namespace Phpcraft\Entity;
 use GMP;
-use Phpcraft\Connection;
-use Phpcraft\Exception\IOException;
+use Phpcraft\
+{Connection, Exception\IOException};
 class Guardian extends Monster
 {
 	/**

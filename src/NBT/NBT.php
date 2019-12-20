@@ -1,8 +1,8 @@
 <?php
 namespace Phpcraft\NBT;
 use DomainException;
-use Phpcraft\Connection;
-use Phpcraft\Exception\IOException;
+use Phpcraft\
+{Connection, Exception\IOException};
 /**
  * The base class for NBT (named binary tag).
  *
