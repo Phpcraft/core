@@ -100,7 +100,6 @@ $this->on(function(ServerJoinEvent $event) use (&$grass_stone_chunk)
 				 $con->writeInt($chunk_coords[1]); // Chunk Z
 				 $con->writeBoolean(true); // Is New Chunk
 				 $con->chunk_preference->write($con);
-				 file_put_contents("chunk.bin", $con->write_buffer);
 				 $con->send();
 				 /*if($con->protocol_version >= 472)
 				 {
