@@ -145,6 +145,7 @@ abstract class Phpcraft
 	 *
 	 * @param string $url The URL of the resource.
 	 * @return array
+	 * @throws IOException
 	 * @see Phpcraft::maintainCache
 	 */
 	static function getCachableJson(string $url): array
@@ -162,10 +163,18 @@ abstract class Phpcraft
 		}
 		if(!self::$json_cache->has($url) || self::$json_cache->data[$url]["expiry"] < time())
 		{
-			self::$json_cache->set($url, [
-				"contents" => json_decode(file_get_contents($url), true),
-				"expiry" => time() + 86400
-			]);
+			$content_json = @json_decode(file_get_contents($url), true);
+			if($content_json)
+			{
+				self::$json_cache->set($url, [
+					"contents" => $content_json,
+					"expiry" => time() + 86400
+				]);
+			}
+			else if(!self::$json_cache->has($url))
+			{
+				throw new IOException("Failed to download $url");
+			}
 		}
 		return self::$json_cache->data[$url]["contents"];
 	}
