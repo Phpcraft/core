@@ -443,8 +443,8 @@ class ClientConnection extends Connection implements ServerCommandSender
 	function teleport(Point3D $pos, ?float $yaw = null, ?float $pitch = null): ClientConnection
 	{
 		$this->pos = $pos;
-		$this->chunk_x = ceil($pos->x / 16);
-		$this->chunk_z = ceil($pos->x / 16);
+		$this->chunk_x = floor($pos->x / 16);
+		$this->chunk_z = floor($pos->x / 16);
 		$flags = 0;
 		if($yaw === null)
 		{
