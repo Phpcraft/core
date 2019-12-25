@@ -334,7 +334,7 @@ class ClientConnection extends Connection implements ServerCommandSender
 	/**
 	 * Reads an encryption response packet and starts asynchronous authentication with Mojang.
 	 * This requires ClientConnection::$username to be set.
-	 * In case of an error, the client is disconnected and false is returned.
+	 * In case of an error, the client is disconnected and the callback is called with false.
 	 * Should the authentication with Mojang finish successfully, the callback is called with an array like this as argument:
 	 * <pre>[
 	 *   "id" => "11111111222233334444555555555555",

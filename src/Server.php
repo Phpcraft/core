@@ -288,8 +288,12 @@ class Server implements ServerCommandSender
 								else if($packet_id == 0x01 && isset($con->username)) // Encryption Response
 								{
 									$con->disconnect_after = 0;
-									$con->handleEncryptionResponse($this->private_key, function(array $res) use (&$con)
+									$con->handleEncryptionResponse($this->private_key, function($res) use (&$con)
 									{
+										if(!is_array($res))
+										{
+											return;
+										}
 										Phpcraft::$user_cache->set($res["id"], $con->username);
 										$con->finishLogin(new UUID($res["id"]), $this->eidCounter, $this->compression_threshold);
 										foreach($this->clients as $client)
