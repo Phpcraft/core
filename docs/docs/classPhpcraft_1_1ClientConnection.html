@@ -600,7 +600,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Reads an encryption response packet and starts asynchronous authentication with Mojang. This requires <a class="el" href="classPhpcraft_1_1ClientConnection.html#a40ca8bff0bcce3ed004e46bf4341d880">ClientConnection::$username</a> to be set. In case of an error, the client is disconnected and false is returned. Should the authentication with Mojang finish successfully, the callback is called with an array like this as argument: </p><pre>[
+<p>Reads an encryption response packet and starts asynchronous authentication with Mojang. This requires <a class="el" href="classPhpcraft_1_1ClientConnection.html#a40ca8bff0bcce3ed004e46bf4341d880">ClientConnection::$username</a> to be set. In case of an error, the client is disconnected and the callback is called with false. Should the authentication with Mojang finish successfully, the callback is called with an array like this as argument: </p><pre>[
   "id" =&gt; "11111111222233334444555555555555",
   "name" =&gt; "Notch",
   "properties" =&gt; [
