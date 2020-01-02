@@ -195,8 +195,8 @@ class IntegratedServer extends Server
 					}
 					else
 					{
-						$chunk_x = ceil($con->pos->x / 16);
-						$chunk_z = ceil($con->pos->z / 16);
+						$chunk_x = (int) floor($con->pos->x / 16);
+						$chunk_z = (int) floor($con->pos->z / 16);
 						if($chunk_x != $con->chunk_x || $chunk_z != $con->chunk_z)
 						{
 							$prev_chunk_x = $con->chunk_x;
