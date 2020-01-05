@@ -362,7 +362,7 @@ class ChatComponent
 	/**
 	 * Converts the ChatComponent to a string.
 	 *
-	 * @param int $format The format to apply: <ul><li>0: None (drop colors and attributes)</li><li>1: ANSI escape codes (for compatible terminals)</li><li>2: Paragraph (§) format</li><li>3: Ampersand (&) format</li><li>4: HTML</li></ul>
+	 * @param int $format The format to apply. Note that HTML format will provide a non-standard "obfuscated" tag, should any text require it.
 	 * @return string
 	 */
 	function toString(int $format = ChatComponent::FORMAT_NONE): string
@@ -1048,6 +1048,10 @@ ChatComponent::$attributes_html = [
 	"strikethrough" => [
 		"<del>",
 		"</del>"
+	],
+	"obfuscated" => [
+		"<obfuscated>",
+		"</obfuscated>"
 	]
 ];
 ChatComponent::$attributes_ansi = [
