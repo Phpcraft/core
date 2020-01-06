@@ -1,3 +1,32 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classPhpcraft_1_1Command_1_1Command.html" title=" " alt="" coords="5,5,224,32"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,274,64,301"/>
+<area shape="rect" id="node2" href="$classPhpcraft_1_1Event_1_1ClientEvent.html" title=" " alt="" coords="114,111,310,138"/>
+<area shape="rect" id="node6" href="$classPhpcraft_1_1Event_1_1ProxyEvent.html" title=" " alt="" coords="115,274,309,301"/>
+<area shape="rect" id="node16" href="$classPhpcraft_1_1Event_1_1ServerEvent.html" title=" " alt="" coords="112,633,312,659"/>
+<area shape="rect" id="node3" href="$classPhpcraft_1_1Event_1_1ClientConsoleEvent.html" title=" " alt="" coords="362,5,573,47"/>
+<area shape="rect" id="node4" href="$classPhpcraft_1_1Event_1_1ClientJoinEvent.html" title=" " alt="" coords="376,71,559,112"/>
+<area shape="rect" id="node5" href="$classPhpcraft_1_1Event_1_1ClientPacketEvent.html" title=" " alt="" coords="366,136,569,177"/>
+<area shape="rect" id="node7" href="$classPhpcraft_1_1Event_1_1ProxyClientEvent.html" title=" " alt="" coords="369,201,565,243"/>
+<area shape="rect" id="node14" href="$classPhpcraft_1_1Event_1_1ProxyConsoleEvent.html" title=" " alt="" coords="362,267,573,308"/>
+<area shape="rect" id="node15" href="$classPhpcraft_1_1Event_1_1ProxyTickEvent.html" title=" " alt="" coords="375,332,560,373"/>
+<area shape="rect" id="node8" href="$classPhpcraft_1_1Event_1_1ProxyConnectEvent.html" title=" " alt="" coords="633,71,844,112"/>
+<area shape="rect" id="node9" href="$classPhpcraft_1_1Event_1_1ProxyJoinEvent.html" title=" " alt="" coords="647,136,830,177"/>
+<area shape="rect" id="node10" href="$classPhpcraft_1_1Event_1_1ProxyLeaveEvent.html" title=" " alt="" coords="640,201,837,243"/>
+<area shape="rect" id="node11" href="$classPhpcraft_1_1Event_1_1ProxyPacketEvent.html" title=" " alt="" coords="638,267,839,308"/>
+<area shape="rect" id="node12" href="$classPhpcraft_1_1Event_1_1ProxyClientPacketEvent.html" title=" " alt="" coords="907,235,1103,276"/>
+<area shape="rect" id="node13" href="$classPhpcraft_1_1Event_1_1ProxyServerPacketEvent.html" title=" " alt="" coords="905,300,1105,341"/>
+<area shape="rect" id="node17" href="$classPhpcraft_1_1Event_1_1ServerClientEvent.html" title=" " alt="" coords="367,593,568,635"/>
+<area shape="rect" id="node29" href="$classPhpcraft_1_1Event_1_1ServerConsoleEvent.html" title=" " alt="" coords="360,659,575,700"/>
+<area shape="rect" id="node30" href="$classPhpcraft_1_1Event_1_1ServerTickEvent.html" title=" " alt="" coords="372,724,563,765"/>
+<area shape="rect" id="node18" href="$classPhpcraft_1_1Event_1_1ServerChatEvent.html" title=" " alt="" coords="642,332,835,373"/>
+<area shape="rect" id="node19" href="$classPhpcraft_1_1Event_1_1ServerClientMetadataEvent.html" title=" " alt="" coords="638,397,839,439"/>
+<area shape="rect" id="node20" href="$classPhpcraft_1_1Event_1_1ServerClientSettingsEvent.html" title=" " alt="" coords="638,463,839,504"/>
+<area shape="rect" id="node21" href="$classPhpcraft_1_1Event_1_1ServerFlyingChangeEvent.html" title=" " alt="" coords="637,528,840,569"/>
+<area shape="rect" id="node22" href="$classPhpcraft_1_1Event_1_1ServerJoinEvent.html" title=" " alt="" coords="645,593,832,635"/>
+<area shape="rect" id="node23" href="$classPhpcraft_1_1Event_1_1ServerLeaveEvent.html" title=" " alt="" coords="637,659,840,700"/>
+<area shape="rect" id="node24" href="$classPhpcraft_1_1Event_1_1ServerMovementEvent.html" title=" " alt="" coords="623,724,855,765"/>
+<area shape="rect" id="node26" href="$classPhpcraft_1_1Event_1_1ServerOnGroundChangeEvent.html" title=" " alt="" coords="625,789,853,831"/>
+<area shape="rect" id="node27" href="$classPhpcraft_1_1Event_1_1ServerPacketEvent.html" title=" " alt="" coords="635,855,842,896"/>
+<area shape="rect" id="node28" href="$classPhpcraft_1_1Event_1_1ServerRotationEvent.html" title=" " alt="" coords="630,920,847,961"/>
+<area shape="rect" id="node25" href="$classPhpcraft_1_1Event_1_1ServerChunkBorderEvent.html" title=" " alt="" coords="903,724,1107,765"/>
 </map>

@@ -1,3 +1,12 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classPhpcraft_1_1ChunkSection.html" title=" " alt="" coords="5,5,175,32"/>
+<area shape="rect" id="node1" href="$classPhpcraft_1_1Entity_1_1Metadata.html" title=" " alt="" coords="5,56,188,83"/>
+<area shape="rect" id="node2" href="$classPhpcraft_1_1Entity_1_1Base.html" title=" " alt="" coords="236,56,391,83"/>
+<area shape="rect" id="node3" href="$classPhpcraft_1_1Entity_1_1Living.html" title=" " alt="" coords="439,56,600,83"/>
+<area shape="rect" id="node4" href="$classPhpcraft_1_1Entity_1_1Insentient.html" title=" " alt="" coords="648,31,835,57"/>
+<area shape="rect" id="node10" href="$classPhpcraft_1_1Entity_1_1Player.html" title=" " alt="" coords="660,81,823,108"/>
+<area shape="rect" id="node5" href="$classPhpcraft_1_1Entity_1_1Creature.html" title=" " alt="" coords="883,31,1061,57"/>
+<area shape="rect" id="node6" href="$classPhpcraft_1_1Entity_1_1Monster.html" title=" " alt="" coords="1109,31,1284,57"/>
+<area shape="rect" id="node7" href="$classPhpcraft_1_1Entity_1_1Creeper.html" title=" " alt="" coords="1336,5,1509,32"/>
+<area shape="rect" id="node8" href="$classPhpcraft_1_1Entity_1_1Guardian.html" title=" " alt="" coords="1332,56,1513,83"/>
+<area shape="rect" id="node9" href="$classPhpcraft_1_1Entity_1_1ElderGuardian.html" title=" " alt="" coords="1561,56,1776,83"/>
 </map>

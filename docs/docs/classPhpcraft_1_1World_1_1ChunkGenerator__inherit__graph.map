@@ -1,0 +1,4 @@
+<map id="Phpcraft\World\ChunkGenerator" name="Phpcraft\World\ChunkGenerator">
+<area shape="rect" id="node1" title=" " alt="" coords="5,5,232,32"/>
+<area shape="rect" id="node2" href="$classPhpcraft_1_1World_1_1StaticChunkGenerator.html" title=" " alt="" coords="19,80,218,121"/>
+</map>

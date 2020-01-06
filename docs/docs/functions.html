@@ -104,10 +104,11 @@ $(function() {
 : <a class="el" href="classPhpcraft_1_1ChatComponent.html#a82e1540da080c3eb8052a985cb42ad0b">Phpcraft\ChatComponent</a>
 </li>
 <li>$block
-: <a class="el" href="classPhpcraft_1_1BlockState.html#ad3d7f2e05818f30068ff19faf135327a">Phpcraft\BlockState</a>
+: <a class="el" href="classPhpcraft_1_1World_1_1BlockState.html#a096785f4c8eed6388cb8eb596d7abf34">Phpcraft\World\BlockState</a>
 </li>
 <li>$blocks
-: <a class="el" href="classPhpcraft_1_1ChunkSection.html#ae722eeccfb28085bf55027f0e590a956">Phpcraft\ChunkSection</a>
+: <a class="el" href="classPhpcraft_1_1World_1_1ChunkSection.html#a451c15a35d4dda06d0d6c5999c074209">Phpcraft\World\ChunkSection</a>
+, <a class="el" href="classPhpcraft_1_1World_1_1Structure.html#a3aa34b6230be5bccc2b2e7bc61ccf8ad">Phpcraft\World\Structure</a>
 </li>
 <li>$bold
 : <a class="el" href="classPhpcraft_1_1ChatComponent.html#a34b9c1a0a285e871509c4840f8b9536a">Phpcraft\ChatComponent</a>
@@ -119,11 +120,11 @@ $(function() {
 : <a class="el" href="classPhpcraft_1_1ClientConnection.html#a7d3c5e03d26e88f7314430379ce0ed01">Phpcraft\ClientConnection</a>
 , <a class="el" href="classPhpcraft_1_1Packet_1_1ClientboundAbilitiesPacket.html#ad474513968d0579419d09dbd0b25b6de">Phpcraft\Packet\ClientboundAbilitiesPacket</a>
 </li>
-<li>$cancelled
-: <a class="el" href="classPhpcraft_1_1Event_1_1Event.html#adcd41c634e973be3c7341eaa0100142b">Phpcraft\Event\Event</a>
-</li>
 <li>$cape_enabled
 : <a class="el" href="classPhpcraft_1_1Packet_1_1ClientSettingsPacket.html#a08df923abda934f555a8794bbacdff31">Phpcraft\Packet\ClientSettingsPacket</a>
+</li>
+<li>$changed_chunks
+: <a class="el" href="classPhpcraft_1_1World_1_1World.html#a2456096fb721cc2a2b6d4948d6e6f489">Phpcraft\World\World</a>
 </li>
 <li>$channel
 : <a class="el" href="classPhpcraft_1_1Packet_1_1PluginMessage_1_1PluginMessagePacket.html#a3beed0e6034c0ca612af568cd30f78ae">Phpcraft\Packet\PluginMessage\PluginMessagePacket</a>
@@ -145,14 +146,24 @@ $(function() {
 <li>$childType
 : <a class="el" href="classPhpcraft_1_1NBT_1_1ListTag.html#ac899cfdc5cc02329dcd56c161c249c3f">Phpcraft\NBT\ListTag</a>
 </li>
+<li>$chunk
+: <a class="el" href="classPhpcraft_1_1World_1_1StaticChunkGenerator.html#a477a4011d7a9de5291357fd95c5748c9">Phpcraft\World\StaticChunkGenerator</a>
+</li>
+<li>$chunk_queue
+: <a class="el" href="classPhpcraft_1_1ClientConnection.html#a69da482d698a038ff84c400c8f4aa90d">Phpcraft\ClientConnection</a>
+</li>
 <li>$chunk_x
 : <a class="el" href="classPhpcraft_1_1ClientConnection.html#a42b729a48ff5c63b39f963dbeb80fd91">Phpcraft\ClientConnection</a>
 </li>
 <li>$chunk_z
 : <a class="el" href="classPhpcraft_1_1ClientConnection.html#a9b3199a7ebaab21c145ed92b5f724f27">Phpcraft\ClientConnection</a>
 </li>
+<li>$chunkGenerator
+: <a class="el" href="classPhpcraft_1_1World_1_1World.html#ac72c440e46ac3f1111e885f6e81e63f1">Phpcraft\World\World</a>
+</li>
 <li>$chunks
-: <a class="el" href="classPhpcraft_1_1ClientConnection.html#ad957cd4fa937e6a597802c3e111db50b">Phpcraft\ClientConnection</a>
+: <a class="el" href="classPhpcraft_1_1ClientConnection.html#abb7300801f9bf088fa43f2be7029ca5a">Phpcraft\ClientConnection</a>
+, <a class="el" href="classPhpcraft_1_1World_1_1World.html#a6d4472a867e04d7a3b6fad4eeb7acb3e">Phpcraft\World\World</a>
 </li>
 <li>$click_event
 : <a class="el" href="classPhpcraft_1_1ChatComponent.html#ae6924c562caeb63bebdb7ca513e986e8">Phpcraft\ChatComponent</a>
@@ -233,7 +244,10 @@ $(function() {
 , <a class="el" href="classPhpcraft_1_1Permission_1_1Group.html#ae10d550350a634ef4d1e302ca641449b">Phpcraft\Permission\Group</a>
 </li>
 <li>$default
-: <a class="el" href="classPhpcraft_1_1BlockProperty.html#a807ff3d6b2fd381d406d8a8298a80464">Phpcraft\BlockProperty</a>
+: <a class="el" href="classPhpcraft_1_1World_1_1BlockProperty.html#afa6b1521942c96c6ed195d79a5080e1f">Phpcraft\World\BlockProperty</a>
+</li>
+<li>$depth
+: <a class="el" href="classPhpcraft_1_1World_1_1Structure.html#a45a43beaa65c9d1e3647771303f051c5">Phpcraft\World\Structure</a>
 </li>
 <li>$difficulty
 : <a class="el" href="classPhpcraft_1_1Packet_1_1JoinGamePacket.html#ae1a2186b95c7609a6f116a1b1c101326">Phpcraft\Packet\JoinGamePacket</a>
@@ -248,8 +262,8 @@ $(function() {
 : <a class="el" href="classPhpcraft_1_1Server.html#a95ddd9e5013bc9fadf8f3fa1860eedc5">Phpcraft\Server</a>
 </li>
 <li>$display_name
-: <a class="el" href="classPhpcraft_1_1Block.html#ab4d426b3e8775405a67cb34c52795dd0">Phpcraft\Block</a>
-, <a class="el" href="classPhpcraft_1_1Item.html#a4e1ba3350814068c73c9f6639cbc4d07">Phpcraft\Item</a>
+: <a class="el" href="classPhpcraft_1_1Item.html#a4e1ba3350814068c73c9f6639cbc4d07">Phpcraft\Item</a>
+, <a class="el" href="classPhpcraft_1_1World_1_1Block.html#ab0ecee027c595a38936a803680be9117">Phpcraft\World\Block</a>
 </li>
 <li>$division
 : <a class="el" href="classPhpcraft_1_1Packet_1_1BossBar_1_1AddBossBarPacket.html#acec1be998b23eb19306f21146149cdb8">Phpcraft\Packet\BossBar\AddBossBarPacket</a>
@@ -327,6 +341,7 @@ $(function() {
 </li>
 <li>$height
 : <a class="el" href="classPhpcraft_1_1Packet_1_1MapData_1_1MapDataPacket.html#a5777a89005ecb87685d611f4eb621d2a">Phpcraft\Packet\MapData\MapDataPacket</a>
+, <a class="el" href="classPhpcraft_1_1World_1_1Structure.html#a0e9ade8941beaa2d42d38160c925bd3e">Phpcraft\World\Structure</a>
 </li>
 <li>$hex_to_color
 : <a class="el" href="classPhpcraft_1_1ChatComponent.html#a322d4362c00d5505e8434ba3f71f3447">Phpcraft\ChatComponent</a>
@@ -344,7 +359,7 @@ $(function() {
 : <a class="el" href="classPhpcraft_1_1EffectType.html#ad9f75f4642896397719e073ec23b67d2">Phpcraft\EffectType</a>
 </li>
 <li>$ids
-: <a class="el" href="classPhpcraft_1_1BlockState.html#a4e072fb007cad573eadabaf100984f8d">Phpcraft\BlockState</a>
+: <a class="el" href="classPhpcraft_1_1World_1_1BlockState.html#a234c7f496f23853141606c0fd0fc4b42">Phpcraft\World\BlockState</a>
 </li>
 <li>$index_url
 : <a class="el" href="classPhpcraft_1_1AssetsManager.html#a66c4420b4fa2b767bbe9143a83f24e87">Phpcraft\AssetsManager</a>
@@ -362,6 +377,9 @@ $(function() {
 <li>$invulnerable
 : <a class="el" href="classPhpcraft_1_1ClientConnection.html#a6eba7cd30ae65cc971ea231a0d5086c8">Phpcraft\ClientConnection</a>
 , <a class="el" href="classPhpcraft_1_1Packet_1_1ClientboundAbilitiesPacket.html#aba34b771133ddb1b361bce398647c85f">Phpcraft\Packet\ClientboundAbilitiesPacket</a>
+</li>
+<li>$is_new_chunk
+: <a class="el" href="classPhpcraft_1_1Packet_1_1ChunkDataPacket.html#a0c151770ad29960ca8a1a006d9ce1e44">Phpcraft\Packet\ChunkDataPacket</a>
 </li>
 <li>$italic
 : <a class="el" href="classPhpcraft_1_1ChatComponent.html#a6d73bb163629475ff940cc7e7355b90b">Phpcraft\ChatComponent</a>
@@ -402,16 +420,13 @@ $(function() {
 : <a class="el" href="classPhpcraft_1_1Packet_1_1ClientSettingsPacket.html#a7afbe0ce6eb455c9826988c787e60cad">Phpcraft\Packet\ClientSettingsPacket</a>
 </li>
 <li>$legacy_id
-: <a class="el" href="classPhpcraft_1_1Block.html#a6f6844188ca69d49264f74c09a327de5">Phpcraft\Block</a>
+: <a class="el" href="classPhpcraft_1_1World_1_1Block.html#af9ba049a608f81cba6bb33110b1902fb">Phpcraft\World\Block</a>
 </li>
 <li>$level
 : <a class="el" href="classPhpcraft_1_1Packet_1_1SetExperiencePacket.html#a109f8ce55e8d041b25b25e5e23f7fb05">Phpcraft\Packet\SetExperiencePacket</a>
 </li>
 <li>$list_ping_function
 : <a class="el" href="classPhpcraft_1_1Server.html#a27aba103cfdd78a7e96f3da8e6d8af06">Phpcraft\Server</a>
-</li>
-<li>$loaded_plugins
-: <a class="el" href="classPhpcraft_1_1PluginManager.html#a283337c8764ea973b1f92099d0f15363">Phpcraft\PluginManager</a>
 </li>
 <li>$locale
 : <a class="el" href="classPhpcraft_1_1Packet_1_1ClientSettingsPacket.html#a86bd4bf2552d95d4a8413a24fef61728">Phpcraft\Packet\ClientSettingsPacket</a>
@@ -433,14 +448,15 @@ $(function() {
 , <a class="el" href="classPhpcraft_1_1Packet_1_1SpawnMobPacket.html#a4f3edec2e88de1df58051997bce9f89b">Phpcraft\Packet\SpawnMobPacket</a>
 </li>
 <li>$name
-: <a class="el" href="classPhpcraft_1_1Block.html#a7df371a78b86ed82dbfd5e888845d4ab">Phpcraft\Block</a>
-, <a class="el" href="classPhpcraft_1_1Identifier.html#a1850b132247b957f8deb3a4ebecc9715">Phpcraft\Identifier</a>
+: <a class="el" href="classPhpcraft_1_1Identifier.html#a1850b132247b957f8deb3a4ebecc9715">Phpcraft\Identifier</a>
 , <a class="el" href="classPhpcraft_1_1IntegratedServer.html#abed329e601b9ca6e9aa1d467a31dcd85">Phpcraft\IntegratedServer</a>
 , <a class="el" href="classPhpcraft_1_1NBT_1_1NBT.html#abcfba4ecf9e074a06c2322be52c2a7cd">Phpcraft\NBT\NBT</a>
 , <a class="el" href="classPhpcraft_1_1Packet_1_1DeclareCommands_1_1ArgumentNode.html#aa3ddc6c97c07d535e0a175f90c021bcd">Phpcraft\Packet\DeclareCommands\ArgumentNode</a>
 , <a class="el" href="classPhpcraft_1_1Packet_1_1DeclareCommands_1_1LiteralNode.html#ac61ac58af36990f81c620c94c6d911e3">Phpcraft\Packet\DeclareCommands\LiteralNode</a>
 , <a class="el" href="classPhpcraft_1_1Packet_1_1MapData_1_1MapMarker.html#a804b6398d7979f78653dad0b95ffd457">Phpcraft\Packet\MapData\MapMarker</a>
 , <a class="el" href="classPhpcraft_1_1Plugin.html#a8d7246cf3580e9800db208c71dc03222">Phpcraft\Plugin</a>
+, <a class="el" href="classPhpcraft_1_1World_1_1Block.html#a8a814e5015357be9ed021578ad4a51ab">Phpcraft\World\Block</a>
+, <a class="el" href="classPhpcraft_1_1World_1_1Chunk.html#a64233554aed927c9b654a78eb333412e">Phpcraft\World\Chunk</a>
 </li>
 <li>$names
 : <a class="el" href="classPhpcraft_1_1Command_1_1Command.html#ae0f934a9c6bb9934098ff42eb6564ad0">Phpcraft\Command\Command</a>
@@ -452,7 +468,7 @@ $(function() {
 : <a class="el" href="classPhpcraft_1_1ClientConnection.html#a3c757b888862cad76f04eb5771b834ad">Phpcraft\ClientConnection</a>
 </li>
 <li>$non_air_blocks
-: <a class="el" href="classPhpcraft_1_1ChunkSection.html#a9df523c46e6f50a8639f99bc5de18e0f">Phpcraft\ChunkSection</a>
+: <a class="el" href="classPhpcraft_1_1World_1_1ChunkSection.html#a07e9dc6d37c9d3344fb19ba87c921bec">Phpcraft\World\ChunkSection</a>
 </li>
 <li>$obfuscated
 : <a class="el" href="classPhpcraft_1_1ChatComponent.html#a9e697598572fa993afdf0906460c7d19">Phpcraft\ChatComponent</a>
@@ -470,9 +486,6 @@ $(function() {
 <li>$open_condition
 : <a class="el" href="classPhpcraft_1_1Server.html#a1d94434a49d8f6bcca7bd7ed037990b9">Phpcraft\Server</a>
 </li>
-<li>$options
-: <a class="el" href="classPhpcraft_1_1ChunkGenerator.html#a9bf1e6df4e5a640fcb5c84e173632141">Phpcraft\ChunkGenerator</a>
-</li>
 <li>$packet
 : <a class="el" href="classPhpcraft_1_1Event_1_1ServerClientSettingsEvent.html#a11c4c83a82e356ff863b911a28746a27">Phpcraft\Event\ServerClientSettingsEvent</a>
 </li>
@@ -485,6 +498,9 @@ $(function() {
 , <a class="el" href="classPhpcraft_1_1Event_1_1ProxyPacketEvent.html#a4bd63680cf78283abc86061b379315b0">Phpcraft\Event\ProxyPacketEvent</a>
 , <a class="el" href="classPhpcraft_1_1Event_1_1ProxyServerPacketEvent.html#a47e9f2e030faa3e77a80be382da2f778">Phpcraft\Event\ProxyServerPacketEvent</a>
 , <a class="el" href="classPhpcraft_1_1Event_1_1ServerPacketEvent.html#a51c2f07192d4cb9b1baa2a443f9daaa3">Phpcraft\Event\ServerPacketEvent</a>
+</li>
+<li>$palette_cache
+: <a class="el" href="classPhpcraft_1_1World_1_1ChunkSection.html#a67cf2f4395b597012b51917d541709c0">Phpcraft\World\ChunkSection</a>
 </li>
 <li>$params
 : <a class="el" href="classPhpcraft_1_1Command_1_1Command.html#a7814a79d2e59eab05aa0ebf0caf1c07e">Phpcraft\Command\Command</a>
@@ -507,9 +523,6 @@ $(function() {
 </li>
 <li>$plugin
 : <a class="el" href="classPhpcraft_1_1Command_1_1Command.html#a6c0fff850e5a53585a96fad01544a93e">Phpcraft\Command\Command</a>
-</li>
-<li>$plugin_folders
-: <a class="el" href="classPhpcraft_1_1PluginManager.html#a25cf660d20bf9514ac76076fc83dbc4e">Phpcraft\PluginManager</a>
 </li>
 <li>$pos
 : <a class="el" href="classPhpcraft_1_1ClientConnection.html#a96b1c680181bfa94b1057fd44319c832">Phpcraft\ClientConnection</a>
@@ -544,8 +557,8 @@ $(function() {
 : <a class="el" href="classPhpcraft_1_1Account.html#abdc1f2a7b14ad76a94f44b05c3e894fc">Phpcraft\Account</a>
 </li>
 <li>$properties
-: <a class="el" href="classPhpcraft_1_1Block.html#a3ab7dc3c82ef09223ad2912cc2463463">Phpcraft\Block</a>
-, <a class="el" href="classPhpcraft_1_1BlockState.html#a9d68e6f6367b5c6bbee329f38c14e58c">Phpcraft\BlockState</a>
+: <a class="el" href="classPhpcraft_1_1World_1_1Block.html#aed75adf2a46e22073309cddb55ac71df">Phpcraft\World\Block</a>
+, <a class="el" href="classPhpcraft_1_1World_1_1BlockState.html#a60c82965e7cf3c1238c6d4e1d9a45846">Phpcraft\World\BlockState</a>
 </li>
 <li>$protocol_version
 : <a class="el" href="classPhpcraft_1_1Connection.html#a34cb2151305f76007e8370bb90e719d8">Phpcraft\Connection</a>
@@ -607,8 +620,8 @@ $(function() {
 : <a class="el" href="classPhpcraft_1_1Entity_1_1Base.html#a26c74b4376bf61ea2618c2db860196f3">Phpcraft\Entity\Base</a>
 </li>
 <li>$since_protocol_version
-: <a class="el" href="classPhpcraft_1_1Block.html#a35383938e5512647aa42cb6137c89ad5">Phpcraft\Block</a>
-, <a class="el" href="classPhpcraft_1_1Identifier.html#a7c1c84c30a15cc69bea5a5651fbce5cd">Phpcraft\Identifier</a>
+: <a class="el" href="classPhpcraft_1_1Identifier.html#a7c1c84c30a15cc69bea5a5651fbce5cd">Phpcraft\Identifier</a>
+, <a class="el" href="classPhpcraft_1_1World_1_1Block.html#a9261449a5daad0fbf85baae833be77e5">Phpcraft\World\Block</a>
 </li>
 <li>$slot
 : <a class="el" href="classPhpcraft_1_1Packet_1_1SetSlotPacket.html#ac6aac64dfb1313d839ec24b666a53608">Phpcraft\Packet\SetSlotPacket</a>
@@ -629,7 +642,7 @@ $(function() {
 : <a class="el" href="classPhpcraft_1_1Connection.html#a244ea931ac1615b2e64357a6b463239c">Phpcraft\Connection</a>
 </li>
 <li>$states
-: <a class="el" href="classPhpcraft_1_1Block.html#acc25e37d0936a7ee0970753804638617">Phpcraft\Block</a>
+: <a class="el" href="classPhpcraft_1_1World_1_1Block.html#a217017ff35e991848aca99ec3cf97b56">Phpcraft\World\Block</a>
 </li>
 <li>$stream
 : <a class="el" href="classPhpcraft_1_1Connection.html#a79120beae1b35de67682349a4eefae0c">Phpcraft\Connection</a>
@@ -710,7 +723,7 @@ $(function() {
 , <a class="el" href="classPhpcraft_1_1NBT_1_1StringTag.html#ad523faa4947a9269fdfde7e6b8053816">Phpcraft\NBT\StringTag</a>
 </li>
 <li>$values
-: <a class="el" href="classPhpcraft_1_1BlockProperty.html#a48f3669035012bfe9574680efd934bc5">Phpcraft\BlockProperty</a>
+: <a class="el" href="classPhpcraft_1_1World_1_1BlockProperty.html#a66ca977eeba7931d88669bee8eb6fd82">Phpcraft\World\BlockProperty</a>
 </li>
 <li>$walk_speed
 : <a class="el" href="classPhpcraft_1_1ClientConnection.html#a4c57a03af7d06c8759fbf3d41d47a4c4">Phpcraft\ClientConnection</a>
@@ -718,6 +731,7 @@ $(function() {
 </li>
 <li>$width
 : <a class="el" href="classPhpcraft_1_1Packet_1_1MapData_1_1MapDataPacket.html#a2977aad5640f946cd854aa3a0e0bdc4d">Phpcraft\Packet\MapData\MapDataPacket</a>
+, <a class="el" href="classPhpcraft_1_1World_1_1Structure.html#a64b94d9fadc0a71deca7b2b167e36d31">Phpcraft\World\Structure</a>
 </li>
 <li>$window
 : <a class="el" href="classPhpcraft_1_1Packet_1_1SetSlotPacket.html#ab7020f32c91cb2f5fe2c9440e11eadd8">Phpcraft\Packet\SetSlotPacket</a>
@@ -725,14 +739,21 @@ $(function() {
 <li>$with
 : <a class="el" href="classPhpcraft_1_1ChatComponent.html#a942a9d2da9393520e9d6309b00732e63">Phpcraft\ChatComponent</a>
 </li>
+<li>$world
+: <a class="el" href="classPhpcraft_1_1IntegratedServer.html#a1163f76a4c5ef29dd7578c7b1c46af3b">Phpcraft\IntegratedServer</a>
+, <a class="el" href="classPhpcraft_1_1World_1_1Chunk.html#a69319fc8f26c53778351e53805bcbf40">Phpcraft\World\Chunk</a>
+, <a class="el" href="classPhpcraft_1_1World_1_1ChunkGenerator.html#a714636aef07c42c2298db28fbd0bead8">Phpcraft\World\ChunkGenerator</a>
+</li>
 <li>$write_buffer
 : <a class="el" href="classPhpcraft_1_1Connection.html#a3084eed19e1ce7d3f53d50cc26aaf767">Phpcraft\Connection</a>
 </li>
 <li>$x
-: <a class="el" href="classPhpcraft_1_1Packet_1_1EntityVelocityPacket.html#a0b32b241db0d3c6125e4ec1f870a14ed">Phpcraft\Packet\EntityVelocityPacket</a>
+: <a class="el" href="classPhpcraft_1_1Packet_1_1ChunkDataPacket.html#acbb6d74b10e0952a7fb669c6179332b1">Phpcraft\Packet\ChunkDataPacket</a>
+, <a class="el" href="classPhpcraft_1_1Packet_1_1EntityVelocityPacket.html#a0b32b241db0d3c6125e4ec1f870a14ed">Phpcraft\Packet\EntityVelocityPacket</a>
 , <a class="el" href="classPhpcraft_1_1Packet_1_1MapData_1_1MapDataPacket.html#aa80fdd9fbd21efdf160a3b4f2c44de70">Phpcraft\Packet\MapData\MapDataPacket</a>
 , <a class="el" href="classPhpcraft_1_1Packet_1_1MapData_1_1MapMarker.html#a67d35959d6a1bd1a3fd409aec3bc4e10">Phpcraft\Packet\MapData\MapMarker</a>
 , <a class="el" href="classPhpcraft_1_1Point3D.html#aa97738318eda7b426e01f653950d7e65">Phpcraft\Point3D</a>
+, <a class="el" href="classPhpcraft_1_1World_1_1Chunk.html#a0381110d1d1014184b229ac0a67812b2">Phpcraft\World\Chunk</a>
 </li>
 <li>$y
 : <a class="el" href="classPhpcraft_1_1Packet_1_1EntityVelocityPacket.html#a376c33e5704f77cd3468395a4a5f339d">Phpcraft\Packet\EntityVelocityPacket</a>
@@ -743,10 +764,12 @@ $(function() {
 , <a class="el" href="classPhpcraft_1_1Packet_1_1SpawnMobPacket.html#a61f9432b15bf43329edb41aaf6a56417">Phpcraft\Packet\SpawnMobPacket</a>
 </li>
 <li>$z
-: <a class="el" href="classPhpcraft_1_1Packet_1_1EntityVelocityPacket.html#ab990e60459bccc7cf36b9e14af828ace">Phpcraft\Packet\EntityVelocityPacket</a>
+: <a class="el" href="classPhpcraft_1_1Packet_1_1ChunkDataPacket.html#a9c8bf93aee074b771c755301bcdb8955">Phpcraft\Packet\ChunkDataPacket</a>
+, <a class="el" href="classPhpcraft_1_1Packet_1_1EntityVelocityPacket.html#ab990e60459bccc7cf36b9e14af828ace">Phpcraft\Packet\EntityVelocityPacket</a>
 , <a class="el" href="classPhpcraft_1_1Packet_1_1MapData_1_1MapDataPacket.html#afbf80a921502a029fa390e28cb557008">Phpcraft\Packet\MapData\MapDataPacket</a>
 , <a class="el" href="classPhpcraft_1_1Packet_1_1MapData_1_1MapMarker.html#ac083a83c509928023dd624aa74c7b8d9">Phpcraft\Packet\MapData\MapMarker</a>
 , <a class="el" href="classPhpcraft_1_1Point3D.html#aa00cc35d49bccdc1c60b415bb76db1b7">Phpcraft\Point3D</a>
+, <a class="el" href="classPhpcraft_1_1World_1_1Chunk.html#a40531f6ef6c391e8e881fe9a50ab3455">Phpcraft\World\Chunk</a>
 </li>
 <li>$zero
 : <a class="el" href="classPhpcraft_1_1Connection.html#a4edb89db01c6062f5ade3bd2f1aa5576">Phpcraft\Connection</a>

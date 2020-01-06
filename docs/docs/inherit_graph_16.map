@@ -1,32 +1,3 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classPhpcraft_1_1Event_1_1Event.html" title=" " alt="" coords="5,274,164,301"/>
-<area shape="rect" id="node2" href="$classPhpcraft_1_1Event_1_1ClientEvent.html" title=" " alt="" coords="214,111,410,138"/>
-<area shape="rect" id="node6" href="$classPhpcraft_1_1Event_1_1ProxyEvent.html" title=" " alt="" coords="215,274,409,301"/>
-<area shape="rect" id="node16" href="$classPhpcraft_1_1Event_1_1ServerEvent.html" title=" " alt="" coords="212,633,412,659"/>
-<area shape="rect" id="node3" href="$classPhpcraft_1_1Event_1_1ClientConsoleEvent.html" title=" " alt="" coords="462,5,673,47"/>
-<area shape="rect" id="node4" href="$classPhpcraft_1_1Event_1_1ClientJoinEvent.html" title=" " alt="" coords="476,71,659,112"/>
-<area shape="rect" id="node5" href="$classPhpcraft_1_1Event_1_1ClientPacketEvent.html" title=" " alt="" coords="466,136,669,177"/>
-<area shape="rect" id="node7" href="$classPhpcraft_1_1Event_1_1ProxyClientEvent.html" title=" " alt="" coords="469,201,665,243"/>
-<area shape="rect" id="node14" href="$classPhpcraft_1_1Event_1_1ProxyConsoleEvent.html" title=" " alt="" coords="462,267,673,308"/>
-<area shape="rect" id="node15" href="$classPhpcraft_1_1Event_1_1ProxyTickEvent.html" title=" " alt="" coords="475,332,660,373"/>
-<area shape="rect" id="node8" href="$classPhpcraft_1_1Event_1_1ProxyConnectEvent.html" title=" " alt="" coords="733,71,944,112"/>
-<area shape="rect" id="node9" href="$classPhpcraft_1_1Event_1_1ProxyJoinEvent.html" title=" " alt="" coords="747,136,930,177"/>
-<area shape="rect" id="node10" href="$classPhpcraft_1_1Event_1_1ProxyLeaveEvent.html" title=" " alt="" coords="740,201,937,243"/>
-<area shape="rect" id="node11" href="$classPhpcraft_1_1Event_1_1ProxyPacketEvent.html" title=" " alt="" coords="738,267,939,308"/>
-<area shape="rect" id="node12" href="$classPhpcraft_1_1Event_1_1ProxyClientPacketEvent.html" title=" " alt="" coords="1007,235,1203,276"/>
-<area shape="rect" id="node13" href="$classPhpcraft_1_1Event_1_1ProxyServerPacketEvent.html" title=" " alt="" coords="1005,300,1205,341"/>
-<area shape="rect" id="node17" href="$classPhpcraft_1_1Event_1_1ServerClientEvent.html" title=" " alt="" coords="467,593,668,635"/>
-<area shape="rect" id="node29" href="$classPhpcraft_1_1Event_1_1ServerConsoleEvent.html" title=" " alt="" coords="460,659,675,700"/>
-<area shape="rect" id="node30" href="$classPhpcraft_1_1Event_1_1ServerTickEvent.html" title=" " alt="" coords="472,724,663,765"/>
-<area shape="rect" id="node18" href="$classPhpcraft_1_1Event_1_1ServerChatEvent.html" title=" " alt="" coords="742,332,935,373"/>
-<area shape="rect" id="node19" href="$classPhpcraft_1_1Event_1_1ServerClientMetadataEvent.html" title=" " alt="" coords="738,397,939,439"/>
-<area shape="rect" id="node20" href="$classPhpcraft_1_1Event_1_1ServerClientSettingsEvent.html" title=" " alt="" coords="738,463,939,504"/>
-<area shape="rect" id="node21" href="$classPhpcraft_1_1Event_1_1ServerFlyingChangeEvent.html" title=" " alt="" coords="737,528,940,569"/>
-<area shape="rect" id="node22" href="$classPhpcraft_1_1Event_1_1ServerJoinEvent.html" title=" " alt="" coords="745,593,932,635"/>
-<area shape="rect" id="node23" href="$classPhpcraft_1_1Event_1_1ServerLeaveEvent.html" title=" " alt="" coords="737,659,940,700"/>
-<area shape="rect" id="node24" href="$classPhpcraft_1_1Event_1_1ServerMovementEvent.html" title=" " alt="" coords="723,724,955,765"/>
-<area shape="rect" id="node26" href="$classPhpcraft_1_1Event_1_1ServerOnGroundChangeEvent.html" title=" " alt="" coords="725,789,953,831"/>
-<area shape="rect" id="node27" href="$classPhpcraft_1_1Event_1_1ServerPacketEvent.html" title=" " alt="" coords="735,855,942,896"/>
-<area shape="rect" id="node28" href="$classPhpcraft_1_1Event_1_1ServerRotationEvent.html" title=" " alt="" coords="730,920,947,961"/>
-<area shape="rect" id="node25" href="$classPhpcraft_1_1Event_1_1ServerChunkBorderEvent.html" title=" " alt="" coords="1003,724,1207,765"/>
+<area shape="rect" id="node1" href="$classPhpcraft_1_1Packet_1_1MapData_1_1MapMarker.html" title=" " alt="" coords="5,5,191,47"/>
 </map>

@@ -122,6 +122,12 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a607f23f9a785052d7b84f148ddf13e29"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2cff260b4af0a31377a819ad49f9135c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#a2cff260b4af0a31377a819ad49f9135c">getUnitVector</a> ()</td></tr>
 <tr class="separator:a2cff260b4af0a31377a819ad49f9135c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a36d740bad54372e313294aecd4ec3800"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#a36d740bad54372e313294aecd4ec3800">generateChunkQueue</a> ()</td></tr>
+<tr class="separator:a36d740bad54372e313294aecd4ec3800"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5be815de19c5c7ef8309f0a23fa1251e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#a5be815de19c5c7ef8309f0a23fa1251e">getWorld</a> ()</td></tr>
+<tr class="separator:a5be815de19c5c7ef8309f0a23fa1251e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a61010d024c86b55a056c354e1ec55de1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#a61010d024c86b55a056c354e1ec55de1">getChunk</a> ()</td></tr>
+<tr class="separator:a61010d024c86b55a056c354e1ec55de1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7b048ed06905980726cf2e49d8746a5b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#a7b048ed06905980726cf2e49d8746a5b">sendAdminBroadcast</a> ($message, string $permission=&quot;everything&quot;)</td></tr>
 <tr class="separator:a7b048ed06905980726cf2e49d8746a5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9ed0586a5ca0d6898b7a547739296025"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#a9ed0586a5ca0d6898b7a547739296025">sendMessage</a> ($message, int $position=<a class="el" href="classPhpcraft_1_1Enum_1_1ChatPosition.html#ad83fa54b5869f3710e6d914766eaa069">ChatPosition::SYSTEM</a>)</td></tr>
@@ -291,8 +297,10 @@ Public Attributes</h2></td></tr>
 <tr class="separator:ac8f62fa4b98686ec93819b3ab4622e04"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a003df6870fa1dae3358f2ad796593c60"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#a003df6870fa1dae3358f2ad796593c60">$render_distance</a> = 8</td></tr>
 <tr class="separator:a003df6870fa1dae3358f2ad796593c60"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad957cd4fa937e6a597802c3e111db50b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#ad957cd4fa937e6a597802c3e111db50b">$chunks</a> = []</td></tr>
-<tr class="separator:ad957cd4fa937e6a597802c3e111db50b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb7300801f9bf088fa43f2be7029ca5a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#abb7300801f9bf088fa43f2be7029ca5a">$chunks</a> = []</td></tr>
+<tr class="separator:abb7300801f9bf088fa43f2be7029ca5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a69da482d698a038ff84c400c8f4aa90d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#a69da482d698a038ff84c400c8f4aa90d">$chunk_queue</a> = []</td></tr>
+<tr class="separator:a69da482d698a038ff84c400c8f4aa90d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9cb5e16e8cddce61e3b50caacf8e2dd9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#a9cb5e16e8cddce61e3b50caacf8e2dd9">$gamemode</a> = <a class="el" href="classPhpcraft_1_1Enum_1_1Gamemode.html#afe2e359b750e356c9a19c6fea3b30858">Gamemode::SURVIVAL</a></td></tr>
 <tr class="separator:a9cb5e16e8cddce61e3b50caacf8e2dd9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afdfa69649ecd490bc464b46f6c5b8df7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#afdfa69649ecd490bc464b46f6c5b8df7">$entityMetadata</a></td></tr>
@@ -460,6 +468,44 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
+<a id="a36d740bad54372e313294aecd4ec3800"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a36d740bad54372e313294aecd4ec3800">&#9670;&nbsp;</a></span>generateChunkQueue()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Phpcraft\ClientConnection::generateChunkQueue </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
+<dl class="section since"><dt>Since</dt><dd>0.5 </dd></dl>
+
+</div>
+</div>
+<a id="a61010d024c86b55a056c354e1ec55de1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a61010d024c86b55a056c354e1ec55de1">&#9670;&nbsp;</a></span>getChunk()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Phpcraft\ClientConnection::getChunk </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Returns the chunk the client is standing in or null if there's no applicable world.</p>
+<dl class="section return"><dt>Returns</dt><dd>Chunk|null </dd></dl>
+
+</div>
+</div>
 <a id="a607f23f9a785052d7b84f148ddf13e29"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a607f23f9a785052d7b84f148ddf13e29">&#9670;&nbsp;</a></span>getEyePosition()</h2>
 
@@ -572,6 +618,25 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 <p>Returns a unit vector goin in the direction the client is looking.</p>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="classPhpcraft_1_1Point3D.html">Point3D</a> </dd></dl>
+
+</div>
+</div>
+<a id="a5be815de19c5c7ef8309f0a23fa1251e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5be815de19c5c7ef8309f0a23fa1251e">&#9670;&nbsp;</a></span>getWorld()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Phpcraft\ClientConnection::getWorld </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Returns a <a class="el" href="namespacePhpcraft_1_1World.html">World</a> that you can directly interact with or null if not applicable.</p>
+<dl class="section return"><dt>Returns</dt><dd>World|null </dd></dl>
 
 </div>
 </div>
@@ -1048,6 +1113,20 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
+<a id="a69da482d698a038ff84c400c8f4aa90d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a69da482d698a038ff84c400c8f4aa90d">&#9670;&nbsp;</a></span>$chunk_queue</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">array Phpcraft\ClientConnection::$chunk_queue = []</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a42b729a48ff5c63b39f963dbeb80fd91"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a42b729a48ff5c63b39f963dbeb80fd91">&#9670;&nbsp;</a></span>$chunk_x</h2>
 
@@ -1076,18 +1155,17 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="ad957cd4fa937e6a597802c3e111db50b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad957cd4fa937e6a597802c3e111db50b">&#9670;&nbsp;</a></span>$chunks</h2>
+<a id="abb7300801f9bf088fa43f2be7029ca5a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abb7300801f9bf088fa43f2be7029ca5a">&#9670;&nbsp;</a></span>$chunks</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">array&lt; string &gt; Phpcraft\ClientConnection::$chunks = []</td>
+          <td class="memname">array Phpcraft\ClientConnection::$chunks = []</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>A string array of chunks the client has received. </p>
 
 </div>
 </div>
