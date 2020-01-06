@@ -1,6 +1,7 @@
 <?php /** @noinspection PhpUnused PhpUnhandledExceptionInspection */
 require_once __DIR__."/../vendor/autoload.php";
-use Phpcraft\{BlockState,ChatComponent,Connection,Counter,Entity\Base,Entity\Living,Item,Server,Versions};
+use Phpcraft\
+{ChatComponent, Connection, Counter, Entity\Base, Entity\Living, Item, Server, Versions, World\BlockState};
 class GeneralTest
 {
 	function testVersions()
