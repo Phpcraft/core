@@ -6,7 +6,7 @@ use GMP;
 use hellsh\UUID;
 use pas\pas;
 use Phpcraft\
-{Command\ServerCommandSender, Entity\Player, Enum\ChatPosition, Enum\Gamemode, Exception\IOException, Packet\ClientboundAbilitiesPacket, Packet\ClientboundPacketId};
+{Command\ServerCommandSender, Entity\Player, Enum\ChatPosition, Enum\Gamemode, Exception\IOException, Packet\ClientboundAbilitiesPacket, Packet\ClientboundPacketId, World\Chunk, World\World};
 /** A server-to-client connection. */
 class ClientConnection extends Connection implements ServerCommandSender
 {
@@ -129,11 +129,13 @@ class ClientConnection extends Connection implements ServerCommandSender
 	 */
 	public $render_distance = 8;
 	/**
-	 * A string array of chunks the client has received.
-	 *
-	 * @var array<string> $chunks
+	 * @var array $chunks
 	 */
 	public $chunks = [];
+	/**
+	 * @var array $chunk_queue
+	 */
+	public $chunk_queue = [];
 	/**
 	 * @var int $gamemode
 	 */
@@ -515,6 +517,51 @@ class ClientConnection extends Connection implements ServerCommandSender
 	function getUnitVector(): Point3D
 	{
 		return $this->pos->getUnitVector($this->yaw, $this->pitch);
+	}
+
+	/**
+	 * @return void
+	 * @since 0.5
+	 */
+	function generateChunkQueue(): void
+	{
+		$this->chunk_queue = [];
+		for($x = $this->chunk_x - $this->render_distance; $x <= $this->chunk_x + $this->render_distance; $x++)
+		{
+			for($z = $this->chunk_z - $this->render_distance; $z <= $this->chunk_z + $this->render_distance; $z++)
+			{
+				$name = "$x:$z";
+				if(!array_key_exists($name, $this->chunks))
+				{
+					$this->chunk_queue[$name] = [
+						$x,
+						$z
+					];
+				}
+			}
+		}
+	}
+
+	/**
+	 * Returns a World that you can directly interact with or null if not applicable.
+	 *
+	 * @return World|null
+	 */
+	function getWorld(): ?World
+	{
+		$server = $this->getServer();
+		return $server instanceof IntegratedServer && $this->downstream === null && !@$this->received_imitated_world ? $server->world : null;
+	}
+
+	/**
+	 * Returns the chunk the client is standing in or null if there's no applicable world.
+	 *
+	 * @return Chunk|null
+	 */
+	function getChunk(): ?Chunk
+	{
+		$world = $this->getWorld();
+		return $world instanceof World ? $world->getChunk($this->chunk_x, $this->chunk_z) : null;
 	}
 
 	/**

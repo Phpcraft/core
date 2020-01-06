@@ -1,6 +1,10 @@
 <?php
-namespace Phpcraft;
+namespace Phpcraft\World;
 use InvalidArgumentException;
+use Phpcraft\Phpcraft;
+/**
+ * @since 0.5 Moved from Phpcraft to Phpcraft\World namespace
+ */
 class Block
 {
 	private static $all_cache;
@@ -98,9 +102,9 @@ class Block
 								}
 							}
 							$ids = [
-								393 => null,
+								477 => null,
 								397 => null,
-								477 => null
+								393 => null
 							];
 							$ids[$pv] = $state["id"];
 							foreach([

@@ -1,5 +1,8 @@
 <?php
-namespace Phpcraft;
+namespace Phpcraft\World;
+/**
+ * @since 0.5 Moved from Phpcraft to Phpcraft\World namespace
+ */
 class BlockProperty
 {
 	/**
