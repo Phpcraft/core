@@ -967,19 +967,7 @@ Static Public Attributes</h2></td></tr>
 <p>Converts the <a class="el" href="classPhpcraft_1_1ChatComponent.html">ChatComponent</a> to a string.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype">int</td><td class="paramname">$format</td><td>The format to apply: <ul>
-<li>
-0: None (drop colors and attributes)</li>
-<li>
-1: ANSI escape codes (for compatible terminals)</li>
-<li>
-2: Paragraph (§) format</li>
-<li>
-3: Ampersand (&amp;) format</li>
-<li>
-4: HTML</li>
-</ul>
-</td></tr>
+    <tr><td class="paramtype">int</td><td class="paramname">$format</td><td>The format to apply. Note that HTML format will provide a non-standard "obfuscated" tag, should any text require it. </td></tr>
   </table>
   </dd>
 </dl>
