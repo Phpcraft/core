@@ -30,8 +30,9 @@
 		"ext-SPL": "*",
 		"ext-zlib": "*",
 		"hell-sh/enum": "^1.1",
-		"hell-sh/uuid": "^1.2",
+		"hell-sh/hotswapp": "dev-master",
 		"hell-sh/pas": "^1.4.1",
+		"hell-sh/uuid": "^1.2",
 		"phpseclib/mcrypt_compat": "^1.0"
 	},
 	"require-dev": {

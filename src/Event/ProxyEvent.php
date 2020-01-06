@@ -1,5 +1,6 @@
 <?php
 namespace Phpcraft\Event;
+use hotswapp\Event;
 use Phpcraft\
 {ProxyServer, Server};
 class ProxyEvent extends Event

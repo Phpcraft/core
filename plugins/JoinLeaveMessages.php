@@ -6,7 +6,8 @@
  * @var Plugin $this
  */
 use Phpcraft\
-{Event\Event, Event\ServerJoinEvent, Event\ServerLeaveEvent, Plugin};
+{Event\ServerJoinEvent, Event\ServerLeaveEvent, Plugin};
+use hotswapp\Event;
 $this->on(function(ServerJoinEvent $event)
 {
 	if($event->cancelled)
@@ -25,10 +26,6 @@ $this->on(function(ServerJoinEvent $event)
 }, Event::PRIORITY_LOWEST);
 $this->on(function(ServerLeaveEvent $event)
 {
-	if($event->cancelled)
-	{
-		return;
-	}
 	$event->server->broadcast([
 		"color" => "yellow",
 		"translate" => "multiplayer.player.left",

@@ -3,7 +3,7 @@
  * @var Plugin $this
  */
 use Phpcraft\
-{ChatComponent, ClientConnection, Connection, IntegratedServer, Plugin, World\BlockState, World\ChunkSection, World\Structure};
+{ChatComponent, ClientConnection, Connection, IntegratedServer, Plugin, World\BlockState, World\Structure};
 $this->registerCommand(["structure", "loadstructure", "load-structure", "load_structure"], function(ClientConnection $client, string $file_name)
 {
 	$server = $client->getServer();

@@ -2,7 +2,10 @@
 namespace Phpcraft\Event;
 use Phpcraft\
 {ClientConnection, Server};
-/** Fired when a client rotates. Canceling rotates the client the way they were before this event. */
+/**
+ * Fired when a client rotates. Cancellable.
+ * Cancelling the event rotates the client the way they were before this event.
+ */
 class ServerRotationEvent extends ServerClientEvent
 {
 	/**

@@ -1,5 +1,6 @@
 <?php
 namespace Phpcraft\Event;
+use hotswapp\Event;
 use Phpcraft\ServerConnection;
 abstract class ClientEvent extends Event
 {

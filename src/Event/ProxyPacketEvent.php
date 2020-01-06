@@ -2,8 +2,11 @@
 namespace Phpcraft\Event;
 use Phpcraft\
 {ClientConnection, Packet\PacketId, ProxyServer};
+use hotswapp\CancellableEvent;
 class ProxyPacketEvent extends ProxyClientEvent
 {
+	use CancellableEvent;
+
 	/**
 	 * @var PacketId $packetId
 	 */
