@@ -1,7 +1,7 @@
 <?php
 namespace Phpcraft\World;
 use Phpcraft\
-{Exception\IOException, NBT\CompoundTag, NBT\LongArrayTag, Connection};
+{Connection, NBT\CompoundTag, NBT\LongArrayTag};
 /**
  * @since 0.4.3
  * @since 0.5 Moved from Phpcraft to Phpcraft\World namespace
@@ -80,15 +80,6 @@ class Chunk
 		$this->save();
 	}
 
-	function copy(int $x, int $z): Chunk
-	{
-		$chunk = clone $this;
-		$chunk->x = $x;
-		$chunk->z = $z;
-		$chunk->name = "$x:$z";
-		return $chunk;
-	}
-
 	private function save(): void
 	{
 		$this->heightmap_cache = null;
@@ -100,6 +91,15 @@ class Chunk
 			}
 			$this->world->changed_chunks[$this->name] = $this->name;
 		}
+	}
+
+	function copy(int $x, int $z): Chunk
+	{
+		$chunk = clone $this;
+		$chunk->x = $x;
+		$chunk->z = $z;
+		$chunk->name = "$x:$z";
+		return $chunk;
 	}
 
 	/**
@@ -166,49 +166,6 @@ class Chunk
 		];
 	}
 
-	function getHeightmap(): CompoundTag
-	{
-		if($this->heightmap_cache === null)
-		{
-			$heightmap = array_fill(0, 256, 0);
-			$pillar = 0;
-			for($x = 0; $x < 16; $x++)
-			{
-				for($z = 0; $z < 16; $z++)
-				{
-					for($section = 15; $section >= 0; $section--)
-					{
-						if($this->sections[$section] instanceof ChunkSection)
-						{
-							for($y = 15; $y >= 0; $y--)
-							{
-								$state = $this->sections[$section]->blocks[$pillar + ($y * 256)];
-								if($state instanceof BlockState && $state->block->name != "air")
-								{
-									$heightmap[$pillar++] = $y;
-									continue 3;
-								}
-							}
-						}
-					}
-					$pillar++;
-				}
-			}
-			$heightmap_bits = "";
-			foreach($heightmap as $y)
-			{
-				$heightmap_bits .= str_pad(decbin($y), 9, "0", STR_PAD_LEFT);
-			}
-			$motion_blocking = new LongArrayTag("MOTION_BLOCKING");
-			for($i = 0; $i < 36; $i++)
-			{
-				array_push($motion_blocking->children, gmp_init(substr($heightmap_bits, $i * 64, 64), 2));
-			}
-			$this->heightmap_cache = (new CompoundTag("", [$motion_blocking]));
-		}
-		return $this->heightmap_cache;
-	}
-
 	/**
 	 * Writes the chunk data after the X, Z, and "Is New Chunk" fields to the given Connection.
 	 *
@@ -231,7 +188,8 @@ class Chunk
 		}
 		if($con->protocol_version >= 472) // Heightmap
 		{
-			$this->getHeightmap()->write($con);
+			$this->getHeightmap()
+				 ->write($con);
 		}
 		$data = new Connection();
 		foreach($this->sections as $section)
@@ -281,19 +239,21 @@ class Chunk
 				{
 					for($i = 0; $i < 4096; $i++)
 					{
-						$bits .= str_pad(decbin($section->blocks[$i]->getCompatible($con->protocol_version)->getId($con->protocol_version)), $bits_per_block, "0", STR_PAD_LEFT);
+						$bits .= str_pad(decbin($section->blocks[$i]->getCompatible($con->protocol_version)
+																	->getId($con->protocol_version)), $bits_per_block, "0", STR_PAD_LEFT);
 					}
 				}
 				for($i = 0; $i < $longs; $i++)
 				{
-					$data->writeGMP(gmp_init(substr($bits, $i * 64, 64), 2), 8, 64, false,  GMP_MSW_FIRST | GMP_LITTLE_ENDIAN); // For some reason the bit order is reversed
+					$data->writeGMP(gmp_init(substr($bits, $i * 64, 64), 2), 8, 64, false, GMP_MSW_FIRST | GMP_LITTLE_ENDIAN); // For some reason the bit order is reversed
 				}
 			}
 			else
 			{
 				for($i = 0; $i < 4096; $i++)
 				{
-					$data->writeGMP($section->blocks[$i]->getCompatible(47)->getId(47), 2, 16, false, GMP_LSW_FIRST | GMP_BIG_ENDIAN); // For some reason the byte order is reversed
+					$data->writeGMP($section->blocks[$i]->getCompatible(47)
+														->getId(47), 2, 16, false, GMP_LSW_FIRST | GMP_BIG_ENDIAN); // For some reason the byte order is reversed
 				}
 				$data->writeVarInt(16); // Bits of data per block: 4 for block light, 8 for block + sky light, 16 for both + biome.
 				$data->writeVarInt(8192); // Number of elements in block + sky light arrays
@@ -311,5 +271,48 @@ class Chunk
 		{
 			$con->writeVarInt(0); // Number of block entities
 		}
+	}
+
+	function getHeightmap(): CompoundTag
+	{
+		if($this->heightmap_cache === null)
+		{
+			$heightmap = array_fill(0, 256, 0);
+			$pillar = 0;
+			for($x = 0; $x < 16; $x++)
+			{
+				for($z = 0; $z < 16; $z++)
+				{
+					for($section = 15; $section >= 0; $section--)
+					{
+						if($this->sections[$section] instanceof ChunkSection)
+						{
+							for($y = 15; $y >= 0; $y--)
+							{
+								$state = $this->sections[$section]->blocks[$pillar + ($y * 256)];
+								if($state instanceof BlockState && $state->block->name != "air")
+								{
+									$heightmap[$pillar++] = $y;
+									continue 3;
+								}
+							}
+						}
+					}
+					$pillar++;
+				}
+			}
+			$heightmap_bits = "";
+			foreach($heightmap as $y)
+			{
+				$heightmap_bits .= str_pad(decbin($y), 9, "0", STR_PAD_LEFT);
+			}
+			$motion_blocking = new LongArrayTag("MOTION_BLOCKING");
+			for($i = 0; $i < 36; $i++)
+			{
+				array_push($motion_blocking->children, gmp_init(substr($heightmap_bits, $i * 64, 64), 2));
+			}
+			$this->heightmap_cache = (new CompoundTag("", [$motion_blocking]));
+		}
+		return $this->heightmap_cache;
 	}
 }

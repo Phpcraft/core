@@ -9,7 +9,6 @@ use Phpcraft\Server;
 class ServerConsoleEvent extends ServerEvent
 {
 	use CancellableEvent;
-
 	/**
 	 * The message that the console has proposed.
 	 *

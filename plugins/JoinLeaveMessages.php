@@ -5,9 +5,9 @@
  *
  * @var Plugin $this
  */
+use hotswapp\Event;
 use Phpcraft\
 {Event\ServerJoinEvent, Event\ServerLeaveEvent, Plugin};
-use hotswapp\Event;
 $this->on(function(ServerJoinEvent $event)
 {
 	if($event->cancelled)

@@ -14,18 +14,6 @@ class World
 	public $changed_chunks = [];
 
 	/**
-	 * Gets a chunk, generating it if needed.
-	 *
-	 * @param int $x
-	 * @param int $z
-	 * @return Chunk
-	 */
-	function getChunk(int $x, int $z): Chunk
-	{
-		return array_key_exists("$x:$z", $this->chunks) ? $this->chunks["$x:$z"] : $this->chunkGenerator->generate($x, $z);
-	}
-
-	/**
 	 * Sets the block state at the given position.
 	 *
 	 * @param Point3D $pos
@@ -37,7 +25,20 @@ class World
 		$z = (int) floor($pos->z);
 		$chunk_x = (int) floor($pos->x / 16);
 		$chunk_z = (int) floor($pos->z / 16);
-		$this->getChunk($chunk_x, $chunk_z)->set($x, (int) floor($pos->y), $z, $blockState);
+		$this->getChunk($chunk_x, $chunk_z)
+			 ->set($x, (int) floor($pos->y), $z, $blockState);
+	}
+
+	/**
+	 * Gets a chunk, generating it if needed.
+	 *
+	 * @param int $x
+	 * @param int $z
+	 * @return Chunk
+	 */
+	function getChunk(int $x, int $z): Chunk
+	{
+		return array_key_exists("$x:$z", $this->chunks) ? $this->chunks["$x:$z"] : $this->chunkGenerator->generate($x, $z);
 	}
 
 	/**

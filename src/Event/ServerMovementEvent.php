@@ -1,8 +1,8 @@
 <?php
 namespace Phpcraft\Event;
+use hotswapp\CancellableEvent;
 use Phpcraft\
 {ClientConnection, Point3D, Server};
-use hotswapp\CancellableEvent;
 /**
  * Fired when a client moves. Cancellable.
  * Cancelling puts the client back to where they were before this event.
@@ -10,7 +10,6 @@ use hotswapp\CancellableEvent;
 class ServerMovementEvent extends ServerClientEvent
 {
 	use CancellableEvent;
-
 	/**
 	 * The client's position before this event.
 	 *

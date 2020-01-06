@@ -119,7 +119,7 @@ class Structure
 		$blocks = array_fill(0, $width * $height * $depth, BlockState::get("air"));
 		foreach($blocks_nbt->children as $block)
 		{
-			if(!$block instanceof CompoundTag || !$block->getChild("pos")|| !$block->getChild("state"))
+			if(!$block instanceof CompoundTag || !$block->getChild("pos") || !$block->getChild("state"))
 			{
 				throw new IOException("Invalid block entry: ".$block);
 			}

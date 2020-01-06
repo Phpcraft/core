@@ -6,7 +6,6 @@ use Phpcraft\ServerConnection;
 class ClientConsoleEvent extends ClientEvent
 {
 	use CancellableEvent;
-
 	/**
 	 * The message that the console has proposed.
 	 *

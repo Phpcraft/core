@@ -1,9 +1,9 @@
 <?php /** @noinspection PhpIncludeInspection */
 namespace Phpcraft;
 use DomainException;
+use hotswapp\Plugin as HotswappPlugin;
 use Phpcraft\Command\Command;
 use RuntimeException;
-use hotswapp\Plugin as HotswappPlugin;
 class Plugin extends HotswappPlugin
 {
 	/**

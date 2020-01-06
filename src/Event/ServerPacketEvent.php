@@ -1,8 +1,8 @@
 <?php
 namespace Phpcraft\Event;
+use hotswapp\CancellableEvent;
 use Phpcraft\
 {ClientConnection, Packet\ServerboundPacketId, Server};
-use hotswapp\CancellableEvent;
 /**
  * The event emitted by the server when a client has sent a packet. Cancellable.
  * Cancelling the event tells the server to ignore the packet.
@@ -10,7 +10,6 @@ use hotswapp\CancellableEvent;
 class ServerPacketEvent extends ServerClientEvent
 {
 	use CancellableEvent;
-
 	/**
 	 * The ID of the packet that the client has sent.
 	 *

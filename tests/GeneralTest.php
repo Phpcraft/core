@@ -39,15 +39,18 @@ class GeneralTest
 		$slot = Item::get("stone")
 					->slot();
 		Nose::assertNull($slot->getDisplayName());
-		$name = ChatComponent::text("Test")->yellow();
+		$name = ChatComponent::text("Test")
+							 ->yellow();
 		$slot->setDisplayName($name);
-		Nose::assertEquals($name->toArray(), $slot->getDisplayName()->toArray());
+		Nose::assertEquals($name->toArray(), $slot->getDisplayName()
+												  ->toArray());
 		$con = new Connection(47);
 		$con->writeSlot($slot);
 		Nose::assert(strpos($con->write_buffer, "§eTest") !== false);
 		$con->read_buffer = $con->write_buffer;
 		Nose::assertEquals($name->toArray(), $con->readSlot()
-									  ->getDisplayName()->toArray());
+												 ->getDisplayName()
+												 ->toArray());
 		Nose::assertEquals($con->read_buffer_offset, strlen($con->read_buffer));
 	}
 
@@ -56,7 +59,8 @@ class GeneralTest
 		$metadata = new Base();
 		$metadata->burning = true;
 		$metadata->elytraing = true;
-		$metadata->custom_name = ChatComponent::text("Test")->yellow();
+		$metadata->custom_name = ChatComponent::text("Test")
+											  ->yellow();
 		$con = new Connection(47);
 		$metadata->write($con);
 		Nose::assert(strpos($con->write_buffer, "§eTest") !== false);

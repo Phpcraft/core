@@ -1,7 +1,7 @@
 <?php
 namespace Phpcraft;
-use SplObjectStorage;
 use hotswapp\PluginManager as HotswappPluginManager;
+use SplObjectStorage;
 abstract class PluginManager extends HotswappPluginManager
 {
 	/**
@@ -14,6 +14,15 @@ abstract class PluginManager extends HotswappPluginManager
 	public static $registered_commands;
 
 	/**
+	 * @return void
+	 */
+	static function unloadAllPlugins(): void
+	{
+		HotswappPluginManager::unloadAllPlugins();
+		PluginManager::$registered_commands = new SplObjectStorage();
+	}
+
+	/**
 	 * @param string $folder
 	 * @param string $name
 	 * @return Plugin
@@ -21,15 +30,6 @@ abstract class PluginManager extends HotswappPluginManager
 	protected static function constructPlugin(string $folder, string $name)
 	{
 		return new Plugin($folder, $name);
-	}
-
-	/**
-	 * @return void
-	 */
-	static function unloadAllPlugins(): void
-	{
-		HotswappPluginManager::unloadAllPlugins();
-		PluginManager::$registered_commands = new SplObjectStorage();
 	}
 }
 

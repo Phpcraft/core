@@ -6,7 +6,6 @@ use Phpcraft\ProxyServer;
 class ProxyConsoleEvent extends ProxyEvent
 {
 	use CancellableEvent;
-
 	/**
 	 * The message that the console has proposed.
 	 *

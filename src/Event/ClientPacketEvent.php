@@ -10,7 +10,6 @@ use Phpcraft\
 class ClientPacketEvent extends ClientEvent
 {
 	use CancellableEvent;
-
 	/**
 	 * The ID of the packet that the server has sent.
 	 *

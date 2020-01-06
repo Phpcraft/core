@@ -29,19 +29,6 @@ class BlockState
 	}
 
 	/**
-	 * Returns a BlockState by its string representation, null if the block is not found, or throws an exception if an invalid state is given.
-	 *
-	 * @param string $str A BlockState string representation, e.g. "grass_block[snowy=true]"
-	 * @return BlockState|null
-	 */
-	static function get(string $str): ?BlockState
-	{
-		$state_start = strpos($str, "[");
-		$block = Block::get($state_start ? substr($str, 0, $state_start) : $str);
-		return $block ? $block->getState($state_start ? substr($str, $state_start) : "") : null;
-	}
-
-	/**
 	 * Returns a BlockState by its ID in the given protocol version or null if not found.
 	 *
 	 * @param int $id
@@ -139,12 +126,25 @@ class BlockState
 	/**
 	 * Gets a replacement BlockState compatible with the given protocol_version, or $this if it's compatible.
 	 *
-	 * @since 0.5
 	 * @param int $protocol_version
 	 * @return BlockState
+	 * @since 0.5
 	 */
 	function getCompatible(int $protocol_version): BlockState
 	{
 		return $this->block->since_protocol_version > $protocol_version ? BlockState::get("bedrock") : $this;
+	}
+
+	/**
+	 * Returns a BlockState by its string representation, null if the block is not found, or throws an exception if an invalid state is given.
+	 *
+	 * @param string $str A BlockState string representation, e.g. "grass_block[snowy=true]"
+	 * @return BlockState|null
+	 */
+	static function get(string $str): ?BlockState
+	{
+		$state_start = strpos($str, "[");
+		$block = Block::get($state_start ? substr($str, 0, $state_start) : $str);
+		return $block ? $block->getState($state_start ? substr($str, $state_start) : "") : null;
 	}
 }

@@ -543,6 +543,17 @@ class ClientConnection extends Connection implements ServerCommandSender
 	}
 
 	/**
+	 * Returns the chunk the client is standing in or null if there's no applicable world.
+	 *
+	 * @return Chunk|null
+	 */
+	function getChunk(): ?Chunk
+	{
+		$world = $this->getWorld();
+		return $world instanceof World ? $world->getChunk($this->chunk_x, $this->chunk_z) : null;
+	}
+
+	/**
 	 * Returns a World that you can directly interact with or null if not applicable.
 	 *
 	 * @return World|null
@@ -553,15 +564,9 @@ class ClientConnection extends Connection implements ServerCommandSender
 		return $server instanceof IntegratedServer && $this->downstream === null && !@$this->received_imitated_world ? $server->world : null;
 	}
 
-	/**
-	 * Returns the chunk the client is standing in or null if there's no applicable world.
-	 *
-	 * @return Chunk|null
-	 */
-	function getChunk(): ?Chunk
+	function getServer(): Server
 	{
-		$world = $this->getWorld();
-		return $world instanceof World ? $world->getChunk($this->chunk_x, $this->chunk_z) : null;
+		return $this->config->server;
 	}
 
 	/**
@@ -610,11 +615,6 @@ class ClientConnection extends Connection implements ServerCommandSender
 		$this->writeChat(ChatComponent::cast($message));
 		$this->writeByte($position);
 		$this->send();
-	}
-
-	function getServer(): Server
-	{
-		return $this->config->server;
 	}
 
 	function hasPermission(string $permission): bool
