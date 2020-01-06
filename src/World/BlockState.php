@@ -1,5 +1,8 @@
 <?php
-namespace Phpcraft;
+namespace Phpcraft\World;
+/**
+ * @since 0.5 Moved from Phpcraft to Phpcraft\World namespace
+ */
 class BlockState
 {
 	private static $all_cache;
@@ -131,5 +134,17 @@ class BlockState
 			$str .= "[$name=$value]";
 		}
 		return $str;
+	}
+
+	/**
+	 * Gets a replacement BlockState compatible with the given protocol_version, or $this if it's compatible.
+	 *
+	 * @since 0.5
+	 * @param int $protocol_version
+	 * @return BlockState
+	 */
+	function getCompatible(int $protocol_version): BlockState
+	{
+		return $this->block->since_protocol_version > $protocol_version ? BlockState::get("bedrock") : $this;
 	}
 }

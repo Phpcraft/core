@@ -3,7 +3,7 @@ namespace Phpcraft;
 use Exception;
 use hellsh\UUID;
 use Phpcraft\
-{Command\Command, Enum\Gamemode, Event\ServerChatEvent, Event\ServerChunkBorderEvent, Event\ServerClientMetadataEvent, Event\ServerClientSettingsEvent, Event\ServerFlyingChangeEvent, Event\ServerJoinEvent, Event\ServerLeaveEvent, Event\ServerMovementEvent, Event\ServerOnGroundChangeEvent, Event\ServerPacketEvent, Event\ServerRotationEvent, Exception\IOException, Packet\ClientSettingsPacket, Packet\JoinGamePacket, Packet\PluginMessage\ClientboundBrandPluginMessagePacket, Packet\ServerboundPacketId};
+{Command\Command, Enum\Gamemode, Event\ServerChatEvent, Event\ServerChunkBorderEvent, Event\ServerClientMetadataEvent, Event\ServerClientSettingsEvent, Event\ServerFlyingChangeEvent, Event\ServerJoinEvent, Event\ServerLeaveEvent, Event\ServerMovementEvent, Event\ServerOnGroundChangeEvent, Event\ServerPacketEvent, Event\ServerRotationEvent, Exception\IOException, Packet\ClientSettingsPacket, Packet\JoinGamePacket, Packet\PluginMessage\ClientboundBrandPluginMessagePacket, Packet\ServerboundPacketId, World\BlockState, World\Chunk, World\ChunkSection, World\StaticChunkGenerator, World\World};
 use RuntimeException;
 class IntegratedServer extends Server
 {
@@ -29,6 +29,13 @@ class IntegratedServer extends Server
 	 * @var callable|null $config_reloaded_function
 	 */
 	public $config_reloaded_function;
+	/**
+	 * The world that clients will be presented with.
+	 *
+	 * @var World $world
+	 * @since 0.5
+	 */
+	public $world;
 	/**
 	 * The position where clients will spawn at.
 	 * Defaults to <pre>new Point3D(0, 16, 0)</pre>.
@@ -172,6 +179,7 @@ class IntegratedServer extends Server
 				{
 				}
 			}
+			$con->generateChunkQueue();
 		};
 		$this->packet_function = function(ClientConnection $con, ServerboundPacketId $packetId)
 		{
@@ -207,12 +215,16 @@ class IntegratedServer extends Server
 							{
 								$con->teleport($prev_pos);
 							}
-							else if($con->protocol_version >= 472)
+							else
 							{
-								$con->startPacket("update_view_position");
-								$con->writeVarInt($con->chunk_x);
-								$con->writeVarInt($con->chunk_z);
-								$con->send();
+								if($con->protocol_version >= 472)
+								{
+									$con->startPacket("update_view_position");
+									$con->writeVarInt($con->chunk_x);
+									$con->writeVarInt($con->chunk_z);
+									$con->send();
+								}
+								$con->generateChunkQueue();
 							}
 						}
 					}
@@ -342,6 +354,58 @@ class IntegratedServer extends Server
 				}
 			}
 		};
+		$this->open_condition->add(function(bool $lagging)
+		{
+			if($lagging)
+			{
+				return;
+			}
+			if(count($this->world->changed_chunks) > 0)
+			{
+				// TODO: Track more than just changed chunks to significantly improve performance
+				$filter = function($name)
+				{
+					return !array_key_exists($name, $this->world->changed_chunks);
+				};
+				foreach($this->getPlayers() as $player)
+				{
+					$player->chunks = array_filter($player->chunks, $filter);
+					$player->generateChunkQueue();
+				}
+				$this->world->changed_chunks = [];
+			}
+			$chunks_limit = 20; // chunks/tick limit
+			foreach($this->clients as $con)
+			{
+				assert($con instanceof ClientConnection);
+				if($con->downstream !== null || @$con->received_imitated_world)
+				{
+					continue;
+				}
+				try
+				{
+					foreach($con->chunk_queue as $chunk_name => $chunk_coords)
+					{
+						$con->startPacket("chunk_data");
+						$con->writeInt($chunk_coords[0]); // Chunk X
+						$con->writeInt($chunk_coords[1]); // Chunk Z
+						$con->writeBoolean(true); // Is New Chunk
+						$this->world->getChunk($chunk_coords[0], $chunk_coords[1])
+									->write($con);
+						$con->send();
+						$con->chunks[$chunk_name] = $chunk_name;
+						unset($con->chunk_queue[$chunk_name]);
+						if(--$chunks_limit == 0)
+						{
+							return;
+						}
+					}
+				}
+				catch(Exception $ignored)
+				{
+				}
+			}
+		}, 0.05);
 	}
 
 	static function getDefaultName(): string
@@ -373,6 +437,24 @@ class IntegratedServer extends Server
 				$this->config[$key] = $default;
 			}
 		}
+		if(!array_key_exists("world_is_made_of", $this->config))
+		{
+			$this->config["world_is_made_of"] = "grass_block[snowy=false]";
+		}
+		$changed_chunks = [];
+		if($this->world instanceof World)
+		{
+			foreach($this->world->chunks as $name => $chunk)
+			{
+				$changed_chunks[$name] = $name;
+			}
+		}
+		$chunk = new Chunk();
+		$blockState = BlockState::get($this->config["world_is_made_of"]) ?? BlockState::get("grass_block[snowy=false]");
+		$this->config["world_is_made_of"] = $blockState->__toString();
+		$chunk->setSection(0, new ChunkSection($blockState));
+		$this->world = (new StaticChunkGenerator(new World(), $chunk))->init();
+		$this->world->changed_chunks = $changed_chunks;
 		if(!array_key_exists("groups", $this->config))
 		{
 			$this->config["groups"] = [
@@ -380,14 +462,14 @@ class IntegratedServer extends Server
 					"allow" => [
 						"use /me",
 						"use /gamemode",
-						"use /metadata",
-						"change the world"
+						"use /metadata"
 					]
 				],
 				"user" => [
 					"inherit" => "default",
 					"allow" => [
-						"use /abilities"
+						"use /abilities",
+						"change the world"
 					]
 				],
 				"admin" => [

@@ -170,8 +170,8 @@ Public Attributes</h2></td></tr>
 <tr class="separator:a95ddd9e5013bc9fadf8f3fa1860eedc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a27aba103cfdd78a7e96f3da8e6d8af06"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Server.html#a27aba103cfdd78a7e96f3da8e6d8af06">$list_ping_function</a> = null</td></tr>
 <tr class="separator:a27aba103cfdd78a7e96f3da8e6d8af06"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a66641d7090697d045747ee06f92ab4c4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Server.html#a66641d7090697d045747ee06f92ab4c4">$deny_incompatible_versions</a> = true</td></tr>
-<tr class="separator:a66641d7090697d045747ee06f92ab4c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd81b2a70d78301cf463f2ac8a0ee97e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Server.html#afd81b2a70d78301cf463f2ac8a0ee97e">$allow_incompatible_versions</a> = false</td></tr>
+<tr class="separator:afd81b2a70d78301cf463f2ac8a0ee97e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1d94434a49d8f6bcca7bd7ed037990b9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Server.html#a1d94434a49d8f6bcca7bd7ed037990b9">$open_condition</a></td></tr>
 <tr class="separator:a1d94434a49d8f6bcca7bd7ed037990b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -777,6 +777,22 @@ Protected Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
+<a id="afd81b2a70d78301cf463f2ac8a0ee97e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afd81b2a70d78301cf463f2ac8a0ee97e">&#9670;&nbsp;</a></span>$allow_incompatible_versions</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Phpcraft\Server::$allow_incompatible_versions = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>If true, clients using incompatible versions will not be prevented from logging in.</p>
+<dl class="section since"><dt>Since</dt><dd>0.5 Inverted from $deny_incompatible_versions </dd></dl>
+
+</div>
+</div>
 <a id="af61ba1b0b5b8a2c44bd03afd1ca72edd"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af61ba1b0b5b8a2c44bd03afd1ca72edd">&#9670;&nbsp;</a></span>$clients</h2>
 
@@ -805,21 +821,6 @@ Protected Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>The amount of bytes at which a packet will be compressed. This applies bi-directionally, but the server decides on the value. Use -1 to disable compression. </p>
-
-</div>
-</div>
-<a id="a66641d7090697d045747ee06f92ab4c4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a66641d7090697d045747ee06f92ab4c4">&#9670;&nbsp;</a></span>$deny_incompatible_versions</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool Phpcraft\Server::$deny_incompatible_versions = true</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>If true, clients using incompatible versions will be prevented from logging in. </p>
 
 </div>
 </div>

@@ -83,11 +83,12 @@ class Server implements ServerCommandSender
 	 */
 	public $list_ping_function = null;
 	/**
-	 * If true, clients using incompatible versions will be prevented from logging in.
+	 * If true, clients using incompatible versions will not be prevented from logging in.
 	 *
-	 * @var bool $deny_incompatible_versions
+	 * @var bool $allow_incompatible_versions
+	 * @since 0.5 Inverted from $deny_incompatible_versions
 	 */
-	public $deny_incompatible_versions = true;
+	public $allow_incompatible_versions = false;
 	/**
 	 * @var Condition $open_condition
 	 * @since 0.2.1
@@ -195,7 +196,7 @@ class Server implements ServerCommandSender
 						switch($con->handleInitialPacket())
 						{
 							case 1:
-								if($this->deny_incompatible_versions && !Versions::protocolSupported($con->protocol_version))
+								if($this->allow_incompatible_versions && !Versions::protocolSupported($con->protocol_version))
 								{
 									$con->disconnect("You're using an incompatible version.");
 								}
