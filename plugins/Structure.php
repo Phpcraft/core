@@ -3,7 +3,7 @@
  * @var Plugin $this
  */
 use Phpcraft\
-{ChatComponent, ClientConnection, Connection, IntegratedServer, Plugin, World\BlockState, World\Structure};
+{ChatComponent, ClientConnection, Command\ServerCommandSender, Connection, IntegratedServer, Plugin, World\BlockState, World\Structure};
 $this->registerCommand([
 	"structure",
 	"loadstructure",
@@ -46,4 +46,14 @@ $this->registerCommand("setblock", function(ClientConnection $con)
 	$server = $con->getServer();
 	assert($server instanceof IntegratedServer);
 	$server->world->set($con->pos, BlockState::get("gold_block"));
+});
+$this->registerCommand("palette", function(ServerCommandSender $sender, int $x, int $y, int $z)
+{
+	$server = $sender->getServer();
+	assert($server instanceof IntegratedServer);
+	$i = 0;
+	foreach($server->world->getChunk(floor($x / 16), floor($z / 16))->getSection(floor($y / 16))->getPalette() as $state_fqn => $state)
+	{
+		$sender->sendMessage(($i++).": ".$state_fqn);
+	}
 });
