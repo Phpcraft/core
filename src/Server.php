@@ -671,7 +671,22 @@ class Server implements ServerCommandSender
 		return true;
 	}
 
-	function getServer(): Server
+	/**
+	 * Available in accordance with the CommandSender interface.
+	 *
+	 * @return bool true
+	 */
+	function hasServer(): bool
+	{
+		return true;
+	}
+
+	/**
+	 * Available in accordance with the CommandSender interface.
+	 *
+	 * @return Server $this
+	 */
+	function getServer(): ?Server
 	{
 		return $this;
 	}

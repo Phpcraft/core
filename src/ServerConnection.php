@@ -231,4 +231,24 @@ class ServerConnection extends Connection implements CommandSender
 	{
 		return $this->pos;
 	}
+
+	/**
+	 * Available in accordance with the CommandSender interface.
+	 *
+	 * @return bool false
+	 */
+	function hasServer(): bool
+	{
+		return false;
+	}
+
+	/**
+	 * Available in accordance with the CommandSender interface.
+	 *
+	 * @return Server|null null
+	 */
+	function getServer(): ?Server
+	{
+		return null;
+	}
 }

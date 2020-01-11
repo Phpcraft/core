@@ -701,4 +701,14 @@ class ClientConnection extends Connection implements ServerCommandSender
 	{
 		return $this->pos;
 	}
+
+	/**
+	 * Available in accordance with the CommandSender interface.
+	 *
+	 * @return bool true
+	 */
+	function hasServer(): bool
+	{
+		return true;
+	}
 }

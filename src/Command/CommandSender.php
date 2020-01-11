@@ -1,7 +1,7 @@
 <?php
 namespace Phpcraft\Command;
 use Phpcraft\
-{ChatComponent, Point3D};
+{ChatComponent, Point3D, Server};
 interface CommandSender
 {
 	/**
@@ -37,4 +37,14 @@ interface CommandSender
 	 * @return Point3D|null
 	 */
 	function getPosition(): ?Point3D;
+
+	/**
+	 * @return bool
+	 */
+	function hasServer(): bool;
+
+	/**
+	 * @return Server|null
+	 */
+	function getServer(): ?Server;
 }
