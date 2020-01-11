@@ -59,6 +59,14 @@ class Connection
 	 */
 	public $write_buffer = "";
 	/**
+	 * Allow sending and receiving of data that would be an error in vanilla Minecraft.
+	 * Note that this has to be set on the sending and receiving end.
+	 *
+	 * @var bool $lenient
+	 * @since 0.5
+	 */
+	public $lenient = false;
+	/**
 	 * The read buffer binary string.
 	 *
 	 * @var string $read_buffer
@@ -529,6 +537,10 @@ class Connection
 			else
 			{
 				$length = strlen($this->write_buffer);
+				if(!$this->lenient && $length > 2097152)
+				{
+					throw new IOException("Packet length exceeds 2097152 bytes");
+				}
 				if($this->compression_threshold > -1)
 				{
 					if($length >= $this->compression_threshold)
@@ -638,8 +650,8 @@ class Connection
 	 * @return int|boolean The packet's ID or false if no packet was received within the time limit.
 	 * @throws IOException
 	 * @see Connection::readRawPacket
-	 * @see Packet::clientboundPacketIdToName()
-	 * @see Packet::serverboundPacketIdToName()
+	 * @see ClientboundPacketId::getById
+	 * @see ServerboundPacketId::getById
 	 */
 	function readPacket(float $timeout = 3.000)
 	{
@@ -648,7 +660,7 @@ class Connection
 		$read = 0;
 		do
 		{
-			if($read > 3)
+			if(!$this->lenient && $read > 3)
 			{
 				throw new IOException("Packet length exceeds 2097152 bytes");
 			}
