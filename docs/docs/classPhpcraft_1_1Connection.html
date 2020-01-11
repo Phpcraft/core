@@ -216,6 +216,8 @@ Public Attributes</h2></td></tr>
 <tr class="separator:a244ea931ac1615b2e64357a6b463239c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3084eed19e1ce7d3f53d50cc26aaf767"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#a3084eed19e1ce7d3f53d50cc26aaf767">$write_buffer</a> = &quot;&quot;</td></tr>
 <tr class="separator:a3084eed19e1ce7d3f53d50cc26aaf767"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae62b331b019db79de68bfeb8edea7475"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#ae62b331b019db79de68bfeb8edea7475">$lenient</a> = false</td></tr>
+<tr class="separator:ae62b331b019db79de68bfeb8edea7475"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab4b47b674ff9c466d4f8edfc6d171d23"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#ab4b47b674ff9c466d4f8edfc6d171d23">$read_buffer</a> = &quot;&quot;</td></tr>
 <tr class="separator:ab4b47b674ff9c466d4f8edfc6d171d23"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2ce84dbc73a6717cee3c8ab2487f6f17"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#a2ce84dbc73a6717cee3c8ab2487f6f17">$read_buffer_offset</a> = 0</td></tr>
@@ -666,9 +668,9 @@ echo \<a class="el" href="classPhpcraft_1_1Phpcraft.html">Phpcraft</a>\<a class=
 </dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classPhpcraft_1_1Connection.html#a385117fb1bf4927769b851cd0ff16cf5">Connection::readRawPacket</a> </dd>
 <dd>
-Packet::clientboundPacketIdToName() </dd>
+<a class="el" href="classPhpcraft_1_1Identifier.html#a1d52b958fa53b9d4a77740f42e03477b">ClientboundPacketId::getById</a> </dd>
 <dd>
-Packet::serverboundPacketIdToName() </dd></dl>
+<a class="el" href="classPhpcraft_1_1Identifier.html#a1d52b958fa53b9d4a77740f42e03477b">ServerboundPacketId::getById</a> </dd></dl>
 
 </div>
 </div>
@@ -1672,6 +1674,22 @@ Packet::serverboundPacketIdToName() </dd></dl>
       </table>
 </div><div class="memdoc">
 <p>The amount of bytes a packet needs for it to be compressed as an integer or -1 if disabled. </p>
+
+</div>
+</div>
+<a id="ae62b331b019db79de68bfeb8edea7475"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae62b331b019db79de68bfeb8edea7475">&#9670;&nbsp;</a></span>$lenient</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Phpcraft\Connection::$lenient = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Allow sending and receiving of data that would be an error in vanilla Minecraft. Note that this has to be set on the sending and receiving end.</p>
+<dl class="section since"><dt>Since</dt><dd>0.5 </dd></dl>
 
 </div>
 </div>
