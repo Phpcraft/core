@@ -61,7 +61,7 @@ class Chunk
 		return $this->sections_bit_mask;
 	}
 
-	function getSection(int $index): int
+	function getSection(int $index): ChunkSection
 	{
 		return $this->sections[$index];
 	}
@@ -194,7 +194,7 @@ class Chunk
 		$data = new Connection();
 		foreach($this->sections as $section)
 		{
-			if($section === null)
+			if(!$section instanceof ChunkSection)
 			{
 				continue;
 			}
@@ -205,14 +205,27 @@ class Chunk
 					$data->writeShort($section->non_air_blocks);
 				}
 				$palette = $section->getPalette();
-				$bits_per_block = 4;
+				if(count($palette) > 256)
+				{
+					$bits_per_block = count(BlockState::all());
+				}
+				else if(count($palette) > 16)
+				{
+					$bits_per_block = 8;
+				}
+				else
+				{
+					$bits_per_block = 4;
+				}
+				/*$bits_per_block = 4;
 				while(count($palette) > pow(2, $bits_per_block))
 				{
 					if(++$bits_per_block > 8)
 					{
 						$bits_per_block = count(BlockState::all());
+						break;
 					}
-				}
+				}*/
 				$data->writeByte($bits_per_block);
 				if($bits_per_block < 9)
 				{

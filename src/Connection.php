@@ -222,7 +222,7 @@ class Connection
 		return $this;
 	}
 
-	function writeGMP($value, int $bytes, int $bits, bool $signed, int $gmp_export_options = GMP_BIG_ENDIAN): void
+	function writeGMP($value, int $bytes, int $bits, bool $signed, int $gmp_export_options = GMP_MSW_FIRST | GMP_BIG_ENDIAN): void
 	{
 		if(is_float($value))
 		{
