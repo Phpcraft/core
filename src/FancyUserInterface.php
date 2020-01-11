@@ -1,7 +1,7 @@
 <?php /** @noinspection PhpComposerExtensionStubsInspection */
 namespace Phpcraft;
-use pas\
-{pas, stdin};
+use Asyncore\
+{Asyncore, stdin};
 use RuntimeException;
 class FancyUserInterface extends UserInterface
 {
@@ -52,7 +52,7 @@ class FancyUserInterface extends UserInterface
 			stream_set_blocking($this->stdin, false);
 		}
 		$this->ob_start();
-		$this->render_loop = pas::addInessential(function()
+		$this->render_loop = Asyncore::addInessential(function()
 		{
 			$this->render();
 		}, 0.2, true);
@@ -112,7 +112,7 @@ class FancyUserInterface extends UserInterface
 							$this->cursorpos = 1;
 							$this->render_loop->next_run = microtime(true);
 							$this->ob_start();
-							pas::fire("stdin_line", [$line]);
+							Asyncore::fire("stdin_line", [$line]);
 						}
 					}
 					else if($char == "\x7F") // Backspace

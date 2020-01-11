@@ -2,8 +2,7 @@
 namespace Phpcraft;
 use Exception;
 use hellsh\UUID;
-use pas\
-{Condition, pas};
+use Asyncore\Condition;
 use Phpcraft\
 {Command\ServerCommandSender, Enum\ChatPosition, Event\ServerTickEvent, Exception\IOException, Packet\KeepAliveRequestPacket, Packet\ServerboundPacketId, Permission\Group};
 use SplObjectStorage;
@@ -146,7 +145,7 @@ class Server implements ServerCommandSender
 		$this->groups = [
 			"default" => new Group($this, [])
 		];
-		$this->open_condition = pas::whileLoop(function()
+		$this->open_condition = new Condition(function()
 		{
 			return $this->isOpen();
 		});

@@ -3,7 +3,7 @@ namespace Phpcraft;
 use ArrayAccess;
 use Countable;
 use Iterator;
-use pas\pas;
+use Asyncore\Asyncore;
 use SplObjectStorage;
 class Configuration implements Iterator, Countable, ArrayAccess
 {
@@ -44,7 +44,7 @@ class Configuration implements Iterator, Countable, ArrayAccess
 		}
 		if(!self::$registered_loop)
 		{
-			pas::addInessential(function()
+			Asyncore::addInessential(function()
 			{
 				Configuration::handleQueue(0.05);
 			}, 0.1);

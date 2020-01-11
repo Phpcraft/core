@@ -1,6 +1,6 @@
 <?php
 namespace Phpcraft;
-use pas\stdin;
+use Asyncore\stdin;
 /**
  * Plain user interface, e.g. writing logs to a file.
  */

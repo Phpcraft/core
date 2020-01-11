@@ -4,7 +4,7 @@ use BadMethodCallException;
 use DomainException;
 use GMP;
 use hellsh\UUID;
-use pas\pas;
+use Asyncore\Asyncore;
 use Phpcraft\
 {Command\ServerCommandSender, Entity\Player, Enum\ChatPosition, Enum\Gamemode, Exception\IOException, Packet\ClientboundAbilitiesPacket, Packet\ClientboundPacketId, World\Chunk, World\World};
 /** A server-to-client connection. */
@@ -377,7 +377,7 @@ class ClientConnection extends Connection implements ServerCommandSender
 		{
 			curl_setopt($ch, CURLOPT_CAINFO, __DIR__."/cacert.pem");
 		}
-		pas::curl_exec($ch, function($res) use (&$ch, &$callback)
+		Asyncore::curl_exec($ch, function($res) use (&$ch, &$callback)
 		{
 			curl_close($ch);
 			$json = json_decode($res, true);

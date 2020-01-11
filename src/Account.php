@@ -1,6 +1,6 @@
 <?php /** @noinspection PhpComposerExtensionStubsInspection */
 namespace Phpcraft;
-use pas\stdin;
+use Asyncore\stdin;
 /** A Mojang or Minecraft account. */
 class Account
 {
@@ -37,7 +37,7 @@ class Account
 	}
 
 	/**
-	 * Asks the user of the CLI application for a logged-in Account for "online mode" usage using pas\stdin.
+	 * Asks the user of the CLI application for a logged-in Account for "online mode" usage using \Asyncore\stdin.
 	 *
 	 * @return Account
 	 */
