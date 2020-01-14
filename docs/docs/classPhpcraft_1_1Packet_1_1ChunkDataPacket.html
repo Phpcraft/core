@@ -95,8 +95,8 @@ Collaboration diagram for Phpcraft\Packet\ChunkDataPacket:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a4e76589f66796883076a67142002f479"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Packet_1_1ChunkDataPacket.html#a4e76589f66796883076a67142002f479">__construct</a> (int $x=0, int $z=0, bool $is_new_chunk=true)</td></tr>
-<tr class="separator:a4e76589f66796883076a67142002f479"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af90d30fff7da09e05ace250a3be03279"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Packet_1_1ChunkDataPacket.html#af90d30fff7da09e05ace250a3be03279">__construct</a> (int $x=0, int $z=0, bool $is_new_chunk=true, ?<a class="el" href="classPhpcraft_1_1World_1_1Chunk.html">Chunk</a> $chunk=null)</td></tr>
+<tr class="separator:af90d30fff7da09e05ace250a3be03279"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae460c1ba262d218bad133818e908e072"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Packet_1_1ChunkDataPacket.html#ae460c1ba262d218bad133818e908e072">send</a> (<a class="el" href="classPhpcraft_1_1Connection.html">Connection</a> $con)</td></tr>
 <tr class="separator:ae460c1ba262d218bad133818e908e072"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9684a2d6d63e2297eac8a10848d06423"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Packet_1_1ChunkDataPacket.html#a9684a2d6d63e2297eac8a10848d06423">__toString</a> ()</td></tr>
@@ -115,10 +115,14 @@ Public Attributes</h2></td></tr>
 <tr class="separator:a9c8bf93aee074b771c755301bcdb8955"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0c151770ad29960ca8a1a006d9ce1e44"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Packet_1_1ChunkDataPacket.html#a0c151770ad29960ca8a1a006d9ce1e44">$is_new_chunk</a></td></tr>
 <tr class="separator:a0c151770ad29960ca8a1a006d9ce1e44"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acfef60a8c5d1e8a09b130ab4cdf350c6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Packet_1_1ChunkDataPacket.html#acfef60a8c5d1e8a09b130ab4cdf350c6">$chunk</a></td></tr>
+<tr class="separator:acfef60a8c5d1e8a09b130ab4cdf350c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a4e76589f66796883076a67142002f479"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4e76589f66796883076a67142002f479">&#9670;&nbsp;</a></span>__construct()</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><dl class="section since"><dt>Since</dt><dd>0.5.1 </dd></dl>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="af90d30fff7da09e05ace250a3be03279"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af90d30fff7da09e05ace250a3be03279">&#9670;&nbsp;</a></span>__construct()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -139,7 +143,13 @@ Public Attributes</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>$is_new_chunk</em> = <code>true</code>&#160;</td>
+          <td class="paramname"><em>$is_new_chunk</em> = <code>true</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">?<a class="el" href="classPhpcraft_1_1World_1_1Chunk.html">Chunk</a>&#160;</td>
+          <td class="paramname"><em>$chunk</em> = <code>null</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -194,20 +204,6 @@ Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Initialises the packet class by reading its payload from the given <a class="el" href="classPhpcraft_1_1Connection.html">Connection</a>.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramtype"><a class="el" href="classPhpcraft_1_1Connection.html">Connection</a></td><td class="paramname">$con</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>static|null </dd></dl>
-<dl class="exception"><dt>Exceptions</dt><dd>
-  <table class="exception">
-    <tr><td class="paramname">IOException</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
 
 <p>Reimplemented from <a class="el" href="classPhpcraft_1_1Packet_1_1Packet.html#aa1e43f9f4cf1dba3d0a122b536f3a416">Phpcraft\Packet\Packet</a>.</p>
 
@@ -248,6 +244,20 @@ Public Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
+<a id="acfef60a8c5d1e8a09b130ab4cdf350c6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acfef60a8c5d1e8a09b130ab4cdf350c6">&#9670;&nbsp;</a></span>$chunk</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Phpcraft\Packet\ChunkDataPacket::$chunk</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a0c151770ad29960ca8a1a006d9ce1e44"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0c151770ad29960ca8a1a006d9ce1e44">&#9670;&nbsp;</a></span>$is_new_chunk</h2>
 

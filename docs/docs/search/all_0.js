@@ -24,7 +24,7 @@ var searchData=
   ['_24chat_5fmode_21',['$chat_mode',['../classPhpcraft_1_1Packet_1_1ClientSettingsPacket.html#a124af0d87a4793cd38a9100e9c820850',1,'Phpcraft::Packet::ClientSettingsPacket']]],
   ['_24children_22',['$children',['../classPhpcraft_1_1NBT_1_1AbstractListTag.html#a2414d22007143dcbf1f36dcecbfe6eec',1,'Phpcraft\NBT\AbstractListTag\$children()'],['../classPhpcraft_1_1NBT_1_1CompoundTag.html#aa5f726e5237602b7b67491a449e6ece1',1,'Phpcraft\NBT\CompoundTag\$children()'],['../classPhpcraft_1_1Packet_1_1DeclareCommands_1_1Node.html#ada6129e0e0f2c53c1648f051b8ad72d4',1,'Phpcraft\Packet\DeclareCommands\Node\$children()']]],
   ['_24childtype_23',['$childType',['../classPhpcraft_1_1NBT_1_1ListTag.html#ac899cfdc5cc02329dcd56c161c249c3f',1,'Phpcraft::NBT::ListTag']]],
-  ['_24chunk_24',['$chunk',['../classPhpcraft_1_1World_1_1StaticChunkGenerator.html#a477a4011d7a9de5291357fd95c5748c9',1,'Phpcraft::World::StaticChunkGenerator']]],
+  ['_24chunk_24',['$chunk',['../classPhpcraft_1_1Packet_1_1ChunkDataPacket.html#acfef60a8c5d1e8a09b130ab4cdf350c6',1,'Phpcraft\Packet\ChunkDataPacket\$chunk()'],['../classPhpcraft_1_1World_1_1StaticChunkGenerator.html#a477a4011d7a9de5291357fd95c5748c9',1,'Phpcraft\World\StaticChunkGenerator\$chunk()']]],
   ['_24chunk_5fqueue_25',['$chunk_queue',['../classPhpcraft_1_1ClientConnection.html#a69da482d698a038ff84c400c8f4aa90d',1,'Phpcraft::ClientConnection']]],
   ['_24chunk_5fx_26',['$chunk_x',['../classPhpcraft_1_1ClientConnection.html#a42b729a48ff5c63b39f963dbeb80fd91',1,'Phpcraft::ClientConnection']]],
   ['_24chunk_5fz_27',['$chunk_z',['../classPhpcraft_1_1ClientConnection.html#a9b3199a7ebaab21c145ed92b5f724f27',1,'Phpcraft::ClientConnection']]],
