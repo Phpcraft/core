@@ -3,7 +3,7 @@ namespace Phpcraft;
 use Exception;
 use hellsh\UUID;
 use Phpcraft\
-{Command\Command, Enum\Gamemode, Event\ServerChatEvent, Event\ServerChunkBorderEvent, Event\ServerClientMetadataEvent, Event\ServerClientSettingsEvent, Event\ServerFlyingChangeEvent, Event\ServerJoinEvent, Event\ServerLeaveEvent, Event\ServerMovementEvent, Event\ServerOnGroundChangeEvent, Event\ServerPacketEvent, Event\ServerRotationEvent, Exception\IOException, Packet\ClientSettingsPacket, Packet\JoinGamePacket, Packet\PluginMessage\ClientboundBrandPluginMessagePacket, Packet\ServerboundPacketId, World\BlockState, World\Chunk, World\ChunkSection, World\StaticChunkGenerator, World\World};
+{Command\Command, Enum\Gamemode, Event\ServerChatEvent, Event\ServerChunkBorderEvent, Event\ServerClientMetadataEvent, Event\ServerClientSettingsEvent, Event\ServerFlyingChangeEvent, Event\ServerJoinEvent, Event\ServerLeaveEvent, Event\ServerMovementEvent, Event\ServerOnGroundChangeEvent, Event\ServerPacketEvent, Event\ServerRotationEvent, Exception\IOException, Packet\ChunkDataPacket, Packet\ClientSettingsPacket, Packet\JoinGamePacket, Packet\PluginMessage\ClientboundBrandPluginMessagePacket, Packet\ServerboundPacketId, World\BlockState, World\Chunk, World\ChunkSection, World\StaticChunkGenerator, World\World};
 use RuntimeException;
 class IntegratedServer extends Server
 {
@@ -386,13 +386,7 @@ class IntegratedServer extends Server
 				{
 					foreach($con->chunk_queue as $chunk_name => $chunk_coords)
 					{
-						$con->startPacket("chunk_data");
-						$con->writeInt($chunk_coords[0]); // Chunk X
-						$con->writeInt($chunk_coords[1]); // Chunk Z
-						$con->writeBoolean(true); // Is New Chunk
-						$this->world->getChunk($chunk_coords[0], $chunk_coords[1])
-									->write($con);
-						$con->send();
+						(new ChunkDataPacket($chunk_coords[0], $chunk_coords[1], true, $this->world->getChunk($chunk_coords[0], $chunk_coords[1])))->send($con);
 						$con->chunks[$chunk_name] = $chunk_name;
 						unset($con->chunk_queue[$chunk_name]);
 						if(--$chunks_limit == 0)
