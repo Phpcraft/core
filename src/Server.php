@@ -1,8 +1,8 @@
 <?php
 namespace Phpcraft;
+use Asyncore\Condition;
 use Exception;
 use hellsh\UUID;
-use Asyncore\Condition;
 use Phpcraft\
 {Command\ServerCommandSender, Enum\ChatPosition, Event\ServerTickEvent, Exception\IOException, Packet\KeepAliveRequestPacket, Packet\ServerboundPacketId, Permission\Group};
 use SplObjectStorage;

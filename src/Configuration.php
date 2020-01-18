@@ -1,9 +1,9 @@
 <?php
 namespace Phpcraft;
 use ArrayAccess;
+use Asyncore\Asyncore;
 use Countable;
 use Iterator;
-use Asyncore\Asyncore;
 use SplObjectStorage;
 class Configuration implements Iterator, Countable, ArrayAccess
 {

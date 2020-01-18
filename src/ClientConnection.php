@@ -1,10 +1,10 @@
 <?php
 namespace Phpcraft;
+use Asyncore\Asyncore;
 use BadMethodCallException;
 use DomainException;
 use GMP;
 use hellsh\UUID;
-use Asyncore\Asyncore;
 use Phpcraft\
 {Command\ServerCommandSender, Entity\Player, Enum\ChatPosition, Enum\Gamemode, Exception\IOException, Packet\ClientboundAbilitiesPacket, Packet\ClientboundPacketId, World\Chunk, World\World};
 /** A server-to-client connection. */
