@@ -123,13 +123,7 @@ abstract class Metadata
 	 */
 	private static function writeType(Connection $con, string $type): void
 	{
-		$versions = [
-			472 => "1.14",
-			383 => "1.13",
-			328 => "1.12",
-			57 => "1.11"
-		];
-		foreach($versions as $pv => $v)
+		foreach(self::versions() as $pv => $v)
 		{
 			if($con->protocol_version >= $pv)
 			{
@@ -149,6 +143,17 @@ abstract class Metadata
 			}
 		}
 		throw new RuntimeException("Unable to write type id for type $type");
+	}
+
+	private static function versions()
+	{
+		return [
+			565 => "1.15",
+			472 => "1.14",
+			383 => "1.13",
+			328 => "1.12",
+			57 => "1.11"
+		];
 	}
 
 	/**
@@ -199,12 +204,6 @@ abstract class Metadata
 	{
 		if($con->protocol_version >= 57)
 		{
-			$versions = [
-				472 => "1.14",
-				383 => "1.13",
-				328 => "1.12",
-				57 => "1.11"
-			];
 			do
 			{
 				$index = $con->readUnsignedByte();
@@ -215,7 +214,7 @@ abstract class Metadata
 				$type = $con->readByte();
 				if(!$this->read_($con, $index))
 				{
-					foreach($versions as $pv => $v)
+					foreach(self::versions() as $pv => $v)
 					{
 						if($con->protocol_version >= $pv)
 						{

@@ -41,6 +41,7 @@ abstract class PacketId extends Identifier
 	private static function versions(): array
 	{
 		return [
+			565 => "1.15",
 			498 => "1.14.4",
 			472 => "1.14.1",
 			383 => "1.13",

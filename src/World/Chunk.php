@@ -190,6 +190,10 @@ class Chunk
 		{
 			$this->getHeightmap()
 				 ->write($con);
+			if($con->protocol_version >= 565) // Biomes
+			{
+				$con->write_buffer .= str_repeat("\x00\x00\x00\x7F", 1024);
+			}
 		}
 		$data = new Connection();
 		foreach($this->sections as $section)
@@ -277,7 +281,10 @@ class Chunk
 				$data->write_buffer .= str_repeat("\xFF", 2048); // Sky Light
 			}
 		}
-		$data->write_buffer .= str_repeat($con->protocol_version >= 357 ? "\x00\x00\x00\x7F" : "\x00", 256); // Biomes
+		if($con->protocol_version < 565)
+		{
+			$data->write_buffer .= str_repeat($con->protocol_version >= 357 ? "\x00\x00\x00\x7F" : "\x00", 256); // Biomes
+		}
 		$con->writeVarInt(strlen($data->write_buffer));
 		$con->write_buffer .= $data->write_buffer;
 		if($con->protocol_version >= 110)

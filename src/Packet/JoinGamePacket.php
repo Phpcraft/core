@@ -30,6 +30,14 @@ class JoinGamePacket extends Packet
 	 * @var int $render_distance
 	 */
 	public $render_distance = 8;
+	/**
+	 * Set to false when the doImmediateRespawn gamerule is true.
+	 * Only for 1.15+ clients.
+	 *
+	 * @since 0.5.1
+	 * @var bool $enable_respawn_screen
+	 */
+	public $enable_respawn_screen = true;
 
 	/**
 	 * @param GMP|int|string $eid
@@ -71,6 +79,7 @@ class JoinGamePacket extends Packet
 			$packet->render_distance = gmp_intval($con->readVarInt()); // Render Distance
 		}
 		$con->ignoreBytes(1); // Reduced Debug Info (Boolean)
+		$packet->enable_respawn_screen = $con->readBoolean();
 		return $packet;
 	}
 
@@ -104,6 +113,10 @@ class JoinGamePacket extends Packet
 		{
 			$con->writeByte($this->difficulty);
 		}
+		else if($con->protocol_version >= 565)
+		{
+			$con->writeLong(0); // Hashed Seed
+		}
 		$con->writeByte(100); // Max Players
 		$con->writeString(""); // Level Type
 		if($con->protocol_version >= 472)
@@ -111,6 +124,10 @@ class JoinGamePacket extends Packet
 			$con->writeVarInt($this->render_distance); // Render Distance
 		}
 		$con->writeBoolean(false); // Reduced Debug Info
+		if($con->protocol_version >= 565)
+		{
+			$con->writeBoolean($this->enable_respawn_screen);
+		}
 		$con->send();
 		if($con->protocol_version >= 472)
 		{
