@@ -306,7 +306,14 @@ class Server implements ServerCommandSender
 										}
 										if($this->join_function)
 										{
-											($this->join_function)($con);
+											try
+											{
+												($this->join_function)($con);
+											}
+											catch(Exception $e)
+											{
+												$con->disconnect(get_class($e).": ".$e->getMessage());
+											}
 										}
 										$con->next_heartbeat = microtime(true) + 15;
 									});
