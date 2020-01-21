@@ -1,4 +1,5 @@
 <?php
+/** @noinspection PhpUnhandledExceptionInspection PhpDocMissingThrowsInspection */
 namespace Phpcraft;
 abstract class Versions
 {
@@ -18,14 +19,16 @@ abstract class Versions
 	 *
 	 * @param boolean $all true = all versions; false = only supported versions.
 	 * @return array<string,int>
+	 * @throws Exception\IOException If $all is true and the version list could not be downloaded and is not cached
 	 */
 	static function list(bool $all = true): array
 	{
 		if(!$all)
 		{
 			return [
-				//"1.15.2-pre2" => 567,
-				//"1.15.2-pre1" => 566,
+				"1.15.2" => 578,
+				"1.15.2-pre2" => 577,
+				"1.15.2-pre1" => 576,
 				"1.15.1" => 575,
 				"1.15.1-pre1" => 574,
 				"1.15" => 573,
