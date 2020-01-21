@@ -68,7 +68,11 @@ class JoinGamePacket extends Packet
 			$packet->hardcore = true;
 		}
 		$packet->dimension = $con->protocol_version > 107 ? gmp_intval($con->readInt()) : $con->readByte();
-		if($con->protocol_version < 472)
+		if($con->protocol_version >= 565)
+		{
+			$con->ignoreBytes(8); // Hashed Seed (Long)
+		}
+		else if($con->protocol_version < 472)
 		{
 			$packet->difficulty = $con->readByte();
 		}
@@ -79,7 +83,10 @@ class JoinGamePacket extends Packet
 			$packet->render_distance = gmp_intval($con->readVarInt()); // Render Distance
 		}
 		$con->ignoreBytes(1); // Reduced Debug Info (Boolean)
-		$packet->enable_respawn_screen = $con->readBoolean();
+		if($con->protocol_version >= 565)
+		{
+			$packet->enable_respawn_screen = $con->readBoolean();
+		}
 		return $packet;
 	}
 
