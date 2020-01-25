@@ -217,6 +217,7 @@ class Chunk
 			{
 				continue;
 			}
+			// There's a lot of bit and byte reversing going on here, not sure why Mojang couldn't just keep with big-endian, but this code works.
 			if($con->protocol_version > 47)
 			{
 				if($con->protocol_version >= 472)
@@ -265,7 +266,7 @@ class Chunk
 				}
 				for($i = 0; $i < $longs; $i++)
 				{
-					$data->writeGMP(gmp_init(strrev(substr($bits, $i * 64, 64)), 2), 8, 64, false, GMP_LSW_FIRST | GMP_BIG_ENDIAN); // For some reason the bit order is reversed
+					$data->writeGMP(gmp_init(strrev(substr($bits, $i * 64, 64)), 2), 8, 64, false, GMP_LSW_FIRST | GMP_BIG_ENDIAN);
 				}
 			}
 			else
@@ -273,7 +274,7 @@ class Chunk
 				for($i = 0; $i < 4096; $i++)
 				{
 					$data->writeGMP($section->blocks[$i]->getCompatible(47)
-														->getId(47), 2, 16, false, GMP_LSW_FIRST | GMP_BIG_ENDIAN); // For some reason the byte order is reversed
+														->getId(47), 2, 16, false, GMP_LSW_FIRST | GMP_BIG_ENDIAN);
 				}
 				$data->writeVarInt(16); // Bits of data per block: 4 for block light, 8 for block + sky light, 16 for both + biome.
 				$data->writeVarInt(8192); // Number of elements in block + sky light arrays
