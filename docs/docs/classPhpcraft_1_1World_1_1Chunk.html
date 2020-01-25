@@ -80,10 +80,14 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a45583623f79ff25174cb0f8e87129d64"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9a6cd82d6ca4ab1946551cb5efd772b0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1World_1_1Chunk.html#a9a6cd82d6ca4ab1946551cb5efd772b0">getSectionsBitMask</a> ()</td></tr>
 <tr class="separator:a9a6cd82d6ca4ab1946551cb5efd772b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab3519900eff3ea8a5ee2b70049bf9dea"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1World_1_1Chunk.html#ab3519900eff3ea8a5ee2b70049bf9dea">getSectionAt</a> (int $y)</td></tr>
+<tr class="separator:ab3519900eff3ea8a5ee2b70049bf9dea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abb5578eb7ca09ca8e77a7a049611da2b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1World_1_1Chunk.html#abb5578eb7ca09ca8e77a7a049611da2b">getSection</a> (int $index)</td></tr>
 <tr class="separator:abb5578eb7ca09ca8e77a7a049611da2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6740d9c5b061b03b53186a8b74bc08af"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1World_1_1Chunk.html#a6740d9c5b061b03b53186a8b74bc08af">setSection</a> (int $index, <a class="el" href="classPhpcraft_1_1World_1_1ChunkSection.html">ChunkSection</a> $section)</td></tr>
 <tr class="separator:a6740d9c5b061b03b53186a8b74bc08af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa2bc59011703fb96e18bcf3c825c9672"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1World_1_1Chunk.html#aa2bc59011703fb96e18bcf3c825c9672">flagChanged</a> ()</td></tr>
+<tr class="separator:aa2bc59011703fb96e18bcf3c825c9672"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9cd0e668be56bf827390adb066f042c8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1World_1_1Chunk.html#a9cd0e668be56bf827390adb066f042c8">copy</a> (int $x, int $z)</td></tr>
 <tr class="separator:a9cd0e668be56bf827390adb066f042c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad1bfc45ca689ac75f895d6005059b8f0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1World_1_1Chunk.html#ad1bfc45ca689ac75f895d6005059b8f0">set</a> (int $x, int $y, int $z, ?<a class="el" href="classPhpcraft_1_1World_1_1BlockState.html">BlockState</a> $blockState=null)</td></tr>
@@ -168,6 +172,25 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="aa2bc59011703fb96e18bcf3c825c9672"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa2bc59011703fb96e18bcf3c825c9672">&#9670;&nbsp;</a></span>flagChanged()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Phpcraft\World\Chunk::flagChanged </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Flags the chunk as changed, e.g. for the server to re-send to clients.</p>
+<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
+
+</div>
+</div>
 <a id="a461abaf26628965879ceeef226f02ef5"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a461abaf26628965879ceeef226f02ef5">&#9670;&nbsp;</a></span>getHeightmap()</h2>
 
@@ -230,6 +253,24 @@ Public Attributes</h2></td></tr>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>$index</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab3519900eff3ea8a5ee2b70049bf9dea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab3519900eff3ea8a5ee2b70049bf9dea">&#9670;&nbsp;</a></span>getSectionAt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Phpcraft\World\Chunk::getSectionAt </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>$y</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
