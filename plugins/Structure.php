@@ -3,7 +3,7 @@
  * @var Plugin $this
  */
 use Phpcraft\
-{ChatComponent, ClientConnection, Command\ServerCommandSender, Connection, IntegratedServer, Plugin, World\BlockState, World\Structure};
+{ChatComponent, ClientConnection, Connection, IntegratedServer, Plugin, World\Structure};
 $this->registerCommand([
 	"structure",
 	"loadstructure",
@@ -30,30 +30,3 @@ $this->registerCommand([
 	$client->sendMessage("That's a ".$structure->width." x ".$structure->height." x ".$structure->depth." structure coming right at ya!");
 	$server->world->apply($structure, $client->pos);
 }, "change the world");
-$this->registerCommand("debug_structure", function(ClientConnection $con)
-{
-	$blocks = [];
-	for($i = 0; $i < 256; $i++)
-	{
-		$blocks[$i] = BlockState::getById($i, 498);
-	}
-	$server = $con->getServer();
-	assert($server instanceof IntegratedServer);
-	$server->world->apply(new Structure(16, 1, 16, $blocks), $con->pos);
-});
-$this->registerCommand("setblock", function(ClientConnection $con)
-{
-	$server = $con->getServer();
-	assert($server instanceof IntegratedServer);
-	$server->world->set($con->pos, BlockState::get("gold_block"));
-});
-$this->registerCommand("palette", function(ServerCommandSender $sender, int $x, int $y, int $z)
-{
-	$server = $sender->getServer();
-	assert($server instanceof IntegratedServer);
-	$i = 0;
-	foreach($server->world->getChunk(floor($x / 16), floor($z / 16))->getSection(floor($y / 16))->getPalette() as $state_fqn => $state)
-	{
-		$sender->sendMessage(($i++).": ".$state_fqn);
-	}
-});

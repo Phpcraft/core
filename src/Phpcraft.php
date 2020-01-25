@@ -257,17 +257,22 @@ abstract class Phpcraft
 		return $server.($withPort ? ":25565" : "");
 	}
 
+	static function binaryStringToBin(string $str): string
+	{
+		$bin_str = "";
+		foreach(str_split($str) as $char)
+		{
+			$bin_str .= str_pad(decbin(ord($char)), 8, "0", STR_PAD_LEFT)." ";
+		}
+		return rtrim($bin_str);
+	}
+
 	static function binaryStringToHex(string $str): string
 	{
 		$hex_str = "";
 		foreach(str_split($str) as $char)
 		{
-			$char = dechex(ord($char));
-			if(strlen($char) != 2)
-			{
-				$char = "0".$char;
-			}
-			$hex_str .= $char." ";
+			$hex_str .= str_pad(dechex(ord($char)), 2, "0", STR_PAD_LEFT)." ";
 		}
 		return rtrim($hex_str);
 	}

@@ -61,8 +61,18 @@ class Chunk
 		return $this->sections_bit_mask;
 	}
 
+	function getSectionAt(int $y): ChunkSection
+	{
+		return $this->getSection(floor($y / 16));
+	}
+
 	function getSection(int $index): ChunkSection
 	{
+		if($this->sections[$index] === null)
+		{
+			$this->sections[$index] = new ChunkSection();
+			$this->sections_bit_mask |= (1 << $index);
+		}
 		return $this->sections[$index];
 	}
 
@@ -77,10 +87,15 @@ class Chunk
 		{
 			$this->sections_bit_mask ^= (1 << $index);
 		}
-		$this->save();
+		$this->flagChanged();
 	}
 
-	private function save(): void
+	/**
+	 * Flags the chunk as changed, e.g. for the server to re-send to clients.
+	 *
+	 * @return void
+	 */
+	function flagChanged(): void
 	{
 		$this->heightmap_cache = null;
 		if($this->world instanceof World)
@@ -138,7 +153,7 @@ class Chunk
 		}
 		$this->sections[$section]->blocks[$block] = $blockState;
 		$this->sections[$section]->palette_cache = null;
-		$this->save();
+		$this->flagChanged();
 	}
 
 	function getIndexes(int $x, int $y, int $z): array
@@ -209,27 +224,15 @@ class Chunk
 					$data->writeShort($section->non_air_blocks);
 				}
 				$palette = $section->getPalette();
-				if(count($palette) > 256)
-				{
-					$bits_per_block = count(BlockState::all());
-				}
-				else if(count($palette) > 16)
-				{
-					$bits_per_block = 8;
-				}
-				else
-				{
-					$bits_per_block = 4;
-				}
-				/*$bits_per_block = 4;
+				$bits_per_block = 4;
 				while(count($palette) > pow(2, $bits_per_block))
 				{
 					if(++$bits_per_block > 8)
 					{
-						$bits_per_block = count(BlockState::all());
+						$bits_per_block = ceil(log(count(BlockState::all()), 2));
 						break;
 					}
-				}*/
+				}
 				$data->writeByte($bits_per_block);
 				if($bits_per_block < 9)
 				{
@@ -249,20 +252,20 @@ class Chunk
 				{
 					for($i = 0; $i < 4096; $i++)
 					{
-						$bits .= str_pad(decbin($palette[$section->blocks[$i]->__toString()]), $bits_per_block, "0", STR_PAD_LEFT);
+						$bits .= strrev(str_pad(decbin($palette[$section->blocks[$i]->__toString()]), $bits_per_block, "0", STR_PAD_LEFT));
 					}
 				}
 				else
 				{
 					for($i = 0; $i < 4096; $i++)
 					{
-						$bits .= str_pad(decbin($section->blocks[$i]->getCompatible($con->protocol_version)
-																	->getId($con->protocol_version)), $bits_per_block, "0", STR_PAD_LEFT);
+						$bits .= strrev(str_pad(decbin($section->blocks[$i]->getCompatible($con->protocol_version)
+																		   ->getId($con->protocol_version)), $bits_per_block, "0", STR_PAD_LEFT));
 					}
 				}
 				for($i = 0; $i < $longs; $i++)
 				{
-					$data->writeGMP(gmp_init(substr($bits, $i * 64, 64), 2), 8, 64, false, GMP_MSW_FIRST | GMP_LITTLE_ENDIAN); // For some reason the bit order is reversed
+					$data->writeGMP(gmp_init(strrev(substr($bits, $i * 64, 64)), 2), 8, 64, false, GMP_LSW_FIRST | GMP_BIG_ENDIAN); // For some reason the bit order is reversed
 				}
 			}
 			else
