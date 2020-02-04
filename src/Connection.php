@@ -25,6 +25,19 @@ class Connection
 	const STATE_STATUS = 1;
 	const STATE_LOGIN = 2;
 	const STATE_PLAY = 3;
+	/**
+	 * Allow packets that vanilla would reject.
+	 */
+	const LENIENCY_LENIENT = 1;
+	/**
+	 * Reject packets that vanilla would reject.
+	 */
+	const LENIENCY_VANILLA = 0;
+	/**
+	 * Don't allow malformatted packets, even if vanilla would accept them.
+	 * Only recommended for people who want to perfect their client and server code.
+	 */
+	const LENIENCY_STRICT = -1;
 	static $zero;
 	static $pow2 = [];
 	/**
@@ -59,13 +72,20 @@ class Connection
 	 */
 	public $write_buffer = "";
 	/**
-	 * Allow sending and receiving of data that would be an error in vanilla Minecraft.
-	 * Note that this has to be set on the sending and receiving end.
+	 * If true, $leniency will be set to LENIENCY_LENIENT.
 	 *
 	 * @var bool $lenient
 	 * @since 0.5
+	 * @deprecated Set $leniency to LENIENCY_LENIENT, instead.
 	 */
 	public $lenient = false;
+	/**
+	 * Determines the leniency that will be used when sending and receiving packets.
+	 *
+	 * @var int $leniency
+	 * @since 0.5.4
+	 */
+	public $leniency = self::LENIENCY_VANILLA;
 	/**
 	 * The read buffer binary string.
 	 *
@@ -537,7 +557,11 @@ class Connection
 			else
 			{
 				$length = strlen($this->write_buffer);
-				if(!$this->lenient && $length > 2097152)
+				if($this->lenient)
+				{
+					$this->leniency = self::LENIENCY_LENIENT;
+				}
+				if($length > 2097152 && $this->leniency < self::LENIENCY_LENIENT)
 				{
 					throw new IOException("Packet length exceeds 2097152 bytes");
 				}
@@ -658,9 +682,13 @@ class Connection
 		$start = microtime(true);
 		$length = 0;
 		$read = 0;
+		if($this->lenient)
+		{
+			$this->leniency = self::LENIENCY_LENIENT;
+		}
 		do
 		{
-			if(!$this->lenient && $read > 3)
+			if($read > 3 && $this->leniency < self::LENIENCY_LENIENT)
 			{
 				throw new IOException("Packet length exceeds 2097152 bytes");
 			}
