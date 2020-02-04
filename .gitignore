@@ -5,6 +5,7 @@ src/.json_cache
 src/.user_cache
 *.bin
 *.hex
+*.nbt
 *sketch.php
 composer.lock
 server.php
