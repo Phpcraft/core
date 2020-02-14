@@ -79,11 +79,12 @@ Inheritance diagram for Phpcraft\Server:</div>
 <div class="dyncontent">
 <div class="center"><img src="classPhpcraft_1_1Server__inherit__graph.png" border="0" usemap="#Phpcraft_0cServer_inherit__map" alt="Inheritance graph"/></div>
 <map name="Phpcraft_0cServer_inherit__map" id="Phpcraft_0cServer_inherit__map">
-<area shape="rect" title=" " alt="" coords="74,184,197,211"/>
-<area shape="rect" href="classPhpcraft_1_1IntegratedServer.html" title=" " alt="" coords="41,259,230,285"/>
-<area shape="rect" href="interfacePhpcraft_1_1Command_1_1ServerCommandSender.html" title=" " alt="" coords="5,95,265,136"/>
-<area shape="rect" href="interfacePhpcraft_1_1Command_1_1CommandSender.html" title=" " alt="" coords="26,5,245,47"/>
-<area shape="rect" href="classPhpcraft_1_1ProxyServer.html" title=" " alt="" coords="56,333,215,360"/>
+<area shape="rect" title=" " alt="" coords="135,184,257,211"/>
+<area shape="rect" href="classPhpcraft_1_1IntegratedServer.html" title=" " alt="" coords="101,259,291,285"/>
+<area shape="rect" href="classPhpcraft_1_1BareServer.html" title=" " alt="" coords="5,102,157,129"/>
+<area shape="rect" href="interfacePhpcraft_1_1Command_1_1ServerCommandSender.html" title=" " alt="" coords="182,95,442,136"/>
+<area shape="rect" href="interfacePhpcraft_1_1Command_1_1CommandSender.html" title=" " alt="" coords="203,5,421,47"/>
+<area shape="rect" href="classPhpcraft_1_1ProxyServer.html" title=" " alt="" coords="117,333,275,360"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
@@ -91,9 +92,10 @@ Collaboration diagram for Phpcraft\Server:</div>
 <div class="dyncontent">
 <div class="center"><img src="classPhpcraft_1_1Server__coll__graph.png" border="0" usemap="#Phpcraft_0cServer_coll__map" alt="Collaboration graph"/></div>
 <map name="Phpcraft_0cServer_coll__map" id="Phpcraft_0cServer_coll__map">
-<area shape="rect" title=" " alt="" coords="74,184,197,211"/>
-<area shape="rect" href="interfacePhpcraft_1_1Command_1_1ServerCommandSender.html" title=" " alt="" coords="5,95,265,136"/>
-<area shape="rect" href="interfacePhpcraft_1_1Command_1_1CommandSender.html" title=" " alt="" coords="26,5,245,47"/>
+<area shape="rect" title=" " alt="" coords="135,184,257,211"/>
+<area shape="rect" href="classPhpcraft_1_1BareServer.html" title=" " alt="" coords="5,102,157,129"/>
+<area shape="rect" href="interfacePhpcraft_1_1Command_1_1ServerCommandSender.html" title=" " alt="" coords="182,95,442,136"/>
+<area shape="rect" href="interfacePhpcraft_1_1Command_1_1CommandSender.html" title=" " alt="" coords="203,5,421,47"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -156,8 +158,6 @@ Public Attributes</h2></td></tr>
 <tr class="separator:ab5129d24aa1f235130bc8132be0a417a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af61ba1b0b5b8a2c44bd03afd1ca72edd"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Server.html#af61ba1b0b5b8a2c44bd03afd1ca72edd">$clients</a></td></tr>
 <tr class="separator:af61ba1b0b5b8a2c44bd03afd1ca72edd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af01b1599a936bc839de74e4927d94205"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Server.html#af01b1599a936bc839de74e4927d94205">$eidCounter</a></td></tr>
-<tr class="separator:af01b1599a936bc839de74e4927d94205"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac69eda9c1b98232b9879b837a47a0f2b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Server.html#ac69eda9c1b98232b9879b837a47a0f2b">$persist_configs</a> = false</td></tr>
 <tr class="separator:ac69eda9c1b98232b9879b837a47a0f2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab54eee07fc77581b8091404b7a380967"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Server.html#ab54eee07fc77581b8091404b7a380967">$compression_threshold</a> = 256</td></tr>
@@ -176,6 +176,11 @@ Public Attributes</h2></td></tr>
 <tr class="separator:afd81b2a70d78301cf463f2ac8a0ee97e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1d94434a49d8f6bcca7bd7ed037990b9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Server.html#a1d94434a49d8f6bcca7bd7ed037990b9">$open_condition</a></td></tr>
 <tr class="separator:a1d94434a49d8f6bcca7bd7ed037990b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_attribs_classPhpcraft_1_1BareServer"><td colspan="2" onclick="javascript:toggleInherit('pub_attribs_classPhpcraft_1_1BareServer')"><img src="closed.png" alt="-"/>&#160;Public Attributes inherited from <a class="el" href="classPhpcraft_1_1BareServer.html">Phpcraft\BareServer</a></td></tr>
+<tr class="memitem:aea8c65cd0cebcbbf379ea101da38ef3b inherit pub_attribs_classPhpcraft_1_1BareServer"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1BareServer.html#aea8c65cd0cebcbbf379ea101da38ef3b">$world</a></td></tr>
+<tr class="separator:aea8c65cd0cebcbbf379ea101da38ef3b inherit pub_attribs_classPhpcraft_1_1BareServer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a519c9610f641fbbb811ad45beeebb1e0 inherit pub_attribs_classPhpcraft_1_1BareServer"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1BareServer.html#a519c9610f641fbbb811ad45beeebb1e0">$eidCounter</a></td></tr>
+<tr class="separator:a519c9610f641fbbb811ad45beeebb1e0 inherit pub_attribs_classPhpcraft_1_1BareServer"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
@@ -860,21 +865,6 @@ Protected Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>The function called when a client's disconnected from the server with the <a class="el" href="classPhpcraft_1_1ClientConnection.html">ClientConnection</a> as argument. </p>
-
-</div>
-</div>
-<a id="af01b1599a936bc839de74e4927d94205"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af01b1599a936bc839de74e4927d94205">&#9670;&nbsp;</a></span>$eidCounter</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classPhpcraft_1_1Counter.html">Counter</a> Phpcraft\Server::$eidCounter</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>The counter used to assign entity IDs. </p>
 
 </div>
 </div>

@@ -20,7 +20,7 @@ var searchData=
   ['animation_5ftake_5fdamage_232',['ANIMATION_TAKE_DAMAGE',['../classPhpcraft_1_1Packet_1_1EntityAnimationPacket.html#aa605c62c1b5b164847ed297bbec43032',1,'Phpcraft::Packet::EntityAnimationPacket']]],
   ['announce_233',['announce',['../classPhpcraft_1_1LanInterface.html#ab7a2d429dbbf1f6c86a981c24ffe58aa',1,'Phpcraft::LanInterface']]],
   ['append_234',['append',['../classPhpcraft_1_1FancyUserInterface.html#a309cf86aeed7dc28ca7c8f0acc788a45',1,'Phpcraft\FancyUserInterface\append()'],['../classPhpcraft_1_1PlainUserInterface.html#ab595bb429496c044cad24d32902ced4e',1,'Phpcraft\PlainUserInterface\append()'],['../classPhpcraft_1_1UserInterface.html#a534f8df42a04bbfbdaadda4de06ac627',1,'Phpcraft\UserInterface\append()']]],
-  ['apply_235',['apply',['../classPhpcraft_1_1World_1_1World.html#a71c81369146cf4f28f8ae9426b84eb47',1,'Phpcraft::World::World']]],
+  ['apply_235',['apply',['../classPhpcraft_1_1Packet_1_1ChunkDataPacket.html#a11bbcaf6cd1e268888f52cafdb4b7c77',1,'Phpcraft\Packet\ChunkDataPacket\apply()'],['../interfacePhpcraft_1_1Packet_1_1ServerChangingPacket.html#a4f8a9b34fc27e62f2a23e549d73b9728',1,'Phpcraft\Packet\ServerChangingPacket\apply()'],['../classPhpcraft_1_1World_1_1World.html#a71c81369146cf4f28f8ae9426b84eb47',1,'Phpcraft\World\World\apply()']]],
   ['aqua_236',['aqua',['../classPhpcraft_1_1ChatComponent.html#a22609486dbd5111c4ac94144fed94762',1,'Phpcraft::ChatComponent']]],
   ['argumentnode_237',['ArgumentNode',['../classPhpcraft_1_1Packet_1_1DeclareCommands_1_1ArgumentNode.html',1,'Phpcraft::Packet::DeclareCommands']]],
   ['argumentprovider_238',['ArgumentProvider',['../classPhpcraft_1_1Command_1_1ArgumentProvider.html',1,'Phpcraft::Command']]],
