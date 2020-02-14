@@ -11,7 +11,7 @@ use SplObjectStorage;
  * This deals with connections, configurations, handshakes, status requests, keep alive packets, and teleportation confirmations.
  * This does not include implementing an entire server; that is what packet_function and IntegratedServer are for.
  */
-class Server implements ServerCommandSender
+class Server extends BareServer implements ServerCommandSender
 {
 	/**
 	 * The streams the server listens for new connections on.
@@ -32,12 +32,6 @@ class Server implements ServerCommandSender
 	 * @see Server::getPlayers()
 	 */
 	public $clients;
-	/**
-	 * The counter used to assign entity IDs.
-	 *
-	 * @var Counter $eidCounter
-	 */
-	public $eidCounter;
 	/**
 	 * True if you'd like every client's config to be persisted across connections from the same client.
 	 * This is true by default on the IntegratedServer.

@@ -30,13 +30,6 @@ class IntegratedServer extends Server
 	 */
 	public $config_reloaded_function;
 	/**
-	 * The world that clients will be presented with.
-	 *
-	 * @var World $world
-	 * @since 0.5
-	 */
-	public $world;
-	/**
 	 * The position where clients will spawn at.
 	 * Defaults to <pre>new Point3D(0, 16, 0)</pre>.
 	 *
