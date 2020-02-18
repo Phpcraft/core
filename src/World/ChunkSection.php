@@ -20,16 +20,20 @@ class ChunkSection
 	public $palette_cache = null;
 
 	/**
-	 * @param BlockState|null $fill The BlockState to be used for all 4096 blocks in the section. Defaults to air.
+	 * @param BlockState|null $filler The BlockState to be used for all 4096 blocks in the section. Defaults to air.
+	 * @return ChunkSection
+	 * @since 0.5.5
 	 */
-	function __construct(?BlockState $fill = null)
+	static function filled(?BlockState $filler = null): ChunkSection
 	{
-		if($fill === null)
+		if($filler === null)
 		{
-			$fill = BlockState::get("air");
+			$filler = BlockState::get("air");
 		}
-		$this->blocks = array_fill(0, 4096, $fill);
-		$this->non_air_blocks = ($fill->block->name == "air") ? 0 : 4096;
+		$section = new ChunkSection();
+		$section->blocks = array_fill(0, 4096, $filler);
+		$section->non_air_blocks = ($filler->block->name == "air") ? 0 : 4096;
+		return $section;
 	}
 
 	function getPalette(): array

@@ -561,7 +561,7 @@ class Connection
 				{
 					$this->leniency = self::LENIENCY_LENIENT;
 				}
-				if($length > 2097152 && $this->leniency < self::LENIENCY_LENIENT)
+				if($length > 2097152 && $this->leniency != self::LENIENCY_LENIENT)
 				{
 					throw new IOException("Packet length exceeds 2097152 bytes");
 				}
@@ -688,7 +688,7 @@ class Connection
 		}
 		do
 		{
-			if($read > 3 && $this->leniency < self::LENIENCY_LENIENT)
+			if($read > 3 && $this->leniency != self::LENIENCY_LENIENT)
 			{
 				throw new IOException("Packet length exceeds 2097152 bytes");
 			}
@@ -884,16 +884,18 @@ class Connection
 	 * @param int $bytes
 	 * @param int $bits
 	 * @param bool $signed
+	 * @param int $gmp_import_options
+	 * @since 0.5.5
 	 * @return GMP
 	 * @throws IOException
 	 */
-	private function readGMP(int $bytes, int $bits, bool $signed): GMP
+	function readGMP(int $bytes, int $bits, bool $signed, int $gmp_import_options = GMP_MSW_FIRST | GMP_BIG_ENDIAN): GMP
 	{
 		if(strlen($this->read_buffer) - $this->read_buffer_offset < $bytes)
 		{
 			throw new IOException("There are not enough bytes to read a {$bytes}-byte number");
 		}
-		$value = gmp_import(substr($this->read_buffer, $this->read_buffer_offset, $bytes), $bytes, GMP_BIG_ENDIAN);
+		$value = gmp_import(substr($this->read_buffer, $this->read_buffer_offset, $bytes), $bytes, $gmp_import_options);
 		$this->read_buffer_offset += $bytes;
 		if($signed)
 		{

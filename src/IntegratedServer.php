@@ -439,7 +439,7 @@ class IntegratedServer extends Server
 		$chunk = new Chunk();
 		$blockState = BlockState::get($this->config["world_is_made_of"]) ?? BlockState::get("grass_block[snowy=false]");
 		$this->config["world_is_made_of"] = $blockState->__toString();
-		$chunk->setSection(0, new ChunkSection($blockState));
+		$chunk->setSection(0, ChunkSection::filled($blockState));
 		$this->world = (new StaticChunkGenerator(new World(), $chunk))->init();
 		$this->world->changed_chunks = $changed_chunks;
 		if(!array_key_exists("groups", $this->config))

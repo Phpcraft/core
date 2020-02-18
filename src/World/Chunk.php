@@ -1,7 +1,7 @@
 <?php
 namespace Phpcraft\World;
 use Phpcraft\
-{Connection, NBT\CompoundTag, NBT\LongArrayTag};
+{Connection, Exception\IOException, NBT\CompoundTag, NBT\LongArrayTag};
 /**
  * @since 0.4.3
  * @since 0.5 Moved from Phpcraft to Phpcraft\World namespace
@@ -70,7 +70,7 @@ class Chunk
 	{
 		if($this->sections[$index] === null)
 		{
-			$this->sections[$index] = new ChunkSection();
+			$this->sections[$index] = ChunkSection::filled();
 			$this->sections_bit_mask |= (1 << $index);
 		}
 		return $this->sections[$index];
@@ -161,7 +161,7 @@ class Chunk
 		$section = (int) floor($y / 16);
 		if($this->sections[$section] === null)
 		{
-			$this->sections[$section] = new ChunkSection();
+			$this->sections[$section] = ChunkSection::filled();
 			$this->sections_bit_mask |= (1 << $section);
 		}
 		$x -= ($this->x * 16);
@@ -179,6 +179,143 @@ class Chunk
 			$section,
 			$x + ($z * 16) + ($y * 256)
 		];
+	}
+
+	/**
+	 * Reads the chunk data after the X, Z, and "Is New Chunk" fields from the given Connection.
+	 *
+	 * @param Connection $con
+	 * @return void
+	 * @throws IOException
+	 */
+	function read(Connection $con): void
+	{
+		if($con->protocol_version >= 70)
+		{
+			$sections_bit_mask = $con->readVarInt();
+		}
+		else if($con->protocol_version >= 60)
+		{
+			$sections_bit_mask = $con->readInt();
+		}
+		else
+		{
+			$sections_bit_mask = $con->readShort();
+		}
+		if($con->protocol_version >= 472)
+		{
+			$con->readNBT(); // Heightmap
+			if($con->protocol_version >= 565)
+			{
+				$con->ignoreBytes(4096); // Biomes
+			}
+		}
+		$con->readVarInt(); // Data length
+		for($i = 0; $i < 16; $i++)
+		{
+			if(($sections_bit_mask & (1 << $i)) == 0)
+			{
+				continue;
+			}
+			$section = new ChunkSection();
+			if($con->protocol_version > 47)
+			{
+				if($con->protocol_version >= 472)
+				{
+					$section->non_air_blocks = $con->readShort();
+				}
+				$bits_per_block = $con->readByte();
+				if($bits_per_block < 4)
+				{
+					if($con->leniency == Connection::LENIENCY_STRICT)
+					{
+						throw new IOException("Bits per block should at least be 4, got $bits_per_block)");
+					}
+					$bits_per_block = 4;
+				}
+				$palette = [];
+				if($bits_per_block < 9)
+				{
+					for($j = $con->readVarInt(); $j >= 0; $j--)
+					{
+						array_push($palette, BlockState::getById(gmp_intval($con->readVarInt()), $con->protocol_version));
+					}
+					$section->palette_cache = [];
+					foreach($palette as $j => $state)
+					{
+						$state_fqn = $state->__toString();
+						if(array_key_exists($state_fqn, $section->palette_cache))
+						{
+							if($con->leniency == Connection::LENIENCY_STRICT)
+							{
+								throw new IOException("Duplicate palette entry at index $j: $state_fqn");
+							}
+							continue;
+						}
+						$section->palette_cache[$state_fqn] = $state;
+					}
+				}
+				$longs = (4096 / (64 / $bits_per_block));
+				$remote_longs = $con->readVarInt();
+				if($remote_longs != $longs)
+				{
+					throw new IOException("$remote_longs longs doesn't match expected $longs longs for $bits_per_block bits per block");
+				}
+				$bits = "";
+				for($j = 0; $j < $longs; $j++)
+				{
+					$bits .= gmp_strval($con->readGMP(8, 64, false, GMP_LSW_FIRST | GMP_BIG_ENDIAN), 2);
+				}
+				if($bits_per_block < 9)
+				{
+					for($j = 0; $j < 4096; $j++)
+					{
+						$section->blocks[$j] = $palette[bindec(strrev(substr($bits, $j * $bits_per_block, $bits_per_block)))];
+					}
+				}
+				else
+				{
+					for($j = 0; $j < 4096; $j++)
+					{
+						$section->blocks[$j] = BlockState::getById(bindec(strrev(substr($bits, $j * $bits_per_block, $bits_per_block))), $con->protocol_version);
+					}
+				}
+			}
+			else
+			{
+				for($j = 0; $j < 4096; $j++)
+				{
+					$section->blocks[$j] = BlockState::getById(gmp_intval($con->readGMP(2, 16, false, GMP_LSW_FIRST | GMP_BIG_ENDIAN)), $con->protocol_version);
+				}
+				$bits_of_data_per_block = $con->readVarInt(); // Bits of data per block: 4 for block light, 8 for block + sky light, 16 for both + biome.
+				for($j = $con->readVarInt(); $j >= 0; $j--)
+				{
+					$con->readVarInt(); // Elements in block + sky light arrays
+				}
+				if($bits_of_data_per_block >= 16)
+				{
+					$con->ignoreBytes(256); // Biomes
+				}
+			}
+			if($con->protocol_version < 472)
+			{
+				$section->non_air_blocks = 0;
+				foreach($section->blocks as $state)
+				{
+					if($state->block->name != "air")
+					{
+						$section->non_air_blocks++;
+					}
+				}
+			}
+		}
+		if($con->protocol_version >= 110) // Block entities
+		{
+			for($i = $con->readVarInt(); $i >= 0; $i--)
+			{
+				$con->readNBT();
+			}
+		}
 	}
 
 	/**
@@ -217,7 +354,6 @@ class Chunk
 			{
 				continue;
 			}
-			// There's a lot of bit and byte reversing going on here, not sure why Mojang couldn't just keep with big-endian, but this code works.
 			if($con->protocol_version > 47)
 			{
 				if($con->protocol_version >= 472)
