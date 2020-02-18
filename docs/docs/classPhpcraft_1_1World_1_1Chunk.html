@@ -94,6 +94,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ad1bfc45ca689ac75f895d6005059b8f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af2ce1d4dc4f7e12ad9c341586facf1de"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1World_1_1Chunk.html#af2ce1d4dc4f7e12ad9c341586facf1de">getIndexes</a> (int $x, int $y, int $z)</td></tr>
 <tr class="separator:af2ce1d4dc4f7e12ad9c341586facf1de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7d0f87f32cdbf2855e0a89f0747af0d3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1World_1_1Chunk.html#a7d0f87f32cdbf2855e0a89f0747af0d3">read</a> (<a class="el" href="classPhpcraft_1_1Connection.html">Connection</a> $con)</td></tr>
+<tr class="separator:a7d0f87f32cdbf2855e0a89f0747af0d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af20ac298499b4c3afa270975e6f2bd94"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1World_1_1Chunk.html#af20ac298499b4c3afa270975e6f2bd94">write</a> (<a class="el" href="classPhpcraft_1_1Connection.html">Connection</a> $con)</td></tr>
 <tr class="separator:af20ac298499b4c3afa270975e6f2bd94"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a461abaf26628965879ceeef226f02ef5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1World_1_1Chunk.html#a461abaf26628965879ceeef226f02ef5">getHeightmap</a> ()</td></tr>
@@ -292,6 +294,38 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7d0f87f32cdbf2855e0a89f0747af0d3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7d0f87f32cdbf2855e0a89f0747af0d3">&#9670;&nbsp;</a></span>read()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Phpcraft\World\Chunk::read </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classPhpcraft_1_1Connection.html">Connection</a>&#160;</td>
+          <td class="paramname"><em>$con</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Reads the chunk data after the X, Z, and "Is New Chunk" fields from the given <a class="el" href="classPhpcraft_1_1Connection.html">Connection</a>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype"><a class="el" href="classPhpcraft_1_1Connection.html">Connection</a></td><td class="paramname">$con</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">IOException</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
