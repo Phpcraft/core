@@ -1,6 +1,6 @@
 <map id="Phpcraft\Packet\DestroyEntityPacket" name="Phpcraft\Packet\DestroyEntityPacket">
-<area shape="rect" id="node1" title=" " alt="" coords="123,169,339,211"/>
-<area shape="rect" id="node2" href="$classPhpcraft_1_1Packet_1_1EntityPacket.html" title=" " alt="" coords="5,87,213,114"/>
+<area shape="rect" id="node1" title=" " alt="" coords="107,155,323,196"/>
+<area shape="rect" id="node2" href="$classPhpcraft_1_1Packet_1_1EntityPacket.html" title=" " alt="" coords="5,80,213,107"/>
 <area shape="rect" id="node3" href="$classPhpcraft_1_1Packet_1_1Packet.html" title=" " alt="" coords="24,5,195,32"/>
-<area shape="rect" id="node4" href="$interfacePhpcraft_1_1Packet_1_1ServerChangingPacket.html" title=" " alt="" coords="238,80,469,121"/>
+<area shape="rect" id="node4" title=" " alt="" coords="237,80,405,107"/>
 </map>
