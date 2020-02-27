@@ -14,7 +14,7 @@ $this->registerCommand([
 	$server = $client->getServer();
 	if(!$server instanceof IntegratedServer || $client->downstream !== null)
 	{
-		$client->sendMessage(ChatComponent::text("This server doesn't have world.")
+		$client->sendMessage(ChatComponent::text("This server doesn't have a world.")
 										  ->red());
 		return;
 	}
@@ -28,5 +28,5 @@ $this->registerCommand([
 	$file_con->read_buffer = zlib_decode(file_get_contents($file_name));
 	$structure = Structure::fromStructure($file_con);
 	$client->sendMessage("That's a ".$structure->width." x ".$structure->height." x ".$structure->depth." structure coming right at ya!");
-	$server->world->apply($structure, $client->pos);
+	$server->worlds[$client->world]->apply($structure, $client->pos);
 }, "change the world");

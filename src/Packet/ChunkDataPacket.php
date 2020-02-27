@@ -1,11 +1,11 @@
 <?php
 namespace Phpcraft\Packet;
 use Phpcraft\
-{BareServer, Connection, Exception\IOException, World\Chunk, World\ChunkSection};
+{Connection, Exception\IOException, World\Chunk, World\ChunkSection, World\World};
 /**
  * @since 0.5.1
  */
-class ChunkDataPacket extends Packet implements ServerChangingPacket
+class ChunkDataPacket extends Packet
 {
 	/**
 	 * @var int $x
@@ -70,11 +70,12 @@ class ChunkDataPacket extends Packet implements ServerChangingPacket
 	}
 
 	/**
-	 * @param BareServer $server
+	 * @param World $world
+	 * @since 0.5.6
 	 */
-	function apply(BareServer $server): void
+	function apply(World $world): void
 	{
-		$server->world->chunks[$this->x.":".$this->z] = $this->chunk;
+		$world->chunks[$this->x.":".$this->z] = $this->chunk;
 	}
 
 	function __toString()

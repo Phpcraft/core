@@ -86,7 +86,14 @@ class ClientConnection extends Connection implements ServerCommandSender
 	 */
 	public $downstream_eid;
 	/**
-	 * The client's position.
+	 * The name of the world the client is in.
+	 *
+	 * @var string $world
+	 * @since 0.5.6
+	 */
+	public $world = "world";
+	/**
+	 * The client's position in the world they are in.
 	 *
 	 * @var Point3D $pos
 	 */
@@ -561,7 +568,7 @@ class ClientConnection extends Connection implements ServerCommandSender
 	function getWorld(): ?World
 	{
 		$server = $this->getServer();
-		return $server instanceof IntegratedServer && $this->downstream === null && !@$this->received_imitated_world ? $server->world : null;
+		return $server instanceof IntegratedServer && $this->downstream === null ? $this->getServer()->worlds[$this->world] : null;
 	}
 
 	function getServer(): Server

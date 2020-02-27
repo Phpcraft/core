@@ -353,25 +353,32 @@ class IntegratedServer extends Server
 			{
 				return;
 			}
-			if(count($this->world->changed_chunks) > 0)
+			$changes = false;
+			foreach($this->getPlayers() as $player)
 			{
-				// TODO: Track more than just changed chunks to significantly improve performance
-				$filter = function($name)
+				$world = $player->getWorld();
+				if($world instanceof World && count($world->changed_chunks) > 0)
 				{
-					return !array_key_exists($name, $this->world->changed_chunks);
-				};
-				foreach($this->getPlayers() as $player)
-				{
-					$player->chunks = array_filter($player->chunks, $filter);
+					$player->chunks = array_filter($player->chunks, function($name) use (&$world)
+					{
+						return !array_key_exists($name, $world->changed_chunks);
+					});
 					$player->generateChunkQueue();
+					$changes = true;
 				}
-				$this->world->changed_chunks = [];
+			}
+			if($changes)
+			{
+				foreach($this->worlds as $world)
+				{
+					$world->changed_chunks = [];
+				}
 			}
 			$chunks_limit = 20; // chunks/tick limit
 			foreach($this->clients as $con)
 			{
 				assert($con instanceof ClientConnection);
-				if($con->downstream !== null || @$con->received_imitated_world)
+				if($con->downstream !== null)
 				{
 					continue;
 				}
@@ -379,7 +386,7 @@ class IntegratedServer extends Server
 				{
 					foreach($con->chunk_queue as $chunk_name => $chunk_coords)
 					{
-						(new ChunkDataPacket($chunk_coords[0], $chunk_coords[1], true, $this->world->getChunk($chunk_coords[0], $chunk_coords[1])))->send($con);
+						(new ChunkDataPacket($chunk_coords[0], $chunk_coords[1], true, $con->getWorld()->getChunk($chunk_coords[0], $chunk_coords[1])))->send($con);
 						$con->chunks[$chunk_name] = $chunk_name;
 						unset($con->chunk_queue[$chunk_name]);
 						if(--$chunks_limit == 0)
@@ -429,9 +436,9 @@ class IntegratedServer extends Server
 			$this->config["world_is_made_of"] = "grass_block[snowy=false]";
 		}
 		$changed_chunks = [];
-		if($this->world instanceof World)
+		if(array_key_exists("world", $this->worlds) && $this->worlds["world"] instanceof World)
 		{
-			foreach($this->world->chunks as $name => $chunk)
+			foreach($this->worlds["world"]->chunks as $name => $chunk)
 			{
 				$changed_chunks[$name] = $name;
 			}
@@ -440,8 +447,8 @@ class IntegratedServer extends Server
 		$blockState = BlockState::get($this->config["world_is_made_of"]) ?? BlockState::get("grass_block[snowy=false]");
 		$this->config["world_is_made_of"] = $blockState->__toString();
 		$chunk->setSection(0, ChunkSection::filled($blockState));
-		$this->world = (new StaticChunkGenerator(new World(), $chunk))->init();
-		$this->world->changed_chunks = $changed_chunks;
+		$this->worlds["world"] = (new StaticChunkGenerator(new World(), $chunk))->init();
+		$this->worlds["world"]->changed_chunks = $changed_chunks;
 		if(!array_key_exists("groups", $this->config))
 		{
 			$this->config["groups"] = [

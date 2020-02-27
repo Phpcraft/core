@@ -11,9 +11,10 @@ class BareServer
 	/**
 	 * The world that clients will be presented with.
 	 *
-	 * @var World $world
+	 * @var World[] $worlds
+	 * @since 0.5.6
 	 */
-	public $world;
+	public $worlds = [];
 	/**
 	 * The counter used to assign entity IDs.
 	 *
