@@ -310,16 +310,33 @@ class ChatComponent
 			{
 				throw new RuntimeException("ChatComponent can't have text and translate");
 			}
+			if(array_key_exists("keybind", $array))
+			{
+				throw new RuntimeException("ChatComponent can't have text and keybind");
+			}
 			$chat = ChatComponent::fromText($array["text"] ?? "");
 		}
 		else if(array_key_exists("translate", $array))
 		{
+			if(array_key_exists("keybind", $array))
+			{
+				throw new RuntimeException("ChatComponent can't have translate and keybind");
+			}
 			$chat = new ChatComponent();
 			$chat->translate = $array["translate"];
 		}
-		if(array_key_exists("keybind", $array))
+		else if(array_key_exists("keybind", $array))
 		{
+			$chat = new ChatComponent();
 			$chat->keybind = $array["keybind"];
+		}
+		else if(!$array["extra"])
+		{
+			throw new RuntimeException("ChatComponent needs to have either text, translate, keybind, or extra");
+		}
+		else
+		{
+			$chat = new ChatComponent();
 		}
 		if(array_key_exists("insertion", $array))
 		{
