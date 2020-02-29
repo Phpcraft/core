@@ -479,7 +479,11 @@ class IntegratedServer extends Server
 		{
 			$this->config["server_list_appearance"] = [];
 		}
-		if(!array_key_exists("description", $this->config["server_list_appearance"]))
+		if(array_key_exists("description", $this->config["server_list_appearance"]))
+		{
+			$this->config["server_list_appearance"]["description"] = ChatComponent::fromArray($this->config["server_list_appearance"]["description"])->toArray();
+		}
+		else
 		{
 			$this->config["server_list_appearance"]["description"] = [
 				"text" => "A {$this->name} instance"

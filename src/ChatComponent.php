@@ -168,7 +168,7 @@ class ChatComponent
 		return self::fromText($text, $allow_amp);
 	}
 
-	private static function fromText(string &$text, bool $allow_amp): ChatComponent
+	private static function fromText(string $text, bool $allow_amp = false): ChatComponent
 	{
 		if(strpos($text, "§") === false && (!$allow_amp || strpos($text, "&") === false))
 		{
@@ -286,7 +286,7 @@ class ChatComponent
 		}
 		else if(is_string($value) || $value === null)
 		{
-			return self::fromText($value, false);
+			return self::fromText($value);
 		}
 		else if(is_object($value))
 		{
@@ -304,11 +304,23 @@ class ChatComponent
 
 	static function fromArray(array $array): ChatComponent
 	{
-		$chat = new ChatComponent(@$array["text"]);
-		$chat->translate = @$array["translate"];
-		$chat->keybind = @$array["keybind"];
-		$chat->insertion = @$array["insertion"];
-		$chat->color = @$array["color"];
+		$chat = ChatComponent::fromText($array["text"] ?? "");
+		if(array_key_exists("translate", $array))
+		{
+			$chat->translate = $array["translate"];
+		}
+		if(array_key_exists("keybind", $array))
+		{
+			$chat->keybind = $array["keybind"];
+		}
+		if(array_key_exists("insertion", $array))
+		{
+			$chat->insertion = $array["insertion"];
+		}
+		if(array_key_exists("color", $array))
+		{
+			$chat->color = $array["color"];
+		}
 		foreach(self::$attributes as $attribute)
 		{
 			if(@$array[$attribute])
