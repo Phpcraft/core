@@ -111,7 +111,7 @@ class ChatComponent
 	 */
 	public $click_event = null;
 
-	private function __construct(?string $text)
+	private function __construct(?string $text = null)
 	{
 		$this->text = $text;
 	}
@@ -304,9 +304,17 @@ class ChatComponent
 
 	static function fromArray(array $array): ChatComponent
 	{
-		$chat = ChatComponent::fromText($array["text"] ?? "");
-		if(array_key_exists("translate", $array))
+		if(array_key_exists("text", $array))
 		{
+			if(array_key_exists("translate", $array))
+			{
+				throw new RuntimeException("ChatComponent can't have text and translate");
+			}
+			$chat = ChatComponent::fromText($array["text"] ?? "");
+		}
+		else if(array_key_exists("translate", $array))
+		{
+			$chat = new ChatComponent();
 			$chat->translate = $array["translate"];
 		}
 		if(array_key_exists("keybind", $array))
