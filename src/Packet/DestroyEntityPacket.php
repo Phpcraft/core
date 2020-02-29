@@ -2,7 +2,7 @@
 namespace Phpcraft\Packet;
 use Phpcraft\
 {Connection, Exception\IOException};
-class DestroyEntityPacket extends EntityPacket implements ServerChangingPacket
+class DestroyEntityPacket extends EntityPacket
 {
 	/**
 	 * Initialises the packet class by reading its payload from the given Connection.
