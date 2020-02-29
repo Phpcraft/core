@@ -432,24 +432,37 @@ class IntegratedServer extends Server
 				$this->config[$key] = $default;
 			}
 		}
-		if(!array_key_exists("world_is_made_of", $this->config))
+		if(array_key_exists("world_is_made_of", $this->config))
 		{
-			$this->config["world_is_made_of"] = "grass_block[snowy=false]";
+			$this->config["worlds"] = [
+				"world" => $this->config["world_is_made_of"]
+			];
+			unset($this->config["world_is_made_of"]);
+		}
+		else if(!array_key_exists("worlds", $this->config))
+		{
+			$this->config["worlds"] = [
+				"world" => "grass_block[snowy=false]"
+			];
 		}
 		$changed_chunks = [];
-		if(array_key_exists("world", $this->worlds) && $this->worlds["world"] instanceof World)
+		foreach($this->worlds as $world_name => $world)
 		{
-			foreach($this->worlds["world"]->chunks as $name => $chunk)
+			foreach($world->chunks as $chunk_name => $chunk)
 			{
-				$changed_chunks[$name] = $name;
+				$changed_chunks[$world_name][$chunk_name] = $chunk_name;
 			}
 		}
-		$chunk = new Chunk();
-		$blockState = BlockState::get($this->config["world_is_made_of"]) ?? BlockState::get("grass_block[snowy=false]");
-		$this->config["world_is_made_of"] = $blockState->__toString();
-		$chunk->setSection(0, ChunkSection::filled($blockState));
-		$this->worlds["world"] = (new StaticChunkGenerator(new World(), $chunk))->init();
-		$this->worlds["world"]->changed_chunks = $changed_chunks;
+		$this->worlds = [];
+		foreach($this->config["worlds"] as $world_name => $world_is_made_of)
+		{
+			$blockState = BlockState::get($world_is_made_of) ?? BlockState::get("grass_block[snowy=false]");
+			$this->config["worlds"][$world_name] = $blockState->__toString();
+			$chunk = new Chunk();
+			$chunk->setSection(0, ChunkSection::filled($blockState));
+			$this->worlds[$world_name] = (new StaticChunkGenerator(new World(), $chunk))->init();
+			$this->worlds[$world_name]->changed_chunks = $changed_chunks;
+		}
 		if(!array_key_exists("groups", $this->config))
 		{
 			$this->config["groups"] = [
