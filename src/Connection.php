@@ -885,9 +885,9 @@ class Connection
 	 * @param int $bits
 	 * @param bool $signed
 	 * @param int $gmp_import_options
-	 * @since 0.5.5
 	 * @return GMP
 	 * @throws IOException
+	 * @since 0.5.5
 	 */
 	function readGMP(int $bytes, int $bits, bool $signed, int $gmp_import_options = GMP_MSW_FIRST | GMP_BIG_ENDIAN): GMP
 	{

@@ -386,7 +386,8 @@ class IntegratedServer extends Server
 				{
 					foreach($con->chunk_queue as $chunk_name => $chunk_coords)
 					{
-						(new ChunkDataPacket($chunk_coords[0], $chunk_coords[1], true, $con->getWorld()->getChunk($chunk_coords[0], $chunk_coords[1])))->send($con);
+						(new ChunkDataPacket($chunk_coords[0], $chunk_coords[1], true, $con->getWorld()
+																						   ->getChunk($chunk_coords[0], $chunk_coords[1])))->send($con);
 						$con->chunks[$chunk_name] = $chunk_name;
 						unset($con->chunk_queue[$chunk_name]);
 						if(--$chunks_limit == 0)
@@ -481,7 +482,8 @@ class IntegratedServer extends Server
 		}
 		if(array_key_exists("description", $this->config["server_list_appearance"]))
 		{
-			$this->config["server_list_appearance"]["description"] = ChatComponent::fromArray($this->config["server_list_appearance"]["description"])->toArray();
+			$this->config["server_list_appearance"]["description"] = ChatComponent::fromArray($this->config["server_list_appearance"]["description"])
+																				  ->toArray();
 		}
 		else
 		{
