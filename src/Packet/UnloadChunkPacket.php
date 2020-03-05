@@ -50,14 +50,14 @@ class UnloadChunkPacket extends Packet
 		if($con->protocol_version > 47)
 		{
 			$con->startPacket("unload_chunk");
-			$con->writeVarInt($this->x);
-			$con->writeVarInt($this->z);
+			$con->writeInt($this->x);
+			$con->writeInt($this->z);
 		}
 		else
 		{
 			$con->startPacket("chunk_data");
-			$con->writeVarInt($this->x);
-			$con->writeVarInt($this->z);
+			$con->writeInt($this->x);
+			$con->writeInt($this->z);
 			$con->writeBoolean(true);
 			$con->writeUnsignedShort(0);
 			$con->writeVarInt(0);
