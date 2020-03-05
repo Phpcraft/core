@@ -284,7 +284,7 @@ class ChatComponent
 		{
 			return ChatComponent::fromArray($value);
 		}
-		else if(is_string($value) || $value === null)
+		else if(is_string($value) || is_int($value) || $value === null)
 		{
 			return self::fromText($value);
 		}
