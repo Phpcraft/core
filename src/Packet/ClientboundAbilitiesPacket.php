@@ -85,6 +85,6 @@ class ClientboundAbilitiesPacket extends Packet
 
 	function __toString()
 	{
-		return "{ClientboundAbilitiesPacket: ".($this->invulnerable ? "" : "Not ")."Invulnerable, ".($this->flying ? "" : "Not ")."Flying, Can".($this->can_fly ? "" : "'t")." Fly, ".($this->instant_breaking ? "" : "No ")." Instant Breaking, Fly Speed ".($this->fly_speed / 0.05)."x, Walk Speed ".($this->walk_speed / 0.1)."}";
+		return "{ClientboundAbilitiesPacket: ".($this->invulnerable ? "" : "Not ")."Invulnerable, ".($this->flying ? "" : "Not ")."Flying, Can".($this->can_fly ? "" : "'t")." Fly, ".($this->instant_breaking ? "" : "No ")."Instant Breaking, Fly Speed ".($this->fly_speed / 0.05)."x, Walk Speed ".($this->walk_speed / 0.1)."}";
 	}
 }

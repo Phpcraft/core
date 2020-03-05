@@ -6,7 +6,7 @@ use DomainException;
 use GMP;
 use hellsh\UUID;
 use Phpcraft\
-{Command\ServerCommandSender, Entity\Player, Enum\ChatPosition, Enum\Gamemode, Exception\IOException, Packet\ClientboundAbilitiesPacket, Packet\ClientboundPacketId, World\Chunk, World\World};
+{Command\ServerCommandSender, Entity\Player, Enum\ChatPosition, Enum\Gamemode, Exception\IOException, Packet\ClientboundAbilitiesPacket, Packet\ClientboundPacketId, Packet\UnloadChunkPacket, World\Chunk, World\World};
 /** A server-to-client connection. */
 class ClientConnection extends Connection implements ServerCommandSender
 {
@@ -547,6 +547,21 @@ class ClientConnection extends Connection implements ServerCommandSender
 				}
 			}
 		}
+	}
+
+	/**
+	 * @return void
+	 * @throws IOException
+	 * @since 0.5.9
+	 */
+	function unloadChunks(): void
+	{
+		foreach($this->chunks as $chunk)
+		{
+			$arr = explode(":", $chunk);
+			(new UnloadChunkPacket($arr[0], $arr[1]))->send($this);
+		}
+		$this->chunks = [];
 	}
 
 	/**

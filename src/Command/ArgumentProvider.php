@@ -87,8 +87,13 @@ abstract class ArgumentProvider
 						return GreedyStringProvider::class;
 				}
 				throw new IOException("Invalid string type: $type");
+			case "minecraft:entity":
+			case "minecraft:score_holder":
+			case "minecraft:range":
+				$con->ignoreBytes(1);
 		}
-		throw new IOException("Unimplemented parser: $parser");
+		trigger_error("Unimplemented parser: $parser");
+		return UnimplementedParser::class;
 	}
 
 	/**

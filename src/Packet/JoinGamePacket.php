@@ -23,10 +23,6 @@ class JoinGamePacket extends Packet
 	 */
 	public $dimension = Dimension::OVERWORLD;
 	/**
-	 * @var int $difficulty
-	 */
-	public $difficulty = Difficulty::PEACEFUL;
-	/**
 	 * @var int $render_distance
 	 */
 	public $render_distance = 8;
@@ -61,7 +57,7 @@ class JoinGamePacket extends Packet
 	static function read(Connection $con): JoinGamePacket
 	{
 		$packet = new JoinGamePacket($con->readInt());
-		$packet->gamemode = $con->readByte();
+		$packet->gamemode = $con->readUnsignedByte();
 		if($packet->gamemode >= 0x8)
 		{
 			$packet->gamemode -= 0x8;
@@ -74,7 +70,7 @@ class JoinGamePacket extends Packet
 		}
 		else if($con->protocol_version < 472)
 		{
-			$packet->difficulty = $con->readByte();
+			$con->ignoreBytes(1); // Difficulty (Byte)
 		}
 		$con->ignoreBytes(1); // Max Players (Byte)
 		$con->ignoreBytes(gmp_intval($con->readVarInt())); // Level Type (String)
@@ -107,7 +103,7 @@ class JoinGamePacket extends Packet
 		{
 			$gamemode += 0x8;
 		}
-		$con->writeByte($gamemode);
+		$con->writeUnsignedByte($gamemode);
 		if($con->protocol_version >= 108)
 		{
 			$con->writeInt($this->dimension);
@@ -116,13 +112,13 @@ class JoinGamePacket extends Packet
 		{
 			$con->writeByte($this->dimension);
 		}
-		if($con->protocol_version < 472)
-		{
-			$con->writeByte($this->difficulty);
-		}
-		else if($con->protocol_version >= 565)
+		if($con->protocol_version >= 565)
 		{
 			$con->writeLong(0); // Hashed Seed
+		}
+		else if($con->protocol_version < 472)
+		{
+			$con->writeUnsignedByte(Difficulty::PEACEFUL);
 		}
 		$con->writeByte(100); // Max Players
 		$con->writeString(""); // Level Type
@@ -136,17 +132,10 @@ class JoinGamePacket extends Packet
 			$con->writeBoolean($this->enable_respawn_screen);
 		}
 		$con->send();
-		if($con->protocol_version >= 472)
-		{
-			$con->startPacket("difficulty");
-			$con->writeUnsignedByte($this->difficulty);
-			$con->writeBoolean(true); // Locked
-			$con->send();
-		}
 	}
 
 	function __toString()
 	{
-		return "{JoinGamePacket: Entity ID ".gmp_strval($this->eid).", Gamemode ".$this->gamemode.", ".($this->hardcore ? "Not " : "")."Hardcore Mode, Dimension ".$this->dimension.", Difficulty ".$this->difficulty."}";
+		return "{JoinGamePacket: Entity ID ".gmp_strval($this->eid).", Gamemode ".(Gamemode::nameOf($this->gamemode) ?? $this->gamemode).", ".($this->hardcore ? "Not " : "")."Hardcore Mode, Dimension ".(Dimension::nameOf($this->dimension) ?? $this->dimension)."}";
 	}
 }

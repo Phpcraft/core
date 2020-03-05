@@ -1,8 +1,11 @@
 <?php
 namespace Phpcraft\Packet;
+use GMP;
 use Phpcraft\
 {Connection, Exception\IOException, World\Chunk, World\ChunkSection, World\World};
 /**
+ * Server-to-client.
+ *
  * @since 0.5.1
  */
 class ChunkDataPacket extends Packet
@@ -43,8 +46,8 @@ class ChunkDataPacket extends Packet
 	static function read(Connection $con): ChunkDataPacket
 	{
 		$packet = new ChunkDataPacket();
-		$packet->x = $con->readInt();
-		$packet->z = $con->readInt();
+		$packet->x = gmp_intval($con->readInt());
+		$packet->z = gmp_intval($con->readInt());
 		$packet->is_new_chunk = $con->readBoolean();
 		$packet->chunk = new Chunk($packet->x, $packet->z);
 		$packet->chunk->read($con);

@@ -15,7 +15,12 @@ class ServerboundStringPluginMessagePacket extends ServerboundPluginMessagePacke
 
 	function __toString()
 	{
-		return "{".substr(get_called_class(), 30).": \"{$this->channel}\": {$this->data}}";
+		$str = "{".substr(get_called_class(), 30);
+		if(get_called_class() == __CLASS__)
+		{
+			$str .= ": \"{$this->channel}\"";
+		}
+		return $str.": ".$this->data."}";
 	}
 
 	protected function send_(Connection $con): void

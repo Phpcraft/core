@@ -74,7 +74,11 @@ abstract class PacketId extends Identifier
 			return new $class();
 		}
 		$instance = call_user_func($class."::read", $con);
-		if($con->read_buffer_offset != strlen($con->read_buffer))
+		if($con->lenient)
+		{
+			$con->leniency = Connection::LENIENCY_LENIENT;
+		}
+		if($con->read_buffer_offset != strlen($con->read_buffer) && $con->leniency != Connection::LENIENCY_LENIENT)
 		{
 			throw new IOException($this->name." had ".(strlen($con->read_buffer) - $con->read_buffer_offset)." more bytes than expected");
 		}

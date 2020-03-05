@@ -229,16 +229,17 @@ class Chunk
 				{
 					if($con->leniency == Connection::LENIENCY_STRICT)
 					{
-						throw new IOException("Bits per block should at least be 4, got $bits_per_block)");
+						throw new IOException("Bits per block should at least be 4, got $bits_per_block");
 					}
 					$bits_per_block = 4;
 				}
 				$palette = [];
 				if($bits_per_block < 9)
 				{
-					for($j = $con->readVarInt(); $j >= 0; $j--)
+					$palette_size = $con->readVarInt();
+					for($j = 0; $j < $palette_size; $j++)
 					{
-						array_push($palette, BlockState::getById(gmp_intval($con->readVarInt()), $con->protocol_version));
+						$palette[$j] = BlockState::getById(gmp_intval($con->readVarInt()), $con->protocol_version);
 					}
 					$section->palette_cache = [];
 					foreach($palette as $j => $state)
@@ -256,7 +257,7 @@ class Chunk
 					}
 				}
 				$longs = (4096 / (64 / $bits_per_block));
-				$remote_longs = $con->readVarInt();
+				$remote_longs = gmp_intval($con->readVarInt());
 				if($remote_longs != $longs)
 				{
 					throw new IOException("$remote_longs longs doesn't match expected $longs longs for $bits_per_block bits per block");
@@ -288,7 +289,7 @@ class Chunk
 					$section->blocks[$j] = BlockState::getById(gmp_intval($con->readGMP(2, 16, false, GMP_LSW_FIRST | GMP_BIG_ENDIAN)), $con->protocol_version);
 				}
 				$bits_of_data_per_block = $con->readVarInt(); // Bits of data per block: 4 for block light, 8 for block + sky light, 16 for both + biome.
-				for($j = $con->readVarInt(); $j >= 0; $j--)
+				for($j = $con->readVarInt(); $j > 0; $j--)
 				{
 					$con->readVarInt(); // Elements in block + sky light arrays
 				}
@@ -311,7 +312,7 @@ class Chunk
 		}
 		if($con->protocol_version >= 110) // Block entities
 		{
-			for($i = $con->readVarInt(); $i >= 0; $i--)
+			for($i = $con->readVarInt(); $i > 0; $i--)
 			{
 				$con->readNBT();
 			}

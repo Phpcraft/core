@@ -56,7 +56,8 @@ class ClientboundPacketId extends PacketId
 			"animation" => "entity_animation",
 			"abilities" => "clientbound_abilities",
 			"chat" => "clientbound_chat_message",
-			"custom_payload" => "clientbound_plugin_message"
+			"custom_payload" => "clientbound_plugin_message",
+			"held_item_slot" => "clientbound_held_item_slot"
 		];
 	}
 
@@ -82,12 +83,18 @@ class ClientboundPacketId extends PacketId
 		{
 			case "boss_bar":
 				return BossBarPacket::class;
+			case "chunk_data":
+				return ChunkDataPacket::class;
+			case "clientbound_abilities":
+				return ClientboundAbilitiesPacket::class;
+			case "clientbound_plugin_message":
+				return ClientboundPluginMessagePacket::class;
 			case "declare_commands":
 				return DeclareCommandsPacket::class;
 			case "destroy_entities":
 				return DestroyEntityPacket::class;
-			case "clientbound_abilities":
-				return ClientboundAbilitiesPacket::class;
+			case "difficulty":
+				return DifficultyPacket::class;
 			case "entity_animation":
 				return EntityAnimationPacket::class;
 			case "entity_effect":
@@ -104,14 +111,16 @@ class ClientboundPacketId extends PacketId
 				return MapDataPacket::class;
 			case "remove_entity_effect":
 				return RemoveEntityEffectPacket::class;
+			case "respawn":
+				return RespawnPacket::class;
 			case "set_experience":
 				return SetExperiencePacket::class;
 			case "set_slot":
 				return SetSlotPacket::class;
 			case "spawn_mob":
 				return SpawnMobPacket::class;
-			case "clientbound_plugin_message":
-				return ClientboundPluginMessagePacket::class;
+			case "unload_chunk":
+				return UnloadChunkPacket::class;
 		}
 		return null;
 	}

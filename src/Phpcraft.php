@@ -279,7 +279,6 @@ abstract class Phpcraft
 
 	/**
 	 * Generates a Minecraft-style SHA1 hash.
-	 * This function requires GMP to be installed, but is only needed when going online.
 	 *
 	 * @param string $str
 	 * @return string

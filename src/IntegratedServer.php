@@ -3,7 +3,7 @@ namespace Phpcraft;
 use Exception;
 use hellsh\UUID;
 use Phpcraft\
-{Command\Command, Enum\Gamemode, Event\ServerChatEvent, Event\ServerChunkBorderEvent, Event\ServerClientMetadataEvent, Event\ServerClientSettingsEvent, Event\ServerFlyingChangeEvent, Event\ServerJoinEvent, Event\ServerLeaveEvent, Event\ServerMovementEvent, Event\ServerOnGroundChangeEvent, Event\ServerPacketEvent, Event\ServerRotationEvent, Exception\IOException, Packet\ChunkDataPacket, Packet\ClientSettingsPacket, Packet\JoinGamePacket, Packet\PluginMessage\ClientboundBrandPluginMessagePacket, Packet\ServerboundPacketId, World\BlockState, World\Chunk, World\ChunkSection, World\StaticChunkGenerator, World\World};
+{Command\Command, Enum\Difficulty, Enum\Gamemode, Event\ServerChatEvent, Event\ServerChunkBorderEvent, Event\ServerClientMetadataEvent, Event\ServerClientSettingsEvent, Event\ServerFlyingChangeEvent, Event\ServerJoinEvent, Event\ServerLeaveEvent, Event\ServerMovementEvent, Event\ServerOnGroundChangeEvent, Event\ServerPacketEvent, Event\ServerRotationEvent, Exception\IOException, Packet\ChunkDataPacket, Packet\ClientSettingsPacket, Packet\DifficultyPacket, Packet\JoinGamePacket, Packet\PluginMessage\ClientboundBrandPluginMessagePacket, Packet\ServerboundPacketId, World\BlockState, World\Chunk, World\ChunkSection, World\StaticChunkGenerator, World\World};
 use RuntimeException;
 class IntegratedServer extends Server
 {
@@ -128,6 +128,7 @@ class IntegratedServer extends Server
 			$packet->gamemode = $con->gamemode = Gamemode::CREATIVE;
 			$packet->render_distance = 32;
 			$packet->send($con);
+			(new DifficultyPacket(Difficulty::PEACEFUL))->send($con);
 			(new ClientboundBrandPluginMessagePacket($this->name))->send($con);
 			$con->setAbilitiesFromGamemode($con->gamemode)
 				->sendAbilities();

@@ -2,7 +2,7 @@
 namespace Phpcraft;
 use Exception;
 use Phpcraft\
-{Command\Command, Enum\Dimension, Enum\Gamemode, Event\ProxyClientPacketEvent, Event\ProxyConnectEvent, Event\ProxyLeaveEvent, Event\ProxyServerPacketEvent, Event\ProxyTickEvent, Event\ServerJoinEvent, Event\ServerTickEvent, Exception\IOException, Packet\ClientboundPacketId, Packet\EntityPacket, Packet\JoinGamePacket, Packet\KeepAliveRequestPacket, Packet\PluginMessage\ClientboundBrandPluginMessagePacket, Packet\ServerboundPacketId};
+{Command\Command, Enum\Dimension, Enum\Gamemode, Event\ProxyClientPacketEvent, Event\ProxyConnectEvent, Event\ProxyLeaveEvent, Event\ProxyServerPacketEvent, Event\ProxyTickEvent, Event\ServerJoinEvent, Event\ServerTickEvent, Exception\IOException, Packet\ClientboundPacketId, Packet\EntityPacket, Packet\JoinGamePacket, Packet\KeepAliveRequestPacket, Packet\PluginMessage\ClientboundBrandPluginMessagePacket, Packet\RespawnPacket, Packet\ServerboundPacketId};
 /**
  * @since 0.3
  */
@@ -29,6 +29,7 @@ class ProxyServer extends IntegratedServer
 					if(@$con->downstream !== null && $packet_id = $con->downstream->readPacket(0))
 					{
 						$packetId = ClientboundPacketId::getById($packet_id, $con->downstream->protocol_version);
+						echo $packetId->name."\n";
 						if(PluginManager::fire(new ProxyClientPacketEvent($this, $con, $packetId)))
 						{
 							continue;
@@ -69,48 +70,63 @@ class ProxyServer extends IntegratedServer
 							{
 								$packet->eid = $con->eid;
 								$con->dimension = $packet->dimension;
+								$con->gamemode = $packet->gamemode;
 								$packet->send($con);
 							}
 							else
 							{
 								if($packet->dimension == $con->dimension)
 								{
-									$con->startPacket("respawn");
-									$con->writeInt($packet->dimension == Dimension::OVERWORLD ? Dimension::END : Dimension::OVERWORLD);
-									$con->writeByte(0);
-									$con->writeString("");
-									$con->send();
+									$respawn_packet = new RespawnPacket();
+									$respawn_packet->dimension = $packet->dimension == Dimension::OVERWORLD ? Dimension::END : Dimension::OVERWORLD;
+									$respawn_packet->send($con);
 								}
-								$con->startPacket("respawn");
-								$con->writeInt($con->dimension = $packet->dimension);
-								$con->writeByte($packet->gamemode);
-								$con->writeString("");
-								$con->send();
+								$respawn_packet = new RespawnPacket();
+								$respawn_packet->dimension = $con->dimension = $packet->dimension;
+								$respawn_packet->gamemode = $con->gamemode = $packet->gamemode;
+								$respawn_packet->send($con);
 							}
 						}
 						else if($packetId->name == "teleport")
 						{
+							$read_buffer_offsset = $con->downstream->read_buffer_offset;
 							$con->downstream->startPacket("teleport_confirm");
 							$con->downstream->writeVarInt($con->downstream->ignoreBytes(33)
 																		  ->readVarInt());
 							$con->downstream->send();
-							$con->write_buffer = $con->downstream->read_buffer;
+							$con->downstream->read_buffer_offset = $read_buffer_offsset;
+							$con->startPacket($packetId);
+							$con->write_buffer .= $con->downstream->getRemainingData();
 							$con->send();
 						}
-						else if($con->convert_packets && ($packet = $packetId->getInstance($con)))
+						else if($con->convert_packets && ($packet = $packetId->getInstance($con->downstream)))
 						{
 							$packet->send($con);
 						}
 						else if($packetId->since_protocol_version <= $con->protocol_version)
 						{
-							$con->write_buffer = $con->downstream->read_buffer;
+							$con->startPacket($packetId);
+							$con->write_buffer .= $con->downstream->getRemainingData();
 							$con->send();
 						}
 					}
 				}
 				catch(Exception $e)
 				{
-					$con->disconnect("[".$this->name."] ".$e->getMessage());
+					$trace = $e->getMessage();
+					foreach($e->getTrace() as $item)
+					{
+						$trace .= "\n".$item["function"];
+						if(array_key_exists("file", $item))
+						{
+							$trace .= " in ".basename($item["file"]);
+							if(array_key_exists("line", $item))
+							{
+								$trace .= ":".$item["line"];
+							}
+						}
+					}
+					$con->disconnect("[".$this->name."] ".$trace);
 				}
 			}
 		}, 0.001);
@@ -138,7 +154,7 @@ class ProxyServer extends IntegratedServer
 			}
 			else if($packetId->name == "entity_action")
 			{
-				$con->downstream->startPacket("entity_action");
+				$con->downstream->startPacket($packetId);
 				$eid = $con->readVarInt();
 				$con->downstream->writeVarInt(gmp_cmp($eid, $con->eid) == 0 ? $con->downstream_eid : $eid);
 				$con->downstream->write_buffer .= $con->getRemainingData();
@@ -150,7 +166,8 @@ class ProxyServer extends IntegratedServer
 			}
 			else if($packetId->since_protocol_version <= $con->downstream->protocol_version)
 			{
-				$con->downstream->write_buffer = $con->read_buffer;
+				$con->downstream->startPacket($packetId);
+				$con->downstream->write_buffer .= $con->getRemainingData();
 				$con->downstream->send();
 			}
 		};
@@ -245,7 +262,7 @@ class ProxyServer extends IntegratedServer
 		{
 			return $errstr;
 		}
-		$con->downstream = new ServerConnection($stream, $con->protocol_version);
+		$con->downstream = new ServerConnection($stream, $con->convert_packets ? $json["version"]["protocol"] : $con->protocol_version);
 		if($account === null)
 		{
 			$join_specs = [$con->getRemoteAddress()];
@@ -264,9 +281,14 @@ class ProxyServer extends IntegratedServer
 		return null;
 	}
 
+	/**
+	 * @param ClientConnection $con
+	 * @return void
+	 * @throws IOException
+	 */
 	private static function preconnectCleanup(ClientConnection $con): void
 	{
-		$con->chunks = [];
+		$con->unloadChunks();
 		$con->downstream_eid = $con->eid;
 		if($con->downstream !== null)
 		{
@@ -296,17 +318,14 @@ class ProxyServer extends IntegratedServer
 		{
 			if(@$con->dimension == Dimension::OVERWORLD)
 			{
-				$con->startPacket("respawn");
-				$con->writeInt(Dimension::END);
-				$con->writeByte(0);
-				$con->writeString("");
-				$con->send();
+				$packet = new RespawnPacket();
+				$packet->dimension = Dimension::END;
+				$packet->send($con);
 			}
-			$con->startPacket("respawn");
-			$con->writeInt($con->dimension = Dimension::OVERWORLD);
-			$con->writeByte(Gamemode::CREATIVE);
-			$con->writeString("");
-			$con->send();
+			$packet = new RespawnPacket();
+			$packet->dimension = $con->dimension = Dimension::OVERWORLD;
+			$packet->gamemode = $con->gamemode = Gamemode::CREATIVE;
+			$packet->send($con);
 			$con->teleport(new Point3D(0, 16, 0));
 		}
 		(new ClientboundBrandPluginMessagePacket($this->name))->send($con);

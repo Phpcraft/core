@@ -49,7 +49,8 @@ class ServerboundPacketId extends PacketId
 			"arm_animation" => "swing_arm",
 			"abilities" => "serverbound_abilities",
 			"chat" => "serverbound_chat_message",
-			"custom_payload" => "serverbound_plugin_message"
+			"custom_payload" => "serverbound_plugin_message",
+			"held_item_slot" => "serverbound_held_item_slot"
 		];
 	}
 
