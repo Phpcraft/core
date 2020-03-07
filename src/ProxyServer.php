@@ -29,7 +29,6 @@ class ProxyServer extends IntegratedServer
 					if(@$con->downstream !== null && $packet_id = $con->downstream->readPacket(0))
 					{
 						$packetId = ClientboundPacketId::getById($packet_id, $con->downstream->protocol_version);
-						echo $packetId->name."\n";
 						if(PluginManager::fire(new ProxyClientPacketEvent($this, $con, $packetId)))
 						{
 							continue;
