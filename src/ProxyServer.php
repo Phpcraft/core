@@ -98,6 +98,10 @@ class ProxyServer extends IntegratedServer
 							$con->write_buffer .= $con->downstream->getRemainingData();
 							$con->send();
 						}
+						else if($packetId->name == "set_compression")
+						{
+							$con->downstream->compression_threshold = $con->downstream->readVarInt();
+						}
 						else if($con->convert_packets && ($packet = $packetId->getInstance($con->downstream)))
 						{
 							$packet->send($con);
