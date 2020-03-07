@@ -230,7 +230,7 @@ class Server extends BareServer implements ServerCommandSender
 								$packetId = ServerboundPacketId::getById($packet_id, $con->protocol_version);
 								if($packetId === null)
 								{
-									$con->disconnect("Invalid packet ID: $packet_id");
+									$con->disconnect("Invalid packet ID: ".dechex($packet_id));
 									break;
 								}
 								if($packetId->name == "keep_alive_response")
