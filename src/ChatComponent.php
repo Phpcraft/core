@@ -357,14 +357,14 @@ class ChatComponent
 		{
 			foreach($array["extra"] as $extra)
 			{
-				array_push($chat->extra, self::fromArray($extra));
+				array_push($chat->extra, self::cast($extra));
 			}
 		}
 		if(@$array["with"])
 		{
 			foreach($array["with"] as $extra)
 			{
-				array_push($chat->with, self::fromArray($extra));
+				array_push($chat->with, self::cast($extra));
 			}
 		}
 		if(array_key_exists("clickEvent", $array) && is_array($array["clickEvent"]) && array_key_exists("action", $array["clickEvent"]) && array_key_exists("value", $array["clickEvent"]) && in_array($array["clickEvent"]["action"], [
