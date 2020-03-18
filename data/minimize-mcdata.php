@@ -17,4 +17,4 @@ function recursivelyMinimize($dir)
 		}
 	}
 }
-recursivelyMinimize("./");
+recursivelyMinimize("mcdata/");
