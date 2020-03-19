@@ -426,8 +426,16 @@ class ClientConnection extends Connection implements ServerCommandSender
 			$this->send();
 		}
 		$this->compression_threshold = $compression_threshold;
+		$this->uuid = $uuid;
 		$this->write_buffer = Connection::varInt(0x02); // Login Success
-		$this->writeString(($this->uuid = $uuid)->toString(true));
+		if($this->protocol_version >= 707)
+		{
+			$this->writeUUID($this->uuid);
+		}
+		else
+		{
+			$this->writeString($this->uuid->toString(true));
+		}
 		$this->writeString($this->username);
 		$this->send();
 		$this->eid = $eidCounter->next();
