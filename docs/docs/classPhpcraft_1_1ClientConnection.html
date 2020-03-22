@@ -114,8 +114,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:aad8c26e22e34bc8018bb3175e6935411"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a891e459081509946f485e6253c18f168"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#a891e459081509946f485e6253c18f168">finishLogin</a> (UUID $uuid, <a class="el" href="classPhpcraft_1_1Counter.html">Counter</a> $eidCounter, int $compression_threshold=256)</td></tr>
 <tr class="separator:a891e459081509946f485e6253c18f168"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7614b8e7ce2592d157114fcc5d3557ee"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#a7614b8e7ce2592d157114fcc5d3557ee">teleport</a> (<a class="el" href="classPhpcraft_1_1Point3D.html">Point3D</a> $pos, ?float $yaw=null, ?float $pitch=null)</td></tr>
-<tr class="separator:a7614b8e7ce2592d157114fcc5d3557ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a63d1f13caa12893de16398875511029b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#a63d1f13caa12893de16398875511029b">teleport</a> (<a class="el" href="classPhpcraft_1_1Point3D.html">Point3D</a> $pos, ?float $yaw=null, ?float $pitch=null, int $deadline=3)</td></tr>
+<tr class="separator:a63d1f13caa12893de16398875511029b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abf2cdf1ffca54c2d675e502226d204c0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#abf2cdf1ffca54c2d675e502226d204c0">rotate</a> (int $yaw, int $pitch)</td></tr>
 <tr class="separator:abf2cdf1ffca54c2d675e502226d204c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a607f23f9a785052d7b84f148ddf13e29"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#a607f23f9a785052d7b84f148ddf13e29">getEyePosition</a> ()</td></tr>
@@ -1086,8 +1086,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a7614b8e7ce2592d157114fcc5d3557ee"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7614b8e7ce2592d157114fcc5d3557ee">&#9670;&nbsp;</a></span>teleport()</h2>
+<a id="a63d1f13caa12893de16398875511029b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a63d1f13caa12893de16398875511029b">&#9670;&nbsp;</a></span>teleport()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1108,7 +1108,13 @@ Additional Inherited Members</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">?float&#160;</td>
-          <td class="paramname"><em>$pitch</em> = <code>null</code>&#160;</td>
+          <td class="paramname"><em>$pitch</em> = <code>null</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>$deadline</em> = <code>3</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -1123,6 +1129,7 @@ Additional Inherited Members</h2></td></tr>
     <tr><td class="paramtype"><a class="el" href="classPhpcraft_1_1Point3D.html">Point3D</a></td><td class="paramname">$pos</td><td></td></tr>
     <tr><td class="paramtype">float&#160;|&#160;null</td><td class="paramname">$yaw</td><td></td></tr>
     <tr><td class="paramtype">float&#160;|&#160;null</td><td class="paramname">$pitch</td><td></td></tr>
+    <tr><td class="paramtype">int</td><td class="paramname">$deadline</td><td></td></tr>
   </table>
   </dd>
 </dl>
