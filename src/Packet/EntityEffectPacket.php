@@ -17,7 +17,7 @@ class EntityEffectPacket extends EntityPacket
 	 */
 	public $amplifier;
 	/**
-	 * The effect's duration, in seconds.
+	 * The effect's duration, in ticks.
 	 *
 	 * @var GMP|int|string
 	 */
