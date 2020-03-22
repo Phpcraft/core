@@ -135,7 +135,7 @@ class IntegratedServer extends Server
 			$con->startPacket("spawn_position");
 			$con->writePosition($con->pos = $this->spawn_position);
 			$con->send();
-			$con->teleport($con->pos);
+			$con->teleport($con->pos, null, null, 10);
 			if(PluginManager::fire(new ServerJoinEvent($this, $con)))
 			{
 				$con->close();

@@ -454,10 +454,11 @@ class ClientConnection extends Connection implements ServerCommandSender
 	 * @param Point3D $pos
 	 * @param float|null $yaw
 	 * @param float|null $pitch
+	 * @param int $deadline
 	 * @return ClientConnection $this
 	 * @throws IOException
 	 */
-	function teleport(Point3D $pos, ?float $yaw = null, ?float $pitch = null): ClientConnection
+	function teleport(Point3D $pos, ?float $yaw = null, ?float $pitch = null, int $deadline = 3): ClientConnection
 	{
 		$this->pos = $pos;
 		$this->chunk_x = floor($pos->x / 16);
@@ -487,7 +488,7 @@ class ClientConnection extends Connection implements ServerCommandSender
 		if($this->protocol_version > 47)
 		{
 			$this->writeVarInt($this->tpidCounter->next());
-			$this->tp_confirm_deadline = microtime(true) + 3;
+			$this->tp_confirm_deadline = microtime(true) + $deadline;
 		}
 		$this->send();
 		return $this;
