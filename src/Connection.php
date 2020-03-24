@@ -553,7 +553,7 @@ class Connection
 			$start = microtime(true);
 			if($raw)
 			{
-				$w = fwrite($this->stream, $this->write_buffer);
+				$w = @fwrite($this->stream, $this->write_buffer);
 			}
 			else
 			{
@@ -573,16 +573,16 @@ class Connection
 						$compressed = zlib_encode($this->write_buffer, ZLIB_ENCODING_DEFLATE, 6);
 						$compressed_length = strlen($compressed);
 						$length_varint = self::varInt($length);
-						$w = fwrite($this->stream, self::varInt($compressed_length + strlen($length_varint)).$length_varint.$compressed);
+						$w = @fwrite($this->stream, self::varInt($compressed_length + strlen($length_varint)).$length_varint.$compressed);
 					}
 					else
 					{
-						$w = fwrite($this->stream, self::varInt($length + 1)."\x00".$this->write_buffer);
+						$w = @fwrite($this->stream, self::varInt($length + 1)."\x00".$this->write_buffer);
 					}
 				}
 				else
 				{
-					$w = fwrite($this->stream, self::varInt($length).$this->write_buffer);
+					$w = @fwrite($this->stream, self::varInt($length).$this->write_buffer);
 				}
 			}
 			stream_set_blocking($this->stream, false);
