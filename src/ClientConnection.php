@@ -281,6 +281,7 @@ class ClientConnection extends Connection implements ServerCommandSender
 				}
 				$this->writeChat(ChatComponent::cast($reason));
 				$this->send();
+				@fflush($this->stream);
 			}
 			catch(IOException $ignored)
 			{
