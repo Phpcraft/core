@@ -550,6 +550,7 @@ class Connection
 				throw new IOException("Can't send to connection that's not open");
 			}
 			stream_set_blocking($this->stream, true);
+			$start = microtime(true);
 			if($raw)
 			{
 				$w = fwrite($this->stream, $this->write_buffer);
@@ -586,7 +587,7 @@ class Connection
 			}
 			stream_set_blocking($this->stream, false);
 			$this->write_buffer = "";
-			if(!$w)
+			if(!$w || (microtime(true) - $start) >= 3)
 			{
 				$this->close();
 			}
