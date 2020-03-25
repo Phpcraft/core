@@ -337,7 +337,7 @@ class Chunk
 		}
 		else
 		{
-			$con->writeShort($this->sections_bit_mask);
+			$con->writeUnsignedShort($this->sections_bit_mask);
 		}
 		if($con->protocol_version >= 472) // Heightmap
 		{
@@ -411,7 +411,7 @@ class Chunk
 				for($i = 0; $i < 4096; $i++)
 				{
 					$data->writeGMP($section->blocks[$i]->getCompatible(47)
-														->getId(47), 2, 16, false, GMP_LSW_FIRST | GMP_BIG_ENDIAN);
+														->getId(47), 2, 16, false, GMP_LSW_FIRST | GMP_LITTLE_ENDIAN);
 				}
 				$data->writeVarInt(16); // Bits of data per block: 4 for block light, 8 for block + sky light, 16 for both + biome.
 				$data->writeVarInt(8192); // Number of elements in block + sky light arrays
