@@ -4,7 +4,7 @@ use Asyncore\Condition;
 use Exception;
 use hellsh\UUID;
 use Phpcraft\
-{Command\ServerCommandSender, Enum\ChatPosition, Event\ServerTickEvent, Exception\IOException, Packet\KeepAliveRequestPacket, Packet\ServerboundPacketId, Permission\Group};
+{Command\ServerCommandSender, Enum\ChatPosition, Event\ServerTickEvent, Exception\IOException, Exception\NoConnectionException, Packet\KeepAliveRequestPacket, Packet\ServerboundPacketId, Permission\Group};
 use SplObjectStorage;
 /**
  * A basic Minecraft server.
@@ -363,6 +363,9 @@ class Server extends BareServer implements ServerCommandSender
 						$con->next_heartbeat = 0;
 						$con->disconnect_after = microtime(true) + 30;
 					}
+				}
+				catch(NoConnectionException $ignored)
+				{
 				}
 				catch(Exception $e)
 				{

@@ -6,7 +6,7 @@ use hellsh\UUID;
 use InvalidArgumentException;
 use LengthException;
 use Phpcraft\Exception\
-{IOException, MissingMetadataException};
+{IOException, MissingMetadataException, NoConnectionException};
 use Phpcraft\NBT\
 {ByteArrayTag, ByteTag, CompoundTag, DoubleTag, EndTag, FloatTag, IntArrayTag, IntTag, ListTag, LongArrayTag, LongTag, NBT, ShortTag, StringTag};
 use Phpcraft\Packet\PacketId;
@@ -538,7 +538,8 @@ class Connection
 	 * Sends the contents of the write buffer over the stream and clears the write buffer. Does nothing if the connection has no stream.
 	 *
 	 * @param boolean $raw When true, the write buffer is sent as-is, without length prefix or compression, which you probably don't want.
-	 * @throws IOException If the connection is not open.
+	 * @throws NoConnectionException if the stream is closed
+	 * @throws IOException if the packet is too big (LENIENCY_VANILLA)
 	 * @return Connection $this
 	 */
 	function send(bool $raw = false): Connection
@@ -547,7 +548,7 @@ class Connection
 		{
 			if(@feof($this->stream) !== false)
 			{
-				throw new IOException("Can't send to connection that's not open");
+				throw new NoConnectionException("Can't write to closed stream");
 			}
 			stream_set_blocking($this->stream, true);
 			$start = microtime(true);
