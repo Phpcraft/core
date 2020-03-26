@@ -31,6 +31,18 @@ $this->registerCommand("me", function(ServerCommandSender &$sender, GreedyString
 		 $client->writeVarInt($gamemode->gamemode);
 		 $client->send();
 	 }, "use /gamemode")
+	 ->registerCommand("noclipcreative", function(ClientConnection &$client)
+	 {
+		 $client->setGamemode(1, false);
+		 $client->startPacket("player_info");
+		 $client->writeVarInt(1);
+		 $client->writeVarInt(1);
+		 $client->writeUUID($client->uuid);
+		 $client->writeVarInt(3);
+		 $client->send();
+		 $client->instant_breaking = $client->can_fly = $client->flying = $client->invulnerable = true;
+		 $client->sendAbilities();
+	 }, "use /noclipcreative")
 	 ->registerCommand("abilities", function(ClientConnection &$client, $abilities)
 	 {
 		 $client->startPacket("clientbound_abilities");

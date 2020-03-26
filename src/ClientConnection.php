@@ -658,11 +658,14 @@ class ClientConnection extends Connection implements ServerCommandSender
 	 * Sets the client's gamemode and adjusts their abilities accordingly.
 	 *
 	 * @param int $gamemode
+	 * @param bool $abilities If false, abilities will not be touched.
 	 * @return ClientConnection $this
+	 * @throws Exception\NoConnectionException
 	 * @throws IOException
+	 * @since 0.5.14 Added $abilities parameter
 	 * @see Gamemode
 	 */
-	function setGamemode(int $gamemode): ClientConnection
+	function setGamemode(int $gamemode, bool $abilities = true): ClientConnection
 	{
 		if(!Gamemode::validateValue($gamemode))
 		{
@@ -673,8 +676,11 @@ class ClientConnection extends Connection implements ServerCommandSender
 		$this->writeByte(3);
 		$this->writeFloat($gamemode);
 		$this->send();
-		$this->setAbilitiesFromGamemode($gamemode)
-			 ->sendAbilities();
+		if($abilities)
+		{
+			$this->setAbilitiesFromGamemode($gamemode)
+				 ->sendAbilities();
+		}
 		return $this;
 	}
 
