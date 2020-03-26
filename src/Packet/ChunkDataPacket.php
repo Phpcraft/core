@@ -1,6 +1,5 @@
 <?php
 namespace Phpcraft\Packet;
-use GMP;
 use Phpcraft\
 {Connection, Exception\IOException, World\Chunk, World\ChunkSection, World\World};
 /**
