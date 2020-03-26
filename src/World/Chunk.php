@@ -200,7 +200,7 @@ class Chunk
 		}
 		else
 		{
-			$sections_bit_mask = $con->readShort();
+			$sections_bit_mask = $con->readUnsignedShort();
 		}
 		if($con->protocol_version >= 472)
 		{
@@ -286,7 +286,7 @@ class Chunk
 			{
 				for($j = 0; $j < 4096; $j++)
 				{
-					$section->blocks[$j] = BlockState::getById(gmp_intval($con->readGMP(2, 16, false, GMP_LSW_FIRST | GMP_BIG_ENDIAN)), $con->protocol_version);
+					$section->blocks[$j] = BlockState::getById(gmp_intval($con->readGMP(2, 16, false, GMP_LSW_FIRST | GMP_LITTLE_ENDIAN)), $con->protocol_version);
 				}
 				$bits_of_data_per_block = $con->readVarInt(); // Bits of data per block: 4 for block light, 8 for block + sky light, 16 for both + biome.
 				for($j = $con->readVarInt(); $j > 0; $j--)
