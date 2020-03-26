@@ -14,7 +14,7 @@ var searchData=
   ['setabilitiesfromgamemode_1187',['setAbilitiesFromGamemode',['../classPhpcraft_1_1ClientConnection.html#a54290351f3b8320999b30f30bf3b158d',1,'Phpcraft::ClientConnection']]],
   ['setdisplayname_1188',['setDisplayName',['../classPhpcraft_1_1Slot.html#a80820150a2fe552dde6c1a30a74a7abd',1,'Phpcraft::Slot']]],
   ['setfile_1189',['setFile',['../classPhpcraft_1_1Configuration.html#afcbdb1061ac08f7a293728fa5065955d',1,'Phpcraft::Configuration']]],
-  ['setgamemode_1190',['setGamemode',['../classPhpcraft_1_1ClientConnection.html#ab83bc7aa368b731af94813d74523886f',1,'Phpcraft::ClientConnection']]],
+  ['setgamemode_1190',['setGamemode',['../classPhpcraft_1_1ClientConnection.html#a7f8f8fb1c2749bccc4a5de4553c4af06',1,'Phpcraft::ClientConnection']]],
   ['setgroup_1191',['setGroup',['../classPhpcraft_1_1ClientConfiguration.html#a059365b21fdc1e69c14b798365df0151',1,'Phpcraft::ClientConfiguration']]],
   ['setgroups_1192',['setGroups',['../classPhpcraft_1_1Server.html#a18a0b75bafa22447abed615ad5c297c5',1,'Phpcraft::Server']]],
   ['setinputprefix_1193',['setInputPrefix',['../classPhpcraft_1_1FancyUserInterface.html#a5b4bce4c7bac96006b8c702616558ce8',1,'Phpcraft::FancyUserInterface']]],

@@ -138,8 +138,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a9ed0586a5ca0d6898b7a547739296025"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa69108566360e397f65fb9033de94334"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#aa69108566360e397f65fb9033de94334">hasPermission</a> (string $permission)</td></tr>
 <tr class="separator:aa69108566360e397f65fb9033de94334"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab83bc7aa368b731af94813d74523886f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#ab83bc7aa368b731af94813d74523886f">setGamemode</a> (int $gamemode)</td></tr>
-<tr class="separator:ab83bc7aa368b731af94813d74523886f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7f8f8fb1c2749bccc4a5de4553c4af06"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#a7f8f8fb1c2749bccc4a5de4553c4af06">setGamemode</a> (int $gamemode, bool $abilities=true)</td></tr>
+<tr class="separator:a7f8f8fb1c2749bccc4a5de4553c4af06"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a33e24346731d452a1a83fc3e2d8e63db"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#a33e24346731d452a1a83fc3e2d8e63db">sendAbilities</a> ()</td></tr>
 <tr class="separator:a33e24346731d452a1a83fc3e2d8e63db"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a54290351f3b8320999b30f30bf3b158d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ClientConnection.html#a54290351f3b8320999b30f30bf3b158d">setAbilitiesFromGamemode</a> (int $gamemode)</td></tr>
@@ -1021,12 +1021,12 @@ Additional Inherited Members</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="classPhpcraft_1_1ClientConnection.html">ClientConnection</a> $this </dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classPhpcraft_1_1ClientConnection.html#a33e24346731d452a1a83fc3e2d8e63db">ClientConnection::sendAbilities</a> </dd>
 <dd>
-<a class="el" href="classPhpcraft_1_1ClientConnection.html#ab83bc7aa368b731af94813d74523886f">ClientConnection::setGamemode</a> </dd></dl>
+<a class="el" href="classPhpcraft_1_1ClientConnection.html#a7f8f8fb1c2749bccc4a5de4553c4af06">ClientConnection::setGamemode</a> </dd></dl>
 
 </div>
 </div>
-<a id="ab83bc7aa368b731af94813d74523886f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab83bc7aa368b731af94813d74523886f">&#9670;&nbsp;</a></span>setGamemode()</h2>
+<a id="a7f8f8fb1c2749bccc4a5de4553c4af06"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7f8f8fb1c2749bccc4a5de4553c4af06">&#9670;&nbsp;</a></span>setGamemode()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1035,8 +1035,18 @@ Additional Inherited Members</h2></td></tr>
           <td class="memname">Phpcraft\ClientConnection::setGamemode </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>$gamemode</em></td><td>)</td>
+          <td class="paramname"><em>$gamemode</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>$abilities</em> = <code>true</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1044,17 +1054,17 @@ Additional Inherited Members</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramtype">int</td><td class="paramname">$gamemode</td><td></td></tr>
+    <tr><td class="paramtype">bool</td><td class="paramname">$abilities</td><td>If false, abilities will not be touched. </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="classPhpcraft_1_1ClientConnection.html">ClientConnection</a> $this </dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">IOException</td><td></td></tr>
+    <tr><td class="paramname"><a class="el" href="namespacePhpcraft_1_1Exception.html">Exception</a></td><td></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section see"><dt>See also</dt><dd>Gamemode </dd></dl>
 
 </div>
 </div>
@@ -1438,7 +1448,7 @@ ServerFlyChangeEvent </dd></dl>
 </div><div class="memdoc">
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classPhpcraft_1_1ClientConnection.html#a33e24346731d452a1a83fc3e2d8e63db">ClientConnection::sendAbilities</a> </dd>
 <dd>
-<a class="el" href="classPhpcraft_1_1ClientConnection.html#ab83bc7aa368b731af94813d74523886f">ClientConnection::setGamemode</a> </dd></dl>
+<a class="el" href="classPhpcraft_1_1ClientConnection.html#a7f8f8fb1c2749bccc4a5de4553c4af06">ClientConnection::setGamemode</a> </dd></dl>
 
 </div>
 </div>
