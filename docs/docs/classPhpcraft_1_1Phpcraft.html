@@ -109,6 +109,10 @@ Static Public Member Functions</h2></td></tr>
 <tr class="separator:a532887b8342493dc6839fdb272f8d92e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a11fab2d2d4e08c8e14f2642530d94f80"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Phpcraft.html#a11fab2d2d4e08c8e14f2642530d94f80">colorDiff</a> (array $rgb1, array $rgb2)</td></tr>
 <tr class="separator:a11fab2d2d4e08c8e14f2642530d94f80"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0d5eb4e12e34005d61544998fefb27ca"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Phpcraft.html#a0d5eb4e12e34005d61544998fefb27ca">rgbToHex</a> (array $rgb)</td></tr>
+<tr class="separator:a0d5eb4e12e34005d61544998fefb27ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa6edc40bec10bb79cab94aa4f8c685f4"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Phpcraft.html#aa6edc40bec10bb79cab94aa4f8c685f4">rgbToInt</a> (array $rgb)</td></tr>
+<tr class="separator:aa6edc40bec10bb79cab94aa4f8c685f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa1d3fc7f04e2cbc09b6aecf824444c6d"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Phpcraft.html#aa1d3fc7f04e2cbc09b6aecf824444c6d">recursivelyDelete</a> (string $path)</td></tr>
 <tr class="separator:aa1d3fc7f04e2cbc09b6aecf824444c6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -680,6 +684,76 @@ getCachableResource </dd></dl>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>string The resolved address, e.g. localhost:25565 </dd></dl>
+
+</div>
+</div>
+<a id="a0d5eb4e12e34005d61544998fefb27ca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0d5eb4e12e34005d61544998fefb27ca">&#9670;&nbsp;</a></span>rgbToHex()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static Phpcraft\Phpcraft::rgbToHex </td>
+          <td>(</td>
+          <td class="paramtype">array&#160;</td>
+          <td class="paramname"><em>$rgb</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Converts an RGB array (3 integers) into a hexadecimal string, e.g. ff00ff.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">array{int,int,int}</td><td>$rgb </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>string </dd></dl>
+<dl class="section since"><dt>Since</dt><dd>0.5.18 </dd></dl>
+
+</div>
+</div>
+<a id="aa6edc40bec10bb79cab94aa4f8c685f4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa6edc40bec10bb79cab94aa4f8c685f4">&#9670;&nbsp;</a></span>rgbToInt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static Phpcraft\Phpcraft::rgbToInt </td>
+          <td>(</td>
+          <td class="paramtype">array&#160;</td>
+          <td class="paramname"><em>$rgb</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Converts an RGB array (3 integers) into a decimal number for use in <a class="el" href="namespacePhpcraft_1_1NBT.html">NBT</a> tags.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">array{int,int,int}</td><td>$rgb </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>int </dd></dl>
+<dl class="section since"><dt>Since</dt><dd>0.5.18 </dd></dl>
 
 </div>
 </div>

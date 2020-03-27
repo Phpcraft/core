@@ -39,7 +39,9 @@ var searchData=
   ['resolve_620',['resolve',['../classPhpcraft_1_1Phpcraft.html#aa55d0acee3de518a9075d433d396c344',1,'Phpcraft::Phpcraft']]],
   ['respawnpacket_621',['RespawnPacket',['../classPhpcraft_1_1Packet_1_1RespawnPacket.html',1,'Phpcraft::Packet']]],
   ['rewind_622',['rewind',['../classPhpcraft_1_1Configuration.html#aca1478f7934ed0d462b17bf3d42500da',1,'Phpcraft\Configuration\rewind()'],['../classPhpcraft_1_1NBT_1_1AbstractListTag.html#a82778c8d8d92de7d1819cbae18aea164',1,'Phpcraft\NBT\AbstractListTag\rewind()'],['../classPhpcraft_1_1NBT_1_1CompoundTag.html#af6e5006b6bc27f193b0219696d4e0beb',1,'Phpcraft\NBT\CompoundTag\rewind()']]],
-  ['rootnode_623',['RootNode',['../classPhpcraft_1_1Packet_1_1DeclareCommands_1_1RootNode.html',1,'Phpcraft::Packet::DeclareCommands']]],
-  ['rotate_624',['rotate',['../classPhpcraft_1_1ClientConnection.html#abf2cdf1ffca54c2d675e502226d204c0',1,'Phpcraft::ClientConnection']]],
-  ['round_625',['round',['../classPhpcraft_1_1Point3D.html#acb372666519b1cf22b3ee03c27bc0f36',1,'Phpcraft::Point3D']]]
+  ['rgbtohex_623',['rgbToHex',['../classPhpcraft_1_1Phpcraft.html#a0d5eb4e12e34005d61544998fefb27ca',1,'Phpcraft::Phpcraft']]],
+  ['rgbtoint_624',['rgbToInt',['../classPhpcraft_1_1Phpcraft.html#aa6edc40bec10bb79cab94aa4f8c685f4',1,'Phpcraft::Phpcraft']]],
+  ['rootnode_625',['RootNode',['../classPhpcraft_1_1Packet_1_1DeclareCommands_1_1RootNode.html',1,'Phpcraft::Packet::DeclareCommands']]],
+  ['rotate_626',['rotate',['../classPhpcraft_1_1ClientConnection.html#abf2cdf1ffca54c2d675e502226d204c0',1,'Phpcraft::ClientConnection']]],
+  ['round_627',['round',['../classPhpcraft_1_1Point3D.html#acb372666519b1cf22b3ee03c27bc0f36',1,'Phpcraft::Point3D']]]
 ];
