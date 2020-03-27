@@ -100,7 +100,10 @@ class SpawnMobPacket extends Packet
 		$packet->yaw = $con->readAngle();
 		$packet->pitch = $con->readAngle();
 		$con->ignoreBytes(7); // Head Pitch + Velocity
-		$packet->metadata->read($con);
+		if($con->protocol_version <= 498)
+		{
+			$packet->metadata->read($con);
+		}
 		return $packet;
 	}
 
@@ -142,8 +145,15 @@ class SpawnMobPacket extends Packet
 		$con->writeShort(0); // Velocity X
 		$con->writeShort(0); // Velocity Y
 		$con->writeShort(0); // Velocity Z
-		$this->metadata->write($con);
+		if($con->protocol_version <= 498)
+		{
+			$this->metadata->write($con);
+		}
 		$con->send();
+		if($con->protocol_version > 498)
+		{
+			(new EntityMetadataPacket($this->eid, $this->metadata))->send($con);
+		}
 	}
 
 	function __toString()

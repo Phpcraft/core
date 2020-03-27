@@ -3,7 +3,7 @@ namespace Phpcraft\Entity;
 use GMP;
 use Phpcraft\
 {Connection, Exception\IOException};
-class Guardian extends Monster
+class Guardian extends Insentient
 {
 	/**
 	 * The ID of the entity being targeted by the guardian. 0 = no entity.
@@ -23,7 +23,7 @@ class Guardian extends Monster
 		parent::write($con);
 		if($this->target_eid !== null)
 		{
-			self::writeInt($con, ($con->protocol_version >= 57 ? ($con->protocol_version >= 472 ? 15 : 13) : 17), $this->target_eid);
+			self::writeInt($con, parent::getOffset($con->protocol_version) + 1, $this->target_eid);
 		}
 		if(get_called_class() == __CLASS__)
 		{

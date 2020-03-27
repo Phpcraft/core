@@ -2,7 +2,7 @@
 namespace Phpcraft\Entity;
 use Phpcraft\
 {Connection, Exception\IOException};
-class Creeper extends Monster
+class Creeper extends Insentient
 {
 	/**
 	 * @var bool|null $charged
@@ -20,7 +20,7 @@ class Creeper extends Monster
 		parent::write($con);
 		if($this->charged !== null)
 		{
-			self::writeBoolean($con, ($con->protocol_version >= 57 ? ($con->protocol_version >= 472 ? 15 : 13) : 17), $this->charged);
+			self::writeBoolean($con, parent::getOffset($con->protocol_version) + 1, $this->charged);
 		}
 		if(get_called_class() == __CLASS__)
 		{

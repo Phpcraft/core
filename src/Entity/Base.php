@@ -5,31 +5,31 @@ use Phpcraft\
 class Base extends Metadata
 {
 	/**
-	 * @var boolean $burning
+	 * @var boolean|null $burning
 	 */
 	public $burning = null;
 	/**
-	 * @var boolean $crouching
+	 * @var boolean|null $crouching
 	 */
 	public $crouching = null;
 	/**
-	 * @var boolean $sprinting
+	 * @var boolean|null $sprinting
 	 */
 	public $sprinting = null;
 	/**
-	 * @var boolean $swimming
+	 * @var boolean|null $swimming
 	 */
 	public $swimming = null;
 	/**
-	 * @var boolean $invisible
+	 * @var boolean|null $invisible
 	 */
 	public $invisible = null;
 	/**
-	 * @var boolean $glowing
+	 * @var boolean|null $glowing
 	 */
 	public $glowing = null;
 	/**
-	 * @var boolean $elytraing
+	 * @var boolean|null $elytraing
 	 */
 	public $elytraing = null;
 	/**
@@ -39,9 +39,14 @@ class Base extends Metadata
 	 */
 	public $custom_name = null;
 	/**
-	 * @var boolean $silent
+	 * @var boolean|null $silent
 	 */
 	public $silent = null;
+
+	static function getOffset(int $protocol_version): int
+	{
+		return $protocol_version >= 57 ? 7 : 6;
+	}
 
 	/**
 	 * Writes non-null metadata values to the Connection's write buffer.

@@ -5,7 +5,7 @@ use Phpcraft\
 class Living extends Base
 {
 	/**
-	 * @var float $health
+	 * @var float|null $health
 	 */
 	public $health = null;
 
@@ -20,7 +20,7 @@ class Living extends Base
 		parent::write($con);
 		if($this->health !== null)
 		{
-			self::writeFloat($con, $con->protocol_version >= 57 ? 7 : 6, $this->health);
+			self::writeFloat($con, parent::getOffset($con->protocol_version), $this->health);
 		}
 		if(get_called_class() == __CLASS__)
 		{

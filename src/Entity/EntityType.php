@@ -126,8 +126,25 @@ class EntityType extends Identifier
 	{
 		if($protocol_version >= $this->since_protocol_version)
 		{
+			if($protocol_version >= 472)
+			{
+				foreach([
+					565 => "1.15",
+					472 => "1.14"
+				] as $pv => $v)
+				{
+					if($protocol_version < $pv)
+					{
+						continue;
+					}
+					if(!array_key_exists($v, self::$json_cache))
+					{
+						self::$json_cache[$v] = json_decode(file_get_contents(Phpcraft::DATA_DIR."/mcdata/{$v}/registries.json"), true)["minecraft:entity_type"]["entries"];
+					}
+					return @self::$json_cache[$v]["minecraft:".$this->name]["protocol_id"];
+				}
+			}
 			foreach([
-				477 => "1.14",
 				393 => "1.13",
 				0 => "1.12"
 			] as $pv => $v)
