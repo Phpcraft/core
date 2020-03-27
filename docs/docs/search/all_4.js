@@ -53,7 +53,6 @@ var searchData=
   ['count_308',['count',['../classPhpcraft_1_1Configuration.html#aa9c43295a819143a930dfbde75683ccd',1,'Phpcraft\Configuration\count()'],['../classPhpcraft_1_1NBT_1_1AbstractListTag.html#a1260ca1d9580294e1b9c6e9cfff73d24',1,'Phpcraft\NBT\AbstractListTag\count()'],['../classPhpcraft_1_1NBT_1_1CompoundTag.html#af77175ee86dd88541252d1ddd31cd19e',1,'Phpcraft\NBT\CompoundTag\count()']]],
   ['counter_309',['Counter',['../classPhpcraft_1_1Counter.html',1,'Phpcraft']]],
   ['creative_310',['CREATIVE',['../classPhpcraft_1_1Enum_1_1Gamemode.html#a6f03d6f49f9d7242ffb016676a132d04',1,'Phpcraft::Enum::Gamemode']]],
-  ['creature_311',['Creature',['../classPhpcraft_1_1Entity_1_1Creature.html',1,'Phpcraft::Entity']]],
-  ['creeper_312',['Creeper',['../classPhpcraft_1_1Entity_1_1Creeper.html',1,'Phpcraft::Entity']]],
-  ['current_313',['current',['../classPhpcraft_1_1Configuration.html#a10b4937ed9cc32141d1496b79e5739ba',1,'Phpcraft\Configuration\current()'],['../classPhpcraft_1_1Counter.html#ad57037588e5fc769fa9a05de726029bd',1,'Phpcraft\Counter\current()'],['../classPhpcraft_1_1NBT_1_1AbstractListTag.html#ac8d4b70c0b8feb31e8cc0498dd205f0b',1,'Phpcraft\NBT\AbstractListTag\current()'],['../classPhpcraft_1_1NBT_1_1CompoundTag.html#aaab5e2466f381c636c9c7551353cea34',1,'Phpcraft\NBT\CompoundTag\current()']]]
+  ['creeper_311',['Creeper',['../classPhpcraft_1_1Entity_1_1Creeper.html',1,'Phpcraft::Entity']]],
+  ['current_312',['current',['../classPhpcraft_1_1Configuration.html#a10b4937ed9cc32141d1496b79e5739ba',1,'Phpcraft\Configuration\current()'],['../classPhpcraft_1_1Counter.html#ad57037588e5fc769fa9a05de726029bd',1,'Phpcraft\Counter\current()'],['../classPhpcraft_1_1NBT_1_1AbstractListTag.html#ac8d4b70c0b8feb31e8cc0498dd205f0b',1,'Phpcraft\NBT\AbstractListTag\current()'],['../classPhpcraft_1_1NBT_1_1CompoundTag.html#aaab5e2466f381c636c9c7551353cea34',1,'Phpcraft\NBT\CompoundTag\current()']]]
 ];

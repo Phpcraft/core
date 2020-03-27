@@ -1,9 +1,7 @@
 <map id="Phpcraft\Entity\Guardian" name="Phpcraft\Entity\Guardian">
-<area shape="rect" id="node1" title=" " alt="" coords="8,453,189,480"/>
-<area shape="rect" id="node2" href="$classPhpcraft_1_1Entity_1_1Monster.html" title=" " alt="" coords="11,379,186,405"/>
-<area shape="rect" id="node3" href="$classPhpcraft_1_1Entity_1_1Creature.html" title=" " alt="" coords="9,304,188,331"/>
-<area shape="rect" id="node4" href="$classPhpcraft_1_1Entity_1_1Insentient.html" title=" " alt="" coords="5,229,192,256"/>
-<area shape="rect" id="node5" href="$classPhpcraft_1_1Entity_1_1Living.html" title=" " alt="" coords="18,155,179,181"/>
-<area shape="rect" id="node6" href="$classPhpcraft_1_1Entity_1_1Base.html" title=" " alt="" coords="21,80,176,107"/>
-<area shape="rect" id="node7" href="$classPhpcraft_1_1Entity_1_1Metadata.html" title=" " alt="" coords="7,5,190,32"/>
+<area shape="rect" id="node1" title=" " alt="" coords="8,304,189,331"/>
+<area shape="rect" id="node2" href="$classPhpcraft_1_1Entity_1_1Insentient.html" title=" " alt="" coords="5,229,192,256"/>
+<area shape="rect" id="node3" href="$classPhpcraft_1_1Entity_1_1Living.html" title=" " alt="" coords="18,155,179,181"/>
+<area shape="rect" id="node4" href="$classPhpcraft_1_1Entity_1_1Base.html" title=" " alt="" coords="21,80,176,107"/>
+<area shape="rect" id="node5" href="$classPhpcraft_1_1Entity_1_1Metadata.html" title=" " alt="" coords="7,5,190,32"/>
 </map>

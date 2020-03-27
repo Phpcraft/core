@@ -12,7 +12,6 @@ var searchData=
   ['minecraftsupported_514',['minecraftSupported',['../classPhpcraft_1_1Versions.html#a2178e98d67933760999588a28a2ed9f5',1,'Phpcraft::Versions']]],
   ['minecrafttoprotocol_515',['minecraftToProtocol',['../classPhpcraft_1_1Versions.html#a0d0c85c2da51d46138bf75b04c7cb1bd',1,'Phpcraft::Versions']]],
   ['missingmetadataexception_516',['MissingMetadataException',['../classPhpcraft_1_1Exception_1_1MissingMetadataException.html',1,'Phpcraft::Exception']]],
-  ['monster_517',['Monster',['../classPhpcraft_1_1Entity_1_1Monster.html',1,'Phpcraft::Entity']]],
-  ['msg_5fregex_518',['MSG_REGEX',['../classPhpcraft_1_1LanInterface.html#a6ec2ae43b2668c5d018bbeedacaec101',1,'Phpcraft::LanInterface']]],
-  ['multiply_519',['multiply',['../classPhpcraft_1_1Point3D.html#ab25145bb95e593be74ebb269566e7129',1,'Phpcraft::Point3D']]]
+  ['msg_5fregex_517',['MSG_REGEX',['../classPhpcraft_1_1LanInterface.html#a6ec2ae43b2668c5d018bbeedacaec101',1,'Phpcraft::LanInterface']]],
+  ['multiply_518',['multiply',['../classPhpcraft_1_1Point3D.html#ab25145bb95e593be74ebb269566e7129',1,'Phpcraft::Point3D']]]
 ];

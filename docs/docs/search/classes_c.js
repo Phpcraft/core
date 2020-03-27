@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['nbt_865',['NBT',['../classPhpcraft_1_1NBT_1_1NBT.html',1,'Phpcraft::NBT']]],
-  ['noconnectionexception_866',['NoConnectionException',['../classPhpcraft_1_1Exception_1_1NoConnectionException.html',1,'Phpcraft::Exception']]],
-  ['node_867',['Node',['../classPhpcraft_1_1Packet_1_1DeclareCommands_1_1Node.html',1,'Phpcraft::Packet::DeclareCommands']]]
+  ['nbt_862',['NBT',['../classPhpcraft_1_1NBT_1_1NBT.html',1,'Phpcraft::NBT']]],
+  ['noconnectionexception_863',['NoConnectionException',['../classPhpcraft_1_1Exception_1_1NoConnectionException.html',1,'Phpcraft::Exception']]],
+  ['node_864',['Node',['../classPhpcraft_1_1Packet_1_1DeclareCommands_1_1Node.html',1,'Phpcraft::Packet::DeclareCommands']]]
 ];
