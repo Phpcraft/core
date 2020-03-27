@@ -16,11 +16,11 @@ You'll need PHP (CLI), Composer, and Git.
 
 ## Table of Contents
 
-- [Using Phpcraft as a library](#using-phpcraft-as-a-library)
+- [Using Phpcraft](#using-phpcraft)
 - [Projects using Phpcraft](#projects-using-phpcraft)
 - [Thanks](#thanks)
 
-## Using Phpcraft as a library
+## Using Phpcraft
 
 Thanks to Composer, using Phpcraft as a library is really easy. Just head into your project folder and run:
 
