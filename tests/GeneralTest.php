@@ -1,7 +1,7 @@
 <?php /** @noinspection PhpUnused PhpUnhandledExceptionInspection */
 require_once __DIR__."/../vendor/autoload.php";
 use Phpcraft\
-{ChatComponent, Connection, Counter, Entity\Base, Entity\Living, Item, Server, Versions, World\BlockState};
+{ChatComponent, Connection, Counter, Entity\Base, Entity\Living, Item, Phpcraft, Server, Versions, World\BlockState};
 class GeneralTest
 {
 	function testVersions()
@@ -112,5 +112,19 @@ class GeneralTest
 								 ->hasPermission("use /something"));
 		Nose::assertTrue($server->getGroup("admin")
 								->hasPermission("use /something"));
+	}
+
+	function testColors()
+	{
+		Nose::assertEquals(Phpcraft::rgbToHex([
+			255,
+			0,
+			255
+		]), "ff00ff");
+		Nose::assertEquals(Phpcraft::rgbToInt([
+			255,
+			0,
+			255
+		]), 16711935);
 	}
 }

@@ -431,6 +431,30 @@ abstract class Phpcraft
 	}
 
 	/**
+	 * Converts an RGB array (3 integers) into a hexadecimal string, e.g. ff00ff.
+	 *
+	 * @param array{int,int,int} $rgb
+	 * @return string
+	 * @since 0.5.18
+	 */
+	static function rgbToHex(array $rgb): string
+	{
+		return str_pad(dechex($rgb[0]), 2, "0", STR_PAD_LEFT).str_pad(dechex($rgb[1]), 2, "0", STR_PAD_LEFT).str_pad(dechex($rgb[2]), 2, "0", STR_PAD_LEFT);
+	}
+
+	/**
+	 * Converts an RGB array (3 integers) into a decimal number for use in NBT tags.
+	 *
+	 * @param array{int,int,int} $rgb
+	 * @return int
+	 * @since 0.5.18
+	 */
+	static function rgbToInt(array $rgb): int
+	{
+		return hexdec(self::rgbToHex($rgb));
+	}
+
+	/**
 	 * Recursively deletes a folder.
 	 *
 	 * @param string $path
