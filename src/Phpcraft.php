@@ -239,22 +239,16 @@ abstract class Phpcraft
 	 */
 	static function resolve(string $server): string
 	{
-		$arr = explode(":", $server);
-		if(count($arr) > 1)
+		if(strpos($server, ":") !== false)
 		{
-			return self::resolveName($arr[0], false).":".$arr[1];
+			return $server;
 		}
-		return self::resolveName($server, true);
-	}
-
-	private static function resolveName(string $server, bool $withPort = true): string
-	{
 		if(ip2long($server) === false && $res = @dns_get_record("_minecraft._tcp.{$server}", DNS_SRV))
 		{
 			$i = array_rand($res);
-			return self::resolveName($res[$i]["target"], false).($withPort ? ":".$res[$i]["port"] : "");
+			return $res[$i]["target"].":".$res[$i]["port"];
 		}
-		return $server.($withPort ? ":25565" : "");
+		return $server.":25565";
 	}
 
 	static function binaryStringToBin(string $str): string
