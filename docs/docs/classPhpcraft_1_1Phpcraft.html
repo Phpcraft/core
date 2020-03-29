@@ -103,8 +103,8 @@ Static Public Member Functions</h2></td></tr>
 <tr class="separator:a81acb8558a1a03521ee54679e066a7bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2fb1a5167c08f40b7597f68964c8d04b"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Phpcraft.html#a2fb1a5167c08f40b7597f68964c8d04b">chatToText</a> ($chat, int $format=<a class="el" href="classPhpcraft_1_1ChatComponent.html#a3dfda40b8d6823890467a7ac80c069f7">ChatComponent::FORMAT_NONE</a>, ?array $translations=null)</td></tr>
 <tr class="separator:a2fb1a5167c08f40b7597f68964c8d04b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa9d4ba8e33f9f81a364cff86e1800c5a"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Phpcraft.html#aa9d4ba8e33f9f81a364cff86e1800c5a">getServerStatus</a> (string $server_name, int $server_port=25565, float $timeout=3.000, int $method=Phpcraft::METHOD_ALL)</td></tr>
-<tr class="separator:aa9d4ba8e33f9f81a364cff86e1800c5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2db17cf9ab8789bb47043d6fdaf68b37"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Phpcraft.html#a2db17cf9ab8789bb47043d6fdaf68b37">getServerStatus</a> (string $hostname, int $port=25565, float $timeout=3.000, int $method=<a class="el" href="classPhpcraft_1_1ServerConnection.html#a083e78f5bc3bd890f99f3ea178e38620">ServerConnection::METHOD_ALL</a>)</td></tr>
+<tr class="separator:a2db17cf9ab8789bb47043d6fdaf68b37"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a532887b8342493dc6839fdb272f8d92e"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Phpcraft.html#a532887b8342493dc6839fdb272f8d92e">textToChat</a> (string $text, bool $allow_amp=false)</td></tr>
 <tr class="separator:a532887b8342493dc6839fdb272f8d92e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a11fab2d2d4e08c8e14f2642530d94f80"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Phpcraft.html#a11fab2d2d4e08c8e14f2642530d94f80">colorDiff</a> (array $rgb1, array $rgb2)</td></tr>
@@ -251,7 +251,7 @@ Static Public Attributes</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>string </dd></dl>
-<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000007">Deprecated:</a></b></dt><dd>Use <a class="el" href="classPhpcraft_1_1ChatComponent.html#a6176e33b97837cef137dbe45e93f364f">ChatComponent::cast</a>($chat)-&gt;toString($format), instead. </dd></dl>
+<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000011">Deprecated:</a></b></dt><dd>Use <a class="el" href="classPhpcraft_1_1ChatComponent.html#a6176e33b97837cef137dbe45e93f364f">ChatComponent::cast</a>($chat)-&gt;toString($format), instead. </dd></dl>
 
 </div>
 </div>
@@ -432,8 +432,8 @@ Phpcraft::saveProfiles() </dd></dl>
 
 </div>
 </div>
-<a id="aa9d4ba8e33f9f81a364cff86e1800c5a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa9d4ba8e33f9f81a364cff86e1800c5a">&#9670;&nbsp;</a></span>getServerStatus()</h2>
+<a id="a2db17cf9ab8789bb47043d6fdaf68b37"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2db17cf9ab8789bb47043d6fdaf68b37">&#9670;&nbsp;</a></span>getServerStatus()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -445,13 +445,13 @@ Phpcraft::saveProfiles() </dd></dl>
           <td class="memname">static Phpcraft\Phpcraft::getServerStatus </td>
           <td>(</td>
           <td class="paramtype">string&#160;</td>
-          <td class="paramname"><em>$server_name</em>, </td>
+          <td class="paramname"><em>$hostname</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>$server_port</em> = <code>25565</code>, </td>
+          <td class="paramname"><em>$port</em> = <code>25565</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -463,7 +463,7 @@ Phpcraft::saveProfiles() </dd></dl>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>$method</em> = <code>Phpcraft::METHOD_ALL</code>&#160;</td>
+          <td class="paramname"><em>$method</em> = <code><a class="el" href="classPhpcraft_1_1ServerConnection.html#a083e78f5bc3bd890f99f3ea178e38620">ServerConnection::METHOD_ALL</a></code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -477,33 +477,12 @@ Phpcraft::saveProfiles() </dd></dl>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Returns the server list ping as multi-dimensional array with the addition of the "ping" value which is in seconds. In an error case, an empty array is returned. Here's an example: </p><pre>[
-  "version" =&gt; [
-    "name" =&gt; "1.12.2",
-    "protocol" =&gt; 340
-  ],
-  "players" =&gt; [
-    "online" =&gt; 1,
-    "max" =&gt; 20,
-    "sample" =&gt; [
-      [
-        "name" =&gt; "timmyRS",
-        "id" =&gt; "e0603b59-2edc-45f7-acc7-b0cccd6656e1"
-      ]
-    ]
-  ],
-  "description" =&gt; [
-    "text" =&gt; "A Minecraft Server"
-  ],
-  "favicon" =&gt; "data:image/png;base64,&amp;lt;data&amp;gt;",
-  "ping" =&gt; 0.068003177642822
-]</pre><p> Note that a server might not present all of these values, so always check with <code>isset</code> or <code>array_key_exists</code> first. <code>description</code> should always be a valid chat component.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype">string</td><td class="paramname">$server_name</td><td></td></tr>
-    <tr><td class="paramtype">int</td><td class="paramname">$server_port</td><td></td></tr>
-    <tr><td class="paramtype">float</td><td class="paramname">$timeout</td><td>The amount of seconds to wait for a response with each method. </td></tr>
-    <tr><td class="paramtype">int</td><td class="paramname">$method</td><td>The method(s) used to get the status. 2 = legacy list ping, 1 = modern list ping, 0 = both. </td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$hostname</td><td></td></tr>
+    <tr><td class="paramtype">int</td><td class="paramname">$port</td><td></td></tr>
+    <tr><td class="paramtype">float</td><td class="paramname">$timeout</td><td></td></tr>
+    <tr><td class="paramtype">int</td><td class="paramname">$method</td><td></td></tr>
   </table>
   </dd>
 </dl>
@@ -514,6 +493,7 @@ Phpcraft::saveProfiles() </dd></dl>
   </table>
   </dd>
 </dl>
+<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000012">Deprecated:</a></b></dt><dd>Use <a class="el" href="classPhpcraft_1_1ServerConnection.html#a58e0bfbdeb57683696382c655af23f5d">ServerConnection::getStatus</a>, instead. </dd></dl>
 
 </div>
 </div>
@@ -684,6 +664,7 @@ getCachableResource </dd></dl>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>string The resolved address, e.g. localhost:25565 </dd></dl>
+<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000010">Deprecated:</a></b></dt><dd>Use <a class="el" href="classPhpcraft_1_1ServerConnection.html#a5077de7a77a64639a34b80317edecc55">ServerConnection::resolveAddress</a> or even <a class="el" href="classPhpcraft_1_1ServerConnection.html#a87d4c38fc0535f0e800e930802d0ab28">ServerConnection::toAddress</a>. </dd></dl>
 
 </div>
 </div>
@@ -866,7 +847,7 @@ getCachableResource </dd></dl>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>array </dd></dl>
-<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000008">Deprecated:</a></b></dt><dd>Use <a class="el" href="classPhpcraft_1_1ChatComponent.html#ac6f894db026f12676d3b639acf47b8b6">ChatComponent::text</a>($text, $allow_amp)-&gt;toArray(), instead. </dd></dl>
+<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000013">Deprecated:</a></b></dt><dd>Use <a class="el" href="classPhpcraft_1_1ChatComponent.html#ac6f894db026f12676d3b639acf47b8b6">ChatComponent::text</a>($text, $allow_amp)-&gt;toArray(), instead. </dd></dl>
 
 </div>
 </div>
@@ -1043,7 +1024,7 @@ getCachableResource </dd></dl>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Modern list ping. Legacy if that fails. </p>
+<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000007">Deprecated:</a></b></dt><dd>Use <a class="el" href="classPhpcraft_1_1ServerConnection.html#a083e78f5bc3bd890f99f3ea178e38620">ServerConnection::METHOD_ALL</a>, instead. </dd></dl>
 
 </div>
 </div>
@@ -1058,6 +1039,7 @@ getCachableResource </dd></dl>
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000009">Deprecated:</a></b></dt><dd>Use <a class="el" href="classPhpcraft_1_1ServerConnection.html#adf0b1dcb7826a72350832e683f52f07e">ServerConnection::METHOD_LEGACY</a>, instead. </dd></dl>
 
 </div>
 </div>
@@ -1072,6 +1054,7 @@ getCachableResource </dd></dl>
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000008">Deprecated:</a></b></dt><dd>Use <a class="el" href="classPhpcraft_1_1ServerConnection.html#a051d2534f886caeec4451ba2f493a899">ServerConnection::METHOD_MODERN</a>, instead. </dd></dl>
 
 </div>
 </div>

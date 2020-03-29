@@ -67,6 +67,7 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="classPhpcraft_1_1ServerConnection-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -98,8 +99,8 @@ Collaboration diagram for Phpcraft\ServerConnection:</div>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a38521f035150bd4877d2dd74c233a162"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ServerConnection.html#a38521f035150bd4877d2dd74c233a162">__construct</a> ($stream, int $protocol_version)</td></tr>
 <tr class="separator:a38521f035150bd4877d2dd74c233a162"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a715fa437fb0161042ced88be985ade84"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ServerConnection.html#a715fa437fb0161042ced88be985ade84">sendHandshake</a> (string $server_name, int $server_port, int $next_state, array $join_specs=[])</td></tr>
-<tr class="separator:a715fa437fb0161042ced88be985ade84"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9caf35b91d1fd18bdd9b2b7b505578c1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ServerConnection.html#a9caf35b91d1fd18bdd9b2b7b505578c1">sendHandshake</a> (string $hostname, int $port, int $next_state, array $join_specs=[])</td></tr>
+<tr class="separator:a9caf35b91d1fd18bdd9b2b7b505578c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6a89da55a3dc6eb6d0cff83e7474f0a4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ServerConnection.html#a6a89da55a3dc6eb6d0cff83e7474f0a4">login</a> (<a class="el" href="classPhpcraft_1_1Account.html">Account</a> $account)</td></tr>
 <tr class="separator:a6a89da55a3dc6eb6d0cff83e7474f0a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a446ce0b8432847cd35942905b4dbdc83"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ServerConnection.html#a446ce0b8432847cd35942905b4dbdc83">startPacket</a> ($packet)</td></tr>
@@ -224,8 +225,30 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a71e8f4620ff451e580d3a72c3beb5a8b inherit pub_methods_classPhpcraft_1_1Connection"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#a71e8f4620ff451e580d3a72c3beb5a8b">ignoreBytes</a> (int $bytes)</td></tr>
 <tr class="separator:a71e8f4620ff451e580d3a72c3beb5a8b inherit pub_methods_classPhpcraft_1_1Connection"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a0f9e725d21cd8f55be0dd6c35e06247a"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ServerConnection.html#a0f9e725d21cd8f55be0dd6c35e06247a">connect</a> (string $hostname, int $port, ?int $protocol_version=null, ?int $handshake_next_state=null, float $timeout=3.000)</td></tr>
+<tr class="separator:a0f9e725d21cd8f55be0dd6c35e06247a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a87d4c38fc0535f0e800e930802d0ab28"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ServerConnection.html#a87d4c38fc0535f0e800e930802d0ab28">toAddress</a> (string $address, ?int $protocol_version=null, ?int $handshake_next_state=null, float $timeout=3.000)</td></tr>
+<tr class="separator:a87d4c38fc0535f0e800e930802d0ab28"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a10aa8b3b0468dd8c87547356058a19f8"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ServerConnection.html#a10aa8b3b0468dd8c87547356058a19f8">negotiateProtocolVersion</a> (string $hostname, int $port, float $timeout=3.000)</td></tr>
+<tr class="separator:a10aa8b3b0468dd8c87547356058a19f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5077de7a77a64639a34b80317edecc55"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ServerConnection.html#a5077de7a77a64639a34b80317edecc55">resolveAddress</a> (string $address)</td></tr>
+<tr class="separator:a5077de7a77a64639a34b80317edecc55"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a58e0bfbdeb57683696382c655af23f5d"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ServerConnection.html#a58e0bfbdeb57683696382c655af23f5d">getStatus</a> (string $hostname, int $port=25565, float $timeout=3.000, int $method=<a class="el" href="classPhpcraft_1_1ServerConnection.html#a083e78f5bc3bd890f99f3ea178e38620">ServerConnection::METHOD_ALL</a>)</td></tr>
+<tr class="separator:a58e0bfbdeb57683696382c655af23f5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_static_methods_classPhpcraft_1_1Connection"><td colspan="2" onclick="javascript:toggleInherit('pub_static_methods_classPhpcraft_1_1Connection')"><img src="closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="classPhpcraft_1_1Connection.html">Phpcraft\Connection</a></td></tr>
+<tr class="memitem:af2b764c00dea42bfc18f234dd61022a9 inherit pub_static_methods_classPhpcraft_1_1Connection"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#af2b764c00dea42bfc18f234dd61022a9">varInt</a> ($value)</td></tr>
+<tr class="separator:af2b764c00dea42bfc18f234dd61022a9 inherit pub_static_methods_classPhpcraft_1_1Connection"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
+<tr class="memitem:a083e78f5bc3bd890f99f3ea178e38620"><td class="memItemLeft" align="right" valign="top">const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ServerConnection.html#a083e78f5bc3bd890f99f3ea178e38620">METHOD_ALL</a> = 0</td></tr>
+<tr class="separator:a083e78f5bc3bd890f99f3ea178e38620"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a051d2534f886caeec4451ba2f493a899"><td class="memItemLeft" align="right" valign="top">const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ServerConnection.html#a051d2534f886caeec4451ba2f493a899">METHOD_MODERN</a> = 1</td></tr>
+<tr class="separator:a051d2534f886caeec4451ba2f493a899"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adf0b1dcb7826a72350832e683f52f07e"><td class="memItemLeft" align="right" valign="top">const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ServerConnection.html#adf0b1dcb7826a72350832e683f52f07e">METHOD_LEGACY</a> = 2</td></tr>
+<tr class="separator:adf0b1dcb7826a72350832e683f52f07e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a216291f96a3abe7b7e66edc73cf0acf5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ServerConnection.html#a216291f96a3abe7b7e66edc73cf0acf5">$username</a></td></tr>
 <tr class="separator:a216291f96a3abe7b7e66edc73cf0acf5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa283f767e9d5fda8204cad2bf0835164"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1ServerConnection.html#aa283f767e9d5fda8204cad2bf0835164">$uuid</a></td></tr>
@@ -268,9 +291,6 @@ Public Attributes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
-<tr class="inherit_header pub_static_methods_classPhpcraft_1_1Connection"><td colspan="2" onclick="javascript:toggleInherit('pub_static_methods_classPhpcraft_1_1Connection')"><img src="closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="classPhpcraft_1_1Connection.html">Phpcraft\Connection</a></td></tr>
-<tr class="memitem:af2b764c00dea42bfc18f234dd61022a9 inherit pub_static_methods_classPhpcraft_1_1Connection"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#af2b764c00dea42bfc18f234dd61022a9">varInt</a> ($value)</td></tr>
-<tr class="separator:af2b764c00dea42bfc18f234dd61022a9 inherit pub_static_methods_classPhpcraft_1_1Connection"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_static_attribs_classPhpcraft_1_1Connection"><td colspan="2" onclick="javascript:toggleInherit('pub_static_attribs_classPhpcraft_1_1Connection')"><img src="closed.png" alt="-"/>&#160;Static Public Attributes inherited from <a class="el" href="classPhpcraft_1_1Connection.html">Phpcraft\Connection</a></td></tr>
 <tr class="memitem:a4edb89db01c6062f5ade3bd2f1aa5576 inherit pub_static_attribs_classPhpcraft_1_1Connection"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#a4edb89db01c6062f5ade3bd2f1aa5576">$zero</a></td></tr>
 <tr class="separator:a4edb89db01c6062f5ade3bd2f1aa5576 inherit pub_static_attribs_classPhpcraft_1_1Connection"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -316,6 +336,78 @@ Additional Inherited Members</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a0f9e725d21cd8f55be0dd6c35e06247a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0f9e725d21cd8f55be0dd6c35e06247a">&#9670;&nbsp;</a></span>connect()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static Phpcraft\ServerConnection::connect </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>$hostname</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>$port</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">?int&#160;</td>
+          <td class="paramname"><em>$protocol_version</em> = <code>null</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">?int&#160;</td>
+          <td class="paramname"><em>$handshake_next_state</em> = <code>null</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>$timeout</em> = <code>3.000</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$hostname</td><td></td></tr>
+    <tr><td class="paramtype">int</td><td class="paramname">$port</td><td></td></tr>
+    <tr><td class="paramtype">null&#160;|&#160;int</td><td class="paramname">$protocol_version</td><td>If null, server will be list pinged to get a protocol version. </td></tr>
+    <tr><td class="paramtype">null&#160;|&#160;int</td><td class="paramname">$handshake_next_state</td><td>If null, no handshake will be sent. Otherway, this may be <a class="el" href="classPhpcraft_1_1Connection.html#aec4d03a99103d956cb2cd8f2d46ec434">Connection::STATE_STATUS</a> for list ping or <a class="el" href="classPhpcraft_1_1Connection.html#abf71c4ac9b13906a93b842200e584903">Connection::STATE_LOGIN</a> for login to play. </td></tr>
+    <tr><td class="paramtype">float</td><td class="paramname">$timeout</td><td>Timeout in seconds. Note that in case of $protocol_version === null, two connections will be opened using the same timeout. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classPhpcraft_1_1ServerConnection.html">ServerConnection</a> </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">IOException</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section since"><dt>Since</dt><dd>0.5.19 </dd></dl>
+
+</div>
+</div>
 <a id="af3eeed9d7cc1a5c526dea2326762c3f1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af3eeed9d7cc1a5c526dea2326762c3f1">&#9670;&nbsp;</a></span>getName()</h2>
 
@@ -374,6 +466,92 @@ Additional Inherited Members</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>Server|null null </dd></dl>
 
 <p>Implements <a class="el" href="interfacePhpcraft_1_1Command_1_1CommandSender.html#a4e784c680b4cce6ac0cf7304e73582f9">Phpcraft\Command\CommandSender</a>.</p>
+
+</div>
+</div>
+<a id="a58e0bfbdeb57683696382c655af23f5d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a58e0bfbdeb57683696382c655af23f5d">&#9670;&nbsp;</a></span>getStatus()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static Phpcraft\ServerConnection::getStatus </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>$hostname</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>$port</em> = <code>25565</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>$timeout</em> = <code>3.000</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>$method</em> = <code><a class="el" href="classPhpcraft_1_1ServerConnection.html#a083e78f5bc3bd890f99f3ea178e38620">ServerConnection::METHOD_ALL</a></code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Returns the server list ping as multi-dimensional array with the addition of the "ping" value which is in seconds. In an error case, an empty array is returned. Here's an example: </p><pre>[
+  "version" =&gt; [
+    "name" =&gt; "1.12.2",
+    "protocol" =&gt; 340
+  ],
+  "players" =&gt; [
+    "online" =&gt; 1,
+    "max" =&gt; 20,
+    "sample" =&gt; [
+      [
+        "name" =&gt; "timmyRS",
+        "id" =&gt; "e0603b59-2edc-45f7-acc7-b0cccd6656e1"
+      ]
+    ]
+  ],
+  "description" =&gt; [
+    "text" =&gt; "A Minecraft Server"
+  ],
+  "favicon" =&gt; "data:image/png;base64,&amp;lt;data&amp;gt;",
+  "ping" =&gt; 0.068003177642822
+]</pre><p> Note that a server might not present all of these values, so always check with <code>isset</code> or <code>array_key_exists</code> first. <code>description</code> should always be a valid chat component.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$hostname</td><td></td></tr>
+    <tr><td class="paramtype">int</td><td class="paramname">$port</td><td></td></tr>
+    <tr><td class="paramtype">float</td><td class="paramname">$timeout</td><td>The amount of seconds to wait for a response with each method. </td></tr>
+    <tr><td class="paramtype">int</td><td class="paramname">$method</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>array </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">IOException</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section since"><dt>Since</dt><dd>0.5.19 </dd></dl>
 
 </div>
 </div>
@@ -477,6 +655,98 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
+<a id="a10aa8b3b0468dd8c87547356058a19f8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a10aa8b3b0468dd8c87547356058a19f8">&#9670;&nbsp;</a></span>negotiateProtocolVersion()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static Phpcraft\ServerConnection::negotiateProtocolVersion </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>$hostname</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>$port</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>$timeout</em> = <code>3.000</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$hostname</td><td></td></tr>
+    <tr><td class="paramtype">int</td><td class="paramname">$port</td><td></td></tr>
+    <tr><td class="paramtype">float</td><td class="paramname">$timeout</td><td>Timeout in seconds. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>int </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">IOException</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a5077de7a77a64639a34b80317edecc55"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5077de7a77a64639a34b80317edecc55">&#9670;&nbsp;</a></span>resolveAddress()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static Phpcraft\ServerConnection::resolveAddress </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>$address</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>; Resolves the given address.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$address</td><td>The server address, e.g. localhost </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>array{hostname:string,port:int} An array containing string "hostname" and int "port". </dd></dl>
+<dl class="section since"><dt>Since</dt><dd>0.5.19 </dd></dl>
+
+</div>
+</div>
 <a id="a2ef143d697d888e1a95cb068e8df1517"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2ef143d697d888e1a95cb068e8df1517">&#9670;&nbsp;</a></span>sendAdminBroadcast()</h2>
 
@@ -516,8 +786,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a715fa437fb0161042ced88be985ade84"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a715fa437fb0161042ced88be985ade84">&#9670;&nbsp;</a></span>sendHandshake()</h2>
+<a id="a9caf35b91d1fd18bdd9b2b7b505578c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9caf35b91d1fd18bdd9b2b7b505578c1">&#9670;&nbsp;</a></span>sendHandshake()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -526,13 +796,13 @@ Additional Inherited Members</h2></td></tr>
           <td class="memname">Phpcraft\ServerConnection::sendHandshake </td>
           <td>(</td>
           <td class="paramtype">string&#160;</td>
-          <td class="paramname"><em>$server_name</em>, </td>
+          <td class="paramname"><em>$hostname</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>$server_port</em>, </td>
+          <td class="paramname"><em>$port</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -556,9 +826,9 @@ Additional Inherited Members</h2></td></tr>
 <p>Sends a handshake to the server. If $next_state is 2, you should call <a class="el" href="classPhpcraft_1_1ServerConnection.html#a6a89da55a3dc6eb6d0cff83e7474f0a4">ServerConnection::login()</a> after this, even when joining an offline mode server.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype">string</td><td class="paramname">$server_name</td><td></td></tr>
-    <tr><td class="paramtype">int</td><td class="paramname">$server_port</td><td></td></tr>
-    <tr><td class="paramtype">int</td><td class="paramname">$next_state</td><td>May be <a class="el" href="classPhpcraft_1_1Connection.html#aec4d03a99103d956cb2cd8f2d46ec434">Connection::STATE_STATUS</a> (1) for list ping or <a class="el" href="classPhpcraft_1_1Connection.html#abf71c4ac9b13906a93b842200e584903">Connection::STATE_LOGIN</a> (2) for login to play. </td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$hostname</td><td></td></tr>
+    <tr><td class="paramtype">int</td><td class="paramname">$port</td><td></td></tr>
+    <tr><td class="paramtype">int</td><td class="paramname">$next_state</td><td>May be <a class="el" href="classPhpcraft_1_1Connection.html#aec4d03a99103d956cb2cd8f2d46ec434">Connection::STATE_STATUS</a> for list ping or <a class="el" href="classPhpcraft_1_1Connection.html#abf71c4ac9b13906a93b842200e584903">Connection::STATE_LOGIN</a> for login to play. </td></tr>
     <tr><td class="paramtype"></td><td class="paramname">array&lt;string&gt;</td><td>$join_specs Additional data to provide, e.g. "FML" is in this array for Forge clients. </td></tr>
   </table>
   </dd>
@@ -629,6 +899,71 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
+<a id="a87d4c38fc0535f0e800e930802d0ab28"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a87d4c38fc0535f0e800e930802d0ab28">&#9670;&nbsp;</a></span>toAddress()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static Phpcraft\ServerConnection::toAddress </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>$address</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">?int&#160;</td>
+          <td class="paramname"><em>$protocol_version</em> = <code>null</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">?int&#160;</td>
+          <td class="paramname"><em>$handshake_next_state</em> = <code>null</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>$timeout</em> = <code>3.000</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$address</td><td></td></tr>
+    <tr><td class="paramtype">null&#160;|&#160;int</td><td class="paramname">$protocol_version</td><td>If null, server will be list pinged to get a protocol version. </td></tr>
+    <tr><td class="paramtype">null&#160;|&#160;int</td><td class="paramname">$handshake_next_state</td><td>If null, no handshake will be sent. Otherway, this may be <a class="el" href="classPhpcraft_1_1Connection.html#aec4d03a99103d956cb2cd8f2d46ec434">Connection::STATE_STATUS</a> for list ping or <a class="el" href="classPhpcraft_1_1Connection.html#abf71c4ac9b13906a93b842200e584903">Connection::STATE_LOGIN</a> for login to play. </td></tr>
+    <tr><td class="paramtype">float</td><td class="paramname">$timeout</td><td>Timeout in seconds. Note that in case of $protocol_version === null, two connections will be opened using the same timeout. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classPhpcraft_1_1ServerConnection.html">ServerConnection</a> </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">IOException</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section since"><dt>Since</dt><dd>0.5.19 </dd></dl>
+
+</div>
+</div>
 <h2 class="groupheader">Member Data Documentation</h2>
 <a id="a9514c816f716bf7dd7c1fa9ea2a21c64"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9514c816f716bf7dd7c1fa9ea2a21c64">&#9670;&nbsp;</a></span>$pos</h2>
@@ -672,6 +1007,49 @@ Additional Inherited Members</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>The UUID assigned to us by the server after login. Null before that. </p>
+
+</div>
+</div>
+<a id="a083e78f5bc3bd890f99f3ea178e38620"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a083e78f5bc3bd890f99f3ea178e38620">&#9670;&nbsp;</a></span>METHOD_ALL</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const Phpcraft\ServerConnection::METHOD_ALL = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Modern list ping. Legacy if that fails. </p>
+
+</div>
+</div>
+<a id="adf0b1dcb7826a72350832e683f52f07e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adf0b1dcb7826a72350832e683f52f07e">&#9670;&nbsp;</a></span>METHOD_LEGACY</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const Phpcraft\ServerConnection::METHOD_LEGACY = 2</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a051d2534f886caeec4451ba2f493a899"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a051d2534f886caeec4451ba2f493a899">&#9670;&nbsp;</a></span>METHOD_MODERN</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const Phpcraft\ServerConnection::METHOD_MODERN = 1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>
