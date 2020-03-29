@@ -69,7 +69,7 @@ class Server extends BareServer implements ServerCommandSender
 	public $disconnect_function = null;
 	/**
 	 * The function called when to get the server's response to a list ping request with the ClientConnection as argument or null if called internally to get list ping information, e.g. in a plugin.
-	 * See Phpcraft::getServerStatus for an example of all the data a server may respond with (excluding "ping").
+	 * See the documentation of ServerConnection::getStatus for an example of all the data a server may respond with (excluding "ping").
 	 * Additionally, if you set "no_ping", the client will show "(no connection)" where usually the ping in ms would be.
 	 *
 	 * @var callable $list_ping_function

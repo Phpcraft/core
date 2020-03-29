@@ -29,10 +29,16 @@ abstract class Phpcraft
 	 */
 	const FORMAT_HTML = 4;
 	/**
-	 * Modern list ping. Legacy if that fails.
+	 * @deprecated Use ServerConnection::METHOD_ALL, instead.
 	 */
 	const METHOD_ALL = 0;
+	/**
+	 * @deprecated Use ServerConnection::METHOD_MODERN, instead.
+	 */
 	const METHOD_MODERN = 1;
+	/**
+	 * @deprecated Use ServerConnection::METHOD_LEGACY, instead.
+	 */
 	const METHOD_LEGACY = 2;
 	/**
 	 * @var Configuration $json_cache
@@ -236,6 +242,7 @@ abstract class Phpcraft
 	 *
 	 * @param string $server The server address, e.g. localhost
 	 * @return string The resolved address, e.g. localhost:25565
+	 * @deprecated Use ServerConnection::resolveAddress or even ServerConnection::toAddress.
 	 */
 	static function resolve(string $server): string
 	{
@@ -305,99 +312,17 @@ abstract class Phpcraft
 	}
 
 	/**
-	 * Returns the server list ping as multi-dimensional array with the addition of the "ping" value which is in seconds. In an error case, an empty array is returned.
-	 * Here's an example:
-	 * <pre>[
-	 *   "version" => [
-	 *     "name" => "1.12.2",
-	 *     "protocol" => 340
-	 *   ],
-	 *   "players" => [
-	 *     "online" => 1,
-	 *     "max" => 20,
-	 *     "sample" => [
-	 *       [
-	 *         "name" => "timmyRS",
-	 *         "id" => "e0603b59-2edc-45f7-acc7-b0cccd6656e1"
-	 *       ]
-	 *     ]
-	 *   ],
-	 *   "description" => [
-	 *     "text" => "A Minecraft Server"
-	 *   ],
-	 *   "favicon" => "data:image/png;base64,&lt;data&gt;",
-	 *   "ping" => 0.068003177642822
-	 * ]</pre>
-	 * Note that a server might not present all of these values, so always check with `isset` or `array_key_exists` first.
-	 * `description` should always be a valid chat component.
-	 *
-	 * @param string $server_name
-	 * @param int $server_port
-	 * @param float $timeout The amount of seconds to wait for a response with each method.
-	 * @param int $method The method(s) used to get the status. 2 = legacy list ping, 1 = modern list ping, 0 = both.
+	 * @param string $hostname
+	 * @param int $port
+	 * @param float $timeout
+	 * @param int $method
 	 * @return array
 	 * @throws IOException
+	 * @deprecated Use ServerConnection::getStatus, instead.
 	 */
-	static function getServerStatus(string $server_name, int $server_port = 25565, float $timeout = 3.000, int $method = Phpcraft::METHOD_ALL): array
+	static function getServerStatus(string $hostname, int $port = 25565, float $timeout = 3.000, int $method = ServerConnection::METHOD_ALL): array
 	{
-		if($method != Phpcraft::METHOD_LEGACY)
-		{
-			if($stream = @fsockopen($server_name, $server_port, $errno, $errstr, $timeout))
-			{
-				$con = new ServerConnection($stream, Versions::protocol(false)[0]);
-				$start = microtime(true);
-				$con->sendHandshake($server_name, $server_port, Connection::STATE_STATUS);
-				$con->writeVarInt(0x00); // Status Request
-				$con->send();
-				if($con->readPacket($timeout) === 0x00)
-				{
-					$json = json_decode($con->readString(), true);
-					$json["ping"] = microtime(true) - $start;
-					$con->close();
-					return $json;
-				}
-				$con->close();
-			}
-		}
-		if($method != Phpcraft::METHOD_MODERN)
-		{
-			if($stream = @fsockopen($server_name, $server_port, $errno, $errstr, $timeout))
-			{
-				$con = new ServerConnection($stream, 73);
-				$start = microtime(true);
-				$con->writeByte(0xFE);
-				$con->writeByte(0x01);
-				$con->writeByte(0xFA);
-				$con->writeShort(11);
-				$con->writeRaw(mb_convert_encoding("MC|PingHost", "utf-16be"));
-				$host = mb_convert_encoding($server_name, "utf-16be");
-				$con->writeShort(strlen($host) + 7);
-				$con->writeByte($con->protocol_version);
-				$con->writeShort(strlen($server_name));
-				$con->writeRaw($host);
-				$con->writeInt($server_port);
-				$con->send(true);
-				if($con->readRawPacket($timeout))
-				{
-					$arr = explode("\x00\x00", substr($con->read_buffer, 9));
-					$con->close();
-					return [
-						"version" => [
-							"name" => mb_convert_encoding($arr[1], mb_internal_encoding(), "utf-16be")
-						],
-						"players" => [
-							"max" => intval(mb_convert_encoding($arr[4], mb_internal_encoding(), "utf-16be")),
-							"online" => intval(mb_convert_encoding($arr[3], mb_internal_encoding(), "utf-16be"))
-						],
-						"description" => ChatComponent::text(mb_convert_encoding($arr[2], mb_internal_encoding(), "utf-16be"))
-													  ->toArray(),
-						"ping" => (microtime(true) - $start)
-					];
-				}
-				$con->close();
-			}
-		}
-		return [];
+		return ServerConnection::getStatus($hostname, $port, $timeout, $method);
 	}
 
 	/**

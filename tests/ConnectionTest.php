@@ -1,9 +1,37 @@
 <?php /** @noinspection PhpUnused PhpUnhandledExceptionInspection */
 require_once __DIR__."/../vendor/autoload.php";
 use Phpcraft\
-{ChatComponent, Connection, Point3D};
+{ChatComponent, Connection, Point3D, ServerConnection};
 class ConnectionTest
 {
+	function testResolveAddress()
+	{
+		Nose::assertEquals(ServerConnection::resolveAddress("local.phpcraft.de"), [
+			"hostname" => "localhost",
+			"port" => 25565
+		]);
+		Nose::assertEquals(ServerConnection::resolveAddress("local.phpcraft.de:1337"), [
+			"hostname" => "local.phpcraft.de",
+			"port" => 1337
+		]);
+		Nose::assertEquals(ServerConnection::resolveAddress("1.1.1.1"), [
+			"hostname" => "1.1.1.1",
+			"port" => 25565
+		]);
+		Nose::assertEquals(ServerConnection::resolveAddress("1.1.1.1:1337"), [
+			"hostname" => "1.1.1.1",
+			"port" => 1337
+		]);
+		Nose::assertEquals(ServerConnection::resolveAddress("leet.apimon.de"), [
+			"hostname" => "leet.apimon.de",
+			"port" => 25565
+		]);
+		Nose::assertEquals(ServerConnection::resolveAddress("leet.apimon.de:1337"), [
+			"hostname" => "leet.apimon.de",
+			"port" => 1337
+		]);
+	}
+
 	function testReadAndWriteInts()
 	{
 		$con = new Connection();
