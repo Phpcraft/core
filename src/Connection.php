@@ -548,7 +548,7 @@ class Connection
 		{
 			if(@feof($this->stream) !== false)
 			{
-				throw new NoConnectionException("Can't write to closed stream");
+				throw new NoConnectionException();
 			}
 			stream_set_blocking($this->stream, true);
 			$start = microtime(true);

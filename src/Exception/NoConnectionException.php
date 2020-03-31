@@ -7,11 +7,8 @@ namespace Phpcraft\Exception;
  */
 class NoConnectionException extends IOException
 {
-	/**
-	 * @param string $message The error message.
-	 */
-	function __construct(string $message)
+	function __construct()
 	{
-		parent::__construct($message);
+		parent::__construct("Can't write to closed stream");
 	}
 }
