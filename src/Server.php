@@ -69,7 +69,7 @@ class Server extends BareServer implements ServerCommandSender
 	public $disconnect_function = null;
 	/**
 	 * The function called when to get the server's response to a list ping request with the ClientConnection as argument or null if called internally to get list ping information, e.g. in a plugin.
-	 * See the documentation of ServerConnection::getStatus for an example of all the data a server may respond with (excluding "ping").
+	 * See the documentation of ServerConnection::getStatus for an example of all the data a server may respond with (excluding "ping"), or if you return null, the list ping won't be completed.
 	 * Additionally, if you set "no_ping", the client will show "(no connection)" where usually the ping in ms would be.
 	 *
 	 * @var callable $list_ping_function
@@ -200,24 +200,27 @@ class Server extends BareServer implements ServerCommandSender
 								break;
 							case 2: // Legacy List Ping
 								$json = ($this->list_ping_function)($con);
-								if(!isset($json["players"]))
+								if($json)
 								{
-									$json["players"] = [];
+									if(!isset($json["players"]))
+									{
+										$json["players"] = [];
+									}
+									if(!isset($json["players"]["online"]))
+									{
+										$json["players"]["online"] = 0;
+									}
+									if(!isset($json["players"]["max"]))
+									{
+										$json["players"]["max"] = 0;
+									}
+									$data = "§1\x00127\x00".@$json["version"]["name"]."\x00".ChatComponent::fromArray($json["description"])
+																										  ->toString(ChatComponent::FORMAT_SILCROW)."\x00".$json["players"]["online"]."\x00".$json["players"]["max"];
+									$con->writeByte(0xFF);
+									$con->writeShort(mb_strlen($data));
+									$con->writeRaw(mb_convert_encoding($data, "utf-16be"));
+									$con->send(true);
 								}
-								if(!isset($json["players"]["online"]))
-								{
-									$json["players"]["online"] = 0;
-								}
-								if(!isset($json["players"]["max"]))
-								{
-									$json["players"]["max"] = 0;
-								}
-								$data = "§1\x00127\x00".@$json["version"]["name"]."\x00".ChatComponent::fromArray($json["description"])
-																									  ->toString(ChatComponent::FORMAT_SILCROW)."\x00".$json["players"]["online"]."\x00".$json["players"]["max"];
-								$con->writeByte(0xFF);
-								$con->writeShort(mb_strlen($data));
-								$con->writeRaw(mb_convert_encoding($data, "utf-16be"));
-								$con->send(true);
 								$con->close();
 						}
 					}
@@ -323,13 +326,20 @@ class Server extends BareServer implements ServerCommandSender
 								if($packet_id == 0x00)
 								{
 									$json = ($this->list_ping_function)($con);
-									if($no_ping = isset($json["no_ping"]))
+									if($json)
 									{
-										unset($json["no_ping"]);
+										if($no_ping = isset($json["no_ping"]))
+										{
+											unset($json["no_ping"]);
+										}
+										$con->writeVarInt(0x00);
+										$con->writeString(json_encode($json));
+										$con->send();
 									}
-									$con->writeVarInt(0x00);
-									$con->writeString(json_encode($json));
-									$con->send();
+									else
+									{
+										$no_ping = true;
+									}
 									if($no_ping)
 									{
 										$con->disconnect_after = 1;

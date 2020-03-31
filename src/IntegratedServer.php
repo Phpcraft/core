@@ -3,7 +3,7 @@ namespace Phpcraft;
 use Exception;
 use hellsh\UUID;
 use Phpcraft\
-{Command\Command, Entity\Player, Enum\Difficulty, Enum\Gamemode, Event\ServerChatEvent, Event\ServerChunkBorderEvent, Event\ServerClientMetadataEvent, Event\ServerClientSettingsEvent, Event\ServerFlyingChangeEvent, Event\ServerJoinEvent, Event\ServerLeaveEvent, Event\ServerMovementEvent, Event\ServerOnGroundChangeEvent, Event\ServerPacketEvent, Event\ServerRotationEvent, Exception\IOException, Packet\ChunkDataPacket, Packet\ClientSettingsPacket, Packet\DifficultyPacket, Packet\JoinGamePacket, Packet\PluginMessage\ClientboundBrandPluginMessagePacket, Packet\ServerboundPacketId, World\BlockState, World\Chunk, World\ChunkSection, World\StaticChunkGenerator, World\World};
+{Command\Command, Entity\Player, Enum\Difficulty, Enum\Gamemode, Event\ServerChatEvent, Event\ServerChunkBorderEvent, Event\ServerClientMetadataEvent, Event\ServerClientSettingsEvent, Event\ServerFlyingChangeEvent, Event\ServerJoinEvent, Event\ServerLeaveEvent, Event\ServerListPingEvent, Event\ServerMovementEvent, Event\ServerOnGroundChangeEvent, Event\ServerPacketEvent, Event\ServerRotationEvent, Exception\IOException, Packet\ChunkDataPacket, Packet\ClientSettingsPacket, Packet\DifficultyPacket, Packet\JoinGamePacket, Packet\PluginMessage\ClientboundBrandPluginMessagePacket, Packet\ServerboundPacketId, World\BlockState, World\Chunk, World\ChunkSection, World\StaticChunkGenerator, World\World};
 use RuntimeException;
 class IntegratedServer extends Server
 {
@@ -87,7 +87,8 @@ class IntegratedServer extends Server
 			{
 				$data["no_ping"] = true;
 			}
-			return $data;
+			$event = new ServerListPingEvent($this, $con, $data);
+			return PluginManager::fire($event) ? null : $event->data;
 		};
 		$this->join_function = function(ClientConnection $con)
 		{
