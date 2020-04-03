@@ -1,17 +1,16 @@
 <map id="Phpcraft\Event\ServerClientEvent" name="Phpcraft\Event\ServerClientEvent">
-<area shape="rect" id="node1" title=" " alt="" coords="360,332,561,373"/>
+<area shape="rect" id="node1" title=" " alt="" coords="360,300,561,341"/>
 <area shape="rect" id="node4" href="$classPhpcraft_1_1Event_1_1ServerChatEvent.html" title=" " alt="" coords="629,5,822,47"/>
 <area shape="rect" id="node5" href="$classPhpcraft_1_1Event_1_1ServerClientMetadataEvent.html" title=" " alt="" coords="625,71,826,112"/>
 <area shape="rect" id="node6" href="$classPhpcraft_1_1Event_1_1ServerClientSettingsEvent.html" title=" " alt="" coords="625,136,826,177"/>
 <area shape="rect" id="node7" href="$classPhpcraft_1_1Event_1_1ServerFlyingChangeEvent.html" title=" " alt="" coords="624,201,827,243"/>
 <area shape="rect" id="node8" href="$classPhpcraft_1_1Event_1_1ServerJoinEvent.html" title=" " alt="" coords="632,267,819,308"/>
 <area shape="rect" id="node9" href="$classPhpcraft_1_1Event_1_1ServerLeaveEvent.html" title=" " alt="" coords="624,332,827,373"/>
-<area shape="rect" id="node10" href="$classPhpcraft_1_1Event_1_1ServerListPingEvent.html" title=" " alt="" coords="632,397,819,439"/>
-<area shape="rect" id="node11" href="$classPhpcraft_1_1Event_1_1ServerMovementEvent.html" title=" " alt="" coords="609,463,841,504"/>
-<area shape="rect" id="node13" href="$classPhpcraft_1_1Event_1_1ServerOnGroundChangeEvent.html" title=" " alt="" coords="611,528,839,569"/>
-<area shape="rect" id="node14" href="$classPhpcraft_1_1Event_1_1ServerPacketEvent.html" title=" " alt="" coords="622,593,829,635"/>
-<area shape="rect" id="node15" href="$classPhpcraft_1_1Event_1_1ServerRotationEvent.html" title=" " alt="" coords="617,659,834,700"/>
-<area shape="rect" id="node2" href="$classPhpcraft_1_1Event_1_1ServerEvent.html" title=" " alt="" coords="112,339,312,366"/>
-<area shape="rect" id="node3" title=" " alt="" coords="5,339,64,366"/>
-<area shape="rect" id="node12" href="$classPhpcraft_1_1Event_1_1ServerChunkBorderEvent.html" title=" " alt="" coords="889,463,1093,504"/>
+<area shape="rect" id="node10" href="$classPhpcraft_1_1Event_1_1ServerMovementEvent.html" title=" " alt="" coords="609,397,841,439"/>
+<area shape="rect" id="node12" href="$classPhpcraft_1_1Event_1_1ServerOnGroundChangeEvent.html" title=" " alt="" coords="611,463,839,504"/>
+<area shape="rect" id="node13" href="$classPhpcraft_1_1Event_1_1ServerPacketEvent.html" title=" " alt="" coords="622,528,829,569"/>
+<area shape="rect" id="node14" href="$classPhpcraft_1_1Event_1_1ServerRotationEvent.html" title=" " alt="" coords="617,593,834,635"/>
+<area shape="rect" id="node2" href="$classPhpcraft_1_1Event_1_1ServerEvent.html" title=" " alt="" coords="112,307,312,334"/>
+<area shape="rect" id="node3" title=" " alt="" coords="5,307,64,334"/>
+<area shape="rect" id="node11" href="$classPhpcraft_1_1Event_1_1ServerChunkBorderEvent.html" title=" " alt="" coords="889,397,1093,439"/>
 </map>
