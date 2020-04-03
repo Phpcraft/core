@@ -132,6 +132,15 @@ class Connection
 	}
 
 	/**
+	 * @since 0.5.22
+	 * @return bool
+	 */
+	function hasRemainingData(): bool
+	{
+		return $this->read_buffer_offset < strlen($this->read_buffer);
+	}
+
+	/**
 	 * Returns all the data in the read buffer that is yet to be read.
 	 *
 	 * @return string
