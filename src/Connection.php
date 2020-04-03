@@ -96,12 +96,12 @@ class Connection
 	public $read_buffer_offset = 0;
 
 	/**
-	 * @param int $protocol_version
+	 * @param int $protocol_version -1 will use the latest supported protocol version
 	 * @param resource|null $stream
 	 */
 	function __construct(int $protocol_version = -1, $stream = null)
 	{
-		$this->protocol_version = $protocol_version;
+		$this->protocol_version = $protocol_version == -1 ? Versions::protocol(false)[0] : $protocol_version;
 		if($stream !== null)
 		{
 			stream_set_blocking($stream, false);
