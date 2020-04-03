@@ -94,6 +94,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a97d64586a07790901e0e9dc83a9cfd66"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7c459cc8e8a68e1ccd99f7ee80a2794b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#a7c459cc8e8a68e1ccd99f7ee80a2794b">setReadBuffer</a> (string $buffer)</td></tr>
 <tr class="separator:a7c459cc8e8a68e1ccd99f7ee80a2794b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aab5b14ae73f2f52a3aca8638ebd4f77c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#aab5b14ae73f2f52a3aca8638ebd4f77c">hasRemainingData</a> ()</td></tr>
+<tr class="separator:aab5b14ae73f2f52a3aca8638ebd4f77c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a49683613fdd7852e22a0fea6436ae99a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#a49683613fdd7852e22a0fea6436ae99a">getRemainingData</a> ()</td></tr>
 <tr class="separator:a49683613fdd7852e22a0fea6436ae99a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3728423814fb1e55c6b6ee7585bea271"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhpcraft_1_1Connection.html#a3728423814fb1e55c6b6ee7585bea271">writeChat</a> (<a class="el" href="classPhpcraft_1_1ChatComponent.html">ChatComponent</a> $value)</td></tr>
@@ -273,7 +275,7 @@ echo \<a class="el" href="classPhpcraft_1_1Phpcraft.html">Phpcraft</a>\<a class=
 </div><div class="memdoc">
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype">int</td><td class="paramname">$protocol_version</td><td></td></tr>
+    <tr><td class="paramtype">int</td><td class="paramname">$protocol_version</td><td>-1 will use the latest supported protocol version </td></tr>
     <tr><td class="paramtype">resource&#160;|&#160;null</td><td class="paramname">$stream</td><td></td></tr>
   </table>
   </dd>
@@ -336,6 +338,25 @@ echo \<a class="el" href="classPhpcraft_1_1Phpcraft.html">Phpcraft</a>\<a class=
 </div><div class="memdoc">
 <p>The address of the connection's peer or null if the connection has no stream.</p>
 <dl class="section return"><dt>Returns</dt><dd>string|null </dd></dl>
+
+</div>
+</div>
+<a id="aab5b14ae73f2f52a3aca8638ebd4f77c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aab5b14ae73f2f52a3aca8638ebd4f77c">&#9670;&nbsp;</a></span>hasRemainingData()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Phpcraft\Connection::hasRemainingData </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section since"><dt>Since</dt><dd>0.5.22 </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>bool </dd></dl>
 
 </div>
 </div>
