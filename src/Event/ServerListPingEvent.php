@@ -8,9 +8,15 @@ use Phpcraft\
  *
  * @since 0.5.20
  */
-class ServerListPingEvent extends ServerClientEvent
+class ServerListPingEvent extends ServerEvent
 {
 	use CancellableEvent;
+	/**
+	 * The client that has triggered this event or null if called internally to get list ping information.
+	 *
+	 * @var ClientConnection|null $client
+	 */
+	public $client;
 	/**
 	 * The list ping data that will be responded with.
 	 *
@@ -18,9 +24,10 @@ class ServerListPingEvent extends ServerClientEvent
 	 */
 	public $data;
 
-	function __construct(Server $server, ClientConnection $client, array &$data)
+	function __construct(Server $server, ?ClientConnection $client, array &$data)
 	{
-		parent::__construct($server, $client);
+		parent::__construct($server);
+		$this->client = $client;
 		$this->data = $data;
 	}
 }
