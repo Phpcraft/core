@@ -7,7 +7,7 @@ class ConnectionTest
 	function testResolveAddress()
 	{
 		Nose::assertEquals(ServerConnection::resolveAddress("local.phpcraft.de"), [
-			"hostname" => "localhost",
+			"hostname" => "local.phpcraft.de",
 			"port" => 25565
 		]);
 		Nose::assertEquals(ServerConnection::resolveAddress("local.phpcraft.de:1337"), [
