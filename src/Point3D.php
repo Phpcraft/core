@@ -46,11 +46,11 @@ class Point3D
 		return sqrt(pow($this->x - $dest->x, 2) + pow($this->y - $dest->y, 2) + pow($this->z - $dest->z, 2));
 	}
 
-	function getUnitVector(float $yaw, float $pitch): Point3D
+	static function getUnitVector(float $yaw, float $pitch): Point3D
 	{
-		$x = pi() / 180 * $yaw;
-		$y = pi() / 180 * $pitch;
-		return new Point3D(-cos($y) * sin($x), -sin($y), cos($y) * cos($x));
+		$yaw_radians = pi() / 180 * $yaw;
+		$pitch_radians = pi() / 180 * $pitch;
+		return new Point3D(-cos($pitch_radians) * sin($yaw_radians), -sin($pitch_radians), cos($pitch_radians) * cos($yaw_radians));
 	}
 
 	/**
@@ -105,7 +105,7 @@ class Point3D
 		{
 			return new Point3D($this->x - $other_point3d_or_x, $this->y - $y, $this->z - $z);
 		}
-		throw new InvalidArgumentException("add expects (Point3D) or (float, float, float)");
+		throw new InvalidArgumentException("subtract expects (Point3D) or (float, float, float)");
 	}
 
 	function floor(): Point3D

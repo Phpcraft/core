@@ -2,7 +2,7 @@
 namespace Phpcraft;
 use Exception;
 use Phpcraft\
-{Command\Command, Enum\Dimension, Enum\Gamemode, Event\ProxyClientPacketEvent, Event\ProxyConnectEvent, Event\ProxyLeaveEvent, Event\ProxyServerPacketEvent, Event\ProxyTickEvent, Event\ServerJoinEvent, Event\ServerTickEvent, Exception\IOException, Packet\ClientboundPacketId, Packet\EntityPacket, Packet\JoinGamePacket, Packet\KeepAliveRequestPacket, Packet\PluginMessage\ClientboundBrandPluginMessagePacket, Packet\RespawnPacket, Packet\ServerboundPacketId};
+{Command\Command, Enum\Dimension, Enum\Gamemode, Event\ProxyClientPacketEvent, Event\ProxyConnectEvent, Event\ProxyLeaveEvent, Event\ProxyServerPacketEvent, Event\ProxyTickEvent, Event\ServerJoinEvent, Event\ServerTickEvent, Exception\IOException, Packet\ClientboundChatMessagePacket, Packet\ClientboundPacketId, Packet\EntityPacket, Packet\JoinGamePacket, Packet\KeepAliveRequestPacket, Packet\PluginMessage\ClientboundBrandPluginMessagePacket, Packet\RespawnPacket, Packet\ServerboundPacketId};
 /**
  * @since 0.3
  */
@@ -53,10 +53,7 @@ class ProxyServer extends IntegratedServer
 						}
 						else if($packetId->name == "disconnect")
 						{
-							$con->startPacket("clientbound_chat_message");
-							$con->writeString($con->downstream->readString());
-							$con->writeByte(1);
-							$con->send();
+							(new ClientboundChatMessagePacket($con->downstream->readChat()))->send($con);
 							$con->downstream->close();
 							$con->downstream = null;
 							break;

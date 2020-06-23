@@ -3,7 +3,7 @@ namespace Phpcraft;
 use Exception;
 use hellsh\UUID;
 use Phpcraft\
-{Command\Command, Entity\Player, Enum\Difficulty, Enum\Gamemode, Event\ServerChatEvent, Event\ServerChunkBorderEvent, Event\ServerClientMetadataEvent, Event\ServerClientSettingsEvent, Event\ServerFlyingChangeEvent, Event\ServerJoinEvent, Event\ServerLeaveEvent, Event\ServerListPingEvent, Event\ServerMovementEvent, Event\ServerOnGroundChangeEvent, Event\ServerPacketEvent, Event\ServerRotationEvent, Exception\IOException, Packet\ChunkDataPacket, Packet\ClientSettingsPacket, Packet\DifficultyPacket, Packet\JoinGamePacket, Packet\PluginMessage\ClientboundBrandPluginMessagePacket, Packet\ServerboundPacketId, World\BlockState, World\Chunk, World\ChunkSection, World\StaticChunkGenerator, World\World};
+{Command\Command, Entity\Player, Enum\Difficulty, Enum\Gamemode, Event\ServerChatEvent, Event\ServerChunkBorderEvent, Event\ServerClientMetadataEvent, Event\ServerClientSettingsEvent, Event\ServerFlyingChangeEvent, Event\ServerJoinEvent, Event\ServerLeaveEvent, Event\ServerListPingEvent, Event\ServerMovementEvent, Event\ServerOnGroundChangeEvent, Event\ServerPacketEvent, Event\ServerRotationEvent, Exception\IOException, Packet\ChunkDataPacket, Packet\ClientboundChatMessagePacket, Packet\ClientSettingsPacket, Packet\DifficultyPacket, Packet\JoinGamePacket, Packet\PluginMessage\ClientboundBrandPluginMessagePacket, Packet\ServerboundPacketId, World\BlockState, World\Chunk, World\ChunkSection, World\StaticChunkGenerator, World\World};
 use RuntimeException;
 class IntegratedServer extends Server
 {
@@ -314,15 +314,12 @@ class IntegratedServer extends Server
 					$msg
 				]);
 				$this->ui->add($msg->toString(ChatComponent::FORMAT_ANSI));
-				$msg = json_encode($msg->toArray());
+				$msg = new ClientboundChatMessagePacket($msg);
 				foreach($this->getPlayers() as $c)
 				{
 					try
 					{
-						$c->startPacket("clientbound_chat_message");
-						$c->writeString($msg);
-						$c->writeByte(1);
-						$c->send();
+						$msg->send($c);
 					}
 					catch(Exception $ignored)
 					{

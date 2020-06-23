@@ -182,7 +182,7 @@ class Chunk
 	}
 
 	/**
-	 * Reads the chunk data after the X, Z, and "Is New Chunk" fields from the given Connection.
+	 * Reads the chunk data after the X, Z, "Is New Chunk" and "Ignore Old Data" fields from the given Connection.
 	 *
 	 * @param Connection $con
 	 * @return void
@@ -320,7 +320,7 @@ class Chunk
 	}
 
 	/**
-	 * Writes the chunk data after the X, Z, and "Is New Chunk" fields to the given Connection.
+	 * Writes the chunk data after the X, Z, "Is New Chunk" and "Ignore Old Data" fields to the given Connection.
 	 *
 	 * @param Connection $con
 	 * @return void

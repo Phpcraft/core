@@ -22,6 +22,11 @@ class ChunkDataPacket extends Packet
 	 */
 	public $is_new_chunk;
 	/**
+	 * @var bool $ignore_old_data
+	 * @since 0.5.23
+	 */
+	public $ignore_old_data = true;
+	/**
 	 * @var Chunk $data
 	 */
 	public $chunk;
@@ -48,6 +53,10 @@ class ChunkDataPacket extends Packet
 		$packet->x = gmp_intval($con->readInt());
 		$packet->z = gmp_intval($con->readInt());
 		$packet->is_new_chunk = $con->readBoolean();
+		if($con->protocol_version >= 701)
+		{
+			$packet->ignore_old_data = $con->readBoolean();
+		}
 		$packet->chunk = new Chunk($packet->x, $packet->z);
 		$packet->chunk->read($con);
 		return $packet;
@@ -67,6 +76,10 @@ class ChunkDataPacket extends Packet
 		$con->writeInt($this->x);
 		$con->writeInt($this->z);
 		$con->writeBoolean($this->is_new_chunk);
+		if($con->protocol_version >= 701)
+		{
+			$con->writeBoolean($this->ignore_old_data);
+		}
 		$this->chunk->write($con);
 		$con->send();
 	}

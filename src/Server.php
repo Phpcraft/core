@@ -4,7 +4,8 @@ use Asyncore\Condition;
 use Exception;
 use hellsh\UUID;
 use Phpcraft\
-{Command\ServerCommandSender, Enum\ChatPosition, Event\ServerTickEvent, Exception\IOException, Exception\NoConnectionException, Packet\KeepAliveRequestPacket, Packet\ServerboundPacketId, Permission\Group};
+{Command\ServerCommandSender, Enum\ChatPosition, Event\ServerTickEvent, Exception\IOException, Exception\NoConnectionException, Packet\ClientboundChatMessagePacket, Packet\KeepAliveRequestPacket, Packet\ServerboundPacketId, Permission\Group};
+use http\Client;
 use SplObjectStorage;
 /**
  * A basic Minecraft server.
@@ -484,15 +485,12 @@ class Server extends BareServer implements ServerCommandSender
 	{
 		$msg = ChatComponent::cast($msg);
 		echo $msg->toString(ChatComponent::FORMAT_ANSI)."\n";
-		$msg = json_encode($msg->toArray());
+		$msg = new ClientboundChatMessagePacket($msg);
 		foreach($this->getPlayers() as $c)
 		{
 			try
 			{
-				$c->startPacket("clientbound_chat_message");
-				$c->writeString($msg);
-				$c->writeByte($position);
-				$c->send();
+				$msg->send($c);
 			}
 			catch(Exception $ignored)
 			{
@@ -543,8 +541,7 @@ class Server extends BareServer implements ServerCommandSender
 	 */
 	function permissionBroadcast(string $permission, $msg, int $position = ChatPosition::SYSTEM): Server
 	{
-		$msg = json_encode(ChatComponent::cast($msg)
-										->toArray());
+		$msg = new ClientboundChatMessagePacket(ChatComponent::cast($msg));
 		foreach($this->clients as $c)
 		{
 			assert($c instanceof ClientConnection);
@@ -552,10 +549,7 @@ class Server extends BareServer implements ServerCommandSender
 			{
 				if($c->state == Connection::STATE_PLAY && $c->hasPermission($permission))
 				{
-					$c->startPacket("clientbound_chat_message");
-					$c->writeString($msg);
-					$c->writeByte($position);
-					$c->send();
+					$msg->send($c);
 				}
 			}
 			catch(IOException $e)

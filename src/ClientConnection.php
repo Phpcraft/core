@@ -6,7 +6,7 @@ use DomainException;
 use GMP;
 use hellsh\UUID;
 use Phpcraft\
-{Command\ServerCommandSender, Entity\Player, Enum\ChatPosition, Enum\Gamemode, Exception\IOException, Packet\ClientboundAbilitiesPacket, Packet\ClientboundPacketId, Packet\UnloadChunkPacket, World\Chunk, World\World};
+{Command\ServerCommandSender, Entity\Player, Enum\ChatPosition, Enum\Gamemode, Exception\IOException, Packet\ClientboundAbilitiesPacket, Packet\ClientboundChatMessagePacket, Packet\ClientboundPacketId, Packet\UnloadChunkPacket, World\Chunk, World\World};
 /** A server-to-client connection. */
 class ClientConnection extends Connection implements ServerCommandSender
 {
@@ -533,7 +533,7 @@ class ClientConnection extends Connection implements ServerCommandSender
 	 */
 	function getUnitVector(): Point3D
 	{
-		return $this->pos->getUnitVector($this->yaw, $this->pitch);
+		return Point3D::getUnitVector($this->yaw, $this->pitch);
 	}
 
 	/**
@@ -643,10 +643,7 @@ class ClientConnection extends Connection implements ServerCommandSender
 	 */
 	function sendMessage($message, int $position = ChatPosition::SYSTEM): void
 	{
-		$this->startPacket("clientbound_chat_message");
-		$this->writeChat(ChatComponent::cast($message));
-		$this->writeByte($position);
-		$this->send();
+		(new ClientboundChatMessagePacket($message))->send($this);
 	}
 
 	function hasPermission(string $permission): bool

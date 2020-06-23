@@ -2,7 +2,7 @@
 namespace Phpcraft\Packet;
 use GMP;
 use Phpcraft\
-{Connection, Enum\Difficulty, Enum\Dimension, Enum\Gamemode, Exception\IOException};
+{Connection, Enum\Difficulty, Enum\Dimension, Enum\Gamemode, Exception\IOException, NBT\ByteArrayTag, NBT\ByteTag, NBT\CompoundTag, NBT\FloatTag, NBT\IntTag, NBT\ListTag, NBT\StringTag};
 /** The first packet sent to the client after they've logged in. */
 class JoinGamePacket extends Packet
 {
@@ -104,13 +104,42 @@ class JoinGamePacket extends Packet
 			$gamemode += 0x8;
 		}
 		$con->writeUnsignedByte($gamemode);
-		if($con->protocol_version >= 108)
+		if($con->protocol_version >= 701)
+		{
+			$con->writeUnsignedByte($gamemode);
+			$con->writeVarInt(1); // World Count
+			$con->writeString("world"); // World Names
+			(new CompoundTag(""))->addChild(
+				(new ListTag("dimension", CompoundTag::ORD, [
+					(new CompoundTag(""))
+						->addChild(new StringTag("name", "minecraft:overworld"))
+						->addChild(new ByteTag("natural", 1))
+						->addChild(new FloatTag("ambient_light", 1.0))
+						->addChild(new ByteTag("has_ceiling", 0))
+						->addChild(new ByteTag("has_skylight", 1))
+						->addChild(new ByteTag("fixed_time", 1))
+						->addChild(new ByteTag("shrunk", 0))
+						->addChild(new ByteTag("ultrawarm", 0))
+						->addChild(new ByteTag("has_raids", 1))
+						->addChild(new ByteTag("respawn_anchor_works", 1))
+						->addChild(new ByteTag("bed_works", 1))
+						->addChild(new ByteTag("piglin_safe", 1))
+						->addChild(new IntTag("logical_height", 256))
+						->addChild(new StringTag("infiniburn", ""))
+				])))->write($con);
+			$con->writeString("minecraft:overworld");
+		}
+		else if($con->protocol_version >= 108)
 		{
 			$con->writeInt($this->dimension);
 		}
 		else
 		{
 			$con->writeByte($this->dimension);
+		}
+		if($con->protocol_version >= 701)
+		{
+			$con->writeString("world");
 		}
 		if($con->protocol_version >= 565)
 		{
@@ -121,7 +150,10 @@ class JoinGamePacket extends Packet
 			$con->writeUnsignedByte(Difficulty::PEACEFUL);
 		}
 		$con->writeByte(100); // Max Players
-		$con->writeString(""); // Level Type
+		if($con->protocol_version < 701)
+		{
+			$con->writeString(""); // Level Type
+		}
 		if($con->protocol_version >= 472)
 		{
 			$con->writeVarInt($this->render_distance); // Render Distance
@@ -130,6 +162,11 @@ class JoinGamePacket extends Packet
 		if($con->protocol_version >= 565)
 		{
 			$con->writeBoolean($this->enable_respawn_screen);
+			if($con->protocol_version >= 701)
+			{
+				$con->writeBoolean(false); // Is Debug
+				$con->writeBoolean(false); // Is Flat
+			}
 		}
 		$con->send();
 	}

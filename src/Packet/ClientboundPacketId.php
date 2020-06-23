@@ -87,6 +87,8 @@ class ClientboundPacketId extends PacketId
 				return ChunkDataPacket::class;
 			case "clientbound_abilities":
 				return ClientboundAbilitiesPacket::class;
+			case "clientbound_chat_message":
+				return ClientboundChatMessagePacket::class;
 			case "clientbound_plugin_message":
 				return ClientboundPluginMessagePacket::class;
 			case "declare_commands":
