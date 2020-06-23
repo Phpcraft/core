@@ -25,7 +25,12 @@ class ClientboundChatMessagePacket extends Packet
 
 	static function read(Connection $con)
 	{
-		// TODO: Implement read() method.
+		$packet = new ClientboundChatMessagePacket($con->readChat(), $con->readByte());
+		if($con->protocol_version >= 701)
+		{
+			$con->readUUID();
+		}
+		return $packet;
 	}
 
 	function send(Connection $con): void
@@ -40,6 +45,6 @@ class ClientboundChatMessagePacket extends Packet
 
 	function __toString()
 	{
-		// TODO: Implement __toString() method.
+		return "{ClientboundChatMessagePacket: ".(ChatPosition::nameOf($this->position) ?? "Position {$this->position}").", ".json_encode($this->chat->toArray())."}";
 	}
 }

@@ -129,6 +129,7 @@ class EntityType extends Identifier
 			if($protocol_version >= 472)
 			{
 				foreach([
+					701 => "1.16",
 					565 => "1.15",
 					472 => "1.14"
 				] as $pv => $v)

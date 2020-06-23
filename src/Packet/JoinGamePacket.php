@@ -19,6 +19,8 @@ class JoinGamePacket extends Packet
 	 */
 	public $hardcore = false;
 	/**
+	 * Note: This value is sent and read as overworld in 1.16.
+	 *
 	 * @var int $dimension
 	 */
 	public $dimension = Dimension::OVERWORLD;
@@ -63,7 +65,21 @@ class JoinGamePacket extends Packet
 			$packet->gamemode -= 0x8;
 			$packet->hardcore = true;
 		}
-		$packet->dimension = $con->protocol_version > 107 ? gmp_intval($con->readInt()) : $con->readByte();
+		if($con->protocol_version >= 701)
+		{
+			$con->readUnsignedByte(); // Previous Gamemode
+			$worlds = $con->readVarInt(); // World Count
+			for($i = 0; $i < $worlds; $i++)
+			{
+				$con->ignoreBytes($con->readVarInt()); // World Name
+			}
+			$con->readNBT(); // Dimension Codec
+			$con->ignoreBytes($con->readVarInt()); // Dimension
+		}
+		else
+		{
+			$packet->dimension = $con->protocol_version > 107 ? gmp_intval($con->readInt()) : $con->readByte();
+		}
 		if($con->protocol_version >= 565)
 		{
 			$con->ignoreBytes(8); // Hashed Seed (Long)
@@ -73,7 +89,10 @@ class JoinGamePacket extends Packet
 			$con->ignoreBytes(1); // Difficulty (Byte)
 		}
 		$con->ignoreBytes(1); // Max Players (Byte)
-		$con->ignoreBytes(gmp_intval($con->readVarInt())); // Level Type (String)
+		if($con->protocol_version < 701)
+		{
+			$con->ignoreBytes(gmp_intval($con->readVarInt())); // Level Type (String)
+		}
 		if($con->protocol_version >= 472)
 		{
 			$packet->render_distance = gmp_intval($con->readVarInt()); // Render Distance
@@ -82,6 +101,10 @@ class JoinGamePacket extends Packet
 		if($con->protocol_version >= 565)
 		{
 			$packet->enable_respawn_screen = $con->readBoolean();
+			if($con->protocol_version >= 701)
+			{
+				$con->ignoreBytes(2); // Is Debug & Is Flat
+			}
 		}
 		return $packet;
 	}
