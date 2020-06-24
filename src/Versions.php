@@ -26,6 +26,7 @@ abstract class Versions
 		if(!$all)
 		{
 			return [
+				"1.16.1" => 736,
 				"1.16" => 735,
 				"1.16-rc1" => 734,
 				"1.15.2" => 578,
