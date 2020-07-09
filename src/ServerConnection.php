@@ -292,7 +292,7 @@ class ServerConnection extends Connection implements CommandSender
 			}
 			else if($id == 0x02) // Login Success
 			{
-				$this->uuid = new UUID($this->readString(36, 36));
+				$this->uuid = ($this->protocol_version >= 707 ? $this->readUUID() : new UUID($this->readString(36, 36)));
 				$this->username = $this->readString(16, 3);
 				$this->state = self::STATE_PLAY;
 				break;
