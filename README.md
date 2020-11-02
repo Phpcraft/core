@@ -2,6 +2,8 @@
 
 A PHP library for [all things](https://phpcraft.de/docs/inherits.html) Minecraft: Java Edition.
 
+> **This project has been abandoned!** The limited subset of 1.8.x - 1.15.x that has been implemented should work fine. If and how anything after that works is entirely dependant on what changed about the protocol.
+
 ## Prerequisites
 
 You'll need PHP (CLI), Composer, and Git.
