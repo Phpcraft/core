@@ -269,7 +269,7 @@ class Server extends BareServer implements ServerCommandSender
 										else
 										{
 											$con->disconnect_after = 0;
-											$con->finishLogin(UUID::v3("OfflinePlayer:".$con->username), $this->eidCounter, $this->compression_threshold);
+											$con->finishLogin(UUID::name("OfflinePlayer:".$con->username), $this->eidCounter, $this->compression_threshold);
 											if($this->join_function)
 											{
 												($this->join_function)($con);

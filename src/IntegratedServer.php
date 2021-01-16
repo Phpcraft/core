@@ -105,7 +105,7 @@ class IntegratedServer extends Server
 								if($this->getPlayer("{$con->username}($i)") === null)
 								{
 									$con->username .= "($i)";
-									$con->uuid = UUID::v3("OfflinePlayer:".$con->username);
+									$con->uuid = UUID::name("OfflinePlayer:".$con->username);
 									$con->sendMessage([
 										"text" => "To avoid conflicts, your name has been changed to {$con->username}.",
 										"color" => "red"
